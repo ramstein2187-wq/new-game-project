@@ -6,6 +6,7 @@ const SimpleMapGeneratorScript := preload("res://procgen/simple_map_generator.gd
 const GROUND_COLOR := Color("#6f8f4e")
 const TREE_COLOR := Color("#284d32")
 const PATH_COLOR := Color("#b79a67")
+const RUIN_COLOR := Color("#77736b")
 const MAP_ORIGIN := Vector2(24.0, 56.0)
 
 @export var seed_value: int = 1234
@@ -27,7 +28,7 @@ func regenerate(next_seed: int) -> void:
 
 	var info_label := get_node_or_null("InfoLabel") as Label
 	if info_label != null:
-		info_label.text = "Seed %d  |  .=ground  T=tree  #=path  |  R: next seed" % seed_value
+		info_label.text = "Seed %d  |  .=ground  T=tree  #=path  R=ruin  |  R key: next seed" % seed_value
 
 	queue_redraw()
 
@@ -48,6 +49,8 @@ func _draw() -> void:
 				draw_rect(cell_rect.grow(-2.0), TREE_COLOR)
 			elif cell == SimpleMapGeneratorScript.PATH:
 				draw_rect(cell_rect.grow(-3.0), PATH_COLOR)
+			elif cell == SimpleMapGeneratorScript.RUIN:
+				draw_rect(cell_rect.grow(-1.0), RUIN_COLOR)
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -24,6 +24,7 @@ func _init() -> void:
 	var tree_count := 0
 	var ground_count := 0
 	var path_count := 0
+	var ruin_count := 0
 	for row in first:
 		if row.length() != 40:
 			_fail("Expected row width 40, got %d" % row.length())
@@ -36,15 +37,21 @@ func _init() -> void:
 				ground_count += 1
 			elif character == SimpleMapGeneratorScript.PATH:
 				path_count += 1
+			elif character == SimpleMapGeneratorScript.RUIN:
+				ruin_count += 1
 			else:
 				_fail("Unexpected map character: %s" % character)
 				return
 
-	if tree_count == 0 or ground_count == 0 or path_count == 0:
-		_fail("Generated map must contain trees, ground, and a path")
+	if tree_count == 0 or ground_count == 0 or path_count == 0 or ruin_count == 0:
+		_fail("Generated map must contain trees, ground, a path, and a ruin")
 		return
 
-	if tree_count + ground_count + path_count != 40 * 30:
+	if ruin_count != 16:
+		_fail("Expected one 5x5 ruin stamp with 16 wall cells, got %d" % ruin_count)
+		return
+
+	if tree_count + ground_count + path_count + ruin_count != 40 * 30:
 		_fail("Cell count did not match map dimensions")
 		return
 
@@ -60,14 +67,26 @@ func _init() -> void:
 		_fail("Path does not connect north edge to south edge")
 		return
 
-	for seed_value in [1, 2, 42, 9999]:
+	for seed_value in [1, 2, 42, 9999, 4294967297, 9223372036854775806]:
 		var sample: PackedStringArray = generator.generate(seed_value)
 		if not _has_connected_path(sample):
 			_fail("Path connectivity failed for seed %d" % seed_value)
 			return
+		if _count_character(sample, SimpleMapGeneratorScript.RUIN) != 16:
+			_fail("Ruin placement failed for seed %d" % seed_value)
+			return
 
 	print("PASS: simple procedural map generator")
 	quit(0)
+
+
+func _count_character(rows: PackedStringArray, character: String) -> int:
+	var count := 0
+	for row in rows:
+		for cell in row:
+			if cell == character:
+				count += 1
+	return count
 
 
 func _has_connected_path(rows: PackedStringArray) -> bool:

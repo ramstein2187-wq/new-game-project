@@ -4,6 +4,18 @@ extends RefCounted
 const GROUND := "."
 const TREE := "T"
 const PATH := "#"
+const RUIN := "R"
+
+const RUIN_STAMP := [
+	"RRRRR",
+	"R...R",
+	"R.R.R",
+	"R...R",
+	"RR.RR",
+]
+
+const PATH_SEED_SALT := 0x5F3759DF
+const LANDMARK_SEED_SALT := 0x2A7C91E3
 
 var width: int
 var height: int
@@ -31,6 +43,7 @@ func _init(
 func generate(seed_value: int) -> PackedStringArray:
 	var cells := _generate_base_terrain(seed_value)
 	_carve_north_south_path(cells, seed_value)
+	_place_ruin_landmark(cells, seed_value)
 	return _cells_to_rows(cells)
 
 
@@ -40,7 +53,7 @@ func to_text(rows: PackedStringArray) -> String:
 
 func _generate_base_terrain(seed_value: int) -> Array[PackedStringArray]:
 	var noise := FastNoiseLite.new()
-	noise.seed = seed_value
+	noise.seed = _to_noise_seed(seed_value)
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	noise.frequency = noise_frequency
 	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
@@ -57,9 +70,17 @@ func _generate_base_terrain(seed_value: int) -> Array[PackedStringArray]:
 	return cells
 
 
+func _to_noise_seed(seed_value: int) -> int:
+	var folded := seed_value ^ (seed_value >> 32)
+	var low_32_bits := folded & 0xFFFFFFFF
+	if low_32_bits > 0x7FFFFFFF:
+		return low_32_bits - 0x100000000
+	return low_32_bits
+
+
 func _carve_north_south_path(cells: Array[PackedStringArray], seed_value: int) -> void:
 	var rng := RandomNumberGenerator.new()
-	rng.seed = seed_value ^ 0x5F3759DF
+	rng.seed = seed_value ^ PATH_SEED_SALT
 
 	var margin := maxi(1, width / 6)
 	var current_x := rng.randi_range(margin, width - margin - 1)
@@ -90,6 +111,71 @@ func _carve_north_south_path(cells: Array[PackedStringArray], seed_value: int) -
 		var to_x := maxi(current_x, target_x)
 		for x in range(from_x, to_x + 1):
 			cells[height - 1][x] = PATH
+
+
+func _place_ruin_landmark(cells: Array[PackedStringArray], seed_value: int) -> void:
+	var candidates := _find_ruin_candidates(cells)
+	if candidates.is_empty():
+		return
+
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value ^ LANDMARK_SEED_SALT
+	var origin: Vector2i = candidates[rng.randi_range(0, candidates.size() - 1)]
+	_stamp_ruin(cells, origin)
+
+
+func _find_ruin_candidates(cells: Array[PackedStringArray]) -> Array[Vector2i]:
+	var candidates: Array[Vector2i] = []
+	var stamp_width := RUIN_STAMP[0].length()
+	var stamp_height := RUIN_STAMP.size()
+	var edge_margin := 3
+
+	for origin_y in range(edge_margin, height - stamp_height - edge_margin + 1):
+		for origin_x in range(edge_margin, width - stamp_width - edge_margin + 1):
+			if _can_place_ruin(cells, Vector2i(origin_x, origin_y)):
+				candidates.append(Vector2i(origin_x, origin_y))
+
+	return candidates
+
+
+func _can_place_ruin(cells: Array[PackedStringArray], origin: Vector2i) -> bool:
+	var nearest_path_distance := 999999
+
+	for stamp_y in range(RUIN_STAMP.size()):
+		for stamp_x in range(RUIN_STAMP[stamp_y].length()):
+			var map_x := origin.x + stamp_x
+			var map_y := origin.y + stamp_y
+			if cells[map_y][map_x] == PATH:
+				return false
+
+	for map_y in range(maxi(0, origin.y - 8), mini(height, origin.y + RUIN_STAMP.size() + 8)):
+		for map_x in range(maxi(0, origin.x - 8), mini(width, origin.x + RUIN_STAMP[0].length() + 8)):
+			if cells[map_y][map_x] != PATH:
+				continue
+			var distance := _distance_to_rect(
+				Vector2i(map_x, map_y),
+				origin,
+				Vector2i(RUIN_STAMP[0].length(), RUIN_STAMP.size())
+			)
+			nearest_path_distance = mini(nearest_path_distance, distance)
+
+	return nearest_path_distance >= 3 and nearest_path_distance <= 8
+
+
+func _distance_to_rect(point: Vector2i, origin: Vector2i, size: Vector2i) -> int:
+	var max_x := origin.x + size.x - 1
+	var max_y := origin.y + size.y - 1
+	var dx := maxi(maxi(origin.x - point.x, 0), point.x - max_x)
+	var dy := maxi(maxi(origin.y - point.y, 0), point.y - max_y)
+	return dx + dy
+
+
+func _stamp_ruin(cells: Array[PackedStringArray], origin: Vector2i) -> void:
+	for stamp_y in range(RUIN_STAMP.size()):
+		var stamp_row: String = RUIN_STAMP[stamp_y]
+		for stamp_x in range(stamp_row.length()):
+			if stamp_row[stamp_x] == RUIN:
+				cells[origin.y + stamp_y][origin.x + stamp_x] = RUIN
 
 
 func _cells_to_rows(cells: Array[PackedStringArray]) -> PackedStringArray:
