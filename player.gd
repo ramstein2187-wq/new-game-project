@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
 @export var speed: float = 200.0
+@export var center_on_ready: bool = true
 
 var nearby_interactables: Array[Area2D] = []
 
 func _ready() -> void:
-	position = get_viewport_rect().size / 2.0
+	if center_on_ready:
+		position = get_viewport_rect().size / 2.0
 
 func _physics_process(_delta: float) -> void:
 	var direction := Input.get_vector(

@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise.
 
 ## Current State
 
-- Latest completed: `M008` — Procedural generation settings
+- Latest completed: `M009` — Playable procedural map
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -19,6 +19,7 @@ This file is the short index for project milestones. Keep it concise.
 | M006 | Complete | Deterministic ruin landmark placement with path-aware constraints | `docs/milestones/M006_ruin_landmark_pass.md` |
 | M007 | Complete | Namespaced deterministic sub-seeds from one world seed | `docs/milestones/M007_seed_deriver.md` |
 | M008 | Complete | Data-driven procedural generation tuning settings | `docs/milestones/M008_generation_settings.md` |
+| M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
 
 ## Usage
 

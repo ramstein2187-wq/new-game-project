@@ -176,8 +176,7 @@ func _stamp_ruin(cells: Array[PackedStringArray], origin: Vector2i) -> void:
 	for stamp_y in range(RUIN_STAMP.size()):
 		var stamp_row: String = RUIN_STAMP[stamp_y]
 		for stamp_x in range(stamp_row.length()):
-			if stamp_row[stamp_x] == RUIN:
-				cells[origin.y + stamp_y][origin.x + stamp_x] = RUIN
+			cells[origin.y + stamp_y][origin.x + stamp_x] = stamp_row[stamp_x]
 
 
 func _cells_to_rows(cells: Array[PackedStringArray]) -> PackedStringArray:
