@@ -4,8 +4,8 @@ This file is the short index for project milestones. Keep it concise.
 
 ## Current State
 
-- Latest completed: `M001` — Foundation and basic interaction prototype
-- Next planned: `M002` — Interactive objects and simple state
+- Latest completed: `M003` — Deterministic procedural map prototype
+- Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
 
@@ -13,6 +13,7 @@ This file is the short index for project milestones. Keep it concise.
 | --- | --- | --- | --- |
 | M001 | Complete | Player movement, collision, camera, basic interaction, headless validation | `docs/milestones/M001_foundation.md` |
 | M002 | Planned | Reusable interactive objects with state, beginning with a door | Create when work starts |
+| M003 | Complete | Deterministic seed-based ASCII procedural map prototype | `docs/milestones/M003_procedural_map_prototype.md` |
 
 ## Usage
 
