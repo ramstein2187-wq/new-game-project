@@ -218,6 +218,7 @@ After modifying code:
 - check for syntax or parse errors
 - check obvious references and dependencies
 - use available command-line validation when practical
+- run `bash tools/check_godot.sh` for the standard headless editor scan, main-scene startup smoke test, and project test scripts when the local Godot installation is available
 - explain how the user can verify the change inside Godot
 
 Do not claim that something works unless it was actually tested or the limitation is clearly stated.
