@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise.
 
 ## Current State
 
-- Latest completed: `M006` — Ruin landmark placement pass
+- Latest completed: `M007` — Namespaced seed derivation
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -17,6 +17,7 @@ This file is the short index for project milestones. Keep it concise.
 | M004 | Complete | Noise-based forest regions and guaranteed north-south path | `docs/milestones/M004_coherent_forest_and_path.md` |
 | M005 | Complete | Visual Godot preview of generated map data | `docs/milestones/M005_visual_procedural_map_preview.md` |
 | M006 | Complete | Deterministic ruin landmark placement with path-aware constraints | `docs/milestones/M006_ruin_landmark_pass.md` |
+| M007 | Complete | Namespaced deterministic sub-seeds from one world seed | `docs/milestones/M007_seed_deriver.md` |
 
 ## Usage
 

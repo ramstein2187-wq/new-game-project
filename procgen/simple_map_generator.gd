@@ -1,6 +1,8 @@
 class_name SimpleMapGenerator
 extends RefCounted
 
+const SeedDeriverScript := preload("res://procgen/seed_deriver.gd")
+
 const GROUND := "."
 const TREE := "T"
 const PATH := "#"
@@ -13,9 +15,6 @@ const RUIN_STAMP := [
 	"R...R",
 	"RR.RR",
 ]
-
-const PATH_SEED_SALT := 0x5F3759DF
-const LANDMARK_SEED_SALT := 0x2A7C91E3
 
 var width: int
 var height: int
@@ -53,7 +52,8 @@ func to_text(rows: PackedStringArray) -> String:
 
 func _generate_base_terrain(seed_value: int) -> Array[PackedStringArray]:
 	var noise := FastNoiseLite.new()
-	noise.seed = _to_noise_seed(seed_value)
+	var terrain_seed := SeedDeriverScript.derive(seed_value, ["terrain"])
+	noise.seed = _to_noise_seed(terrain_seed)
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	noise.frequency = noise_frequency
 	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
@@ -80,7 +80,7 @@ func _to_noise_seed(seed_value: int) -> int:
 
 func _carve_north_south_path(cells: Array[PackedStringArray], seed_value: int) -> void:
 	var rng := RandomNumberGenerator.new()
-	rng.seed = seed_value ^ PATH_SEED_SALT
+	rng.seed = SeedDeriverScript.derive(seed_value, ["path"])
 
 	var margin := maxi(1, width / 6)
 	var current_x := rng.randi_range(margin, width - margin - 1)
@@ -119,7 +119,7 @@ func _place_ruin_landmark(cells: Array[PackedStringArray], seed_value: int) -> v
 		return
 
 	var rng := RandomNumberGenerator.new()
-	rng.seed = seed_value ^ LANDMARK_SEED_SALT
+	rng.seed = SeedDeriverScript.derive(seed_value, ["landmark", "ruin"])
 	var origin: Vector2i = candidates[rng.randi_range(0, candidates.size() - 1)]
 	_stamp_ruin(cells, origin)
 
