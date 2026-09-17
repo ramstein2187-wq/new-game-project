@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cbjg7djo286vw"]
+
+[ext_resource type="Script" uid="uid://bvyddwe1pisyq" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://cpvruses57bga" path="res://icon.svg" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://cip6mv6yh7r21" path="res://chest.gd" id="3_h2yge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnd5x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
+radius = 96.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(2839, 105)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(2879.375, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(75.25, 1787)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(70.25, 1738)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8ui7"]
+size = Vector2(65, 113)
+
+[node name="Main" type="Node2D" unique_id=1500640868]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1491204922]
+script = ExtResource("1_0xm2m")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=784071291]
+texture = ExtResource("2_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1472258062]
+shape = SubResource("RectangleShape2D_nnd5x")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=740763238]
+
+[node name="InteractionDetector" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/InteractionDetector"]
+shape = SubResource("CircleShape2D_interaction")
+
+[node name="WallTop" type="StaticBody2D" parent="." unique_id=390917529]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop" unique_id=2070428870]
+position = Vector2(1435.5, 27)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="WallBottom" type="StaticBody2D" parent="." unique_id=584221591]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom" unique_id=1449062488]
+position = Vector2(1394.3125, 1666)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=2075500200]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=100500677]
+position = Vector2(11.375, 857.5)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=917600405]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=697843542]
+position = Vector2(2789.875, 886)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="Chest" type="Area2D" parent="." unique_id=83068288]
+position = Vector2(499, 200)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_h2yge")
+
+[node name="Sprite2D" type="Sprite2D" parent="Chest" unique_id=526442384]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("CompressedTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chest" unique_id=1252166131]
+shape = SubResource("RectangleShape2D_o8ui7")
+
+[connection signal="area_entered" from="Player/InteractionDetector" to="Player" method="_on_interaction_detector_area_entered"]
+[connection signal="area_exited" from="Player/InteractionDetector" to="Player" method="_on_interaction_detector_area_exited"]
