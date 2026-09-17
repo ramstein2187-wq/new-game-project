@@ -45,6 +45,7 @@ Documentation roles:
 - `docs/MILESTONES.md`: short milestone index and current status.
 - `docs/milestones/`: goal, scope, progress, validation, and handoff notes for each milestone.
 - `docs/decisions/`: long-lived architectural decisions when a milestone decision must survive beyond that milestone.
+- `docs/devlog/`: very short chronological daily summaries; do not load by default unless historical context is needed.
 
 When a milestone is completed, treat its document as mostly frozen. Prefer recording new work in the next milestone instead of continually expanding old documents.
 
