@@ -10,8 +10,7 @@ const RUIN_COLOR := Color("#77736b")
 const MAP_ORIGIN := Vector2(24.0, 56.0)
 
 @export var seed_value: int = 1234
-@export var map_width: int = 40
-@export var map_height: int = 30
+@export var generation_settings: GenerationSettings = preload("res://procgen/default_generation_settings.tres")
 @export var cell_size: int = 16
 
 var generated_map := PackedStringArray()
@@ -23,7 +22,7 @@ func _ready() -> void:
 
 func regenerate(next_seed: int) -> void:
 	seed_value = next_seed
-	var generator := SimpleMapGeneratorScript.new(map_width, map_height)
+	var generator := SimpleMapGeneratorScript.new(generation_settings)
 	generated_map = generator.generate(seed_value)
 
 	var info_label := get_node_or_null("InfoLabel") as Label

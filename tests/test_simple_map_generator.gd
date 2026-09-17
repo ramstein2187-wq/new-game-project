@@ -1,10 +1,11 @@
 extends SceneTree
 
 const SimpleMapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
+const DefaultGenerationSettings := preload("res://procgen/default_generation_settings.tres")
 
 
 func _init() -> void:
-	var generator := SimpleMapGeneratorScript.new(40, 30)
+	var generator := SimpleMapGeneratorScript.new(DefaultGenerationSettings)
 	var first: PackedStringArray = generator.generate(1234)
 	var second: PackedStringArray = generator.generate(1234)
 	var different: PackedStringArray = generator.generate(1235)

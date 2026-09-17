@@ -16,27 +16,25 @@ const RUIN_STAMP := [
 	"RR.RR",
 ]
 
+var settings: GenerationSettings
 var width: int
 var height: int
-var forest_threshold: float
-var noise_frequency: float
 
 
-func _init(
-	map_width: int = 40,
-	map_height: int = 30,
-	threshold: float = 0.08,
-	frequency: float = 0.09
-) -> void:
-	assert(map_width > 1)
-	assert(map_height > 1)
-	assert(threshold >= -1.0 and threshold <= 1.0)
-	assert(frequency > 0.0)
+func _init(generation_settings: GenerationSettings = null) -> void:
+	settings = generation_settings if generation_settings != null else GenerationSettings.new()
 
-	width = map_width
-	height = map_height
-	forest_threshold = threshold
-	noise_frequency = frequency
+	assert(settings.map_width > 1)
+	assert(settings.map_height > 1)
+	assert(settings.forest_threshold >= -1.0 and settings.forest_threshold <= 1.0)
+	assert(settings.noise_frequency > 0.0)
+	assert(settings.noise_octaves > 0)
+	assert(settings.path_wander_probability >= 0.0 and settings.path_wander_probability <= 1.0)
+	assert(settings.ruin_min_path_distance >= 0)
+	assert(settings.ruin_max_path_distance >= settings.ruin_min_path_distance)
+
+	width = settings.map_width
+	height = settings.map_height
 
 
 func generate(seed_value: int) -> PackedStringArray:
@@ -55,16 +53,16 @@ func _generate_base_terrain(seed_value: int) -> Array[PackedStringArray]:
 	var terrain_seed := SeedDeriverScript.derive(seed_value, ["terrain"])
 	noise.seed = _to_noise_seed(terrain_seed)
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	noise.frequency = noise_frequency
+	noise.frequency = settings.noise_frequency
 	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
-	noise.fractal_octaves = 3
+	noise.fractal_octaves = settings.noise_octaves
 
 	var cells: Array[PackedStringArray] = []
 	for y in range(height):
 		var row := PackedStringArray()
 		for x in range(width):
 			var noise_value := noise.get_noise_2d(float(x), float(y))
-			row.append(TREE if noise_value > forest_threshold else GROUND)
+			row.append(TREE if noise_value > settings.forest_threshold else GROUND)
 		cells.append(row)
 
 	return cells
@@ -96,7 +94,7 @@ func _carve_north_south_path(cells: Array[PackedStringArray], seed_value: int) -
 			var distance_to_target := target_x - current_x
 			if abs(distance_to_target) >= remaining_rows:
 				current_x += 1 if distance_to_target > 0 else -1
-			elif rng.randf() < 0.45:
+			elif rng.randf() < settings.path_wander_probability:
 				current_x += rng.randi_range(-1, 1)
 
 		current_x = clampi(current_x, 1, width - 2)
@@ -128,7 +126,7 @@ func _find_ruin_candidates(cells: Array[PackedStringArray]) -> Array[Vector2i]:
 	var candidates: Array[Vector2i] = []
 	var stamp_width := RUIN_STAMP[0].length()
 	var stamp_height := RUIN_STAMP.size()
-	var edge_margin := 3
+	var edge_margin := settings.ruin_edge_margin
 
 	for origin_y in range(edge_margin, height - stamp_height - edge_margin + 1):
 		for origin_x in range(edge_margin, width - stamp_width - edge_margin + 1):
@@ -148,8 +146,9 @@ func _can_place_ruin(cells: Array[PackedStringArray], origin: Vector2i) -> bool:
 			if cells[map_y][map_x] == PATH:
 				return false
 
-	for map_y in range(maxi(0, origin.y - 8), mini(height, origin.y + RUIN_STAMP.size() + 8)):
-		for map_x in range(maxi(0, origin.x - 8), mini(width, origin.x + RUIN_STAMP[0].length() + 8)):
+	var search_distance := settings.ruin_max_path_distance
+	for map_y in range(maxi(0, origin.y - search_distance), mini(height, origin.y + RUIN_STAMP.size() + search_distance)):
+		for map_x in range(maxi(0, origin.x - search_distance), mini(width, origin.x + RUIN_STAMP[0].length() + search_distance)):
 			if cells[map_y][map_x] != PATH:
 				continue
 			var distance := _distance_to_rect(
@@ -159,7 +158,10 @@ func _can_place_ruin(cells: Array[PackedStringArray], origin: Vector2i) -> bool:
 			)
 			nearest_path_distance = mini(nearest_path_distance, distance)
 
-	return nearest_path_distance >= 3 and nearest_path_distance <= 8
+	return (
+		nearest_path_distance >= settings.ruin_min_path_distance
+		and nearest_path_distance <= settings.ruin_max_path_distance
+	)
 
 
 func _distance_to_rect(point: Vector2i, origin: Vector2i, size: Vector2i) -> int:
