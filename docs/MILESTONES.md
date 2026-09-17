@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise.
 
 ## Current State
 
-- Latest completed: `M003` — Deterministic procedural map prototype
+- Latest completed: `M004` — Coherent forest and guaranteed path
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -14,6 +14,7 @@ This file is the short index for project milestones. Keep it concise.
 | M001 | Complete | Player movement, collision, camera, basic interaction, headless validation | `docs/milestones/M001_foundation.md` |
 | M002 | Planned | Reusable interactive objects with state, beginning with a door | Create when work starts |
 | M003 | Complete | Deterministic seed-based ASCII procedural map prototype | `docs/milestones/M003_procedural_map_prototype.md` |
+| M004 | Complete | Noise-based forest regions and guaranteed north-south path | `docs/milestones/M004_coherent_forest_and_path.md` |
 
 ## Usage
 
