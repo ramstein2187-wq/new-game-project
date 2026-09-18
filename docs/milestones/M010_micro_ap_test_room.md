@@ -1,6 +1,6 @@
 # M010 — Micro-AP Test Room
 
-Status: In Progress — implementation complete, manual feel check pending
+Status: Paused / Comparison Baseline — implementation complete, retained for comparison with M011
 
 ## Goal
 

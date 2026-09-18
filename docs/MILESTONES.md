@@ -5,7 +5,8 @@ This file is the short index for project milestones. Keep it concise.
 ## Current State
 
 - Latest completed: `M009` — Playable procedural map
-- Active experiment: `M010` — Micro-AP test room
+- Comparison baseline: `M010` — Micro-AP test room
+- Active experiment: `M011` — Time-cost scheduler test room
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -21,7 +22,8 @@ This file is the short index for project milestones. Keep it concise.
 | M007 | Complete | Namespaced deterministic sub-seeds from one world seed | `docs/milestones/M007_seed_deriver.md` |
 | M008 | Complete | Data-driven procedural generation tuning settings | `docs/milestones/M008_generation_settings.md` |
 | M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
-| M010 | In Progress | 3-AP grid-turn test room with door and rat | `docs/milestones/M010_micro_ap_test_room.md` |
+| M010 | Paused / Baseline | 3-AP grid-turn test room retained for comparison | `docs/milestones/M010_micro_ap_test_room.md` |
+| M011 | In Progress | Action-cost scheduler with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
 
 ## Usage
 
