@@ -129,6 +129,19 @@ Avoid:
 
 For gameplay systems, prefer reusable properties, components, tags, effects, or data definitions over isolated scripted exceptions when the added structure is justified by current needs.
 
+## Explainable Systemic Behavior
+
+Systemic depth should be legible to the player, not only present internally.
+
+- Preserve meaningful reasons for important AI decisions and state changes as data instead of discarding them once an action is chosen.
+- Surface those reasons through appropriate player-facing channels such as behavior, animation, dialogue/barks, logs, inspection, or other contextual feedback.
+- Do not require exact internal numbers to be exposed; the player should be able to form a useful explanation from information their character could reasonably observe or learn.
+- Prefer systems where understanding a reason can create a gameplay response: faction hostility, fear, loyalty, revenge, orders, hazards, and similar causes should be manipulable when appropriate.
+- Treat complex simulation that produces no perceivable or meaningful difference for the player as low-value complexity.
+- Keep player-facing explainability and developer-facing decision traces compatible so AI behavior can be debugged from the same underlying reasons.
+
+See `docs/decisions/explainable_systemic_behavior.md` for the durable design rationale.
+
 ## Prototyping
 
 The project is still exploratory.
