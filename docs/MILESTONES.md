@@ -1,17 +1,14 @@
 # Milestones
 
-This file is the short index for project milestones. Keep it concise.
+This file is the short index for project milestones. Keep it concise. For unfinished features, future work, and unassigned ideas, see `docs/ROADMAP.md`.
 
 ## Current State
 
-- Latest completed: `M009` — Playable procedural map
-- Comparison baseline: `M010` — Micro-AP test room
-- Selected turn model: `M011` — Action-cost time (see `docs/decisions/turn_time_model.md`); M010 retained for comparison
-- Latest implementation: `M012` — Structured combat log (automated checks pass, manual UI check pending)
-- Scheduler foundation: `M013` — Independent time scheduler (automated checks pass, manual feel check pending)
-- Action foundation: `M014` — Common Action system (automated checks pass, manual feel check pending)
-- Current milestone: `M015` — Explainable tactical AI prototype (automated checks pass, manual play check pending)
-- Still planned: `M002` — Interactive objects and simple state
+- Latest completed on `main`: `M009` — Playable procedural map
+- Still planned on `main`: `M002` — Interactive objects and simple state
+- In the local `chat/roadmap-milestone-local-sync` branch (based on `chat/tactical-ai-prototype`), `M010` is the paused Micro-AP comparison baseline; `M011` selects action-cost time (see `docs/decisions/turn_time_model.md`).
+- On this branch, `M012` structured combat log, `M013` independent scheduler, `M014` common Action system, and `M015` explainable tactical AI have automated validation recorded in their milestone documents; manual checks remain pending. These milestones are not claimed to be merged into `main`.
+- Other future and unfinished work, including items on separate branches: `docs/ROADMAP.md`.
 
 ## Milestone Index
 
@@ -35,12 +32,13 @@ This file is the short index for project milestones. Keep it concise.
 
 ## Usage
 
-At the start of substantial work, read this index and then only the milestone document relevant to the task.
+At the start of substantial work, read this index, `docs/ROADMAP.md`, and then only the milestone document relevant to the task.
 
 When opening a new milestone:
 
-1. define a narrow goal and completion criteria
-2. record only decisions and progress needed to continue the work later
-3. keep durable architectural decisions in `docs/decisions/` if they need to outlive the milestone
-4. mark the milestone complete once its completion criteria are validated
-5. avoid continuously expanding completed milestone documents
+1. choose a narrow planned item from the roadmap (or record a newly agreed item there)
+2. define a narrow goal and completion criteria and register the milestone in this index
+3. record only decisions and progress needed to continue the work later
+4. keep durable architectural decisions in `docs/decisions/` if they need to outlive the milestone
+5. mark the milestone complete once its completion criteria are validated, and update the corresponding roadmap entry at the same time
+6. avoid continuously expanding completed milestone documents; put newly found unfinished work into the roadmap
