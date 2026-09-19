@@ -33,19 +33,23 @@ Current prototypes are not automatically final architecture.
 Before substantial work:
 
 1. Read this file.
-2. Read `docs/MILESTONES.md`.
-3. Read only the current/relevant milestone document under `docs/milestones/`.
-4. Read additional architecture or decision documents only when directly relevant.
+2. Read `docs/ROADMAP.md` for relevant unfinished work and its status.
+3. Read `docs/MILESTONES.md`.
+4. Read only the current/relevant milestone document under `docs/milestones/`.
+5. Read additional architecture or decision documents only when directly relevant.
 
 Do not load every historical milestone by default.
 
 Documentation roles:
 
 - `AGENTS.md`: stable working rules only.
+- `docs/ROADMAP.md`: concise inventory of unfinished features, planned work, exploratory ideas, and links to active work.
 - `docs/MILESTONES.md`: short milestone index and current status.
 - `docs/milestones/`: goal, scope, progress, validation, and handoff notes for each milestone.
 - `docs/decisions/`: long-lived architectural decisions when a milestone decision must survive beyond that milestone.
 - `docs/devlog/`: very short chronological daily summaries; do not load by default unless historical context is needed.
+
+Record agreed future features in the roadmap before starting implementation. Mark tentative ideas as candidates rather than committed work. When a feature starts, create or link a narrowly scoped milestone and task branch. On validated completion, update both the roadmap and milestone status; record newly discovered follow-ups in the roadmap rather than expanding completed milestones. Never claim a discussed or branch-specific feature is implemented on `main` without checking its actual code, branch, and validation.
 
 When a milestone is completed, treat its document as mostly frozen. Prefer recording new work in the next milestone instead of continually expanding old documents.
 
@@ -161,4 +165,4 @@ For non-trivial changes, briefly report:
 - files/systems affected
 - validation performed
 - important limitations or follow-up work
-- milestone documentation updated, when relevant
+- roadmap and milestone documentation updated, when relevant
