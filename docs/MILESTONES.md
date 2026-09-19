@@ -6,8 +6,9 @@ This file is the short index for project milestones. Keep it concise.
 
 - Latest completed: `M009` — Playable procedural map
 - Comparison baseline: `M010` — Micro-AP test room
-- Active experiment: `M011` — Time-cost scheduler test room
+- Selected turn model: `M011` — Action-cost time (see `docs/decisions/turn_time_model.md`); M010 retained for comparison
 - Latest implementation: `M012` — Structured combat log (automated checks pass, manual UI check pending)
+- Current milestone: `M013` — Independent time scheduler (automated checks pass, manual feel check pending)
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -24,8 +25,9 @@ This file is the short index for project milestones. Keep it concise.
 | M008 | Complete | Data-driven procedural generation tuning settings | `docs/milestones/M008_generation_settings.md` |
 | M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
 | M010 | Paused / Baseline | 3-AP grid-turn test room retained for comparison | `docs/milestones/M010_micro_ap_test_room.md` |
-| M011 | In Progress | Action-cost scheduler with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
+| M011 | Selected Model / Manual Check Pending | Action-cost time with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
 | M012 | Automated Validation Complete | Structured combat log for M011 (manual UI check pending) | `docs/milestones/M012_structured_combat_log.md` |
+| M013 | Automated Validation Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
 
 ## Usage
 

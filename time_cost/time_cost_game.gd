@@ -35,9 +35,16 @@ var door_open := false
 var facing := Vector2i.RIGHT
 var game_over := false
 
-var world_time := 0
-var player_next_ready_time := 0
-var rat_next_ready_time := 0
+var scheduler := TimeScheduler.new()
+var world_time: int:
+	get:
+		return scheduler.world_time
+var player_next_ready_time: int:
+	get:
+		return scheduler.get_ready_time(&"player")
+var rat_next_ready_time: int:
+	get:
+		return scheduler.get_ready_time(&"rat")
 var last_action_cost := 0
 var last_response_count := 0
 var message := ""
@@ -61,9 +68,8 @@ func reset() -> void:
 	facing = Vector2i.RIGHT
 	game_over = false
 
-	world_time = 0
-	player_next_ready_time = 0
-	rat_next_ready_time = 0
+	scheduler.reset(&"player")
+	scheduler.register_actor(&"rat")
 	last_action_cost = 0
 	last_response_count = 0
 	combat_log.clear()
@@ -146,10 +152,10 @@ func is_inside(cell: Vector2i) -> bool:
 
 func get_timeline_text() -> String:
 	return (
-		"Ready times — You: %d | Rat: %d | Last cost: %d | Rat responses: %d"
+		"Ready times — You: %d | Rat: %s | Last cost: %d | Rat responses: %d"
 		% [
 			player_next_ready_time,
-			rat_next_ready_time,
+			str(rat_next_ready_time) if rat_hp > 0 else "defeated",
 			last_action_cost,
 			last_response_count,
 		]
@@ -195,6 +201,8 @@ func _player_attack_rat() -> bool:
 	var event := _new_event(&"attack", &"player", &"melee", ATTACK_COST, player_next_ready_time)
 	event.target_id = &"rat"
 	event.data = {"damage": ATTACK_DAMAGE, "defeated": rat_hp == 0, "remaining_hp": rat_hp}
+	if rat_hp == 0:
+		scheduler.unregister_actor(&"rat")
 	_commit_player_action(event)
 	return true
 
@@ -204,33 +212,31 @@ func _commit_player_action(event: CombatEvent) -> void:
 	last_response_count = 0
 	combat_log.add_event(event)
 
-	player_next_ready_time += event.action_cost
+	scheduler.advance_actor(&"player", event.action_cost)
 	_run_until_player_ready()
 
 	if game_over:
 		return
 
-	world_time = player_next_ready_time
 	message = "Action cost %d; rat responses %d." % [event.action_cost, last_response_count]
 
 
 func _run_until_player_ready() -> void:
-	while (
-		not game_over
-		and rat_hp > 0
-		and player_hp > 0
-		and rat_next_ready_time < player_next_ready_time
-	):
-		world_time = rat_next_ready_time
-		_run_rat_action()
-		last_response_count += 1
+	while not game_over and player_hp > 0:
+		var next_actor := scheduler.take_next_actor_before_player()
+		if next_actor == &"":
+			break
+		match next_actor:
+			&"rat":
+				_run_rat_action()
+				last_response_count += 1
+			_:
+				push_error("No action handler registered for actor: %s" % next_actor)
+				return
 
 	if player_hp <= 0:
 		game_over = true
 		message = "The rat defeats you at time %d. Press R to reset." % world_time
-		return
-
-	world_time = player_next_ready_time
 
 
 func _run_rat_action() -> void:
@@ -243,7 +249,7 @@ func _run_rat_action() -> void:
 		attack.reason_codes.append(&"target_adjacent")
 		attack.data = {"damage": ATTACK_DAMAGE, "defeated": player_hp == 0, "remaining_hp": player_hp}
 		combat_log.add_event(attack)
-		rat_next_ready_time += RAT_ATTACK_COST
+		scheduler.advance_actor(&"rat", RAT_ATTACK_COST)
 		return
 
 	var next_step := _next_step_toward_player()
@@ -252,7 +258,7 @@ func _run_rat_action() -> void:
 		wait_event.reason_codes.append(&"route_blocked")
 		wait_event.importance = CombatEvent.TRIVIAL
 		combat_log.add_event(wait_event)
-		rat_next_ready_time += RAT_WAIT_COST
+		scheduler.advance_actor(&"rat", RAT_WAIT_COST)
 		return
 
 	if next_step == door_position and not door_open:
@@ -261,7 +267,7 @@ func _run_rat_action() -> void:
 		door_event.reason_codes.append(&"door_blocks_route")
 		door_event.data = {"open": true, "position": door_position}
 		combat_log.add_event(door_event)
-		rat_next_ready_time += RAT_INTERACT_COST
+		scheduler.advance_actor(&"rat", RAT_INTERACT_COST)
 		return
 
 	var start := rat_position
@@ -272,7 +278,7 @@ func _run_rat_action() -> void:
 	move_event.importance = CombatEvent.IMPORTANT if adjacent else CombatEvent.TRIVIAL
 	move_event.data = {"from": start, "to": next_step, "in_melee_range": adjacent}
 	combat_log.add_event(move_event)
-	rat_next_ready_time += RAT_MOVE_COST
+	scheduler.advance_actor(&"rat", RAT_MOVE_COST)
 
 
 func _new_event(
