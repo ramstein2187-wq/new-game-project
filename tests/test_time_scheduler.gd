@@ -105,6 +105,8 @@ func _test_reset_and_integration() -> bool:
 		return _fail("Reset did not restore actor times")
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
+	# Keep this scheduler lifecycle test focused on removal, not low-HP AI retreat.
+	game.rat_aggression = 180
 	for i in range(TimeCostGame.RAT_MAX_HP):
 		if not game.player_move(Vector2i.RIGHT):
 			return _fail("Player should be able to attack the adjacent rat")

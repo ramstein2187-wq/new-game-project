@@ -94,8 +94,8 @@ func _test_player_and_rat_share_action_types() -> bool:
 	for event in game2.combat_log.events:
 		if event.actor_id == &"rat" and event.type == &"interact":
 			rat_door_found = true
-			if event.action_cost != TimeCostGame.RAT_INTERACT_COST or event.reason_codes != [&"door_blocks_route"]:
-				return _fail("Rat interaction cost or decision reason changed")
+			if event.action_cost != TimeCostGame.RAT_INTERACT_COST or not event.reason_codes.has(&"door_blocks_route"):
+				return _fail("Rat interaction cost or door-blocking reason changed")
 	if not rat_door_found:
 		return _fail("Rat interaction event was not recorded")
 	return true
@@ -112,8 +112,8 @@ func _test_combat_and_reason_trace() -> bool:
 	if game.combat_log.events.size() != 3:
 		return _fail("Player attack and both rat bites should be recorded")
 	var rat_attack: CombatEvent = game.combat_log.events[1]
-	if rat_attack.reason_codes != [&"target_adjacent"] or rat_attack.action_id != &"bite":
-		return _fail("NPC reasons or action id were lost in shared execution")
+	if not rat_attack.reason_codes.has(&"target_adjacent") or rat_attack.action_id != &"bite":
+		return _fail("NPC adjacency reason or action id were lost in shared execution")
 	return true
 
 

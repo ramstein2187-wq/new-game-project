@@ -35,8 +35,10 @@ func _test_recorded_event_order_and_context() -> bool:
 		return _fail("Player event lost its cost or destination")
 	if second.actor_id != &"rat" or second.time != 0 or third.time != 750:
 		return _fail("Rat actions are missing or not recorded in scheduler order")
-	if second.reason_codes != [&"close_distance"] or third.reason_codes != [&"close_distance"]:
+	if not second.reason_codes.has(&"close_distance") or not third.reason_codes.has(&"close_distance"):
 		return _fail("Rat decision reasons are not retained as reason codes")
+	if not second.reason_codes.has(&"target_hostile") or not second.data.has("ai_factors"):
+		return _fail("New tactical scorer must preserve its contributing factors")
 	if game.get_recent_debug_text().find("cost=750") < 0:
 		return _fail("Developer trace should expose exact costs")
 	return true

@@ -16,6 +16,9 @@ static func format_player_event(
 		&"move":
 			if event.actor_id == &"player":
 				return "You move."
+			# Only a visible movement cue, never the hidden AI score/reasons.
+			if event.data.get("visible_cue", &"") == &"retreat":
+				return "The rat recoils and retreats."
 			if event.data.get("in_melee_range", false):
 				return "The rat closes to striking distance."
 			return "The rat moves."

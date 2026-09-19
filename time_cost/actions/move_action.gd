@@ -25,6 +25,6 @@ func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:
 	game.set_actor_position(actor_id, target)
 	var event: CombatEvent = game.make_action_event(&"move", actor_id, &"move", cost)
 	var adjacent: bool = actor_id == &"rat" and game._manhattan_distance(target, game.player_position) == 1
-	event.importance = CombatEvent.IMPORTANT if adjacent else CombatEvent.TRIVIAL
+	event.importance = CombatEvent.IMPORTANT if adjacent or visible_cue == &"retreat" else CombatEvent.TRIVIAL
 	event.data = {"from": start, "to": target, "in_melee_range": adjacent}
 	return event

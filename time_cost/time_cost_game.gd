@@ -49,6 +49,9 @@ var last_action_cost := 0
 var last_response_count := 0
 var message := ""
 var combat_log := CombatEventLog.new()
+# Prototype trait values are tunable during play and reevaluated at each action.
+var rat_aggression := 50
+var rat_fear_bonus := 0
 
 var _walls: Dictionary = {}
 
@@ -64,6 +67,8 @@ func reset() -> void:
 	door_position = Vector2i(5, 3)
 	player_hp = PLAYER_MAX_HP
 	rat_hp = RAT_MAX_HP
+	rat_aggression = 50
+	rat_fear_bonus = 0
 	door_open = false
 	facing = Vector2i.RIGHT
 	game_over = false
@@ -131,6 +136,13 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 	if event == null:
 		return false
 	event.reason_codes = action.reason_codes.duplicate()
+	if action.ai_goal != &"":
+		event.data["ai_goal"] = action.ai_goal
+		event.data["ai_score"] = action.ai_score
+		event.data["ai_factors"] = action.ai_factors.duplicate(true)
+		event.data["ai_candidates"] = action.ai_candidates.duplicate(true)
+		if action.visible_cue != &"":
+			event.data["visible_cue"] = action.visible_cue
 	combat_log.add_event(event)
 	scheduler.advance_actor(actor_id, cost)
 	if actor_id == &"player":
@@ -140,6 +152,10 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 		if not game_over:
 			message = "Action cost %d; rat responses %d." % [cost, last_response_count]
 	return true
+
+
+func get_rat_fear() -> int:
+	return maxi(0, (RAT_MAX_HP - rat_hp) * 40 + rat_fear_bonus)
 
 
 func actor_is_alive(actor_id: StringName) -> bool:
@@ -264,23 +280,11 @@ func _run_until_player_ready() -> void:
 
 
 func _run_rat_action() -> bool:
-	var action: TimeAction
-	var distance := _manhattan_distance(rat_position, player_position)
-	if distance == 1:
-		action = AttackAction.new(&"player")
-		action.reason_codes.append(&"target_adjacent")
-	else:
-		var next_step := _next_step_toward_player()
-		if next_step == rat_position:
-			action = WaitAction.new()
-			action.reason_codes.append(&"route_blocked")
-		elif next_step == door_position and not door_open:
-			action = InteractAction.new(door_position)
-			action.reason_codes.append(&"door_blocks_route")
-		else:
-			action = MoveAction.new(next_step - rat_position)
-			action.reason_codes.append(&"close_distance")
-	return perform_action(&"rat", action)
+	# Reobserve and choose a fresh action after every scheduler activation.
+	var decision := RatTactics.choose(self)
+	if decision == null:
+		return false
+	return perform_action(&"rat", decision.action)
 
 
 func _new_event(
