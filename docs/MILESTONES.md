@@ -8,6 +8,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 - Still planned on `main`: `M002` — Interactive objects and simple state
 - In the local `chat/roadmap-milestone-local-sync` branch (based on `chat/tactical-ai-prototype`), `M010` is the paused Micro-AP comparison baseline; `M011` selects action-cost time (see `docs/decisions/turn_time_model.md`).
 - On this branch, `M012` structured combat log, `M013` independent scheduler, `M014` common Action system, and `M015` explainable tactical AI have automated validation recorded in their milestone documents; manual checks remain pending. These milestones are not claimed to be merged into `main`.
+- M016 on `chat/procgen-time-combat`: generated-map turn combat integration passes automated checks; manual UI/pacing check remains. Original procedural and fixed-room test scenes remain separate.
 - Other future and unfinished work, including items on separate branches: `docs/ROADMAP.md`.
 
 ## Milestone Index
@@ -29,6 +30,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | M013 | Automated Validation Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
 | M014 | Automated Validation Complete | Shared player/NPC actions with validity, costs, execution and event data | `docs/milestones/M014_common_action_system.md` |
 | M015 | Automated Validation Complete | Action candidate evaluation, injury/trait-driven rat decisions, observable reasons | `docs/milestones/M015_tactical_ai_prototype.md` |
+| M016 | Automated Validation Complete / Manual Check Pending | Playable generated-map turn combat using M011–M015 systems | `docs/milestones/M016_generated_map_combat.md` |
 
 ## Usage
 
