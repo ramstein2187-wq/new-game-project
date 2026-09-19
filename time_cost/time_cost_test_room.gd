@@ -15,6 +15,8 @@ const RAT_COLOR := Color("#d36b6b")
 const FACING_COLOR := Color("#d7e7f5")
 
 var game: TimeCostGame
+var detailed_log := false
+var debug_log := false
 
 @onready var status_label: Label = $CanvasLayer/UI/VBox/Status
 @onready var timeline_label: Label = $CanvasLayer/UI/VBox/Timeline
@@ -38,6 +40,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.keycode == KEY_R:
 		game.reset()
+		handled = true
+	elif event.keycode == KEY_L:
+		detailed_log = not detailed_log
+		handled = true
+	elif event.keycode == KEY_F3:
+		debug_log = not debug_log
 		handled = true
 	elif event.is_action_pressed("move_left"):
 		game.player_move(Vector2i.LEFT)
@@ -110,10 +118,14 @@ func _refresh() -> void:
 	help_label.text = (
 		"WASD/Arrows: move (1000)  |  Bump rat: attack (1250)  |  "
 		+ "E: door (500)  |  Space/Enter: wait (1000)  |  R: reset\n"
-		+ "Rat: move 750 / attack 1000. Ties go to the player."
+		+ "Rat: move 750 / attack 1000. Ties go to the player.\n"
+		+ "L: show/hide minor log events  |  F3: switch player log / developer trace"
 	)
 	message_label.text = game.message
-	event_log_label.text = "Recent scheduler events:\n" + game.get_recent_event_text()
+	if debug_log:
+		event_log_label.text = "Developer trace (last 6):\n" + game.get_recent_debug_text()
+	else:
+		event_log_label.text = "Combat log:\n" + game.get_recent_event_text(detailed_log)
 	queue_redraw()
 
 

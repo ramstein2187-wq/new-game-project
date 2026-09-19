@@ -7,6 +7,7 @@ This file is the short index for project milestones. Keep it concise.
 - Latest completed: `M009` — Playable procedural map
 - Comparison baseline: `M010` — Micro-AP test room
 - Active experiment: `M011` — Time-cost scheduler test room
+- Latest implementation: `M012` — Structured combat log (automated checks pass, manual UI check pending)
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -24,6 +25,7 @@ This file is the short index for project milestones. Keep it concise.
 | M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
 | M010 | Paused / Baseline | 3-AP grid-turn test room retained for comparison | `docs/milestones/M010_micro_ap_test_room.md` |
 | M011 | In Progress | Action-cost scheduler with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
+| M012 | Automated Validation Complete | Structured combat log for M011 (manual UI check pending) | `docs/milestones/M012_structured_combat_log.md` |
 
 ## Usage
 

@@ -40,9 +40,8 @@ var player_next_ready_time := 0
 var rat_next_ready_time := 0
 var last_action_cost := 0
 var last_response_count := 0
-var last_rat_reason := ""
 var message := ""
-var recent_events: Array[String] = []
+var combat_log := CombatEventLog.new()
 
 var _walls: Dictionary = {}
 
@@ -67,8 +66,7 @@ func reset() -> void:
 	rat_next_ready_time = 0
 	last_action_cost = 0
 	last_response_count = 0
-	last_rat_reason = ""
-	recent_events.clear()
+	combat_log.clear()
 	message = (
 		"Your action advances your ready time. "
 		+ "The rat acts while its ready time is earlier than yours."
@@ -94,8 +92,12 @@ func player_move(direction: Vector2i) -> bool:
 			message = "Movement blocked."
 		return false
 
+	var start := player_position
 	player_position = target
-	_commit_player_action(MOVE_COST, "You move one tile.")
+	var event := _new_event(&"move", &"player", &"move", MOVE_COST, player_next_ready_time)
+	event.importance = CombatEvent.TRIVIAL
+	event.data = {"from": start, "to": target}
+	_commit_player_action(event)
 	return true
 
 
@@ -113,10 +115,9 @@ func player_interact() -> bool:
 		return false
 
 	door_open = not door_open
-	_commit_player_action(
-		INTERACT_COST,
-		"You %s the door." % ("open" if door_open else "close")
-	)
+	var event := _new_event(&"interact", &"player", &"door", INTERACT_COST, player_next_ready_time)
+	event.data = {"open": door_open, "position": door_position}
+	_commit_player_action(event)
 	return true
 
 
@@ -124,7 +125,9 @@ func player_wait() -> bool:
 	if not _can_player_act():
 		return false
 
-	_commit_player_action(WAIT_COST, "You wait.")
+	var event := _new_event(&"wait", &"player", &"wait", WAIT_COST, player_next_ready_time)
+	event.importance = CombatEvent.TRIVIAL
+	_commit_player_action(event)
 	return true
 
 
@@ -153,10 +156,12 @@ func get_timeline_text() -> String:
 	)
 
 
-func get_recent_event_text() -> String:
-	if recent_events.is_empty():
-		return "No actions yet."
-	return "\n".join(recent_events)
+func get_recent_event_text(detailed: bool = false) -> String:
+	return CombatLogFormatter.get_recent_player_text(combat_log, &"player", detailed)
+
+
+func get_recent_debug_text() -> String:
+	return CombatLogFormatter.get_recent_debug_text(combat_log)
 
 
 func _build_room() -> void:
@@ -187,34 +192,26 @@ func _can_player_act() -> bool:
 
 func _player_attack_rat() -> bool:
 	rat_hp = maxi(0, rat_hp - ATTACK_DAMAGE)
-	var attack_text := "You hit the rat for %d damage" % ATTACK_DAMAGE
-
-	if rat_hp == 0:
-		attack_text += " and defeat it."
-	else:
-		attack_text += " (%d/%d HP)." % [rat_hp, RAT_MAX_HP]
-
-	_commit_player_action(ATTACK_COST, attack_text)
+	var event := _new_event(&"attack", &"player", &"melee", ATTACK_COST, player_next_ready_time)
+	event.target_id = &"rat"
+	event.data = {"damage": ATTACK_DAMAGE, "defeated": rat_hp == 0, "remaining_hp": rat_hp}
+	_commit_player_action(event)
 	return true
 
 
-func _commit_player_action(cost: int, description: String) -> void:
-	var action_time := player_next_ready_time
-	last_action_cost = cost
+func _commit_player_action(event: CombatEvent) -> void:
+	last_action_cost = event.action_cost
 	last_response_count = 0
-	_record_event(action_time, "%s [cost %d]" % [description, cost])
+	combat_log.add_event(event)
 
-	player_next_ready_time += cost
+	player_next_ready_time += event.action_cost
 	_run_until_player_ready()
 
 	if game_over:
 		return
 
 	world_time = player_next_ready_time
-	message = (
-		"%s Cost %d; the rat responded %d time(s)."
-		% [description, cost, last_response_count]
-	)
+	message = "Action cost %d; rat responses %d." % [event.action_cost, last_response_count]
 
 
 func _run_until_player_ready() -> void:
@@ -241,50 +238,59 @@ func _run_rat_action() -> void:
 
 	if distance == 1:
 		player_hp = maxi(0, player_hp - ATTACK_DAMAGE)
-		last_rat_reason = "The player is adjacent, so biting is the direct threat response."
-		_record_event(
-			rat_next_ready_time,
-			"Rat bites for %d damage. Reason: %s [cost %d]"
-			% [ATTACK_DAMAGE, last_rat_reason, RAT_ATTACK_COST]
-		)
+		var attack := _new_event(&"attack", &"rat", &"bite", RAT_ATTACK_COST, rat_next_ready_time)
+		attack.target_id = &"player"
+		attack.reason_codes.append(&"target_adjacent")
+		attack.data = {"damage": ATTACK_DAMAGE, "defeated": player_hp == 0, "remaining_hp": player_hp}
+		combat_log.add_event(attack)
 		rat_next_ready_time += RAT_ATTACK_COST
 		return
 
 	var next_step := _next_step_toward_player()
 	if next_step == rat_position:
-		last_rat_reason = "No traversable route to the player is currently available."
-		_record_event(
-			rat_next_ready_time,
-			"Rat waits. Reason: %s [cost %d]" % [last_rat_reason, RAT_WAIT_COST]
-		)
+		var wait_event := _new_event(&"wait", &"rat", &"wait", RAT_WAIT_COST, rat_next_ready_time)
+		wait_event.reason_codes.append(&"route_blocked")
+		wait_event.importance = CombatEvent.TRIVIAL
+		combat_log.add_event(wait_event)
 		rat_next_ready_time += RAT_WAIT_COST
 		return
 
 	if next_step == door_position and not door_open:
 		door_open = true
-		last_rat_reason = "The closed door blocks the shortest route to the player."
-		_record_event(
-			rat_next_ready_time,
-			"Rat opens the door. Reason: %s [cost %d]"
-			% [last_rat_reason, RAT_INTERACT_COST]
-		)
+		var door_event := _new_event(&"interact", &"rat", &"door", RAT_INTERACT_COST, rat_next_ready_time)
+		door_event.reason_codes.append(&"door_blocks_route")
+		door_event.data = {"open": true, "position": door_position}
+		combat_log.add_event(door_event)
 		rat_next_ready_time += RAT_INTERACT_COST
 		return
 
+	var start := rat_position
 	rat_position = next_step
-	last_rat_reason = "Closing distance is the current route toward the player."
-	_record_event(
-		rat_next_ready_time,
-		"Rat moves. Reason: %s [cost %d]"
-		% [last_rat_reason, RAT_MOVE_COST]
-	)
+	var move_event := _new_event(&"move", &"rat", &"move", RAT_MOVE_COST, rat_next_ready_time)
+	move_event.reason_codes.append(&"close_distance")
+	var adjacent := _manhattan_distance(rat_position, player_position) == 1
+	move_event.importance = CombatEvent.IMPORTANT if adjacent else CombatEvent.TRIVIAL
+	move_event.data = {"from": start, "to": next_step, "in_melee_range": adjacent}
+	combat_log.add_event(move_event)
 	rat_next_ready_time += RAT_MOVE_COST
 
 
-func _record_event(time: int, text: String) -> void:
-	recent_events.append("t=%d  %s" % [time, text])
-	while recent_events.size() > 6:
-		recent_events.pop_front()
+func _new_event(
+	event_type: StringName,
+	actor_id: StringName,
+	action_id: StringName,
+	cost: int,
+	action_time: int
+) -> CombatEvent:
+	var event := CombatEvent.new()
+	event.type = event_type
+	event.actor_id = actor_id
+	event.action_id = action_id
+	event.time = action_time
+	event.action_cost = cost
+	# This prototype room is fully visible. Other maps must supply actual perception.
+	event.observed_by.append(&"player")
+	return event
 
 
 func _next_step_toward_player() -> Vector2i:
