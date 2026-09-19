@@ -84,57 +84,104 @@ func player_move(direction: Vector2i) -> bool:
 		return false
 	if not CARDINAL_DIRECTIONS.has(direction):
 		return false
-
 	facing = direction
 	var target := player_position + direction
-
 	if rat_hp > 0 and target == rat_position:
-		return _player_attack_rat()
-
+		return perform_action(&"player", AttackAction.new(&"rat"))
 	if _blocks_movement(target):
-		if target == door_position and not door_open:
-			message = "The door is closed. Face it and press E to interact."
-		else:
-			message = "Movement blocked."
+		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else "Movement blocked."
 		return false
-
-	var start := player_position
-	player_position = target
-	var event := _new_event(&"move", &"player", &"move", MOVE_COST, player_next_ready_time)
-	event.importance = CombatEvent.TRIVIAL
-	event.data = {"from": start, "to": target}
-	_commit_player_action(event)
-	return true
+	return perform_action(&"player", MoveAction.new(direction))
 
 
 func player_interact() -> bool:
 	if not _can_player_act():
 		return false
-
 	var target := player_position + facing
 	if target != door_position:
 		message = "There is nothing to interact with in that direction."
 		return false
-
 	if door_open and (player_position == door_position or (rat_hp > 0 and rat_position == door_position)):
 		message = "The doorway is occupied."
 		return false
-
-	door_open = not door_open
-	var event := _new_event(&"interact", &"player", &"door", INTERACT_COST, player_next_ready_time)
-	event.data = {"open": door_open, "position": door_position}
-	_commit_player_action(event)
-	return true
+	return perform_action(&"player", InteractAction.new(target))
 
 
 func player_wait() -> bool:
 	if not _can_player_act():
 		return false
+	return perform_action(&"player", WaitAction.new())
 
-	var event := _new_event(&"wait", &"player", &"wait", WAIT_COST, player_next_ready_time)
-	event.importance = CombatEvent.TRIVIAL
-	_commit_player_action(event)
+
+# The same action path is used by player input and the rat AI. Invalid actions
+# neither consume time nor add events. The scheduler never imports an Action.
+func perform_action(actor_id: StringName, action: TimeAction) -> bool:
+	if game_over or action == null or not scheduler.has_actor(actor_id) or not actor_is_alive(actor_id):
+		return false
+	if scheduler.get_ready_time(actor_id) != world_time:
+		return false
+	if actor_id != &"player" and scheduler.get_ready_time(actor_id) >= player_next_ready_time:
+		return false
+	if not action.can_execute(self, actor_id):
+		return false
+	var cost := action.get_cost(self, actor_id)
+	if cost <= 0:
+		return false
+	var event := action.execute(self, actor_id, cost)
+	if event == null:
+		return false
+	event.reason_codes = action.reason_codes.duplicate()
+	combat_log.add_event(event)
+	scheduler.advance_actor(actor_id, cost)
+	if actor_id == &"player":
+		last_action_cost = cost
+		last_response_count = 0
+		_run_until_player_ready()
+		if not game_over:
+			message = "Action cost %d; rat responses %d." % [cost, last_response_count]
 	return true
+
+
+func actor_is_alive(actor_id: StringName) -> bool:
+	match actor_id:
+		&"player": return player_hp > 0
+		&"rat": return rat_hp > 0
+	return false
+
+
+func get_actor_position(actor_id: StringName) -> Vector2i:
+	return player_position if actor_id == &"player" else rat_position
+
+
+func set_actor_position(actor_id: StringName, cell: Vector2i) -> void:
+	if actor_id == &"player":
+		player_position = cell
+	elif actor_id == &"rat":
+		rat_position = cell
+
+
+func blocks_actor_movement(cell: Vector2i, actor_id: StringName) -> bool:
+	return _blocks_movement(cell) or (
+		actor_id != &"player" and player_hp > 0 and player_position == cell
+	) or (
+		actor_id != &"rat" and rat_hp > 0 and rat_position == cell
+	)
+
+
+func damage_actor(actor_id: StringName, damage: int) -> int:
+	if actor_id == &"player":
+		player_hp = maxi(0, player_hp - damage)
+		return player_hp
+	if actor_id == &"rat":
+		rat_hp = maxi(0, rat_hp - damage)
+		if rat_hp == 0:
+			scheduler.unregister_actor(&"rat")
+		return rat_hp
+	return 0
+
+
+func make_action_event(event_type: StringName, actor_id: StringName, action_id: StringName, cost: int) -> CombatEvent:
+	return _new_event(event_type, actor_id, action_id, cost, scheduler.get_ready_time(actor_id))
 
 
 func is_wall(cell: Vector2i) -> bool:
@@ -196,31 +243,6 @@ func _can_player_act() -> bool:
 	return true
 
 
-func _player_attack_rat() -> bool:
-	rat_hp = maxi(0, rat_hp - ATTACK_DAMAGE)
-	var event := _new_event(&"attack", &"player", &"melee", ATTACK_COST, player_next_ready_time)
-	event.target_id = &"rat"
-	event.data = {"damage": ATTACK_DAMAGE, "defeated": rat_hp == 0, "remaining_hp": rat_hp}
-	if rat_hp == 0:
-		scheduler.unregister_actor(&"rat")
-	_commit_player_action(event)
-	return true
-
-
-func _commit_player_action(event: CombatEvent) -> void:
-	last_action_cost = event.action_cost
-	last_response_count = 0
-	combat_log.add_event(event)
-
-	scheduler.advance_actor(&"player", event.action_cost)
-	_run_until_player_ready()
-
-	if game_over:
-		return
-
-	message = "Action cost %d; rat responses %d." % [event.action_cost, last_response_count]
-
-
 func _run_until_player_ready() -> void:
 	while not game_over and player_hp > 0:
 		var next_actor := scheduler.take_next_actor_before_player()
@@ -228,7 +250,9 @@ func _run_until_player_ready() -> void:
 			break
 		match next_actor:
 			&"rat":
-				_run_rat_action()
+				if not _run_rat_action():
+					push_error("Rat failed to produce a valid action at time %d." % world_time)
+					return
 				last_response_count += 1
 			_:
 				push_error("No action handler registered for actor: %s" % next_actor)
@@ -239,46 +263,24 @@ func _run_until_player_ready() -> void:
 		message = "The rat defeats you at time %d. Press R to reset." % world_time
 
 
-func _run_rat_action() -> void:
+func _run_rat_action() -> bool:
+	var action: TimeAction
 	var distance := _manhattan_distance(rat_position, player_position)
-
 	if distance == 1:
-		player_hp = maxi(0, player_hp - ATTACK_DAMAGE)
-		var attack := _new_event(&"attack", &"rat", &"bite", RAT_ATTACK_COST, rat_next_ready_time)
-		attack.target_id = &"player"
-		attack.reason_codes.append(&"target_adjacent")
-		attack.data = {"damage": ATTACK_DAMAGE, "defeated": player_hp == 0, "remaining_hp": player_hp}
-		combat_log.add_event(attack)
-		scheduler.advance_actor(&"rat", RAT_ATTACK_COST)
-		return
-
-	var next_step := _next_step_toward_player()
-	if next_step == rat_position:
-		var wait_event := _new_event(&"wait", &"rat", &"wait", RAT_WAIT_COST, rat_next_ready_time)
-		wait_event.reason_codes.append(&"route_blocked")
-		wait_event.importance = CombatEvent.TRIVIAL
-		combat_log.add_event(wait_event)
-		scheduler.advance_actor(&"rat", RAT_WAIT_COST)
-		return
-
-	if next_step == door_position and not door_open:
-		door_open = true
-		var door_event := _new_event(&"interact", &"rat", &"door", RAT_INTERACT_COST, rat_next_ready_time)
-		door_event.reason_codes.append(&"door_blocks_route")
-		door_event.data = {"open": true, "position": door_position}
-		combat_log.add_event(door_event)
-		scheduler.advance_actor(&"rat", RAT_INTERACT_COST)
-		return
-
-	var start := rat_position
-	rat_position = next_step
-	var move_event := _new_event(&"move", &"rat", &"move", RAT_MOVE_COST, rat_next_ready_time)
-	move_event.reason_codes.append(&"close_distance")
-	var adjacent := _manhattan_distance(rat_position, player_position) == 1
-	move_event.importance = CombatEvent.IMPORTANT if adjacent else CombatEvent.TRIVIAL
-	move_event.data = {"from": start, "to": next_step, "in_melee_range": adjacent}
-	combat_log.add_event(move_event)
-	scheduler.advance_actor(&"rat", RAT_MOVE_COST)
+		action = AttackAction.new(&"player")
+		action.reason_codes.append(&"target_adjacent")
+	else:
+		var next_step := _next_step_toward_player()
+		if next_step == rat_position:
+			action = WaitAction.new()
+			action.reason_codes.append(&"route_blocked")
+		elif next_step == door_position and not door_open:
+			action = InteractAction.new(door_position)
+			action.reason_codes.append(&"door_blocks_route")
+		else:
+			action = MoveAction.new(next_step - rat_position)
+			action.reason_codes.append(&"close_distance")
+	return perform_action(&"rat", action)
 
 
 func _new_event(

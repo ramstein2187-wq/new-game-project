@@ -8,7 +8,8 @@ This file is the short index for project milestones. Keep it concise.
 - Comparison baseline: `M010` — Micro-AP test room
 - Selected turn model: `M011` — Action-cost time (see `docs/decisions/turn_time_model.md`); M010 retained for comparison
 - Latest implementation: `M012` — Structured combat log (automated checks pass, manual UI check pending)
-- Current milestone: `M013` — Independent time scheduler (automated checks pass, manual feel check pending)
+- Scheduler foundation: `M013` — Independent time scheduler (automated checks pass, manual feel check pending)
+- Current milestone: `M014` — Common Action system (automated checks pass, manual feel check pending)
 - Still planned: `M002` — Interactive objects and simple state
 
 ## Milestone Index
@@ -28,6 +29,7 @@ This file is the short index for project milestones. Keep it concise.
 | M011 | Selected Model / Manual Check Pending | Action-cost time with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
 | M012 | Automated Validation Complete | Structured combat log for M011 (manual UI check pending) | `docs/milestones/M012_structured_combat_log.md` |
 | M013 | Automated Validation Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
+| M014 | Automated Validation Complete | Shared player/NPC actions with validity, costs, execution and event data | `docs/milestones/M014_common_action_system.md` |
 
 ## Usage
 
