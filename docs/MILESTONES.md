@@ -1,11 +1,12 @@
 # Milestones
 
-This file is the short index for project milestones. Keep it concise.
+This file is the short index for project milestones. Keep it concise. For unfinished features, future work, and unassigned ideas, see `docs/ROADMAP.md`.
 
 ## Current State
 
-- Latest completed: `M009` — Playable procedural map
-- Still planned: `M002` — Interactive objects and simple state
+- Latest completed on `main`: `M009` — Playable procedural map
+- Still planned on `main`: `M002` — Interactive objects and simple state
+- Other future work and unverified work on separate branches: `docs/ROADMAP.md`
 
 ## Milestone Index
 
@@ -23,12 +24,13 @@ This file is the short index for project milestones. Keep it concise.
 
 ## Usage
 
-At the start of substantial work, read this index and then only the milestone document relevant to the task.
+At the start of substantial work, read this index, `docs/ROADMAP.md`, and then only the milestone document relevant to the task.
 
 When opening a new milestone:
 
-1. define a narrow goal and completion criteria
-2. record only decisions and progress needed to continue the work later
-3. keep durable architectural decisions in `docs/decisions/` if they need to outlive the milestone
-4. mark the milestone complete once its completion criteria are validated
-5. avoid continuously expanding completed milestone documents
+1. choose a narrow planned item from the roadmap (or record a newly agreed item there)
+2. define a narrow goal and completion criteria and register the milestone in this index
+3. record only decisions and progress needed to continue the work later
+4. keep durable architectural decisions in `docs/decisions/` if they need to outlive the milestone
+5. mark the milestone complete once its completion criteria are validated, and update the corresponding roadmap entry at the same time
+6. avoid continuously expanding completed milestone documents; put newly found unfinished work into the roadmap
