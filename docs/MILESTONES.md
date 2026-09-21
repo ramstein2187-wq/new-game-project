@@ -4,10 +4,10 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- Latest completed on `main`: `M009` — Playable procedural map
+- Latest validated milestone: `M015` — Explainable tactical AI; M011–M015 delivery through [PR #2](https://github.com/ramstein2187-wq/new-game-project/pull/2).
 - Still planned on `main`: `M002` — Interactive objects and simple state
 - Integration candidate: `codex/integrate-m011-m015`, based on `main` at `3df96cb`; includes the cumulative M010–M015 implementation, roadmap workflow and world-persistence design. M010 remains paused; M011 selects action-cost time (`docs/decisions/turn_time_model.md`).
-- M011–M015: code inspected and Godot 4.7.2 automated suite rerun on 2026-09-21 (13 scripts pass, including scene input/defeat/reset). Manual pacing, presentation and retreat checks remain pending; not merged into `main`. See `docs/reviews/2026-09-21-m015-integration.md` for evidence and merge gates.
+- M011–M015: code inspected and Godot 4.7.2 automated suite rerun on 2026-09-21 (13 scripts pass, including scene input/defeat/reset). The user confirmed manual validation complete and authorized main merge on 2026-09-21. See PR #2 for merge status; the agent did not perform the manual playthrough. See `docs/reviews/2026-09-21-m015-integration.md` for evidence and merge gates.
 - M016 is already assigned on `chat/procgen-time-combat` (`8b5c2a6`). Its generated-map adapter, scene and tests were inspected; historical automated validation is recorded, but not rerun here. Its code is excluded from this integration candidate; continue that existing milestone next.
 - World persistence is design only; M002 remains planned. Prototype doors do not complete reusable stateful interaction objects.
 - Other future and unfinished work, including items on separate branches: `docs/ROADMAP.md`.
@@ -26,11 +26,11 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | M008 | Complete | Data-driven procedural generation tuning settings | `docs/milestones/M008_generation_settings.md` |
 | M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
 | M010 | Paused / Baseline | 3-AP grid-turn test room retained for comparison | `docs/milestones/M010_micro_ap_test_room.md` |
-| M011 | Selected Model / Manual Check Pending | Action-cost time with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
-| M012 | Automated Validation Complete | Structured combat log for M011 (manual UI check pending) | `docs/milestones/M012_structured_combat_log.md` |
-| M013 | Automated Validation Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
-| M014 | Automated Validation Complete | Shared player/NPC actions with validity, costs, execution and event data | `docs/milestones/M014_common_action_system.md` |
-| M015 | Automated Validation Complete | Action candidate evaluation, injury/trait-driven rat decisions, observable reasons | `docs/milestones/M015_tactical_ai_prototype.md` |
+| M011 | Complete / Selected Model | Action-cost time with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
+| M012 | Complete | Structured combat log for M011 | `docs/milestones/M012_structured_combat_log.md` |
+| M013 | Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
+| M014 | Complete | Shared player/NPC actions with validity, costs, execution and event data | `docs/milestones/M014_common_action_system.md` |
+| M015 | Complete | Action candidate evaluation, injury/trait-driven rat decisions, observable reasons | `docs/milestones/M015_tactical_ai_prototype.md` |
 | M016 | Separate Branch / Manual Check Pending | Generated-map time/Action/AI integration; existing implementation requires follow-up verification | `docs/milestones/M016_generated_map_combat.md` |
 
 ## Usage

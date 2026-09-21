@@ -1,6 +1,6 @@
 # M015 — Explainable Tactical AI Prototype
 
-Status: Automated validation complete; manual test-room play check pending.
+Status: Complete on the M011–M015 integration branch; automated validation passed and manual validation confirmed by the user on 2026-09-21. Main integration: PR #2.
 
 ## Goal
 

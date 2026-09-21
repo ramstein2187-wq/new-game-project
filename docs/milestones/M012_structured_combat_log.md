@@ -1,6 +1,6 @@
 # M012 — Structured Combat Log Prototype
 
-Status: Automated validation complete — manual presentation check pending
+Status: Complete on the M011–M015 integration branch; automated validation passed and manual validation confirmed by the user on 2026-09-21. Main integration: PR #2.
 
 ## Goal
 

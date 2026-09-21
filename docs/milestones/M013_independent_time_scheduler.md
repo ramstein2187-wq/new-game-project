@@ -1,6 +1,6 @@
 # M013 — Independent Time Scheduler
 
-Status: Automated validation complete; manual gameplay feel check pending.
+Status: Complete on the M011–M015 integration branch; automated validation passed and manual validation confirmed by the user on 2026-09-21. Main integration: PR #2.
 
 ## Goal
 
@@ -23,4 +23,4 @@ Run `bash tools/check_godot.sh`. New `tests/test_time_scheduler.gd` exercises th
 
 The scheduler can choose among multiple NPC IDs, but the current playable test room still contains **one rat** and one NPC action handler. Multi-NPC gameplay, reusable actions, richer AI decision-making, status effects and animation remain follow-up work. Each caller must execute the selected actor's action and advance its ready time by a positive cost before selecting again; the scheduler does not execute actions itself.
 
-The cost values remain experimental. A manual Godot F6 playthrough of `time_cost/time_cost_test_room.tscn` is still required to judge pacing and the UI feel.
+The cost values remain experimental. The user confirmed the manual Godot playthrough complete on 2026-09-21; the M011 manual checklist remains the validation procedure.

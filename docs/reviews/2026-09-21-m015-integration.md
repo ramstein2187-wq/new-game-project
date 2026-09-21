@@ -89,3 +89,7 @@ Existing baseline concerns from the preserved 2026-09-20 local review (seed inpu
 - Published [Draft PR #2](https://github.com/ramstein2187-wq/new-game-project/pull/2): `codex/integrate-m011-m015` -> `main`. Integration merge: `70409f2`; validation/document commit: `d899264`. This final handoff-only commit records publication; use `git log -1 codex/integrate-m011-m015` for its SHA. Main and all pre-existing branches remain unchanged.
 - WSL cannot resolve the Windows-created worktree's `.git` backlink. Remote push therefore ran from the original checkout with an explicit `codex/integrate-m011-m015` ref; it did not switch or edit the original checkout. For later pushes use `wsl --exec git -C /mnt/c/GameDev/새-게임-프로젝트 push origin codex/integrate-m011-m015`; use Windows Git in the integration worktree for local operations.
 - Before merge, complete A manual checks, inspect the PR diff, refresh main and resolve any intervening document changes. Do not merge main or delete any branch as part of this preparation. M011–M015 remain implemented/automatically verified on the candidate, not manually completed or merged.
+
+## Superseding handoff
+
+The preparation snapshot above is historical. On 2026-09-21 the user confirmed manual validation complete and authorized main merge. The A gate is closed; see `docs/reviews/2026-09-21-m015-merge.md` and PR #2 for the current handoff. M016 remains separate; prior prohibitions on merging applied to the preparation request, not this subsequent explicit authorization.
