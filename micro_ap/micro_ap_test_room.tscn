@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://micro_ap/micro_ap_test_room.gd" id="1_room"]
+
+[node name="MicroApTestRoom" type="Node2D"]
+script = ExtResource("1_room")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="MarginContainer" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 930.0
+offset_bottom = 112.0
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/VBox"]
+layout_mode = 2
+text = "Micro-AP Test Room — 3 AP / Move 1 / Attack 2 / Interact 1"
+
+[node name="Status" type="Label" parent="CanvasLayer/UI/VBox"]
+layout_mode = 2
+text = "Status"
+
+[node name="Help" type="Label" parent="CanvasLayer/UI/VBox"]
+layout_mode = 2
+text = "Controls"
+autowrap_mode = 2
+
+[node name="Message" type="Label" parent="CanvasLayer/UI/VBox"]
+layout_mode = 2
+text = "Message"
+autowrap_mode = 2
