@@ -15,7 +15,7 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 - **Complete** — M001: basic player movement, collision, camera and interaction; see `docs/milestones/M001_foundation.md`.
 - **Complete** — M003–M009: deterministic procedural-map prototype through a playable generated map; see `docs/MILESTONES.md`.
 
-- **Complete** — M011–M015 on `codex/integrate-m011-m015`: 13 automated scripts pass; user confirmed manual validation on 2026-09-21 and authorized integration via [PR #2](https://github.com/ramstein2187-wq/new-game-project/pull/2). M010 remains paused. See `docs/reviews/2026-09-21-m015-merge.md`.
+- **Complete** — M011–M015 on `main` at `19ce6d1`: 13 automated scripts pass; user confirmed manual validation on 2026-09-21 and merged via [PR #2](https://github.com/ramstein2187-wq/new-game-project/pull/2). M010 remains paused. See `docs/reviews/2026-09-21-m015-merge.md`.
 
 ## Unfinished and future work
 
@@ -25,7 +25,7 @@ Snapshot: 2026-09-21. A (M011–M015 basic/manual validation) is closed by autom
 | --- | --- | --- | --- |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
-| Procedural map / combat (B) | Continue existing M016: one player and one rat using shared actions, terrain collision and logs on generated map | In progress | `chat/procgen-time-combat` at `8b5c2a6`; see `docs/milestones/M016_generated_map_combat.md`. Code excluded here; revalidate reset contract, several seeds, encounter loop and UI before subsequent integration. |
+| Procedural map / combat (B) | Finish M016 manual generated-map gameplay/UI verification, then merge the prepared PR | In progress | `codex/integrate-m016` combines main and existing M016; reset and disconnected-spawn validation fixed; all 14 scripts pass. Manual gate still open; see `docs/milestones/M016_generated_map_combat.md`. |
 | Actor model (C) | Common Actor state and multiple NPC gameplay | Planned | Separate narrowly scoped milestone after M016; scheduler already supports multiple IDs, game state and action dispatch still target player/rat. Do not add to M013–M015 acceptance. |
 | Tactical AI / presentation | Visibly animate NPC movement and other action sequences instead of only applying results atomically | Planned | Follow-up from M015; the rat currently performs one tile per scheduled action without tweened animation. No implementation milestone assigned. |
 | Tactical AI / world (C) | Factions, sight/hearing, broader goals and new abilities | Candidate | M015 explicitly defers these systems; full-room observation is the current prototype policy. Register separate scope before implementation. |

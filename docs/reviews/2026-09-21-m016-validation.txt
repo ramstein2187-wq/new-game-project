@@ -1,0 +1,81 @@
+== Godot version ==
+4.7.2.stable.mono.official.ed1daf0bf
+== Editor parse/import check ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started 프로젝트 초기화 (5 steps)
+[   0% ] first_scan_filesystem | 파일 구조 스캔 중...
+[  16% ] first_scan_filesystem | 전역 클래스 이름을 불러오는 중...
+[  33% ] first_scan_filesystem | GDExtensions 검증 중...
+[  50% ] first_scan_filesystem | 오토로드 스크립트를 만드는 중...
+[  66% ] first_scan_filesystem | 플러그인을 초기화 중...
+[  83% ] first_scan_filesystem | 파일 스캔 시작 중...
+[ DONE ] first_scan_filesystem
+
+[   0% ] loading_editor_layout | Started 편집기를 불러오는 중 (5 steps)
+[   0% ] loading_editor_layout | 편집기 레이아웃을 불러오는 중...
+[  16% ] loading_editor_layout | 독을 불러오는 중...
+[ DONE ] loading_editor_layout
+
+== Main scene startup smoke test ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+== Project tests ==
+-- tests/test_basic_interaction.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+상자를 조사했다.
+PASS: basic interaction
+-- tests/test_combat_log.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: structured combat log
+-- tests/test_common_action_system.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: common action system
+-- tests/test_generated_map_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generated-map action-cost combat
+-- tests/test_generation_settings.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generation settings
+-- tests/test_micro_ap_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: micro AP test room
+-- tests/test_procedural_map_preview.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural map preview
+-- tests/test_procedural_playground.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural playground
+-- tests/test_seed_deriver.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: seed deriver
+-- tests/test_simple_map_generator.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: simple procedural map generator
+-- tests/test_tactical_ai.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: tactical AI decision and explainability
+-- tests/test_time_cost_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scheduler test room
+-- tests/test_time_cost_input.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scene input, defeat and reset
+-- tests/test_time_scheduler.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: independent time scheduler
+All Godot checks passed.

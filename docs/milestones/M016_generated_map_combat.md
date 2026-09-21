@@ -1,43 +1,56 @@
 # M016 — Generated-Map Turn Combat Integration
 
-Status: Automated validation complete on `chat/procgen-time-combat`; manual Godot play/visual check pending.
+Status: **Automated validation complete on `codex/integrate-m016`; manual Godot play/visual verification pending; not merged into main.**
 
-Integration handoff (2026-09-21): this document is carried from `8b5c2a6` to preserve the already assigned M016 number and scope. Implementation and tests below exist on that separate branch, **not** on `codex/integrate-m011-m015` or `main`. Code/tests were inspected for this handoff; the M016 suite was not rerun in this preparation. Continue this milestone after the M015 merge gates, rather than creating a second M016 or folding its code into the current PR.
+## Goal and scope
 
-## Goal
+Use the existing generated map with M011–M015 action-cost turns, shared Actions, one rat's tactical AI and structured logs. Preserve `main.tscn`, the continuous-movement procedural playground, Micro-AP comparison and fixed-room combat scenes. No startup-scene change, new gameplay framework or generator/seed change.
 
-Play the existing deterministic generated terrain using the M011–M015 action-cost turn loop, one rat's tactical AI, and structured observable/debug logs. Preserve the original continuous-movement procedural playground and fixed-room M011 test scene.
+## Integration and implemented behavior
 
-## Scope and acceptance
+- Based on main `19ce6d1` (M011–M015 merged via PR #2). History-preserving merge of existing `chat/procgen-time-combat` at `8b5c2a6`; existing M016 code was reused, not rebuilt. Document conflicts were reconciled using main's latest completed statuses and this current M016 record.
+- `GeneratedMapCombatGame` adapts TimeCostGame boundaries/blockers to generated rows. Trees and ruin cells block both actors. Default spawns are path cells on row 1 and row min(9, height - 2); positions are deterministic, distinct and connected.
+- Both actors still execute the existing Move/Attack/Wait actions via TimeCostGame, TimeScheduler, RatTactics and CombatEvent. No separate M016 combat rules or AI were introduced. Observation remains full-map prototype visibility, not sight/hearing.
+- `generated_map_combat_playground.tscn` renders terrain/actors, routes inputs, presents player/debug logs, and R creates a fresh game for the next seed. The scene/controller are unchanged from the original M016 implementation.
 
-- Add a small terrain adapter for the current TimeCostGame: map boundaries and tree/ruin blockers come from generated rows; reset places player and one rat on connected path cells and disables fixed-room door interactions.
-- Add a separate Godot scene with turn movement, melee attack, NPC responses, logs and next-seed regeneration. Do not change the procedural generator, its seed semantics, or project startup scene.
-- Validate multiple seeds for deterministic terrain/spawns, collision, actor movement and melee, AI routing, time reset and no regressions in earlier tests.
+## Initialization defects fixed
 
-## Implemented
+1. Reproduced a failing regression: inherited direct `reset()` retained generated terrain but restored fixed-room actor positions and door. The adapter now retains validated spawn positions and overrides `reset()`: reuse the base HP/clock/log/AI reset, then restore the generated layout and disabled door. Before first configure, construction retains base defaults. TimeCostGame itself is unchanged.
+2. Reproduced acceptance of disconnected path spawns. `configure()` now validates connectivity against proposed rows before changing any live state. Empty/undersized/ragged maps, missing spawns and disconnected spawns are rejected without altering the current game or reset baseline.
+3. Successful reconfiguration commits terrain/dimensions/spawns together before reset. Same-map repeated reset, post-combat/death reset and new-seed replacement clear time, HP, game-over, logs, ready times, response counts and temporary AI traits. No recursion or duplicate combat-reset implementation.
 
-- `time_cost/generated_map_combat_game.gd`: a small TimeCostGame terrain adapter that reads generated rows, uses actual map dimensions, blocks tree/ruin tiles and off-map movement, spawns the player on the path at row 1 and one rat on the connected path at row 9, and disables the fixed-room door. Existing Action, scheduler, AI, combat event and log classes are reused.
-- `time_cost/generated_map_combat_playground.tscn` and `.gd`: separate playable grid-turn scene. WASD/arrows move one tile, bump the rat to attack, Space/Enter waits, R loads the next seed with a fresh clock/rat/log, L toggles detailed log, F3 toggles developer trace. Renders generated terrain and both actors without altering the original real-time `procgen/procedural_playground.tscn` or the fixed-room combat test.
-- The generated map and spawn locations are deterministic for a given seed. This is one generated local map, not a connected procedural world.
+## Automated validation — 2026-09-21
 
-## Validation
+Command: `bash tools/check_godot.sh` in `C:/GameDev/integration-m016`.
+Engine: **Godot 4.7.2.stable.mono.official.ed1daf0bf**.
+Result: editor parse/import and main startup pass; **all 14 test scripts pass**, exit 0, no reported script errors. Both `test_time_cost_input.gd` from main and `test_generated_map_combat.gd` from M016 are present and executed. Captured final output: `docs/reviews/2026-09-21-m016-validation.txt`.
 
-- Godot 4.7.2 Mono: `bash tools/check_godot.sh` passes, including `tests/test_generated_map_combat.gd` and all existing map, AI, action, scheduler and log tests.
-- The new scene also starts with headless Godot without reported errors.
-- Four different seeds tested for deterministic terrain/spawns, traversable path and rat turn response; also verified tree/ruin/bounds collision, rejected blocked movement without a time cost, melee and AI reasons, and next-seed reinitialization.
+Expanded the existing M016 test script (no existing tests removed/weakened):
 
-## Manual check
+- Direct/repeated reset, advanced time, damage and temporary AI state; rat death/unregistration and player defeat; valid spawns and disabled fixed-room door after reset.
+- Minimum 4×4 map and changed dimensions; replacement by seed 1235 matches a fresh instance, including scheduler/log/state.
+- Invalid map cases leave a complete active-state snapshot unchanged, and later reset still uses the previous valid map.
+- Four deterministic generated seeds; matching dimensions/spawns, route availability, tree/ruin collision and all map boundaries.
+- Generated-terrain constrained retreat, legal cells, injury/aggression choice changes, shared costs/reasons, player-priority ties, observable retreat without private score leakage.
+- Headless scene viewport inputs Enter/L/F3/R check wait actions, log switching and complete rendered-map/game replacement. These are automated input tests, not GUI/manual verification.
+- Existing fixed-room reset/input lifecycle and all earlier map, Action, scheduler, AI and log tests remain passing.
 
-Open `time_cost/generated_map_combat_playground.tscn` and press F6. Try several seeds with R, examine actor movement and the log/trace while fighting the rat. Check map readability and label overflow at the user's display size. The automatic checks do not assess appearance or pacing.
+## Required manual verification — not performed
 
-## Boundaries / follow-ups
+Native Godot UI control/screen inspection is unavailable in this session. The earlier user confirmation was for M011–M015 and does not establish M016 completion. Main merge remains blocked on this manual gate, as requested.
 
-One test rat; no multi-NPC world state, tile art, player perception/field of view, physics-body movement, action animation, arbitrary map transitions or persistence. UI layout is tuned for the default 40×30 map, not every generated map dimension. Fixed-room door interactions are not part of the generated map. Existing hardcoded English rat log text is prototype output; visual/manual gameplay verification remains necessary.
+Open this worktree's `project.godot`, select `time_cost/generated_map_combat_playground.tscn`, and run F6:
 
-## Next integration checks (B)
+1. WASD/arrows move one tile; Space/Enter wait. Check terrain collision, distinct actor occupancy and understandable rat responses.
+2. Bump-attack, observe wounded retreat, defeat the rat and confirm no later rat actions. Confirm player defeat and restart behavior.
+3. R several times: new seeds, valid spawns, fresh HP/time/logs and no stale terrain; repeat a short encounter.
+4. L/F3: normal/detailed player logs vs developer trace; observable retreat and no private AI score in player mode.
+5. At the actual display size, check actor identification, map/status/log placement, clipping/overlap and the readability of consecutive atomic NPC actions.
 
-- Preserve the existing minimal goal: generated terrain, one player/rat, common movement/combat actions, correct terrain collision, clock and action logs. Recheck several seeds and the exploration -> encounter -> decision -> outcome loop.
-- Reproduce and repair the inherited `reset()` contract before reusing it: `configure()` installs generated spawns, but a later direct `reset()` currently restores fixed-room coordinates/door while retaining generated rows. Existing tests cover reconfiguration, not direct reset. Current R creates a new configured game; do not claim its visible path is broken by this API issue.
-- Run the full suite on the eventual combined branch, including generated-map tests and the M015 scene-input regression; manually check map/log legibility, injured retreat and timing. Keep full-map observation explicit; implementing sight/hearing is C, not an M016 prerequisite.
-- Reconcile only document conflicts with the M015 integration branch; preserve the world-persistence design and current status distinctions.
-- Exclude world-size expansion, new biomes, factions, equipment, long-term-goal AI and full world persistence. Common Actor state, multiple NPCs and animation are later milestones; stateful reusable objects belong to M002.
+Record actual results before marking Complete or merging. Fix only reproduced basic defects and rerun relevant regressions/full suite if code changes.
+
+## Boundaries and subsequent work
+
+One player/rat; default 40×30 display layout, atomic actions, English prototype log and full-map observation. No new tileset, animation, general Actor registry, multiple NPCs, perception, factions, abilities, equipment, larger world/biomes or persistence. These remain separate roadmap items; reusable stateful interaction objects remain M002. Seed compatibility and ruin reachability follow-ups remain unchanged.
+
+Next handoff and PR information: `docs/reviews/2026-09-21-m016-integration.md`.
