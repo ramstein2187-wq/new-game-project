@@ -56,6 +56,7 @@ func _test_fast_interaction_shortens_response_window() -> bool:
 
 func _test_slow_attack_creates_opening() -> bool:
 	var game := TimeCostGameScript.new()
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 	var start_hp := game.player_hp
@@ -70,7 +71,7 @@ func _test_slow_attack_creates_opening() -> bool:
 		return _fail("Attack did not use the 1250 time cost")
 	if game.last_response_count != 2:
 		return _fail("A 1250-cost attack should expose the player to two 1000-cost rat attacks from time zero")
-	if game.player_hp != start_hp - 2:
+	if game.player_hp != start_hp - 2 * game.ATTACK_DAMAGE:
 		return _fail("Rat did not use both openings created by the slow attack")
 
 	return true
@@ -78,6 +79,7 @@ func _test_slow_attack_creates_opening() -> bool:
 
 func _test_player_wins_ready_time_ties() -> bool:
 	var game := TimeCostGameScript.new()
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 
@@ -103,7 +105,7 @@ func _test_scene_loads() -> bool:
 
 	if scene.get_node_or_null("CanvasLayer/UI/VBox/Timeline") == null:
 		return _fail("Timeline UI is missing")
-	if scene.get_node_or_null("CanvasLayer/UI/VBox/EventLog") == null:
+	if scene.get_node_or_null("CanvasLayer/LogScroll/EventLog") == null:
 		return _fail("Scheduler event log UI is missing")
 
 	scene.queue_free()

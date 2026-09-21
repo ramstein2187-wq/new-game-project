@@ -23,6 +23,25 @@ static func format_player_event(
 				return "The rat closes to striking distance."
 			return "The rat moves."
 		&"attack":
+			if event.data.has("hit"):
+				var subject := "You" if event.actor_id == &"player" else "The rat"
+				if not event.data.hit:
+					return subject + (" miss." if event.actor_id == &"player" else " misses.")
+				if event.data.get("no_valid_part", false):
+					return subject + ": no valid body part to strike."
+				var part_name: String = event.data.get("part_name", "body")
+				var owner := "the rat's" if event.target_id == &"rat" else "your"
+				if event.data.get("armor_result") == &"full":
+					return "%s %s armor blocks the attack." % [owner.capitalize(), part_name]
+				var verb := "hit" if event.actor_id == &"player" else "bites"
+				var text := "%s %s %s %s for %d damage" % [subject, verb, owner, part_name, event.data.damage]
+				if event.data.get("armor_result") == &"partial":
+					text += " (armor softens the blow)"
+				if event.data.get("state_before") != event.data.get("state_after"):
+					text += "; %s is %s" % [part_name, event.data.state_after]
+				if event.data.get("defeated", false):
+					text += "; " + ("the rat falls" if event.target_id == &"rat" else "you fall")
+				return text + "."
 			var damage: int = event.data.get("damage", 0)
 			if event.actor_id == &"player":
 				if event.data.get("defeated", false):

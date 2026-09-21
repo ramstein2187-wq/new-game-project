@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+500 adjacent-start encounter samples, combat seeds 0..499: { "attacks": 7229, "miss": 3360, "full": 680, "partial": 699, "bypass": 325, "unarmored": 2165, "player_arm_wounded": 32, "rat_leg_wounded": 443, "rat_bite_impaired": 247, "rat_defeated": 0, "player_defeated": 4, "separated": 496, "player_attack_lost": 0 }

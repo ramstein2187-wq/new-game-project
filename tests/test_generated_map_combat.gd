@@ -56,6 +56,7 @@ func _test_direct_reset() -> bool:
 		if _snapshot(game) != initial:
 			return _fail("Reset after time/damage must restore generated state including AI traits")
 	# Kill via the common action path, which unregisters the rat.
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	if not _place_player_next_to_rat(game):
 		return false
 	game.rat_hp = 1
@@ -68,6 +69,7 @@ func _test_direct_reset() -> bool:
 		return _fail("Reset after rat death must restore and register the rat")
 	if not _place_player_next_to_rat(game):
 		return false
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	game.player_hp = 1
 	game.player_wait()
 	if not game.game_over:
@@ -234,10 +236,11 @@ func _test_attack_and_shared_ai_clock() -> bool:
 			break
 	if not adjacent:
 		return _fail("No free adjacent cell for generated-map combat fixture")
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	var toward_rat: Vector2i = game.rat_position - game.player_position
 	if not game.player_move(toward_rat):
 		return _fail("Player cannot attack a rat on generated terrain")
-	if game.rat_hp != game.RAT_MAX_HP - 1 or game.player_hp != game.PLAYER_MAX_HP - 2:
+	if game.rat_hp != game.RAT_MAX_HP - game.ATTACK_DAMAGE or game.player_hp != game.PLAYER_MAX_HP - 2 * game.ATTACK_DAMAGE:
 		return _fail("Generated-map melee did not retain damage and two rat responses")
 	if game.last_action_cost != game.ATTACK_COST or game.last_response_count != 2:
 		return _fail("Shared scheduler/action cost changed on generated map")
@@ -282,7 +285,7 @@ func _test_generated_retreat_and_ties() -> bool:
 		return _fail("Connected terrain fixture should configure")
 	game.player_position = Vector2i(3, 2)
 	game.rat_position = Vector2i(3, 3)
-	game.rat_hp = 1
+	game.rat_hp = game.RAT_MAX_HP / 3
 	game.player_wait()
 	var retreat: CombatEvent = game.combat_log.events[1]
 	if retreat.data.get("to") != Vector2i(2, 3) or retreat.data.get("visible_cue") != &"retreat":
@@ -302,7 +305,7 @@ func _test_generated_retreat_and_ties() -> bool:
 	game.reset()
 	game.player_position = Vector2i(3, 2)
 	game.rat_position = Vector2i(3, 3)
-	game.rat_hp = 1
+	game.rat_hp = game.RAT_MAX_HP / 3
 	game.rat_aggression = 180
 	game.player_wait()
 	if game.last_response_count != 1 or game.player_next_ready_time != 1000 or game.rat_next_ready_time != 1000:
@@ -320,7 +323,7 @@ func _test_playable_scene() -> bool:
 	root.add_child(scene)
 	if scene.game == null or scene.generated_map.is_empty():
 		return _fail("Generated-map scene did not initialize a playable game")
-	if scene.get_node_or_null("CanvasLayer/Log") == null:
+	if scene.get_node_or_null("CanvasLayer/LogScroll/Log") == null:
 		return _fail("Generated-map scene has no combat log")
 	var original_seed: int = scene.world_seed
 	_press(KEY_ENTER)

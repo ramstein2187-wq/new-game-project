@@ -73,7 +73,7 @@ func _test_wounded_rat_retreats_and_shows_only_visible_cues() -> bool:
 	var game := GameScript.new()
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
-	game.rat_hp = 1
+	game.rat_hp = game.RAT_MAX_HP / 3
 	var start_distance := game._manhattan_distance(game.rat_position, game.player_position)
 	if not game.player_wait():
 		return _fail("Player should be able to wait while the rat reevaluates")
@@ -84,8 +84,9 @@ func _test_wounded_rat_retreats_and_shows_only_visible_cues() -> bool:
 		return _fail("Wounded rat should choose a survival movement action")
 	if not retreat.reason_codes.has(&"low_health") or not retreat.reason_codes.has(&"fearful"):
 		return _fail("Retreat must retain the injury and fear causes")
-	if retreat.action_cost != GameScript.RAT_MOVE_COST:
-		return _fail("Retreat must use the existing movement cost")
+	var retreat_step: Vector2i = retreat.data["to"] - retreat.data["from"]
+	if retreat.action_cost != MoveAction.new(retreat_step).get_cost(game, &"rat"):
+		return _fail("Retreat must use the cost of its chosen direction")
 	var player_text := game.get_recent_event_text()
 	if player_text.find("recoils and retreats") < 0:
 		return _fail("Visible retreat must be explained in the default player log")
@@ -101,7 +102,7 @@ func _test_aggression_and_fear_can_change_the_same_rat() -> bool:
 	var game := GameScript.new()
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
-	game.rat_hp = 1
+	game.rat_hp = game.RAT_MAX_HP / 3
 	game.rat_aggression = 180
 	if not game.player_wait():
 		return _fail("First wait failed")

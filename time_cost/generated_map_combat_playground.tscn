@@ -28,10 +28,15 @@ offset_right = 1140.0
 offset_bottom = 104.0
 text = "Message"
 
-[node name="Log" type="Label" parent="CanvasLayer"]
+[node name="LogScroll" type="ScrollContainer" parent="CanvasLayer"]
 offset_left = 686.0
-offset_top = 114.0
+offset_top = 440.0
 offset_right = 1136.0
 offset_bottom = 622.0
+horizontal_scroll_mode = 0
+
+[node name="Log" type="Label" parent="CanvasLayer/LogScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
 autowrap_mode = 2
 text = "Combat log"

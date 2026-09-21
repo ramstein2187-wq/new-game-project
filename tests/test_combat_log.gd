@@ -33,10 +33,10 @@ func _test_recorded_event_order_and_context() -> bool:
 		return _fail("First event must be the player's movement at t=0")
 	if first.action_cost != GameScript.MOVE_COST or first.data.get("to") != Vector2i(3, 3):
 		return _fail("Player event lost its cost or destination")
-	if second.actor_id != &"rat" or second.time != 0 or third.time != 750:
-		return _fail("Rat actions are missing or not recorded in scheduler order")
+	if second.actor_id != &"rat" or second.time != 0 or third.actor_id != &"rat" or third.time != 750:
+		return _fail("Rat actions must retain scheduler event order at t=0 and t=750")
 	if not second.reason_codes.has(&"close_distance") or not third.reason_codes.has(&"close_distance"):
-		return _fail("Rat decision reasons are not retained as reason codes")
+		return _fail("Both rat approach reasons must be retained")
 	if not second.reason_codes.has(&"target_hostile") or not second.data.has("ai_factors"):
 		return _fail("New tactical scorer must preserve its contributing factors")
 	if game.get_recent_debug_text().find("cost=750") < 0:
@@ -122,7 +122,7 @@ func _test_room_loads_with_log_controls() -> bool:
 		return _fail("Time-cost test room cannot be loaded")
 	var scene := scene_resource.instantiate()
 	root.add_child(scene)
-	var label := scene.get_node_or_null("CanvasLayer/UI/VBox/EventLog") as Label
+	var label := scene.get_node_or_null("CanvasLayer/LogScroll/EventLog") as Label
 	if label == null:
 		return _fail("Time-cost test room is missing its combat log UI")
 	if scene.get_script() == null or not scene.has_method("_refresh"):

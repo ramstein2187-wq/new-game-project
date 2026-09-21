@@ -5,24 +5,27 @@ const GRID_WIDTH := 11
 const GRID_HEIGHT := 7
 
 const MOVE_COST := 1000
+const DIAGONAL_MOVE_COST := 1400
 const ATTACK_COST := 1250
 const INTERACT_COST := 500
 const WAIT_COST := 1000
 
 const RAT_MOVE_COST := 750
+const RAT_DIAGONAL_MOVE_COST := 1050
 const RAT_ATTACK_COST := 1000
 const RAT_INTERACT_COST := 500
 const RAT_WAIT_COST := 1000
 
-const PLAYER_MAX_HP := 5
-const RAT_MAX_HP := 3
-const ATTACK_DAMAGE := 1
+const PLAYER_MAX_HP := 50
+const RAT_MAX_HP := 30
+const ATTACK_DAMAGE := 5
 
 const CARDINAL_DIRECTIONS: Array[Vector2i] = [
-	Vector2i.UP,
-	Vector2i.RIGHT,
-	Vector2i.DOWN,
-	Vector2i.LEFT,
+	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,
+]
+const MOVE_DIRECTIONS: Array[Vector2i] = [
+	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,
+	Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(1, 1),
 ]
 
 var player_position := Vector2i(2, 3)
@@ -53,6 +56,12 @@ var combat_log := CombatEventLog.new()
 var rat_aggression := 50
 var rat_fear_bonus := 0
 
+var combat_seed := 17017
+var combat_rng := RandomNumberGenerator.new()
+var abilities: Dictionary = {}
+var species: Dictionary = {}
+var bodies: Dictionary = {}
+
 var _walls: Dictionary = {}
 
 
@@ -61,6 +70,12 @@ func _init() -> void:
 
 
 func reset() -> void:
+	combat_rng.seed = combat_seed
+	abilities = {&"player": AbilityScores.new(), &"rat": AbilityScores.new()}
+	species = {&"player": CombatSpecies.human(), &"rat": CombatSpecies.rat()}
+	bodies = {}
+	for actor: StringName in species:
+		bodies[actor] = BodyInstance.new(species[actor].body_template, species[actor].attack_capability)
 	_build_room()
 	player_position = Vector2i(2, 3)
 	rat_position = Vector2i(8, 3)
@@ -87,13 +102,13 @@ func reset() -> void:
 func player_move(direction: Vector2i) -> bool:
 	if not _can_player_act():
 		return false
-	if not CARDINAL_DIRECTIONS.has(direction):
+	if not MOVE_DIRECTIONS.has(direction):
 		return false
 	facing = direction
 	var target := player_position + direction
 	if rat_hp > 0 and target == rat_position:
 		return perform_action(&"player", AttackAction.new(&"rat"))
-	if _blocks_movement(target):
+	if not can_step(player_position, direction):
 		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else "Movement blocked."
 		return false
 	return perform_action(&"player", MoveAction.new(direction))
@@ -128,6 +143,8 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 	if actor_id != &"player" and scheduler.get_ready_time(actor_id) >= player_next_ready_time:
 		return false
 	if not action.can_execute(self, actor_id):
+		if actor_id == &"player":
+			message = "Action unavailable: check range, path and body function. No time spent."
 		return false
 	var cost := action.get_cost(self, actor_id)
 	if cost <= 0:
@@ -155,7 +172,43 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 
 
 func get_rat_fear() -> int:
-	return maxi(0, (RAT_MAX_HP - rat_hp) * 40 + rat_fear_bonus)
+	return maxi(0, roundi((RAT_MAX_HP - rat_hp) * 120.0 / RAT_MAX_HP) + rat_fear_bonus)
+
+
+func can_attack(actor_id: StringName) -> bool:
+	return bodies.has(actor_id) and bodies[actor_id].attack_efficiency(species[actor_id].attack_capability) > 0
+
+
+func movement_efficiency(actor_id: StringName) -> float:
+	return bodies[actor_id].capability(&"locomotion") if bodies.has(actor_id) else 0.0
+
+
+func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
+	var attacker: CombatSpecies = species[actor_id]
+	var body: BodyInstance = bodies[actor_id]
+	var target: BodyInstance = bodies[target_id]
+	var injury_mod := -2 if body.attack_efficiency(attacker.attack_capability) < 1 else 0
+	var result := CombatRules.check(combat_rng.randi_range(1, 20),
+		abilities[actor_id].get_modifier(attacker.attack_ability), 0, injury_mod,
+		10 + abilities[target_id].get_modifier(&"DEX"))
+	result["ability"] = attacker.attack_ability
+	result["attack_part"] = body.attack_part
+	result["damage"] = 0
+	if result.hit:
+		var part_id := target.select_part(combat_rng.randf())
+		if part_id != &"":
+			var part: Dictionary = target.parts[part_id]
+			result.merge({"part": part_id, "part_name": part.name, "damage": ATTACK_DAMAGE,
+				"damage_type": attacker.damage_type, "armor_result": &"unarmored"}, true)
+			if part.armor >= 0:
+				result.merge(CombatRules.armor_result(part.armor, attacker.penetration,
+					combat_rng.randf() * 100.0, ATTACK_DAMAGE, attacker.damage_type), true)
+			result.merge(target.apply_damage(part_id, result.damage), true)
+		else:
+			result["no_valid_part"] = true
+	result["remaining_hp"] = damage_actor(target_id, result.damage)
+	result["defeated"] = result.remaining_hp == 0
+	return result
 
 
 func actor_is_alive(actor_id: StringName) -> bool:
@@ -317,14 +370,17 @@ func _next_step_toward_player() -> Vector2i:
 		if current == player_position:
 			break
 
-		for direction in CARDINAL_DIRECTIONS:
+		for direction in MOVE_DIRECTIONS:
 			var neighbor := current + direction
 			if came_from.has(neighbor):
 				continue
 			if not is_inside(neighbor):
 				continue
-			if is_wall(neighbor):
-				continue
+			# Closed doors are path goals for InteractAction, but may not be
+			# crossed diagonally or used to cut a blocked corner.
+			if not can_step(current, direction):
+				if neighbor != door_position or door_open or direction.x != 0 and direction.y != 0:
+					continue
 
 			came_from[neighbor] = current
 			frontier.append(neighbor)
@@ -349,5 +405,24 @@ func _blocks_movement(cell: Vector2i) -> bool:
 	return false
 
 
+# Eight-way adjacency uses Chebyshev distance; retain the historic helper name
+# for existing callers and tests that compare distance before and after a move.
 func _manhattan_distance(a: Vector2i, b: Vector2i) -> int:
-	return absi(a.x - b.x) + absi(a.y - b.y)
+	return maxi(absi(a.x - b.x), absi(a.y - b.y))
+
+
+func can_melee_reach(start: Vector2i, target: Vector2i) -> bool:
+	# Shared by attack validation, AI approach selection and observable feedback.
+	# Grid adjacency alone is insufficient when a diagonal corner is blocked.
+	return can_step(start, target - start)
+
+
+func can_step(start: Vector2i, direction: Vector2i) -> bool:
+	if not MOVE_DIRECTIONS.has(direction):
+		return false
+	if _blocks_movement(start + direction):
+		return false
+	# Both orthogonal neighbors must be passable to cross a diagonal corner.
+	if direction.x != 0 and direction.y != 0:
+		return not _blocks_movement(start + Vector2i(direction.x, 0)) and not _blocks_movement(start + Vector2i(0, direction.y))
+	return true

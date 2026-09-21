@@ -11,7 +11,7 @@ func _init(cell: Vector2i = Vector2i.ZERO) -> void:
 func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	return (
 		target_cell == game.door_position
-		and game._manhattan_distance(game.get_actor_position(actor_id), target_cell) == 1
+		and (game.get_actor_position(actor_id) - target_cell).length_squared() == 1
 		and (
 			not game.door_open
 			or (game.player_position != target_cell and (

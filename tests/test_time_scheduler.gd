@@ -106,8 +106,13 @@ func _test_reset_and_integration() -> bool:
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 	# Keep this scheduler lifecycle test focused on removal, not low-HP AI retreat.
-	game.rat_aggression = 180
-	for i in range(TimeCostGame.RAT_MAX_HP):
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
+	game.rat_aggression = 250
+	game.rat_hp = 3 * game.ATTACK_DAMAGE
+	for actor: StringName in [&"player", &"rat"]:
+		for part: Dictionary in game.bodies[actor].parts.values():
+			part.weight = 1 if part.id == &"torso" else 0
+	for i in range(3):
 		if not game.player_move(Vector2i.RIGHT):
 			return _fail("Player should be able to attack the adjacent rat")
 		if game.game_over:

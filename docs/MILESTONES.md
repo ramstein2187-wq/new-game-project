@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- Active: M017 combat/body phase 1 implemented on `codex/m017-combat-body-phase1`, 15 automated tests passed; manual play/main integration pending. M018 eight-way combat movement is implemented and automatically checked in a separate worktree based on the M017 branch; manual sign-off/integration pending. [Scope and validation](milestones/M017_combat_body_phase1.md), [design specification](CRPG_combat_body_phase1_design.md).
+
 - Latest completed on `main`: M016; PR #3 merged at `9b92d80` on 2026-09-21.
 - Still planned on `main`: `M002` — Interactive objects and simple state.
 - M010 remains the paused comparison prototype; M011 action-cost time is the selected model. M011–M016 code, tests and design documents are on `main`.
@@ -16,6 +18,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M017 | Manual validation pending | D20, abilities, bodies, armor and capability-driven injury; 15 automated tests passed on task branch | `docs/milestones/M017_combat_body_phase1.md` |
+| M018 | Manual validation pending, M017-dependent | Eight-way player/rat movement and melee, corner blocking, same action costs | `docs/milestones/M018_eight_way_combat.md` |
 | M001 | Complete | Player movement, collision, camera, basic interaction, headless validation | `docs/milestones/M001_foundation.md` |
 | M002 | Planned | Reusable interactive objects with state, beginning with a door | Create when work starts |
 | M003 | Complete | Deterministic seed-based ASCII procedural map prototype | `docs/milestones/M003_procedural_map_prototype.md` |

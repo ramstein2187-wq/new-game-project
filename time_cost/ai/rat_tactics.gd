@@ -5,12 +5,16 @@ extends RefCounted
 # The generic planner does not know about rats, attacks, doors, or movement.
 static func choose(game: RefCounted, actor_id: StringName = &"rat") -> TacticalChoice:
 	var options: Array[TacticalChoice] = []
-	var distance: int = game._manhattan_distance(game.rat_position, game.player_position)
+	var in_melee_range: bool = game.can_melee_reach(game.rat_position, game.player_position)
 	var aggression: int = game.rat_aggression
 	var fear: int = game.get_rat_fear()
 
 	var wait_option := TacticalChoice.new(WaitAction.new(), &"hold_position", 0)
-	if distance > 1:
+	if not game.can_attack(actor_id):
+		wait_option.add_reason(&"attack_function_lost")
+	if game.movement_efficiency(actor_id) <= 0:
+		wait_option.add_reason(&"locomotion_lost")
+	if not in_melee_range:
 		var next_step: Vector2i = game._next_step_toward_player()
 		if next_step == game.rat_position:
 			wait_option.add_reason(&"route_blocked")
@@ -36,7 +40,7 @@ static func choose(game: RefCounted, actor_id: StringName = &"rat") -> TacticalC
 	# An injury changes the *same* NPC's preferences. A retreat must increase
 	# distance and be genuinely walkable; otherwise the attack is still available.
 	if fear > 0:
-		var direction := _best_retreat_direction(game, actor_id, distance)
+		var direction := _best_retreat_direction(game, actor_id)
 		if direction != Vector2i.ZERO:
 			var retreat := TacticalChoice.new(MoveAction.new(direction), &"survive", 15)
 			retreat.add_factor(&"low_health", fear * 2)
@@ -49,14 +53,15 @@ static func choose(game: RefCounted, actor_id: StringName = &"rat") -> TacticalC
 	return TacticalPlanner.choose(game, actor_id, options)
 
 
-static func _best_retreat_direction(game: RefCounted, actor_id: StringName, distance: int) -> Vector2i:
+static func _best_retreat_direction(game: RefCounted, actor_id: StringName) -> Vector2i:
 	var best_direction := Vector2i.ZERO
-	var best_distance := distance
-	for direction: Vector2i in game.CARDINAL_DIRECTIONS:
+	var offset: Vector2i = game.get_actor_position(actor_id) - game.player_position
+	var best_distance := offset.length_squared()
+	for direction: Vector2i in game.MOVE_DIRECTIONS:
 		var target: Vector2i = game.get_actor_position(actor_id) + direction
-		if game.blocks_actor_movement(target, actor_id):
+		if not game.can_step(game.get_actor_position(actor_id), direction) or game.blocks_actor_movement(target, actor_id):
 			continue
-		var candidate_distance: int = game._manhattan_distance(target, game.player_position)
+		var candidate_distance: int = (target - game.player_position).length_squared()
 		if candidate_distance > best_distance:
 			best_distance = candidate_distance
 			best_direction = direction

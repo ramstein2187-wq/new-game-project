@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+ERROR: FAIL: Rat routes around a blocked adjacent corner instead of waiting forever
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] expect (res://tests/test_m017_m018_integration.gd:13)
+       [1] _test_corner_ai_and_feedback (res://tests/test_m017_m018_integration.gd:30)
+       [2] _run (res://tests/test_m017_m018_integration.gd:16)
+ERROR: FAIL: Legal corner route executes in the scheduler
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] expect (res://tests/test_m017_m018_integration.gd:13)
+       [1] _test_corner_ai_and_feedback (res://tests/test_m017_m018_integration.gd:32)
+       [2] _run (res://tests/test_m017_m018_integration.gd:16)
+ERROR: FAIL: Rat can bite after reaching clear adjacency
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] expect (res://tests/test_m017_m018_integration.gd:13)
+       [1] _test_corner_ai_and_feedback (res://tests/test_m017_m018_integration.gd:33)
+       [2] _run (res://tests/test_m017_m018_integration.gd:16)
+ERROR: FAIL: Blocked diagonal must not claim melee range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] expect (res://tests/test_m017_m018_integration.gd:13)
+       [1] _test_corner_ai_and_feedback (res://tests/test_m017_m018_integration.gd:41)
+       [2] _run (res://tests/test_m017_m018_integration.gd:16)
+ERROR: FAIL: Generated-map rat routes around blocked corner
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] expect (res://tests/test_m017_m018_integration.gd:13)
+       [1] _test_generated_terrain_and_costs (res://tests/test_m017_m018_integration.gd:63)
+       [2] _run (res://tests/test_m017_m018_integration.gd:17)
+ERROR: FAIL: Generated-map rat routes around blocked corner
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] expect (res://tests/test_m017_m018_integration.gd:13)
+       [1] _test_generated_terrain_and_costs (res://tests/test_m017_m018_integration.gd:63)
+       [2] _run (res://tests/test_m017_m018_integration.gd:17)
