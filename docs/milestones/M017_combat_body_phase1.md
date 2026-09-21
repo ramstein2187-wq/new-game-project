@@ -43,3 +43,9 @@ Implementation specification: [combat/body design](../CRPG_combat_body_phase1_de
 5. Record the user's manual results, then consider main integration in a separate explicitly authorized step. **No main merge performed here.**
 
 Follow-ups are tracked in the roadmap: balance/severe-arm-injury frequency and encounter pacing, small-window/responsive UI if needed, externalized content when needed, deeper body/equipment/persistence systems outside phase 1. No manual GUI playthrough is claimed.
+
+## Delivery / resume
+
+- Implementation commit: `ae8ac1a` (`feat: implement M017 D20 combat and capability-driven body injuries`). Pushed to `origin/codex/m017-combat-body-phase1` on 2026-09-21; this delivery record follows as a documentation commit.
+- Windows Git push hit SSH host-key verification failure; the existing WSL Git environment successfully pushed with `bash -c 'git push -u origin codex/m017-combat-body-phase1'`. No SSH verification/configuration was weakened.
+- Next work is the manual gate above and balance follow-ups, not reimplementation. Main was not merged. Unrelated pre-existing tileset imports and September 20 review files remain untracked and untouched.
