@@ -1,6 +1,6 @@
 # M016 — Generated-Map Turn Combat Integration
 
-Status: **Automated validation complete on `codex/integrate-m016`; manual Godot play/visual verification pending; not merged into main.**
+Status: **Complete on `main` as of 2026-09-21** — automated validation passed on `codex/integrate-m016`, user confirmed all required manual play/visual checks, and [PR #3](https://github.com/ramstein2187-wq/new-game-project/pull/3) merged at `9b92d80`.
 
 ## Goal and scope
 
@@ -35,22 +35,14 @@ Expanded the existing M016 test script (no existing tests removed/weakened):
 - Headless scene viewport inputs Enter/L/F3/R check wait actions, log switching and complete rendered-map/game replacement. These are automated input tests, not GUI/manual verification.
 - Existing fixed-room reset/input lifecycle and all earlier map, Action, scheduler, AI and log tests remain passing.
 
-## Required manual verification — not performed
+## Manual verification and `main` integration — 2026-09-21
 
-Native Godot UI control/screen inspection is unavailable in this session. The earlier user confirmation was for M011–M015 and does not establish M016 completion. Main merge remains blocked on this manual gate, as requested.
+The user reported completing **all** required M016 manual play/visual checks on the integration branch with no issues. The checked scope was generated-map movement/wait/collision, combat and rat retreat/defeat, reset across seeds and after encounters, player/developer log modes, and actual display readability. This is a user-reported sign-off; the agent did not directly run or observe the native Godot GUI playthrough. It is distinct from the earlier M011–M015 manual sign-off.
 
-Open this worktree's `project.godot`, select `time_cost/generated_map_combat_playground.tscn`, and run F6:
-
-1. WASD/arrows move one tile; Space/Enter wait. Check terrain collision, distinct actor occupancy and understandable rat responses.
-2. Bump-attack, observe wounded retreat, defeat the rat and confirm no later rat actions. Confirm player defeat and restart behavior.
-3. R several times: new seeds, valid spawns, fresh HP/time/logs and no stale terrain; repeat a short encounter.
-4. L/F3: normal/detailed player logs vs developer trace; observable retreat and no private AI score in player mode.
-5. At the actual display size, check actor identification, map/status/log placement, clipping/overlap and the readability of consecutive atomic NPC actions.
-
-Record actual results before marking Complete or merging. Fix only reproduced basic defects and rerun relevant regressions/full suite if code changes.
+After the user confirmed the manual gate, [PR #3](https://github.com/ramstein2187-wq/new-game-project/pull/3) was merged. The resulting `main` merge commit is `9b92d80` (`Merge pull request #3 from ramstein2187-wq/codex/integrate-m016`); local `main` was fast-forwarded to match `origin/main` on 2026-09-21. No additional M016 gameplay changes or manual checks are claimed beyond the validated integration branch and the user's confirmation.
 
 ## Boundaries and subsequent work
 
 One player/rat; default 40×30 display layout, atomic actions, English prototype log and full-map observation. No new tileset, animation, general Actor registry, multiple NPCs, perception, factions, abilities, equipment, larger world/biomes or persistence. These remain separate roadmap items; reusable stateful interaction objects remain M002. Seed compatibility and ruin reachability follow-ups remain unchanged.
 
-Next handoff and PR information: `docs/reviews/2026-09-21-m016-integration.md`.
+Historical integration handoff and automated validation evidence: `docs/reviews/2026-09-21-m016-integration.md` and `docs/reviews/2026-09-21-m016-validation.txt`. Unfinished extensions are tracked in `docs/ROADMAP.md`.

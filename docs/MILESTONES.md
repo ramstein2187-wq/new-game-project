@@ -4,11 +4,11 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- Latest completed on `main`: M015; PR #2 merged at `19ce6d1` on 2026-09-21.
-- Still planned on `main`: `M002` — Interactive objects and simple state
-- M010 remains the paused comparison prototype; M011 action-cost time is the selected model. M011–M015 code, tests and design documents are on main.
-- M011–M015: automated validation passed; user confirmed manual validation on 2026-09-21. The agent did not perform that manual playthrough.
-- M016 candidate: `codex/integrate-m016`, based on main `19ce6d1`, reuses `chat/procgen-time-combat` (`8b5c2a6`) and fixes generated-map reset/configuration. All 14 combined test scripts pass. Manual GUI checks and main merge remain pending; see `docs/milestones/M016_generated_map_combat.md`.
+- Latest completed on `main`: M016; PR #3 merged at `9b92d80` on 2026-09-21.
+- Still planned on `main`: `M002` — Interactive objects and simple state.
+- M010 remains the paused comparison prototype; M011 action-cost time is the selected model. M011–M016 code, tests and design documents are on `main`.
+- M011–M015: automated validation passed; user confirmed manual validation on 2026-09-21 (PR #2, `19ce6d1`). The agent did not perform that manual playthrough.
+- M016: 14 combined automated test scripts passed on the integration branch; user confirmed all M016 manual play checks passed on 2026-09-21. PR #3 was merged into `main` at `9b92d80`. The agent did not perform the manual playthrough; see `docs/milestones/M016_generated_map_combat.md`.
 - World persistence is design only; M002 remains planned. Prototype doors do not complete reusable stateful interaction objects.
 - Other future and unfinished work, including items on separate branches: `docs/ROADMAP.md`.
 
@@ -31,7 +31,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | M013 | Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
 | M014 | Complete | Shared player/NPC actions with validity, costs, execution and event data | `docs/milestones/M014_common_action_system.md` |
 | M015 | Complete | Action candidate evaluation, injury/trait-driven rat decisions, observable reasons | `docs/milestones/M015_tactical_ai_prototype.md` |
-| M016 | Automated Validation Complete / Manual Check Pending | Generated-map time/Action/AI integration; reset fixed, main merge pending | `docs/milestones/M016_generated_map_combat.md` |
+| M016 | Complete | Generated-map time/Action/AI integration; reset and spawn validation fixed, manual checks confirmed, PR #3 merged | `docs/milestones/M016_generated_map_combat.md` |
 
 ## Usage
 
