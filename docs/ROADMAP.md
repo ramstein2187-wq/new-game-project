@@ -17,20 +17,17 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 - **Complete** — M011–M015 on `main` at `19ce6d1`: 13 automated scripts pass; user confirmed manual validation on 2026-09-21 and merged via [PR #2](https://github.com/ramstein2187-wq/new-game-project/pull/2). M010 remains paused. See `docs/reviews/2026-09-21-m015-merge.md`.
 - **Complete** — M016 generated-map combat integration on `main` at `9b92d80`: 14 combined automated test scripts passed on the integration branch; user confirmed M016 manual play verification on 2026-09-21, then [PR #3](https://github.com/ramstein2187-wq/new-game-project/pull/3) was merged. See `docs/milestones/M016_generated_map_combat.md`.
+- **Complete** — M017 body combat and M018 eight-way movement on `codex/integrate-m017-m018`: the user confirmed both manual checks on 2026-09-21; 17 combined automated scripts passed. Main delivery: [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4), [integration record](reviews/2026-09-21-m017-m018-integration.md). Default F5 runs the procedural combat map; fixed-room F6 remains available. Selected diagonal move costs are 1400/1050 before injury efficiency.
 
 ## Unfinished and future work
 
-- **In progress — manual gate** — M017 combat/body phase 1 implemented on `codex/m017-combat-body-phase1`, 15 automated tests passed: [milestone/results/manual procedure](milestones/M017_combat_body_phase1.md), [specification](CRPG_combat_body_phase1_design.md). User-prioritized ahead of other expansion; manual play and main integration pending.
-- M017 local-play follow-up: the procedural-map combat scene is now the task branch's default F5 entry point, per user request. The fixed room remains an optional F6 diagnostic scene.
-- **In progress — manual gate; requires M017** — M018 eight-way movement and diagonal melee implemented on `chat/eight-way-combat`, with validated 1.4× diagonal movement-cost follow-up on `chat/diagonal-movement-cost` (player 1400, rat 1050 before injury modifiers); 16 automated scripts passed on the follow-up, user manual validation and integration pending. See [M018](milestones/M018_eight_way_combat.md). Four cardinal directions remain supported, and door interaction remains cardinal.
-
-Snapshot: 2026-09-21. A (M011–M015) and B (M016 generated-map combat integration) are complete on `main`; C denotes separate expansion that has not been implemented. Historical integration evidence: `docs/reviews/2026-09-21-m015-integration.md`, `docs/reviews/2026-09-21-m015-merge.md`, and `docs/reviews/2026-09-21-m016-integration.md`.
+Snapshot: 2026-09-21, after user acceptance of M017/M018. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
-| Combat/body | Manual play M017 and approve integration after visual/input/combat checks | Planned | Task branch only; [M017](milestones/M017_combat_body_phase1.md). No automatic main merge. |
-| Combat balance | Evaluate severe player-arm-injury frequency, rat retreat/encounter pacing and species/weapon values | Planned | M017 500-seed adjacency sample often ends in retreat before severe arm injury; functional changes verified by controlled real attacks. Do not confuse this with full-game win rates. |
-| Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017 uses fixed 1152×648 prototype layout and Resource factories; manual readability verification pending. |
+| Combat balance | Evaluate severe player-arm-injury frequency, rat retreat/encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
+| Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | Current 1152×648 layout was included in user manual acceptance; broader window-size support remains separate. |
+| Tactical routing | Cost-aware routes and alternative keyboard/Num Lock mappings if needed | Candidate | Selected M018 uses deterministic shortest-step routing and keypad directions; weighted movement time is charged correctly. No alternative equal-cost implementation was merged. |
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
@@ -44,7 +41,7 @@ Snapshot: 2026-09-21. A (M011–M015) and B (M016 generated-map combat integrati
 | RPG content (C) | Broader abilities, equipment, quests and social/faction content after the minimal gameplay and persistence loops | Candidate | No new implementation milestone assigned; outside M016. |
 | Generation follow-up | Seed-version compatibility and reachable ruins when ruins become playable destinations | Planned | Prior local review reported 31-bit seed folding and disconnected ruin entrances; not introduced by this integration. Reproduce before changing generation semantics; preserve existing seed decision/golden values. |
 
-Suggested sequence after completed M016: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> RPG content. Numbers after M016 remain unassigned until scoped work starts. These extensions do not reopen M011–M016 acceptance.
+Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. Numbers after M018 remain unassigned until scoped work starts. These extensions do not reopen earlier milestone acceptance.
 
 ## Maintenance rules
 

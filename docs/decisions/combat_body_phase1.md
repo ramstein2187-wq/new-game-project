@@ -1,6 +1,6 @@
 # Combat/body phase 1 boundary
 
-Implemented on `codex/m017-combat-body-phase1`, pending manual verification and main integration. Specification: [combat/body design](../CRPG_combat_body_phase1_design.md); validation and handoff: [M017](../milestones/M017_combat_body_phase1.md).
+Implemented on `codex/m017-combat-body-phase1`; user manual verification confirmed 2026-09-21. Combined M017/M018 delivery: [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4). Specification: [combat/body design](../CRPG_combat_body_phase1_design.md); validation and handoff: [M017](../milestones/M017_combat_body_phase1.md).
 
 - Abilities, reusable pure D20 checks, body templates, per-instance integrity, armor resolution, and HP are separate concerns. Probability queries consume no random state.
 - `CombatSpecies` and `BodyTemplate` are Resource definitions; `BodyInstance` deep-copies part dictionaries and functionality arrays. No instance wounds mutate template state. Definitions are currently constructed by small factories; external content files can follow when there is actual authoring demand.
