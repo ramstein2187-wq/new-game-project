@@ -36,7 +36,7 @@ Implementation specification: [combat/body design](../CRPG_combat_body_phase1_de
 
 ## Manual play gate / next steps
 
-1. Open `time_cost/time_cost_test_room.tscn` in Godot and run current scene (F6), then repeat with `time_cost/generated_map_combat_playground.tscn`. Project main scene intentionally remains unchanged. Use a 1152×648 or larger window for the current fixed layout.
+1. Press F5 in Godot to start `time_cost/generated_map_combat_playground.tscn` (selected as the default after the user's procedural-map play request). For focused comparison, open `time_cost/time_cost_test_room.tscn` and run current scene (F6). Use a 1152×648 or larger window for the current fixed layout.
 2. Use six +/- rows: spend 12, check 10 minimum/16 maximum, refund and reset. Confirm ordinary movement/wait hotkeys still work after mouse clicks. Bump rat to attack; E opens fixed-room door; Space/Enter waits; L/F3 switch logs; scroll detailed traces. Check D20/part/armor and visible miss/block feedback.
 3. Observe tooltip and attack/move status after injuries; ability reset must not heal. R restores a healthy fixed room; on generated map R replaces map/game and rebinds the panel. Verify readability, map/log separation and both death/reset paths visually.
 4. For repeatable injury diagnostics, run the engine with `--path <project> --script res://tools/play_combat_body_scenario.gd -- human-arm-damaged` (omit `--headless` for manual play). Other cases: `human-arm-disabled`, `rat-leg-damaged`, `rat-head-damaged`, `rat-head-disabled`. These inject a declared starting wound, not fabricated attack events. Right bump checks impaired/unavailable attack; waiting checks rat behavior; rat leg move cost is 858. R exits the wound fixture into a normal healthy room.
@@ -49,3 +49,9 @@ Follow-ups are tracked in the roadmap: balance/severe-arm-injury frequency and e
 - Implementation commit: `ae8ac1a` (`feat: implement M017 D20 combat and capability-driven body injuries`). Pushed to `origin/codex/m017-combat-body-phase1` on 2026-09-21; this delivery record follows as a documentation commit.
 - Windows Git push hit SSH host-key verification failure; the existing WSL Git environment successfully pushed with `bash -c 'git push -u origin codex/m017-combat-body-phase1'`. No SSH verification/configuration was weakened.
 - Next work is the manual gate above and balance follow-ups, not reimplementation. Main was not merged. Unrelated pre-existing tileset imports and September 20 review files remain untracked and untouched.
+
+## Local play follow-up — procedural-map entry point
+
+- The user requested playing this system on the procedural map after trying the fixed room. Rechecked the existing generated-map adapter: it already shares the M017 body, abilities, armor, actions, AI and log, including resetting/rebinding the panel when R generates the next map.
+- Changed only the project startup scene to the generated-map combat playground so ordinary F5/local project launch reaches the requested environment. The original main scene and fixed-room scene remain available for F6 comparison; no duplicate combat implementation was added.
+- Validation and local launch are recorded in `docs/reviews/2026-09-21-m017-local-play.md`; manual acceptance remains pending.

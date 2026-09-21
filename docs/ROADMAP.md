@@ -21,6 +21,7 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 ## Unfinished and future work
 
 - **In progress — manual gate** — M017 combat/body phase 1 implemented on `codex/m017-combat-body-phase1`, 15 automated tests passed: [milestone/results/manual procedure](milestones/M017_combat_body_phase1.md), [specification](CRPG_combat_body_phase1_design.md). User-prioritized ahead of other expansion; manual play and main integration pending.
+- M017 local-play follow-up: the procedural-map combat scene is now the task branch's default F5 entry point, per user request. The fixed room remains an optional F6 diagnostic scene.
 
 Snapshot: 2026-09-21. A (M011–M015) and B (M016 generated-map combat integration) are complete on `main`; C denotes separate expansion that has not been implemented. Historical integration evidence: `docs/reviews/2026-09-21-m015-integration.md`, `docs/reviews/2026-09-21-m015-merge.md`, and `docs/reviews/2026-09-21-m016-integration.md`.
 
