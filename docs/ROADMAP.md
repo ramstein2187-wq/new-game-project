@@ -29,6 +29,8 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 | Tactical AI / world | Generalize beyond one rat: other NPCs, faction-dependent preferences, perception and broader goals | Candidate | M015 explicitly defers these systems; decide scope and register a new milestone before implementation. |
 | Feedback / explainability | Extend observable reasons to additional NPC behaviors, dialogue/barks and contextual feedback | Candidate | The M012 log and M015 retreat cue are prototypes, not full player-facing coverage. See `docs/decisions/explainable_systemic_behavior.md`. |
 | World generation | Expansion beyond the current playable generated map (regions, landmarks and tuning informed by playtests) | Candidate | Do not assume the current prototype already supports a full world. |
+| World persistence | Prototype zone freeze/restore and selective major-site vs wilderness persistence, including unique entity/item ownership and save/load consistency | Planned | Design only on `chat/world-persistence-design`: `docs/decisions/world_persistence.md`. Choose scope and register a new implementation milestone only when work begins; not present on `main`. |
+| World simulation | Shared world clock integration, lazy regrowth/replenishment, and consequential cross-zone scheduled events after initial persistence tests | Candidate | See `docs/decisions/world_persistence.md`; no background world simulation implementation or clock-unit decision yet. |
 
 ## Maintenance rules
 
