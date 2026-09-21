@@ -1,0 +1,107 @@
+== Godot version ==
+4.7.2.stable.mono.official.ed1daf0bf
+== Editor parse/import check ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 프로젝트 초기화 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 파일 구조 스캔 중...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 전역 클래스 이름을 불러오는 중...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | GDExtensions 검증 중...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 오토로드 스크립트를 만드는 중...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 플러그인을 초기화 중...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 파일 스캔 시작 중...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 전역 클래스를 등록하는 중... (11 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | AttackAction[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | InteractAction[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | MoveAction[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | RatTactics[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | TimeCostGame[39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 편집기를 불러오는 중 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 편집기 레이아웃을 불러오는 중...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 독을 불러오는 중...[39m[0m
+[  33% ] [90m[1mloading_editor_layout[22m | 씬을 다시 여는 중...[39m[0m
+[  50% ] [90m[1mloading_editor_layout[22m | 중앙 편집기 레이아웃을 불러오는 중...[39m[0m
+[  66% ] [90m[1mloading_editor_layout[22m | 플러그인 창 레이아웃을 불러오는 중...[39m[0m
+[  83% ] [90m[1mloading_editor_layout[22m | 편집기 레이아웃이 준비되었습니다.[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+== Main scene startup smoke test ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+== Project tests ==
+-- tests/test_basic_interaction.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+상자를 조사했다.
+PASS: basic interaction
+-- tests/test_combat_body.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: combat/body rules, RNG, Action/AI, allocation UI and reset
+-- tests/test_combat_log.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: structured combat log
+-- tests/test_common_action_system.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: common action system
+-- tests/test_eight_way_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: eight-way movement, 1400/1050 diagonal costs, injury scaling, diagonal melee and corner collision
+-- tests/test_generated_map_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generated-map action-cost combat
+-- tests/test_generation_settings.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generation settings
+-- tests/test_micro_ap_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: micro AP test room
+-- tests/test_procedural_map_preview.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural map preview
+-- tests/test_procedural_playground.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural playground
+-- tests/test_seed_deriver.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: seed deriver
+-- tests/test_simple_map_generator.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: simple procedural map generator
+-- tests/test_tactical_ai.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: tactical AI decision and explainability
+-- tests/test_time_cost_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scheduler test room
+-- tests/test_time_cost_input.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scene input, defeat and reset
+-- tests/test_time_scheduler.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: independent time scheduler
+All Godot checks passed.

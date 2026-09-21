@@ -14,11 +14,9 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 		and game.can_attack(actor_id)
 		and game.actor_is_alive(target_id)
 		and actor_id != target_id
-		and game._manhattan_distance(
+		and game.can_melee_reach(
 			game.get_actor_position(actor_id), game.get_actor_position(target_id)
-		) == 1
-		and game.can_step(game.get_actor_position(actor_id),
-			game.get_actor_position(target_id) - game.get_actor_position(actor_id))
+		)
 	)
 
 

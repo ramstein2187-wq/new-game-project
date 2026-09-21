@@ -411,6 +411,12 @@ func _manhattan_distance(a: Vector2i, b: Vector2i) -> int:
 	return maxi(absi(a.x - b.x), absi(a.y - b.y))
 
 
+func can_melee_reach(start: Vector2i, target: Vector2i) -> bool:
+	# Shared by attack validation, AI approach selection and observable feedback.
+	# Grid adjacency alone is insufficient when a diagonal corner is blocked.
+	return can_step(start, target - start)
+
+
 func can_step(start: Vector2i, direction: Vector2i) -> bool:
 	if not MOVE_DIRECTIONS.has(direction):
 		return false

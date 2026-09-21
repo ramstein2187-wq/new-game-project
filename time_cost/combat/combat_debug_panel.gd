@@ -63,11 +63,12 @@ func refresh() -> void:
 	for actor: StringName in [&"player", &"rat"]:
 		var body: BodyInstance = game.bodies[actor]
 		var move_cost := MoveAction.new(Vector2i.RIGHT).get_cost(game, actor)
+		var diagonal_cost := MoveAction.new(Vector2i(1, 1)).get_cost(game, actor)
 		lines.append("%s: attack %s | move %s" % [actor,
 			"unavailable" if not game.can_attack(actor) else ("impaired (-2)" if body.efficiency(body.attack_part) < 1 else "ready"),
-			str(move_cost) if move_cost > 0 else "unavailable"])
+			"%d/%d" % [move_cost, diagonal_cost] if move_cost > 0 else "unavailable"])
 		for part: Dictionary in body.parts.values():
 			details.append("%s %s: %d/%d (%s)" % [actor, part.name, part.current, part.maximum, body.state(part.id)])
-	body_status.text = "\n".join(lines) + "\nHover here for all body parts."
+	body_status.text = "\n".join(lines) + "\nMove: straight/diagonal. Hover for body parts."
 	body_status.tooltip_text = "\n".join(details)
 	body_status.mouse_filter = Control.MOUSE_FILTER_STOP

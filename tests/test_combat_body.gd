@@ -199,7 +199,7 @@ func _test_actions_and_ai() -> void:
 	expect(MoveAction.new(Vector2i.LEFT).get_cost(game, &"rat") == 858, "Injured quadruped actual cost")
 	game.player_position = Vector2i(8, 1) # Unobstructed approach, independent of the new diagonal route around the door.
 	game.player_wait()
-	expect(game.combat_log.events[1].action_cost == 858 and game.rat_next_ready_time > 858, "Approach uses injured movement cost and subsequent rat action")
+	expect(game.combat_log.events[1].action_cost == 858 and game.rat_next_ready_time == 1858, "Approach costs 858 then adjacent bite costs 1000 exactly once")
 	game.reset()
 	game.player_position = Vector2i(7, 3)
 	game.rat_hp = 10
