@@ -5,6 +5,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 ## Current State
 
 - Active: M017 combat/body phase 1 implemented on `codex/m017-combat-body-phase1`, 15 automated tests passed; manual play/main integration pending. [Scope and validation](milestones/M017_combat_body_phase1.md), [design specification](CRPG_combat_body_phase1_design.md).
+- M018 eight-direction movement/melee implemented on `chat/eight-direction-combat` **based on unmerged M017**; 16 automated scripts passed, manual play/integration pending. [Scope and validation](milestones/M018_eight_direction_combat.md). Do not merge ahead of M017 approval.
 
 - Latest completed on `main`: M016; PR #3 merged at `9b92d80` on 2026-09-21.
 - Still planned on `main`: `M002` — Interactive objects and simple state.
@@ -19,6 +20,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
 | M017 | Manual validation pending | D20, abilities, bodies, armor and capability-driven injury; 15 automated tests passed on task branch | `docs/milestones/M017_combat_body_phase1.md` |
+| M018 | Manual validation pending | Eight-direction movement and melee, legal diagonal AI route/retreat; 16 automated scripts passed on M017-based task branch | `docs/milestones/M018_eight_direction_combat.md` |
 | M001 | Complete | Player movement, collision, camera, basic interaction, headless validation | `docs/milestones/M001_foundation.md` |
 | M002 | Planned | Reusable interactive objects with state, beginning with a door | Create when work starts |
 | M003 | Complete | Deterministic seed-based ASCII procedural map prototype | `docs/milestones/M003_procedural_map_prototype.md` |

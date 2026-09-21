@@ -2,6 +2,7 @@ extends Node2D
 
 const MapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
 const CombatGameScript := preload("res://time_cost/generated_map_combat_game.gd")
+const MoveInput := preload("res://time_cost/grid_movement_input.gd")
 const CELL_SIZE := 16.0
 const MAP_ORIGIN := Vector2(24.0, 112.0)
 const GROUND_COLOR := Color("#6f8f4e")
@@ -53,20 +54,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey) or not event.pressed or event.echo or game == null:
 		return
 	var handled := true
+	var movement := MoveInput.direction(event)
 	if event.keycode == KEY_R:
 		regenerate(world_seed + 1)
 	elif event.keycode == KEY_L:
 		detailed_log = not detailed_log
 	elif event.keycode == KEY_F3:
 		debug_log = not debug_log
-	elif event.is_action_pressed("move_left"):
-		game.player_move(Vector2i.LEFT)
-	elif event.is_action_pressed("move_right"):
-		game.player_move(Vector2i.RIGHT)
-	elif event.is_action_pressed("move_up"):
-		game.player_move(Vector2i.UP)
-	elif event.is_action_pressed("move_down"):
-		game.player_move(Vector2i.DOWN)
+	elif movement != Vector2i.ZERO:
+		game.player_move(movement)
 	elif event.is_action_pressed("ui_accept"):
 		game.player_wait()
 	else:
@@ -113,7 +109,7 @@ func _refresh() -> void:
 		game.rat_hp, game.RAT_MAX_HP, game.player_next_ready_time,
 		str(game.rat_next_ready_time) if game.rat_hp > 0 else "defeated"
 	]
-	help_label.text = "WASD/Arrows: one turn move | Bump rat: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
+	help_label.text = "WASD/Arrows: move | Numpad 1/3/7/9: diagonal | Bump rat: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
 	message_label.text = game.message
 	log_label.text = ("Developer trace:\n" + game.get_recent_debug_text()) if debug_log else ("Combat log:\n" + game.get_recent_event_text(detailed_log))
 	if combat_panel != null:

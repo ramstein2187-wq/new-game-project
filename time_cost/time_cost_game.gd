@@ -24,6 +24,10 @@ const CARDINAL_DIRECTIONS: Array[Vector2i] = [
 	Vector2i.DOWN,
 	Vector2i.LEFT,
 ]
+const MOVE_DIRECTIONS: Array[Vector2i] = [
+	Vector2i.UP, Vector2i(1, -1), Vector2i.RIGHT, Vector2i(1, 1),
+	Vector2i.DOWN, Vector2i(-1, 1), Vector2i.LEFT, Vector2i(-1, -1),
+]
 
 var player_position := Vector2i(2, 3)
 var rat_position := Vector2i(8, 3)
@@ -99,13 +103,13 @@ func reset() -> void:
 func player_move(direction: Vector2i) -> bool:
 	if not _can_player_act():
 		return false
-	if not CARDINAL_DIRECTIONS.has(direction):
+	if not MOVE_DIRECTIONS.has(direction):
 		return false
 	facing = direction
 	var target := player_position + direction
 	if rat_hp > 0 and target == rat_position:
 		return perform_action(&"player", AttackAction.new(&"rat"))
-	if _blocks_movement(target):
+	if not can_step(player_position, direction, &"player"):
 		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else "Movement blocked."
 		return false
 	return perform_action(&"player", MoveAction.new(direction))
@@ -232,6 +236,23 @@ func blocks_actor_movement(cell: Vector2i, actor_id: StringName) -> bool:
 	) or (
 		actor_id != &"rat" and rat_hp > 0 and rat_position == cell
 	)
+
+
+# Diagonal steps cannot squeeze past a blocked orthogonal neighbor.
+# Keep this rule shared by player movement, NPC movement and pathfinding.
+func _diagonal_open(from: Vector2i, direction: Vector2i) -> bool:
+	if direction.x == 0 or direction.y == 0:
+		return true
+	return not _blocks_movement(from + Vector2i(direction.x, 0)) and not _blocks_movement(from + Vector2i(0, direction.y))
+
+
+func can_step(from: Vector2i, direction: Vector2i, actor_id: StringName) -> bool:
+	return MOVE_DIRECTIONS.has(direction) and _diagonal_open(from, direction) and not blocks_actor_movement(from + direction, actor_id)
+
+
+func can_melee_reach(from: Vector2i, target: Vector2i) -> bool:
+	var direction := target - from
+	return MOVE_DIRECTIONS.has(direction) and _diagonal_open(from, direction)
 
 
 func damage_actor(actor_id: StringName, damage: int) -> int:
@@ -367,9 +388,9 @@ func _next_step_toward_player() -> Vector2i:
 		if current == player_position:
 			break
 
-		for direction in CARDINAL_DIRECTIONS:
+		for direction in MOVE_DIRECTIONS:
 			var neighbor := current + direction
-			if came_from.has(neighbor):
+			if not _diagonal_open(current, direction) or came_from.has(neighbor):
 				continue
 			if not is_inside(neighbor):
 				continue

@@ -1,6 +1,7 @@
 extends Node2D
 
 const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
+const MoveInput := preload("res://time_cost/grid_movement_input.gd")
 
 const CELL_SIZE := 48.0
 const ROOM_ORIGIN := Vector2(64.0, 280.0)
@@ -44,6 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	var handled := false
+	var movement := MoveInput.direction(event)
 
 	if event.keycode == KEY_R:
 		game.reset()
@@ -54,17 +56,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.keycode == KEY_F3:
 		debug_log = not debug_log
 		handled = true
-	elif event.is_action_pressed("move_left"):
-		game.player_move(Vector2i.LEFT)
-		handled = true
-	elif event.is_action_pressed("move_right"):
-		game.player_move(Vector2i.RIGHT)
-		handled = true
-	elif event.is_action_pressed("move_up"):
-		game.player_move(Vector2i.UP)
-		handled = true
-	elif event.is_action_pressed("move_down"):
-		game.player_move(Vector2i.DOWN)
+	elif movement != Vector2i.ZERO:
+		game.player_move(movement)
 		handled = true
 	elif event.is_action_pressed("interact"):
 		game.player_interact()
@@ -123,7 +116,7 @@ func _refresh() -> void:
 	)
 	timeline_label.text = game.get_timeline_text()
 	help_label.text = (
-		"WASD/Arrows: move | Bump rat: attack | E: door\n"
+		"WASD/Arrows: move | Numpad 1/3/7/9: diagonal | E: door\n"
 		+ "Space/Enter: wait | R: reset | L: details | F3: trace\n"
 		+ "Injuries change costs and available actions. Ties favor you."
 	)
