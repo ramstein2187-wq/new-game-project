@@ -1,27 +1,43 @@
 # M019 — Common Actor and multiple NPCs
 
-Status: in progress on `codex/m019-common-actor`, based on main `b232dce`.
-Specification: [user supplied implementation requirements](../designs/M019_common_actor_spec.md).
+Status: implementation and automated validation complete on `codex/m019-common-actor`; **manual play acceptance pending, not merged to main**.
+Base: main `b232dce`. Implementation commit: `e3143ce`. Final evidence/documentation is in the subsequent commit on the same branch.
 
-## Goal and constraints
+[User specification](../designs/M019_common_actor_spec.md) · [Architecture decision](../decisions/common_actor_model.md) · [Validation report](../reviews/2026-09-22-m019-validation.md)
 
-Move runtime ownership into Actor, use a stable registry and arbitrary NPC IDs throughout Actions/AI, and run player + three independent rats on the generated map. Preserve M011–M018 rules, fixed-room single-rat behavior, deterministic combat, terrain generation and scheduler priority. No main merge; manual play verification remains a separate gate.
+## Delivered scope
+
+- ActorDefinition Resource, Actor runtime ownership and stable ActorRegistry. Independent HP, abilities, bodies, position/facing and AI state; ready times remain in the existing scheduler.
+- Arbitrary-ID actions, costs, attacks, damage, occupancy, NPC dispatch and target-aware rat tactics. Lifecycle updates registry/scheduler together; dead NPCs retain bodies but cannot occupy or act.
+- Default generated scene: player + three numbered rats. Deterministic reachable spawn selection preserves the original terrain/first spawns and combat RNG. Small layouts gracefully use fewer NPCs. Direct reset restores the configured roster.
+- Registry-driven rendering, HP/body/cost inspection and named player-visible logs. F3 retains per-ID timing and full decision traces.
+- Preserved M011–M018 numbers/rules. Fixed-room default remains one rat; legacy tests explicitly request one generated NPC where their assertions measure that scenario.
 
 ## Checkpoints / resumption
 
-- 2026-09-22: verified clean tracked main at b232dce; preserved unrelated untracked imports and review files. Read AGENTS, roadmap, milestones M013–M018, combat/time/explainability decisions and supplied requirements.
-- Existing ownership is split across positions/HP and abilities/species/bodies dictionaries; scheduler already supports arbitrary IDs. Actions/AI/UI still assume one rat. Refactor ownership and callers, retain forwarding compatibility accessors for existing tests, and stage generated spawn validation before committing configuration.
-- Phase A: ActorDefinition, Actor, ActorRegistry and isolation/lifecycle tests.
-- Phase B: generic game/actions/AI with single-NPC regression checks.
-- Phase C: deterministic generated NPC placement and registry-driven UI/logs.
-- Phase D: full automated checks, review final diff, update docs and commit/push task branch.
-- Checkpoint: ActorDefinition/Actor/Registry, shared Action costs and generic NPC dispatch implemented. Registry-driven scene drawing, per-NPC status and captured event names implemented. Generated placement uses deterministic cardinal BFS with unchanged first spawns and explicit single-NPC test fixtures.
-- Targeted `test_common_actor.gd` and `test_multiple_npcs.gd` pass. The 3-seed replay checksum captured from b232dce matches after refactor. Existing 17 scripts passed before adding the final multi-NPC suite. Final all-suite run and presentation check pending.
+- 2026-09-22: read AGENTS, roadmap, M013–M018 milestones and relevant combat/time/explainability decisions; verified main b232dce and preserved unrelated untracked imports/review work. Archived the supplied specification unchanged.
+- Phase A: introduced ActorDefinition/Actor/ActorRegistry with isolation and lifecycle tests.
+- Phase B: moved state ownership and generic action/AI dispatch. Captured single-rat replay at main b232dce before refactoring; post-change three-seed checksum matches all positions, HP/body damage, clock, event data and RNG state.
+- Phase C: deterministic generated three-NPC roster, per-actor scene loops, named events and expanded body panel. Existing single-NPC fixtures retain their assertions and use explicit count 1.
+- Phase D: all 20 test scripts, editor parse/import and main startup passed. Added actual-scene input tests for three independent moves/attacks, one rat's retreat, selected-target death and displayed status. Rendered the default scene and visually inspected the capture at 1152×648; this is automated presentation evidence, not manual play acceptance.
+- Implementation checkpoint e3143ce was committed and pushed to origin/codex/m019-common-actor. Final handoff records, test output and screenshot are in the following documentation commit on that same branch. No main merge is authorized for M019.
 
-## Validation
+## Validation and decisions
 
-Pending implementation. Prior manual acceptance applies only to M017/M018, not M019.
+`bash tools/check_godot.sh` passed all 20 scripts. [Raw output](../reviews/2026-09-22-m019-check.txt), [test inventory and scope](../reviews/2026-09-22-m019-validation.md), [render capture](../reviews/2026-09-22-m019-scene.png).
+
+No design principles or balance values changed. New decisions: shared immutable definitions with isolated species tuning copies; retained dead registry entries; default three-NPC deterministic placement with explicit count-1 fixtures; temporary forwarding compatibility accessors. Details and constraints are in the architecture decision.
+
+## Manual acceptance checklist
+
+1. Open `time_cost/generated_map_combat_playground.tscn` with F6, or F5 (default main scene). Confirm blue player and red markers 1, 2, 3, each with its own HP/body row.
+2. Use WASD/arrows or keypad 1–9 (except center) to move; Space/Enter waits. Watch three distinct NPCs approach and attack without overlapping. Retreat or corner obstructions should cause individual decisions.
+3. Bump a chosen NPC to attack it. Observe that only its HP/body status changes, wounded rats can retreat, and a defeated rat disappears from the map, remains marked dead in UI and stops taking turns. Other rats continue.
+4. Hover the body status for per-ID part integrity. Player STR/DEX/etc allocation and reset buttons still work; ability reset preserves wounds/HP. Injury slows movement and can disable attacks.
+5. Toggle L for routine actions, F3 for actor/target IDs, timestamps, costs, candidate scores and reasons. Healthy straight/diagonal costs are player 1000/1400 and rat 750/1050; injury scales once. Hidden reasoning must disappear when F3 is off.
+6. R generates the next seed and recreates a fresh player + three rats; no old HP, injuries, traits, clock or log remains. Fixed-room `time_cost/time_cost_test_room.tscn` F6 retains one rat, cardinal E door interaction and R same-room reset.
+7. Check pacing/readability under actual play. All NPC actions still resolve atomically; perception is full-map, routing is shortest steps, and the layout targets 1152×648. Three-rat balance and smaller/larger-roster UI are not claimed accepted.
 
 ## Follow-ups
 
-Inventory/equipment, factions/controllers, statuses, world persistence, perception/memory, species content and action animation remain separate roadmap work.
+Manual play/encounter balance is the remaining merge gate. Existing roadmap entries cover action animation, inventory/equipment, factions/companions/controllers, statuses, world/save persistence, perception/memory and species content. No M011–M018 completed milestone documents were expanded.
