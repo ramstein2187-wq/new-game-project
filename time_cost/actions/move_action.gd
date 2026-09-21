@@ -21,7 +21,12 @@ func get_cost(game: RefCounted, actor_id: StringName) -> int:
 	var efficiency: float = game.movement_efficiency(actor_id)
 	if efficiency <= 0:
 		return 0
-	var base_cost: int = game.RAT_MOVE_COST if actor_id == &"rat" else game.MOVE_COST
+	var diagonal := direction.x != 0 and direction.y != 0
+	var base_cost: int
+	if actor_id == &"rat":
+		base_cost = game.RAT_DIAGONAL_MOVE_COST if diagonal else game.RAT_MOVE_COST
+	else:
+		base_cost = game.DIAGONAL_MOVE_COST if diagonal else game.MOVE_COST
 	return ceili(base_cost / efficiency)
 
 

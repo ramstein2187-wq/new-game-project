@@ -13,9 +13,25 @@ func _init() -> void:
 		if not game.player_move(direction) or game.player_position != Vector2i(8, 2) + direction:
 			fail("Open diagonal move failed: %s" % direction)
 			return
-		if game.last_action_cost != game.MOVE_COST:
-			fail("Diagonal movement must consume one normal movement action")
+		if game.last_action_cost != game.DIAGONAL_MOVE_COST:
+			fail("Player diagonal movement must cost 1400")
 			return
+
+	game.reset()
+	if MoveAction.new(Vector2i.RIGHT).get_cost(game, &"player") != 1000 or MoveAction.new(Vector2i.RIGHT).get_cost(game, &"rat") != 750:
+		fail("Cardinal movement costs must remain unchanged")
+		return
+	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"rat") != 1050:
+		fail("Rat diagonal movement must cost 1050")
+		return
+	game.bodies[&"player"].apply_damage(&"left_leg", 13)
+	game.bodies[&"rat"].apply_damage(&"left_foreleg", 3)
+	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"player") != 1867:
+		fail("Injured player diagonal movement must apply efficiency and round up")
+		return
+	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"rat") != 1200:
+		fail("Injured rat diagonal movement must apply efficiency and round up")
+		return
 
 	game.reset()
 	game.player_position = Vector2i(7, 2)
@@ -46,7 +62,7 @@ func _init() -> void:
 		fail("Multi-tile movement must remain invalid")
 		return
 
-	print("PASS: eight-way movement, diagonal melee, corner collision and time costs")
+	print("PASS: eight-way movement, 1400/1050 diagonal costs, injury scaling, diagonal melee and corner collision")
 	quit(0)
 
 func fail(message: String) -> void:

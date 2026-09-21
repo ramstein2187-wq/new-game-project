@@ -205,7 +205,9 @@ func _test_actions_and_ai() -> void:
 	game.rat_hp = 10
 	game.bodies[&"rat"].apply_damage(&"left_foreleg", 3)
 	game.player_wait()
-	expect(game.combat_log.events[1].data.ai_goal == &"survive" and game.combat_log.events[1].action_cost == 858, "Retreat shares injured movement cost")
+	var retreat_event: CombatEvent = game.combat_log.events[1]
+	var retreat_step: Vector2i = retreat_event.data["to"] - retreat_event.data["from"]
+	expect(retreat_event.data.ai_goal == &"survive" and retreat_event.action_cost == MoveAction.new(retreat_step).get_cost(game, &"rat"), "Retreat shares injured movement cost for the selected direction")
 	game.reset()
 	game.bodies[&"player"].apply_damage(&"left_leg", 13)
 	expect(game.player_move(Vector2i.RIGHT) and game.last_action_cost == 1334, "Player leg increases actual movement cost")
