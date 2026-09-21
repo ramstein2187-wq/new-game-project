@@ -53,6 +53,7 @@ func _run_tests() -> void:
 		return
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	game.player_hp = 1
 	_press(KEY_SPACE)
 	if not game.game_over or game.player_hp != 0 or game.last_response_count != 1:

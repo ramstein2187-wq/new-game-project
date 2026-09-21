@@ -10,6 +10,10 @@ static func choose(game: RefCounted, actor_id: StringName = &"rat") -> TacticalC
 	var fear: int = game.get_rat_fear()
 
 	var wait_option := TacticalChoice.new(WaitAction.new(), &"hold_position", 0)
+	if not game.can_attack(actor_id):
+		wait_option.add_reason(&"attack_function_lost")
+	if game.movement_efficiency(actor_id) <= 0:
+		wait_option.add_reason(&"locomotion_lost")
 	if distance > 1:
 		var next_step: Vector2i = game._next_step_toward_player()
 		if next_step == game.rat_position:

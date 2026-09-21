@@ -3,7 +3,7 @@ extends Node2D
 const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
 
 const CELL_SIZE := 48.0
-const ROOM_ORIGIN := Vector2(64.0, 220.0)
+const ROOM_ORIGIN := Vector2(64.0, 280.0)
 
 const FLOOR_COLOR := Color("#252b33")
 const WALL_COLOR := Color("#59636f")
@@ -17,16 +17,23 @@ const FACING_COLOR := Color("#d7e7f5")
 var game: TimeCostGame
 var detailed_log := false
 var debug_log := false
+var combat_panel: CombatDebugPanel
 
 @onready var status_label: Label = $CanvasLayer/UI/VBox/Status
 @onready var timeline_label: Label = $CanvasLayer/UI/VBox/Timeline
 @onready var help_label: Label = $CanvasLayer/UI/VBox/Help
 @onready var message_label: Label = $CanvasLayer/UI/VBox/Message
-@onready var event_log_label: Label = $CanvasLayer/UI/VBox/EventLog
+@onready var event_log_label: Label = $CanvasLayer/LogScroll/EventLog
 
 
 func _ready() -> void:
 	game = TimeCostGameScript.new()
+	combat_panel = CombatDebugPanel.new()
+	combat_panel.position = Vector2(680, 220)
+	combat_panel.size.x = 440
+	combat_panel.game = game
+	$CanvasLayer.add_child(combat_panel)
+	combat_panel.changed.connect(_refresh)
 	_refresh()
 
 
@@ -116,16 +123,16 @@ func _refresh() -> void:
 	)
 	timeline_label.text = game.get_timeline_text()
 	help_label.text = (
-		"WASD/Arrows: move (1000)  |  Bump rat: attack (1250)  |  "
-		+ "E: door (500)  |  Space/Enter: wait (1000)  |  R: reset\n"
-		+ "Rat: move 750 / attack 1000. Ties go to the player.\n"
-		+ "L: show/hide minor log events  |  F3: switch player log / developer trace"
+		"WASD/Arrows: move | Bump rat: attack | E: door\n"
+		+ "Space/Enter: wait | R: reset | L: details | F3: trace\n"
+		+ "Injuries change costs and available actions. Ties favor you."
 	)
 	message_label.text = game.message
 	if debug_log:
 		event_log_label.text = "Developer trace (last 6):\n" + game.get_recent_debug_text()
 	else:
 		event_log_label.text = "Combat log:\n" + game.get_recent_event_text(detailed_log)
+	combat_panel.refresh()
 	queue_redraw()
 
 

@@ -103,11 +103,12 @@ func _test_player_and_rat_share_action_types() -> bool:
 
 func _test_combat_and_reason_trace() -> bool:
 	var game := TimeCostGameScript.new()
+	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 	if not game.player_move(Vector2i.RIGHT):
 		return _fail("Bump attack should run through AttackAction")
-	if game.rat_hp != 2 or game.player_hp != 3 or game.last_response_count != 2:
+	if game.rat_hp != game.RAT_MAX_HP - game.ATTACK_DAMAGE or game.player_hp != game.PLAYER_MAX_HP - 2 * game.ATTACK_DAMAGE or game.last_response_count != 2:
 		return _fail("Shared attack path changed damage or timing")
 	if game.combat_log.events.size() != 3:
 		return _fail("Player attack and both rat bites should be recorded")

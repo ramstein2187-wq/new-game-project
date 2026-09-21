@@ -9,6 +9,8 @@ func _init(move_direction: Vector2i = Vector2i.ZERO) -> void:
 
 
 func can_execute(game: RefCounted, actor_id: StringName) -> bool:
+	if game.movement_efficiency(actor_id) <= 0:
+		return false
 	if not game.CARDINAL_DIRECTIONS.has(direction):
 		return false
 	var target: Vector2i = game.get_actor_position(actor_id) + direction
@@ -16,7 +18,11 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 
 
 func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return game.RAT_MOVE_COST if actor_id == &"rat" else game.MOVE_COST
+	var efficiency: float = game.movement_efficiency(actor_id)
+	if efficiency <= 0:
+		return 0
+	var base_cost: int = game.RAT_MOVE_COST if actor_id == &"rat" else game.MOVE_COST
+	return ceili(base_cost / efficiency)
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

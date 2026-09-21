@@ -73,7 +73,7 @@ func _test_wounded_rat_retreats_and_shows_only_visible_cues() -> bool:
 	var game := GameScript.new()
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
-	game.rat_hp = 1
+	game.rat_hp = game.RAT_MAX_HP / 3
 	var start_distance := game._manhattan_distance(game.rat_position, game.player_position)
 	if not game.player_wait():
 		return _fail("Player should be able to wait while the rat reevaluates")
@@ -101,7 +101,7 @@ func _test_aggression_and_fear_can_change_the_same_rat() -> bool:
 	var game := GameScript.new()
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
-	game.rat_hp = 1
+	game.rat_hp = game.RAT_MAX_HP / 3
 	game.rat_aggression = 180
 	if not game.player_wait():
 		return _fail("First wait failed")

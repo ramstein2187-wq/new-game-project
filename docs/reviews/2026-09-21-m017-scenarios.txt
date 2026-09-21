@@ -1,0 +1,14 @@
+Scenario: human-arm-damaged
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Scenario: human-arm-disabled
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Scenario: rat-leg-damaged
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Scenario: rat-head-damaged
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Scenario: rat-head-disabled
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org

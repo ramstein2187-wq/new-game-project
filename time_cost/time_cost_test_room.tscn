@@ -10,7 +10,7 @@ script = ExtResource("1_room")
 [node name="UI" type="MarginContainer" parent="CanvasLayer"]
 offset_left = 20.0
 offset_top = 16.0
-offset_right = 1040.0
+offset_right = 660.0
 offset_bottom = 205.0
 
 [node name="VBox" type="VBoxContainer" parent="CanvasLayer/UI"]
@@ -19,15 +19,17 @@ theme_override_constants/separation = 4
 
 [node name="Title" type="Label" parent="CanvasLayer/UI/VBox"]
 layout_mode = 2
-text = "Time-Cost Scheduler Test Room — player-facing turns, simulation-facing time"
+text = "Combat / Body Test Room"
 
 [node name="Status" type="Label" parent="CanvasLayer/UI/VBox"]
 layout_mode = 2
 text = "Status"
+autowrap_mode = 2
 
 [node name="Timeline" type="Label" parent="CanvasLayer/UI/VBox"]
 layout_mode = 2
 text = "Timeline"
+autowrap_mode = 2
 
 [node name="Help" type="Label" parent="CanvasLayer/UI/VBox"]
 layout_mode = 2
@@ -39,7 +41,15 @@ layout_mode = 2
 text = "Message"
 autowrap_mode = 2
 
-[node name="EventLog" type="Label" parent="CanvasLayer/UI/VBox"]
+[node name="LogScroll" type="ScrollContainer" parent="CanvasLayer"]
+offset_left = 680.0
+offset_top = 16.0
+offset_right = 1136.0
+offset_bottom = 205.0
+horizontal_scroll_mode = 0
+
+[node name="EventLog" type="Label" parent="CanvasLayer/LogScroll"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Recent scheduler events"
 autowrap_mode = 2

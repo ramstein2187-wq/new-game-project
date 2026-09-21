@@ -20,10 +20,16 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
+- **In progress — manual gate** — M017 combat/body phase 1 implemented on `codex/m017-combat-body-phase1`, 15 automated tests passed: [milestone/results/manual procedure](milestones/M017_combat_body_phase1.md), [specification](CRPG_combat_body_phase1_design.md). User-prioritized ahead of other expansion; manual play and main integration pending.
+
 Snapshot: 2026-09-21. A (M011–M015) and B (M016 generated-map combat integration) are complete on `main`; C denotes separate expansion that has not been implemented. Historical integration evidence: `docs/reviews/2026-09-21-m015-integration.md`, `docs/reviews/2026-09-21-m015-merge.md`, and `docs/reviews/2026-09-21-m016-integration.md`.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
+| Combat/body | Manual play M017 and approve integration after visual/input/combat checks | Planned | Task branch only; [M017](milestones/M017_combat_body_phase1.md). No automatic main merge. |
+| Combat balance | Evaluate severe player-arm-injury frequency, rat retreat/encounter pacing and species/weapon values | Planned | M017 500-seed adjacency sample often ends in retreat before severe arm injury; functional changes verified by controlled real attacks. Do not confuse this with full-game win rates. |
+| Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017 uses fixed 1152×648 prototype layout and Resource factories; manual readability verification pending. |
+| Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
 | Actor model (C) | Common Actor state and multiple NPC gameplay | Planned | Separate narrowly scoped milestone after M016; scheduler already supports multiple IDs, game state and action dispatch still target player/rat. Do not add to M013–M015 acceptance. |

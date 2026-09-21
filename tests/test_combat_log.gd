@@ -122,7 +122,7 @@ func _test_room_loads_with_log_controls() -> bool:
 		return _fail("Time-cost test room cannot be loaded")
 	var scene := scene_resource.instantiate()
 	root.add_child(scene)
-	var label := scene.get_node_or_null("CanvasLayer/UI/VBox/EventLog") as Label
+	var label := scene.get_node_or_null("CanvasLayer/LogScroll/EventLog") as Label
 	if label == null:
 		return _fail("Time-cost test room is missing its combat log UI")
 	if scene.get_script() == null or not scene.has_method("_refresh"):

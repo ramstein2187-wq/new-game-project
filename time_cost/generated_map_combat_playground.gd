@@ -18,14 +18,20 @@ var game: GeneratedMapCombatGame
 var generated_map := PackedStringArray()
 var detailed_log := false
 var debug_log := false
+var combat_panel: CombatDebugPanel
 
 @onready var status_label: Label = $CanvasLayer/Status
 @onready var help_label: Label = $CanvasLayer/Help
 @onready var message_label: Label = $CanvasLayer/Message
-@onready var log_label: Label = $CanvasLayer/Log
+@onready var log_label: Label = $CanvasLayer/LogScroll/Log
 
 
 func _ready() -> void:
+	combat_panel = CombatDebugPanel.new()
+	combat_panel.position = Vector2(686, 112)
+	combat_panel.size.x = 450
+	$CanvasLayer.add_child(combat_panel)
+	combat_panel.changed.connect(_refresh)
 	regenerate(world_seed)
 
 
@@ -38,6 +44,8 @@ func regenerate(seed_value: int) -> void:
 	world_seed = seed_value
 	generated_map = rows
 	game = next_game
+	if combat_panel != null:
+		combat_panel.game = game
 	_refresh()
 
 
@@ -108,4 +116,6 @@ func _refresh() -> void:
 	help_label.text = "WASD/Arrows: one turn move | Bump rat: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
 	message_label.text = game.message
 	log_label.text = ("Developer trace:\n" + game.get_recent_debug_text()) if debug_log else ("Combat log:\n" + game.get_recent_event_text(detailed_log))
+	if combat_panel != null:
+		combat_panel.refresh()
 	queue_redraw()

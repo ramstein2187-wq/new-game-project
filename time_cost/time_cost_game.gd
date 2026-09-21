@@ -14,9 +14,9 @@ const RAT_ATTACK_COST := 1000
 const RAT_INTERACT_COST := 500
 const RAT_WAIT_COST := 1000
 
-const PLAYER_MAX_HP := 5
-const RAT_MAX_HP := 3
-const ATTACK_DAMAGE := 1
+const PLAYER_MAX_HP := 50
+const RAT_MAX_HP := 30
+const ATTACK_DAMAGE := 5
 
 const CARDINAL_DIRECTIONS: Array[Vector2i] = [
 	Vector2i.UP,
@@ -53,6 +53,12 @@ var combat_log := CombatEventLog.new()
 var rat_aggression := 50
 var rat_fear_bonus := 0
 
+var combat_seed := 17017
+var combat_rng := RandomNumberGenerator.new()
+var abilities: Dictionary = {}
+var species: Dictionary = {}
+var bodies: Dictionary = {}
+
 var _walls: Dictionary = {}
 
 
@@ -61,6 +67,12 @@ func _init() -> void:
 
 
 func reset() -> void:
+	combat_rng.seed = combat_seed
+	abilities = {&"player": AbilityScores.new(), &"rat": AbilityScores.new()}
+	species = {&"player": CombatSpecies.human(), &"rat": CombatSpecies.rat()}
+	bodies = {}
+	for actor: StringName in species:
+		bodies[actor] = BodyInstance.new(species[actor].body_template, species[actor].attack_capability)
 	_build_room()
 	player_position = Vector2i(2, 3)
 	rat_position = Vector2i(8, 3)
@@ -128,6 +140,8 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 	if actor_id != &"player" and scheduler.get_ready_time(actor_id) >= player_next_ready_time:
 		return false
 	if not action.can_execute(self, actor_id):
+		if actor_id == &"player":
+			message = "Action unavailable: check range, path and body function. No time spent."
 		return false
 	var cost := action.get_cost(self, actor_id)
 	if cost <= 0:
@@ -155,7 +169,43 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 
 
 func get_rat_fear() -> int:
-	return maxi(0, (RAT_MAX_HP - rat_hp) * 40 + rat_fear_bonus)
+	return maxi(0, roundi((RAT_MAX_HP - rat_hp) * 120.0 / RAT_MAX_HP) + rat_fear_bonus)
+
+
+func can_attack(actor_id: StringName) -> bool:
+	return bodies.has(actor_id) and bodies[actor_id].attack_efficiency(species[actor_id].attack_capability) > 0
+
+
+func movement_efficiency(actor_id: StringName) -> float:
+	return bodies[actor_id].capability(&"locomotion") if bodies.has(actor_id) else 0.0
+
+
+func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
+	var attacker: CombatSpecies = species[actor_id]
+	var body: BodyInstance = bodies[actor_id]
+	var target: BodyInstance = bodies[target_id]
+	var injury_mod := -2 if body.attack_efficiency(attacker.attack_capability) < 1 else 0
+	var result := CombatRules.check(combat_rng.randi_range(1, 20),
+		abilities[actor_id].get_modifier(attacker.attack_ability), 0, injury_mod,
+		10 + abilities[target_id].get_modifier(&"DEX"))
+	result["ability"] = attacker.attack_ability
+	result["attack_part"] = body.attack_part
+	result["damage"] = 0
+	if result.hit:
+		var part_id := target.select_part(combat_rng.randf())
+		if part_id != &"":
+			var part: Dictionary = target.parts[part_id]
+			result.merge({"part": part_id, "part_name": part.name, "damage": ATTACK_DAMAGE,
+				"damage_type": attacker.damage_type, "armor_result": &"unarmored"}, true)
+			if part.armor >= 0:
+				result.merge(CombatRules.armor_result(part.armor, attacker.penetration,
+					combat_rng.randf() * 100.0, ATTACK_DAMAGE, attacker.damage_type), true)
+			result.merge(target.apply_damage(part_id, result.damage), true)
+		else:
+			result["no_valid_part"] = true
+	result["remaining_hp"] = damage_actor(target_id, result.damage)
+	result["defeated"] = result.remaining_hp == 0
+	return result
 
 
 func actor_is_alive(actor_id: StringName) -> bool:
