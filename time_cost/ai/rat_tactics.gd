@@ -55,12 +55,13 @@ static func choose(game: RefCounted, actor_id: StringName = &"rat") -> TacticalC
 
 static func _best_retreat_direction(game: RefCounted, actor_id: StringName, distance: int) -> Vector2i:
 	var best_direction := Vector2i.ZERO
-	var best_distance := distance
-	for direction: Vector2i in game.CARDINAL_DIRECTIONS:
+	var offset: Vector2i = game.get_actor_position(actor_id) - game.player_position
+	var best_distance := offset.length_squared()
+	for direction: Vector2i in game.MOVE_DIRECTIONS:
 		var target: Vector2i = game.get_actor_position(actor_id) + direction
-		if game.blocks_actor_movement(target, actor_id):
+		if not game.can_step(game.get_actor_position(actor_id), direction) or game.blocks_actor_movement(target, actor_id):
 			continue
-		var candidate_distance: int = game._manhattan_distance(target, game.player_position)
+		var candidate_distance: int = (target - game.player_position).length_squared()
 		if candidate_distance > best_distance:
 			best_distance = candidate_distance
 			best_direction = direction

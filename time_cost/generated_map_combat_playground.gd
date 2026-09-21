@@ -59,6 +59,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		detailed_log = not detailed_log
 	elif event.keycode == KEY_F3:
 		debug_log = not debug_log
+	elif event.keycode == KEY_KP_8:
+		game.player_move(Vector2i.UP)
+	elif event.keycode == KEY_KP_2:
+		game.player_move(Vector2i.DOWN)
+	elif event.keycode == KEY_KP_4:
+		game.player_move(Vector2i.LEFT)
+	elif event.keycode == KEY_KP_6:
+		game.player_move(Vector2i.RIGHT)
+	elif event.keycode == KEY_KP_7:
+		game.player_move(Vector2i(-1, -1))
+	elif event.keycode == KEY_KP_9:
+		game.player_move(Vector2i(1, -1))
+	elif event.keycode == KEY_KP_1:
+		game.player_move(Vector2i(-1, 1))
+	elif event.keycode == KEY_KP_3:
+		game.player_move(Vector2i(1, 1))
 	elif event.is_action_pressed("move_left"):
 		game.player_move(Vector2i.LEFT)
 	elif event.is_action_pressed("move_right"):
@@ -113,7 +129,7 @@ func _refresh() -> void:
 		game.rat_hp, game.RAT_MAX_HP, game.player_next_ready_time,
 		str(game.rat_next_ready_time) if game.rat_hp > 0 else "defeated"
 	]
-	help_label.text = "WASD/Arrows: one turn move | Bump rat: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
+	help_label.text = "WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump rat: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
 	message_label.text = game.message
 	log_label.text = ("Developer trace:\n" + game.get_recent_debug_text()) if debug_log else ("Combat log:\n" + game.get_recent_event_text(detailed_log))
 	if combat_panel != null:

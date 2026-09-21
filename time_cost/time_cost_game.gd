@@ -19,10 +19,11 @@ const RAT_MAX_HP := 30
 const ATTACK_DAMAGE := 5
 
 const CARDINAL_DIRECTIONS: Array[Vector2i] = [
-	Vector2i.UP,
-	Vector2i.RIGHT,
-	Vector2i.DOWN,
-	Vector2i.LEFT,
+	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,
+]
+const MOVE_DIRECTIONS: Array[Vector2i] = [
+	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,
+	Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(1, 1),
 ]
 
 var player_position := Vector2i(2, 3)
@@ -99,13 +100,13 @@ func reset() -> void:
 func player_move(direction: Vector2i) -> bool:
 	if not _can_player_act():
 		return false
-	if not CARDINAL_DIRECTIONS.has(direction):
+	if not MOVE_DIRECTIONS.has(direction):
 		return false
 	facing = direction
 	var target := player_position + direction
 	if rat_hp > 0 and target == rat_position:
 		return perform_action(&"player", AttackAction.new(&"rat"))
-	if _blocks_movement(target):
+	if not can_step(player_position, direction):
 		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else "Movement blocked."
 		return false
 	return perform_action(&"player", MoveAction.new(direction))
@@ -367,14 +368,17 @@ func _next_step_toward_player() -> Vector2i:
 		if current == player_position:
 			break
 
-		for direction in CARDINAL_DIRECTIONS:
+		for direction in MOVE_DIRECTIONS:
 			var neighbor := current + direction
 			if came_from.has(neighbor):
 				continue
 			if not is_inside(neighbor):
 				continue
-			if is_wall(neighbor):
-				continue
+			# Closed doors are path goals for InteractAction, but may not be
+			# crossed diagonally or used to cut a blocked corner.
+			if not can_step(current, direction):
+				if neighbor != door_position or door_open or direction.x != 0 and direction.y != 0:
+					continue
 
 			came_from[neighbor] = current
 			frontier.append(neighbor)
@@ -399,5 +403,18 @@ func _blocks_movement(cell: Vector2i) -> bool:
 	return false
 
 
+# Eight-way adjacency uses Chebyshev distance; retain the historic helper name
+# for existing callers and tests that compare distance before and after a move.
 func _manhattan_distance(a: Vector2i, b: Vector2i) -> int:
-	return absi(a.x - b.x) + absi(a.y - b.y)
+	return maxi(absi(a.x - b.x), absi(a.y - b.y))
+
+
+func can_step(start: Vector2i, direction: Vector2i) -> bool:
+	if not MOVE_DIRECTIONS.has(direction):
+		return false
+	if _blocks_movement(start + direction):
+		return false
+	# Both orthogonal neighbors must be passable to cross a diagonal corner.
+	if direction.x != 0 and direction.y != 0:
+		return not _blocks_movement(start + Vector2i(direction.x, 0)) and not _blocks_movement(start + Vector2i(0, direction.y))
+	return true

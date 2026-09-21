@@ -17,6 +17,8 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 		and game._manhattan_distance(
 			game.get_actor_position(actor_id), game.get_actor_position(target_id)
 		) == 1
+		and game.can_step(game.get_actor_position(actor_id),
+			game.get_actor_position(target_id) - game.get_actor_position(actor_id))
 	)
 
 

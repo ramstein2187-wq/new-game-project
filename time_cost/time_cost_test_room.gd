@@ -54,6 +54,30 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.keycode == KEY_F3:
 		debug_log = not debug_log
 		handled = true
+	elif event.keycode == KEY_KP_8:
+		game.player_move(Vector2i.UP)
+		handled = true
+	elif event.keycode == KEY_KP_2:
+		game.player_move(Vector2i.DOWN)
+		handled = true
+	elif event.keycode == KEY_KP_4:
+		game.player_move(Vector2i.LEFT)
+		handled = true
+	elif event.keycode == KEY_KP_6:
+		game.player_move(Vector2i.RIGHT)
+		handled = true
+	elif event.keycode == KEY_KP_7:
+		game.player_move(Vector2i(-1, -1))
+		handled = true
+	elif event.keycode == KEY_KP_9:
+		game.player_move(Vector2i(1, -1))
+		handled = true
+	elif event.keycode == KEY_KP_1:
+		game.player_move(Vector2i(-1, 1))
+		handled = true
+	elif event.keycode == KEY_KP_3:
+		game.player_move(Vector2i(1, 1))
+		handled = true
 	elif event.is_action_pressed("move_left"):
 		game.player_move(Vector2i.LEFT)
 		handled = true
@@ -123,7 +147,7 @@ func _refresh() -> void:
 	)
 	timeline_label.text = game.get_timeline_text()
 	help_label.text = (
-		"WASD/Arrows: move | Bump rat: attack | E: door\n"
+		"WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump rat: attack | E: door\n"
 		+ "Space/Enter: wait | R: reset | L: details | F3: trace\n"
 		+ "Injuries change costs and available actions. Ties favor you."
 	)
