@@ -11,11 +11,17 @@ func _init() -> void:
 
 
 func _run_tests() -> void:
+	if not _test_invalid_configuration_is_atomic():
+		return
+	if not _test_direct_reset():
+		return
 	if not _test_multiple_seeds_and_paths():
 		return
 	if not _test_terrain_and_world_bounds_block_movement():
 		return
 	if not _test_attack_and_shared_ai_clock():
+		return
+	if not _test_generated_retreat_and_ties():
 		return
 	if not _test_reset_and_invalid_map():
 		return
@@ -34,6 +40,103 @@ func _make_game(seed_value: int) -> GeneratedMapCombatGame:
 	return game
 
 
+func _test_direct_reset() -> bool:
+	var game := _make_game(1234)
+	var initial := _snapshot(game)
+	for iteration in range(3):
+		game.reset()
+		if _snapshot(game) != initial:
+			return _fail("Repeated direct reset must preserve terrain, spawns and clean state")
+		game.player_wait()
+		game.rat_aggression = 180
+		game.rat_fear_bonus = 23
+		game.damage_actor(&"player", 2)
+		game.damage_actor(&"rat", 1)
+		game.reset()
+		if _snapshot(game) != initial:
+			return _fail("Reset after time/damage must restore generated state including AI traits")
+	# Kill via the common action path, which unregisters the rat.
+	if not _place_player_next_to_rat(game):
+		return false
+	game.rat_hp = 1
+	if not game.player_move(game.rat_position - game.player_position) or game.scheduler.has_actor(&"rat"):
+		return _fail("Fixture must defeat and unschedule the rat")
+	if not game.player_wait() or game.last_response_count != 0:
+		return _fail("Dead rat must not act on generated terrain")
+	game.reset()
+	if _snapshot(game) != initial:
+		return _fail("Reset after rat death must restore and register the rat")
+	if not _place_player_next_to_rat(game):
+		return false
+	game.player_hp = 1
+	game.player_wait()
+	if not game.game_over:
+		return _fail("Fixture must reach player defeat")
+	game.reset()
+	if _snapshot(game) != initial:
+		return _fail("Reset after player defeat must clear game over")
+	# Different dimensions ensure regeneration replaces boundaries and spawn rows.
+	var small_rows := PackedStringArray(["....", ".#..", "..#.", "...."])
+	if not game.configure(small_rows):
+		return _fail("Minimum valid connected map should configure")
+	game.player_wait()
+	game.reset()
+	if game.map_width != 4 or game.map_height != 4 or game.player_position != Vector2i(1, 1) or game.rat_position != Vector2i(2, 2):
+		return _fail("Reset must use the latest map dimensions and spawns")
+	if game.door_position != Vector2i(-1, -1) or not game.door_open or game.world_time != 0 or not game.combat_log.events.is_empty():
+		return _fail("Small-map reset leaked the fixed room or prior time/log")
+	return true
+
+
+func _place_player_next_to_rat(game: GeneratedMapCombatGame) -> bool:
+	for direction in game.CARDINAL_DIRECTIONS:
+		var cell: Vector2i = game.rat_position + direction
+		if game.is_inside(cell) and not game.is_wall(cell):
+			game.player_position = cell
+			return true
+	return _fail("Fixture has no walkable neighbor")
+
+
+func _snapshot(game: GeneratedMapCombatGame) -> Dictionary:
+	return {
+		"rows": game.terrain_rows.duplicate(), "width": game.map_width, "height": game.map_height,
+		"player": game.player_position, "rat": game.rat_position,
+		"hp": [game.player_hp, game.rat_hp], "door": [game.door_position, game.door_open],
+		"clock": [game.world_time, game.player_next_ready_time, game.rat_next_ready_time],
+		"registered": [game.scheduler.has_actor(&"player"), game.scheduler.has_actor(&"rat")],
+		"ai": [game.rat_aggression, game.rat_fear_bonus], "facing": game.facing,
+		"over": game.game_over, "cost": game.last_action_cost, "responses": game.last_response_count,
+		"message": game.message, "events": game.combat_log.events.duplicate(),
+	}
+
+
+func _test_invalid_configuration_is_atomic() -> bool:
+	var game := _make_game(1234)
+	game.player_wait()
+	game.damage_actor(&"player", 1)
+	game.rat_fear_bonus = 9
+	var before := _snapshot(game)
+	var invalid_maps: Array[PackedStringArray] = [
+		PackedStringArray(),
+		PackedStringArray(["....", ".#..", "..#."]),
+		PackedStringArray(["...", ".#.", ".#.", "..."]),
+		PackedStringArray(["....", ".#..", "..#", "...."]),
+		PackedStringArray(["....", "....", "..#.", "...."]),
+		PackedStringArray(["....", ".#..", "....", "...."]),
+		# Both path spawns exist but a solid barrier separates them.
+		PackedStringArray(["TTTT", "T#TT", "TTTT", "TT#T", "TTTT"]),
+	]
+	for rows in invalid_maps:
+		if game.configure(rows):
+			return _fail("Invalid or disconnected spawn data must be rejected")
+		if _snapshot(game) != before:
+			return _fail("Failed configuration must leave the entire active game unchanged")
+	game.reset()
+	if _snapshot(game) != _snapshot(_make_game(1234)):
+		return _fail("Rejected configuration must not replace the reset baseline")
+	return true
+
+
 func _test_multiple_seeds_and_paths() -> bool:
 	for seed_value in [1, 1234, 1235, 918273]:
 		var game := _make_game(seed_value)
@@ -44,6 +147,8 @@ func _test_multiple_seeds_and_paths() -> bool:
 			return _fail("Generating the same seed did not reproduce terrain")
 		if repeat.player_position != game.player_position or repeat.rat_position != game.rat_position:
 			return _fail("Same seed did not reproduce actor placement")
+		if game.map_height != game.terrain_rows.size() or game.map_width != game.terrain_rows[0].length():
+			return _fail("Map dimensions must match configured terrain")
 		if game.player_position.y != 1 or game.rat_position.y != 9:
 			return _fail("Actors must spawn at separate path segments")
 		if game.terrain_rows[game.player_position.y][game.player_position.x] != MapGeneratorScript.PATH:
@@ -87,6 +192,9 @@ func _test_terrain_and_world_bounds_block_movement() -> bool:
 		return _fail("Outside the generated map must be blocked")
 	if not game.blocks_actor_movement(Vector2i(game.map_width, 1), &"player"):
 		return _fail("Generated map right boundary must be blocked")
+	for cell in [Vector2i(1, -1), Vector2i(1, game.map_height)]:
+		if not game.blocks_actor_movement(cell, &"rat"):
+			return _fail("Generated map vertical boundaries must be blocked")
 	# Try moving directly into an adjacent blocked tile; no time or event is consumed.
 	var found_adjacent_wall := false
 	for y in range(game.map_height):
@@ -161,6 +269,46 @@ func _test_reset_and_invalid_map() -> bool:
 		return _fail("Regeneration did not clear combat log or restore rat")
 	if game.door_position != Vector2i(-1, -1) or not game.door_open:
 		return _fail("Fixed-room door leaked into generated map")
+	if _snapshot(game) != _snapshot(_make_game(1235)):
+		return _fail("New-seed configuration must match a fresh game completely")
+	return true
+
+
+func _test_generated_retreat_and_ties() -> bool:
+	# A small terrain fixture gives the wounded rat one legal retreat direction.
+	var rows := PackedStringArray(["TTTTTT", "T..#.T", "T..#.T", "T..#TT", "T.#TTT", "TTTTTT"])
+	var game := CombatGameScript.new()
+	if not game.configure(rows):
+		return _fail("Connected terrain fixture should configure")
+	game.player_position = Vector2i(3, 2)
+	game.rat_position = Vector2i(3, 3)
+	game.rat_hp = 1
+	game.player_wait()
+	var retreat: CombatEvent = game.combat_log.events[1]
+	if retreat.data.get("to") != Vector2i(2, 3) or retreat.data.get("visible_cue") != &"retreat":
+		return _fail("Wounded rat must retreat into the legal terrain cell")
+	if retreat.action_cost != game.RAT_MOVE_COST or not retreat.reason_codes.has(&"low_health"):
+		return _fail("Generated retreat must retain shared cost and injury reason")
+	for event in game.combat_log.events:
+		if event.actor_id == &"rat" and event.type == &"move":
+			var destination: Vector2i = event.data["to"]
+			if not game.is_inside(destination) or game.is_wall(destination) or destination == game.player_position:
+				return _fail("Rat retreat crossed terrain, bounds or player occupancy")
+	var player_text := game.get_recent_event_text(true)
+	if not player_text.contains("recoils and retreats") or player_text.contains("ai_score") or player_text.contains("low_health"):
+		return _fail("Player log must retain visible retreat without private scoring")
+	if not game.get_recent_debug_text().contains("ai_score"):
+		return _fail("Developer log must retain candidate evaluation")
+	game.reset()
+	game.player_position = Vector2i(3, 2)
+	game.rat_position = Vector2i(3, 3)
+	game.rat_hp = 1
+	game.rat_aggression = 180
+	game.player_wait()
+	if game.last_response_count != 1 or game.player_next_ready_time != 1000 or game.rat_next_ready_time != 1000:
+		return _fail("Aggressive rat attack must stop at the player's equal ready time")
+	if game.combat_log.events[1].action_id != &"bite":
+		return _fail("Aggression must still change the injured rat's choice")
 	return true
 
 
@@ -175,11 +323,34 @@ func _test_playable_scene() -> bool:
 	if scene.get_node_or_null("CanvasLayer/Log") == null:
 		return _fail("Generated-map scene has no combat log")
 	var original_seed: int = scene.world_seed
-	scene.regenerate(original_seed + 1)
+	_press(KEY_ENTER)
+	if scene.game.world_time != 1000 or scene.game.combat_log.events.is_empty():
+		return _fail("Generated scene wait input did not dispatch actions")
+	_press(KEY_L)
+	_press(KEY_F3)
+	if not scene.detailed_log or not scene.debug_log or not scene.log_label.text.contains("ai_score"):
+		return _fail("Generated scene log input did not expose developer trace")
+	_press(KEY_F3)
+	if scene.log_label.text.contains("ai_score"):
+		return _fail("Generated scene player log leaked developer trace")
+	_press(KEY_R)
 	if scene.world_seed != original_seed + 1 or scene.game.world_time != 0:
 		return _fail("Seed regeneration did not reset scene and clock")
+	if scene.generated_map != scene.game.terrain_rows or _snapshot(scene.game) != _snapshot(_make_game(original_seed + 1)):
+		return _fail("R input must replace rendered terrain and the complete game state")
 	scene.queue_free()
 	return true
+
+
+func _press(key: Key) -> void:
+	var event := InputEventKey.new()
+	event.keycode = key
+	event.physical_keycode = key
+	event.pressed = true
+	root.push_input(event)
+	event = event.duplicate()
+	event.pressed = false
+	root.push_input(event)
 
 
 func _fail(message: String) -> bool:
