@@ -1,6 +1,6 @@
 # M017 — Combat and body phase 1
 
-Status: **Implemented and automatically validated on `codex/m017-combat-body-phase1`; manual play and main integration pending.** Main remains M016. Do not mark phase 1 fully complete before the user's manual sign-off.
+Status: **Complete on `main` at `7276272` — user manual verification confirmed on 2026-09-21.** Integrated with selected M018 through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4); 17 combined automated scripts passed. Merge verified on resume 2026-09-22; [integration record](../reviews/2026-09-21-m017-m018-integration.md). The agent did not perform the native GUI playthrough.
 
 Implementation specification: [combat/body design](../CRPG_combat_body_phase1_design.md).
 
@@ -34,24 +34,26 @@ Implementation specification: [combat/body design](../CRPG_combat_body_phase1_de
 - Diff reviewed; whitespace check passed. Automated UI geometry/input checks are not manual visual approval.
 - All five `tools/play_combat_body_scenario.gd` diagnostic setups passed headless startup with `--quit-after 5`; [output](../reviews/2026-09-21-m017-scenarios.txt). Interactive controls/function behavior are covered by the tests above; native GUI play remains the user's gate.
 
-## Manual play gate / next steps
+## Manual verification procedure / recorded sign-off
+
+The user confirmed both M017 and the latest M018 1.4× diagonal-cost version were manually verified, then requested their integration. The procedure below is retained for reproduction. Integration-specific corner fixes have automated coverage; no new user playthrough of those fixes is claimed.
 
 1. Press F5 in Godot to start `time_cost/generated_map_combat_playground.tscn` (selected as the default after the user's procedural-map play request). For focused comparison, open `time_cost/time_cost_test_room.tscn` and run current scene (F6). Use a 1152×648 or larger window for the current fixed layout.
 2. Use six +/- rows: spend 12, check 10 minimum/16 maximum, refund and reset. Confirm ordinary movement/wait hotkeys still work after mouse clicks. Bump rat to attack; E opens fixed-room door; Space/Enter waits; L/F3 switch logs; scroll detailed traces. Check D20/part/armor and visible miss/block feedback.
 3. Observe tooltip and attack/move status after injuries; ability reset must not heal. R restores a healthy fixed room; on generated map R replaces map/game and rebinds the panel. Verify readability, map/log separation and both death/reset paths visually.
 4. For repeatable injury diagnostics, run the engine with `--path <project> --script res://tools/play_combat_body_scenario.gd -- human-arm-damaged` (omit `--headless` for manual play). Other cases: `human-arm-disabled`, `rat-leg-damaged`, `rat-head-damaged`, `rat-head-disabled`. These inject a declared starting wound, not fabricated attack events. Right bump checks impaired/unavailable attack; waiting checks rat behavior; rat leg move cost is 858. R exits the wound fixture into a normal healthy room.
-5. Record the user's manual results, then consider main integration in a separate explicitly authorized step. **No main merge performed here.**
+5. Manual gate satisfied by the user's 2026-09-21 confirmation and integration request; delivery is tracked through PR #4.
 
-Follow-ups are tracked in the roadmap: balance/severe-arm-injury frequency and encounter pacing, small-window/responsive UI if needed, externalized content when needed, deeper body/equipment/persistence systems outside phase 1. No manual GUI playthrough is claimed.
+Follow-ups are tracked in the roadmap: balance/severe-arm-injury frequency and encounter pacing, small-window/responsive UI if needed, externalized content when needed, deeper body/equipment/persistence systems outside phase 1. Manual validation is user-reported, not agent-performed.
 
-## Delivery / resume
+## Initial branch delivery (historical)
 
 - Implementation commit: `ae8ac1a` (`feat: implement M017 D20 combat and capability-driven body injuries`). Pushed to `origin/codex/m017-combat-body-phase1` on 2026-09-21; this delivery record follows as a documentation commit.
 - Windows Git push hit SSH host-key verification failure; the existing WSL Git environment successfully pushed with `bash -c 'git push -u origin codex/m017-combat-body-phase1'`. No SSH verification/configuration was weakened.
-- Next work is the manual gate above and balance follow-ups, not reimplementation. Main was not merged. Unrelated pre-existing tileset imports and September 20 review files remain untracked and untouched.
+- At initial delivery, the manual gate was still pending and main was not merged. That gate was subsequently satisfied as recorded above. Unrelated pre-existing tileset imports and September 20 review files remain untracked and untouched.
 
 ## Local play follow-up — procedural-map entry point
 
 - The user requested playing this system on the procedural map after trying the fixed room. Rechecked the existing generated-map adapter: it already shares the M017 body, abilities, armor, actions, AI and log, including resetting/rebinding the panel when R generates the next map.
 - Changed only the project startup scene to the generated-map combat playground so ordinary F5/local project launch reaches the requested environment. The original main scene and fixed-room scene remain available for F6 comparison; no duplicate combat implementation was added.
-- Validation and local launch are recorded in `docs/reviews/2026-09-21-m017-local-play.md`; manual acceptance remains pending.
+- Validation and local launch are recorded in `docs/reviews/2026-09-21-m017-local-play.md`; later user manual acceptance and M018 integration are recorded above.
