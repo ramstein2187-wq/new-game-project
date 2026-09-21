@@ -38,10 +38,10 @@ var rat_position: Vector2i:
 	set(value): get_actor(&"rat").position = value
 var player_hp: int:
 	get: return get_actor(&"player").hp
-	set(value): get_actor(&"player").hp = value
+	set(value): set_actor_hp(&"player", value)
 var rat_hp: int:
 	get: return get_actor(&"rat").hp
-	set(value): get_actor(&"rat").hp = value
+	set(value): set_actor_hp(&"rat", value)
 var facing: Vector2i:
 	get: return get_actor(&"player").facing
 	set(value): get_actor(&"player").facing = value
@@ -90,6 +90,12 @@ func _init() -> void:
 
 
 func reset() -> void:
+	# Disconnect old actors before dropping the registry; callers may still
+	# retain old instance references after a reset.
+	for old_actor in actors.all():
+		var callback := _on_actor_health_changed.bind(old_actor.id, old_actor.get_instance_id())
+		if old_actor.health_changed.is_connected(callback):
+			old_actor.health_changed.disconnect(callback)
 	combat_rng.seed = combat_seed
 	actors = ActorRegistry.new()
 	scheduler.reset(&"player")
@@ -119,7 +125,7 @@ func player_move(direction: Vector2i) -> bool:
 	if occupant != null:
 		return perform_action(&"player", AttackAction.new(occupant.id))
 	if not can_step(player_position, direction):
-		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else "Movement blocked."
+		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else _action_failure_text(&"movement_path_blocked", &"player")
 		return false
 	return perform_action(&"player", MoveAction.new(direction))
 
@@ -154,7 +160,7 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 		return false
 	if not action.can_execute(self, actor_id):
 		if actor_id == &"player":
-			message = "Action unavailable: check range, path and body function. No time spent."
+			message = _action_failure_text(action.failure_reason(self, actor_id), actor_id)
 		return false
 	var cost := action.get_cost(self, actor_id)
 	if cost <= 0:
@@ -181,6 +187,35 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 		if not game_over and simulation_error.is_empty():
 			message = "Action cost %d; NPC responses %d." % [cost, last_response_count]
 	return true
+
+
+# The reason is derived from the Action's real eligibility checks, not a
+# separate guess based on the last input. Invalid actions remain free/unlogged.
+func _action_failure_text(reason: StringName, actor_id: StringName) -> String:
+	match reason:
+		&"attack_function_lost":
+			var actor := get_actor(actor_id)
+			var part_id: StringName = actor.body.attack_part
+			if actor.body.parts.has(part_id) and actor.body.parts[part_id].current <= 0:
+				return "Your %s is disabled; you cannot attack with it. No time spent." % actor.body.parts[part_id].name.to_lower()
+			return "Your attack is disabled by a damaged supporting body part. No time spent."
+		&"movement_function_lost":
+			return "You cannot move: your body has lost its movement function. No time spent."
+		&"out_of_range":
+			return "Target is out of range. No time spent."
+		&"attack_path_blocked":
+			return "A wall or blocked corner prevents your attack. No time spent."
+		&"movement_path_blocked":
+			return "Movement blocked by terrain or a corner. No time spent."
+		&"tile_occupied":
+			return "That tile is occupied. No time spent."
+		&"no_interaction_target":
+			return "There is nothing to interact with. No time spent."
+		&"target_unavailable":
+			return "There is no living target to attack. No time spent."
+		&"invalid_direction":
+			return "Invalid movement direction. No time spent."
+	return "Action unavailable. No time spent."
 
 
 func get_rat_fear() -> int:
@@ -237,8 +272,16 @@ func _actor_view(property: StringName) -> Dictionary:
 
 
 func _create_initial_actors() -> void:
-	actors.register(Actor.new(&"player", ActorDefinition.human_default(), Vector2i(2, 3), "You"))
+	_register_initial_player(Actor.new(&"player", ActorDefinition.human_default(), Vector2i(2, 3), "You"))
 	register_actor(Actor.new(&"rat", ActorDefinition.rat_common(), Vector2i(8, 3), "The rat"))
+
+
+func _register_initial_player(actor: Actor) -> void:
+	# scheduler.reset already registered the reserved player ID.
+	var registered := actors.register(actor)
+	assert(registered, "Initial player must occupy a unique cell")
+	if registered:
+		actor.health_changed.connect(_on_actor_health_changed.bind(actor.id, actor.get_instance_id()))
 
 
 # Register/remove through the game so occupancy and scheduling change together.
@@ -253,6 +296,7 @@ func register_actor(actor: Actor, ready_time: int = -1) -> bool:
 	if not scheduler.register_actor(actor.id, ready):
 		actors.remove(actor.id)
 		return false
+	actor.health_changed.connect(_on_actor_health_changed.bind(actor.id, actor.get_instance_id()))
 	return true
 
 
@@ -261,6 +305,8 @@ func remove_actor(actor_id: StringName) -> bool:
 		return false
 	if scheduler.has_actor(actor_id):
 		scheduler.unregister_actor(actor_id)
+	var actor := get_actor(actor_id)
+	actor.health_changed.disconnect(_on_actor_health_changed.bind(actor.id, actor.get_instance_id()))
 	return actors.remove(actor_id)
 
 
@@ -285,17 +331,37 @@ func blocks_actor_movement(cell: Vector2i, actor_id: StringName) -> bool:
 	return _blocks_movement(cell) or actors.occupant_at(cell, actor_id) != null
 
 
-func damage_actor(actor_id: StringName, damage: int) -> int:
+# Only the Actor stores HP. Its health_changed signal owns death transitions,
+# including assignments through the legacy player_hp/rat_hp accessors.
+func set_actor_hp(actor_id: StringName, value: int) -> int:
 	var actor := get_actor(actor_id)
 	if actor == null:
 		return 0
-	actor.hp = maxi(0, actor.hp - maxi(0, damage))
-	if not actor.is_alive():
-		if actor_id == &"player":
-			game_over = true
-		else:
-			scheduler.unregister_actor(actor_id)
+	actor.hp = value
 	return actor.hp
+
+
+func damage_actor(actor_id: StringName, damage: int) -> int:
+	var actor := get_actor(actor_id)
+	return set_actor_hp(actor_id, actor.hp - maxi(0, damage)) if actor != null else 0
+
+
+func heal_actor(actor_id: StringName, amount: int) -> int:
+	var actor := get_actor(actor_id)
+	if actor == null or not actor.is_alive():
+		return 0
+	return set_actor_hp(actor_id, actor.hp + maxi(0, amount))
+
+
+func _on_actor_health_changed(_previous: int, current: int, actor_id: StringName, instance_id: int) -> void:
+	# An old actor with a reused ID must never affect its replacement.
+	var actor := get_actor(actor_id)
+	if current > 0 or actor == null or actor.get_instance_id() != instance_id:
+		return
+	if actor_id == &"player":
+		game_over = true
+	else:
+		scheduler.unregister_actor(actor_id)
 
 
 func make_action_event(event_type: StringName, actor_id: StringName, action_id: StringName, cost: int) -> CombatEvent:

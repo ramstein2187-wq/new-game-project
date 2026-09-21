@@ -63,7 +63,7 @@ func _create_initial_actors() -> void:
 		return
 	door_position = Vector2i(-1, -1)
 	door_open = true
-	actors.register(Actor.new(&"player", ActorDefinition.human_default(), _player_spawn, "You"))
+	_register_initial_player(Actor.new(&"player", ActorDefinition.human_default(), _player_spawn, "You"))
 	var definition := ActorDefinition.rat_common()
 	for index in range(_npc_spawns.size()):
 		var actor_id := &"rat" if index == 0 else StringName("rat_%03d" % (index + 1))

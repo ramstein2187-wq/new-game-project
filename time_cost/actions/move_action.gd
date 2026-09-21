@@ -9,12 +9,23 @@ func _init(move_direction: Vector2i = Vector2i.ZERO) -> void:
 
 
 func can_execute(game: RefCounted, actor_id: StringName) -> bool:
+	return failure_reason(game, actor_id) == &""
+
+
+func failure_reason(game: RefCounted, actor_id: StringName) -> StringName:
+	if not game.actor_is_alive(actor_id):
+		return &"actor_unavailable"
 	if game.movement_efficiency(actor_id) <= 0:
-		return false
+		return &"movement_function_lost"
 	if not game.MOVE_DIRECTIONS.has(direction):
-		return false
-	var target: Vector2i = game.get_actor_position(actor_id) + direction
-	return game.can_step(game.get_actor_position(actor_id), direction) and not game.blocks_actor_movement(target, actor_id)
+		return &"invalid_direction"
+	var start: Vector2i = game.get_actor_position(actor_id)
+	var target := start + direction
+	if not game.can_step(start, direction):
+		return &"movement_path_blocked"
+	if game.blocks_actor_movement(target, actor_id):
+		return &"tile_occupied"
+	return &""
 
 
 func get_cost(game: RefCounted, actor_id: StringName) -> int:

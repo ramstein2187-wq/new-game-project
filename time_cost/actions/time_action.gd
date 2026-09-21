@@ -16,6 +16,13 @@ func can_execute(_game: RefCounted, _actor_id: StringName) -> bool:
 	return false
 
 
+# A stable machine-readable reason for player feedback. Subclasses implement
+# this from the same checks as can_execute; empty means the action is legal.
+# Legacy/custom actions can keep can_execute and use the generic fallback.
+func failure_reason(_game: RefCounted, _actor_id: StringName) -> StringName:
+	return &"action_unavailable"
+
+
 func get_cost(_game: RefCounted, _actor_id: StringName) -> int:
 	return -1
 

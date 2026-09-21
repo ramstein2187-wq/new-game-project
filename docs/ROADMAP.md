@@ -21,7 +21,7 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual acceptance pending. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
+Snapshot: 2026-09-22, after M019 and its M020 follow-up task-branch automated validation; manual acceptance pending. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
@@ -31,7 +31,8 @@ Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual a
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
-| Actor model (C) | Common Actor state and multiple NPC gameplay | Complete on task branch; manual acceptance pending | [M019](milestones/M019_common_actor.md), `codex/m019-common-actor`, implementation e3143ce; 20 scripts pass. Default three NPCs; not merged to main. |
+| Actor model (C) | Common Actor state and multiple NPC gameplay | Complete on task branch; manual acceptance pending | [M019](milestones/M019_common_actor.md), `codex/m019-common-actor`, implementation e3143ce; 20 original scripts pass. Default three NPCs; not merged to main. |
+| Actor health / action feedback | Synchronize death on direct HP writes; explain unavailable player actions | Complete on follow-up task branch; manual acceptance pending | [M020](milestones/M020_health_action_feedback.md), `chat/m019-health-action-feedback` based on M019; 21 scripts pass. Not merged to main. |
 | Tactical AI / presentation | Visibly animate NPC movement and other action sequences instead of only applying results atomically | Planned | Follow-up from M015; the rat currently performs one tile per scheduled action without tweened animation. No implementation milestone assigned. |
 | Tactical AI / world (C) | Factions, companions/controllers, sight/hearing, target memory, broader goals and new abilities | Candidate | M015 explicitly defers these systems; full-room observation is the current prototype policy. Register separate scope before implementation. |
 | Feedback / explainability | Extend observable reasons to additional NPC behaviors, dialogue/barks and contextual feedback | Candidate | The M012 log and M015 retreat cue are prototypes, not full player-facing coverage. See `docs/decisions/explainable_systemic_behavior.md`. |
