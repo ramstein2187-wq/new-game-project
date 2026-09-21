@@ -1,6 +1,6 @@
 # M018 — Eight-way combat movement
 
-Status: **Complete — user confirmed manual verification of latest M018 on 2026-09-21.** Selected sources: `chat/eight-way-combat` at `980f05f` plus `chat/diagonal-movement-cost` at `03c13ef`, both based on M017 `9418443`. Combined integration branch: `codex/integrate-m017-m018`, delivered through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4). The competing equal-cost `chat/eight-direction-combat` branch is not part of this integration.
+Status: **Complete on `main` at `7276272` — user confirmed manual verification of latest M018 on 2026-09-21.** Selected sources: `chat/eight-way-combat` at `980f05f` plus `chat/diagonal-movement-cost` at `03c13ef`, both based on M017 `9418443`. Combined integration delivered through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4), merge verified on resume 2026-09-22. The competing equal-cost `chat/eight-direction-combat` branch is not part of this integration.
 
 ## Scope and decisions
 

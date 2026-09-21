@@ -17,7 +17,7 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 - **Complete** — M011–M015 on `main` at `19ce6d1`: 13 automated scripts pass; user confirmed manual validation on 2026-09-21 and merged via [PR #2](https://github.com/ramstein2187-wq/new-game-project/pull/2). M010 remains paused. See `docs/reviews/2026-09-21-m015-merge.md`.
 - **Complete** — M016 generated-map combat integration on `main` at `9b92d80`: 14 combined automated test scripts passed on the integration branch; user confirmed M016 manual play verification on 2026-09-21, then [PR #3](https://github.com/ramstein2187-wq/new-game-project/pull/3) was merged. See `docs/milestones/M016_generated_map_combat.md`.
-- **Complete** — M017 body combat and M018 eight-way movement on `codex/integrate-m017-m018`: the user confirmed both manual checks on 2026-09-21; 17 combined automated scripts passed. Main delivery: [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4), [integration record](reviews/2026-09-21-m017-m018-integration.md). Default F5 runs the procedural combat map; fixed-room F6 remains available. Selected diagonal move costs are 1400/1050 before injury efficiency.
+- **Complete** — M017 body combat and M018 eight-way movement on `main` at `7276272` via [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4): the user confirmed both manual checks; 17 combined automated scripts passed. Merge verified on resume 2026-09-22; [integration record](reviews/2026-09-21-m017-m018-integration.md). Default F5 runs the procedural combat map; fixed-room F6 remains available. Selected diagonal move costs are 1400/1050 before injury efficiency.
 
 ## Unfinished and future work
 

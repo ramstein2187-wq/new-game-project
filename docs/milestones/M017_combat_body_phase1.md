@@ -1,6 +1,6 @@
 # M017 — Combat and body phase 1
 
-Status: **Complete — user manual verification confirmed on 2026-09-21.** Integrated with selected M018 on `codex/integrate-m017-m018`, 17 combined automated scripts passed. Main delivery: [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4); [integration record](../reviews/2026-09-21-m017-m018-integration.md). The agent did not perform the native GUI playthrough.
+Status: **Complete on `main` at `7276272` — user manual verification confirmed on 2026-09-21.** Integrated with selected M018 through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4); 17 combined automated scripts passed. Merge verified on resume 2026-09-22; [integration record](../reviews/2026-09-21-m017-m018-integration.md). The agent did not perform the native GUI playthrough.
 
 Implementation specification: [combat/body design](../CRPG_combat_body_phase1_design.md).
 
