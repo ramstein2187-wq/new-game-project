@@ -22,11 +22,8 @@ func get_cost(game: RefCounted, actor_id: StringName) -> int:
 	if efficiency <= 0:
 		return 0
 	var diagonal := direction.x != 0 and direction.y != 0
-	var base_cost: int
-	if actor_id == &"rat":
-		base_cost = game.RAT_DIAGONAL_MOVE_COST if diagonal else game.RAT_MOVE_COST
-	else:
-		base_cost = game.DIAGONAL_MOVE_COST if diagonal else game.MOVE_COST
+	var definition: ActorDefinition = game.get_actor(actor_id).definition
+	var base_cost := definition.move_diagonal if diagonal else definition.move_cardinal
 	return ceili(base_cost / efficiency)
 
 
@@ -35,7 +32,7 @@ func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:
 	var target := start + direction
 	game.set_actor_position(actor_id, target)
 	var event: CombatEvent = game.make_action_event(&"move", actor_id, &"move", cost)
-	var adjacent: bool = actor_id == &"rat" and game.can_melee_reach(target, game.player_position)
+	var adjacent: bool = actor_id != &"player" and game.actor_is_alive(game.get_actor(actor_id).target_id) and game.can_melee_reach(target, game.get_actor_position(game.get_actor(actor_id).target_id))
 	event.importance = CombatEvent.IMPORTANT if adjacent or visible_cue == &"retreat" else CombatEvent.TRIVIAL
 	event.data = {"from": start, "to": target, "in_melee_range": adjacent}
 	return event

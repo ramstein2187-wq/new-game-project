@@ -107,9 +107,17 @@ func _draw() -> void:
 				draw_rect(bounds.grow(-3), PATH_COLOR)
 			elif tile == MapGeneratorScript.RUIN:
 				draw_rect(bounds.grow(-1), RUIN_COLOR)
-	if game.rat_hp > 0:
-		draw_circle(_cell_center(game.rat_position), 6.0, RAT_COLOR)
-	draw_circle(_cell_center(game.player_position), 6.0, PLAYER_COLOR)
+	var npc_index := 0
+	for actor in game.actors.all():
+		if actor.id == &"player":
+			draw_circle(_cell_center(actor.position), 6.0, PLAYER_COLOR)
+			continue
+		npc_index += 1
+		if not actor.is_alive():
+			continue
+		var center := _cell_center(actor.position)
+		draw_circle(center, 6.0, RAT_COLOR)
+		draw_string(ThemeDB.fallback_font, center + Vector2(-4, 4), str(npc_index), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
 	draw_line(
 		_cell_center(game.player_position),
 		_cell_center(game.player_position) + Vector2(game.facing) * 6.0,
@@ -124,12 +132,8 @@ func _cell_center(cell: Vector2i) -> Vector2:
 func _refresh() -> void:
 	if game == null:
 		return
-	status_label.text = "Seed %d  |  t=%d  |  HP %d/%d  |  Rat HP %d/%d  |  Ready: you %d / rat %s" % [
-		world_seed, game.world_time, game.player_hp, game.PLAYER_MAX_HP,
-		game.rat_hp, game.RAT_MAX_HP, game.player_next_ready_time,
-		str(game.rat_next_ready_time) if game.rat_hp > 0 else "defeated"
-	]
-	help_label.text = "WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump rat: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
+	status_label.text = "Seed %d | t=%d | %s" % [world_seed, game.world_time, game.get_actor_status_text()]
+	help_label.text = "WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump NPC: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
 	message_label.text = game.message
 	log_label.text = ("Developer trace:\n" + game.get_recent_debug_text()) if debug_log else ("Combat log:\n" + game.get_recent_event_text(detailed_log))
 	if combat_panel != null:

@@ -31,7 +31,7 @@ Snapshot: 2026-09-21, after user acceptance of M017/M018. Items below are separa
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
-| Actor model (C) | Common Actor state and multiple NPC gameplay | Planned | Separate narrowly scoped milestone after M016; scheduler already supports multiple IDs, game state and action dispatch still target player/rat. Do not add to M013–M015 acceptance. |
+| Actor model (C) | Common Actor state and multiple NPC gameplay | In progress | [M019](milestones/M019_common_actor.md), `codex/m019-common-actor`; actor ownership, generic actions/AI and three generated NPCs. |
 | Tactical AI / presentation | Visibly animate NPC movement and other action sequences instead of only applying results atomically | Planned | Follow-up from M015; the rat currently performs one tile per scheduled action without tweened animation. No implementation milestone assigned. |
 | Tactical AI / world (C) | Factions, sight/hearing, broader goals and new abilities | Candidate | M015 explicitly defers these systems; full-room observation is the current prototype policy. Register separate scope before implementation. |
 | Feedback / explainability | Extend observable reasons to additional NPC behaviors, dialogue/barks and contextual feedback | Candidate | The M012 log and M015 retreat cue are prototypes, not full player-facing coverage. See `docs/decisions/explainable_systemic_behavior.md`. |
@@ -41,7 +41,7 @@ Snapshot: 2026-09-21, after user acceptance of M017/M018. Items below are separa
 | RPG content (C) | Broader abilities, equipment, quests and social/faction content after the minimal gameplay and persistence loops | Candidate | No new implementation milestone assigned; outside M016. |
 | Generation follow-up | Seed-version compatibility and reachable ruins when ruins become playable destinations | Planned | Prior local review reported 31-bit seed folding and disconnected ruin entrances; not introduced by this integration. Reproduce before changing generation semantics; preserve existing seed decision/golden values. |
 
-Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. Numbers after M018 remain unassigned until scoped work starts. These extensions do not reopen earlier milestone acceptance.
+Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. M019 is scoped on its task branch; later numbers remain unassigned. These extensions do not reopen earlier milestone acceptance.
 
 ## Maintenance rules
 

@@ -31,10 +31,10 @@ func _run_tests() -> void:
 	quit(0)
 
 
-func _make_game(seed_value: int) -> GeneratedMapCombatGame:
+func _make_game(seed_value: int, npc_count: int = 1) -> GeneratedMapCombatGame:
 	var rows: PackedStringArray = MapGeneratorScript.new(Settings).generate(seed_value)
 	var game: GeneratedMapCombatGame = CombatGameScript.new()
-	if not game.configure(rows):
+	if not game.configure(rows, npc_count):
 		push_error("Map setup failed for seed %d" % seed_value)
 		return null
 	return game
@@ -79,7 +79,7 @@ func _test_direct_reset() -> bool:
 		return _fail("Reset after player defeat must clear game over")
 	# Different dimensions ensure regeneration replaces boundaries and spawn rows.
 	var small_rows := PackedStringArray(["....", ".#..", "..#.", "...."])
-	if not game.configure(small_rows):
+	if not game.configure(small_rows, 1):
 		return _fail("Minimum valid connected map should configure")
 	game.player_wait()
 	game.reset()
@@ -129,7 +129,7 @@ func _test_invalid_configuration_is_atomic() -> bool:
 		PackedStringArray(["TTTT", "T#TT", "TTTT", "TT#T", "TTTT"]),
 	]
 	for rows in invalid_maps:
-		if game.configure(rows):
+		if game.configure(rows, 1):
 			return _fail("Invalid or disconnected spawn data must be rejected")
 		if _snapshot(game) != before:
 			return _fail("Failed configuration must leave the entire active game unchanged")
@@ -264,7 +264,7 @@ func _test_reset_and_invalid_map() -> bool:
 	if game.terrain_rows != old_rows or game.world_time == 0:
 		return _fail("Invalid generated data must not replace the active map")
 	var next_rows: PackedStringArray = MapGeneratorScript.new(Settings).generate(1235)
-	if not game.configure(next_rows):
+	if not game.configure(next_rows, 1):
 		return _fail("Next seed did not reconfigure the combat world")
 	if game.terrain_rows != next_rows or game.world_time != 0:
 		return _fail("Regeneration did not install new terrain and reset time")
@@ -281,7 +281,7 @@ func _test_generated_retreat_and_ties() -> bool:
 	# A small terrain fixture gives the wounded rat one legal retreat direction.
 	var rows := PackedStringArray(["TTTTTT", "T..#.T", "T..#.T", "T..#TT", "T.#TTT", "TTTTTT"])
 	var game := CombatGameScript.new()
-	if not game.configure(rows):
+	if not game.configure(rows, 1):
 		return _fail("Connected terrain fixture should configure")
 	game.player_position = Vector2i(3, 2)
 	game.rat_position = Vector2i(3, 3)
@@ -339,7 +339,7 @@ func _test_playable_scene() -> bool:
 	_press(KEY_R)
 	if scene.world_seed != original_seed + 1 or scene.game.world_time != 0:
 		return _fail("Seed regeneration did not reset scene and clock")
-	if scene.generated_map != scene.game.terrain_rows or _snapshot(scene.game) != _snapshot(_make_game(original_seed + 1)):
+	if scene.generated_map != scene.game.terrain_rows or _snapshot(scene.game) != _snapshot(_make_game(original_seed + 1, 3)):
 		return _fail("R input must replace rendered terrain and the complete game state")
 	scene.queue_free()
 	return true

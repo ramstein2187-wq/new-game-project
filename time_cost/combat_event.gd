@@ -18,3 +18,7 @@ var observed_by: Array[StringName] = []
 # Reason codes are for the developer trace; visible cues come from event facts.
 var reason_codes: Array[StringName] = []
 var data: Dictionary = {}
+
+# Names are captured at event time so removal/renaming cannot rewrite history.
+var actor_name := ""
+var target_name := ""
