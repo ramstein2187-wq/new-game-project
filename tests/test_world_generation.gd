@@ -22,7 +22,7 @@ func _init() -> void:
 		if world.width != dimensions.x or world.height != dimensions.y:
 			_fail("Generated dimensions differ from settings")
 			return
-		var count := dimensions.x * dimensions.y
+		var count: int = dimensions.x * dimensions.y
 		if world.elevation.size() != count or world.biome.size() != count or world.downstream.size() != count:
 			_fail("Packed data dimensions are incorrect")
 			return
