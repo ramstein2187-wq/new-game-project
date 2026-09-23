@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="WorldGenerationSettings" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://procgen/world/world_generation_settings.gd" id="1_world_settings"]
+
+[resource]
+script = ExtResource("1_world_settings")
+world_width = 128
+world_height = 96
+sea_level = 0.46
+continent_scale = 1.8
+detail_scale = 9.0
+terrain_octaves = 4
+edge_ocean_strength = 0.3
+edge_falloff_fraction = 0.12
+mountain_strength = 0.24
+mountain_ridge_threshold = 0.68
+climate_noise_scale = 4.0
+elevation_temperature_penalty = 0.55
+orographic_rain_strength = 0.7
+atmospheric_moisture_retention = 0.985
+prevailing_wind_from_west = true
+runoff_floor = 0.05
+drainage_runoff_reduction = 0.55
+river_accumulation_threshold = 9.0
+river_threshold_reference_size = 128
+river_moisture_bonus = 0.25
+basin_moisture_bonus = 0.1
+hill_elevation = 0.58
+mountain_elevation = 0.72
+hill_slope = 0.08
+mountain_slope = 0.16
