@@ -41,10 +41,17 @@ func _init(size_x: int, size_y: int, world_seed: int, version: int, water_level:
 	generator_version = version
 	sea_level = water_level
 	var count := width * height
-	for field in [elevation, temperature, rainfall, drainage, moisture, vegetation, flow]:
-		field.resize(count)
-	for field in [biome, landform, river, lake]:
-		field.resize(count)
+	elevation.resize(count)
+	temperature.resize(count)
+	rainfall.resize(count)
+	drainage.resize(count)
+	moisture.resize(count)
+	vegetation.resize(count)
+	flow.resize(count)
+	biome.resize(count)
+	landform.resize(count)
+	river.resize(count)
+	lake.resize(count)
 	downstream.resize(count)
 	downstream.fill(-1)
 
