@@ -4,6 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M019: **In progress on `chat/variable-worldgen-prototype`**. An independent, variable-size overworld data generator and preview are implemented on the task branch; Godot parse/runtime checks, local integration, and manual visual acceptance are pending. Existing playable map and `main` are unchanged. See `docs/milestones/M019_variable_worldgen_prototype.md`.
 - M017 and M018: **Complete on `main` at `7276272`**, merged through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4) on 2026-09-21 and verified on resume 2026-09-22. The user confirmed manual verification of both M017 and latest M018 (1.4× diagonal cost); all 17 integration tests passed. [Integration record](reviews/2026-09-21-m017-m018-integration.md).
 
 - Baseline before this integration: M016 on `main`; PR #3 merged at `9b92d80` on 2026-09-21.
@@ -18,6 +19,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M019 | In progress / validation pending on task branch | Variable-size overworld data, deterministic noise/climate/biomes/drainage and standalone debug preview | `docs/milestones/M019_variable_worldgen_prototype.md` |
 | M017 | Complete on main | D20, abilities, bodies and armor; user manual approval, 17 combined tests passed | `docs/milestones/M017_combat_body_phase1.md` |
 | M018 | Complete on main | Eight-way movement/melee, blocked corners, 1.4× diagonal movement costs composed with injuries | `docs/milestones/M018_eight_way_combat.md` |
 | M001 | Complete | Player movement, collision, camera, basic interaction, headless validation | `docs/milestones/M001_foundation.md` |
