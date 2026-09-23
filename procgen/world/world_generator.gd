@@ -22,9 +22,9 @@ func generate(seed_value: int, settings: WorldGenSettings) -> WorldData:
 	return world
 
 
-func _noise(seed_value: int, namespace: String, frequency: float, octaves: int) -> FastNoiseLite:
+func _noise(seed_value: int, domain_name: String, frequency: float, octaves: int) -> FastNoiseLite:
 	var noise := FastNoiseLite.new()
-	var derived_seed: int = SeedDeriverScript.derive(seed_value, ["world_v1", namespace])
+	var derived_seed: int = SeedDeriverScript.derive(seed_value, ["world_v1", domain_name])
 	var folded: int = (derived_seed ^ (derived_seed >> 32)) & 0xFFFFFFFF
 	noise.seed = folded - 0x100000000 if folded > 0x7FFFFFFF else folded
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
