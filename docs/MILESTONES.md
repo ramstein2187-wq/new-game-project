@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M021: **Complete on task branch; manual visual review pending** on `chat/worldgen-v2-viewer`, based on M020. Standalone world-map debug viewer; F5 playable scene unchanged. [world map viewer](milestones/M021_world_map_viewer.md).
+
 - M020: **Complete on task branch** `chat/worldgen-v2-prototype`; variable-size layered global geography, climate and hydrology. Full Godot validation passes; visual quality review remains a follow-up. [world generation v2](milestones/M020_world_generation_v2.md).
 
 - M017 and M018: **Complete on `main` at `7276272`**, merged through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4) on 2026-09-21 and verified on resume 2026-09-22. The user confirmed manual verification of both M017 and latest M018 (1.4× diagonal cost); all 17 integration tests passed. [Integration record](reviews/2026-09-21-m017-m018-integration.md).
@@ -20,6 +22,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M021 | Complete on task branch; manual review pending | Standalone world map viewer: field layers, sizes/seeds, river overlay, zoom and hover inspection | `docs/milestones/M021_world_map_viewer.md` |
 | M020 | Complete on task branch | Variable-size layered global geography: terrain, climate, hydrology, landforms and biomes; automated validation complete | `docs/milestones/M020_world_generation_v2.md` |
 | M017 | Complete on main | D20, abilities, bodies and armor; user manual approval, 17 combined tests passed | `docs/milestones/M017_combat_body_phase1.md` |
 | M018 | Complete on main | Eight-way movement/melee, blocked corners, 1.4× diagonal movement costs composed with injuries | `docs/milestones/M018_eight_way_combat.md` |
