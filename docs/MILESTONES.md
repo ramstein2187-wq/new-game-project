@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M022: **Implemented and automatically validated** on `codex/m022-combat-batch-runner`, based on M019; all 21 scripts pass and 100/1000-run headless samples completed. [Headless combat batch simulation](milestones/M022_headless_combat_batch.md).
+
 - M019: **Implemented and automatically validated** on `codex/m019-common-actor` (e3143ce, 20 scripts pass); manual acceptance pending; [common Actor / multiple NPCs](milestones/M019_common_actor.md). Not merged to main.
 
 - M017 and M018: **Complete on `main` at `7276272`**, merged through [PR #4](https://github.com/ramstein2187-wq/new-game-project/pull/4) on 2026-09-21 and verified on resume 2026-09-22. The user confirmed manual verification of both M017 and latest M018 (1.4× diagonal cost); all 17 integration tests passed. [Integration record](reviews/2026-09-21-m017-m018-integration.md).
@@ -20,6 +22,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M022 | Complete on task branch | Deterministic headless Rat-vs-Rat batches using production combat systems and structured events; 21 passing scripts | `docs/milestones/M022_headless_combat_batch.md` |
 | M019 | Complete on task branch; manual acceptance pending | Common Actor ownership, three NPCs, 20 passing test scripts; not merged | `docs/milestones/M019_common_actor.md` |
 | M017 | Complete on main | D20, abilities, bodies and armor; user manual approval, 17 combined tests passed | `docs/milestones/M017_combat_body_phase1.md` |
 | M018 | Complete on main | Eight-way movement/melee, blocked corners, 1.4× diagonal movement costs composed with injuries | `docs/milestones/M018_eight_way_combat.md` |

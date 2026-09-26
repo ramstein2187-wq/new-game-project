@@ -21,11 +21,12 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual acceptance pending. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
+Snapshot: 2026-09-26, after M022 headless combat batch automated validation on the M019 task-branch base; M019 manual acceptance remains pending. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
 | Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
+| Combat simulation | Deterministic headless batch runner using production actions, AI, scheduler, combat rules and events | Complete on task branch | [M022](milestones/M022_headless_combat_batch.md), `codex/m022-combat-batch-runner`, based on M019; 21 scripts pass and 100/1000-run CLI samples completed. Initial scenario is Rat vs Rat; this adds measurement infrastructure, not balance changes. |
 | Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017/M018 layout had manual acceptance. M019 three-NPC layout has automated capture evidence only; manual acceptance and broader window/roster support remain separate. |
 | Tactical routing | Cost-aware routes and alternative keyboard/Num Lock mappings if needed | Candidate | Selected M018 uses deterministic shortest-step routing and keypad directions; weighted movement time is charged correctly. No alternative equal-cost implementation was merged. |
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
