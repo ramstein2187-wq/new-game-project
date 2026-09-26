@@ -1,6 +1,6 @@
 # M019 — Common Actor and multiple NPCs
 
-Status: **main integration validated** on `codex/integrate-m019`; PR merge pending. User explicitly authorized main integration on 2026-09-27; **manual play acceptance remains unverified**. [Integration record](../reviews/2026-09-27-m019-m022-integration.md).
+Status: **Complete on main** at `b109ffd` via [PR #7](https://github.com/ramstein2187-wq/new-game-project/pull/7); 20/20 integration scripts passed. User explicitly authorized main integration on 2026-09-27; **manual play acceptance remains unverified**. [Integration record](../reviews/2026-09-27-m019-m022-integration.md).
 Base: main `b232dce`. Implementation commit: `e3143ce`. Final evidence/documentation is in the subsequent commit on the same branch.
 
 [User specification](../designs/M019_common_actor_spec.md) · [Architecture decision](../decisions/common_actor_model.md) · [Validation report](../reviews/2026-09-22-m019-validation.md)

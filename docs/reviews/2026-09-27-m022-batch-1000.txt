@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Combat Batch — rat_vs_rat
+
+Seeds: 0..999
+Runs: 1000
+Completed: 1000
+Errors: 0
+Stalled: 708
+
+Side A wins: 155 (15.50%)
+Side B wins: 137 (13.70%)
+
+Mean actions: 364.889
+Mean world time: 172292.902
+
+Mean damage:
+  Side A: 16.159
+  Side B: 15.329
+
+Actions (total / per encounter):
+  Side A: move 164131 / 164.131, attack 8251 / 8.251, interact 1000 / 1.000, wait 9381 / 9.381
+  Side B: move 161453 / 161.453, attack 7752 / 7.752, interact 0 / 0.000, wait 12921 / 12.921
+
+Wall time: 112.877 s
+Throughput: 8.86 encounters/sec
