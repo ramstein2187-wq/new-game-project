@@ -10,19 +10,18 @@ func _init(cell: Vector2i = Vector2i.ZERO) -> void:
 
 func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	return (
-		target_cell == game.door_position
+		game.actor_is_alive(actor_id)
+		and target_cell == game.door_position
 		and (game.get_actor_position(actor_id) - target_cell).length_squared() == 1
 		and (
 			not game.door_open
-			or (game.player_position != target_cell and (
-				game.rat_hp <= 0 or game.rat_position != target_cell
-			))
+			or game.actors.occupant_at(target_cell) == null
 		)
 	)
 
 
 func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return game.RAT_INTERACT_COST if actor_id == &"rat" else game.INTERACT_COST
+	return game.get_actor(actor_id).definition.interact_cost
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

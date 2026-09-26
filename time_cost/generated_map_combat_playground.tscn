@@ -30,7 +30,7 @@ text = "Message"
 
 [node name="LogScroll" type="ScrollContainer" parent="CanvasLayer"]
 offset_left = 686.0
-offset_top = 440.0
+offset_top = 480.0
 offset_right = 1136.0
 offset_bottom = 622.0
 horizontal_scroll_mode = 0

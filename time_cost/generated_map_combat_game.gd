@@ -9,11 +9,11 @@ var terrain_rows := PackedStringArray()
 var map_width := 0
 var map_height := 0
 var _player_spawn := Vector2i.ZERO
-var _rat_spawn := Vector2i.ZERO
+var _npc_spawns: Array[Vector2i] = []
 
 
-func configure(rows: PackedStringArray) -> bool:
-	if rows.size() < 4 or rows[0].length() < 4:
+func configure(rows: PackedStringArray, npc_count: int = 3) -> bool:
+	if npc_count < 1 or rows.size() < 4 or rows[0].length() < 4:
 		return false
 	var width := rows[0].length()
 	for row in rows:
@@ -28,12 +28,19 @@ func configure(rows: PackedStringArray) -> bool:
 	if not _spawns_connected(rows, start, opponent):
 		return false
 
+	var staged_spawns: Array[Vector2i] = []
+	for cell in _reachable_cells(rows, opponent):
+		if cell != start:
+			staged_spawns.append(cell)
+		if staged_spawns.size() == npc_count:
+			break
+	# Small connected maps deliberately use as many distinct cells as fit.
 	# Commit only after validation; failed configuration preserves the active game.
 	terrain_rows = rows.duplicate()
 	map_width = width
 	map_height = rows.size()
 	_player_spawn = start
-	_rat_spawn = opponent
+	_npc_spawns = staged_spawns
 	reset()
 	return true
 
@@ -44,24 +51,39 @@ func reset() -> void:
 	super.reset()
 	if terrain_rows.is_empty():
 		return
-	player_position = _player_spawn
-	rat_position = _rat_spawn
 	# The generated terrain has no interactive doors yet.
 	door_position = Vector2i(-1, -1)
 	door_open = true
-	message = "Generated terrain: walk the path, fight the rat, or wait."
+	message = "Generated terrain: walk the path, fight %d NPCs, or wait." % _npc_spawns.size()
+
+
+func _create_initial_actors() -> void:
+	if terrain_rows.is_empty():
+		super._create_initial_actors()
+		return
+	door_position = Vector2i(-1, -1)
+	door_open = true
+	actors.register(Actor.new(&"player", ActorDefinition.human_default(), _player_spawn, "You"))
+	var definition := ActorDefinition.rat_common()
+	for index in range(_npc_spawns.size()):
+		var actor_id := &"rat" if index == 0 else StringName("rat_%03d" % (index + 1))
+		var label := "The rat" if _npc_spawns.size() == 1 else "Rat %d" % (index + 1)
+		var registered := register_actor(Actor.new(actor_id, definition, _npc_spawns[index], label))
+		assert(registered, "Validated NPC spawn must register")
 
 
 func _spawns_connected(rows: PackedStringArray, start: Vector2i, target: Vector2i) -> bool:
-	# Validate staged terrain without replacing the current game or running AI.
+	return _reachable_cells(rows, start).has(target)
+
+
+func _reachable_cells(rows: PackedStringArray, start: Vector2i) -> Array[Vector2i]:
+	# Stable cardinal BFS is independent of combat RNG and terrain generation.
 	var frontier: Array[Vector2i] = [start]
 	var visited: Dictionary = {start: true}
 	var index := 0
 	while index < frontier.size():
 		var cell := frontier[index]
 		index += 1
-		if cell == target:
-			return true
 		for direction in CARDINAL_DIRECTIONS:
 			var next := cell + direction
 			if next.x < 0 or next.y < 0 or next.y >= rows.size() or next.x >= rows[0].length() or visited.has(next):
@@ -71,7 +93,7 @@ func _spawns_connected(rows: PackedStringArray, start: Vector2i, target: Vector2
 				continue
 			visited[next] = true
 			frontier.append(next)
-	return false
+	return frontier
 
 
 func is_inside(cell: Vector2i) -> bool:

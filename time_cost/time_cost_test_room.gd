@@ -120,11 +120,17 @@ func _draw() -> void:
 	else:
 		draw_rect(door_rect.grow(-5.0), DOOR_CLOSED_COLOR)
 
-	if game.rat_hp > 0:
-		draw_circle(_cell_center(game.rat_position), 14.0, RAT_COLOR)
-
-	draw_circle(_cell_center(game.player_position), 15.0, PLAYER_COLOR)
-
+	var npc_index := 0
+	for actor in game.actors.all():
+		if actor.id == &"player":
+			draw_circle(_cell_center(actor.position), 14.0, PLAYER_COLOR)
+			continue
+		npc_index += 1
+		if not actor.is_alive():
+			continue
+		var center := _cell_center(actor.position)
+		draw_circle(center, 14.0, RAT_COLOR)
+		draw_string(ThemeDB.fallback_font, center + Vector2(-4, 4), str(npc_index), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
 	var facing_start := _cell_center(game.player_position)
 	var facing_end := facing_start + Vector2(game.facing) * 18.0
 	draw_line(facing_start, facing_end, FACING_COLOR, 3.0)
@@ -134,20 +140,10 @@ func _refresh() -> void:
 	if game == null:
 		return
 
-	status_label.text = (
-		"World time %d   HP %d/%d   Rat HP %d/%d   Door %s"
-		% [
-			game.world_time,
-			game.player_hp,
-			TimeCostGame.PLAYER_MAX_HP,
-			game.rat_hp,
-			TimeCostGame.RAT_MAX_HP,
-			"OPEN" if game.door_open else "CLOSED",
-		]
-	)
+	status_label.text = "t=%d | %s | Door %s" % [game.world_time, game.get_actor_status_text(), "OPEN" if game.door_open else "CLOSED"]
 	timeline_label.text = game.get_timeline_text()
 	help_label.text = (
-		"WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump rat: attack | E: door\n"
+		"WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump NPC: attack | E: door\n"
 		+ "Space/Enter: wait | R: reset | L: details | F3: trace\n"
 		+ "Injuries change costs and available actions. Ties favor you."
 	)

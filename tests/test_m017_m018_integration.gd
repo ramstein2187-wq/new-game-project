@@ -48,7 +48,7 @@ func _test_corner_ai_and_feedback() -> void:
 
 func _map() -> GeneratedMapCombatGame:
 	var game := GeneratedMapCombatGame.new()
-	expect(game.configure(PackedStringArray(OPEN_MAP)), "Generated test layout connected")
+	expect(game.configure(PackedStringArray(OPEN_MAP), 1), "Generated test layout connected")
 	return game
 
 func _test_generated_terrain_and_costs() -> void:
@@ -112,7 +112,7 @@ func _test_keypad_dispatch() -> void:
 			var game: TimeCostGame = scene.game
 			game.reset()
 			if game is GeneratedMapCombatGame:
-				game.configure(PackedStringArray(OPEN_MAP))
+				game.configure(PackedStringArray(OPEN_MAP), 1)
 				game.player_position = Vector2i(3, 3)
 				game.rat_position = Vector2i(5, 5)
 			else:

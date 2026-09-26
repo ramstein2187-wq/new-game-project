@@ -21,27 +21,27 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-21, after user acceptance of M017/M018. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
+Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual acceptance pending. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
-| Combat balance | Evaluate severe player-arm-injury frequency, rat retreat/encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
-| Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | Current 1152×648 layout was included in user manual acceptance; broader window-size support remains separate. |
+| Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
+| Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017/M018 layout had manual acceptance. M019 three-NPC layout has automated capture evidence only; manual acceptance and broader window/roster support remain separate. |
 | Tactical routing | Cost-aware routes and alternative keyboard/Num Lock mappings if needed | Candidate | Selected M018 uses deterministic shortest-step routing and keypad directions; weighted movement time is charged correctly. No alternative equal-cost implementation was merged. |
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
-| Actor model (C) | Common Actor state and multiple NPC gameplay | Planned | Separate narrowly scoped milestone after M016; scheduler already supports multiple IDs, game state and action dispatch still target player/rat. Do not add to M013–M015 acceptance. |
+| Actor model (C) | Common Actor state and multiple NPC gameplay | Complete on task branch; manual acceptance pending | [M019](milestones/M019_common_actor.md), `codex/m019-common-actor`, implementation e3143ce; 20 scripts pass. Default three NPCs; not merged to main. |
 | Tactical AI / presentation | Visibly animate NPC movement and other action sequences instead of only applying results atomically | Planned | Follow-up from M015; the rat currently performs one tile per scheduled action without tweened animation. No implementation milestone assigned. |
-| Tactical AI / world (C) | Factions, sight/hearing, broader goals and new abilities | Candidate | M015 explicitly defers these systems; full-room observation is the current prototype policy. Register separate scope before implementation. |
+| Tactical AI / world (C) | Factions, companions/controllers, sight/hearing, target memory, broader goals and new abilities | Candidate | M015 explicitly defers these systems; full-room observation is the current prototype policy. Register separate scope before implementation. |
 | Feedback / explainability | Extend observable reasons to additional NPC behaviors, dialogue/barks and contextual feedback | Candidate | The M012 log and M015 retreat cue are prototypes, not full player-facing coverage. See `docs/decisions/explainable_systemic_behavior.md`. |
 | World generation | Expansion beyond the current playable generated map (regions, landmarks and tuning informed by playtests) | Candidate | Do not assume the current prototype already supports a full world. |
 | World persistence (C) | Three-Zone minimum: village/wilderness/ruin, freeze/restore, stateful object, renewable resource, significant enemy and save/load without duplicate ownership/rewards | Planned | `docs/decisions/world_persistence.md` imported unchanged from `chat/world-persistence-design`; design only, no persistence implementation. Build on M002 state contracts; choose clock, transition and save contracts before assigning implementation milestone. |
 | World simulation | Shared world clock integration, lazy regrowth/replenishment, and consequential cross-zone scheduled events after initial persistence tests | Candidate | See `docs/decisions/world_persistence.md`; no background world simulation implementation or clock-unit decision yet. |
-| RPG content (C) | Broader abilities, equipment, quests and social/faction content after the minimal gameplay and persistence loops | Candidate | No new implementation milestone assigned; outside M016. |
+| RPG content (C) | Broader abilities, inventory/equipment, generic status effects, quests and social content after the minimal gameplay and persistence loops | Candidate | No new implementation milestone assigned; outside M016. |
 | Generation follow-up | Seed-version compatibility and reachable ruins when ruins become playable destinations | Planned | Prior local review reported 31-bit seed folding and disconnected ruin entrances; not introduced by this integration. Reproduce before changing generation semantics; preserve existing seed decision/golden values. |
 
-Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. Numbers after M018 remain unassigned until scoped work starts. These extensions do not reopen earlier milestone acceptance.
+Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. M019 is scoped on its task branch; later numbers remain unassigned. These extensions do not reopen earlier milestone acceptance.
 
 ## Maintenance rules
 
