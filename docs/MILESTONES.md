@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M022: **Integration in progress** on `codex/integrate-m022`, based on updated main `b109ffd` after M019. Current integration tests and batch samples pending. [Headless combat batch simulation](milestones/M022_headless_combat_batch.md).
+- M022: **Main integration validated** on `codex/integrate-m022`, based on updated main `b109ffd` after M019. 21/21 scripts and 100/1000-run samples passed with zero simulation errors; PR merge pending. [Headless combat batch simulation](milestones/M022_headless_combat_batch.md).
 
 - M019: **Complete on main** at `b109ffd` via [PR #7](https://github.com/ramstein2187-wq/new-game-project/pull/7), 20/20 integration scripts passed. User authorized merge; manual play acceptance remains unverified. [Integration record](reviews/2026-09-27-m019-m022-integration.md).
 
@@ -22,7 +22,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M022 | Integration in progress | Production combat batch infrastructure; latest main validation pending | `docs/milestones/M022_headless_combat_batch.md` |
+| M022 | Main integration validated; PR merge pending | Production combat batch infrastructure; 21/21 scripts, 100/1000-run samples with zero errors | `docs/milestones/M022_headless_combat_batch.md` |
 | M019 | Complete on main | Common Actor ownership, three NPCs; 20/20 scripts; manual play unverified | `docs/milestones/M019_common_actor.md` |
 | M017 | Complete on main | D20, abilities, bodies and armor; user manual approval, 17 combined tests passed | `docs/milestones/M017_combat_body_phase1.md` |
 | M018 | Complete on main | Eight-way movement/melee, blocked corners, 1.4× diagonal movement costs composed with injuries | `docs/milestones/M018_eight_way_combat.md` |

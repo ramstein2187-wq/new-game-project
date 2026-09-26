@@ -21,12 +21,13 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-27, M019 is complete on main at `b109ffd`; M022 integration and revalidation are in progress. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
+Snapshot: 2026-09-27, M019 is complete on main at `b109ffd`; M022 integration tests and 100/1000-run samples passed; PR merge pending. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
 | Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
-| Combat simulation | Deterministic headless batch runner using production actions, AI, scheduler, combat rules and events | Integration in progress | [M022](milestones/M022_headless_combat_batch.md), `codex/integrate-m022` based on updated main b109ffd. Latest main tests and 100/1000-run samples pending; production rules preserved. |
+| Combat simulation | Deterministic headless batch runner using production actions, AI, scheduler, combat rules and events | Main integration validated; PR merge pending | [M022](milestones/M022_headless_combat_batch.md), `codex/integrate-m022` on main b109ffd; 21/21 scripts and 100/1000-run samples, zero errors. Production rules preserved. |
+| Simulation follow-up | Paired side swaps, symmetric scenarios and exact per-action stepping when experiments require them | Candidate | M022 retains player-priority ties, fixed-room asymmetry and scheduling-window action-cap overshoot. High stalls are current AI/rules measurements; any AI tuning needs separate scope. |
 | Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017/M018 layout had manual acceptance. M019 three-NPC layout has automated capture evidence only; manual acceptance and broader window/roster support remain separate. |
 | Tactical routing | Cost-aware routes and alternative keyboard/Num Lock mappings if needed | Candidate | Selected M018 uses deterministic shortest-step routing and keypad directions; weighted movement time is charged correctly. No alternative equal-cost implementation was merged. |
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
@@ -42,7 +43,7 @@ Snapshot: 2026-09-27, M019 is complete on main at `b109ffd`; M022 integration an
 | RPG content (C) | Broader abilities, inventory/equipment, generic status effects, quests and social content after the minimal gameplay and persistence loops | Candidate | No new implementation milestone assigned; outside M016. |
 | Generation follow-up | Seed-version compatibility and reachable ruins when ruins become playable destinations | Planned | Prior local review reported 31-bit seed folding and disconnected ruin entrances; not introduced by this integration. Reproduce before changing generation semantics; preserve existing seed decision/golden values. |
 
-Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. M019 integration is validated; later extensions remain separate. These extensions do not reopen earlier milestone acceptance.
+Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. M019 is complete on main; later extensions remain separate. These extensions do not reopen earlier milestone acceptance.
 
 ## Maintenance rules
 
