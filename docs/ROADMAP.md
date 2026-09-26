@@ -21,12 +21,12 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-27, M019 is complete on main at `b109ffd`; M022 integration tests and 100/1000-run samples passed; PR merge pending. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
+Snapshot: 2026-09-27, M019 is complete on main at `b109ffd`; M022 is complete on main at `542f534` via PR #8. Final main 21/21 tests and 20-run smoke passed; 100/1000-run integration samples had zero errors. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
 | Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
-| Combat simulation | Deterministic headless batch runner using production actions, AI, scheduler, combat rules and events | Main integration validated; PR merge pending | [M022](milestones/M022_headless_combat_batch.md), `codex/integrate-m022` on main b109ffd; 21/21 scripts and 100/1000-run samples, zero errors. Production rules preserved. |
+| Combat simulation | Deterministic headless batch runner using production actions, AI, scheduler, combat rules and events | Complete on main | [M022](milestones/M022_headless_combat_batch.md), main 542f534 via PR #8; final 21/21 scripts and 20-run smoke, plus 100/1000-run integration samples, zero errors. Production rules preserved. |
 | Simulation follow-up | Paired side swaps, symmetric scenarios and exact per-action stepping when experiments require them | Candidate | M022 retains player-priority ties, fixed-room asymmetry and scheduling-window action-cap overshoot. High stalls are current AI/rules measurements; any AI tuning needs separate scope. |
 | Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017/M018 layout had manual acceptance. M019 three-NPC layout has automated capture evidence only; manual acceptance and broader window/roster support remain separate. |
 | Tactical routing | Cost-aware routes and alternative keyboard/Num Lock mappings if needed | Candidate | Selected M018 uses deterministic shortest-step routing and keypad directions; weighted movement time is charged correctly. No alternative equal-cost implementation was merged. |
