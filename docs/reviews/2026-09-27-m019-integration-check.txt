@@ -1,0 +1,224 @@
+== Godot version ==
+4.7.2.stable.mono.official.ed1daf0bf
+== Editor parse/import check ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 프로젝트 초기화 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 파일 구조 스캔 중...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 전역 클래스 이름을 불러오는 중...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | GDExtensions 검증 중...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 오토로드 스크립트를 만드는 중...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 플러그인을 초기화 중...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 파일 스캔 시작 중...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 전역 클래스를 등록하는 중... (59 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | MicroApGame[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | GenerationSettings[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | ProceduralMapPreview[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | ProceduralPlayground[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | SeedDeriver[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | SimpleMapGenerator[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | AttackAction[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | InteractAction[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | MoveAction[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | TimeAction[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | WaitAction[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | Actor[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | ActorDefinition[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | ActorRegistry[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | RatTactics[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | TacticalChoice[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | TacticalPlanner[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | AbilityScores[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | BodyInstance[39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | BodyTemplate[39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | CombatDebugPanel[39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | CombatRules[39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | CombatSpecies[39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | CombatEvent[39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | CombatEventLog[39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | CombatLogFormatter[39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | GeneratedMapCombatGame[39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | TimeCostGame[39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | TimeScheduler[39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 액션 스캔 중... (15 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 1.0 Horizontal Alpha.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 1.0 Horizontal.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 1.0 Packed Alpha.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 1.0 Packed.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 1.0 Vertical Alpha.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 1.0 Vertical.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 Horizontal Alpha.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 Horizontal.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 Packed Alpha.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 packed Vertical.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 Packed.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 Vertical Alpha.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | EverRogueTileset 2.0 Vertical.png[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | 2026-09-22-m019-scene.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | icon.svg[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 애셋 (다시) 가져오는 중 (15 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[   6% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  12% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  18% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  25% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  31% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  37% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  43% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  50% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  56% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  62% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  68% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  75% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  81% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[  87% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[   0% ] [90m[1mreimport[22m | 다시 가져오기 전 작업을 수행 중...[39m[0m
+[   0% ] [90m[1mreimport[22m | EverRogueTileset 1.0 Horizontal Alpha.png[39m[0m
+[   6% ] [90m[1mreimport[22m | EverRogueTileset 1.0 Horizontal.png[39m[0m
+[  12% ] [90m[1mreimport[22m | EverRogueTileset 1.0 Packed Alpha.png[39m[0m
+[  18% ] [90m[1mreimport[22m | EverRogueTileset 1.0 Packed.png[39m[0m
+[  25% ] [90m[1mreimport[22m | EverRogueTileset 1.0 Vertical Alpha.png[39m[0m
+[  31% ] [90m[1mreimport[22m | EverRogueTileset 1.0 Vertical.png[39m[0m
+[  37% ] [90m[1mreimport[22m | EverRogueTileset 2.0 Horizontal Alpha.png[39m[0m
+[  43% ] [90m[1mreimport[22m | EverRogueTileset 2.0 Horizontal.png[39m[0m
+[  50% ] [90m[1mreimport[22m | EverRogueTileset 2.0 Packed Alpha.png[39m[0m
+[  56% ] [90m[1mreimport[22m | EverRogueTileset 2.0 packed Vertical.png[39m[0m
+[  62% ] [90m[1mreimport[22m | EverRogueTileset 2.0 Packed.png[39m[0m
+[  68% ] [90m[1mreimport[22m | EverRogueTileset 2.0 Vertical Alpha.png[39m[0m
+[  75% ] [90m[1mreimport[22m | EverRogueTileset 2.0 Vertical.png[39m[0m
+[  81% ] [90m[1mreimport[22m | 2026-09-22-m019-scene.png[39m[0m
+[  87% ] [90m[1mreimport[22m | icon.svg[39m[0m
+[  93% ] [90m[1mreimport[22m | 애셋 가져오기 마무리 중...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 애셋 (다시) 가져오는 중 (15 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 다시 가져오기 후 작업을 수행 중...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 편집기를 불러오는 중 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 편집기 레이아웃을 불러오는 중...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 독을 불러오는 중...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+== Main scene startup smoke test ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+== Project tests ==
+-- tests/test_basic_interaction.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+상자를 조사했다.
+PASS: basic interaction
+-- tests/test_combat_body.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: combat/body rules, RNG, Action/AI, allocation UI and reset
+-- tests/test_combat_log.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: structured combat log
+-- tests/test_common_action_system.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: common action system
+-- tests/test_common_actor.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: common Actor ownership, isolation, registry and lifecycle
+-- tests/test_eight_way_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: eight-way movement, 1400/1050 diagonal costs, injury scaling, diagonal melee and corner collision
+-- tests/test_generated_map_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generated-map action-cost combat
+-- tests/test_generation_settings.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generation settings
+-- tests/test_m017_m018_integration.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: M017/M018 corner routing, honest reach feedback, generated terrain, injured diagonal scheduling and both scene inputs
+-- tests/test_micro_ap_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: micro AP test room
+-- tests/test_multiple_npcs.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: multiple NPC scheduling, occupancy, combat, AI, generated reset/replay and playable UI
+-- tests/test_procedural_map_preview.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural map preview
+-- tests/test_procedural_playground.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural playground
+-- tests/test_seed_deriver.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: seed deriver
+-- tests/test_simple_map_generator.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: simple procedural map generator
+-- tests/test_single_actor_replay.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: pre-M019 single-rat replay (3 seeds)
+-- tests/test_tactical_ai.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: tactical AI decision and explainability
+-- tests/test_time_cost_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scheduler test room
+-- tests/test_time_cost_input.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scene input, defeat and reset
+-- tests/test_time_scheduler.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: independent time scheduler
+All Godot checks passed.

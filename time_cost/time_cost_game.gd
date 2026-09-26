@@ -28,15 +28,27 @@ const MOVE_DIRECTIONS: Array[Vector2i] = [
 	Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(1, 1),
 ]
 
-var player_position := Vector2i(2, 3)
-var rat_position := Vector2i(8, 3)
+# Legacy accessors forward into Actor; they own no duplicate runtime state.
+var actors := ActorRegistry.new()
+var player_position: Vector2i:
+	get: return get_actor(&"player").position
+	set(value): get_actor(&"player").position = value
+var rat_position: Vector2i:
+	get: return get_actor(&"rat").position
+	set(value): get_actor(&"rat").position = value
+var player_hp: int:
+	get: return get_actor(&"player").hp
+	set(value): get_actor(&"player").hp = value
+var rat_hp: int:
+	get: return get_actor(&"rat").hp
+	set(value): get_actor(&"rat").hp = value
+var facing: Vector2i:
+	get: return get_actor(&"player").facing
+	set(value): get_actor(&"player").facing = value
 var door_position := Vector2i(5, 3)
-
-var player_hp := PLAYER_MAX_HP
-var rat_hp := RAT_MAX_HP
 var door_open := false
-var facing := Vector2i.RIGHT
 var game_over := false
+var simulation_error := ""
 
 var scheduler := TimeScheduler.new()
 var world_time: int:
@@ -53,14 +65,22 @@ var last_response_count := 0
 var message := ""
 var combat_log := CombatEventLog.new()
 # Prototype trait values are tunable during play and reevaluated at each action.
-var rat_aggression := 50
-var rat_fear_bonus := 0
+var rat_aggression: int:
+	get: return get_actor(&"rat").aggression
+	set(value): get_actor(&"rat").aggression = value
+var rat_fear_bonus: int:
+	get: return get_actor(&"rat").fear_bonus
+	set(value): get_actor(&"rat").fear_bonus = value
 
 var combat_seed := 17017
 var combat_rng := RandomNumberGenerator.new()
-var abilities: Dictionary = {}
-var species: Dictionary = {}
-var bodies: Dictionary = {}
+# Compatibility views return references to owned objects, not stored dictionaries.
+var abilities: Dictionary:
+	get: return _actor_view(&"abilities")
+var species: Dictionary:
+	get: return _actor_view(&"species")
+var bodies: Dictionary:
+	get: return _actor_view(&"body")
 
 var _walls: Dictionary = {}
 
@@ -71,25 +91,14 @@ func _init() -> void:
 
 func reset() -> void:
 	combat_rng.seed = combat_seed
-	abilities = {&"player": AbilityScores.new(), &"rat": AbilityScores.new()}
-	species = {&"player": CombatSpecies.human(), &"rat": CombatSpecies.rat()}
-	bodies = {}
-	for actor: StringName in species:
-		bodies[actor] = BodyInstance.new(species[actor].body_template, species[actor].attack_capability)
-	_build_room()
-	player_position = Vector2i(2, 3)
-	rat_position = Vector2i(8, 3)
-	door_position = Vector2i(5, 3)
-	player_hp = PLAYER_MAX_HP
-	rat_hp = RAT_MAX_HP
-	rat_aggression = 50
-	rat_fear_bonus = 0
-	door_open = false
-	facing = Vector2i.RIGHT
-	game_over = false
-
+	actors = ActorRegistry.new()
 	scheduler.reset(&"player")
-	scheduler.register_actor(&"rat")
+	_build_room()
+	door_position = Vector2i(5, 3)
+	door_open = false
+	game_over = false
+	simulation_error = ""
+	_create_initial_actors()
 	last_action_cost = 0
 	last_response_count = 0
 	combat_log.clear()
@@ -106,8 +115,9 @@ func player_move(direction: Vector2i) -> bool:
 		return false
 	facing = direction
 	var target := player_position + direction
-	if rat_hp > 0 and target == rat_position:
-		return perform_action(&"player", AttackAction.new(&"rat"))
+	var occupant := actors.occupant_at(target, &"player")
+	if occupant != null:
+		return perform_action(&"player", AttackAction.new(occupant.id))
 	if not can_step(player_position, direction):
 		message = "The door is closed. Face it and press E to interact." if target == door_position and not door_open else "Movement blocked."
 		return false
@@ -121,7 +131,7 @@ func player_interact() -> bool:
 	if target != door_position:
 		message = "There is nothing to interact with in that direction."
 		return false
-	if door_open and (player_position == door_position or (rat_hp > 0 and rat_position == door_position)):
+	if door_open and actors.occupant_at(door_position) != null:
 		message = "The doorway is occupied."
 		return false
 	return perform_action(&"player", InteractAction.new(target))
@@ -133,10 +143,10 @@ func player_wait() -> bool:
 	return perform_action(&"player", WaitAction.new())
 
 
-# The same action path is used by player input and the rat AI. Invalid actions
+# The same action path is used by player input and every NPC. Invalid actions
 # neither consume time nor add events. The scheduler never imports an Action.
 func perform_action(actor_id: StringName, action: TimeAction) -> bool:
-	if game_over or action == null or not scheduler.has_actor(actor_id) or not actor_is_alive(actor_id):
+	if game_over or not simulation_error.is_empty() or action == null or not scheduler.has_actor(actor_id) or not actor_is_alive(actor_id):
 		return false
 	if scheduler.get_ready_time(actor_id) != world_time:
 		return false
@@ -160,37 +170,41 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 		event.data["ai_candidates"] = action.ai_candidates.duplicate(true)
 		if action.visible_cue != &"":
 			event.data["visible_cue"] = action.visible_cue
+	if get_actor(event.target_id) != null:
+		event.target_name = get_actor(event.target_id).display_name
 	combat_log.add_event(event)
 	scheduler.advance_actor(actor_id, cost)
 	if actor_id == &"player":
 		last_action_cost = cost
 		last_response_count = 0
 		_run_until_player_ready()
-		if not game_over:
-			message = "Action cost %d; rat responses %d." % [cost, last_response_count]
+		if not game_over and simulation_error.is_empty():
+			message = "Action cost %d; NPC responses %d." % [cost, last_response_count]
 	return true
 
 
 func get_rat_fear() -> int:
-	return maxi(0, roundi((RAT_MAX_HP - rat_hp) * 120.0 / RAT_MAX_HP) + rat_fear_bonus)
+	return get_actor(&"rat").fear()
 
 
 func can_attack(actor_id: StringName) -> bool:
-	return bodies.has(actor_id) and bodies[actor_id].attack_efficiency(species[actor_id].attack_capability) > 0
+	var actor := get_actor(actor_id)
+	return actor != null and actor.is_alive() and actor.body.attack_efficiency(actor.species.attack_capability) > 0
 
 
 func movement_efficiency(actor_id: StringName) -> float:
-	return bodies[actor_id].capability(&"locomotion") if bodies.has(actor_id) else 0.0
+	var actor := get_actor(actor_id)
+	return actor.body.capability(&"locomotion") if actor != null and actor.is_alive() else 0.0
 
 
 func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
-	var attacker: CombatSpecies = species[actor_id]
-	var body: BodyInstance = bodies[actor_id]
-	var target: BodyInstance = bodies[target_id]
+	var attacker: CombatSpecies = get_actor(actor_id).species
+	var body: BodyInstance = get_actor(actor_id).body
+	var target: BodyInstance = get_actor(target_id).body
 	var injury_mod := -2 if body.attack_efficiency(attacker.attack_capability) < 1 else 0
 	var result := CombatRules.check(combat_rng.randi_range(1, 20),
-		abilities[actor_id].get_modifier(attacker.attack_ability), 0, injury_mod,
-		10 + abilities[target_id].get_modifier(&"DEX"))
+		get_actor(actor_id).abilities.get_modifier(attacker.attack_ability), 0, injury_mod,
+		10 + get_actor(target_id).abilities.get_modifier(&"DEX"))
 	result["ability"] = attacker.attack_ability
 	result["attack_part"] = body.attack_part
 	result["damage"] = 0
@@ -211,42 +225,77 @@ func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
 	return result
 
 
+func get_actor(actor_id: StringName) -> Actor:
+	return actors.get_actor(actor_id)
+
+
+func _actor_view(property: StringName) -> Dictionary:
+	var view := {}
+	for actor in actors.all():
+		view[actor.id] = actor.get(property)
+	return view
+
+
+func _create_initial_actors() -> void:
+	actors.register(Actor.new(&"player", ActorDefinition.human_default(), Vector2i(2, 3), "You"))
+	register_actor(Actor.new(&"rat", ActorDefinition.rat_common(), Vector2i(8, 3), "The rat"))
+
+
+# Register/remove through the game so occupancy and scheduling change together.
+func register_actor(actor: Actor, ready_time: int = -1) -> bool:
+	if actor == null or actor.id == &"player" or actor.definition == null or not actor.definition.is_valid() or not actor.is_alive():
+		return false
+	if _blocks_movement(actor.position) or scheduler.has_actor(actor.id):
+		return false
+	var ready := world_time if ready_time < 0 else ready_time
+	if ready < world_time or not actors.register(actor):
+		return false
+	if not scheduler.register_actor(actor.id, ready):
+		actors.remove(actor.id)
+		return false
+	return true
+
+
+func remove_actor(actor_id: StringName) -> bool:
+	if actor_id == &"player" or not actors.has_actor(actor_id):
+		return false
+	if scheduler.has_actor(actor_id):
+		scheduler.unregister_actor(actor_id)
+	return actors.remove(actor_id)
+
+
 func actor_is_alive(actor_id: StringName) -> bool:
-	match actor_id:
-		&"player": return player_hp > 0
-		&"rat": return rat_hp > 0
-	return false
+	var actor := get_actor(actor_id)
+	return actor != null and actor.is_alive()
 
 
 func get_actor_position(actor_id: StringName) -> Vector2i:
-	return player_position if actor_id == &"player" else rat_position
+	var actor := get_actor(actor_id)
+	assert(actor != null, "Unknown actor position: %s" % actor_id)
+	return actor.position
 
 
 func set_actor_position(actor_id: StringName, cell: Vector2i) -> void:
-	if actor_id == &"player":
-		player_position = cell
-	elif actor_id == &"rat":
-		rat_position = cell
+	var actor := get_actor(actor_id)
+	if actor != null and not blocks_actor_movement(cell, actor_id):
+		actor.position = cell
 
 
 func blocks_actor_movement(cell: Vector2i, actor_id: StringName) -> bool:
-	return _blocks_movement(cell) or (
-		actor_id != &"player" and player_hp > 0 and player_position == cell
-	) or (
-		actor_id != &"rat" and rat_hp > 0 and rat_position == cell
-	)
+	return _blocks_movement(cell) or actors.occupant_at(cell, actor_id) != null
 
 
 func damage_actor(actor_id: StringName, damage: int) -> int:
-	if actor_id == &"player":
-		player_hp = maxi(0, player_hp - damage)
-		return player_hp
-	if actor_id == &"rat":
-		rat_hp = maxi(0, rat_hp - damage)
-		if rat_hp == 0:
-			scheduler.unregister_actor(&"rat")
-		return rat_hp
-	return 0
+	var actor := get_actor(actor_id)
+	if actor == null:
+		return 0
+	actor.hp = maxi(0, actor.hp - maxi(0, damage))
+	if not actor.is_alive():
+		if actor_id == &"player":
+			game_over = true
+		else:
+			scheduler.unregister_actor(actor_id)
+	return actor.hp
 
 
 func make_action_event(event_type: StringName, actor_id: StringName, action_id: StringName, cost: int) -> CombatEvent:
@@ -267,15 +316,11 @@ func is_inside(cell: Vector2i) -> bool:
 
 
 func get_timeline_text() -> String:
-	return (
-		"Ready times — You: %d | Rat: %s | Last cost: %d | Rat responses: %d"
-		% [
-			player_next_ready_time,
-			str(rat_next_ready_time) if rat_hp > 0 else "defeated",
-			last_action_cost,
-			last_response_count,
-		]
-	)
+	var entries: Array[String] = []
+	for actor in actors.all():
+		entries.append("%s: %s" % [actor.display_name,
+			str(scheduler.get_ready_time(actor.id)) if actor.is_alive() else "defeated"])
+	return "Ready — %s | Last cost: %d | NPC responses: %d" % [" / ".join(entries), last_action_cost, last_response_count]
 
 
 func get_recent_event_text(detailed: bool = false) -> String:
@@ -306,6 +351,9 @@ func _build_room() -> void:
 
 
 func _can_player_act() -> bool:
+	if not simulation_error.is_empty():
+		message = simulation_error
+		return false
 	if game_over:
 		message = "The test is over. Press R to reset."
 		return false
@@ -317,27 +365,28 @@ func _run_until_player_ready() -> void:
 		var next_actor := scheduler.take_next_actor_before_player()
 		if next_actor == &"":
 			break
-		match next_actor:
-			&"rat":
-				if not _run_rat_action():
-					push_error("Rat failed to produce a valid action at time %d." % world_time)
-					return
-				last_response_count += 1
-			_:
-				push_error("No action handler registered for actor: %s" % next_actor)
-				return
+		if not _run_npc_action(next_actor):
+			simulation_error = "NPC %s failed at time %d; simulation stopped." % [next_actor, world_time]
+			message = simulation_error
+			push_error(simulation_error)
+			return
+		last_response_count += 1
 
 	if player_hp <= 0:
 		game_over = true
-		message = "The rat defeats you at time %d. Press R to reset." % world_time
+		message = "You are defeated at time %d. Press R to reset." % world_time
 
 
-func _run_rat_action() -> bool:
-	# Reobserve and choose a fresh action after every scheduler activation.
-	var decision := RatTactics.choose(self)
-	if decision == null:
+func _run_npc_action(actor_id: StringName) -> bool:
+	var actor := get_actor(actor_id)
+	if actor == null or not actor.is_alive():
 		return false
-	return perform_action(&"rat", decision.action)
+	if actor.ai_policy == &"rat_tactics" and actor_is_alive(actor.target_id):
+		var decision := RatTactics.choose(self, actor_id, actor.target_id)
+		if decision == null:
+			return false
+		return perform_action(actor_id, decision.action)
+	return perform_action(actor_id, WaitAction.new())
 
 
 func _new_event(
@@ -350,6 +399,7 @@ func _new_event(
 	var event := CombatEvent.new()
 	event.type = event_type
 	event.actor_id = actor_id
+	event.actor_name = get_actor(actor_id).display_name
 	event.action_id = action_id
 	event.time = action_time
 	event.action_cost = cost
@@ -359,15 +409,23 @@ func _new_event(
 
 
 func _next_step_toward_player() -> Vector2i:
-	var frontier: Array[Vector2i] = [rat_position]
+	return next_step_toward(&"rat", &"player")
+
+
+func next_step_toward(actor_id: StringName, target_id: StringName) -> Vector2i:
+	var start := get_actor_position(actor_id)
+	var target := get_actor_position(target_id)
+	if start == target:
+		return start
+	var frontier: Array[Vector2i] = [start]
 	var frontier_index := 0
-	var came_from: Dictionary = {rat_position: rat_position}
+	var came_from: Dictionary = {start: start}
 
 	while frontier_index < frontier.size():
 		var current := frontier[frontier_index]
 		frontier_index += 1
 
-		if current == player_position:
+		if current == target:
 			break
 
 		for direction in MOVE_DIRECTIONS:
@@ -382,14 +440,17 @@ func _next_step_toward_player() -> Vector2i:
 				if neighbor != door_position or door_open or direction.x != 0 and direction.y != 0:
 					continue
 
+			var occupant := actors.occupant_at(neighbor, actor_id)
+			if occupant != null and occupant.id != target_id:
+				continue
 			came_from[neighbor] = current
 			frontier.append(neighbor)
 
-	if not came_from.has(player_position):
-		return rat_position
+	if not came_from.has(target):
+		return start
 
-	var step := player_position
-	while came_from[step] != rat_position:
+	var step := target
+	while came_from[step] != start:
 		step = came_from[step]
 
 	return step
@@ -426,3 +487,10 @@ func can_step(start: Vector2i, direction: Vector2i) -> bool:
 	if direction.x != 0 and direction.y != 0:
 		return not _blocks_movement(start + Vector2i(direction.x, 0)) and not _blocks_movement(start + Vector2i(0, direction.y))
 	return true
+
+
+func get_actor_status_text() -> String:
+	var entries: Array[String] = []
+	for actor in actors.all():
+		entries.append("%s HP %d/%d%s" % [actor.display_name, actor.hp, actor.max_hp, " (dead)" if not actor.is_alive() else ""])
+	return " | ".join(entries)

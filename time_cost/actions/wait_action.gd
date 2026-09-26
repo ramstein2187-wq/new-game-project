@@ -7,7 +7,7 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 
 
 func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return game.RAT_WAIT_COST if actor_id == &"rat" else game.WAIT_COST
+	return game.get_actor(actor_id).definition.wait_cost
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

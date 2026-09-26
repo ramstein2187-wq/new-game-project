@@ -41,31 +41,32 @@ func _button(caption: String, parent: Node) -> Button:
 	return button
 
 func _allocate(ability: StringName, delta: int) -> void:
-	if game != null and game.abilities[&"player"].allocate(ability, delta):
+	if game != null and game.get_actor(&"player").abilities.allocate(ability, delta):
 		refresh()
 		changed.emit()
 
 func _reset_scores() -> void:
 	if game != null:
-		game.abilities[&"player"].reset()
+		game.get_actor(&"player").abilities.reset()
 		refresh()
 		changed.emit()
 
 func refresh() -> void:
 	if game == null or points == null:
 		return
-	var scores: AbilityScores = game.abilities[&"player"]
+	var scores: AbilityScores = game.get_actor(&"player").abilities
 	points.text = "Test abilities — points: %d / 12" % scores.remaining
 	for ability: StringName in rows:
 		rows[ability].text = "%s: %d (%+d)" % [ability, scores.scores[ability], scores.get_modifier(ability)]
 	var lines: Array[String] = []
 	var details: Array[String] = []
-	for actor: StringName in [&"player", &"rat"]:
-		var body: BodyInstance = game.bodies[actor]
+	for instance in game.actors.all():
+		var actor := instance.id
+		var body := instance.body
 		var move_cost := MoveAction.new(Vector2i.RIGHT).get_cost(game, actor)
 		var diagonal_cost := MoveAction.new(Vector2i(1, 1)).get_cost(game, actor)
-		lines.append("%s: attack %s | move %s" % [actor,
-			"unavailable" if not game.can_attack(actor) else ("impaired (-2)" if body.efficiency(body.attack_part) < 1 else "ready"),
+		lines.append("%s %d/%d: %s | move %s" % [instance.display_name, instance.hp, instance.max_hp,
+			"dead" if not instance.is_alive() else "unavailable" if not game.can_attack(actor) else ("impaired (-2)" if body.efficiency(body.attack_part) < 1 else "ready"),
 			"%d/%d" % [move_cost, diagonal_cost] if move_cost > 0 else "unavailable"])
 		for part: Dictionary in body.parts.values():
 			details.append("%s %s: %d/%d (%s)" % [actor, part.name, part.current, part.maximum, body.state(part.id)])
