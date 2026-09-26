@@ -1,6 +1,6 @@
 # M019 — Common Actor and multiple NPCs
 
-Status: implementation and automated validation complete on `codex/m019-common-actor`; **manual play acceptance pending, not merged to main**.
+Status: **main integration validated** on `codex/integrate-m019`; PR merge pending. User explicitly authorized main integration on 2026-09-27; **manual play acceptance remains unverified**. [Integration record](../reviews/2026-09-27-m019-m022-integration.md).
 Base: main `b232dce`. Implementation commit: `e3143ce`. Final evidence/documentation is in the subsequent commit on the same branch.
 
 [User specification](../designs/M019_common_actor_spec.md) · [Architecture decision](../decisions/common_actor_model.md) · [Validation report](../reviews/2026-09-22-m019-validation.md)
@@ -20,7 +20,7 @@ Base: main `b232dce`. Implementation commit: `e3143ce`. Final evidence/documenta
 - Phase B: moved state ownership and generic action/AI dispatch. Captured single-rat replay at main b232dce before refactoring; post-change three-seed checksum matches all positions, HP/body damage, clock, event data and RNG state.
 - Phase C: deterministic generated three-NPC roster, per-actor scene loops, named events and expanded body panel. Existing single-NPC fixtures retain their assertions and use explicit count 1.
 - Phase D: all 20 test scripts, editor parse/import and main startup passed. Added actual-scene input tests for three independent moves/attacks, one rat's retreat, selected-target death and displayed status. Rendered the default scene and visually inspected the capture at 1152×648; this is automated presentation evidence, not manual play acceptance.
-- Implementation checkpoint e3143ce was committed and pushed to origin/codex/m019-common-actor. Final handoff records, test output and screenshot are in the following documentation commit on that same branch. No main merge is authorized for M019.
+- Implementation checkpoint e3143ce was committed and pushed to origin/codex/m019-common-actor. Final handoff records, test output and screenshot are in the following documentation commit on that same branch. At that historical checkpoint, no main merge was authorized; the 2026-09-27 integration request supersedes that restriction without supplying manual play evidence.
 
 ## Validation and decisions
 
@@ -40,4 +40,4 @@ No design principles or balance values changed. New decisions: shared immutable 
 
 ## Follow-ups
 
-Manual play/encounter balance is the remaining merge gate. Existing roadmap entries cover action animation, inventory/equipment, factions/companions/controllers, statuses, world/save persistence, perception/memory and species content. No M011–M018 completed milestone documents were expanded.
+Manual play/encounter balance remains a follow-up; the user explicitly authorized main integration on 2026-09-27 without claiming manual acceptance. Existing roadmap entries cover action animation, inventory/equipment, factions/companions/controllers, statuses, world/save persistence, perception/memory and species content. No M011–M018 completed milestone documents were expanded.

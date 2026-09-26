@@ -21,7 +21,7 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual acceptance pending. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
+Snapshot: 2026-09-27, after M019 integration automated validation; main merge explicitly authorized, PR merge pending. Manual acceptance remains unverified. Items below are separate extensions; completed combat/body and eight-way movement work is not reopened by them. Earlier M011–M016 integration records remain under `docs/reviews/`.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
@@ -31,7 +31,7 @@ Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual a
 | Body expansion | Body modifiers/new templates, severing/prosthetics, offhand/multiple weapons, targeting, wound types/healing, layered armor and persistence | Candidate | Explicitly outside M017; [design follow-ups](CRPG_combat_body_phase1_design.md#11-후속-설계확장-목록). Scope separate milestones before implementation. |
 | Interaction (C) | Reusable interactive objects with state, starting with a door, then chest state | Planned | Resume M002; prototype room door and print-only chest do not complete it. Create its detailed milestone when work starts; later persistence stores object state. |
 | Map quality | Play several seeds and record concrete layout issues before more complex generation/tuning | Planned | Follow-up from M009; no new implementation milestone assigned. |
-| Actor model (C) | Common Actor state and multiple NPC gameplay | Complete on task branch; manual acceptance pending | [M019](milestones/M019_common_actor.md), `codex/m019-common-actor`, implementation e3143ce; 20 scripts pass. Default three NPCs; not merged to main. |
+| Actor model (C) | Common Actor state and multiple NPC gameplay | Main integration validated; PR merge pending | [M019](milestones/M019_common_actor.md), `codex/integrate-m019` at 97c51f6; 20/20 scripts pass. User authorized main merge; three-NPC manual pacing/readability remains unverified. [Record](reviews/2026-09-27-m019-m022-integration.md). |
 | Tactical AI / presentation | Visibly animate NPC movement and other action sequences instead of only applying results atomically | Planned | Follow-up from M015; the rat currently performs one tile per scheduled action without tweened animation. No implementation milestone assigned. |
 | Tactical AI / world (C) | Factions, companions/controllers, sight/hearing, target memory, broader goals and new abilities | Candidate | M015 explicitly defers these systems; full-room observation is the current prototype policy. Register separate scope before implementation. |
 | Feedback / explainability | Extend observable reasons to additional NPC behaviors, dialogue/barks and contextual feedback | Candidate | The M012 log and M015 retreat cue are prototypes, not full player-facing coverage. See `docs/decisions/explainable_systemic_behavior.md`. |
@@ -41,7 +41,7 @@ Snapshot: 2026-09-22, after M019 task-branch automated validation; M019 manual a
 | RPG content (C) | Broader abilities, inventory/equipment, generic status effects, quests and social content after the minimal gameplay and persistence loops | Candidate | No new implementation milestone assigned; outside M016. |
 | Generation follow-up | Seed-version compatibility and reachable ruins when ruins become playable destinations | Planned | Prior local review reported 31-bit seed folding and disconnected ruin entrances; not introduced by this integration. Reproduce before changing generation semantics; preserve existing seed decision/golden values. |
 
-Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. M019 is scoped on its task branch; later numbers remain unassigned. These extensions do not reopen earlier milestone acceptance.
+Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> action animation -> reusable stateful objects (M002) -> three-Zone persistence -> broader RPG content. M019 integration is validated; later extensions remain separate. These extensions do not reopen earlier milestone acceptance.
 
 ## Maintenance rules
 
