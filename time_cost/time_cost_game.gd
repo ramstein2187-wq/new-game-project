@@ -378,15 +378,25 @@ func _run_until_player_ready() -> void:
 
 
 func _run_npc_action(actor_id: StringName) -> bool:
+	var action := choose_ai_action(actor_id)
+	if action == null:
+		return false
+	return perform_action(actor_id, action)
+
+
+# AI-controlled player-slot adapters use the same policy boundary as NPC turns.
+# Selection does not execute or schedule anything; perform_action remains the
+# only production action entry point.
+func choose_ai_action(actor_id: StringName) -> TimeAction:
 	var actor := get_actor(actor_id)
 	if actor == null or not actor.is_alive():
-		return false
+		return null
 	if actor.ai_policy == &"rat_tactics" and actor_is_alive(actor.target_id):
 		var decision := RatTactics.choose(self, actor_id, actor.target_id)
 		if decision == null:
-			return false
-		return perform_action(actor_id, decision.action)
-	return perform_action(actor_id, WaitAction.new())
+			return null
+		return decision.action
+	return WaitAction.new()
 
 
 func _new_event(
