@@ -1,6 +1,6 @@
 # M022 — Headless Combat Batch Simulation
 
-Status: **Main integration validated** on `codex/integrate-m022` at `857374f`, based on main `b109ffd` after M019 PR #7. All 21 integration tests and 100/1000-run samples pass with zero simulation errors. Source `164c8ac` is preserved; main PR merge pending. [Integration record](../reviews/2026-09-27-m019-m022-integration.md).
+Status: **Complete on main** at `542f534` via [PR #8](https://github.com/ramstein2187-wq/new-game-project/pull/8), after M019 main `b109ffd` (PR #7). Integration `857374f` and source `164c8ac` are preserved. Final main 21/21 scripts and 20-run smoke passed; 100/1000-run integration samples completed with zero errors. [Integration record](../reviews/2026-09-27-m019-m022-integration.md).
 
 ## Purpose
 
@@ -52,7 +52,9 @@ The CLI rejects invalid or unknown arguments, prints a human-readable summary, a
 
 ## Integration validation and sample results — 2026-09-27
 
-Latest integration at `857374f`: `bash tools/check_godot.sh` passed 21/21 scripts, import and startup; no game-code changes from source `164c8ac`. [Current raw checks and batch outputs](../reviews/2026-09-27-m019-m022-integration.md).
+Integration at `857374f`: `bash tools/check_godot.sh` passed 21/21 scripts, import and startup; no game-code changes from source `164c8ac`. [Current raw checks and batch outputs](../reviews/2026-09-27-m019-m022-integration.md).
+
+Final main `542f534` was rechecked: 21/21 scripts, import/startup, and a 20-run CLI smoke (seeds 0..19; A 2, B 0, stalled 18, errors 0). These are automated/headless results; no M019 manual acceptance is asserted.
 
 Both samples used `max_actions=500` and `max_world_time=500000`. Wall time is machine-dependent and excluded from deterministic output.
 
