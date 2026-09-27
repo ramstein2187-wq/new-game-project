@@ -35,12 +35,16 @@ The mapping between Markdown files and existing Notion pages lives in `docs/wiki
 
 ### One-time repository setup
 
-1. Create a Notion internal integration for this workspace.
-2. Give that integration access to the **CRPG 개발 위키** page (and therefore the mapped database pages).
-3. Add the integration secret to the GitHub repository as the Actions secret `NOTION_TOKEN`.
-4. Optionally run the **Sync Notion Wiki** workflow manually once to verify access.
+For this single-user project, use a Notion Personal Access Token (PAT).
 
-The Notion page IDs committed in `wiki-map.json` are identifiers, not credentials. The integration secret must never be committed.
+1. In the Notion Developer portal, create a PAT for the workspace with the **Notion API** capability.
+2. Copy the token when it is shown; Notion does not show the value again.
+3. Add the token to the GitHub repository as the Actions secret `NOTION_TOKEN`.
+4. Run the **Sync Notion Wiki** workflow manually once to verify access.
+
+A PAT acts with the permissions of the user who created it, so the wiki pages do not need to be separately shared with a bot connection. PATs expire; rotate the GitHub secret before the selected expiration date.
+
+The Notion page IDs committed in `wiki-map.json` are identifiers, not credentials. The token must never be committed.
 
 ## Local validation
 
