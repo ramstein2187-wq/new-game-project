@@ -9,6 +9,38 @@ This directory is the Git-side source for the human-readable Notion system wiki.
 - Notion is a derived reading surface. Do not rely on manual Notion body edits surviving the next sync.
 - A discussed or planned feature must not be described as implemented until the relevant code/branch/validation has been checked.
 
+## Automatic discovery and page creation
+
+Every system page is discovered directly from its Markdown file. There is no per-page Notion ID mapping to maintain.
+
+Each file starts with TOML front matter:
+
+```toml
++++
+status = "설계"
+areas = ["코어"]
+milestones = "미배정 — ROADMAP Candidate"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/ROADMAP.md"
+icon = "🧩"
++++
+# 새 시스템 이름
+```
+
+The H1 becomes the Notion page title. The file path itself is the stable sync key.
+
+Use only the taxonomy values configured in `wiki-map.json`. Local validation rejects status/area typos instead of silently creating stray Notion select options.
+
+The Notion **시스템 위키** database contains a `소스 파일` property. During sync:
+
+1. scan `docs/wiki/**/*.md` (except `README.md` and files beginning with `_`)
+2. read front matter and the H1 title
+3. query the Notion System Wiki database by existing rows
+4. match rows by `소스 파일`
+5. update the matching page, or create a new database page automatically when no match exists
+6. write the Git source path back to `소스 파일`
+
+So adding a new system normally requires only a new Markdown file. No Notion page creation and no page-ID registration are required.
+
 ## When to update a wiki page
 
 Update the relevant page when a change materially alters:
@@ -23,7 +55,7 @@ Do not update the wiki for incidental refactors that do not change the system de
 
 ## Automatic sync
 
-`.github/workflows/notion-wiki-sync.yml` runs after changes under `docs/wiki/**` reach `main`.
+`.github/workflows/notion-wiki-sync.yml` runs after relevant wiki/tooling changes reach `main`.
 
 The workflow calls:
 
@@ -31,20 +63,13 @@ The workflow calls:
 python tools/sync_notion_wiki.py
 ```
 
-The mapping between Markdown files and existing Notion pages lives in `docs/wiki/wiki-map.json`.
+`docs/wiki/wiki-map.json` keeps only shared Notion database configuration. Its historical filename remains for compatibility; it no longer stores per-page mappings.
 
 ### One-time repository setup
 
-For this single-user project, use a Notion Personal Access Token (PAT).
+The Notion PAT and GitHub `NOTION_TOKEN` secret are already the only credentials required. The Notion System Wiki database also needs the `소스 파일` rich-text property used as the stable Git↔Notion key.
 
-1. In the Notion Developer portal, create a PAT for the workspace with the **Notion API** capability.
-2. Copy the token when it is shown; Notion does not show the value again.
-3. Add the token to the GitHub repository as the Actions secret `NOTION_TOKEN`.
-4. Run the **Sync Notion Wiki** workflow manually once to verify access.
-
-A PAT acts with the permissions of the user who created it, so the wiki pages do not need to be separately shared with a bot connection. PATs expire; rotate the GitHub secret before the selected expiration date.
-
-The Notion page IDs committed in `wiki-map.json` are identifiers, not credentials. The token must never be committed.
+The page IDs are discovered at runtime and are not committed to the repository.
 
 ## Local validation
 
@@ -57,10 +82,19 @@ python tools/sync_notion_wiki.py --dry-run
 
 A real sync requires `NOTION_TOKEN` in the environment.
 
-## Adding another page
+## Adding a new system page
 
-1. Create the Notion page in the System Wiki database.
-2. Add or update its Markdown file under this directory.
-3. Add one entry to `wiki-map.json`.
+1. Copy `docs/wiki/_template.md` to a descriptive filename.
+2. Fill in the front matter.
+3. Write the current-system explanation below the H1.
 4. Run `python tools/sync_notion_wiki.py --check`.
-5. Commit the Markdown and mapping change together.
+5. Commit it with the implementation/design documentation that introduced the system.
+
+After the change reaches `main`, the workflow creates the Notion database page automatically if it does not already exist.
+
+## Rename and deletion behavior
+
+The source file path is the stable identity.
+
+- Renaming a wiki Markdown file is treated as a new source and will create a new Notion page unless the existing Notion row's `소스 파일` is migrated first.
+- Deleting a Git wiki file does **not** automatically delete/archive the Notion page. Destructive cleanup stays manual by design.

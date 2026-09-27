@@ -54,7 +54,7 @@ Record agreed future features in the roadmap before starting implementation. Mar
 
 When a milestone is completed, treat its document as mostly frozen. Prefer recording new work in the next milestone instead of continually expanding old documents.
 
-When implementation materially changes a documented system's player-visible behavior, durable architecture, core numeric rules, implementation status, or important limitations, update the relevant `docs/wiki/*.md` page in the same task. Do not mark planned or discussed behavior as implemented. Incidental refactors that do not change the system description do not require a wiki edit. The Notion mirror is synchronized from `docs/wiki/` after changes reach `main`; do not treat manual Notion body edits as authoritative.
+When implementation materially changes a documented system's player-visible behavior, durable architecture, core numeric rules, implementation status, or important limitations, update the relevant `docs/wiki/*.md` page in the same task. Do not mark planned or discussed behavior as implemented. Incidental refactors that do not change the system description do not require a wiki edit. New durable systems should get a new wiki Markdown file using the TOML front matter documented in `docs/wiki/README.md`; after the file reaches `main`, the Notion page is discovered or created automatically from its Git source path. The Notion mirror is synchronized from `docs/wiki/` after changes reach `main`; do not treat manual Notion body edits as authoritative.
 
 Keep milestone documents concise enough to serve as efficient context for future sessions.
 

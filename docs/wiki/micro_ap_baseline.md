@@ -1,3 +1,10 @@
++++
+status = "보류"
+areas = ["시간/액션"]
+milestones = "M010"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M010_micro_ap_test_room.md"
+icon = "🧪"
++++
 # Micro-AP 비교 프로토타입
 
 ## 상태

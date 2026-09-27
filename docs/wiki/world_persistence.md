@@ -1,3 +1,10 @@
++++
+status = "설계"
+areas = ["월드/영속성", "코어"]
+milestones = "미배정 — ROADMAP Planned"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/decisions/world_persistence.md"
+icon = "💾"
++++
 # 월드 영속성 · 비활성 지역 시뮬레이션
 
 ## 상태
