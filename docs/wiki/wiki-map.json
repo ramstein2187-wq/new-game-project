@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "notion_api_version": "2026-03-11",
+  "database_properties": {
+    "title": "이름",
+    "status": "상태",
+    "areas": "영역",
+    "milestones": "관련 마일스톤",
+    "last_checked": "마지막 확인",
+    "source_url": "원문"
+  },
+  "pages": [
+    {
+      "file": "docs/wiki/time_model.md",
+      "page_id": "3e8c7eea-2c51-8152-b467-e9885c88251c",
+      "title": "Action-Cost 시간 모델 / 스케줄러",
+      "status": "구현 완료",
+      "areas": [
+        "시간/액션",
+        "코어"
+      ],
+      "milestones": "M011, M013",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M011_time_cost_scheduler.md"
+    },
+    {
+      "file": "docs/wiki/action_system.md",
+      "page_id": "3e8c7eea-2c51-8156-aae2-d5df7a6f5d3c",
+      "title": "공통 Action 시스템",
+      "status": "구현 완료",
+      "areas": [
+        "시간/액션",
+        "코어",
+        "전투"
+      ],
+      "milestones": "M014",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M014_common_action_system.md"
+    },
+    {
+      "file": "docs/wiki/combat_log.md",
+      "page_id": "3e8c7eea-2c51-813b-938b-c915c4c4011d",
+      "title": "구조화 전투 로그",
+      "status": "구현 완료",
+      "areas": [
+        "UI/로그",
+        "전투",
+        "코어"
+      ],
+      "milestones": "M012",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M012_structured_combat_log.md"
+    },
+    {
+      "file": "docs/wiki/tactical_ai.md",
+      "page_id": "3e8c7eea-2c51-8145-ae94-fda47d44d315",
+      "title": "설명 가능한 전술 AI",
+      "status": "구현 완료",
+      "areas": [
+        "AI",
+        "전투"
+      ],
+      "milestones": "M015",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M015_tactical_ai_prototype.md"
+    },
+    {
+      "file": "docs/wiki/procedural_generation.md",
+      "page_id": "3e8c7eea-2c51-81e3-93a6-df2b8f165ddc",
+      "title": "절차 생성 맵 파이프라인",
+      "status": "구현 완료",
+      "areas": [
+        "월드 생성"
+      ],
+      "milestones": "M003–M009",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M009_playable_procedural_map.md"
+    },
+    {
+      "file": "docs/wiki/generated_map_combat.md",
+      "page_id": "3e8c7eea-2c51-811f-8033-e23b2f303c46",
+      "title": "생성 맵 전투 통합",
+      "status": "구현 완료",
+      "areas": [
+        "전투",
+        "AI",
+        "월드 생성",
+        "시간/액션"
+      ],
+      "milestones": "M016",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M016_generated_map_combat.md"
+    },
+    {
+      "file": "docs/wiki/combat_body.md",
+      "page_id": "3e8c7eea-2c51-8196-b820-d0ee98a6a559",
+      "title": "D20 전투 · 신체 · 방어구",
+      "status": "구현 완료",
+      "areas": [
+        "전투"
+      ],
+      "milestones": "M017",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M017_combat_body_phase1.md"
+    },
+    {
+      "file": "docs/wiki/eight_way_combat.md",
+      "page_id": "3e8c7eea-2c51-819e-a588-d7d6b9fd1dc5",
+      "title": "8방향 이동 · 근접 전투",
+      "status": "구현 완료",
+      "areas": [
+        "시간/액션",
+        "전투",
+        "AI"
+      ],
+      "milestones": "M018",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M018_eight_way_combat.md"
+    },
+    {
+      "file": "docs/wiki/common_actor.md",
+      "page_id": "3e8c7eea-2c51-816f-8373-df078f1142c3",
+      "title": "공통 Actor · 다중 NPC",
+      "status": "구현 완료",
+      "areas": [
+        "코어",
+        "전투",
+        "AI"
+      ],
+      "milestones": "M019",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M019_common_actor.md"
+    },
+    {
+      "file": "docs/wiki/combat_batch_simulation.md",
+      "page_id": "3e8c7eea-2c51-81ca-b75b-c9a36d3f9530",
+      "title": "헤드리스 전투 배치 시뮬레이션",
+      "status": "구현 완료",
+      "areas": [
+        "시뮬레이션",
+        "전투",
+        "AI"
+      ],
+      "milestones": "M022",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M022_headless_combat_batch.md"
+    },
+    {
+      "file": "docs/wiki/world_persistence.md",
+      "page_id": "3e8c7eea-2c51-8110-a4c1-dbcf4615ce03",
+      "title": "월드 영속성 · 비활성 지역 시뮬레이션",
+      "status": "설계",
+      "areas": [
+        "월드/영속성",
+        "코어"
+      ],
+      "milestones": "미배정 — ROADMAP Planned",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/decisions/world_persistence.md"
+    },
+    {
+      "file": "docs/wiki/micro_ap_baseline.md",
+      "page_id": "3e8c7eea-2c51-81ca-b124-ec94c1a25277",
+      "title": "Micro-AP 비교 프로토타입",
+      "status": "보류",
+      "areas": [
+        "시간/액션"
+      ],
+      "milestones": "M010",
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M010_micro_ap_test_room.md"
+    }
+  ]
+}

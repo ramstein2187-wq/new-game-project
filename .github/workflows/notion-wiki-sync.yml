@@ -1,0 +1,61 @@
+name: Sync Notion Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/wiki/**"
+      - "tools/sync_notion_wiki.py"
+      - ".github/workflows/notion-wiki-sync.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notion-wiki-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate wiki mapping
+        run: python tools/sync_notion_wiki.py --check
+
+      - name: Check Notion configuration
+        id: notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        shell: bash
+        run: |
+          if [[ -z "$NOTION_TOKEN" ]]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::NOTION_TOKEN is not configured; validation passed but sync is skipped."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Sync wiki to Notion
+        if: steps.notion.outputs.configured == 'true'
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          BEFORE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            python tools/sync_notion_wiki.py --changed-since "$BEFORE_SHA"
+          else
+            python tools/sync_notion_wiki.py
+          fi
