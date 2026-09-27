@@ -48,10 +48,13 @@ Documentation roles:
 - `docs/milestones/`: goal, scope, progress, validation, and handoff notes for each milestone.
 - `docs/decisions/`: long-lived architectural decisions when a milestone decision must survive beyond that milestone.
 - `docs/devlog/`: very short chronological daily summaries; do not load by default unless historical context is needed.
+- `docs/wiki/`: concise current-system documentation mirrored automatically to the Notion CRPG development wiki. Git remains the editable source; Notion is a derived reading surface.
 
 Record agreed future features in the roadmap before starting implementation. Mark tentative ideas as candidates rather than committed work. When a feature starts, create or link a narrowly scoped milestone and task branch. On validated completion, update both the roadmap and milestone status; record newly discovered follow-ups in the roadmap rather than expanding completed milestones. Never claim a discussed or branch-specific feature is implemented on `main` without checking its actual code, branch, and validation.
 
 When a milestone is completed, treat its document as mostly frozen. Prefer recording new work in the next milestone instead of continually expanding old documents.
+
+When implementation materially changes a documented system's player-visible behavior, durable architecture, core numeric rules, implementation status, or important limitations, update the relevant `docs/wiki/*.md` page in the same task. Do not mark planned or discussed behavior as implemented. Incidental refactors that do not change the system description do not require a wiki edit. The Notion mirror is synchronized from `docs/wiki/` after changes reach `main`; do not treat manual Notion body edits as authoritative.
 
 Keep milestone documents concise enough to serve as efficient context for future sessions.
 
