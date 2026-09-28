@@ -181,3 +181,5 @@ When the tactical AI architecture is implemented, favor systems that allow:
 6. new actions, factions, relationships, and behavioral causes to be added without rewriting the whole decision system
 
 This document defines a project-wide design principle, not a commitment to a specific utility formula or AI implementation.
+
+For the combat-AI information boundary, designed imperfection and bounded-rationality direction, see `docs/decisions/believable_tactical_ai.md`.
