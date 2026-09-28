@@ -28,7 +28,7 @@ icon = "🧩"
 
 The H1 becomes the Notion page title. The file path itself is the stable sync key.
 
-Use only the taxonomy values configured in `wiki-map.json`. Local validation rejects status/area typos instead of silently creating stray Notion select options.
+Use only the taxonomy values configured in `notion-config.json`. Local validation rejects status/area typos instead of silently creating stray Notion select options.
 
 The Notion **시스템 위키** database contains a `소스 파일` property. During sync:
 
@@ -63,7 +63,7 @@ The workflow calls:
 python tools/sync_notion_wiki.py
 ```
 
-`docs/wiki/wiki-map.json` keeps only shared Notion database configuration. Its historical filename remains for compatibility; it no longer stores per-page mappings.
+`docs/wiki/notion-config.json` stores shared Notion database configuration. Per-page Notion IDs are discovered at runtime and are not committed.
 
 ### One-time repository setup
 
