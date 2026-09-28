@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M023: **Implemented and automatically validated on `chat/threat-rating-lab`; not merged to main.** Extends M022 with configurable actor matchups, same-seed paired side swaps, slot-bias diagnostics, and event-derived hit/armor/body-disable metrics. Final Threat Rating scale remains deliberately unassigned. [Threat measurement foundation](milestones/M023_threat_measurement_foundation.md).
+- M023: **Complete on main** at `8d71504` via [PR #17](https://github.com/ramstein2187-wq/new-game-project/pull/17). Configurable actor matchups, same-seed paired side swaps, slot-bias diagnostics, and event-derived hit/armor/body-disable metrics are integrated; post-merge `bash tools/check_godot.sh` passed on main. Final Threat Rating scale remains deliberately unassigned. [Threat measurement foundation](milestones/M023_threat_measurement_foundation.md).
 
 - M022: **Complete on main** at `542f534` via [PR #8](https://github.com/ramstein2187-wq/new-game-project/pull/8), after M019 PR #7. Final main: 21/21 scripts and 20-run smoke passed; integration 100/1000-run samples had zero simulation errors. [Headless combat batch simulation](milestones/M022_headless_combat_batch.md).
 
@@ -24,7 +24,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M023 | Implemented + automated validation on task branch | Configurable production matchups, paired side swaps, slot-bias and combat metrics; no final TR scale yet | `docs/milestones/M023_threat_measurement_foundation.md` |
+| M023 | Complete on main | Configurable production matchups, paired side swaps, slot-bias and combat metrics; PR #17, post-merge checks passed; no final TR scale yet | `docs/milestones/M023_threat_measurement_foundation.md` |
 | M022 | Complete on main | Production combat batch infrastructure; 21/21 scripts, 100/1000-run samples with zero errors | `docs/milestones/M022_headless_combat_batch.md` |
 | M019 | Complete on main | Common Actor ownership, three NPCs; 20/20 scripts; manual play unverified | `docs/milestones/M019_common_actor.md` |
 | M017 | Complete on main | D20, abilities, bodies and armor; user manual approval, 17 combined tests passed | `docs/milestones/M017_combat_body_phase1.md` |

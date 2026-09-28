@@ -1,6 +1,6 @@
 # M023 — Threat Measurement Foundation
 
-Status: **Implemented and automatically validated on `chat/threat-rating-lab`; not merged to main.**
+Status: **Complete on main** at `8d71504` via [PR #17](https://github.com/ramstein2187-wq/new-game-project/pull/17).
 
 ## Purpose
 
@@ -56,7 +56,8 @@ This does not mathematically prove all geometry or scheduling bias is removed. I
 
 ## Validation
 
-- `bash tools/check_godot.sh` passed after the final code/documentation update, including the paired CLI changes: editor parse/import, main-scene startup and all project test scripts.
+- `bash tools/check_godot.sh` passed after the final code/documentation update on the task branch, including the paired CLI changes: editor parse/import, main-scene startup and all project test scripts.
+- After PR #17 merged, the exact main merge commit `8d71504` was checked again with `bash tools/check_godot.sh`; editor parse/import, main-scene startup and all project test scripts passed.
 - `tests/test_combat_batch_runner.gd` now validates injected definitions, deterministic paired runs, same-seed side swaps, identity mapping, slot metrics, hit/miss accounting and armor-outcome accounting.
 - A direct ad-hoc paired CLI smoke was not recorded because the execution request was blocked by the surrounding tool security gate. No numeric Threat sample is claimed from that blocked command. The paired API itself is exercised by the automated Godot test.
 

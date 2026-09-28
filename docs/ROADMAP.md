@@ -21,13 +21,13 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-27, M019 is complete on main at `b109ffd`; M022 is complete on main at `542f534` via PR #8. Final main 21/21 tests and 20-run smoke passed; 100/1000-run integration samples had zero errors. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
+Snapshot: 2026-09-28, M019 is complete on main at `b109ffd`; M022 is complete on main at `542f534` via PR #8; M023 is complete on main at `8d71504` via PR #17. M023 post-merge `bash tools/check_godot.sh` passed. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
 | Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
 | Combat simulation | Deterministic headless batch runner using production actions, AI, scheduler, combat rules and events | Complete on main | [M022](milestones/M022_headless_combat_batch.md), main 542f534 via PR #8; final 21/21 scripts and 20-run smoke, plus 100/1000-run integration samples, zero errors. Production rules preserved. |
-| Threat measurement | Configurable production matchups, paired side swaps, slot-bias diagnostics and event-derived combat metrics | Complete on task branch; merge pending | [M023](milestones/M023_threat_measurement_foundation.md), `chat/threat-rating-lab`. Same-seed forward/reverse pairing is implemented and automatically validated; final Threat Rating values are intentionally still null. |
+| Threat measurement | Configurable production matchups, paired side swaps, slot-bias diagnostics and event-derived combat metrics | Complete on main | [M023](milestones/M023_threat_measurement_foundation.md), main `8d71504` via PR #17. Same-seed forward/reverse pairing is integrated and post-merge automated checks passed; final Threat Rating values are intentionally still null. |
 | Threat calibration | Benchmark player profiles, planned weapon/armor/monster catalog, pairwise matchup matrix, uncertainty estimates and final TR scale | Planned | Build on M023. Do not choose component weights or final rating numbers until the broader combat dataset and D&D-style damage update are implemented and measured. |
 | Simulation follow-up | Exact per-action stepping or alternate symmetric arenas when experiments specifically require them | Candidate | M023 handles the dominant side-slot asymmetry with paired swaps, but M022's scheduling-window action-cap overshoot and fixed arena still exist. AI tuning remains separate scope. |
 | Combat presentation | Responsive layout for smaller windows; content-authoring Resources when needed | Candidate | M017/M018 layout had manual acceptance. M019 three-NPC layout has automated capture evidence only; manual acceptance and broader window/roster support remain separate. |
