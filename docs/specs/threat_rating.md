@@ -79,9 +79,21 @@ Threat 측정에서는 다음 계약을 사용한다.
 
 Side swap은 현재의 지배적인 slot/초기 위치 비대칭을 줄이고 편향을 수치로 드러내기 위한 프로토콜이지, 모든 전술적 비대칭을 제거한다는 뜻은 아니다.
 
-## 4. Rating 스케일
+## 4. Bradley-Terry 보정과 Rating 스케일
 
-최종 숫자 스케일과 component weight는 아직 미정이다.
+M025에서는 전체 pairwise 결과를 하나의 일반 전투력 축으로 압축하기 위해 regularized Bradley-Terry 모델을 사용한다.
+
+`P(A > B) = sigmoid(theta_A - theta_B)`
+
+각 `theta`는 latent combat strength다. 0%/100% 승률이 있는 matchup에서도 무한대로 발산하지 않도록 `lambda = 1.0` L2 regularization을 적용한다. 피팅은 Newton iteration으로 수행하며, M025 두 독립 200-paired-seed block 모두 7회 안에 수렴했다.
+
+사람이 읽기 쉬운 임시 점수는 Elo와 같은 확률 의미를 갖도록 다음으로 변환한다.
+
+`bt_rating = 1000 + theta * 400 / ln(10)`
+
+따라서 rating 차이 400은 10:1 odds, 즉 강한 쪽 약 90.9% 예상 승률을 뜻한다. 현재 1000은 roster 평균을 맞춘 **임시 원점**이며 final TR의 절대 기준은 아니다. 추후 immutable benchmark profile이 절대 원점을 고정한다.
+
+최종 숫자 원점과 benchmark는 아직 미정이다.
 
 후속 보정에서는 다음 순서를 권장한다.
 
@@ -117,4 +129,4 @@ Rat과 M024 신규 hostile 10종에 대해 11종 전체 round-robin을 두 독�
 
 ## 현재 한계
 
-현재 11종 pairwise 표본은 확보했지만 고정 benchmark player profile, 다양한 장비/지형 기준군, 정식 통계적 불확실성 계산과 최종 scale calibration은 아직 구현되지 않았다. Side-swap과 combat metric 기반은 main에 있으며, M025 초기 calibration 작업은 task branch에서 진행 중이다.
+현재 11종 pairwise 표본과 regularized Bradley-Terry prototype은 확보했다. 다만 단일 strength 축의 최대 pair residual이 약 0.17로, Boar vs Giant Crab 같은 matchup-specific interaction을 완전히 설명하지 못한다. 따라서 residual은 상성 진단 데이터로 보존한다. 고정 benchmark player profile, 다양한 장비/지형 기준군, 정식 통계적 불확실성 계산과 final scale의 절대 원점은 아직 구현되지 않았다.

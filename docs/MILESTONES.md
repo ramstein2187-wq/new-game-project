@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M025: **In progress** on `chat/m025-threat-calibration`. Full pairwise Threat calibration across Rat + ten M024 hostile prototypes is being measured with the M023 `side_swap_v1` production-combat protocol. Final TR scale is not assigned yet. [Threat calibration](milestones/M025_threat_calibration.md).
+- M025: **In progress** on `chat/m025-threat-calibration`. Full pairwise Threat calibration across Rat + ten M024 hostile prototypes now includes a regularized Bradley-Terry fitter, independent calibration/validation seed blocks and provisional Elo-compatible ratings. Final benchmark-anchored TR is not assigned yet. [Threat calibration](milestones/M025_threat_calibration.md).
 
 - M024: **Complete on main** at `e79ddb1` via [PR #19](https://github.com/ramstein2187-wq/new-game-project/pull/19). Data-driven damage dice, shared Attack definitions, capability-count weapon use, five weapons, five armor pieces, ten new hostile prototypes, and M023 paired smoke are integrated. User manual play validation reported no issues; post-merge `bash tools/check_godot.sh` passed all 22 test scripts. Final Threat Rating calibration remains out of scope. [Combat data foundation](milestones/M024_combat_data_foundation.md).
 
@@ -28,7 +28,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M025 | In progress | Full pairwise production-combat matrix and calibration evidence for final Threat Rating scale | `docs/milestones/M025_threat_calibration.md` |
+| M025 | In progress | Full pairwise matrix, regularized Bradley-Terry fit, validation residuals and provisional ratings; benchmark anchor still pending | `docs/milestones/M025_threat_calibration.md` |
 | M024 | Complete on main | Damage dice, shared weapon/natural Attack data, shared 1000 attack cost, armor/loadouts, 10 hostile prototypes; PR #19 and post-merge checks passed | `docs/milestones/M024_combat_data_foundation.md` |
 | M023 | Complete on main | Configurable production matchups, paired side swaps, slot-bias and combat metrics; PR #17, post-merge checks passed; no final TR scale yet | `docs/milestones/M023_threat_measurement_foundation.md` |
 | M022 | Complete on main | Production combat batch infrastructure; 21/21 scripts, 100/1000-run samples with zero errors | `docs/milestones/M022_headless_combat_batch.md` |

@@ -29,6 +29,7 @@ func _init() -> void:
 
 	var definitions := _definitions()
 	var summary := {}
+	var matchups := []
 	for id in ACTOR_IDS:
 		summary[String(id)] = {
 			"opponents": 0,
@@ -79,6 +80,12 @@ func _init() -> void:
 			summary[b_key].errors += int(result.simulation_errors)
 			summary[a_key].mean_decisive_win_rate_sum += a_rate
 			summary[b_key].mean_decisive_win_rate_sum += b_rate
+			matchups.append({
+				"a": a_id,
+				"b": b_id,
+				"a_wins": int(result.combatant_a_wins),
+				"b_wins": int(result.combatant_b_wins),
+			})
 
 			print("PAIR %s %s wins=%d:%d decisive=%d stalls=%d errors=%d rates=%.4f:%.4f slotA=%.4f slotB=%.4f" % [
 				a_key,
@@ -116,6 +123,42 @@ func _init() -> void:
 			int(row.decisive_losses),
 			int(row.stalls),
 			int(row.errors),
+		])
+
+	var fit := ThreatRatingFitter.new().fit(matchups)
+	if fit.has("configuration_error"):
+		push_error(fit.configuration_error)
+		quit(2)
+		return
+
+	print("")
+	print("BRADLEY_TERRY model=%s lambda=%.3f converged=%s iterations=%d log_loss=%.6f max_pair_residual=%.4f" % [
+		fit.model,
+		float(fit.regularization),
+		str(fit.converged),
+		int(fit.iterations),
+		float(fit.diagnostics.log_loss),
+		float(fit.diagnostics.max_abs_pair_residual),
+	])
+	var rating_rows := []
+	for id in ACTOR_IDS:
+		var key := String(id)
+		rating_rows.append({
+			"id": key,
+			"strength": float(fit.strengths[key]),
+			"rating": float(fit.ratings[key]),
+		})
+	rating_rows.sort_custom(func(left: Dictionary, right: Dictionary) -> bool: return float(left.rating) < float(right.rating))
+	for row in rating_rows:
+		print("BT %s strength=%.6f rating=%.2f" % [row.id, row.strength, row.rating])
+
+	var residual_rows: Array = fit.diagnostics.pairs.duplicate(true)
+	residual_rows.sort_custom(func(left: Dictionary, right: Dictionary) -> bool: return absf(float(left.residual)) > absf(float(right.residual)))
+	print("WORST_RESIDUALS")
+	for index in range(mini(5, residual_rows.size())):
+		var row: Dictionary = residual_rows[index]
+		print("RESIDUAL %s vs %s observed=%.4f predicted=%.4f delta=%+.4f" % [
+			row.a, row.b, row.observed_a_win_rate, row.predicted_a_win_rate, row.residual
 		])
 
 	quit(0)

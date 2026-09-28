@@ -20,7 +20,9 @@ The first pass intentionally produces a relative performance matrix before choos
 
 ## Initial result
 
-Two independent 200-paired-seed blocks completed the full 55-matchup matrix: 44,000 total production encounters, zero stalls and zero simulation errors. The relative ordering was identical in both blocks and the largest roster-score shift between blocks was 0.0148. `docs/datasets/threat_ratings.json` now stores the combined roster-relative `simulation_score`; final Threat Rating remains null. See `docs/reviews/2026-09-28-m025-threat-calibration-pass1.md`.
+Two independent 200-paired-seed blocks completed the full 55-matchup matrix: 44,000 total production encounters, zero stalls and zero simulation errors. The relative ordering was identical in both blocks and the largest roster-score shift between blocks was 0.0148.
+
+A regularized Bradley-Terry fitter is now implemented in `time_cost/simulation/threat_rating_fitter.gd`. The first seed block is the calibration fit and the second is an independent validation fit. Both converged in 7 iterations; all provisional Elo-compatible ratings reproduced within 24 points. `docs/datasets/threat_ratings.json` stores `simulation_score`, latent `bt_strength`, provisional `bt_rating`, and validation rating while `final_threat_rating` remains null. See `docs/reviews/2026-09-28-m025-threat-calibration-pass1.md`.
 
 ## Completion direction
 

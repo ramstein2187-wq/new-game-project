@@ -59,6 +59,36 @@ This score is **roster-relative calibration evidence**, not the final Threat Rat
 
 The largest block-to-block score change was Raider at 0.0148. The ordering was identical in both blocks.
 
+## Bradley-Terry calibration
+
+A regularized Bradley-Terry model was then fitted to the first 200-paired-seed block (25000..25199) and independently refitted to the second block (27000..27199) as validation.
+
+Model contract:
+
+- `P(A beats B) = sigmoid(theta_A - theta_B)`
+- L2 regularization `lambda = 1.0` keeps complete-separation matchups finite.
+- provisional rating mapping: `1000 + theta * 400 / ln(10)`.
+- the current 1000 origin is roster-centered only; a future immutable benchmark will pin the absolute origin.
+- 400 rating points mean 10:1 expected win odds, about 90.9%.
+
+| Combatant | Calibration BT | Validation BT | Delta |
+| --- | ---: | ---: | ---: |
+| Rat | 263.77 | 244.40 | -19.37 |
+| Feral Dog | 552.78 | 528.93 | -23.85 |
+| Cave Lizard | 775.14 | 771.12 | -4.02 |
+| Raider | 789.44 | 811.56 | +22.12 |
+| Giant Spider | 864.32 | 878.20 | +13.88 |
+| Wolf | 1000.48 | 1008.92 | +8.44 |
+| Giant Beetle | 1042.31 | 1043.26 | +0.95 |
+| Boar | 1167.19 | 1175.68 | +8.49 |
+| Giant Crab | 1283.15 | 1286.67 | +3.52 |
+| Feral Ape | 1590.29 | 1594.33 | +4.04 |
+| Armored Raider | 1671.14 | 1656.92 | -14.22 |
+
+Both fits converged in 7 Newton iterations. Calibration log loss was 0.297836 and validation log loss was 0.295416. Every rating reproduced within 24 points in the independent block.
+
+The single-axis model does not explain every matchup equally well. The largest stable residual is Boar vs Giant Crab: observed Boar win rate was 50.5% in calibration and 51.5% in validation, while the model predicted about 33.9% and 34.6%. Wolf vs Boar and several Giant Beetle matchups also show notable residuals. These residuals are useful evidence of matchup-specific body/armor/damage interactions rather than reasons to force the raw combat data onto a perfectly transitive ranking.
+
 ## Interpretation
 
 The current prototype roster has a stable relative ordering under the present fixed arena and AI:
@@ -67,7 +97,7 @@ Rat < Feral Dog < Cave Lizard < Raider < Giant Spider < Wolf < Giant Beetle < Bo
 
 This ordering is descriptive evidence, not a balance target. Large gaps are expected from the deliberately broad M024 prototype content.
 
-A direct multiplicative strength scale anchored to Rat is unsuitable as the final user-facing/internal TR number because near-zero pairwise win probabilities produce extremely large ratios. A bounded roster win rate is stable for the current roster but changes when the roster changes. M025 therefore keeps `final_threat_rating` null until a fixed benchmark and versioned numeric mapping are chosen.
+A direct multiplicative strength scale anchored to Rat is unsuitable as the final user-facing/internal TR number because near-zero pairwise win probabilities produce extremely large ratios. The regularized Bradley-Terry model solves the separation problem and gives rating differences a probability interpretation, but its additive origin is still arbitrary. M025 therefore records provisional `bt_rating` values while keeping `final_threat_rating` null until a fixed benchmark pins the absolute scale.
 
 ## Next calibration step
 

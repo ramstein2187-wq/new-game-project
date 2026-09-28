@@ -39,6 +39,12 @@ Feral Dog/Wolf, Raider/Giant Beetle, Raider/Armored Raider를 각각 20 paired s
 
 현재 roster-relative `simulation_score` 순서는 Rat < Feral Dog < Cave Lizard < Raider < Giant Spider < Wolf < Giant Beetle < Boar < Giant Crab < Feral Ape < Armored Raider다. 이 값은 현 로스터 평균 승률이므로 로스터가 바뀌면 변할 수 있다.
 
+## Bradley-Terry TR-v1 초안
+
+M025는 pairwise 승패 전체를 regularized Bradley-Terry 모델로 피팅한다. 첫 200 paired seed block을 calibration, 두 번째 독립 block을 validation으로 사용했으며 두 피팅 모두 7회 반복 안에 수렴했다. 임시 Elo 호환 점수는 Rat 약 264, Wolf 약 1000, Boar 약 1167, Giant Crab 약 1283, Feral Ape 약 1590, Armored Raider 약 1671이다. validation에서 모든 점수는 24점 이내로 재현되었다.
+
+점수 차이 400은 약 90.9% 예상 1:1 승률이라는 확률적 의미를 갖는다. 다만 현재 1000은 roster-centered 임시 원점이다. 또한 Boar vs Giant Crab처럼 실제 승률과 단일 strength 축의 예측이 약 0.17까지 어긋나는 matchup이 있어 residual을 상성/특수 상호작용의 증거로 별도 보존한다.
+
 ## 현재 경계
 
-최종 스케일, component weight, 고정 benchmark profile과 통계적 불확실성 계산은 아직 확정되지 않았다. 따라서 `final_threat_rating`은 null을 유지한다. 자세한 알고리즘은 docs/specs/threat_rating.md가 원본이다.
+고정 benchmark profile, 최종 절대 원점, 통계적 불확실성 계산과 encounter cost 변환은 아직 확정되지 않았다. 따라서 `final_threat_rating`은 null을 유지한다. 자세한 알고리즘은 docs/specs/threat_rating.md가 원본이다.
