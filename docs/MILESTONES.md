@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M024: **Complete on `codex/m024-combat-data-foundation` (pending review/main integration)**. Data-driven damage dice, shared Attack definitions, capability-count weapon use, five weapons, five armor pieces, ten new hostile prototypes, and M023 paired smoke are implemented. Full automated validation passes; final Threat Rating calibration remains out of scope. [Combat data foundation](milestones/M024_combat_data_foundation.md).
+- M024: **Complete on main** at `e79ddb1` via [PR #19](https://github.com/ramstein2187-wq/new-game-project/pull/19). Data-driven damage dice, shared Attack definitions, capability-count weapon use, five weapons, five armor pieces, ten new hostile prototypes, and M023 paired smoke are integrated. User manual play validation reported no issues; post-merge `bash tools/check_godot.sh` passed all 22 test scripts. Final Threat Rating calibration remains out of scope. [Combat data foundation](milestones/M024_combat_data_foundation.md).
 
 - M023: **Complete on main** at `8d71504` via [PR #17](https://github.com/ramstein2187-wq/new-game-project/pull/17). Configurable actor matchups, same-seed paired side swaps, slot-bias diagnostics, and event-derived hit/armor/body-disable metrics are integrated; post-merge `bash tools/check_godot.sh` passed on main. Final Threat Rating scale remains deliberately unassigned. [Threat measurement foundation](milestones/M023_threat_measurement_foundation.md).
 
@@ -26,7 +26,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M024 | Complete on task branch; pending review/main integration | Damage dice, shared weapon/natural Attack data, shared 1000 attack cost, armor/loadouts, 10 hostile prototypes | `docs/milestones/M024_combat_data_foundation.md` |
+| M024 | Complete on main | Damage dice, shared weapon/natural Attack data, shared 1000 attack cost, armor/loadouts, 10 hostile prototypes; PR #19 and post-merge checks passed | `docs/milestones/M024_combat_data_foundation.md` |
 | M023 | Complete on main | Configurable production matchups, paired side swaps, slot-bias and combat metrics; PR #17, post-merge checks passed; no final TR scale yet | `docs/milestones/M023_threat_measurement_foundation.md` |
 | M022 | Complete on main | Production combat batch infrastructure; 21/21 scripts, 100/1000-run samples with zero errors | `docs/milestones/M022_headless_combat_batch.md` |
 | M019 | Complete on main | Common Actor ownership, three NPCs; 20/20 scripts; manual play unverified | `docs/milestones/M019_common_actor.md` |
