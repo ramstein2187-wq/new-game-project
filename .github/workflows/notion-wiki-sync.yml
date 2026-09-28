@@ -1,6 +1,11 @@
 name: Sync Notion Wiki
 
 on:
+  pull_request:
+    paths:
+      - "docs/wiki/**"
+      - "tools/sync_notion_wiki.py"
+      - ".github/workflows/notion-wiki-sync.yml"
   push:
     branches:
       - main
@@ -14,7 +19,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: notion-wiki-sync
+  group: notion-wiki-sync-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -35,6 +40,7 @@ jobs:
         run: python tools/sync_notion_wiki.py --check
 
       - name: Check Notion configuration
+        if: github.event_name != 'pull_request'
         id: notion
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -48,7 +54,7 @@ jobs:
           fi
 
       - name: Sync wiki to Notion
-        if: steps.notion.outputs.configured == 'true'
+        if: github.event_name != 'pull_request' && steps.notion.outputs.configured == 'true'
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           BEFORE_SHA: ${{ github.event.before }}

@@ -196,16 +196,379 @@ def discover_specs(config: dict[str, Any]) -> list[dict[str, Any]]:
     return records
 
 
-def load_dataset(path: Path) -> list[dict[str, Any]]:
+ABILITY_KEYS = ("STR", "DEX", "CON", "INT", "WIS", "CHA")
+
+
+def _repo_url(repo_path: str) -> str:
+    repository = load_config()["repository"]
+    return f"https://github.com/{repository}/blob/main/{repo_path}"
+
+
+def _dataset_url(path: Path) -> str:
+    return _repo_url(path.relative_to(ROOT).as_posix())
+
+
+def _runtime_url(data: dict[str, Any], path: Path) -> str:
+    runtime = data.get("runtime_authority")
+    return _repo_url(runtime) if isinstance(runtime, str) and runtime else _dataset_url(path)
+
+
+def _damage_expression(damage: dict[str, Any]) -> str:
+    count = int(damage.get("count", 0))
+    size = int(damage.get("size", 0))
+    ability = str(damage.get("ability", ""))
+    if ability == "best_str_dex":
+        ability = "best(STR, DEX)"
+    suffix = f" + {ability}" if ability else ""
+    return f"{count}d{size}{suffix}"
+
+
+def _pattern_count(part: dict[str, Any]) -> int:
+    if part.get("id"):
+        return 1
+    pattern = str(part.get("pattern", ""))
+    match = re.search(r"(\d+)\.\.(\d+)", pattern)
+    if match:
+        return int(match.group(2)) - int(match.group(1)) + 1
+    match = re.search(r"_x(\d+)$", pattern)
+    return int(match.group(1)) if match else 1
+
+
+def _body_classification(body_id: str) -> str:
+    if body_id == "human":
+        return "인간형"
+    if body_id in {"quadruped_canine", "quadruped", "lizard"}:
+        return "4족보행형"
+    return "비인간형"
+
+
+def _body_name(body_id: str) -> str:
+    names = {
+        "human": "Human",
+        "quadruped_canine": "Canine Quadruped",
+        "quadruped": "Quadruped",
+        "beetle": "Beetle",
+        "lizard": "Lizard",
+        "spider": "Spider",
+        "crab": "Crab",
+    }
+    return names.get(body_id, body_id.replace("_", " ").title())
+
+
+def _normalize_body_templates_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
+    templates = data.get("templates")
+    if not isinstance(templates, list):
+        raise SyncError(f"Invalid v2 body template dataset: {path}")
+    result: list[dict[str, Any]] = []
+    source_url = _runtime_url(data, path)
+    for template in templates:
+        parts = template.get("parts", [])
+        if not isinstance(parts, list):
+            raise SyncError(f"Body template parts must be a list: {template.get('id')}")
+        capabilities: list[str] = []
+        attack_parts: list[str] = []
+        part_count = 0
+        locomotion_count = 0
+        for part in parts:
+            repeat = _pattern_count(part)
+            part_count += repeat
+            functions = [str(value) for value in part.get("functions", [])]
+            if "locomotion" in functions:
+                locomotion_count += repeat
+            attack_functions = [value for value in functions if value != "locomotion"]
+            if attack_functions:
+                for capability in attack_functions:
+                    if capability not in capabilities:
+                        capabilities.append(capability)
+                attack_parts.append(str(part.get("id") or part.get("pattern") or "?"))
+        body_id = str(template.get("id", ""))
+        result.append({
+            "id": body_id,
+            "name": _body_name(body_id),
+            "status": "구현 완료",
+            "classification": _body_classification(body_id),
+            "body_size": None,
+            "attack_capability": ", ".join(capabilities) or "-",
+            "attack_part": ", ".join(attack_parts) or "-",
+            "part_count": part_count,
+            "locomotion_part_count": locomotion_count,
+            "default_armored_parts": [],
+            "parts": parts,
+            "source_url": source_url,
+            "notes": [
+                "Body Size는 현재 ActorDefinition/CombatSpecies 쪽 속성이므로 템플릿 공통 숫자로 강제하지 않는다.",
+                "기본 body-part armor는 없으며 자연 방어와 장비 coverage가 Actor에 적용된다.",
+            ],
+        })
+    return result
+
+
+def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
+    weapons = data.get("weapons")
+    armors = data.get("armor")
+    if not isinstance(weapons, list) or not isinstance(armors, list):
+        raise SyncError(f"Invalid v2 equipment dataset: {path}")
+    source_url = _runtime_url(data, path)
+    normal_cost = int(data.get("normal_melee_action_cost", 1000))
+    result: list[dict[str, Any]] = []
+
+    for weapon in weapons:
+        damage = weapon.get("damage", {})
+        formula = _damage_expression(damage)
+        properties = ", ".join(str(value) for value in weapon.get("properties", [])) or "없음"
+        result.append({
+            "id": weapon["id"],
+            "name": weapon["name"],
+            "status": "구현 완료",
+            "classification": "무기",
+            "slot": "손",
+            "armor": None,
+            "damage": None,
+            "damage_formula": formula,
+            "penetration": weapon.get("penetration"),
+            "damage_type": weapon.get("damage_type", ""),
+            "action_time_modifier": 0,
+            "application": (
+                f"{formula}; {weapon.get('required_capability', 'weapon_manipulation')} "
+                f"x{weapon.get('required_hands', 1)}; properties={properties}; "
+                f"Normal Melee base cost={normal_cost}"
+            ),
+            "runtime_equippable": True,
+            "source_url": source_url,
+        })
+
+    for armor in armors:
+        coverage = [str(value) for value in armor.get("coverage", [])]
+        coverage_set = set(coverage)
+        if coverage_set == {"torso"}:
+            slot = "몸통"
+        elif coverage_set == {"head"}:
+            slot = "머리"
+        elif coverage_set == {"arm"}:
+            slot = "팔"
+        elif coverage_set == {"leg"}:
+            slot = "다리"
+        else:
+            slot = "기타"
+        result.append({
+            "id": armor["id"],
+            "name": armor["name"],
+            "status": "구현 완료",
+            "classification": "방어구",
+            "slot": slot,
+            "armor": armor.get("armor"),
+            "damage": None,
+            "penetration": None,
+            "damage_type": "",
+            "action_time_modifier": 0,
+            "application": f"single-layer coverage: {', '.join(coverage) or '-'}",
+            "runtime_equippable": True,
+            "source_url": source_url,
+        })
+    return result
+
+
+def _weapon_catalog_v2() -> dict[str, dict[str, Any]]:
+    path = ROOT / "docs" / "datasets" / "equipment.json"
     data = json.loads(path.read_text(encoding="utf-8"))
-    if data.get("version") != 1 or not isinstance(data.get("records"), list):
-        raise SyncError(f"Invalid dataset: {path}")
-    ids = [record.get("id") for record in data["records"]]
+    if data.get("version") != 2:
+        return {}
+    return {
+        str(record["id"]): record
+        for record in data.get("weapons", [])
+        if isinstance(record, dict) and record.get("id")
+    }
+
+
+def _monster_classification(record: dict[str, Any]) -> str:
+    monster_id = str(record.get("id", ""))
+    if monster_id == "feral_ape":
+        return "인간형(변형)"
+    body_id = str(record.get("body_template_id", ""))
+    return _body_classification(body_id)
+
+
+def _normalize_monsters_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
+    records = data.get("records")
+    if not isinstance(records, list):
+        raise SyncError(f"Invalid v2 monster dataset: {path}")
+    defaults = data.get("defaults", {})
+    default_score = int(defaults.get("unspecified_ability_score", 10))
+    attack_cost = int(defaults.get("normal_melee_action_cost", 1000))
+    source_url = _runtime_url(data, path)
+    weapons = _weapon_catalog_v2()
+    result: list[dict[str, Any]] = []
+
+    for record in records:
+        abilities = {key: default_score for key in ABILITY_KEYS}
+        abilities.update({key: int(value) for key, value in record.get("abilities", {}).items() if key in abilities})
+        move = record.get("move", [1000, 1400])
+        if not isinstance(move, list) or len(move) != 2:
+            raise SyncError(f"Monster move must be [cardinal, diagonal]: {record.get('id')}")
+
+        attack = record.get("attack")
+        weapon_id = record.get("weapon")
+        if isinstance(attack, dict):
+            attack_id = str(attack.get("id", ""))
+            damage_formula = str(attack.get("damage", ""))
+            penetration = attack.get("penetration")
+            damage_type = str(attack.get("type", ""))
+        elif weapon_id:
+            weapon = weapons.get(str(weapon_id))
+            if not weapon:
+                raise SyncError(f"Monster {record.get('id')} references unknown weapon {weapon_id}")
+            attack_id = str(weapon_id)
+            damage_formula = _damage_expression(weapon.get("damage", {}))
+            penetration = weapon.get("penetration")
+            damage_type = str(weapon.get("damage_type", ""))
+        else:
+            raise SyncError(f"Monster has neither natural attack nor weapon: {record.get('id')}")
+
+        armor_items = [str(value) for value in record.get("armor", [])]
+        body_summary = (
+            f"body={record.get('body_template_id')}; natural armor={record.get('natural_armor', 0)}; "
+            f"weapon={weapon_id or 'natural attack'}; equipment armor={', '.join(armor_items) or 'none'}"
+        )
+        monster_id = str(record.get("id", ""))
+        result.append({
+            "id": monster_id,
+            "name": record.get("name", monster_id),
+            "status": "구현 완료",
+            "classification": _monster_classification(record),
+            "hp": record["hp"],
+            "abilities": abilities,
+            "move_cardinal": int(move[0]),
+            "move_diagonal": int(move[1]),
+            "attack_cost": attack_cost,
+            "base_damage": None,
+            "damage_formula": damage_formula,
+            "penetration": penetration,
+            "aggression": None,
+            "threat_rating": record.get("threat_rating"),
+            "attack_id": attack_id,
+            "damage_type": damage_type,
+            "ai_policy": record.get("ai_policy", ""),
+            "body_summary": body_summary,
+            "body_template_id": record.get("body_template_id"),
+            "threat_record_ids": [f"{monster_id}_tr_v0"],
+            "source_url": source_url,
+            "notes": [
+                "기본 피해 숫자는 주사위식을 평균값으로 축약하지 않기 위해 비워 둔다.",
+                f"정확한 피해식: {damage_formula}",
+            ],
+        })
+    return result
+
+
+def _normalize_skills_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
+    records = data.get("records")
+    if not isinstance(records, list):
+        raise SyncError(f"Invalid v2 skill dataset: {path}")
+    result: list[dict[str, Any]] = []
+    for record in records:
+        result.append({
+            "id": record["id"],
+            "name": record["name"],
+            "status": record.get("status", "구현 완료"),
+            "classification": "기본 공격",
+            "user": "Player/NPC 공통 production Action",
+            "time_cost": record.get("time_cost"),
+            "range": record.get("range"),
+            "base_damage": None,
+            "penetration": None,
+            "resource_cost": "없음",
+            "check_formula": record.get("check_formula", ""),
+            "damage_formula": record.get("damage_formula", ""),
+            "damage_type": "AttackDefinition에 따라 Sharp/Blunt",
+            "requirements": record.get("requirements", ""),
+            "ai_use": True,
+            "milestones": record.get("milestones", ""),
+            "source_url": _repo_url("time_cost/actions/attack_action.gd"),
+            "notes": list(record.get("notes", [])),
+        })
+    return result
+
+
+def _normalize_threat_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
+    records = data.get("records")
+    if not isinstance(records, list):
+        raise SyncError(f"Invalid v2 Threat dataset: {path}")
+    model = data.get("model_contract", {})
+    model_version = str(model.get("id", "TR-v0"))
+    protocol = str(model.get("protocol", "side_swap_v1"))
+    monster_path = ROOT / "docs" / "datasets" / "monsters.json"
+    monster_data = json.loads(monster_path.read_text(encoding="utf-8"))
+    monsters = {
+        record["id"]: record
+        for record in _normalize_monsters_v2(monster_data, monster_path)
+    }
+    result: list[dict[str, Any]] = []
+    for record in records:
+        monster_id = str(record.get("monster_id", ""))
+        monster = monsters.get(monster_id)
+        if not monster:
+            raise SyncError(f"Threat record references unknown monster: {monster_id}")
+        result.append({
+            "id": f"{monster_id}_tr_v0",
+            "monster_id": monster_id,
+            "name": f"{monster['name']} — {model_version}",
+            "status": "측정 대기",
+            "model_version": model_version,
+            "static_score": record.get("static_score"),
+            "simulation_score": record.get("simulation_score"),
+            "final_threat_rating": record.get("final_threat_rating"),
+            "baseline": "미정 — benchmark profile / pairwise calibration 후 정의",
+            "runs": 0,
+            "seed_range": "",
+            "confidence_note": "M024 smoke는 실행 검증 전용이며 Threat calibration 결과가 아니다.",
+            "offense_evidence": (
+                f"{monster['damage_formula']}; Pen {monster['penetration']}; "
+                f"normal melee cost {monster['attack_cost']}"
+            ),
+            "survival_evidence": f"HP {monster['hp']}; {monster['body_summary']}",
+            "behavior_evidence": (
+                f"move {monster['move_cardinal']}/{monster['move_diagonal']}; "
+                f"AI {monster['ai_policy']}; protocol {protocol}"
+            ),
+            "source_url": _repo_url("time_cost/simulation/combat_batch_runner.gd"),
+            "notes": [
+                "정적/시뮬레이션/최종 Threat 점수는 calibration 전까지 null을 유지한다.",
+                "M024 paired smoke는 production 경로가 정상 동작하는지만 검증했다.",
+            ],
+        })
+    return result
+
+
+def load_dataset(path: Path, kind: str) -> list[dict[str, Any]]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    version = data.get("version")
+
+    if version == 1:
+        records = data.get("records")
+        if not isinstance(records, list):
+            raise SyncError(f"Invalid v1 dataset: {path}")
+    elif version == 2:
+        if kind == "body_templates":
+            records = _normalize_body_templates_v2(data, path)
+        elif kind == "equipment":
+            records = _normalize_equipment_v2(data, path)
+        elif kind == "monsters":
+            records = _normalize_monsters_v2(data, path)
+        elif kind == "skills":
+            records = _normalize_skills_v2(data, path)
+        elif kind == "threat_ratings":
+            records = _normalize_threat_v2(data, path)
+        else:
+            raise SyncError(f"Unsupported v2 dataset kind '{kind}': {path}")
+    else:
+        raise SyncError(f"Unsupported dataset version {version!r}: {path}")
+
+    ids = [record.get("id") for record in records]
     if not all(isinstance(value, str) and value for value in ids):
         raise SyncError(f"Dataset IDs must be non-empty strings: {path}")
     if len(ids) != len(set(ids)):
         raise SyncError(f"Dataset IDs must be unique: {path}")
-    return data["records"]
+    return records
 
 
 def sync_specs(client: NotionClient, config: dict[str, Any], records: list[dict[str, Any]]) -> None:
@@ -374,14 +737,36 @@ def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[
     if kind == "body_templates":
         blocks.append(wiki.text_block("heading_2", "부위"))
         for part in record.get("parts", []):
+            label = str(part.get("id") or part.get("pattern") or "?")
             armor = "없음" if part.get("armor") is None else str(part["armor"])
-            functions = ", ".join(part.get("functions", [])) or "-"
+            functions = ", ".join(str(value) for value in part.get("functions", [])) or "-"
             parent = part.get("parent") or "-"
+            hit_weight = part.get("hit_weight", part.get("hit_weight_each", "?"))
             text = (
-                f"{part['id']} — parent {parent}; integrity {part['integrity']}; "
-                f"hit weight {part['hit_weight']}; armor {armor}; functions {functions}"
+                f"{label} — parent {parent}; integrity {part['integrity']}; "
+                f"hit weight {hit_weight}; armor {armor}; functions {functions}"
             )
             blocks.append(wiki.text_block("bulleted_list_item", text))
+    elif kind == "monsters":
+        blocks.append(wiki.text_block("heading_2", "전투 데이터"))
+        blocks.append(wiki.text_block(
+            "paragraph",
+            f"damage {record.get('damage_formula', '-')}; attack {record.get('attack_id', '-')}; "
+            f"Pen {record.get('penetration')}; normal attack cost {record.get('attack_cost')}",
+        ))
+        blocks.append(wiki.text_block("paragraph", record.get("body_summary", "")))
+    elif kind == "skills":
+        blocks.append(wiki.text_block("heading_2", "피해"))
+        blocks.append(wiki.text_block(
+            "paragraph",
+            record.get("damage_formula") or "피해는 선택된 AttackDefinition에서 결정된다.",
+        ))
+    elif kind == "equipment":
+        if record.get("damage_formula"):
+            blocks.append(wiki.text_block("heading_2", "피해"))
+            blocks.append(wiki.text_block("paragraph", record["damage_formula"]))
+        blocks.append(wiki.text_block("heading_2", "적용"))
+        blocks.append(wiki.text_block("paragraph", record.get("application", "")))
     elif kind == "threat_ratings":
         blocks.append(wiki.text_block("heading_2", "측정 상태"))
         blocks.append(wiki.text_block(
@@ -407,8 +792,10 @@ def sync_dataset(
 ) -> dict[str, str]:
     existing = source_map(client, data_source_id)
     pages: dict[str, str] = {}
+    active_sources: set[str] = set()
     for record in records:
         source = f"{file_path}#{record['id']}"
+        active_sources.add(source)
         if kind == "monsters":
             properties = monster_properties(record, source)
             icon = "🐀"
@@ -438,6 +825,12 @@ def sync_dataset(
             icon,
             dataset_blocks(source, record, kind),
         )
+
+    managed_prefix = f"{file_path}#"
+    for source, page_id in existing.items():
+        if source.startswith(managed_prefix) and source not in active_sources:
+            client.request("PATCH", f"/pages/{page_id}", {"archived": True})
+            print(f"archived stale: {source}")
     return pages
 
 
@@ -487,7 +880,7 @@ def main() -> int:
     specs = discover_specs(config)
     datasets: dict[str, list[dict[str, Any]]] = {}
     for kind, dataset_config in config["datasets"].items():
-        datasets[kind] = load_dataset(ROOT / dataset_config["file"])
+        datasets[kind] = load_dataset(ROOT / dataset_config["file"], kind)
 
     if args.check:
         details = ", ".join(f"{kind}={len(records)}" for kind, records in datasets.items())

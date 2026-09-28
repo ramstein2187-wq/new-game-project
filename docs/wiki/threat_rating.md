@@ -1,5 +1,5 @@
 +++
-status = "프로토타입"
+status = "부분 구현"
 areas = ["시뮬레이션", "전투", "AI"]
 milestones = "M023"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/specs/threat_rating.md"
