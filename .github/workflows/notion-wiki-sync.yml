@@ -57,11 +57,4 @@ jobs:
         if: github.event_name != 'pull_request' && steps.notion.outputs.configured == 'true'
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          BEFORE_SHA: ${{ github.event.before }}
-        shell: bash
-        run: |
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            python tools/sync_notion_wiki.py --changed-since "$BEFORE_SHA"
-          else
-            python tools/sync_notion_wiki.py
-          fi
+        run: python tools/sync_notion_wiki.py

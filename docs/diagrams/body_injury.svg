@@ -23,6 +23,7 @@
 <text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">move cost = ceil(base / efficiency)</text>
 <line x1="380" y1="612" x2="380" y2="642" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="742" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">attack part 효율 0.5 → 명중 -2 / 0 → 공격 불가</text>
+<text x="380" y="766.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">capability + required count → 최적 기능 부위 선택</text>
+<text x="380" y="788.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="14">부족 → 공격 불가 / 선택 효율 0.5 → 명중 -2</text>
 <line x1="380" y1="708" x2="380" y2="738" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 </svg>
