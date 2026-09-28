@@ -829,7 +829,7 @@ def sync_dataset(
     managed_prefix = f"{file_path}#"
     for source, page_id in existing.items():
         if source.startswith(managed_prefix) and source not in active_sources:
-            client.request("PATCH", f"/pages/{page_id}", {"archived": True})
+            client.request("PATCH", f"/pages/{page_id}", {"in_trash": True})
             print(f"archived stale: {source}")
     return pages
 
