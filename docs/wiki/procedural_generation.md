@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["월드 생성"]
+milestones = "M003–M009"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M009_playable_procedural_map.md"
+icon = "🌲"
++++
 # 절차 생성 맵 파이프라인
 
 ## 개요

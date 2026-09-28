@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["AI", "전투"]
+milestones = "M015"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M015_tactical_ai_prototype.md"
+icon = "🧠"
++++
 # 설명 가능한 전술 AI
 
 ## 개요

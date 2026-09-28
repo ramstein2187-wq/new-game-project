@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["시간/액션", "코어", "전투"]
+milestones = "M014"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M014_common_action_system.md"
+icon = "🎬"
++++
 # 공통 Action 시스템
 
 ## 목적

@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["시간/액션", "코어"]
+milestones = "M011, M013"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M011_time_cost_scheduler.md"
+icon = "⏱️"
++++
 # Action-Cost 시간 모델 / 스케줄러
 
 ## 한 줄 요약

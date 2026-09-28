@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["UI/로그", "전투", "코어"]
+milestones = "M012"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M012_structured_combat_log.md"
+icon = "📜"
++++
 # 구조화 전투 로그
 
 ## 개요

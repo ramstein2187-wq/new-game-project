@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["시뮬레이션", "전투", "AI"]
+milestones = "M022"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M022_headless_combat_batch.md"
+icon = "📊"
++++
 # 헤드리스 전투 배치 시뮬레이션
 
 ## 목적

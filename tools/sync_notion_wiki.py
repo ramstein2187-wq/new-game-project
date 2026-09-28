@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Mirror docs/wiki Markdown pages into pre-existing Notion database pages.
+"""Mirror docs/wiki Markdown pages into the Notion System Wiki database.
 
-The sync is intentionally one-way: Git is the editable source, Notion is the
-reading surface. The implementation uses only Python's standard library so the
-GitHub Action has no package-install step.
+Git is the editable source of truth. Each wiki Markdown file carries TOML
+front matter describing its Notion database properties. The sync discovers all
+wiki files automatically, resolves an existing Notion page by the stable
+"소스 파일" property, and creates the page when no match exists.
+
+Only Python's standard library is used so GitHub Actions needs no package
+installation step.
 """
 
 from __future__ import annotations
@@ -15,6 +19,7 @@ import re
 import subprocess
 import sys
 import time
+import tomllib
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -23,11 +28,13 @@ from pathlib import Path
 from typing import Any, Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MAP = REPO_ROOT / "docs" / "wiki" / "wiki-map.json"
+WIKI_DIR = REPO_ROOT / "docs" / "wiki"
+DEFAULT_CONFIG = WIKI_DIR / "wiki-map.json"  # historical filename; now config only
 NOTION_API_BASE = "https://api.notion.com/v1"
 MAX_RICH_TEXT = 2000
 MAX_BLOCKS_PER_REQUEST = 100
 PRESERVED_BLOCK_TYPES = {"child_page", "child_database"}
+IGNORED_WIKI_FILES = {"README.md"}
 BACKTICK = chr(96)
 FENCE = BACKTICK * 3
 
@@ -75,7 +82,6 @@ def rich_text_segment(
 
 
 def parse_inline(text: str) -> list[dict[str, Any]]:
-    """Convert the deliberately small inline-Markdown subset used by wiki docs."""
     result: list[dict[str, Any]] = []
     cursor = 0
     for match in INLINE_TOKEN_RE.finditer(text):
@@ -122,6 +128,7 @@ def code_block(code: str, language: str) -> dict[str, Any]:
         "json": "json",
         "yaml": "yaml",
         "yml": "yaml",
+        "toml": "plain text",
         "gdscript": "plain text",
         "text": "plain text",
         "txt": "plain text",
@@ -138,12 +145,7 @@ def code_block(code: str, language: str) -> dict[str, Any]:
 
 
 def markdown_to_blocks(markdown: str) -> list[dict[str, Any]]:
-    """Convert wiki Markdown to a conservative Notion block subset.
-
-    The first H1 is omitted because the Notion database row already owns the page
-    title. Unsupported Markdown remains readable as paragraph text rather than
-    trying to guess a lossy structure.
-    """
+    """Convert the small Markdown subset used by docs/wiki to Notion blocks."""
     blocks: list[dict[str, Any]] = []
     lines = markdown.splitlines()
     first_content_seen = False
@@ -218,77 +220,226 @@ def managed_notice(source_file: str) -> dict[str, Any]:
     }
 
 
-def load_mapping(path: Path) -> dict[str, Any]:
+def load_config(path: Path) -> dict[str, Any]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError as exc:
-        raise SyncError(f"Mapping file not found: {path}") from exc
+        raise SyncError(f"Configuration file not found: {path}") from exc
     except json.JSONDecodeError as exc:
         raise SyncError(f"Invalid JSON in {path}: {exc}") from exc
 
-    if data.get("version") != 1:
-        raise SyncError("Unsupported wiki-map version; expected version 1")
-    if not isinstance(data.get("pages"), list) or not data["pages"]:
-        raise SyncError("wiki-map must contain a non-empty pages array")
-    return data
+    if data.get("version") != 2:
+        raise SyncError("Unsupported wiki config version; expected version 2")
+    if not isinstance(data.get("data_source_id"), str) or not data["data_source_id"]:
+        raise SyncError("wiki config requires data_source_id")
 
+    for key in ("allowed_statuses", "allowed_areas"):
+        values = data.get(key)
+        if not isinstance(values, list) or not values or not all(
+            isinstance(value, str) and value for value in values
+        ):
+            raise SyncError(f"wiki config requires a non-empty string array: {key}")
 
-def validate_mapping(mapping: dict[str, Any]) -> list[tuple[dict[str, Any], Path, int]]:
-    required = {
-        "file",
-        "page_id",
+    property_names = data.get("database_properties")
+    required_properties = {
         "title",
         "status",
         "areas",
         "milestones",
+        "last_checked",
         "source_url",
+        "source_file",
     }
-    seen_page_ids: set[str] = set()
-    seen_files: set[str] = set()
-    validated: list[tuple[dict[str, Any], Path, int]] = []
-
-    for index, entry in enumerate(mapping["pages"], start=1):
-        missing = required - entry.keys()
-        if missing:
-            raise SyncError(
-                f"Mapping entry {index} is missing: {', '.join(sorted(missing))}"
-            )
-        if entry["page_id"] in seen_page_ids:
-            raise SyncError(f"Duplicate Notion page ID: {entry['page_id']}")
-        if entry["file"] in seen_files:
-            raise SyncError(f"Duplicate wiki source file: {entry['file']}")
-        if not isinstance(entry["areas"], list) or not all(
-            isinstance(area, str) and area for area in entry["areas"]
-        ):
-            raise SyncError(f"Invalid areas in mapping entry {index}")
-
-        source_path = REPO_ROOT / entry["file"]
-        if not source_path.is_file():
-            raise SyncError(f"Wiki source does not exist: {entry['file']}")
-
-        markdown = source_path.read_text(encoding="utf-8")
-        first_heading = next(
-            (line[2:].strip() for line in markdown.splitlines() if line.startswith("# ")),
-            None,
+    if not isinstance(property_names, dict):
+        raise SyncError("wiki config requires database_properties")
+    missing = required_properties - property_names.keys()
+    if missing:
+        raise SyncError(
+            "Missing database property mapping(s): " + ", ".join(sorted(missing))
         )
-        if first_heading != entry["title"]:
+    return data
+
+
+def split_front_matter(text: str, source_file: str) -> tuple[dict[str, Any], str]:
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "+++":
+        raise SyncError(
+            f"{source_file} must start with TOML front matter delimited by +++"
+        )
+
+    end = next(
+        (index for index, line in enumerate(lines[1:], start=1) if line.strip() == "+++"),
+        None,
+    )
+    if end is None:
+        raise SyncError(f"{source_file} has unclosed TOML front matter")
+
+    try:
+        metadata = tomllib.loads("\n".join(lines[1:end]))
+    except tomllib.TOMLDecodeError as exc:
+        raise SyncError(f"Invalid TOML front matter in {source_file}: {exc}") from exc
+
+    body = "\n".join(lines[end + 1 :]).lstrip("\n")
+    return metadata, body
+
+
+def parse_wiki_file(path: Path) -> tuple[dict[str, Any], str, int]:
+    source_file = path.relative_to(REPO_ROOT).as_posix()
+    metadata, body = split_front_matter(path.read_text(encoding="utf-8"), source_file)
+
+    required = {"status", "areas", "milestones", "source_url", "icon"}
+    missing = required - metadata.keys()
+    if missing:
+        raise SyncError(
+            f"{source_file} front matter is missing: {', '.join(sorted(missing))}"
+        )
+
+    title = next(
+        (line[2:].strip() for line in body.splitlines() if line.startswith("# ")),
+        None,
+    )
+    if not title:
+        raise SyncError(f"{source_file} requires an H1 title")
+
+    if not isinstance(metadata["status"], str) or not metadata["status"]:
+        raise SyncError(f"{source_file}: status must be a non-empty string")
+    if not isinstance(metadata["areas"], list) or not all(
+        isinstance(area, str) and area for area in metadata["areas"]
+    ):
+        raise SyncError(f"{source_file}: areas must be a non-empty string array")
+    if not metadata["areas"]:
+        raise SyncError(f"{source_file}: areas cannot be empty")
+    if not isinstance(metadata["milestones"], str) or not metadata["milestones"]:
+        raise SyncError(f"{source_file}: milestones must be a non-empty string")
+    if not isinstance(metadata["source_url"], str) or not metadata[
+        "source_url"
+    ].startswith("https://github.com/"):
+        raise SyncError(f"{source_file}: source_url must be a GitHub URL")
+    if not isinstance(metadata["icon"], str) or not metadata["icon"]:
+        raise SyncError(f"{source_file}: icon must be a non-empty string")
+
+    blocks = markdown_to_blocks(body)
+    if not blocks:
+        raise SyncError(f"{source_file} contains no body blocks")
+
+    entry = {
+        "file": source_file,
+        "title": title,
+        "status": metadata["status"],
+        "areas": metadata["areas"],
+        "milestones": metadata["milestones"],
+        "source_url": metadata["source_url"],
+        "icon": metadata["icon"],
+    }
+    return entry, body, len(blocks) + 1
+
+
+def discover_wiki_entries() -> list[tuple[dict[str, Any], Path, str, int]]:
+    discovered: list[tuple[dict[str, Any], Path, str, int]] = []
+    seen_titles: set[str] = set()
+    seen_files: set[str] = set()
+
+    for path in sorted(WIKI_DIR.rglob("*.md")):
+        if path.name in IGNORED_WIKI_FILES or path.name.startswith("_"):
+            continue
+        entry, body, block_count = parse_wiki_file(path)
+        if entry["file"] in seen_files:
+            raise SyncError(f"Duplicate wiki source path: {entry['file']}")
+        if entry["title"] in seen_titles:
+            raise SyncError(f"Duplicate wiki title: {entry['title']}")
+        seen_files.add(entry["file"])
+        seen_titles.add(entry["title"])
+        discovered.append((entry, path, body, block_count))
+
+    if not discovered:
+        raise SyncError("No wiki Markdown files discovered under docs/wiki")
+    return discovered
+
+
+def validate_taxonomy(
+    entries: Iterable[tuple[dict[str, Any], Path, str, int]],
+    config: dict[str, Any],
+) -> None:
+    allowed_statuses = set(config["allowed_statuses"])
+    allowed_areas = set(config["allowed_areas"])
+
+    for entry, _, _, _ in entries:
+        if entry["status"] not in allowed_statuses:
             raise SyncError(
-                f"Title mismatch for {entry['file']}: "
-                f"Markdown={first_heading!r}, mapping={entry['title']!r}"
+                f"{entry['file']}: unknown status {entry['status']!r}; "
+                f"allowed: {', '.join(config['allowed_statuses'])}"
+            )
+        unknown_areas = [area for area in entry["areas"] if area not in allowed_areas]
+        if unknown_areas:
+            raise SyncError(
+                f"{entry['file']}: unknown area(s): {', '.join(unknown_areas)}; "
+                f"allowed: {', '.join(config['allowed_areas'])}"
             )
 
-        blocks = markdown_to_blocks(markdown)
-        if not blocks:
-            raise SyncError(f"Wiki source contains no body blocks: {entry['file']}")
 
-        if not str(entry["source_url"]).startswith("https://github.com/"):
-            raise SyncError(f"source_url must be a GitHub URL: {entry['file']}")
+def select_entries(
+    entries: Iterable[tuple[dict[str, Any], Path, str, int]],
+    selectors: list[str],
+) -> list[tuple[dict[str, Any], Path, str, int]]:
+    entries = list(entries)
+    if not selectors:
+        return entries
 
-        seen_page_ids.add(entry["page_id"])
-        seen_files.add(entry["file"])
-        validated.append((entry, source_path, len(blocks) + 1))
+    selected = []
+    wanted = set(selectors)
+    matched: set[str] = set()
+    for item in entries:
+        entry = item[0]
+        candidates = {
+            entry["title"],
+            entry["file"],
+            Path(entry["file"]).name,
+        }
+        hits = candidates & wanted
+        if hits:
+            selected.append(item)
+            matched.update(hits)
 
-    return validated
+    missing = wanted - matched
+    if missing:
+        raise SyncError(f"Unknown --page selector(s): {', '.join(sorted(missing))}")
+    return selected
+
+
+def filter_changed_entries(
+    entries: list[tuple[dict[str, Any], Path, str, int]],
+    git_ref: str | None,
+    config_path: Path,
+) -> list[tuple[dict[str, Any], Path, str, int]]:
+    if not git_ref or set(git_ref) == {"0"}:
+        return entries
+
+    command = [
+        "git",
+        "diff",
+        "--name-only",
+        f"{git_ref}..HEAD",
+        "--",
+        "docs/wiki",
+    ]
+    result = subprocess.run(
+        command,
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise SyncError(
+            f"Could not determine changed wiki files from {git_ref}: "
+            f"{result.stderr.strip()}"
+        )
+
+    changed = {line.strip() for line in result.stdout.splitlines() if line.strip()}
+    config_rel = config_path.relative_to(REPO_ROOT).as_posix()
+    if config_rel in changed:
+        return entries
+    return [item for item in entries if item[0]["file"] in changed]
 
 
 class NotionClient:
@@ -331,8 +482,7 @@ class NotionClient:
                         time.sleep(max(delay, 0.5))
                         continue
                 raise SyncError(
-                    f"Notion API {method} {path} failed "
-                    f"({exc.code}): {body}"
+                    f"Notion API {method} {path} failed ({exc.code}): {body}"
                 ) from exc
             except urllib.error.URLError as exc:
                 if attempt < 3:
@@ -363,6 +513,44 @@ class NotionClient:
                 raise SyncError("Notion pagination reported has_more without cursor")
         return children
 
+    def query_data_source(self, data_source_id: str) -> list[dict[str, Any]]:
+        pages: list[dict[str, Any]] = []
+        cursor: str | None = None
+        while True:
+            payload: dict[str, Any] = {"page_size": 100}
+            if cursor:
+                payload["start_cursor"] = cursor
+            response = self.request(
+                "POST", f"/data_sources/{data_source_id}/query", payload
+            )
+            pages.extend(response.get("results", []))
+            if not response.get("has_more"):
+                break
+            cursor = response.get("next_cursor")
+            if not cursor:
+                raise SyncError("Notion query reported has_more without cursor")
+        return pages
+
+    def create_page(
+        self,
+        data_source_id: str,
+        properties: dict[str, Any],
+        icon: str,
+    ) -> str:
+        payload: dict[str, Any] = {
+            "parent": {
+                "type": "data_source_id",
+                "data_source_id": data_source_id,
+            },
+            "properties": properties,
+            "icon": {"type": "emoji", "emoji": icon},
+        }
+        response = self.request("POST", "/pages", payload)
+        page_id = response.get("id")
+        if not isinstance(page_id, str) or not page_id:
+            raise SyncError("Notion create-page response did not contain an ID")
+        return page_id
+
     def clear_managed_body(self, page_id: str) -> int:
         deleted = 0
         for child in self.list_children(page_id):
@@ -378,9 +566,7 @@ class NotionClient:
                 deleted += 1
         return deleted
 
-    def append_children(
-        self, page_id: str, blocks: list[dict[str, Any]]
-    ) -> None:
+    def append_children(self, page_id: str, blocks: list[dict[str, Any]]) -> None:
         for start in range(0, len(blocks), MAX_BLOCKS_PER_REQUEST):
             batch = blocks[start : start + MAX_BLOCKS_PER_REQUEST]
             self.request(
@@ -389,12 +575,63 @@ class NotionClient:
                 {"children": batch},
             )
 
-    def update_properties(
+    def update_page(
         self,
         page_id: str,
         properties: dict[str, Any],
+        icon: str,
     ) -> None:
-        self.request("PATCH", f"/pages/{page_id}", {"properties": properties})
+        self.request(
+            "PATCH",
+            f"/pages/{page_id}",
+            {
+                "properties": properties,
+                "icon": {"type": "emoji", "emoji": icon},
+            },
+        )
+
+
+def property_plain_text(prop: dict[str, Any] | None) -> str:
+    if not isinstance(prop, dict):
+        return ""
+    rich_text = prop.get("rich_text")
+    if not isinstance(rich_text, list):
+        return ""
+    parts: list[str] = []
+    for item in rich_text:
+        if not isinstance(item, dict):
+            continue
+        plain = item.get("plain_text")
+        if isinstance(plain, str):
+            parts.append(plain)
+            continue
+        text = item.get("text")
+        if isinstance(text, dict) and isinstance(text.get("content"), str):
+            parts.append(text["content"])
+    return "".join(parts)
+
+
+def existing_pages_by_source(
+    client: NotionClient,
+    data_source_id: str,
+    source_property: str,
+) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for page in client.query_data_source(data_source_id):
+        properties = page.get("properties", {})
+        source_file = property_plain_text(properties.get(source_property))
+        if not source_file:
+            continue
+        page_id = page.get("id")
+        if not isinstance(page_id, str) or not page_id:
+            continue
+        if source_file in result:
+            raise SyncError(
+                f"Duplicate Notion pages claim source file {source_file!r}: "
+                f"{result[source_file]} and {page_id}"
+            )
+        result[source_file] = page_id
+    return result
 
 
 def build_properties(
@@ -413,161 +650,118 @@ def build_properties(
         property_names["milestones"]: {"rich_text": rt(entry["milestones"])},
         property_names["last_checked"]: {"date": {"start": date.today().isoformat()}},
         property_names["source_url"]: {"url": entry["source_url"]},
+        property_names["source_file"]: {"rich_text": rt(entry["file"])},
     }
-
-
-def select_entries(
-    validated: Iterable[tuple[dict[str, Any], Path, int]],
-    selectors: list[str],
-) -> list[tuple[dict[str, Any], Path, int]]:
-    entries = list(validated)
-    if not selectors:
-        return entries
-
-    selected = []
-    wanted = set(selectors)
-    matched: set[str] = set()
-    for item in entries:
-        entry = item[0]
-        candidates = {
-            entry["page_id"],
-            entry["title"],
-            entry["file"],
-            Path(entry["file"]).name,
-        }
-        hits = candidates & wanted
-        if hits:
-            selected.append(item)
-            matched.update(hits)
-
-    missing = wanted - matched
-    if missing:
-        raise SyncError(f"Unknown --page selector(s): {', '.join(sorted(missing))}")
-    return selected
-
-
-def filter_changed_entries(
-    entries: list[tuple[dict[str, Any], Path, int]],
-    git_ref: str | None,
-) -> list[tuple[dict[str, Any], Path, int]]:
-    if not git_ref:
-        return entries
-    if set(git_ref) == {"0"}:
-        return entries
-
-    command = [
-        "git",
-        "diff",
-        "--name-only",
-        f"{git_ref}..HEAD",
-        "--",
-        "docs/wiki",
-    ]
-    result = subprocess.run(
-        command,
-        cwd=REPO_ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode != 0:
-        raise SyncError(
-            f"Could not determine changed wiki files from {git_ref}: "
-            f"{result.stderr.strip()}"
-        )
-
-    changed = {line.strip() for line in result.stdout.splitlines() if line.strip()}
-    if "docs/wiki/wiki-map.json" in changed:
-        return entries
-    return [item for item in entries if item[0]["file"] in changed]
 
 
 def sync_entry(
     client: NotionClient,
+    data_source_id: str,
+    existing_by_source: dict[str, str],
     entry: dict[str, Any],
-    source_path: Path,
+    body: str,
     property_names: dict[str, str],
     *,
     content_only: bool,
-) -> None:
-    markdown = source_path.read_text(encoding="utf-8")
-    blocks = [managed_notice(entry["file"]), *markdown_to_blocks(markdown)]
+) -> str:
+    properties = build_properties(entry, property_names)
+    page_id = existing_by_source.get(entry["file"])
+    created = page_id is None
 
-    print(f"Sync {entry['title']} <- {entry['file']}")
-    if not content_only:
-        client.update_properties(
-            entry["page_id"], build_properties(entry, property_names)
+    if created:
+        page_id = client.create_page(
+            data_source_id,
+            properties,
+            entry["icon"],
         )
-    deleted = client.clear_managed_body(entry["page_id"])
-    client.append_children(entry["page_id"], blocks)
-    print(f"  replaced {deleted} body block(s) with {len(blocks)} block(s)")
+        existing_by_source[entry["file"]] = page_id
+        print(f"Create {entry['title']} <- {entry['file']}")
+    else:
+        print(f"Sync {entry['title']} <- {entry['file']}")
+
+    if not content_only or created:
+        client.update_page(page_id, properties, entry["icon"])
+
+    blocks = [managed_notice(entry["file"]), *markdown_to_blocks(body)]
+    deleted = client.clear_managed_body(page_id)
+    client.append_children(page_id, blocks)
+    action = "created" if created else "updated"
+    print(
+        f"  {action} page {page_id}; replaced {deleted} body block(s) "
+        f"with {len(blocks)} block(s)"
+    )
+    return page_id
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--map",
+        "--config",
         type=Path,
-        default=DEFAULT_MAP,
-        help="wiki mapping JSON (default: docs/wiki/wiki-map.json)",
+        default=DEFAULT_CONFIG,
+        help="wiki config JSON (default: docs/wiki/wiki-map.json)",
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="validate mapping and Markdown without network access",
+        help="validate config/front matter/Markdown without network access",
     )
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="show pages/block counts without network access",
+        help="show discovered pages without network access",
     )
     parser.add_argument(
         "--page",
         action="append",
         default=[],
-        help="sync one mapped page by ID, title, path, or filename; repeatable",
+        help="sync one page by title, source path, or filename; repeatable",
     )
     parser.add_argument(
         "--changed-since",
         help=(
-            "sync only mapped wiki Markdown changed since this Git ref; "
-            "a wiki-map change forces all mapped pages"
+            "sync only wiki Markdown changed since this Git ref; "
+            "a config change forces all discovered pages"
         ),
     )
     parser.add_argument(
         "--content-only",
         action="store_true",
-        help="replace page bodies without updating database properties",
+        help="replace page bodies without updating properties for existing pages",
     )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    map_path = args.map
-    if not map_path.is_absolute():
-        map_path = REPO_ROOT / map_path
+    config_path = args.config
+    if not config_path.is_absolute():
+        config_path = REPO_ROOT / config_path
 
-    mapping = load_mapping(map_path)
-    validated = validate_mapping(mapping)
-    selected = select_entries(validated, args.page)
-    selected = filter_changed_entries(selected, args.changed_since)
+    config = load_config(config_path)
+    discovered = discover_wiki_entries()
+    validate_taxonomy(discovered, config)
+    selected = select_entries(discovered, args.page)
+    selected = filter_changed_entries(selected, args.changed_since, config_path)
 
     if args.check:
-        print(f"OK: {len(validated)} mapped wiki page(s) validated")
+        print(
+            f"OK: {len(discovered)} wiki page(s) discovered and metadata validated"
+        )
         return 0
 
     if args.dry_run:
-        for entry, _, block_count in selected:
+        for entry, _, _, block_count in selected:
             print(
                 f"{entry['title']}: {entry['file']} -> "
-                f"{entry['page_id']} ({block_count} block(s))"
+                f"lookup by {config['database_properties']['source_file']!r}; "
+                f"create if absent ({block_count} block(s))"
             )
         print(f"Dry run: {len(selected)} page(s), no network requests")
         return 0
 
     if not selected:
-        print("No mapped wiki pages changed; nothing to sync")
+        print("No wiki pages changed; nothing to sync")
         return 0
 
     token = os.environ.get("NOTION_TOKEN", "").strip()
@@ -578,35 +772,40 @@ def main() -> int:
         )
 
     api_version = os.environ.get(
-        "NOTION_VERSION", mapping.get("notion_api_version", "2026-03-11")
+        "NOTION_VERSION", config.get("notion_api_version", "2026-03-11")
     )
-    property_names = mapping.get("database_properties", {})
-    required_property_names = {
-        "title",
-        "status",
-        "areas",
-        "milestones",
-        "last_checked",
-        "source_url",
-    }
-    missing_property_names = required_property_names - property_names.keys()
-    if missing_property_names:
-        raise SyncError(
-            "Missing database property mapping(s): "
-            + ", ".join(sorted(missing_property_names))
-        )
-
     client = NotionClient(token, api_version)
-    for entry, source_path, _ in selected:
+    property_names = config["database_properties"]
+    data_source_id = config["data_source_id"]
+
+    existing_by_source = existing_pages_by_source(
+        client,
+        data_source_id,
+        property_names["source_file"],
+    )
+
+    created_count = 0
+    updated_count = 0
+    for entry, _, body, _ in selected:
+        was_existing = entry["file"] in existing_by_source
         sync_entry(
             client,
+            data_source_id,
+            existing_by_source,
             entry,
-            source_path,
+            body,
             property_names,
             content_only=args.content_only,
         )
+        if was_existing:
+            updated_count += 1
+        else:
+            created_count += 1
 
-    print(f"Done: synced {len(selected)} Notion wiki page(s)")
+    print(
+        f"Done: synced {len(selected)} Notion wiki page(s) "
+        f"({created_count} created, {updated_count} updated)"
+    )
     return 0
 
 

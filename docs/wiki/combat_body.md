@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["전투"]
+milestones = "M017"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M017_combat_body_phase1.md"
+icon = "🎯"
++++
 # D20 전투 · 신체 · 방어구
 
 ## 개요

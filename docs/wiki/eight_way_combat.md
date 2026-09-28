@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["시간/액션", "전투", "AI"]
+milestones = "M018"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M018_eight_way_combat.md"
+icon = "🧭"
++++
 # 8방향 이동 · 근접 전투
 
 ## 핵심 결정

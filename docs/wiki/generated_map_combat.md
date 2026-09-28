@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["전투", "AI", "월드 생성", "시간/액션"]
+milestones = "M016"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M016_generated_map_combat.md"
+icon = "⚔️"
++++
 # 생성 맵 전투 통합
 
 ## 개요

@@ -1,3 +1,10 @@
++++
+status = "구현 완료"
+areas = ["코어", "전투", "AI"]
+milestones = "M019"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M019_common_actor.md"
+icon = "👥"
++++
 # 공통 Actor · 다중 NPC
 
 ## 개요
