@@ -11,10 +11,10 @@
 <text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">정적 prior — 빠른 예상과 sanity check</text>
 <line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Production combat batch + side swap + 여러 기준군</text>
+<text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Production batch + side_swap_v1 (여러 기준군은 후속)</text>
 <line x1="380" y1="324" x2="380" y2="354" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="454" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">승패 · 피해 · 행동수 · world time · 기능 상실 측정</text>
+<text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">승패 · 피해 · hit/miss · armor · 부위 disable · slot bias</text>
 <line x1="380" y1="420" x2="380" y2="450" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="550" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="582.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">정적 예측과 실제 성능 차이 보정</text>

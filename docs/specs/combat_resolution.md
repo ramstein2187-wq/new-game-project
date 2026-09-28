@@ -56,3 +56,5 @@ D20은 항상 소비한다. hit-location roll은 명중했을 때만, armor roll
 ## 현재 한계
 
 무기별 피해, 치명타, 조준 부위, 다층 방어구, 저항/취약성, 상처·치유·절단은 아직 없다.
+
+선택된 후속 설계에서는 일반 무기 공격의 기본 시간비용을 무기마다 세분화하지 않는다. 시간 차이는 Actor speed와 Quick/Normal/Heavy 같은 Action 계층에서 표현하고, 무기는 피해 주사위·피해 유형·관통·손 요구조건 등의 성질을 담당한다. 현재 `ActorDefinition.attack_cost` 값은 아직 이 설계로 마이그레이션되지 않은 기존 구현이다. [결정 기록](../decisions/normal_weapon_attack_time.md).
