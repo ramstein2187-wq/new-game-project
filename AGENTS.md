@@ -49,6 +49,8 @@ Documentation roles:
 - `docs/decisions/`: long-lived architectural decisions when a milestone decision must survive beyond that milestone.
 - Notion `CRPG 개발 위키 / 개발일지`: chronological daily development summaries generated from verified Git/DevSpace evidence; this is the current daily journal location.
 - `docs/wiki/`: concise current-system documentation mirrored automatically to the Notion CRPG development wiki. Git remains the editable source; Notion is a derived reading surface.
+- `THIRD_PARTY.md`: license/provenance notices for external code, assets, or other material actually included or redistributed with the repository.
+- `docs/REFERENCES.md`: external repositories and technical material consulted for design/research when their code is not vendored.
 
 Record agreed future features in the roadmap before starting implementation. Mark tentative ideas as candidates rather than committed work. When a feature starts, create or link a narrowly scoped milestone and task branch. On validated completion, update both the roadmap and milestone status; record newly discovered follow-ups in the roadmap rather than expanding completed milestones. Never claim a discussed or branch-specific feature is implemented on `main` without checking its actual code, branch, and validation.
 
@@ -69,6 +71,8 @@ Before modifying the project:
 - avoid unrelated cleanup or speculative refactors
 
 For large architectural changes, explain the reason, affected systems, and risks before proceeding.
+
+When using external code or assets, verify the upstream source and license before adding them. Record copied, ported, substantially adapted, or redistributed material in `THIRD_PARTY.md`, including the upstream URL, revision/date when practical, license, local files, and modifications. Preserve copyright/license notices required by the upstream license. For research-only repositories whose code is not copied, record material references in `docs/REFERENCES.md` instead. Never assume an asset's or snippet's license from a search result or third-party mirror when an authoritative upstream source is available.
 
 ## File Safety
 
