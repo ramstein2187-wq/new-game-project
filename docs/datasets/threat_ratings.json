@@ -2,7 +2,7 @@
   "version": 1,
   "model_contract": {
     "id": "TR-v0",
-    "status": "설계",
+    "status": "프로토타입",
     "final_scale": "미정",
     "principle": "정적 특징만으로 확정하지 않고 production 전투 시뮬레이션으로 보정한다.",
     "static_features": [
@@ -14,7 +14,7 @@
     ],
     "simulation_requirements": [
       "production Action/AI/Scheduler/CombatRules를 그대로 사용",
-      "side swap 또는 동등한 대칭화",
+      "side_swap_v1 paired batch로 동일 seed의 양방향 슬롯 교환",
       "여러 기준 상대/상황 사용",
       "충분한 seed 반복과 stalled/error 분리",
       "모델 버전과 측정 환경을 함께 기록"
@@ -25,7 +25,7 @@
       "id": "rat_tr_v0",
       "monster_id": "rat",
       "name": "Rat — TR-v0",
-      "status": "설계",
+      "status": "측정 대기",
       "model_version": "TR-v0",
       "static_score": null,
       "simulation_score": null,
@@ -39,7 +39,8 @@
       "behavior_evidence": "직선 750/대각선 1050; aggression/fear 기반 RatTactics; 후퇴/접근/공격/문 상호작용",
       "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/simulation/combat_batch_runner.gd",
       "notes": [
-        "M022 측정기는 production 전투를 재사용하지만 현재 고정 시나리오가 비대칭이라 단독 승률을 Threat Rating으로 쓰지 않는다.",
+        "M023 task branch의 side_swap_v1은 동일 seed로 양쪽 scheduler/room slot을 교환해 M022의 지배적인 슬롯 편향을 측정·완화한다.",
+        "현재 Rat record에는 아직 정식 paired calibration sample을 기록하지 않았으므로 runs와 Threat 숫자는 null/0 상태를 유지한다.",
         "실제 최종 점수는 몬스터 풀이 늘어난 뒤 여러 기준군에 대한 측정으로 보정한다."
       ]
     }

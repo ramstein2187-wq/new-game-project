@@ -12,9 +12,10 @@ func expect(condition: bool, description: String) -> void:
 func _init() -> void:
 	_test_production_path()
 	_test_deterministic_batch_and_metrics()
+	_test_configurable_matchup_and_side_swap()
 	_test_termination_guard()
 	if failures == 0:
-		print("PASS: deterministic production-combat batch runner, metrics and termination")
+		print("PASS: deterministic production-combat batch runner, paired matchup metrics and termination")
 	quit(1 if failures else 0)
 
 
@@ -49,6 +50,40 @@ func _test_deterministic_batch_and_metrics() -> void:
 	expect(first.mean_damage_side_a >= 0.0 and first.mean_damage_side_b >= 0.0, "Actual-damage metrics are present")
 	expect(first.mean_damage_side_a <= 30.0 and first.mean_damage_side_b <= 30.0, "Damage uses actual HP loss without overkill")
 	expect(first.side_a_actions.attack > 0 and first.side_b_actions.attack > 0, "Both sides' production attacks are counted")
+	expect(first.side_a_combat.attack_attempts == first.side_a_combat.hits + first.side_a_combat.misses, "Side A hit/miss metrics account for every attack")
+	expect(first.side_b_combat.attack_attempts == first.side_b_combat.hits + first.side_b_combat.misses, "Side B hit/miss metrics account for every attack")
+	expect(_sum_armor(first.side_a_combat.armor_results) == first.side_a_combat.hits, "Side A armor outcomes account for every hit")
+	expect(_sum_armor(first.side_b_combat.armor_results) == first.side_b_combat.hits, "Side B armor outcomes account for every hit")
+
+
+func _test_configurable_matchup_and_side_swap() -> void:
+	var baseline := ActorDefinition.rat_common()
+	var sturdy: ActorDefinition = ActorDefinition.rat_common().duplicate(true)
+	sturdy.type_id = &"sturdy_rat"
+	sturdy.display_name = "Sturdy Rat"
+	sturdy.max_hp = 45
+
+	var game := CombatSimulationGame.new()
+	game.configure_matchup(sturdy, baseline)
+	game.combat_seed = 99
+	game.reset()
+	expect(game.get_actor(&"player").definition.type_id == &"sturdy_rat", "Simulation side A accepts an injected actor definition")
+	expect(game.get_actor(&"rat").definition.type_id == &"rat", "Simulation side B accepts an injected actor definition")
+
+	var config := {"run_count": 12, "base_seed": 900, "max_actions": 120, "max_world_time": 120000}
+	var runner := CombatBatchRunner.new()
+	var first := runner.run_matchup(sturdy, baseline, config)
+	var second := runner.run_matchup(sturdy, baseline, config)
+	expect(first == second, "Paired matchup is deterministic for the same definitions and seed range")
+	expect(first.protocol == "side_swap_v1", "Paired matchup declares its side-swap protocol")
+	expect(first.pair_count == 12 and first.requested_encounters == 24, "Each seed produces forward and reverse encounters")
+	expect(first.forward.encounter_seeds == first.reverse.encounter_seeds, "Forward and reverse batches reuse the same seeds")
+	expect(first.combatant_a_wins == first.forward.side_a_wins + first.reverse.side_b_wins, "Reverse slot wins map back to combatant A")
+	expect(first.combatant_b_wins == first.forward.side_b_wins + first.reverse.side_a_wins, "Reverse slot wins map back to combatant B")
+	expect(first.decisive_encounters == first.combatant_a_wins + first.combatant_b_wins, "Paired decisive encounters equal identity-mapped wins")
+	expect(first.slot_a_wins == first.forward.side_a_wins + first.reverse.side_a_wins, "Slot A bias remains separately observable")
+	expect(first.combatant_a_combat.attack_attempts == first.combatant_a_combat.hits + first.combatant_a_combat.misses, "Combatant A paired attack metrics remain internally consistent")
+	expect(_sum_armor(first.combatant_a_combat.armor_results) == first.combatant_a_combat.hits, "Combatant A paired armor outcomes account for every hit")
 
 
 func _test_termination_guard() -> void:
@@ -61,6 +96,13 @@ func _test_termination_guard() -> void:
 
 
 func _sum_actions(counts: Dictionary) -> int:
+	var total := 0
+	for value in counts.values():
+		total += int(value)
+	return total
+
+
+func _sum_armor(counts: Dictionary) -> int:
 	var total := 0
 	for value in counts.values():
 		total += int(value)

@@ -1,9 +1,9 @@
 +++
-status = "설계"
+status = "프로토타입"
 areas = ["시뮬레이션", "전투", "AI"]
 type = "알고리즘"
 systems = "Threat Rating / CombatBatchRunner"
-milestones = "M022 후속"
+milestones = "M023"
 code_paths = ["time_cost/simulation/combat_batch_runner.gd", "time_cost/combat/combat_rules.gd", "time_cost/ai/rat_tactics.gd"]
 diagram = "docs/diagrams/threat_rating.svg"
 +++
@@ -16,6 +16,8 @@ diagram = "docs/diagrams/threat_rating.svg"
 플레이어 레벨에 맞춰 몬스터를 자동 스케일하지 않고, 각 몬스터가 **자기 데이터와 실제 전투 성능에 기반한 내부 위협도**를 갖게 한다.
 
 TR-v0는 아직 최종 점수 공식이 아니라 **측정 계약**이다. 몬스터 종류가 충분히 늘어나기 전에 임의 가중치를 고정하면 잘못된 척도가 굳어질 수 있으므로 현재 Rat의 최종 Threat Rating은 비워 둔다.
+
+M023에서 이 계약의 첫 실행 기반이 구현되었다. `CombatBatchRunner.run_matchup()`은 임의의 유효한 `ActorDefinition` 두 개를 production combat에 주입하고, 동일한 seed 집합으로 A→B와 B→A side swap을 수행한 뒤 결과를 다시 combatant identity 기준으로 합산한다. slot A/B 성능은 별도 지표로 남겨 현행 player-priority scheduler와 고정 방 구조의 편향을 관찰한다.
 
 ## 1. 정적 특징 벡터
 
@@ -67,13 +69,15 @@ M022의 원칙을 유지한다.
 - 별도 간이 전투 규칙을 만들지 않는다.
 - simulation error와 stalled를 승패에서 분리한다.
 
-Threat 측정에서는 여기에 추가로 다음이 필요하다.
+Threat 측정에서는 다음 계약을 사용한다.
 
-1. **Side swap** 또는 동등한 대칭화를 수행한다.
-2. 하나의 상대가 아니라 여러 기준 상대/구성을 사용한다.
-3. 동일한 seed 집합을 비교군에 재사용한다.
-4. 승패뿐 아니라 실제 피해, 행동 수, world time, 기능 상실 등을 함께 기록한다.
-5. 지형·거리·장비 조건을 모델 버전과 함께 고정한다.
+1. **Side swap** 또는 동등한 대칭화를 수행한다. M023의 `side_swap_v1`은 동일 combatant pair를 양쪽 scheduler/room slot에 한 번씩 배치한다.
+2. 하나의 상대가 아니라 여러 기준 상대/구성을 사용한다. **아직 후속 작업이다.**
+3. 동일한 seed 집합을 비교군에 재사용한다. M023 paired batch가 이를 보장한다.
+4. 승패뿐 아니라 실제 피해, 행동 수, world time, hit/miss, armor outcome, body-part disable transition을 함께 기록한다.
+5. 지형·거리·장비 조건을 모델 버전과 함께 고정한다. 현재 `side_swap_v1`은 M022 고정 방과 기본 시작 위치를 사용한다.
+
+Side swap은 현재의 지배적인 slot/초기 위치 비대칭을 줄이고 편향을 수치로 드러내기 위한 프로토콜이지, 모든 전술적 비대칭을 제거한다는 뜻은 아니다.
 
 ## 4. Rating 스케일
 
@@ -111,4 +115,4 @@ Rat은 TR-v0 record를 가지지만 최종 Threat Rating은 아직 null이다. �
 
 ## 현재 한계
 
-다수의 몬스터 표본, side-swap batch, 다양한 장비/지형 기준군, 통계적 불확실성 계산과 최종 scale calibration은 아직 구현되지 않았다.
+다수의 몬스터 표본, 다양한 장비/지형 기준군, 통계적 불확실성 계산과 최종 scale calibration은 아직 구현되지 않았다. Side-swap batch와 기본 combat metric 수집은 M023 task branch에서 구현 및 자동 검증되었으며, `main` 통합 전에는 구현 완료로 간주하지 않는다.
