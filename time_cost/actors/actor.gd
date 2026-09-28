@@ -20,6 +20,9 @@ var ai_policy: StringName
 var target_id: StringName = &"player"
 var aggression: int
 var fear_bonus := 0
+# Per-instance Phase A hesitation; recreated with the Actor on game reset.
+var melee_caution_target: StringName = &""
+var melee_caution_spent := 0
 
 func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, label: String = "") -> void:
 	_id = actor_id

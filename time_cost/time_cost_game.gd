@@ -162,6 +162,9 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 		return false
 	event.reason_codes = action.reason_codes.duplicate()
 	if action.ai_goal != &"":
+		if get_actor(actor_id).ai_policy == &"basic_melee":
+			BasicMeleeTactics.record_action(get_actor(actor_id), action)
+			event.data["ai_policy_revision"] = BasicMeleeTactics.POLICY_REVISION
 		event.data["ai_goal"] = action.ai_goal
 		event.data["ai_score"] = action.ai_score
 		event.data["ai_factors"] = action.ai_factors.duplicate(true)
@@ -444,8 +447,9 @@ func choose_ai_action(actor_id: StringName) -> TimeAction:
 		if decision == null:
 			return null
 		return decision.action
-	if actor.ai_policy == &"basic_melee" and actor_is_alive(actor.target_id):
-		return BasicMeleeTactics.choose(self, actor_id, actor.target_id).action
+	if actor.ai_policy == &"basic_melee":
+		var decision := BasicMeleeTactics.choose(self, actor_id, actor.target_id)
+		return decision.action if decision != null else null
 	return WaitAction.new()
 
 

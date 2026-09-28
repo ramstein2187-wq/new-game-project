@@ -1,35 +1,45 @@
 +++
 status = "구현 완료"
 areas = ["AI", "전투"]
-milestones = "M015, M024"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M015_tactical_ai_prototype.md"
+milestones = "M015, M024, M026"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/basic-melee-v2/docs/milestones/M026_basic_melee_v2.md"
 icon = "🧠"
 +++
 # 설명 가능한 전술 AI
 
 ## 개요
 
-Rat AI가 가능한 행동 후보를 평가하고 부상과 성향 같은 현재 상태에 따라 행동을 선택하도록 만든 전술 AI 프로토타입이다.
+M026의 `basic_melee_v2`는 현재 target을 상대로 한 행동을 결정하는 지역적 후보 비교 정책이다. 구현 범위는 `codex/basic-melee-v2` 브랜치이며 main 통합 상태를 의미하지 않는다. 기존 RatTactics는 변경하지 않았다.
 
-## 핵심 원칙
+## 현재 행동
 
-- 행동 선택과 행동 실행을 분리한다.
-- 선택 결과에는 이유를 남겨 디버깅과 플레이어 피드백에 재사용한다.
-- 복잡한 내부 수치가 실제 관찰 가능한 행동이나 결과로 이어져야 한다.
-- 선택된 행동은 공통 Action 시스템을 통해 한 번에 한 행동씩 실행한다.
+- Attack: 근접 공격도 다른 합법 후보와 점수를 비교한다.
+- Approach / Interact: 기존 BFS의 다음 칸으로 이동하거나 경로의 닫힌 문을 연다.
+- Hold: 접근 경로가 있지만 낮은 공격성이나 두려움 때문에 잠시 기다린다. `hold_position` 목표로 기록한다.
+- Reposition: target과 같은 8방향 거리를 유지하면서 주변 점유 혼잡을 줄이는 한 칸 이동이다.
+- Retreat: 두 칸 이내의 target에서 한 칸 물러나 거리를 늘린다. 기존 retreat 관찰 cue를 재사용한다.
+- Wait: 의미 있는 행동을 할 수 없을 때 `wait` 목표와 기능 손실/경로 차단 등의 이유를 남긴다.
 
-## 현재 범위
+## 제한된 판단
 
-기존 RatTactics는 공격, 접근, 후퇴를 선택한다. M024의 `basic_melee`는 신규 hostile에 대해 legal melee attack → 접근 → 대기만 제공하며, 선택된 행동은 동일한 production Action path를 사용한다. 8방향 접근과 후퇴는 같은 코너/이동 규칙을 사용한다.
+자기 상태와 aggression/fear는 사용할 수 있지만 상대 HP는 healthy / wounded / critical 세 범주로만 전달한다. 현재 prototype에서는 actor 존재와 위치, 지도 이동 가능 여부를 안다. target만 확실한 적으로 취급하고 다른 actor는 점유·혼잡 정보로만 사용한다. 노출은 target의 현재 위치에서 해당 칸에 근접 도달 가능한지 0/1로만 판단하며, 상대 공격 능력이나 미래 이동을 추정하지 않는다.
 
-## 다음 설계 방향 — believable tactical AI
+상대 능력치·방어 수치·명중 확률·RNG·미래 행동·scheduler ready-time을 점수 계산에 사용하지 않는다. 승률이나 기대 피해 최적화, target 교체, 다중 턴 탐색, 협공·formation은 구현하지 않았다.
 
-향후 `basic_melee_v2`는 승률 최적화보다 **그럴듯하고 읽을 수 있는 불완전한 판단**을 목표로 한다. AI는 자기 상태는 정확히 알 수 있지만, 상대는 관찰 가능한 부상·위치·최근 행동 같은 제한된 정보만 사용하고 숨겨진 정확 수치·미래 RNG·완전한 ready-time 계획을 기본적으로 읽지 않는다.
+## 망설임과 실행
 
-한 활성화마다 한 행동만 결정하고 다시 관찰한다. Attack/Approach/Hold/Reposition/Retreat 같은 여러 후보를 기존 `TacticalPlanner`에 넘기며, 공격성·공포·자기 부상·대략적인 상대 상태·주변 아군·노출 같은 소수의 지역적 요인으로 판단한다. 성격과 생물 archetype은 완벽한 플레이를 보정하는 것이 아니라 의도된 편향과 실수를 만든다.
+같은 target에 대해 공격 사이 Hold/Retreat/Reposition을 합쳐 최대 두 번 허용한다. 예산이 소진되면 가능한 공격/접근에 전념한다. 실제 실행된 공격은 명중 여부와 관계없이 예산을 초기화한다. 단순 선택 조회·실패한 Action·접근·문 열기·target의 이동은 예산을 초기화하지 않는다. Actor마다 독립 상태를 가지며 reset 때 함께 초기화된다.
 
-AI 품질은 승률만으로 평가하지 않는다. 행동 이유의 이해 가능성, 생물별 차이, 플레이어가 행동을 읽고 역이용할 수 있는지, 불필요한 진동/대기/비상식적 행동이 없는지를 함께 본다. 자세한 설계는 `docs/decisions/believable_tactical_ai.md`를 따른다.
+이는 완벽한 도주보다 읽을 수 있는 잠깐의 망설임을 표현하기 위한 의도된 제약이다. 공격 기능이 사라지거나 경로가 영구 차단된 경우에는 Wait가 계속될 수 있다.
 
-## 한계
+## 설명과 검증
 
-현재 구현은 여전히 `basic_melee`의 legal attack → 접근 → 대기 수준이며 위 v2 설계는 아직 구현되지 않았다. NPC 이동은 tween 애니메이션 없이 결과가 원자적으로 적용된다. 시야/청각, 목표 기억, 세력, 동료, 장기 목표, 더 많은 능력은 별도 확장 항목이다.
+기존 TacticalChoice → TacticalPlanner → TimeAction → perform_action → CombatEvent 흐름으로 goal, score, reasons, factors, considered candidates를 보존한다. v2 이벤트에는 `ai_policy_revision=basic_melee_v2`도 남긴다. 플레이어 로그는 기존 관찰 cue와 필터를 유지하며 수치 trace는 개발자용이다.
+
+A–H를 포함한 12개 자동 시나리오, 전체 23개 테스트, production 조합 120회 표본이 통과했다. 수동 플레이의 가독성·재미·페이싱은 아직 확인하지 않았다. [검증 기록](../reviews/2026-09-28-m026-validation.md), [점수와 상태 전이](../specs/tactical_ai.md).
+
+## 한계와 후속
+
+실제 시야/청각, 기억, ally confidence, 다수 적 노출, 종별 성격 프로필, 비용 기반 routing, 장기 목표는 후속 범위다. BFS는 여전히 step-count 기준이다. 혼잡 회피는 아군 의도나 통로 전체 흐름을 알지 못한다. NPC 이동은 기존 원자적 이동이며 별도 애니메이션을 추가하지 않았다.
+
+행동이 실질적으로 달라졌으므로 M025 TR은 v2 revision으로 재측정해야 한다. 이번 변경은 TR 데이터나 기존 calibration 결과를 수정하지 않는다. 설계 철학은 `docs/decisions/believable_tactical_ai.md`를 따른다.
