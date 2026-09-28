@@ -1,6 +1,15 @@
 name: Sync Notion Knowledge
 
 on:
+  pull_request:
+    paths:
+      - "docs/specs/**"
+      - "docs/datasets/**"
+      - "docs/diagrams/**"
+      - "docs/notion-knowledge-config.json"
+      - "tools/sync_notion_knowledge.py"
+      - "tools/render_doc_diagrams.py"
+      - ".github/workflows/sync-notion-knowledge.yml"
   push:
     branches:
       - main
@@ -18,7 +27,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: notion-knowledge-sync
+  group: notion-knowledge-sync-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,6 +46,7 @@ jobs:
         run: python tools/sync_notion_knowledge.py --check
 
       - name: Check Notion configuration
+        if: github.event_name != 'pull_request'
         id: notion
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -50,7 +60,7 @@ jobs:
           fi
 
       - name: Sync detailed specs and datasets
-        if: steps.notion.outputs.configured == 'true'
+        if: github.event_name != 'pull_request' && steps.notion.outputs.configured == 'true'
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: python tools/sync_notion_knowledge.py
