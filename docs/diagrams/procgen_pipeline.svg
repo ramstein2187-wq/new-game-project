@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="868" viewBox="0 0 760 868">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">현재 지역 절차 생성 파이프라인</text>
+<rect x="70" y="70" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="102.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">world seed + GenerationSettings</text>
+<rect x="70" y="166" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="198.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">SeedDeriver(&#x27;terrain&#x27;) → Simplex fBM 숲/지면</text>
+<line x1="380" y1="132" x2="380" y2="162" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="262" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">SeedDeriver(&#x27;path&#x27;) → 북→남 보장 경로</text>
+<line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">5×5 ruin 후보 검색: 경로/거리/가장자리 제약</text>
+<line x1="380" y1="324" x2="380" y2="354" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="454" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">SeedDeriver(&#x27;landmark&#x27;,&#x27;ruin&#x27;) → 후보 1개 선택</text>
+<line x1="380" y1="420" x2="380" y2="450" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="550" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="582.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">문자 rows (. T # R)</text>
+<line x1="380" y1="516" x2="380" y2="546" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="646" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">GeneratedMapCombatGame: 장애물·스폰·연결성 검증</text>
+<line x1="380" y1="612" x2="380" y2="642" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="742" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">플레이 가능한 전투 맵</text>
+<line x1="380" y1="708" x2="380" y2="738" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+</svg>

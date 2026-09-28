@@ -24,6 +24,8 @@ Caves of Qud, Dwarf Fortress, RimWorld 등에서 시스템 설계 아이디어�
 - [Milestones](docs/MILESTONES.md)
 - [Design decisions](docs/decisions/)
 - [System wiki sources](docs/wiki/)
+- [Detailed algorithm/spec documents](docs/specs/)
+- [Monster and skill data catalogs](docs/datasets/)
 - [External references](docs/REFERENCES.md)
 - [Third-party notices](THIRD_PARTY.md)
 

@@ -5,3 +5,6 @@
 # Python tooling
 __pycache__/
 *.pyc
+
+# Documentation diagram imports
+docs/diagrams/*.import
