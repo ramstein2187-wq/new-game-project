@@ -87,9 +87,13 @@
           "functions": []
         }
       ],
+      "body_template_id": "rat",
+      "threat_record_ids": [
+        "rat_tr_v0"
+      ],
       "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/actors/actor_definition.gd",
       "notes": [
-        "Threat Rating 공식/값은 아직 구현되지 않아 null로 유지한다.",
+        "TR-v0 측정 계약은 설계되어 있지만 최종 Threat Rating은 아직 검증되지 않아 null로 유지한다.",
         "능력치 override가 없어 현재 여섯 능력치가 모두 10으로 초기화된다."
       ]
     }

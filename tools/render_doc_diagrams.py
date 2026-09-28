@@ -49,6 +49,16 @@ FLOWS = {
         "승리 / stalled / simulation_error 검사", "다음 seed 반복",
         "승률·평균 행동·시간·피해·행동 종류 aggregate"
     ]),
+    "threat_rating": ("Threat Rating — TR-v0", [
+        "몬스터 데이터 + 신체 + Action + AI",
+        "정적 특징 벡터: 공격 · 생존 · 기동 · 특수성",
+        "정적 prior — 빠른 예상과 sanity check",
+        "Production combat batch + side swap + 여러 기준군",
+        "승패 · 피해 · 행동수 · world time · 기능 상실 측정",
+        "정적 예측과 실제 성능 차이 보정",
+        "모델 버전별 Threat Rating 산출",
+        "미검증 값은 null — 임의 숫자 금지"
+    ]),
 }
 
 def svg(title, labels):
