@@ -29,7 +29,7 @@ from typing import Any, Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WIKI_DIR = REPO_ROOT / "docs" / "wiki"
-DEFAULT_CONFIG = WIKI_DIR / "wiki-map.json"  # historical filename; now config only
+DEFAULT_CONFIG = WIKI_DIR / "notion-config.json"
 NOTION_API_BASE = "https://api.notion.com/v1"
 MAX_RICH_TEXT = 2000
 MAX_BLOCKS_PER_REQUEST = 100
@@ -699,7 +699,7 @@ def parse_args() -> argparse.Namespace:
         "--config",
         type=Path,
         default=DEFAULT_CONFIG,
-        help="wiki config JSON (default: docs/wiki/wiki-map.json)",
+        help="wiki config JSON (default: docs/wiki/notion-config.json)",
     )
     parser.add_argument(
         "--check",
