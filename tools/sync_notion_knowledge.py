@@ -198,6 +198,50 @@ def discover_specs(config: dict[str, Any]) -> list[dict[str, Any]]:
 
 ABILITY_KEYS = ("STR", "DEX", "CON", "INT", "WIS", "CHA")
 
+MONSTER_ORIGINS = {
+    "토착",
+    "관리자 유산",
+    "Innerworld",
+    "인간 제작",
+    "Outerworld",
+    "복합",
+    "불명",
+}
+MONSTER_COMPOSITIONS = {"생체", "기계", "생체기계", "기타"}
+MONSTER_COGNITIONS = {
+    "본능형",
+    "훈련형",
+    "동물지능",
+    "인간급",
+    "고등지능",
+    "분산지능",
+    "미상",
+}
+MONSTER_COMBAT_ROLES = {
+    "근접 압박",
+    "원거리",
+    "기습",
+    "방어",
+    "지원",
+    "소환",
+    "군집",
+    "제어",
+    "도주형",
+}
+MONSTER_BEHAVIOR_MOTIVATIONS = {
+    "영역 방어",
+    "사냥",
+    "먹이",
+    "임무 수행",
+    "개체 보호",
+    "집단 보호",
+    "종교적 행동",
+    "관찰",
+    "포획",
+    "제거",
+    "쾌락",
+}
+
 
 def _repo_url(repo_path: str) -> str:
     repository = load_config()["repository"]
@@ -385,7 +429,56 @@ def _monster_classification(record: dict[str, Any]) -> str:
     if monster_id == "feral_ape":
         return "인간형(변형)"
     body_id = str(record.get("body_template_id", ""))
-    return _body_classification(body_id)
+    if body_id == "human":
+        return "인간형"
+    if body_id in {"quadruped_canine", "quadruped", "lizard"}:
+        return "4족보행형"
+    if body_id in {"beetle", "spider", "crab"}:
+        return "다족"
+    return "비정형"
+
+
+def _monster_taxonomy(record: dict[str, Any], defaults: dict[str, Any], path: Path) -> dict[str, Any]:
+    taxonomy = dict(defaults.get("taxonomy", {}))
+    record_taxonomy = record.get("taxonomy", {})
+    if record_taxonomy is None:
+        record_taxonomy = {}
+    if not isinstance(record_taxonomy, dict):
+        raise SyncError(f"Monster taxonomy must be an object: {record.get('id')} in {path}")
+    taxonomy.update(record_taxonomy)
+
+    scalar_fields = {
+        "origin": MONSTER_ORIGINS,
+        "composition": MONSTER_COMPOSITIONS,
+        "cognition": MONSTER_COGNITIONS,
+    }
+    for field, allowed in scalar_fields.items():
+        value = taxonomy.get(field)
+        if value is not None and value not in allowed:
+            raise SyncError(
+                f"Invalid monster taxonomy {field}={value!r}: {record.get('id')} in {path}"
+            )
+
+    list_fields = {
+        "combat_roles": MONSTER_COMBAT_ROLES,
+        "behavior_motivations": MONSTER_BEHAVIOR_MOTIVATIONS,
+    }
+    for field, allowed in list_fields.items():
+        values = taxonomy.get(field, [])
+        if values is None:
+            values = []
+        if not isinstance(values, list) or not all(isinstance(value, str) for value in values):
+            raise SyncError(
+                f"Monster taxonomy {field} must be a string list: {record.get('id')} in {path}"
+            )
+        invalid = [value for value in values if value not in allowed]
+        if invalid:
+            raise SyncError(
+                f"Invalid monster taxonomy {field}={invalid!r}: {record.get('id')} in {path}"
+            )
+        taxonomy[field] = values
+
+    return taxonomy
 
 
 def _normalize_monsters_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
@@ -424,6 +517,7 @@ def _normalize_monsters_v2(data: dict[str, Any], path: Path) -> list[dict[str, A
         else:
             raise SyncError(f"Monster has neither natural attack nor weapon: {record.get('id')}")
 
+        taxonomy = _monster_taxonomy(record, defaults, path)
         armor_items = [str(value) for value in record.get("armor", [])]
         body_summary = (
             f"body={record.get('body_template_id')}; natural armor={record.get('natural_armor', 0)}; "
@@ -435,6 +529,11 @@ def _normalize_monsters_v2(data: dict[str, Any], path: Path) -> list[dict[str, A
             "name": record.get("name", monster_id),
             "status": "구현 완료",
             "classification": _monster_classification(record),
+            "origin": taxonomy.get("origin"),
+            "composition": taxonomy.get("composition"),
+            "cognition": taxonomy.get("cognition"),
+            "combat_roles": taxonomy.get("combat_roles", []),
+            "behavior_motivations": taxonomy.get("behavior_motivations", []),
             "hp": record["hp"],
             "abilities": abilities,
             "move_cardinal": int(move[0]),
@@ -605,7 +704,14 @@ def monster_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
         "몬스터": title_prop(record["name"]),
         "ID": text_prop(record["id"]),
         "상태": {"select": {"name": record["status"]}},
-        "분류": {"select": {"name": record["classification"]}},
+        "신체 구조": {"select": {"name": record["classification"]}},
+        "기원": {"select": {"name": record["origin"]}} if record.get("origin") else {"select": None},
+        "구성": {"select": {"name": record["composition"]}} if record.get("composition") else {"select": None},
+        "지능": {"select": {"name": record["cognition"]}} if record.get("cognition") else {"select": None},
+        "전투 역할": {"multi_select": [{"name": value} for value in record.get("combat_roles", [])]},
+        "행동 동기": {
+            "multi_select": [{"name": value} for value in record.get("behavior_motivations", [])]
+        },
         "HP": {"number": record["hp"]},
         "STR": {"number": abilities["STR"]},
         "DEX": {"number": abilities["DEX"]},
