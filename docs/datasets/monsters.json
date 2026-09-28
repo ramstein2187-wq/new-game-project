@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "rat",
+      "name": "Rat",
+      "status": "구현 완료",
+      "classification": "4족보행형",
+      "hp": 30,
+      "abilities": {
+        "STR": 10,
+        "DEX": 10,
+        "CON": 10,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 10
+      },
+      "move_cardinal": 750,
+      "move_diagonal": 1050,
+      "attack_cost": 1000,
+      "base_damage": 5,
+      "penetration": 20,
+      "aggression": 50,
+      "threat_rating": null,
+      "attack_id": "bite",
+      "damage_type": "Sharp",
+      "ai_policy": "rat_tactics",
+      "body_summary": "Torso 16 (weight 45, armor 100); Head 8 (weight 15, bite); forelegs 6×2; hindlegs 8×2; Tail 4 (weight 0)",
+      "body_parts": [
+        {
+          "id": "torso",
+          "integrity": 16,
+          "weight": 45,
+          "armor": 100,
+          "functions": []
+        },
+        {
+          "id": "head",
+          "integrity": 8,
+          "weight": 15,
+          "armor": null,
+          "functions": [
+            "bite"
+          ]
+        },
+        {
+          "id": "left_foreleg",
+          "integrity": 6,
+          "weight": 10,
+          "armor": null,
+          "functions": [
+            "locomotion"
+          ]
+        },
+        {
+          "id": "right_foreleg",
+          "integrity": 6,
+          "weight": 10,
+          "armor": null,
+          "functions": [
+            "locomotion"
+          ]
+        },
+        {
+          "id": "left_hindleg",
+          "integrity": 8,
+          "weight": 10,
+          "armor": null,
+          "functions": [
+            "locomotion"
+          ]
+        },
+        {
+          "id": "right_hindleg",
+          "integrity": 8,
+          "weight": 10,
+          "armor": null,
+          "functions": [
+            "locomotion"
+          ]
+        },
+        {
+          "id": "tail",
+          "integrity": 4,
+          "weight": 0,
+          "armor": null,
+          "functions": []
+        }
+      ],
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/actors/actor_definition.gd",
+      "notes": [
+        "Threat Rating 공식/값은 아직 구현되지 않아 null로 유지한다.",
+        "능력치 override가 없어 현재 여섯 능력치가 모두 10으로 초기화된다."
+      ]
+    }
+  ]
+}

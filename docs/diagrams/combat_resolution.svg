@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="964" viewBox="0 0 760 964">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">근접 전투 판정</text>
+<rect x="70" y="70" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="102.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">AttackAction 유효성: 생존·기능·근접·코너</text>
+<rect x="70" y="166" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="198.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">d20 + ability + proficiency + situation ≥ DV</text>
+<line x1="380" y1="132" x2="380" y2="162" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="262" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Miss → 피해 0</text>
+<line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Hit → 가중치 기반 피격 부위 선택</text>
+<line x1="380" y1="324" x2="380" y2="354" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="454" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">선택 부위 armor 여부</text>
+<line x1="380" y1="420" x2="380" y2="450" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="550" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="582.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">effective armor로 Full / Partial / Bypass</text>
+<line x1="380" y1="516" x2="380" y2="546" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="646" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">전달 피해를 부위 integrity에 적용</text>
+<line x1="380" y1="612" x2="380" y2="642" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="742" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">같은 전달 피해를 HP에 1회 적용</text>
+<line x1="380" y1="708" x2="380" y2="738" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="838" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
+<text x="380" y="870.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">HP 0 → 사망</text>
+<line x1="380" y1="804" x2="380" y2="834" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+</svg>

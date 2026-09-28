@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "notion_api_version": "2026-03-11",
+  "repository": "ramstein2187-wq/new-game-project",
+  "specs": {
+    "data_source_id": "2e3394b7-7225-45b1-9d3a-ada5bbcb5440",
+    "source_dir": "docs/specs"
+  },
+  "datasets": {
+    "monsters": {
+      "data_source_id": "cddf4468-52b2-4fdd-9e66-47166b7bddfd",
+      "file": "docs/datasets/monsters.json"
+    },
+    "skills": {
+      "data_source_id": "43a01bda-5ba8-45bc-9c19-bcb45e60429b",
+      "file": "docs/datasets/skills.json"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+name: Sync Notion Knowledge
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/specs/**"
+      - "docs/datasets/**"
+      - "docs/diagrams/**"
+      - "docs/notion-knowledge-config.json"
+      - "tools/sync_notion_knowledge.py"
+      - "tools/render_doc_diagrams.py"
+      - ".github/workflows/sync-notion-knowledge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notion-knowledge-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate detailed specs and datasets
+        run: python tools/sync_notion_knowledge.py --check
+
+      - name: Check Notion configuration
+        id: notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        shell: bash
+        run: |
+          if [[ -z "$NOTION_TOKEN" ]]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::NOTION_TOKEN is not configured; validation passed but sync is skipped."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Sync detailed specs and datasets
+        if: steps.notion.outputs.configured == 'true'
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python tools/sync_notion_knowledge.py
