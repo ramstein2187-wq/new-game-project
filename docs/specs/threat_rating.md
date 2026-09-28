@@ -109,10 +109,12 @@ Side swap은 현재의 지배적인 slot/초기 위치 비대칭을 줄이고 �
 
 숫자가 아직 검증되지 않았다면 0을 쓰지 않고 **null**로 둔다. 0은 실제로 위협이 없다는 의미가 될 수 있기 때문이다.
 
-## 현재 Rat
+## M025 초기 보정 상태
 
-Rat과 M024의 신규 hostile 10종은 TR-v0 record를 가지지만 static/simulation/final 값은 모두 null이다. M024의 세 paired smoke matchup은 production 데이터와 metric 연결 검증이며 Threat 보정 표본으로 확정하지 않는다.
+Rat과 M024 신규 hostile 10종에 대해 11종 전체 round-robin을 두 독립 seed block으로 측정했다. 각 matchup은 총 400 paired seed / 800 encounter, 전체 44,000 encounter이며 stall과 simulation error는 0이었다. `simulation_score`는 현재 고정 11종 calibration roster의 나머지 10종을 상대로 한 평균 decisive win rate로 기록한다. 두 block에서 순위가 동일했고 최대 score 이동은 0.0148이었다.
+
+이 `simulation_score`는 현재 로스터 상대 성능을 나타내는 보정 근거이며 최종 TR이 아니다. 로스터 구성 자체가 바뀌면 평균 승률도 변하므로 `final_threat_rating`은 고정 benchmark profile과 versioned numeric mapping을 정할 때까지 null로 유지한다. 상세 표본은 `docs/reviews/2026-09-28-m025-threat-calibration-pass1.md`를 참조한다.
 
 ## 현재 한계
 
-다수의 몬스터 표본, 다양한 장비/지형 기준군, 통계적 불확실성 계산과 최종 scale calibration은 아직 구현되지 않았다. Side-swap batch와 기본 combat metric 수집은 M023 task branch에서 구현 및 자동 검증되었으며, `main` 통합 전에는 구현 완료로 간주하지 않는다.
+현재 11종 pairwise 표본은 확보했지만 고정 benchmark player profile, 다양한 장비/지형 기준군, 정식 통계적 불확실성 계산과 최종 scale calibration은 아직 구현되지 않았다. Side-swap과 combat metric 기반은 main에 있으며, M025 초기 calibration 작업은 task branch에서 진행 중이다.

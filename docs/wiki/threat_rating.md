@@ -13,7 +13,7 @@ icon = "📈"
 
 ## 현재 상태
 
-TR-v0는 **측정 계약 + 초기 실행 기반** 단계다. M023의 paired side-swap에 M024의 실제 피해 주사위, 무기/방어구와 10개 신규 hostile prototype이 연결되었다. smoke 결과는 실행 검증일 뿐이며 모든 final Threat Rating 숫자는 아직 null이다.
+TR-v0는 **초기 calibration** 단계다. M023의 paired side-swap과 M024의 실제 피해 주사위·무기·방어구·10개 신규 hostile prototype을 이용해 M025에서 Rat 포함 11종 전체 round-robin을 측정했다. 두 독립 표본, 총 44,000 encounter에서 stall/error가 없었고 상대적 순위가 재현되었다. 현재 `simulation_score`는 저장하지만 final Threat Rating은 아직 null이다.
 
 ## 평가 요소
 
@@ -35,6 +35,10 @@ TR-v0는 **측정 계약 + 초기 실행 기반** 단계다. M023의 paired side
 
 Feral Dog/Wolf, Raider/Giant Beetle, Raider/Armored Raider를 각각 20 paired seed로 실행해 총 120 encounter에서 오류와 stall이 없고, damage dice·armor outcome·body disable metric이 기록됨을 확인했다. 이 표본은 밸런스 확정에 사용하지 않는다.
 
+## M025 초기 측정
+
+현재 roster-relative `simulation_score` 순서는 Rat < Feral Dog < Cave Lizard < Raider < Giant Spider < Wolf < Giant Beetle < Boar < Giant Crab < Feral Ape < Armored Raider다. 이 값은 현 로스터 평균 승률이므로 로스터가 바뀌면 변할 수 있다.
+
 ## 현재 경계
 
-최종 스케일, component weight, 표준 기준군과 통계적 불확실성 계산은 아직 확정되지 않았다. 자세한 알고리즘은 docs/specs/threat_rating.md가 원본이다.
+최종 스케일, component weight, 고정 benchmark profile과 통계적 불확실성 계산은 아직 확정되지 않았다. 따라서 `final_threat_rating`은 null을 유지한다. 자세한 알고리즘은 docs/specs/threat_rating.md가 원본이다.

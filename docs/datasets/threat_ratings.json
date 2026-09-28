@@ -1,27 +1,45 @@
 {
-  "version": 2,
+  "version": 3,
   "model_contract": {
     "id": "TR-v0",
-    "status": "measurement foundation",
+    "status": "calibration in progress",
     "final_scale": null,
     "protocol": "side_swap_v1",
+    "simulation_score_method": "mean decisive win rate against the fixed M025 11-combatant calibration roster",
     "notes": [
       "Production Action, AI, Scheduler, CombatRules, body and events are reused.",
-      "M024 smoke data validates execution only and does not assign Threat scores."
+      "M024 smoke data validates execution only and does not assign Threat scores.",
+      "M025 simulation_score is roster-relative calibration evidence, not a final Threat Rating."
     ]
   },
+  "measurement": {
+    "m025_initial_matrix": {
+      "status": "calibration_evidence",
+      "combatant_count": 11,
+      "matchup_count": 55,
+      "paired_seed_blocks": ["25000-25199", "27000-27199"],
+      "pairs_per_matchup": 400,
+      "encounters_per_matchup": 800,
+      "total_encounters": 44000,
+      "encounters_per_combatant": 8000,
+      "simulation_errors": 0,
+      "stalls": 0,
+      "final_rating_effect": null,
+      "review": "docs/reviews/2026-09-28-m025-threat-calibration-pass1.md"
+    }
+  },
   "records": [
-    {"monster_id":"rat","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"feral_dog","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"wolf","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"boar","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"giant_beetle","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"cave_lizard","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"giant_spider","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"giant_crab","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"feral_ape","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"raider","static_score":null,"simulation_score":null,"final_threat_rating":null},
-    {"monster_id":"armored_raider","static_score":null,"simulation_score":null,"final_threat_rating":null}
+    {"monster_id":"rat","static_score":null,"simulation_score":0.030000,"final_threat_rating":null},
+    {"monster_id":"feral_dog","static_score":null,"simulation_score":0.151625,"final_threat_rating":null},
+    {"monster_id":"wolf","static_score":null,"simulation_score":0.510375,"final_threat_rating":null},
+    {"monster_id":"boar","static_score":null,"simulation_score":0.650250,"final_threat_rating":null},
+    {"monster_id":"giant_beetle","static_score":null,"simulation_score":0.543625,"final_threat_rating":null},
+    {"monster_id":"cave_lizard","static_score":null,"simulation_score":0.310375,"final_threat_rating":null},
+    {"monster_id":"giant_spider","static_score":null,"simulation_score":0.392750,"final_threat_rating":null},
+    {"monster_id":"giant_crab","static_score":null,"simulation_score":0.733500,"final_threat_rating":null},
+    {"monster_id":"feral_ape","static_score":null,"simulation_score":0.906875,"final_threat_rating":null},
+    {"monster_id":"raider","static_score":null,"simulation_score":0.332625,"final_threat_rating":null},
+    {"monster_id":"armored_raider","static_score":null,"simulation_score":0.938000,"final_threat_rating":null}
   ],
   "m024_smoke": {
     "status": "validation_only",
