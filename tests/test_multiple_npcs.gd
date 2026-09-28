@@ -69,8 +69,9 @@ func _test_schedule_and_collision() -> void:
 
 func _guarantee_hits(game: TimeCostGame) -> void:
 	for actor in game.actors.all():
-		actor.species.attack_ability = &"STR"
-		actor.abilities.scores[&"STR"] = 100
+		actor.definition.proficiency_bonus = 100
+		actor.attack.damage_dice = DamageDice.create(5, 1)
+		actor.attack.ability_rule = AttackDefinition.ABILITY_STR
 		for part: Dictionary in actor.body.parts.values():
 			part.armor = -1
 			part.weight = 1.0 if part.id == &"torso" else 0.0

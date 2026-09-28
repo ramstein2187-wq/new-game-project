@@ -1,25 +1,23 @@
 {
-  "version": 1,
-  "records": [
-    {
-      "id": "prototype_torso_armor_layer",
-      "name": "Prototype Torso Armor Layer",
-      "status": "부분 구현",
-      "classification": "방어구",
-      "slot": "몸통",
-      "armor": 100,
-      "damage": null,
-      "penetration": null,
-      "damage_type": "",
-      "action_time_modifier": 0,
-      "application": "BodyTemplate torso의 armor 필드에 직접 저장되어 CombatRules.armor_result의 1계층 방어 판정에 사용됨",
-      "runtime_equippable": false,
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/combat/body_template.gd",
-      "notes": [
-        "현재 인벤토리/착용/해제/내구도 시스템은 없다.",
-        "Human과 Rat torso에 같은 armor=100이 하드코딩된 테스트용 방어층이다.",
-        "향후 실제 장비 시스템이 생기면 이 레코드는 실제 아이템 정의로 대체하거나 폐기해야 한다."
-      ]
-    }
+  "version": 2,
+  "runtime_authority": "time_cost/combat/combat_content_catalog.gd",
+  "normal_melee_action_cost": 1000,
+  "weapons": [
+    {"id":"hunting_knife","name":"Hunting Knife","damage":{"count":1,"size":4,"ability":"best_str_dex"},"damage_type":"Sharp","penetration":20,"required_hands":1,"required_capability":"weapon_manipulation","properties":["Finesse"]},
+    {"id":"handaxe","name":"Handaxe","damage":{"count":1,"size":6,"ability":"STR"},"damage_type":"Sharp","penetration":20,"required_hands":1,"required_capability":"weapon_manipulation","properties":[]},
+    {"id":"longsword","name":"Longsword","damage":{"count":1,"size":8,"ability":"STR"},"damage_type":"Sharp","penetration":30,"required_hands":1,"required_capability":"weapon_manipulation","properties":[]},
+    {"id":"warhammer","name":"Warhammer","damage":{"count":1,"size":8,"ability":"STR"},"damage_type":"Blunt","penetration":40,"required_hands":1,"required_capability":"weapon_manipulation","properties":[]},
+    {"id":"maul","name":"Maul","damage":{"count":2,"size":6,"ability":"STR"},"damage_type":"Blunt","penetration":50,"required_hands":2,"required_capability":"weapon_manipulation","properties":[]}
+  ],
+  "armor": [
+    {"id":"gambeson","name":"Gambeson","armor":20,"coverage":["torso","arm"]},
+    {"id":"leather_vest","name":"Leather Vest","armor":30,"coverage":["torso"]},
+    {"id":"chain_shirt","name":"Chain Shirt","armor":50,"coverage":["torso","arm"]},
+    {"id":"scrap_plate","name":"Scrap Plate","armor":70,"coverage":["torso"]},
+    {"id":"iron_helmet","name":"Iron Helmet","armor":60,"coverage":["head"]}
+  ],
+  "notes": [
+    "Weapon data has no action_cost, attack_speed or weapon_speed field.",
+    "Armor is single-layer per body part; supplied prototype loadouts do not overlap natural and equipment armor."
   ]
 }

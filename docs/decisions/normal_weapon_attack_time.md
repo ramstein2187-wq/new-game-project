@@ -1,6 +1,6 @@
 # Normal weapon attacks use a shared base time cost
 
-Status: **Selected design; runtime migration not implemented yet.**
+Status: **Implemented on M024 task branch; pending main integration.**
 
 ## Decision
 
@@ -43,8 +43,8 @@ This is not a permanent prohibition on every weapon-speed modifier. If playtesti
 
 Do not begin with a broad knife=fast / maul=slow numeric ladder.
 
-## Current implementation mismatch
+## Runtime implementation
 
-The current M017/M022-era runtime still stores `attack_cost` on `ActorDefinition` and uses prototype values such as Human 1250 and Rat 1000. That is the historical implementation state, not this target weapon-data design.
+M024 removes `ActorDefinition.attack_cost`. `AttackAction.BASE_COST` owns the shared normal-melee cost of 1000, and every prototype weapon and natural attack uses that Action path. Weapon definitions contain damage dice, damage type, penetration, capability requirements, hand count and properties; they contain no speed field.
 
-Do not silently rewrite historical milestone documentation. The runtime migration belongs in the future combat-data/action refactor that introduces the agreed weapon and monster dataset.
+Historical milestone documents retain their original 1250/1000 prototype values. Actor Speed, Quick Attack and Heavy Attack remain future systems.

@@ -1,5 +1,7 @@
 extends SceneTree
 
+const Fixture := preload("res://tests/support/combat_fixture.gd")
+
 const MapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
 const CombatGameScript := preload("res://time_cost/generated_map_combat_game.gd")
 const ScenePath := "res://time_cost/generated_map_combat_playground.tscn"
@@ -56,7 +58,8 @@ func _test_direct_reset() -> bool:
 		if _snapshot(game) != initial:
 			return _fail("Reset after time/damage must restore generated state including AI traits")
 	# Kill via the common action path, which unregisters the rat.
-	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
+	var fixture := preload("res://tests/support/combat_fixture.gd")
+	fixture.guaranteed_hits(game)
 	if not _place_player_next_to_rat(game):
 		return false
 	game.rat_hp = 1
@@ -69,7 +72,7 @@ func _test_direct_reset() -> bool:
 		return _fail("Reset after rat death must restore and register the rat")
 	if not _place_player_next_to_rat(game):
 		return false
-	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
+	Fixture.guaranteed_hits(game)
 	game.player_hp = 1
 	game.player_wait()
 	if not game.game_over:
@@ -240,12 +243,12 @@ func _test_attack_and_shared_ai_clock() -> bool:
 	var toward_rat: Vector2i = game.rat_position - game.player_position
 	if not game.player_move(toward_rat):
 		return _fail("Player cannot attack a rat on generated terrain")
-	if game.rat_hp != game.RAT_MAX_HP - game.ATTACK_DAMAGE or game.player_hp != game.PLAYER_MAX_HP - 2 * game.ATTACK_DAMAGE:
-		return _fail("Generated-map melee did not retain damage and two rat responses")
-	if game.last_action_cost != game.ATTACK_COST or game.last_response_count != 2:
+	if game.rat_hp != game.RAT_MAX_HP - Fixture.FIXED_DAMAGE or game.player_hp != game.PLAYER_MAX_HP - Fixture.FIXED_DAMAGE:
+		return _fail("Generated-map melee did not use data damage and one rat response")
+	if game.last_action_cost != game.ATTACK_COST or game.last_response_count != 1:
 		return _fail("Shared scheduler/action cost changed on generated map")
-	if game.combat_log.events.size() != 3:
-		return _fail("Player attack and both AI responses were not logged")
+	if game.combat_log.events.size() != 2:
+		return _fail("Player attack and AI response were not logged")
 	if not game.combat_log.events[1].reason_codes.has(&"target_adjacent"):
 		return _fail("Generated-map AI attack lost its reason codes")
 	return true

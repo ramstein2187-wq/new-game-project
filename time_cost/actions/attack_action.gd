@@ -1,6 +1,8 @@
 class_name AttackAction
 extends TimeAction
 
+const BASE_COST := 1000
+
 var target_id: StringName
 
 
@@ -20,13 +22,13 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	)
 
 
-func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return game.get_actor(actor_id).definition.attack_cost
+func get_cost(_game: RefCounted, _actor_id: StringName) -> int:
+	return BASE_COST
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:
 	var event: CombatEvent = game.make_action_event(
-		&"attack", actor_id, game.get_actor(actor_id).species.attack_id, cost
+		&"attack", actor_id, game.get_actor(actor_id).attack.id, cost
 	)
 	event.target_id = target_id
 	event.data = game.resolve_attack(actor_id, target_id)

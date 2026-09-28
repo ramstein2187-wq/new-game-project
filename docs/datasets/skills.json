@@ -1,46 +1,20 @@
 {
-  "version": 1,
+  "version": 2,
   "records": [
     {
-      "id": "human_melee",
-      "name": "Human 기본 근접 공격",
+      "id": "normal_melee_attack",
+      "name": "Normal Melee Attack",
       "status": "구현 완료",
-      "classification": "기본 공격",
-      "user": "Human / Player",
-      "time_cost": 1250,
-      "range": 1,
-      "base_damage": 5,
-      "penetration": 20,
-      "resource_cost": "없음",
-      "check_formula": "d20 + STR mod + proficiency(0) + situation(0/-2) >= 10 + target DEX mod",
-      "damage_type": "Sharp",
-      "requirements": "생존; weapon_manipulation attack part 효율 > 0; corner-aware 8방향 근접 사거리",
-      "ai_use": false,
-      "milestones": "M014, M017, M018",
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/actions/attack_action.gd",
-      "notes": [
-        "현재 Player 기본 공격 기준값이다."
-      ]
-    },
-    {
-      "id": "rat_bite",
-      "name": "Rat Bite",
-      "status": "구현 완료",
-      "classification": "기본 공격",
-      "user": "Rat",
       "time_cost": 1000,
       "range": 1,
-      "base_damage": 5,
-      "penetration": 20,
-      "resource_cost": "없음",
-      "check_formula": "d20 + DEX mod + proficiency(0) + situation(0/-2) >= 10 + target DEX mod",
-      "damage_type": "Sharp",
-      "requirements": "생존; head의 bite 기능 효율 > 0; corner-aware 8방향 근접 사거리",
-      "ai_use": true,
-      "milestones": "M015, M017, M018",
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/combat/combat_species.gd",
+      "check_formula": "d20 + relevant ability modifier + proficiency + situation >= 10 + target DEX modifier",
+      "damage_formula": "attack DamageDice + same relevant ability modifier",
+      "requirements": "생존; AttackDefinition required capability/count; corner-aware 8방향 근접 사거리",
+      "milestones": "M014, M017, M018, M024",
       "notes": [
-        "RatTactics의 fight_target 후보가 공통 AttackAction으로 실행한다."
+        "Weapon and natural attacks share this Action path.",
+        "Proficiency affects hit only.",
+        "Critical hits and natural 1/20 exceptions are not implemented."
       ]
     }
   ]

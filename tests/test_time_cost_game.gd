@@ -1,6 +1,7 @@
 extends SceneTree
 
 const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
+const Fixture := preload("res://tests/support/combat_fixture.gd")
 
 
 func _init() -> void:
@@ -56,7 +57,7 @@ func _test_fast_interaction_shortens_response_window() -> bool:
 
 func _test_slow_attack_creates_opening() -> bool:
 	var game := TimeCostGameScript.new()
-	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
+	Fixture.guaranteed_hits(game)
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 	var start_hp := game.player_hp
@@ -65,21 +66,21 @@ func _test_slow_attack_creates_opening() -> bool:
 		return _fail("Bumping the rat should resolve as an attack")
 	if game.player_position != Vector2i(7, 3):
 		return _fail("Bump attack should not move into the rat")
-	if game.rat_hp != TimeCostGame.RAT_MAX_HP - TimeCostGame.ATTACK_DAMAGE:
+	if game.rat_hp != TimeCostGame.RAT_MAX_HP - Fixture.FIXED_DAMAGE:
 		return _fail("Attack did not damage the rat")
 	if game.player_next_ready_time != TimeCostGame.ATTACK_COST:
-		return _fail("Attack did not use the 1250 time cost")
-	if game.last_response_count != 2:
-		return _fail("A 1250-cost attack should expose the player to two 1000-cost rat attacks from time zero")
-	if game.player_hp != start_hp - 2 * game.ATTACK_DAMAGE:
-		return _fail("Rat did not use both openings created by the slow attack")
+		return _fail("Attack did not use the shared 1000 time cost")
+	if game.last_response_count != 1:
+		return _fail("A 1000-cost attack should allow one rat attack before the player-priority tie")
+	if game.player_hp != start_hp - Fixture.FIXED_DAMAGE:
+		return _fail("Rat did not use the single opening created by the shared attack")
 
 	return true
 
 
 func _test_player_wins_ready_time_ties() -> bool:
 	var game := TimeCostGameScript.new()
-	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
+	Fixture.guaranteed_hits(game)
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 

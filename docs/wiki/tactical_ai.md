@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["AI", "전투"]
-milestones = "M015"
+milestones = "M015, M024"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M015_tactical_ai_prototype.md"
 icon = "🧠"
 +++
@@ -20,7 +20,7 @@ Rat AI가 가능한 행동 후보를 평가하고 부상과 성향 같은 현재
 
 ## 현재 범위
 
-공격, 접근, 후퇴 등 현재 프로토타입 행동을 선택한다. 8방향 전투에서는 접근과 후퇴 역시 같은 코너/이동 규칙을 사용한다.
+기존 RatTactics는 공격, 접근, 후퇴를 선택한다. M024의 `basic_melee`는 신규 hostile에 대해 legal melee attack → 접근 → 대기만 제공하며, 선택된 행동은 동일한 production Action path를 사용한다. 8방향 접근과 후퇴는 같은 코너/이동 규칙을 사용한다.
 
 ## 한계
 

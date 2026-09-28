@@ -285,6 +285,7 @@ func _consume_events(events: Array[CombatEvent], encounter: Dictionary, known_hp
 		combat.attack_attempts += 1
 		if bool(event.data.get("hit", false)):
 			combat.hits += 1
+			combat.damage_dice_rolls += event.data.get("damage_rolls", []).size()
 			var armor_result := String(event.data.get("armor_result", "unarmored"))
 			combat.armor_results[armor_result] = int(combat.armor_results.get(armor_result, 0)) + 1
 			if (
@@ -342,6 +343,7 @@ func _empty_combat_metrics() -> Dictionary:
 		"hits": 0,
 		"misses": 0,
 		"body_part_disables": 0,
+		"damage_dice_rolls": 0,
 		"armor_results": {
 			"unarmored": 0,
 			"full": 0,
@@ -364,7 +366,7 @@ func _action_means(counts: Dictionary, completed: int) -> Dictionary:
 
 
 func _add_combat_metrics(total: Dictionary, values: Dictionary) -> void:
-	for key in ["attack_attempts", "hits", "misses", "body_part_disables"]:
+	for key in ["attack_attempts", "hits", "misses", "body_part_disables", "damage_dice_rolls"]:
 		total[key] = int(total.get(key, 0)) + int(values.get(key, 0))
 	for outcome in values.armor_results:
 		total.armor_results[outcome] = int(total.armor_results.get(outcome, 0)) + int(values.armor_results[outcome])

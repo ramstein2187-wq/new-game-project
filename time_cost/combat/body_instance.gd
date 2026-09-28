@@ -2,15 +2,18 @@ class_name BodyInstance
 extends RefCounted
 
 var parts: Dictionary = {}
+# Compatibility snapshot for UI/older fixtures. Resolution queries capability.
 var attack_part: StringName = &""
 
-func _init(template: BodyTemplate, attack_capability: StringName) -> void:
+func _init(template: BodyTemplate, preferred_capability: StringName = &"") -> void:
 	for definition in template.parts:
 		var part: Dictionary = definition.duplicate(true)
 		part["current"] = part.maximum
 		parts[part.id] = part
-		if part.functions.has(attack_capability):
-			attack_part = part.id
+	if preferred_capability != &"":
+		var candidates := functional_parts(preferred_capability, false)
+		if not candidates.is_empty():
+			attack_part = candidates[candidates.size() - 1]
 
 func state(id: StringName) -> StringName:
 	if not parts.has(id) or parts[id].current <= 0:
@@ -27,21 +30,67 @@ func efficiency(id: StringName) -> float:
 		cursor = parts[cursor].parent
 	return 0.5 if state(id) == &"damaged" else 1.0
 
-func capability(capability_id: StringName) -> float:
-	var count := 0
-	var total := 0.0
+func functional_parts(capability_id: StringName, functional_only: bool = true) -> Array[StringName]:
+	var result: Array[StringName] = []
 	for id: StringName in parts:
-		if parts[id].functions.has(capability_id):
-			count += 1
-			total += efficiency(id)
-	return total / count if count > 0 else 0.0
+		if parts[id].functions.has(capability_id) and (not functional_only or efficiency(id) > 0):
+			result.append(id)
+	return result
 
-func attack_efficiency(capability_id: StringName) -> float:
-	if not parts.has(attack_part) or not parts[attack_part].functions.has(capability_id):
+func functional_count(capability_id: StringName) -> int:
+	return functional_parts(capability_id).size()
+
+func best_efficiency(capability_id: StringName) -> float:
+	var best := 0.0
+	for id in functional_parts(capability_id):
+		best = maxf(best, efficiency(id))
+	return best
+
+func selected_functional_parts(capability_id: StringName, required_count: int = 1) -> Array[StringName]:
+	var candidates := functional_parts(capability_id)
+	candidates.sort_custom(func(a: StringName, b: StringName) -> bool:
+		var a_efficiency := efficiency(a)
+		var b_efficiency := efficiency(b)
+		return a_efficiency > b_efficiency if not is_equal_approx(a_efficiency, b_efficiency) else String(a) < String(b)
+	)
+	if candidates.size() > required_count:
+		candidates.resize(required_count)
+	return candidates
+
+func capability(capability_id: StringName) -> float:
+	var candidates := functional_parts(capability_id, false)
+	if candidates.is_empty():
 		return 0.0
-	return efficiency(attack_part)
+	var total := 0.0
+	for id in candidates:
+		total += efficiency(id)
+	return total / candidates.size()
 
-# Disabled parts remain physically present and hittable; zero-weight parts do not.
+func attack_efficiency(capability_id: StringName, required_count: int = 1) -> float:
+	var selected := selected_functional_parts(capability_id, required_count)
+	if selected.size() < required_count:
+		return 0.0
+	var result := 1.0
+	for id in selected:
+		result = minf(result, efficiency(id))
+	attack_part = selected[0]
+	return result
+
+func apply_natural_armor(value: int) -> void:
+	if value <= 0:
+		return
+	for part: Dictionary in parts.values():
+		part.armor = value
+		part.armor_id = &"natural_armor"
+
+func equip_armor(definition: ArmorDefinition) -> void:
+	if definition == null or not definition.is_valid():
+		return
+	for part: Dictionary in parts.values():
+		if definition.coverage.has(part.type):
+			part.armor = definition.armor
+			part.armor_id = definition.id
+
 func select_part(unit_roll: float) -> StringName:
 	var total := 0.0
 	for part: Dictionary in parts.values():

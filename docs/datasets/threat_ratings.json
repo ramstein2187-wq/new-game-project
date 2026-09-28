@@ -1,48 +1,35 @@
 {
-  "version": 1,
+  "version": 2,
   "model_contract": {
     "id": "TR-v0",
-    "status": "프로토타입",
-    "final_scale": "미정",
-    "principle": "정적 특징만으로 확정하지 않고 production 전투 시뮬레이션으로 보정한다.",
-    "static_features": [
-      "공격 기대값: 명중 확률 × 방어 후 기대 피해",
-      "공격 템포: 기준 시간 / attack_cost",
-      "생존력: HP, 방어구 기대 감소, 신체 기능 저하 내성",
-      "기동성: cardinal/diagonal move cost와 실제 접근 능력",
-      "행동/특수성: AI, 제어, 특수 행동, 신체 구조가 주는 비선형 효과"
-    ],
-    "simulation_requirements": [
-      "production Action/AI/Scheduler/CombatRules를 그대로 사용",
-      "side_swap_v1 paired batch로 동일 seed의 양방향 슬롯 교환",
-      "여러 기준 상대/상황 사용",
-      "충분한 seed 반복과 stalled/error 분리",
-      "모델 버전과 측정 환경을 함께 기록"
+    "status": "measurement foundation",
+    "final_scale": null,
+    "protocol": "side_swap_v1",
+    "notes": [
+      "Production Action, AI, Scheduler, CombatRules, body and events are reused.",
+      "M024 smoke data validates execution only and does not assign Threat scores."
     ]
   },
   "records": [
-    {
-      "id": "rat_tr_v0",
-      "monster_id": "rat",
-      "name": "Rat — TR-v0",
-      "status": "측정 대기",
-      "model_version": "TR-v0",
-      "static_score": null,
-      "simulation_score": null,
-      "final_threat_rating": null,
-      "baseline": "미정 — 표준 기준 Actor/여러 기준군을 후속 보정에서 정의",
-      "runs": 0,
-      "seed_range": "",
-      "confidence_note": "아직 모델 가중치와 대칭 측정 프로토콜이 확정되지 않았으므로 숫자를 부여하지 않는다.",
-      "offense_evidence": "DEX 10, bite 피해 5, 관통 20, attack cost 1000",
-      "survival_evidence": "HP 30; 7부위 quadruped; torso armor 100 프로토타입 방어층",
-      "behavior_evidence": "직선 750/대각선 1050; aggression/fear 기반 RatTactics; 후퇴/접근/공격/문 상호작용",
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/simulation/combat_batch_runner.gd",
-      "notes": [
-        "M023 task branch의 side_swap_v1은 동일 seed로 양쪽 scheduler/room slot을 교환해 M022의 지배적인 슬롯 편향을 측정·완화한다.",
-        "현재 Rat record에는 아직 정식 paired calibration sample을 기록하지 않았으므로 runs와 Threat 숫자는 null/0 상태를 유지한다.",
-        "실제 최종 점수는 몬스터 풀이 늘어난 뒤 여러 기준군에 대한 측정으로 보정한다."
-      ]
-    }
-  ]
+    {"monster_id":"rat","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"feral_dog","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"wolf","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"boar","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"giant_beetle","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"cave_lizard","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"giant_spider","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"giant_crab","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"feral_ape","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"raider","static_score":null,"simulation_score":null,"final_threat_rating":null},
+    {"monster_id":"armored_raider","static_score":null,"simulation_score":null,"final_threat_rating":null}
+  ],
+  "m024_smoke": {
+    "status": "validation_only",
+    "paired_seed_range": "24000-24019",
+    "pairs_per_matchup": 20,
+    "matchups": ["feral_dog_vs_wolf","raider_vs_giant_beetle","raider_vs_armored_raider"],
+    "simulation_errors": 0,
+    "stalls": 0,
+    "final_rating_effect": null
+  }
 }

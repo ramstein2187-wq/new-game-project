@@ -1,6 +1,7 @@
 extends SceneTree
 
 const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
+const Fixture := preload("res://tests/support/combat_fixture.gd")
 
 # A new action can be added without modifying TimeScheduler or TimeCostGame.
 class CustomAction extends TimeAction:
@@ -103,15 +104,15 @@ func _test_player_and_rat_share_action_types() -> bool:
 
 func _test_combat_and_reason_trace() -> bool:
 	var game := TimeCostGameScript.new()
-	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
+	Fixture.guaranteed_hits(game)
 	game.player_position = Vector2i(7, 3)
 	game.rat_position = Vector2i(8, 3)
 	if not game.player_move(Vector2i.RIGHT):
 		return _fail("Bump attack should run through AttackAction")
-	if game.rat_hp != game.RAT_MAX_HP - game.ATTACK_DAMAGE or game.player_hp != game.PLAYER_MAX_HP - 2 * game.ATTACK_DAMAGE or game.last_response_count != 2:
+	if game.rat_hp != game.RAT_MAX_HP - Fixture.FIXED_DAMAGE or game.player_hp != game.PLAYER_MAX_HP - Fixture.FIXED_DAMAGE or game.last_response_count != 1:
 		return _fail("Shared attack path changed damage or timing")
-	if game.combat_log.events.size() != 3:
-		return _fail("Player attack and both rat bites should be recorded")
+	if game.combat_log.events.size() != 2:
+		return _fail("Player attack and rat response should be recorded")
 	var rat_attack: CombatEvent = game.combat_log.events[1]
 	if not rat_attack.reason_codes.has(&"target_adjacent") or rat_attack.action_id != &"bite":
 		return _fail("NPC adjacency reason or action id were lost in shared execution")

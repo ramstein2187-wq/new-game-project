@@ -40,8 +40,9 @@ NPC ready time이 플레이어와 **정확히 같으면 플레이어가 우선**
 
 ## 현재 기본 비용
 
-- Human: 직선 1000 / 대각선 1400 / 공격 1250 / 상호작용 500 / 대기 1000.
+- Human: 직선 1000 / 대각선 1400 / Normal Melee 1000 / 상호작용 500 / 대기 1000.
 - Rat: 직선 750 / 대각선 1050 / 공격 1000 / 상호작용 500 / 대기 1000.
+- `AttackAction`이 공통 Normal Melee 비용을 소유하며 무기에는 speed/time 필드가 없다.
 - 이동 부상은 `ceil(base_cost / locomotion_efficiency)`로 합성된다.
 
 ## 불변 조건

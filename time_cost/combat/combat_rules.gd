@@ -10,6 +10,13 @@ static func check(d20: int, ability_mod: int, proficiency: int, situation: int, 
 static func hit_probability(ability_mod: int, proficiency: int, situation: int, difficulty: int) -> float:
 	return clampf((21 + ability_mod + proficiency + situation - difficulty) / 20.0, 0.0, 1.0)
 
+
+static func damage_total(rolls: Array, ability_modifier: int) -> int:
+	var total := ability_modifier
+	for roll in rolls:
+		total += int(roll)
+	return maxi(0, total)
+
 static func armor_probabilities(armor: float, penetration: float) -> Dictionary:
 	var effective := clampf(armor - penetration, 0, 200)
 	var full := minf(effective / 2, 100)

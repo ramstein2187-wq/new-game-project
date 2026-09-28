@@ -1,26 +1,31 @@
 +++
 status = "구현 완료"
 areas = ["전투"]
-milestones = "M017"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M017_combat_body_phase1.md"
+milestones = "M017, M024"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/specs/combat_resolution.md"
 icon = "🎯"
 +++
-# D20 전투 · 신체 · 방어구
+# 데이터 기반 D20 전투 · 신체 · 방어구
 
 ## 개요
 
-D20 명중, 능력치, 신체 부위, 부상, 1계층 방어구를 기존 Action/시간 시스템에 연결한 1차 전투 모델이다.
+M024는 기존 D20/신체/단일 방어층 파이프라인을 유지하면서 고정 피해를 `DamageDice + Ability Modifier`로 바꿨다. 무기와 Bite/Claw 같은 자연 공격은 동일한 `AttackDefinition`과 resolve 경로를 사용한다.
 
 ## 공격 흐름
 
-기존 입력/AI → `perform_action` 검증 → `AttackAction` → D20 판정 → 가중 신체 부위 선택 → 선택적 1계층 방어구 판정 → 부위 손상과 HP 감소 → 기존 로그/스케줄러/사망 처리.
+입력/AI → `AttackAction` → capability/손 수 확인 → 공통 비용 1000 → D20 → 피격 부위 → 피해 주사위 → 단일 방어층 → 부위/HP 피해 → 이벤트/스케줄러.
 
-유효한 피격 부위를 찾지 못하면 안전하게 피해 0으로 끝난다.
+## 신체 기능
 
-## 신체와 기능
+- 한손 무기는 사용 가능한 `weapon_manipulation` 부위 중 가장 나은 하나를 사용한다.
+- Maul은 두 부위를 요구한다.
+- Bite/Claw는 손과 독립된 capability다.
+- 필수 공격 부위가 damaged면 기존 -2 상황 수정치를 적용한다.
 
-공격 능력은 특정 이름의 팔을 하드코딩하기보다 기능을 가진 실제 body part 인스턴스에 연결된다. 공격 기능이 손상되면 상황 수정치가 붙고 locomotion 부위들의 상태는 이동 비용에도 영향을 준다.
+## 데이터셋
 
-## 현재 경계
+런타임 권위는 `CombatContentCatalog`의 Godot Resource 정의다. 문서 카탈로그는 `docs/datasets/`에 mirror된다. 현재 5 weapons, 5 armor, Rat과 10개 신규 hostile Actor가 있다.
 
-절단, 의수/의족, 다중 무기/오프핸드, 조준, 상처 유형/치유, 다층 방어구, 영속 저장은 후속 범위다.
+## 경계
+
+Armor는 body part당 한 층이다. 인벤토리 UI, layered armor, durability, critical, ranged, poison/bleeding, 절단과 최종 Threat Rating은 아직 없다.

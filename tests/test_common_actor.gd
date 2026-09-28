@@ -19,12 +19,12 @@ func _init() -> void:
 	first.target_id = &"guard"
 	first.abilities.allocate(&"DEX", 1)
 	first.body.apply_damage(&"left_foreleg", 3)
-	first.species.penetration = 99
+	first.attack.penetration = 99
 	expect(second.hp == 30 and second.fear() == 0 and second.aggression == 50, "HP and AI state isolated")
 	expect(second.facing == Vector2i.RIGHT and second.target_id == &"player", "Facing and target isolated")
 	expect(second.abilities.scores.DEX == 10 and second.abilities.remaining == 12, "Ability allocation isolated")
 	expect(second.body.capability(&"locomotion") == 1.0 and first.body.capability(&"locomotion") < 1, "Body integrity isolated")
-	expect(second.species.penetration == 20 and definition.combat_species.penetration == 20, "Debug species overrides isolated from prototype")
+	expect(second.attack.penetration == 20 and definition.active_attack().penetration == 20, "Debug attack overrides isolated from prototype")
 	var registry := ActorRegistry.new()
 	expect(registry.register(first) and registry.register(second), "Register two arbitrary IDs")
 	expect(not registry.register(Actor.new(&"scout", definition, Vector2i(3, 1))), "Duplicate ID rejected")
@@ -39,7 +39,7 @@ func _init() -> void:
 	var npc := Actor.new(&"visitor", ActorDefinition.human_default(), Vector2i(3, 3))
 	expect(game.register_actor(npc), "Register human NPC independently of its ID")
 	expect(game.scheduler.has_actor(npc.id) and game.get_actor(npc.id) == npc, "Registry and scheduler both register")
-	expect(MoveAction.new(Vector2i(1, 1)).get_cost(game, npc.id) == 1400 and AttackAction.new(&"player").get_cost(game, npc.id) == 1250, "Human NPC gets human costs")
+	expect(MoveAction.new(Vector2i(1, 1)).get_cost(game, npc.id) == 1400 and AttackAction.new(&"player").get_cost(game, npc.id) == 1000, "Human NPC gets movement data and shared attack cost")
 	expect(not game.register_actor(Actor.new(&"blocked", definition, Vector2i.ZERO)), "Terrain invalid spawn rejected")
 	expect(not game.actors.has_actor(&"blocked") and not game.scheduler.has_actor(&"blocked"), "Invalid spawn is atomic")
 	game.player_wait()

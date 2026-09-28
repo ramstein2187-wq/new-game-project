@@ -1,101 +1,18 @@
 {
-  "version": 1,
+  "version": 2,
+  "runtime_authority": "time_cost/combat/combat_content_catalog.gd",
+  "defaults": {"unspecified_ability_score":10,"proficiency_bonus":2,"normal_melee_action_cost":1000,"threat_rating":null},
   "records": [
-    {
-      "id": "rat",
-      "name": "Rat",
-      "status": "구현 완료",
-      "classification": "4족보행형",
-      "hp": 30,
-      "abilities": {
-        "STR": 10,
-        "DEX": 10,
-        "CON": 10,
-        "INT": 10,
-        "WIS": 10,
-        "CHA": 10
-      },
-      "move_cardinal": 750,
-      "move_diagonal": 1050,
-      "attack_cost": 1000,
-      "base_damage": 5,
-      "penetration": 20,
-      "aggression": 50,
-      "threat_rating": null,
-      "attack_id": "bite",
-      "damage_type": "Sharp",
-      "ai_policy": "rat_tactics",
-      "body_summary": "Torso 16 (weight 45, armor 100); Head 8 (weight 15, bite); forelegs 6×2; hindlegs 8×2; Tail 4 (weight 0)",
-      "body_parts": [
-        {
-          "id": "torso",
-          "integrity": 16,
-          "weight": 45,
-          "armor": 100,
-          "functions": []
-        },
-        {
-          "id": "head",
-          "integrity": 8,
-          "weight": 15,
-          "armor": null,
-          "functions": [
-            "bite"
-          ]
-        },
-        {
-          "id": "left_foreleg",
-          "integrity": 6,
-          "weight": 10,
-          "armor": null,
-          "functions": [
-            "locomotion"
-          ]
-        },
-        {
-          "id": "right_foreleg",
-          "integrity": 6,
-          "weight": 10,
-          "armor": null,
-          "functions": [
-            "locomotion"
-          ]
-        },
-        {
-          "id": "left_hindleg",
-          "integrity": 8,
-          "weight": 10,
-          "armor": null,
-          "functions": [
-            "locomotion"
-          ]
-        },
-        {
-          "id": "right_hindleg",
-          "integrity": 8,
-          "weight": 10,
-          "armor": null,
-          "functions": [
-            "locomotion"
-          ]
-        },
-        {
-          "id": "tail",
-          "integrity": 4,
-          "weight": 0,
-          "armor": null,
-          "functions": []
-        }
-      ],
-      "body_template_id": "rat",
-      "threat_record_ids": [
-        "rat_tr_v0"
-      ],
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/actors/actor_definition.gd",
-      "notes": [
-        "TR-v0 측정 계약은 설계되어 있지만 최종 Threat Rating은 아직 검증되지 않아 null로 유지한다.",
-        "능력치 override가 없어 현재 여섯 능력치가 모두 10으로 초기화된다."
-      ]
-    }
+    {"id":"rat","name":"Rat","body_template_id":"quadruped_canine","hp":30,"abilities":{"STR":10,"DEX":10},"move":[750,1050],"natural_armor":0,"attack":{"id":"bite","damage":"1d4 + DEX","type":"Sharp","penetration":20,"capability":"bite"},"ai_policy":"rat_tactics","threat_rating":null},
+    {"id":"feral_dog","name":"Feral Dog","body_template_id":"quadruped_canine","hp":16,"abilities":{"STR":12,"DEX":14},"move":[900,1260],"natural_armor":0,"attack":{"id":"bite","damage":"1d6 + STR","type":"Sharp","penetration":10,"capability":"bite"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"wolf","name":"Wolf","body_template_id":"quadruped_canine","hp":22,"abilities":{"STR":14,"DEX":14},"move":[850,1190],"natural_armor":10,"attack":{"id":"bite","damage":"2d4 + STR","type":"Sharp","penetration":20,"capability":"bite"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"boar","name":"Boar","body_template_id":"quadruped","hp":32,"abilities":{"STR":16,"DEX":10},"move":[1000,1400],"natural_armor":20,"attack":{"id":"tusk","damage":"1d8 + STR","type":"Sharp","penetration":30,"capability":"tusk"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"giant_beetle","name":"Giant Beetle","body_template_id":"beetle","hp":28,"abilities":{"STR":14,"DEX":8},"move":[1200,1680],"natural_armor":60,"attack":{"id":"mandible","damage":"1d6 + STR","type":"Sharp","penetration":20,"capability":"mandible"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"cave_lizard","name":"Cave Lizard","body_template_id":"lizard","hp":24,"abilities":{"STR":12,"DEX":12},"move":[950,1330],"natural_armor":30,"attack":{"id":"bite","damage":"1d6 + STR","type":"Sharp","penetration":20,"capability":"bite"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"giant_spider","name":"Giant Spider","body_template_id":"spider","hp":18,"abilities":{"STR":10,"DEX":16},"move":[800,1120],"natural_armor":10,"attack":{"id":"bite","damage":"1d4 + DEX","type":"Sharp","penetration":20,"capability":"bite"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"giant_crab","name":"Giant Crab","body_template_id":"crab","hp":30,"abilities":{"STR":16,"DEX":8},"move":[1200,1680],"natural_armor":50,"attack":{"id":"claw","damage":"1d8 + STR","type":"Blunt","penetration":30,"capability":"claw"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"feral_ape","name":"Feral Ape","body_template_id":"human","hp":38,"abilities":{"STR":18,"DEX":10},"move":[1000,1400],"natural_armor":10,"attack":{"id":"fist","damage":"1d8 + STR","type":"Blunt","penetration":10,"capability":"weapon_manipulation"},"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"raider","name":"Raider","body_template_id":"human","hp":26,"abilities":{"STR":12,"DEX":12},"move":[1000,1400],"natural_armor":0,"weapon":"handaxe","armor":["gambeson"],"ai_policy":"basic_melee","threat_rating":null},
+    {"id":"armored_raider","name":"Armored Raider","body_template_id":"human","hp":34,"abilities":{"STR":16,"DEX":8},"move":[1100,1540],"natural_armor":0,"weapon":"maul","armor":["scrap_plate","iron_helmet"],"ai_policy":"basic_melee","threat_rating":null}
   ]
 }
