@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "human",
+      "name": "Human",
+      "status": "구현 완료",
+      "classification": "인간형",
+      "body_size": 1,
+      "attack_capability": "weapon_manipulation",
+      "attack_part": "right_arm",
+      "part_count": 6,
+      "locomotion_part_count": 2,
+      "default_armored_parts": [
+        "torso"
+      ],
+      "parts": [
+        {
+          "id": "torso",
+          "parent": "",
+          "integrity": 40,
+          "hit_weight": 45,
+          "functions": [],
+          "armor": 100
+        },
+        {
+          "id": "head",
+          "parent": "torso",
+          "integrity": 20,
+          "hit_weight": 15,
+          "functions": [],
+          "armor": null
+        },
+        {
+          "id": "left_arm",
+          "parent": "torso",
+          "integrity": 20,
+          "hit_weight": 10,
+          "functions": [
+            "weapon_manipulation"
+          ],
+          "armor": null
+        },
+        {
+          "id": "right_arm",
+          "parent": "torso",
+          "integrity": 20,
+          "hit_weight": 10,
+          "functions": [
+            "weapon_manipulation"
+          ],
+          "armor": null
+        },
+        {
+          "id": "left_leg",
+          "parent": "torso",
+          "integrity": 25,
+          "hit_weight": 10,
+          "functions": [
+            "locomotion"
+          ],
+          "armor": null
+        },
+        {
+          "id": "right_leg",
+          "parent": "torso",
+          "integrity": 25,
+          "hit_weight": 10,
+          "functions": [
+            "locomotion"
+          ],
+          "armor": null
+        }
+      ],
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/combat/body_template.gd",
+      "notes": [
+        "attack_part는 attack_capability를 가진 부위를 순회하며 마지막 일치 부위가 선택되는 현재 구현 결과라 right_arm이다.",
+        "torso armor 100은 실제 장비 아이템이 아니라 BodyTemplate에 직접 들어간 프로토타입 방어값이다."
+      ]
+    },
+    {
+      "id": "rat",
+      "name": "Rat",
+      "status": "구현 완료",
+      "classification": "4족보행형",
+      "body_size": 0.2,
+      "attack_capability": "bite",
+      "attack_part": "head",
+      "part_count": 7,
+      "locomotion_part_count": 4,
+      "default_armored_parts": [
+        "torso"
+      ],
+      "parts": [
+        {
+          "id": "torso",
+          "parent": "",
+          "integrity": 16,
+          "hit_weight": 45,
+          "functions": [],
+          "armor": 100
+        },
+        {
+          "id": "head",
+          "parent": "torso",
+          "integrity": 8,
+          "hit_weight": 15,
+          "functions": [
+            "bite"
+          ],
+          "armor": null
+        },
+        {
+          "id": "left_foreleg",
+          "parent": "torso",
+          "integrity": 6,
+          "hit_weight": 10,
+          "functions": [
+            "locomotion"
+          ],
+          "armor": null
+        },
+        {
+          "id": "right_foreleg",
+          "parent": "torso",
+          "integrity": 6,
+          "hit_weight": 10,
+          "functions": [
+            "locomotion"
+          ],
+          "armor": null
+        },
+        {
+          "id": "left_hindleg",
+          "parent": "torso",
+          "integrity": 8,
+          "hit_weight": 10,
+          "functions": [
+            "locomotion"
+          ],
+          "armor": null
+        },
+        {
+          "id": "right_hindleg",
+          "parent": "torso",
+          "integrity": 8,
+          "hit_weight": 10,
+          "functions": [
+            "locomotion"
+          ],
+          "armor": null
+        },
+        {
+          "id": "tail",
+          "parent": "torso",
+          "integrity": 4,
+          "hit_weight": 0,
+          "functions": [],
+          "armor": null
+        }
+      ],
+      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/combat/body_template.gd",
+      "notes": [
+        "Tail은 hit_weight 0이라 현재 무작위 피격 부위 선택 대상이 아니다.",
+        "torso armor 100은 실제 장비 아이템이 아니라 프로토타입 방어값이다."
+      ]
+    }
+  ]
+}

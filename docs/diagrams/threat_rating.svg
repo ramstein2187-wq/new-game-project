@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="884" viewBox="0 0 760 884">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Threat Rating — TR-v0</text>
+<g font-family="sans-serif" font-size="15" text-anchor="middle" fill="#111">
+<rect x="70" y="70" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="102">몬스터 데이터 + 신체 + Action + AI</text>
+<line x1="380" y1="132" x2="380" y2="162" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="166" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="198">정적 특징 벡터: 공격 · 생존 · 기동 · 특수성</text>
+<line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="262" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="294">정적 prior — 빠른 예상과 sanity check</text>
+<line x1="380" y1="324" x2="380" y2="354" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="390">Production combat batch + side swap + 여러 기준군</text>
+<line x1="380" y1="420" x2="380" y2="450" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="454" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="486">승패 · 피해 · 행동수 · world time · 기능 상실 측정</text>
+<line x1="380" y1="516" x2="380" y2="546" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="550" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="582">정적 예측과 실제 성능 차이 보정</text>
+<line x1="380" y1="612" x2="380" y2="642" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="646" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="678">모델 버전별 Threat Rating 산출</text>
+<line x1="380" y1="708" x2="380" y2="738" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
+<rect x="70" y="742" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555"/><text x="380" y="774">미검증 값은 null — 임의 숫자 금지</text>
+</g></svg>

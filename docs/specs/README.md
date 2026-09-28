@@ -4,7 +4,7 @@
 
 - `docs/wiki/`: 무엇이 구현되어 있는지 빠르게 보는 현재 상태 요약.
 - `docs/specs/`: 알고리즘, 처리 순서, 계산식, 상태 전이, 예시와 코드 위치.
-- `docs/datasets/`: 몬스터·스킬 같은 콘텐츠/밸런스 수치 카탈로그.
+- `docs/datasets/`: 몬스터·스킬·신체·장비·상태/특성·Threat 측정 같은 콘텐츠/밸런스 수치 카탈로그.
 
 각 spec은 TOML front matter를 가지며 `docs/diagrams/`의 SVG를 본문에 포함한다.
 Git이 원본이고 Notion의 **상세 설계** 데이터베이스는 자동 미러다.

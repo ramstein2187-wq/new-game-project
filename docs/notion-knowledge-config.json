@@ -7,6 +7,18 @@
     "source_dir": "docs/specs"
   },
   "datasets": {
+    "body_templates": {
+      "data_source_id": "ce68f975-6bcd-46b9-bdfc-45322722c3e3",
+      "file": "docs/datasets/body_templates.json"
+    },
+    "equipment": {
+      "data_source_id": "41a21d49-6fdc-498b-b52b-893dd796ee00",
+      "file": "docs/datasets/equipment.json"
+    },
+    "statuses_traits": {
+      "data_source_id": "76f33086-595c-4b99-8fb6-f20c6776a9a7",
+      "file": "docs/datasets/statuses_traits.json"
+    },
     "monsters": {
       "data_source_id": "cddf4468-52b2-4fdd-9e66-47166b7bddfd",
       "file": "docs/datasets/monsters.json"
@@ -14,6 +26,10 @@
     "skills": {
       "data_source_id": "43a01bda-5ba8-45bc-9c19-bcb45e60429b",
       "file": "docs/datasets/skills.json"
+    },
+    "threat_ratings": {
+      "data_source_id": "6f911db1-7d64-4ca4-a65b-52c33ce805a8",
+      "file": "docs/datasets/threat_ratings.json"
     }
   }
 }

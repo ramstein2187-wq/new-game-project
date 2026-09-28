@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sync detailed specs plus documented monster/skill catalogs to Notion."""
+"""Sync detailed specs and structured gameplay data catalogs to Notion."""
 
 from __future__ import annotations
 
@@ -290,8 +290,106 @@ def skill_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
     }
 
 
-def dataset_blocks(source: str, record: dict[str, Any]) -> list[dict[str, Any]]:
+def body_template_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
+    return {
+        "신체 템플릿": title_prop(record["name"]),
+        "키": text_prop(record["id"]),
+        "상태": {"select": {"name": record["status"]}},
+        "분류": {"select": {"name": record["classification"]}},
+        "Body Size": {"number": record["body_size"]},
+        "기본 공격 기능": text_prop(record["attack_capability"]),
+        "기본 공격 부위": text_prop(record["attack_part"]),
+        "부위 수": {"number": record["part_count"]},
+        "이동 기여 부위 수": {"number": record["locomotion_part_count"]},
+        "기본 방어 부위": text_prop(", ".join(record.get("default_armored_parts", []))),
+        "소스 파일": text_prop(source),
+        "원문": {"url": record["source_url"]},
+        "마지막 확인": {"date": {"start": date.today().isoformat()}},
+    }
+
+
+def equipment_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
+    return {
+        "장비": title_prop(record["name"]),
+        "키": text_prop(record["id"]),
+        "상태": {"select": {"name": record["status"]}},
+        "분류": {"select": {"name": record["classification"]}},
+        "슬롯": {"select": {"name": record["slot"]}},
+        "방어력": {"number": record.get("armor")},
+        "피해": {"number": record.get("damage")},
+        "관통": {"number": record.get("penetration")},
+        "피해 유형": text_prop(record.get("damage_type", "")),
+        "행동 시간 수정": {"number": record.get("action_time_modifier", 0)},
+        "적용 방식": text_prop(record["application"]),
+        "런타임 장착 가능": {"checkbox": bool(record["runtime_equippable"])},
+        "소스 파일": text_prop(source),
+        "원문": {"url": record["source_url"]},
+        "마지막 확인": {"date": {"start": date.today().isoformat()}},
+    }
+
+
+def status_trait_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
+    return {
+        "상태 · 특성": title_prop(record["name"]),
+        "키": text_prop(record["id"]),
+        "상태": {"select": {"name": record["status"]}},
+        "유형": {"select": {"name": record["type"]}},
+        "범위": {"select": {"name": record["scope"]}},
+        "값 모델": text_prop(record["value_model"]),
+        "공식": text_prop(record["formula"]),
+        "게임 효과": text_prop(record["game_effect"]),
+        "지속/중첩": text_prop(record["duration_stacking"]),
+        "플레이어 노출": text_prop(record["player_visibility"]),
+        "소스 파일": text_prop(source),
+        "원문": {"url": record["source_url"]},
+        "마지막 확인": {"date": {"start": date.today().isoformat()}},
+    }
+
+
+def threat_rating_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
+    return {
+        "Threat 기록": title_prop(record["name"]),
+        "몬스터 키": text_prop(record["monster_id"]),
+        "상태": {"select": {"name": record["status"]}},
+        "모델 버전": text_prop(record["model_version"]),
+        "정적 점수": {"number": record.get("static_score")},
+        "시뮬레이션 점수": {"number": record.get("simulation_score")},
+        "최종 Threat Rating": {"number": record.get("final_threat_rating")},
+        "기준 상대": text_prop(record["baseline"]),
+        "실행 횟수": {"number": record["runs"]},
+        "Seed 범위": text_prop(record.get("seed_range", "")),
+        "신뢰도/주의": text_prop(record["confidence_note"]),
+        "공격 근거": text_prop(record["offense_evidence"]),
+        "생존 근거": text_prop(record["survival_evidence"]),
+        "행동/특수 근거": text_prop(record["behavior_evidence"]),
+        "소스 파일": text_prop(source),
+        "원문": {"url": record["source_url"]},
+        "마지막 확인": {"date": {"start": date.today().isoformat()}},
+    }
+
+
+def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[str, Any]]:
     blocks = [wiki.managed_notice(source)]
+
+    if kind == "body_templates":
+        blocks.append(wiki.text_block("heading_2", "부위"))
+        for part in record.get("parts", []):
+            armor = "없음" if part.get("armor") is None else str(part["armor"])
+            functions = ", ".join(part.get("functions", [])) or "-"
+            parent = part.get("parent") or "-"
+            text = (
+                f"{part['id']} — parent {parent}; integrity {part['integrity']}; "
+                f"hit weight {part['hit_weight']}; armor {armor}; functions {functions}"
+            )
+            blocks.append(wiki.text_block("bulleted_list_item", text))
+    elif kind == "threat_ratings":
+        blocks.append(wiki.text_block("heading_2", "측정 상태"))
+        blocks.append(wiki.text_block(
+            "paragraph",
+            f"model {record['model_version']}; runs {record['runs']}; "
+            f"final rating {record.get('final_threat_rating')}",
+        ))
+
     notes = record.get("notes", [])
     if notes:
         blocks.append(wiki.text_block("heading_2", "기록"))
@@ -306,8 +404,9 @@ def sync_dataset(
     file_path: str,
     records: list[dict[str, Any]],
     kind: str,
-) -> None:
+) -> dict[str, str]:
     existing = source_map(client, data_source_id)
+    pages: dict[str, str] = {}
     for record in records:
         source = f"{file_path}#{record['id']}"
         if kind == "monsters":
@@ -316,17 +415,67 @@ def sync_dataset(
         elif kind == "skills":
             properties = skill_properties(record, source)
             icon = "⚔️"
+        elif kind == "body_templates":
+            properties = body_template_properties(record, source)
+            icon = "🦴"
+        elif kind == "equipment":
+            properties = equipment_properties(record, source)
+            icon = "🛡️"
+        elif kind == "statuses_traits":
+            properties = status_trait_properties(record, source)
+            icon = "🧬"
+        elif kind == "threat_ratings":
+            properties = threat_rating_properties(record, source)
+            icon = "📈"
         else:
             raise SyncError(f"Unknown dataset kind: {kind}")
-        upsert_page(
+        pages[record["id"]] = upsert_page(
             client,
             data_source_id,
             existing,
             source,
             properties,
             icon,
-            dataset_blocks(source, record),
+            dataset_blocks(source, record, kind),
         )
+    return pages
+
+
+def sync_monster_relations(
+    client: NotionClient,
+    monsters: list[dict[str, Any]],
+    page_maps: dict[str, dict[str, str]],
+) -> None:
+    monster_pages = page_maps.get("monsters", {})
+    body_pages = page_maps.get("body_templates", {})
+    threat_pages = page_maps.get("threat_ratings", {})
+
+    for record in monsters:
+        page_id = monster_pages.get(record["id"])
+        if not page_id:
+            continue
+
+        body_id = record.get("body_template_id")
+        threat_ids = record.get("threat_record_ids", [])
+        properties: dict[str, Any] = {}
+
+        if body_id:
+            related = body_pages.get(body_id)
+            if not related:
+                raise SyncError(f"Monster {record['id']} references unknown body template {body_id}")
+            properties["신체 템플릿"] = {"relation": [{"id": related}]}
+
+        if threat_ids:
+            relation = []
+            for threat_id in threat_ids:
+                related = threat_pages.get(threat_id)
+                if not related:
+                    raise SyncError(f"Monster {record['id']} references unknown Threat record {threat_id}")
+                relation.append({"id": related})
+            properties["Threat 기록"] = {"relation": relation}
+
+        if properties:
+            client.request("PATCH", f"/pages/{page_id}", {"properties": properties})
 
 
 def main() -> int:
@@ -351,15 +500,17 @@ def main() -> int:
 
     client = NotionClient(token, config.get("notion_api_version", "2026-03-11"))
     sync_specs(client, config, specs)
+    page_maps: dict[str, dict[str, str]] = {}
     for kind, records in datasets.items():
         dataset_config = config["datasets"][kind]
-        sync_dataset(
+        page_maps[kind] = sync_dataset(
             client,
             dataset_config["data_source_id"],
             dataset_config["file"],
             records,
             kind,
         )
+    sync_monster_relations(client, datasets.get("monsters", []), page_maps)
     print("Done: knowledge sync complete")
     return 0
 
