@@ -201,9 +201,9 @@ ABILITY_KEYS = ("STR", "DEX", "CON", "INT", "WIS", "CHA")
 MONSTER_ORIGINS = {
     "토착",
     "관리자 유산",
-    "Innerworld",
+    "심층",
     "인간 제작",
-    "Outerworld",
+    "외우주",
     "복합",
     "불명",
 }
