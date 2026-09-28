@@ -39,6 +39,10 @@ Implement believable tactical AI Phase A through the existing TacticalChoice, Ta
 - TR datasets/calibration results were not modified. M025's separate branch already declares `POLICY_REVISION = basic_melee_v1`; integration must retain v2 and rerun calibration with the changed policy.
 - Default generated-map RatTactics behavior is unchanged. New hostile prototypes using basic_melee adopt v2.
 
+## Manual play surface
+
+A dedicated production-path manual playground is available at `res://time_cost/basic_melee_manual_playground.tscn`. It replaces the default Rat fixture with M024 `basic_melee` hostiles while retaining the production game, scheduler, Actions, combat/body rules, routing and event log. Presets cover aggressive attack, cautious approach, wounded retreat, blocked retreat, crowd/reposition and door interaction; custom hostile/aggression/condition/NPC-count controls are also available. See `docs/reviews/2026-09-28-m026-manual-play-guide.md`.
+
 ## Next work
 
 Manual play review, larger-roster profiling, true perception/relationship data and M025 recalibration are recorded separately in ROADMAP. No main merge is authorized by this milestone.
