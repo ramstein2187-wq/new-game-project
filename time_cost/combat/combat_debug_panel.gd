@@ -66,7 +66,7 @@ func refresh() -> void:
 		var move_cost := MoveAction.new(Vector2i.RIGHT).get_cost(game, actor)
 		var diagonal_cost := MoveAction.new(Vector2i(1, 1)).get_cost(game, actor)
 		lines.append("%s %d/%d: %s | move %s" % [instance.display_name, instance.hp, instance.max_hp,
-			"dead" if not instance.is_alive() else "unavailable" if not game.can_attack(actor) else ("impaired (-2)" if body.efficiency(body.attack_part) < 1 else "ready"),
+			"dead" if not instance.is_alive() else "unavailable" if not game.can_attack(actor) else ("impaired (-2)" if game.attack_efficiency(actor) < 1 else "ready"),
 			"%d/%d" % [move_cost, diagonal_cost] if move_cost > 0 else "unavailable"])
 		for part: Dictionary in body.parts.values():
 			details.append("%s %s: %d/%d (%s)" % [actor, part.name, part.current, part.maximum, body.state(part.id)])

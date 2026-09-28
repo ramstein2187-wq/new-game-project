@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["코어", "전투", "AI"]
-milestones = "M019"
+milestones = "M019, M024"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M019_common_actor.md"
 icon = "👥"
 +++
@@ -13,7 +13,7 @@ icon = "👥"
 
 ## 현재 구조
 
-Actor 단위로 능력치, 신체, species, AI, 위치, facing 등 상태를 분리하고 `ActorRegistry`가 개체를 관리한다. 스케줄러, Action, 전투 규칙은 Actor ID를 통해 작동한다.
+Actor 단위로 능력치, 신체, active `AttackDefinition`, weapon ID, AI, 위치, facing 등 상태를 분리하고 `ActorRegistry`가 개체를 관리한다. 공유 `ActorDefinition`은 species/body template, proficiency, 이동 비용과 prototype loadout을 제공하며, 각 Actor는 전투 튜닝과 부상이 서로 누출되지 않도록 runtime 사본을 가진다.
 
 ## 기본 생성 장면
 

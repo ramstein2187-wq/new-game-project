@@ -13,7 +13,7 @@ icon = "📈"
 
 ## 현재 상태
 
-TR-v0는 **측정 계약 + 초기 실행 기반** 단계다. M023 task branch에서 임의의 두 ActorDefinition을 production combat에 주입하고 동일 seed로 양쪽 slot을 교환해 반복하는 paired side-swap 측정이 구현되었다. 현재 Rat에는 Threat 기록이 연결되지만 최종 Threat Rating 숫자는 아직 null이다. 검증되지 않은 값을 문서 편의를 위해 임의로 넣지 않는다.
+TR-v0는 **측정 계약 + 초기 실행 기반** 단계다. M023의 paired side-swap에 M024의 실제 피해 주사위, 무기/방어구와 10개 신규 hostile prototype이 연결되었다. smoke 결과는 실행 검증일 뿐이며 모든 final Threat Rating 숫자는 아직 null이다.
 
 ## 평가 요소
 
@@ -31,6 +31,10 @@ TR-v0는 **측정 계약 + 초기 실행 기반** 단계다. M023 task branch에
 
 각 결과는 모델 버전, 기준 상대, run 수, seed 범위, 정적/시뮬레이션 근거를 함께 남긴다. 모델이 달라지면 같은 몬스터도 별도 Threat 기록으로 보존한다.
 
+## M024 측정 상태
+
+Feral Dog/Wolf, Raider/Giant Beetle, Raider/Armored Raider를 각각 20 paired seed로 실행해 총 120 encounter에서 오류와 stall이 없고, damage dice·armor outcome·body disable metric이 기록됨을 확인했다. 이 표본은 밸런스 확정에 사용하지 않는다.
+
 ## 현재 경계
 
-최종 스케일, component weight, 표준 기준군과 통계적 불확실성 계산은 아직 확정되지 않았다. Side-swap batch는 M023 task branch에서 구현되었지만 아직 main 통합 전이다. 자세한 알고리즘은 docs/specs/threat_rating.md가 원본이다.
+최종 스케일, component weight, 표준 기준군과 통계적 불확실성 계산은 아직 확정되지 않았다. 자세한 알고리즘은 docs/specs/threat_rating.md가 원본이다.

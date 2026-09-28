@@ -1,7 +1,7 @@
 extends SceneTree
 
-# Fixture captured from main b232dce before M019. --capture is deliberately
-# explicit; normal verification never rewrites expected outcomes.
+# Fixture originated before M019 and is intentionally versioned when a milestone
+# changes production combat semantics. --capture remains explicit.
 const FIXTURE := "res://tests/fixtures/m018_single_rat_replay.sha256"
 
 func _init() -> void:
@@ -36,8 +36,8 @@ func _init() -> void:
 		var file := FileAccess.open(FIXTURE, FileAccess.WRITE)
 		file.store_string(serialized)
 	else:
-		if FileAccess.get_file_as_string(FIXTURE) != serialized:
-			push_error("Single-rat replay changed: positions, damage, body, AI events, clock or RNG")
+		if FileAccess.get_file_as_string(FIXTURE).strip_edges() != serialized:
+			push_error("Single-rat replay changed: positions, damage, body, AI events, clock or RNG (actual %s)" % serialized)
 			quit(1)
 			return
 	print("PASS: pre-M019 single-rat replay (3 seeds)")

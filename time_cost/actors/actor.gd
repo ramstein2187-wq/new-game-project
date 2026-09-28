@@ -14,6 +14,8 @@ var abilities := AbilityScores.new()
 var body: BodyInstance
 # Instance copy supports prototype/debug combat tuning without mutating siblings.
 var species: CombatSpecies
+var attack: AttackDefinition
+var weapon_id: StringName = &""
 var ai_policy: StringName
 var target_id: StringName = &"player"
 var aggression: int
@@ -27,7 +29,12 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 	max_hp = prototype.max_hp
 	hp = max_hp
 	species = prototype.combat_species.duplicate(true)
-	body = BodyInstance.new(species.body_template, species.attack_capability)
+	attack = prototype.active_attack().duplicate(true)
+	weapon_id = prototype.equipped_weapon.id if prototype.equipped_weapon != null else &""
+	body = BodyInstance.new(species.body_template, attack.required_capability)
+	body.apply_natural_armor(prototype.natural_armor)
+	for armor in prototype.equipped_armor:
+		body.equip_armor(armor)
 	for ability in AbilityScores.NAMES:
 		abilities.scores[ability] = prototype.initial_scores.get(ability, 10)
 	abilities.remaining = prototype.ability_points

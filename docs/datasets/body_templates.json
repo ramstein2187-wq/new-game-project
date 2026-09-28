@@ -1,169 +1,83 @@
 {
-  "version": 1,
-  "records": [
+  "version": 2,
+  "runtime_authority": "time_cost/combat/body_template.gd",
+  "default_part_armor": null,
+  "templates": [
     {
-      "id": "human",
-      "name": "Human",
-      "status": "구현 완료",
-      "classification": "인간형",
-      "body_size": 1,
-      "attack_capability": "weapon_manipulation",
-      "attack_part": "right_arm",
-      "part_count": 6,
-      "locomotion_part_count": 2,
-      "default_armored_parts": [
-        "torso"
-      ],
-      "parts": [
-        {
-          "id": "torso",
-          "parent": "",
-          "integrity": 40,
-          "hit_weight": 45,
-          "functions": [],
-          "armor": 100
-        },
-        {
-          "id": "head",
-          "parent": "torso",
-          "integrity": 20,
-          "hit_weight": 15,
-          "functions": [],
-          "armor": null
-        },
-        {
-          "id": "left_arm",
-          "parent": "torso",
-          "integrity": 20,
-          "hit_weight": 10,
-          "functions": [
-            "weapon_manipulation"
-          ],
-          "armor": null
-        },
-        {
-          "id": "right_arm",
-          "parent": "torso",
-          "integrity": 20,
-          "hit_weight": 10,
-          "functions": [
-            "weapon_manipulation"
-          ],
-          "armor": null
-        },
-        {
-          "id": "left_leg",
-          "parent": "torso",
-          "integrity": 25,
-          "hit_weight": 10,
-          "functions": [
-            "locomotion"
-          ],
-          "armor": null
-        },
-        {
-          "id": "right_leg",
-          "parent": "torso",
-          "integrity": 25,
-          "hit_weight": 10,
-          "functions": [
-            "locomotion"
-          ],
-          "armor": null
-        }
-      ],
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/combat/body_template.gd",
-      "notes": [
-        "attack_part는 attack_capability를 가진 부위를 순회하며 마지막 일치 부위가 선택되는 현재 구현 결과라 right_arm이다.",
-        "torso armor 100은 실제 장비 아이템이 아니라 BodyTemplate에 직접 들어간 프로토타입 방어값이다."
+      "id":"human","users":["player","feral_ape","raider","armored_raider"],
+      "parts":[
+        {"id":"torso","type":"torso","parent":"","integrity":40,"hit_weight":45,"functions":[]},
+        {"id":"head","type":"head","parent":"torso","integrity":20,"hit_weight":15,"functions":[]},
+        {"id":"left_arm","type":"arm","parent":"torso","integrity":20,"hit_weight":10,"functions":["weapon_manipulation"]},
+        {"id":"right_arm","type":"arm","parent":"torso","integrity":20,"hit_weight":10,"functions":["weapon_manipulation"]},
+        {"id":"left_leg","type":"leg","parent":"torso","integrity":25,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"right_leg","type":"leg","parent":"torso","integrity":25,"hit_weight":10,"functions":["locomotion"]}
       ]
     },
     {
-      "id": "rat",
-      "name": "Rat",
-      "status": "구현 완료",
-      "classification": "4족보행형",
-      "body_size": 0.2,
-      "attack_capability": "bite",
-      "attack_part": "head",
-      "part_count": 7,
-      "locomotion_part_count": 4,
-      "default_armored_parts": [
-        "torso"
-      ],
-      "parts": [
-        {
-          "id": "torso",
-          "parent": "",
-          "integrity": 16,
-          "hit_weight": 45,
-          "functions": [],
-          "armor": 100
-        },
-        {
-          "id": "head",
-          "parent": "torso",
-          "integrity": 8,
-          "hit_weight": 15,
-          "functions": [
-            "bite"
-          ],
-          "armor": null
-        },
-        {
-          "id": "left_foreleg",
-          "parent": "torso",
-          "integrity": 6,
-          "hit_weight": 10,
-          "functions": [
-            "locomotion"
-          ],
-          "armor": null
-        },
-        {
-          "id": "right_foreleg",
-          "parent": "torso",
-          "integrity": 6,
-          "hit_weight": 10,
-          "functions": [
-            "locomotion"
-          ],
-          "armor": null
-        },
-        {
-          "id": "left_hindleg",
-          "parent": "torso",
-          "integrity": 8,
-          "hit_weight": 10,
-          "functions": [
-            "locomotion"
-          ],
-          "armor": null
-        },
-        {
-          "id": "right_hindleg",
-          "parent": "torso",
-          "integrity": 8,
-          "hit_weight": 10,
-          "functions": [
-            "locomotion"
-          ],
-          "armor": null
-        },
-        {
-          "id": "tail",
-          "parent": "torso",
-          "integrity": 4,
-          "hit_weight": 0,
-          "functions": [],
-          "armor": null
-        }
-      ],
-      "source_url": "https://github.com/ramstein2187-wq/new-game-project/blob/main/time_cost/combat/body_template.gd",
-      "notes": [
-        "Tail은 hit_weight 0이라 현재 무작위 피격 부위 선택 대상이 아니다.",
-        "torso armor 100은 실제 장비 아이템이 아니라 프로토타입 방어값이다."
+      "id":"quadruped_canine","users":["rat","feral_dog","wolf"],
+      "parts":[
+        {"id":"torso","type":"torso","parent":"","integrity":16,"hit_weight":45,"functions":[]},
+        {"id":"head","type":"head","parent":"torso","integrity":8,"hit_weight":15,"functions":["bite"]},
+        {"id":"left_foreleg","type":"leg","parent":"torso","integrity":6,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"right_foreleg","type":"leg","parent":"torso","integrity":6,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"left_hindleg","type":"leg","parent":"torso","integrity":8,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"right_hindleg","type":"leg","parent":"torso","integrity":8,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"tail","type":"tail","parent":"torso","integrity":4,"hit_weight":0,"functions":[]}
+      ]
+    },
+    {
+      "id":"quadruped","users":["boar"],
+      "parts":[
+        {"id":"torso","type":"torso","parent":"","integrity":16,"hit_weight":45,"functions":[]},
+        {"id":"head","type":"head","parent":"torso","integrity":8,"hit_weight":15,"functions":["bite","tusk"]},
+        {"id":"left_foreleg","type":"leg","parent":"torso","integrity":6,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"right_foreleg","type":"leg","parent":"torso","integrity":6,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"left_hindleg","type":"leg","parent":"torso","integrity":8,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"right_hindleg","type":"leg","parent":"torso","integrity":8,"hit_weight":10,"functions":["locomotion"]},
+        {"id":"tail","type":"tail","parent":"torso","integrity":4,"hit_weight":0,"functions":[]}
+      ]
+    },
+    {
+      "id":"beetle","users":["giant_beetle"],
+      "parts":[
+        {"id":"thorax","type":"torso","parent":"","integrity":18,"hit_weight":35,"functions":[]},
+        {"id":"head","type":"head","parent":"thorax","integrity":10,"hit_weight":15,"functions":["mandible"]},
+        {"id":"abdomen","type":"abdomen","parent":"thorax","integrity":16,"hit_weight":20,"functions":[]},
+        {"pattern":"leg_1..6","type":"leg","parent":"thorax","integrity":5,"hit_weight_each":5,"functions":["locomotion"]}
+      ]
+    },
+    {
+      "id":"lizard","users":["cave_lizard"],
+      "parts":[
+        {"id":"torso","type":"torso","parent":"","integrity":18,"hit_weight":40,"functions":[]},
+        {"id":"head","type":"head","parent":"torso","integrity":10,"hit_weight":15,"functions":["bite"]},
+        {"pattern":"foreleg_x2","type":"leg","parent":"torso","integrity":7,"hit_weight_each":10,"functions":["locomotion"]},
+        {"pattern":"hindleg_x2","type":"leg","parent":"torso","integrity":8,"hit_weight_each":10,"functions":["locomotion"]},
+        {"id":"tail","type":"tail","parent":"torso","integrity":8,"hit_weight":5,"functions":[]}
+      ]
+    },
+    {
+      "id":"spider","users":["giant_spider"],
+      "parts":[
+        {"id":"cephalothorax","type":"torso","parent":"","integrity":12,"hit_weight":40,"functions":["bite"]},
+        {"id":"abdomen","type":"abdomen","parent":"cephalothorax","integrity":12,"hit_weight":20,"functions":[]},
+        {"pattern":"leg_1..8","type":"leg","parent":"cephalothorax","integrity":4,"hit_weight_each":5,"functions":["locomotion"]}
+      ]
+    },
+    {
+      "id":"crab","users":["giant_crab"],
+      "parts":[
+        {"id":"body","type":"torso","parent":"","integrity":22,"hit_weight":50,"functions":[]},
+        {"id":"left_claw","type":"claw","parent":"body","integrity":12,"hit_weight":10,"functions":["claw"]},
+        {"id":"right_claw","type":"claw","parent":"body","integrity":12,"hit_weight":10,"functions":["claw"]},
+        {"pattern":"leg_1..6","type":"leg","parent":"body","integrity":6,"hit_weight_each":5,"functions":["locomotion"]}
       ]
     }
+  ],
+  "notes": [
+    "The historical prototype torso armor 100 was removed from current templates.",
+    "ActorDefinition owns HP, abilities, attack/loadout and natural armor; BodyTemplate owns anatomy and capabilities.",
+    "Pattern rows are documentation shorthand for repeated runtime parts with identical fields."
   ]
 }

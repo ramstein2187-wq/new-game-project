@@ -26,14 +26,14 @@ M023에서 이 계약의 첫 실행 기반이 구현되었다. `CombatBatchRunne
 ### 공격
 - 기준 상대에 대한 D20 명중 확률.
 - 명중 시 방어구 결과를 반영한 기대 피해.
-- `attack_cost`에 따른 공격 템포.
+- 공통 Normal Melee Action cost와 향후 Actor Speed/alternate Action에 따른 공격 템포. M024 weapon 자체는 speed를 소유하지 않는다.
 - 관통과 피해 유형.
 
 개념적으로:
 
 `expected_damage_per_attack = hit_probability × expected_damage_after_armor`
 
-`offense_rate = expected_damage_per_attack × reference_time / attack_cost`
+`offense_rate = expected_damage_per_attack × reference_time / action_cost`
 
 단, 기준 상대의 DV/방어구가 정해져야 실제 비교값이 되므로 현재는 원시 특징을 먼저 저장한다.
 
@@ -111,7 +111,7 @@ Side swap은 현재의 지배적인 slot/초기 위치 비대칭을 줄이고 �
 
 ## 현재 Rat
 
-Rat은 TR-v0 record를 가지지만 최종 Threat Rating은 아직 null이다. 현재 M022의 rat-vs-rat 결과는 측정기 검증에는 유용하지만 시나리오 비대칭 때문에 Threat Rating 보정 근거로 단독 사용하지 않는다.
+Rat과 M024의 신규 hostile 10종은 TR-v0 record를 가지지만 static/simulation/final 값은 모두 null이다. M024의 세 paired smoke matchup은 production 데이터와 metric 연결 검증이며 Threat 보정 표본으로 확정하지 않는다.
 
 ## 현재 한계
 

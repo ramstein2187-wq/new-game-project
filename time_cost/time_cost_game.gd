@@ -6,19 +6,17 @@ const GRID_HEIGHT := 7
 
 const MOVE_COST := 1000
 const DIAGONAL_MOVE_COST := 1400
-const ATTACK_COST := 1250
+const ATTACK_COST := AttackAction.BASE_COST
 const INTERACT_COST := 500
 const WAIT_COST := 1000
 
 const RAT_MOVE_COST := 750
 const RAT_DIAGONAL_MOVE_COST := 1050
-const RAT_ATTACK_COST := 1000
 const RAT_INTERACT_COST := 500
 const RAT_WAIT_COST := 1000
 
 const PLAYER_MAX_HP := 50
 const RAT_MAX_HP := 30
-const ATTACK_DAMAGE := 5
 
 const CARDINAL_DIRECTIONS: Array[Vector2i] = [
 	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,
@@ -189,7 +187,18 @@ func get_rat_fear() -> int:
 
 func can_attack(actor_id: StringName) -> bool:
 	var actor := get_actor(actor_id)
-	return actor != null and actor.is_alive() and actor.body.attack_efficiency(actor.species.attack_capability) > 0
+	return actor != null and actor.is_alive() and actor.attack != null and actor.body.attack_efficiency(
+		actor.attack.required_capability, actor.attack.required_capability_count
+	) > 0
+
+
+func attack_efficiency(actor_id: StringName) -> float:
+	var actor := get_actor(actor_id)
+	if actor == null or actor.attack == null:
+		return 0.0
+	return actor.body.attack_efficiency(
+		actor.attack.required_capability, actor.attack.required_capability_count
+	)
 
 
 func movement_efficiency(actor_id: StringName) -> float:
@@ -198,25 +207,64 @@ func movement_efficiency(actor_id: StringName) -> float:
 
 
 func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
-	var attacker: CombatSpecies = get_actor(actor_id).species
-	var body: BodyInstance = get_actor(actor_id).body
-	var target: BodyInstance = get_actor(target_id).body
-	var injury_mod := -2 if body.attack_efficiency(attacker.attack_capability) < 1 else 0
-	var result := CombatRules.check(combat_rng.randi_range(1, 20),
-		get_actor(actor_id).abilities.get_modifier(attacker.attack_ability), 0, injury_mod,
-		10 + get_actor(target_id).abilities.get_modifier(&"DEX"))
-	result["ability"] = attacker.attack_ability
-	result["attack_part"] = body.attack_part
-	result["damage"] = 0
+	var attacker := get_actor(actor_id)
+	var defender := get_actor(target_id)
+	var attack: AttackDefinition = attacker.attack
+	var body: BodyInstance = attacker.body
+	var target: BodyInstance = defender.body
+	var efficiency := body.attack_efficiency(attack.required_capability, attack.required_capability_count)
+	var injury_mod := -2 if efficiency < 1 else 0
+	var ability := attack.ability_for(attacker.abilities)
+	var ability_modifier := attacker.abilities.get_modifier(ability)
+	var difficulty := 10 + defender.abilities.get_modifier(&"DEX")
+	var result := CombatRules.check(
+		combat_rng.randi_range(1, 20), ability_modifier, attacker.definition.proficiency_bonus,
+		injury_mod, difficulty
+	)
+	result.merge({
+		"attack_id": attack.id,
+		"weapon_id": attacker.weapon_id,
+		"ability": ability,
+		"damage_ability": ability,
+		"damage_ability_modifier": ability_modifier,
+		"difficulty": difficulty,
+		"attack_total": result.total,
+		"situation_modifier": injury_mod,
+		"attack_parts": body.selected_functional_parts(attack.required_capability, attack.required_capability_count),
+		"attack_part": body.attack_part,
+		"damage_dice_count": attack.damage_dice.dice_count,
+		"damage_die_size": attack.damage_dice.dice_size,
+		"damage_rolls": [],
+		"raw_damage": 0,
+		"final_damage": 0,
+		"damage": 0,
+		"damage_type": attack.damage_type,
+		"penetration": attack.penetration,
+		"armor_value": 0,
+		"armor_result": &"unarmored",
+	}, true)
 	if result.hit:
 		var part_id := target.select_part(combat_rng.randf())
 		if part_id != &"":
 			var part: Dictionary = target.parts[part_id]
-			result.merge({"part": part_id, "part_name": part.name, "damage": ATTACK_DAMAGE,
-				"damage_type": attacker.damage_type, "armor_result": &"unarmored"}, true)
+			var damage_rolls := attack.damage_dice.roll(combat_rng)
+			var raw_damage := CombatRules.damage_total(damage_rolls, ability_modifier)
+			result.merge({
+				"part": part_id,
+				"part_name": part.name,
+				"damage_rolls": damage_rolls,
+				"raw_damage": raw_damage,
+				"final_damage": raw_damage,
+				"damage": raw_damage,
+				"armor_value": maxi(0, int(part.armor)),
+				"armor_id": part.get("armor_id", &""),
+			}, true)
 			if part.armor >= 0:
-				result.merge(CombatRules.armor_result(part.armor, attacker.penetration,
-					combat_rng.randf() * 100.0, ATTACK_DAMAGE, attacker.damage_type), true)
+				result.merge(CombatRules.armor_result(
+					part.armor, attack.penetration, combat_rng.randf() * 100.0,
+					raw_damage, attack.damage_type
+				), true)
+			result["final_damage"] = result.damage
 			result.merge(target.apply_damage(part_id, result.damage), true)
 		else:
 			result["no_valid_part"] = true
@@ -396,6 +444,8 @@ func choose_ai_action(actor_id: StringName) -> TimeAction:
 		if decision == null:
 			return null
 		return decision.action
+	if actor.ai_policy == &"basic_melee" and actor_is_alive(actor.target_id):
+		return BasicMeleeTactics.choose(self, actor_id, actor.target_id).action
 	return WaitAction.new()
 
 

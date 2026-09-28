@@ -79,15 +79,20 @@ func _test_bodies() -> void:
 	var human := BodyInstance.new(BodyTemplate.create(false), &"weapon_manipulation")
 	expect(human.attack_part == &"right_arm", "Bound weapon slot")
 	human.apply_damage(&"right_arm", 10)
-	expect(human.attack_efficiency(&"weapon_manipulation") == 0.5, "Weapon arm midpoint")
+	expect(human.attack_efficiency(&"weapon_manipulation") == 1, "Healthy offhand replaces an injured weapon arm")
 	human.apply_damage(&"right_arm", 10)
-	expect(human.attack_efficiency(&"weapon_manipulation") == 0, "No automatic offhand fallback")
-	human.apply_damage(&"left_leg", 13)
-	expect(human.capability(&"locomotion") == 0.75, "Two leg contribution differs")
-	human.apply_damage(&"torso", 20)
-	expect(human.efficiency(&"left_arm") == 1, "Parent wound does not destroy children")
-	human.apply_damage(&"torso", 20)
-	expect(human.efficiency(&"left_arm") == 0 and human.parts.left_arm.current == 20, "Disabled parent gates function without duplicating damage")
+	expect(human.attack_efficiency(&"weapon_manipulation") == 1, "Healthy offhand replaces a disabled weapon arm")
+	human.apply_damage(&"left_arm", 10)
+	expect(human.attack_efficiency(&"weapon_manipulation") == 0.5, "Remaining damaged manipulation limb impairs attack")
+	human.apply_damage(&"left_arm", 10)
+	expect(human.attack_efficiency(&"weapon_manipulation") == 0, "All manipulation limbs disabled")
+	var parent_body := BodyInstance.new(BodyTemplate.create(false), &"weapon_manipulation")
+	parent_body.apply_damage(&"left_leg", 13)
+	expect(parent_body.capability(&"locomotion") == 0.75, "Two leg contribution differs")
+	parent_body.apply_damage(&"torso", 20)
+	expect(parent_body.efficiency(&"left_arm") == 1, "Parent wound does not destroy children")
+	parent_body.apply_damage(&"torso", 20)
+	expect(parent_body.efficiency(&"left_arm") == 0 and parent_body.parts.left_arm.current == 20, "Disabled parent gates function without duplicating damage")
 	var counts := {}
 	for index in range(100):
 		var id := b.select_part((index + 0.5) / 100.0)
@@ -128,18 +133,20 @@ func _test_resolution_and_rng() -> void:
 		game.combat_seed = seed_value
 		game.reset()
 		game.abilities[&"player"].scores[&"STR"] = 100
+		game.bodies[&"rat"].parts.torso.armor = 100
 		mirror.state = game.combat_rng.state
 		mirror.randi_range(1, 20)
 		mirror.randf()
+		mirror.randi_range(1, 8)
 		var hit := game.resolve_attack(&"player", &"rat")
 		seen[hit.armor_result] = true
 		if hit.part == &"torso":
 			mirror.randf()
-			expect(hit.effective == 80, "Torso E")
+			expect(hit.effective == 70, "Torso E")
 		else:
 			expect(hit.armor_result == &"unarmored" and not hit.has("armor_roll"), "Only torso armored")
 		expect(game.combat_rng.state == mirror.state, "Separate conditional random draws")
-		expect(game.rat_hp == game.RAT_MAX_HP - hit.damage and hit.part_after == maxi(0, hit.part_before - hit.damage), "Exactly one HP and part deduction")
+		expect(game.rat_hp == maxi(0, game.RAT_MAX_HP - hit.damage) and hit.part_after == maxi(0, hit.part_before - hit.damage), "Exactly one HP and part deduction")
 	expect(seen.has(&"full") and seen.has(&"partial") and seen.has(&"bypass") and seen.has(&"unarmored"), "Seed sample covers all actual armor outcomes")
 	# Ability changes affect the next check and never mutate retained results.
 	game.reset()
@@ -188,11 +195,16 @@ func _test_actions_and_ai() -> void:
 	game.player_position = Vector2i(7, 3)
 	game.bodies[&"player"].apply_damage(&"right_arm", 10)
 	var hit := game.resolve_attack(&"player", &"rat")
-	expect(hit.situation == -2 and game.abilities[&"player"].scores.STR == 10, "Actual arm penalty separate from stats")
+	expect(hit.situation == 0, "Healthy offhand avoids the one-hand injury penalty")
+	game.bodies[&"player"].apply_damage(&"left_arm", 10)
+	hit = game.resolve_attack(&"player", &"rat")
+	expect(hit.situation == -2 and game.abilities[&"player"].scores.STR == 10, "All available manipulation limbs damaged applies the existing penalty")
 	game.bodies[&"player"].apply_damage(&"right_arm", 10)
+	expect(game.can_attack(&"player"), "Longsword remains usable with one damaged manipulation limb")
+	game.bodies[&"player"].apply_damage(&"left_arm", 10)
 	var count := game.combat_log.events.size()
 	var state := game.combat_rng.state
-	expect(not game.player_move(Vector2i.RIGHT), "Disabled weapon attack rejected")
+	expect(not game.player_move(Vector2i.RIGHT), "Attack rejected when all required manipulation is disabled")
 	expect(game.world_time == 0 and game.combat_log.events.size() == count and game.combat_rng.state == state, "Rejected action free and no rolls")
 	game.reset()
 	game.bodies[&"rat"].apply_damage(&"left_foreleg", 3)
@@ -228,7 +240,7 @@ func _test_actions_and_ai() -> void:
 	game.player_position = Vector2i(7, 3)
 	game.abilities[&"rat"].scores[&"DEX"] = 100
 	game.player_move(Vector2i.RIGHT)
-	expect(game.last_action_cost == 1250 and game.combat_log.events[0].data.damage == 0, "Miss consumes one attack cost")
+	expect(game.last_action_cost == 1000 and game.combat_log.events[0].data.damage == 0, "Miss consumes one shared attack cost")
 	expect(CombatLogFormatter.format_player_event(game.combat_log.events[0]).contains("miss"), "Honest miss log")
 	# Guaranteed full-block torso fixture still uses the real hit/body/armor pipeline.
 	game.reset()
@@ -240,7 +252,7 @@ func _test_actions_and_ai() -> void:
 	game.bodies[&"rat"].parts.torso.armor = 220
 	game.player_move(Vector2i.RIGHT)
 	var block: CombatEvent = game.combat_log.events[0]
-	expect(block.data.damage == 0 and block.data.armor_result == &"full" and block.action_cost == 1250, "Full block consumes one cost")
+	expect(block.data.damage == 0 and block.data.armor_result == &"full" and block.action_cost == 1000, "Full block consumes one shared cost")
 	expect(game.rat_hp == game.RAT_MAX_HP and CombatLogFormatter.format_player_event(block).contains("blocks"), "Block no injury / honest log")
 	game.reset()
 	game.player_position = Vector2i(7, 3)
@@ -261,12 +273,14 @@ func _test_attack_causes_function_changes() -> void:
 	# Control target selection only; damage and capabilities use production code.
 	for part: Dictionary in game.bodies[&"player"].parts.values():
 		part.weight = 1 if part.id == &"right_arm" else 0
-	game.resolve_attack(&"rat", &"player")
-	game.resolve_attack(&"rat", &"player")
-	expect(game.resolve_attack(&"player", &"rat").situation == -2, "Two real arm hits impair attack")
-	game.resolve_attack(&"rat", &"player")
-	game.resolve_attack(&"rat", &"player")
-	expect(not game.can_attack(&"player") and game.player_hp == 30, "Four real arm hits disable attack before HP death")
+	for index in range(4):
+		game.resolve_attack(&"rat", &"player")
+	expect(game.can_attack(&"player"), "Disabling one arm preserves a one-hand attack through fallback")
+	for part: Dictionary in game.bodies[&"player"].parts.values():
+		part.weight = 1 if part.id == &"left_arm" else 0
+	for index in range(4):
+		game.resolve_attack(&"rat", &"player")
+	expect(not game.can_attack(&"player") and game.player_hp == 10, "Disabling both arms removes a one-hand attack before HP death")
 	game.reset()
 	Fixture.guaranteed_hits(game)
 	for part: Dictionary in game.bodies[&"rat"].parts.values():
@@ -296,6 +310,7 @@ func _test_ui() -> void:
 		minus.pressed.emit()
 		expect(game.abilities[&"player"].scores.STR == 11, "UI refund")
 		game.bodies[&"player"].apply_damage(&"right_arm", 10)
+		game.bodies[&"player"].apply_damage(&"left_arm", 10)
 		game.damage_actor(&"player", 5)
 		panel.find_child("ResetAbilities", true, false).pressed.emit()
 		expect(game.abilities[&"player"].remaining == 12 and game.player_hp == 45 and game.bodies[&"player"].parts.right_arm.current == 10, "UI reset preserves HP/wounds")

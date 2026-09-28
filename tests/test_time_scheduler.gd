@@ -108,7 +108,7 @@ func _test_reset_and_integration() -> bool:
 	# Keep this scheduler lifecycle test focused on removal, not low-HP AI retreat.
 	preload("res://tests/support/combat_fixture.gd").guaranteed_hits(game)
 	game.rat_aggression = 250
-	game.rat_hp = 3 * game.ATTACK_DAMAGE
+	game.rat_hp = 3 * preload("res://tests/support/combat_fixture.gd").FIXED_DAMAGE
 	for actor: StringName in [&"player", &"rat"]:
 		for part: Dictionary in game.bodies[actor].parts.values():
 			part.weight = 1 if part.id == &"torso" else 0
