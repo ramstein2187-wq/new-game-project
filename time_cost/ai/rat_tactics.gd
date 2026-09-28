@@ -1,6 +1,8 @@
 class_name RatTactics
 extends RefCounted
 
+const POLICY_REVISION := "rat_tactics_v1"
+
 # Prototype NPC policy: builds options each time the rat is ready to act.
 # The generic planner does not know about rats, attacks, doors, or movement.
 static func choose(game: RefCounted, actor_id: StringName = &"rat", target_id: StringName = &"player") -> TacticalChoice:

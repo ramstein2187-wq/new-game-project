@@ -3,19 +3,19 @@ status = "프로토타입"
 areas = ["시뮬레이션", "전투", "AI"]
 type = "알고리즘"
 systems = "Threat Rating / CombatBatchRunner"
-milestones = "M023"
+milestones = "M023, M025"
 code_paths = ["time_cost/simulation/combat_batch_runner.gd", "time_cost/combat/combat_rules.gd", "time_cost/ai/rat_tactics.gd"]
 diagram = "docs/diagrams/threat_rating.svg"
 +++
-# 몬스터 Threat Rating 모델 — TR-v0
+# 몬스터 Threat Rating 모델 — TR-v1 draft
 
-![Threat Rating TR-v0](../diagrams/threat_rating.svg)
+![Threat Rating TR-v1 draft](../diagrams/threat_rating.svg)
 
 ## 목적
 
 플레이어 레벨에 맞춰 몬스터를 자동 스케일하지 않고, 각 몬스터가 **자기 데이터와 실제 전투 성능에 기반한 내부 위협도**를 갖게 한다.
 
-TR-v0는 아직 최종 점수 공식이 아니라 **측정 계약**이다. 몬스터 종류가 충분히 늘어나기 전에 임의 가중치를 고정하면 잘못된 척도가 굳어질 수 있으므로 현재 Rat의 최종 Threat Rating은 비워 둔다.
+TR-v1 draft는 아직 최종 절대 점수 체계가 아니라 **버전된 측정 계약 + provisional rating 모델**이다. 몬스터 종류와 플레이어 성장 구조가 더 굳기 전에 임의 절대 기준을 고정하지 않으며, `final_threat_rating`은 비워 둔다.
 
 M023에서 이 계약의 첫 실행 기반이 구현되었다. `CombatBatchRunner.run_matchup()`은 임의의 유효한 `ActorDefinition` 두 개를 production combat에 주입하고, 동일한 seed 집합으로 A→B와 B→A side swap을 수행한 뒤 결과를 다시 combatant identity 기준으로 합산한다. slot A/B 성능은 별도 지표로 남겨 현행 player-priority scheduler와 고정 방 구조의 편향을 관찰한다.
 
@@ -75,17 +75,18 @@ Threat 측정에서는 다음 계약을 사용한다.
 2. 하나의 상대가 아니라 여러 기준 상대/구성을 사용한다. **아직 후속 작업이다.**
 3. 동일한 seed 집합을 비교군에 재사용한다. M023 paired batch가 이를 보장한다.
 4. 승패뿐 아니라 실제 피해, 행동 수, world time, hit/miss, armor outcome, body-part disable transition을 함께 기록한다.
-5. 지형·거리·장비 조건을 모델 버전과 함께 고정한다. 현재 `side_swap_v1`은 M022 고정 방과 기본 시작 위치를 사용한다.
+5. 지형·거리·장비 조건을 모델 버전과 함께 고정한다. M025 universal calibration은 `neutral_open_v1`을 사용한다: 기존 기본 시작 위치 `(2,3)` / `(8,3)`, 외곽 경계만 유지, 내부 장애물 없음, 닫힌 문 없음, 특수 지형 없음.
+6. AI도 측정 대상의 일부이므로 policy revision을 결과와 함께 기록한다. 현재 `rat_tactics_v1`, `basic_melee_v1`을 사용하며, 행동을 실질적으로 바꾸는 AI 수정은 revision을 올리고 영향을 받는 TR 근거를 재측정한다.
 
-Side swap은 현재의 지배적인 slot/초기 위치 비대칭을 줄이고 편향을 수치로 드러내기 위한 프로토콜이지, 모든 전술적 비대칭을 제거한다는 뜻은 아니다.
+Side swap은 slot/초기 위치 비대칭을 줄이고 편향을 수치로 드러내기 위한 프로토콜이다. `neutral_open_v1`은 여기에 더해 문·병목·장애물 같은 전술적 맥락을 universal TR에서 의도적으로 통제한다. 그런 환경은 실제 게임에서 플레이어와 AI가 활용할 전술 요소이며, 필요하면 별도의 contextual experiment로 측정한다.
 
 ## 4. Bradley-Terry 보정과 Rating 스케일
 
-M025에서는 전체 pairwise 결과를 하나의 일반 전투력 축으로 압축하기 위해 regularized Bradley-Terry 모델을 사용한다.
+M025에서는 `neutral_open_v1`의 전체 pairwise 결과를 하나의 일반 전투력 축으로 압축하기 위해 regularized Bradley-Terry 모델을 사용한다.
 
 `P(A > B) = sigmoid(theta_A - theta_B)`
 
-각 `theta`는 latent combat strength다. 0%/100% 승률이 있는 matchup에서도 무한대로 발산하지 않도록 `lambda = 1.0` L2 regularization을 적용한다. 피팅은 Newton iteration으로 수행하며, M025 두 독립 200-paired-seed block 모두 7회 안에 수렴했다.
+각 `theta`는 latent combat strength다. 0%/100% 승률이 있는 matchup에서도 무한대로 발산하지 않도록 `lambda = 1.0` L2 regularization을 적용한다. 피팅은 Newton iteration으로 수행한다. 현재 neutral calibration의 두 독립 200-paired-seed block은 모두 8회 안에 수렴했다.
 
 사람이 읽기 쉬운 임시 점수는 Elo와 같은 확률 의미를 갖도록 다음으로 변환한다.
 
@@ -97,11 +98,12 @@ M025에서는 전체 pairwise 결과를 하나의 일반 전투력 축으로 압
 
 후속 보정에서는 다음 순서를 권장한다.
 
-1. 몇 개의 의미 있는 기준 몬스터를 구현한다.
-2. 대칭 batch를 돌려 pairwise 성능 행렬을 얻는다.
+1. `neutral_open_v1`에서 대칭 batch를 돌려 pairwise 성능 행렬을 얻는다.
+2. regularized Bradley-Terry로 일반 전투력 축과 matchup residual을 얻는다.
 3. 정적 특징이 실제 성능을 얼마나 설명하는지 비교한다.
 4. 설명되지 않는 차이를 신체/특수 행동/AI component로 추적한다.
-5. 그 후에만 baseline과 최종 Threat scale을 고정한다.
+5. AI가 바뀌면 policy revision을 올리고 영향을 받는 표본을 재측정한다.
+6. 플레이어 성장과 encounter 설계가 충분히 굳은 뒤에만 benchmark anchor, uncertainty와 최종 Threat/encounter-cost mapping을 고정한다.
 
 즉 **Threat Rating은 게임 디자인 입력값이 아니라, 데이터 + 측정에서 파생되는 버전된 값**으로 취급한다.
 
@@ -123,10 +125,12 @@ M025에서는 전체 pairwise 결과를 하나의 일반 전투력 축으로 압
 
 ## M025 초기 보정 상태
 
-Rat과 M024 신규 hostile 10종에 대해 11종 전체 round-robin을 두 독립 seed block으로 측정했다. 각 matchup은 총 400 paired seed / 800 encounter, 전체 44,000 encounter이며 stall과 simulation error는 0이었다. `simulation_score`는 현재 고정 11종 calibration roster의 나머지 10종을 상대로 한 평균 decisive win rate로 기록한다. 두 block에서 순위가 동일했고 최대 score 이동은 0.0148이었다.
+Rat과 M024 신규 hostile 10종에 대해 11종 전체 round-robin을 두 독립 seed block으로 측정했다. 첫 pass는 legacy fixed room을 사용했지만 Boar–Giant Crab 분석에서 닫힌 문이 first-contact timing과 승률을 크게 바꾸는 것이 확인되어 rating 근거에서 제외하고 diagnostic history로만 보존한다.
 
-이 `simulation_score`는 현재 로스터 상대 성능을 나타내는 보정 근거이며 최종 TR이 아니다. 로스터 구성 자체가 바뀌면 평균 승률도 변하므로 `final_threat_rating`은 고정 benchmark profile과 versioned numeric mapping을 정할 때까지 null로 유지한다. 상세 표본은 `docs/reviews/2026-09-28-m025-threat-calibration-pass1.md`를 참조한다.
+현재 기준은 `neutral_open_v1`이다. 두 독립 200-paired-seed block, 전체 44,000 encounter에서 stall과 simulation error는 0이었다. calibration/validation BT fit은 모두 8회에 수렴했고 모든 provisional rating이 20점 이내로 재현되었다. 최대 절대 pair residual은 0.0791 / 0.0844로, legacy room의 약 0.17보다 크게 감소했다. `simulation_score`는 neutral arena에서 현재 고정 11종 calibration roster의 나머지 10종을 상대로 한 평균 decisive win rate다.
+
+이 값들은 여전히 최종 TR이 아니다. 현재 1000 원점은 roster-centered이며, benchmark anchor와 encounter-cost 변환은 플레이어 성장/조우 설계가 더 굳은 뒤 결정한다. 상세 표본은 `docs/reviews/2026-09-28-m025-neutral-calibration-pass2.md`를 참조한다.
 
 ## 현재 한계
 
-현재 11종 pairwise 표본과 regularized Bradley-Terry prototype은 확보했다. 다만 단일 strength 축의 최대 pair residual이 약 0.17로, Boar vs Giant Crab 같은 matchup-specific interaction을 완전히 설명하지 못한다. 따라서 residual은 상성 진단 데이터로 보존한다. 고정 benchmark player profile, 다양한 장비/지형 기준군, 정식 통계적 불확실성 계산과 final scale의 절대 원점은 아직 구현되지 않았다.
+현재 11종 neutral pairwise 표본과 regularized Bradley-Terry prototype은 확보했다. 단일 strength 축의 최대 pair residual은 약 0.08 수준이며 residual은 상성/행동 특성 진단 데이터로 보존한다. AI는 아직 초기 `rat_tactics_v1` / `basic_melee_v1` 단계이므로 향후 전술 AI 개선에 따라 rating이 변하는 것은 정상이며, revision을 통해 재현성과 비교 가능성을 유지한다. 정식 통계적 불확실성, final scale의 절대 원점, encounter-cost 변환은 아직 구현되지 않았다.

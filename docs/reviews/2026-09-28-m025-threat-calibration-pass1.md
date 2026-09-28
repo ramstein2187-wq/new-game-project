@@ -1,5 +1,7 @@
 # M025 Threat Calibration — Initial Matrix
 
+> Superseded for universal rating by `neutral_open_v1` Pass 2. This legacy-room pass is retained as diagnostic history because the closed door and interior obstacles were later shown to materially affect first-contact timing and matchup outcomes. See `docs/reviews/2026-09-28-m025-neutral-calibration-pass2.md`.
+
 Date: 2026-09-28
 Branch: `chat/m025-threat-calibration`
 Protocol: `side_swap_v1`

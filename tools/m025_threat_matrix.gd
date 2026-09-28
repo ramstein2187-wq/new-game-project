@@ -41,8 +41,9 @@ func _init() -> void:
 		}
 
 	var pair_count := (ACTOR_IDS.size() * (ACTOR_IDS.size() - 1)) / 2
-	print("M025 Threat Matrix — protocol=%s pairs=%s paired_seeds=%s range=%s..%s" % [
+	print("M025 Threat Matrix — protocol=%s arena=%s pairs=%s paired_seeds=%s range=%s..%s" % [
 		String(CombatBatchRunner.PAIRED_PROTOCOL),
+		String(config.arena_id),
 		str(pair_count),
 		str(config.run_count),
 		str(config.base_seed),
@@ -177,6 +178,7 @@ func _parse_arguments(arguments: PackedStringArray) -> Dictionary:
 		"base_seed": DEFAULT_BASE_SEED,
 		"max_actions": DEFAULT_MAX_ACTIONS,
 		"max_world_time": DEFAULT_MAX_WORLD_TIME,
+		"arena_id": CombatSimulationGame.ARENA_NEUTRAL_OPEN,
 	}
 	for argument in arguments:
 		if not argument.begins_with("--") or not argument.contains("="):

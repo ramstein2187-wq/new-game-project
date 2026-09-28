@@ -1,6 +1,8 @@
 class_name BasicMeleeTactics
 extends RefCounted
 
+const POLICY_REVISION := "basic_melee_v1"
+
 
 static func choose(game: RefCounted, actor_id: StringName, target_id: StringName) -> TacticalChoice:
 	if game.actor_is_alive(target_id) and game.can_attack(actor_id) and game.can_melee_reach(

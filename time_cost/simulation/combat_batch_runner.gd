@@ -7,6 +7,7 @@ const DEFAULT_RUN_COUNT := 1000
 const DEFAULT_BASE_SEED := 0
 const DEFAULT_MAX_ACTIONS := 500
 const DEFAULT_MAX_WORLD_TIME := 500000
+const DEFAULT_ARENA_ID: StringName = CombatSimulationGame.ARENA_LEGACY_ROOM
 
 const SIDE_A_ID: StringName = CombatSimulationGame.SIDE_A_ID
 const SIDE_B_ID: StringName = CombatSimulationGame.SIDE_B_ID
@@ -70,6 +71,7 @@ func run_matchup(
 	return {
 		"scenario": "paired_matchup",
 		"protocol": PAIRED_PROTOCOL,
+		"arena_id": String(normalized.arena_id),
 		"combatant_a": _definition_summary(combatant_a),
 		"combatant_b": _definition_summary(combatant_b),
 		"pair_count": int(normalized.run_count),
@@ -156,7 +158,8 @@ func _run_batch(
 			max_actions,
 			max_world_time,
 			side_a_definition,
-			side_b_definition
+			side_b_definition,
+			StringName(normalized.arena_id)
 		)
 		var outcome: String = encounter.outcome
 		if outcome == "simulation_error":
@@ -200,13 +203,23 @@ func run_encounter(
 	max_actions: int,
 	max_world_time: int,
 	side_a_definition: ActorDefinition = null,
-	side_b_definition: ActorDefinition = null
+	side_b_definition: ActorDefinition = null,
+	arena_id: StringName = DEFAULT_ARENA_ID
 ) -> Dictionary:
 	var game := CombatSimulationGame.new()
 	if side_a_definition != null and side_b_definition != null:
-		game.configure_matchup(side_a_definition, side_b_definition)
+		game.configure_matchup(
+			side_a_definition,
+			side_b_definition,
+			CombatSimulationGame.DEFAULT_SIDE_A_START,
+			CombatSimulationGame.DEFAULT_SIDE_B_START,
+			arena_id
+		)
+	else:
+		game.arena_id = arena_id
 	game.combat_seed = encounter_seed
 	game.reset()
+	game.apply_configured_arena()
 	var encounter := {
 		"seed": encounter_seed,
 		"outcome": "",
@@ -314,9 +327,12 @@ func _validated_config(config: Dictionary) -> Dictionary:
 		"base_seed": int(config.get("base_seed", DEFAULT_BASE_SEED)),
 		"max_actions": int(config.get("max_actions", DEFAULT_MAX_ACTIONS)),
 		"max_world_time": int(config.get("max_world_time", DEFAULT_MAX_WORLD_TIME)),
+		"arena_id": StringName(config.get("arena_id", DEFAULT_ARENA_ID)),
 	}
 	if normalized.run_count <= 0 or normalized.max_actions <= 0 or normalized.max_world_time <= 0:
 		return {"configuration_error": "run_count, max_actions and max_world_time must be positive"}
+	if not [CombatSimulationGame.ARENA_LEGACY_ROOM, CombatSimulationGame.ARENA_NEUTRAL_OPEN].has(normalized.arena_id):
+		return {"configuration_error": "unsupported combat simulation arena: %s" % normalized.arena_id}
 	return {"config": normalized}
 
 
@@ -326,6 +342,7 @@ func _definition_summary(definition: ActorDefinition) -> Dictionary:
 		"display_name": definition.display_name,
 		"max_hp": definition.max_hp,
 		"ai_policy": String(definition.ai_policy),
+		"ai_policy_revision": CombatSimulationGame.ai_policy_revision(definition.ai_policy),
 	}
 
 

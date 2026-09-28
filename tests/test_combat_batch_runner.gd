@@ -13,6 +13,7 @@ func _init() -> void:
 	_test_production_path()
 	_test_deterministic_batch_and_metrics()
 	_test_configurable_matchup_and_side_swap()
+	_test_neutral_calibration_arena()
 	_test_termination_guard()
 	if failures == 0:
 		print("PASS: deterministic production-combat batch runner, paired matchup metrics and termination")
@@ -84,6 +85,37 @@ func _test_configurable_matchup_and_side_swap() -> void:
 	expect(first.slot_a_wins == first.forward.side_a_wins + first.reverse.side_a_wins, "Slot A bias remains separately observable")
 	expect(first.combatant_a_combat.attack_attempts == first.combatant_a_combat.hits + first.combatant_a_combat.misses, "Combatant A paired attack metrics remain internally consistent")
 	expect(_sum_armor(first.combatant_a_combat.armor_results) == first.combatant_a_combat.hits, "Combatant A paired armor outcomes account for every hit")
+
+
+func _test_neutral_calibration_arena() -> void:
+	var game := CombatSimulationGame.new()
+	game.configure_matchup(
+		CombatContentCatalog.actor(&"boar"),
+		CombatContentCatalog.actor(&"giant_crab"),
+		CombatSimulationGame.DEFAULT_SIDE_A_START,
+		CombatSimulationGame.DEFAULT_SIDE_B_START,
+		CombatSimulationGame.ARENA_NEUTRAL_OPEN
+	)
+	game.reset()
+	game.apply_configured_arena()
+	expect(game.door_open, "Neutral calibration arena keeps the legacy door coordinate open")
+	expect(not game.is_wall(Vector2i(5, 2)) and not game.is_wall(Vector2i(3, 2)) and not game.is_wall(Vector2i(7, 4)), "Neutral calibration arena removes legacy interior obstacles")
+	expect(game.is_wall(Vector2i(0, 0)) and game.is_wall(Vector2i(10, 6)), "Neutral calibration arena keeps outer boundaries")
+
+	var config := {
+		"run_count": 4,
+		"base_seed": 2500,
+		"max_actions": 300,
+		"max_world_time": 300000,
+		"arena_id": CombatSimulationGame.ARENA_NEUTRAL_OPEN,
+	}
+	var result := CombatBatchRunner.new().run_matchup(
+		CombatContentCatalog.actor(&"boar"),
+		CombatContentCatalog.actor(&"giant_crab"),
+		config
+	)
+	expect(result.arena_id == "neutral_open_v1", "Paired results record the neutral calibration arena")
+	expect(result.combatant_a.ai_policy_revision == "basic_melee_v1", "Threat evidence records the combatant AI policy revision")
 
 
 func _test_termination_guard() -> void:

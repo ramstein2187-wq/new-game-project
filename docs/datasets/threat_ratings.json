@@ -1,11 +1,16 @@
 {
-  "version": 4,
+  "version": 5,
   "model_contract": {
     "id": "TR-v1-draft",
-    "status": "Bradley-Terry calibration prototype",
+    "status": "neutral-arena Bradley-Terry calibration prototype",
     "final_scale": null,
     "protocol": "side_swap_v1",
-    "simulation_score_method": "mean decisive win rate against the fixed M025 11-combatant calibration roster",
+    "arena": "neutral_open_v1",
+    "simulation_score_method": "mean decisive win rate against the fixed M025 11-combatant calibration roster under neutral_open_v1",
+    "ai_revisions": {
+      "rat_tactics": "rat_tactics_v1",
+      "basic_melee": "basic_melee_v1"
+    },
     "bradley_terry": {
       "model": "regularized_bradley_terry_v1",
       "win_probability": "sigmoid(theta_a - theta_b)",
@@ -18,14 +23,25 @@
     },
     "notes": [
       "Production Action, AI, Scheduler, CombatRules, body and events are reused.",
-      "M024 smoke data validates execution only and does not assign Threat scores.",
-      "M025 simulation_score is roster-relative calibration evidence, not a final Threat Rating.",
-      "M025 Bradley-Terry ratings compress the full pairwise matrix into one general combat-strength axis; matchup residuals remain important evidence of counters or non-transitive behavior."
+      "Universal TR calibration intentionally controls away doors, choke points, hazards and special terrain.",
+      "AI remains part of measured combat behavior; material AI behavior changes require a policy revision bump and recalibration of affected evidence.",
+      "simulation_score is roster-relative calibration evidence, not a final Threat Rating.",
+      "Bradley-Terry ratings compress the neutral pairwise matrix into one general combat-strength axis; matchup residuals remain diagnostic rather than being forced into the scalar."
     ]
   },
   "measurement": {
-    "m025_initial_matrix": {
-      "status": "calibration_evidence",
+    "m025_legacy_room_matrix": {
+      "status": "superseded_for_rating_retained_as_diagnostic",
+      "arena": "legacy_room_v1",
+      "paired_seed_blocks": ["25000-25199", "27000-27199"],
+      "total_encounters": 44000,
+      "reason_superseded": "closed door and interior obstacles materially changed first-contact timing and pairwise outcomes",
+      "review": "docs/reviews/2026-09-28-m025-threat-calibration-pass1.md",
+      "final_rating_effect": null
+    },
+    "m025_neutral_open_matrix": {
+      "status": "current_calibration_evidence",
+      "arena": "neutral_open_v1",
       "combatant_count": 11,
       "matchup_count": 55,
       "paired_seed_blocks": ["25000-25199", "27000-27199"],
@@ -35,36 +51,37 @@
       "encounters_per_combatant": 8000,
       "simulation_errors": 0,
       "stalls": 0,
-      "final_rating_effect": null,
-      "review": "docs/reviews/2026-09-28-m025-threat-calibration-pass1.md"
+      "review": "docs/reviews/2026-09-28-m025-neutral-calibration-pass2.md",
+      "final_rating_effect": null
     },
     "m025_bradley_terry": {
+      "arena": "neutral_open_v1",
       "calibration_seed_range": "25000-25199",
       "validation_seed_range": "27000-27199",
       "paired_seeds_per_block_per_matchup": 200,
       "encounters_per_block_per_matchup": 400,
-      "calibration_log_loss": 0.297836,
-      "validation_log_loss": 0.295416,
-      "calibration_max_abs_pair_residual": 0.1660,
-      "validation_max_abs_pair_residual": 0.1695,
-      "calibration_iterations": 7,
-      "validation_iterations": 7,
-      "all_ratings_reproduced_within_points": 24.0,
+      "calibration_log_loss": 0.285657,
+      "validation_log_loss": 0.285400,
+      "calibration_max_abs_pair_residual": 0.0791,
+      "validation_max_abs_pair_residual": 0.0844,
+      "calibration_iterations": 8,
+      "validation_iterations": 8,
+      "all_ratings_reproduced_within_points": 20.0,
       "final_rating_effect": null
     }
   },
   "records": [
-    {"monster_id":"rat","static_score":null,"simulation_score":0.030000,"bt_strength":-4.238093,"bt_rating_provisional":263.77,"bt_rating_validation":244.40,"final_threat_rating":null},
-    {"monster_id":"feral_dog","static_score":null,"simulation_score":0.151625,"bt_strength":-2.574393,"bt_rating_provisional":552.78,"bt_rating_validation":528.93,"final_threat_rating":null},
-    {"monster_id":"wolf","static_score":null,"simulation_score":0.510375,"bt_strength":0.002740,"bt_rating_provisional":1000.48,"bt_rating_validation":1008.92,"final_threat_rating":null},
-    {"monster_id":"boar","static_score":null,"simulation_score":0.650250,"bt_strength":0.962411,"bt_rating_provisional":1167.19,"bt_rating_validation":1175.68,"final_threat_rating":null},
-    {"monster_id":"giant_beetle","static_score":null,"simulation_score":0.543625,"bt_strength":0.243550,"bt_rating_provisional":1042.31,"bt_rating_validation":1043.26,"final_threat_rating":null},
-    {"monster_id":"cave_lizard","static_score":null,"simulation_score":0.310375,"bt_strength":-1.294421,"bt_rating_provisional":775.14,"bt_rating_validation":771.12,"final_threat_rating":null},
-    {"monster_id":"giant_spider","static_score":null,"simulation_score":0.392750,"bt_strength":-0.781044,"bt_rating_provisional":864.32,"bt_rating_validation":878.20,"final_threat_rating":null},
-    {"monster_id":"giant_crab","static_score":null,"simulation_score":0.733500,"bt_strength":1.629971,"bt_rating_provisional":1283.15,"bt_rating_validation":1286.67,"final_threat_rating":null},
-    {"monster_id":"feral_ape","static_score":null,"simulation_score":0.906875,"bt_strength":3.397971,"bt_rating_provisional":1590.29,"bt_rating_validation":1594.33,"final_threat_rating":null},
-    {"monster_id":"raider","static_score":null,"simulation_score":0.332625,"bt_strength":-1.212080,"bt_rating_provisional":789.44,"bt_rating_validation":811.56,"final_threat_rating":null},
-    {"monster_id":"armored_raider","static_score":null,"simulation_score":0.938000,"bt_strength":3.863390,"bt_rating_provisional":1671.14,"bt_rating_validation":1656.92,"final_threat_rating":null}
+    {"monster_id":"rat","static_score":null,"simulation_score":0.025250,"bt_strength":-4.524386,"bt_rating_provisional":214.03,"bt_rating_validation":219.82,"final_threat_rating":null},
+    {"monster_id":"feral_dog","static_score":null,"simulation_score":0.155500,"bt_strength":-2.625946,"bt_rating_provisional":543.83,"bt_rating_validation":531.64,"final_threat_rating":null},
+    {"monster_id":"wolf","static_score":null,"simulation_score":0.489000,"bt_strength":-0.066110,"bt_rating_provisional":988.52,"bt_rating_validation":975.08,"final_threat_rating":null},
+    {"monster_id":"boar","static_score":null,"simulation_score":0.614375,"bt_strength":0.768510,"bt_rating_provisional":1133.50,"bt_rating_validation":1135.34,"final_threat_rating":null},
+    {"monster_id":"giant_beetle","static_score":null,"simulation_score":0.599625,"bt_strength":0.634044,"bt_rating_provisional":1110.14,"bt_rating_validation":1121.40,"final_threat_rating":null},
+    {"monster_id":"cave_lizard","static_score":null,"simulation_score":0.299000,"bt_strength":-1.418617,"bt_rating_provisional":753.56,"bt_rating_validation":752.27,"final_threat_rating":null},
+    {"monster_id":"giant_spider","static_score":null,"simulation_score":0.356000,"bt_strength":-1.055036,"bt_rating_provisional":816.72,"bt_rating_validation":831.64,"final_threat_rating":null},
+    {"monster_id":"giant_crab","static_score":null,"simulation_score":0.794875,"bt_strength":2.231249,"bt_rating_provisional":1387.61,"bt_rating_validation":1396.49,"final_threat_rating":null},
+    {"monster_id":"feral_ape","static_score":null,"simulation_score":0.849875,"bt_strength":2.857639,"bt_rating_provisional":1496.42,"bt_rating_validation":1477.38,"final_threat_rating":null},
+    {"monster_id":"raider","static_score":null,"simulation_score":0.356000,"bt_strength":-1.007762,"bt_rating_provisional":824.93,"bt_rating_validation":823.43,"final_threat_rating":null},
+    {"monster_id":"armored_raider","static_score":null,"simulation_score":0.960500,"bt_strength":4.206416,"bt_rating_provisional":1730.73,"bt_rating_validation":1735.50,"final_threat_rating":null}
   ],
   "m024_smoke": {
     "status": "validation_only",
