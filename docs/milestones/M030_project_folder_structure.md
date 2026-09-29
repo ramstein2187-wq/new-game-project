@@ -1,6 +1,6 @@
 # M030 — Project folders by gameplay responsibility
 
-Status: Complete (automated validation) on `codex/project-folder-structure`.
+Status: Complete on `main` at `15e309e` via PR #30; automated validation was completed on `codex/project-folder-structure`.
 Base: freshly fetched main `92d0a4f` (2026-09-29).
 
 ## Goal and scope
@@ -36,7 +36,7 @@ records remain unchanged; current README/spec/wiki/dataset source links follow m
 - Git-base audit passed: 302 existing files have no changes beyond the explicit path map (LF-normalized for Git checkout portability); 99 moves, all 78 pre-existing script UIDs and all 24 test scripts preserved. README/roadmap/index prose additions are explicitly separate from this comparison.
 - Notion knowledge `--check` (9 specs, 6 datasets) and wiki `--check` (13 pages) passed. No live Notion writes.
 - Final staged diff: 99 renames; no deleted baseline files. Gameplay algorithms/data, class APIs, scene node properties and replay fixtures are preserved.
-- Do not merge main. Manual visual/play acceptance is not implied by headless checks.
+- Merged to `main` via PR #30 at `15e309e`. Manual visual/play acceptance is not implied by the headless checks and was not treated as a blocker for this path-only integration.
 
 See [work record](../reviews/2026-09-29-folder-structure.md) and
 [exact move map](../reviews/2026-09-29-folder-moves.json).
