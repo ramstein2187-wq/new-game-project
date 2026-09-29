@@ -21,6 +21,8 @@ The project is exploratory and aims toward a CRPG/systemic-roguelike direction. 
 
 Current prototypes are not automatically final architecture.
 
+For character and content design, prefer a small shared action grammar with meaningful differentiation through body, origin, traits, equipment, learned abilities, and accumulated change. Progression should emphasize new capabilities and identity as well as numerical growth. See `docs/decisions/player_identity_and_action_design.md`.
+
 ## Engine and Language
 
 - Prefer GDScript.
