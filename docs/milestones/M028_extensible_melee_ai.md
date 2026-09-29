@@ -1,6 +1,6 @@
 # M028 — Extensible melee tactical AI
 
-Status: Implemented and automatically validated on `chat/m028-extensible-melee-ai`; armor-coverage and conservative-retreat follow-ups resolved, manual/main integration pending.
+Status: Complete on `main` at `c90bdbd` via PR #28 (2026-09-29).
 Base: `origin/main` at `8224828` (M027 integrated).
 
 ## Goal
@@ -32,12 +32,12 @@ All acceptance items are implemented and covered by automated validation. See [M
 ## Validation checkpoint
 
 - Godot editor parse/import and main-scene headless smoke passed.
-- All 24 project test scripts passed in two chunks; focused M028 test passed 48 assertions.
+- All 24 project test scripts passed in two chunks; focused M028 test passed 64 assertions.
 - A synthetic new Weapon Action was selected through data only, proving no weapon-ID branch is required.
 - Initial unlimited emergency retreat caused batch stalls; final 2 ordinary + 1 emergency defensive allowance removed them.
 - Qualitative review then added coarse armor coverage and conservative Retreat gating; focused coverage/retreat tests expanded to 64 assertions.
 - Final 600-encounter paired sample after those refinements: zero simulation errors and zero stalls.
-- Manual gameplay/fun review remains pending; no main merge is authorized by this milestone.
+- PR #28 merged to `main` at `c90bdbd` after user authorization. Post-merge editor parse plus focused M028/M027/tactical AI, batch, multi-NPC, replay and Notion validations passed. Manual visual/gameplay feel review remains a follow-up.
 
 ## Deferred
 
