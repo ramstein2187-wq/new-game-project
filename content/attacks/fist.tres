@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AttackDefinition" format=3]
+
+[ext_resource type="Script" path="res://game/combat/damage_dice.gd" id="1_782sc"]
+[ext_resource type="Script" path="res://game/combat/attack_definition.gd" id="2_hbgcj"]
+
+[sub_resource type="Resource" id="Resource_htcyl"]
+script = ExtResource("1_782sc")
+dice_size = 8
+
+[resource]
+resource_name = "fist"
+script = ExtResource("2_hbgcj")
+id = &"fist"
+display_name = "Fist"
+damage_dice = SubResource("Resource_htcyl")
+penetration = 10.0
