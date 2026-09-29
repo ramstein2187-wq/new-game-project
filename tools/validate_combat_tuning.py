@@ -21,7 +21,7 @@ def main() -> None:
     args = parser.parse_args()
     generated = [ROOT / "docs/datasets" / name for name in
                  ("equipment.json", "monsters.json", "combat_content_manifest.json")]
-    content = [ROOT / "time_cost/content" / name for name in
+    content = [ROOT / "content" / name for name in
                ("actors/boar.tres", "weapons/longsword.tres", "armor/iron_helmet.tres")]
     originals = {p: p.read_bytes() for p in content + generated}
 

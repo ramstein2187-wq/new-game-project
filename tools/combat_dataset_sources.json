@@ -1,5 +1,5 @@
 [
-  "time_cost/content",
+  "content",
   "game/combat/combat_content_catalog.gd",
   "game/actors/actor_definition.gd",
   "game/actors/actor.gd",
