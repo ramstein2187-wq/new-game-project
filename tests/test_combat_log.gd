@@ -1,6 +1,6 @@
 extends SceneTree
 
-const GameScript := preload("res://game/time_cost_game.gd")
+const GameScript := preload("res://tests/support/fixed_combat_game.gd")
 
 
 func _init() -> void:

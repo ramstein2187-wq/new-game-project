@@ -32,7 +32,7 @@ func _test_production_path() -> void:
 	expect(game.combat_log.events.size() >= 2, "Production scheduler emits both sides' CombatEvents")
 	for event in game.combat_log.events:
 		expect(event.data.has("ai_goal"), "Each AI action retains the production decision trace")
-		expect(event.action_cost == 750 or event.action_cost == 1050 or event.action_cost == 1000 or event.action_cost == 500, "Rat action keeps production costs")
+		expect(event.action_cost in [game.get_actor(event.actor_id).definition.move_cardinal, game.get_actor(event.actor_id).definition.move_diagonal, AttackAction.BASE_COST, game.get_actor(event.actor_id).definition.wait_cost, game.get_actor(event.actor_id).definition.interact_cost], "Rat action keeps production costs")
 
 
 func _test_deterministic_batch_and_metrics() -> void:
@@ -48,7 +48,7 @@ func _test_deterministic_batch_and_metrics() -> void:
 	expect(is_equal_approx(first.mean_actions * first.completed_runs, action_total), "Mean actions matches event-derived action totals")
 	expect(first.mean_world_time >= 0.0, "World-time metric is present")
 	expect(first.mean_damage_side_a >= 0.0 and first.mean_damage_side_b >= 0.0, "Actual-damage metrics are present")
-	expect(first.mean_damage_side_a <= 30.0 and first.mean_damage_side_b <= 30.0, "Damage uses actual HP loss without overkill")
+	expect(first.mean_damage_side_a <= ActorDefinition.rat_common().max_hp and first.mean_damage_side_b <= ActorDefinition.rat_common().max_hp, "Damage uses actual HP loss without overkill")
 	expect(first.side_a_actions.attack > 0 and first.side_b_actions.attack > 0, "Both sides' production attacks are counted")
 	expect(first.side_a_combat.attack_attempts == first.side_a_combat.hits + first.side_a_combat.misses, "Side A hit/miss metrics account for every attack")
 	expect(first.side_b_combat.attack_attempts == first.side_b_combat.hits + first.side_b_combat.misses, "Side B hit/miss metrics account for every attack")
