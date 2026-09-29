@@ -4,7 +4,7 @@ areas = ["AI", "전투"]
 type = "알고리즘"
 systems = "MeleeContext / MeleeAttackOption / BasicMeleeTactics / RatTactics / TacticalPlanner"
 milestones = "M015, M018, M019, M028"
-code_paths = ["time_cost/ai/melee_context.gd", "time_cost/ai/melee_attack_option.gd", "time_cost/ai/basic_melee_tactics.gd", "time_cost/ai/rat_tactics.gd", "time_cost/ai/tactical_choice.gd", "time_cost/ai/tactical_planner.gd"]
+code_paths = ["game/ai/melee_context.gd", "game/ai/melee_attack_option.gd", "game/ai/basic_melee_tactics.gd", "game/ai/rat_tactics.gd", "game/ai/tactical_choice.gd", "game/ai/tactical_planner.gd"]
 diagram = "docs/diagrams/tactical_ai.svg"
 +++
 # 설명 가능한 전술 AI 알고리즘 상세

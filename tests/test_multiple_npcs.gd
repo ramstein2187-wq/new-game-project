@@ -1,7 +1,7 @@
 extends SceneTree
 
-const Generator := preload("res://procgen/simple_map_generator.gd")
-const Settings := preload("res://procgen/default_generation_settings.tres")
+const Generator := preload("res://worldgen/simple_map_generator.gd")
+const Settings := preload("res://worldgen/default_generation_settings.tres")
 const OPEN_MAP := ["TTTTTTTT", "T#.....T", "T......T", "T......T", "T......T", "T#.....T", "TTTTTTTT"]
 var failures := 0
 
@@ -219,7 +219,7 @@ func _test_replay() -> void:
 			expect(game.simulation_error.is_empty(), "Playable multi-NPC simulation never stalls")
 
 func _test_scene() -> void:
-	var scene: Node = load("res://time_cost/generated_map_combat_playground.tscn").instantiate()
+	var scene: Node = load("res://scenes/debug/generated_map_combat_playground.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame
 	expect(scene.game.actors.all().size() == 4, "Actual default scene has player and three rats")

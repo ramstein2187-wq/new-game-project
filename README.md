@@ -42,10 +42,44 @@ Git 저장소의 코드와 `docs/` 문서를 구현 상태의 기준으로 사�
 bash tools/check_godot.sh
 ```
 
-기본 실행 장면은 `time_cost/generated_map_combat_playground.tscn`입니다.
+기본 실행 장면은 `scenes/debug/generated_map_combat_playground.tscn`입니다.
 
 이 저장소는 실험적 프로토타입이므로 완료된 마일스톤의 동작과 아직 설계/후보 단계인 기능을
 구분해서 문서화합니다.
+
+## Project layout
+
+```text
+game/                   # Shared gameplay runtime
+  actions/              # Common actions
+  actors/               # Actor definitions, state and registry
+  ai/                   # Tactical decisions
+  combat/               # Combat/body/equipment rules and combat events
+  time/                 # Independent scheduler
+  simulation/           # Headless production-combat adapters
+  time_cost_game.gd      # Gameplay state/action/turn orchestration
+  generated_map_combat_game.gd
+worldgen/               # Map algorithms, generation settings and seed derivation
+scenes/debug/           # Combat rooms, generated-map playground and map viewers
+prototypes/
+  exploration/          # Original movement/interaction scene; viewer reuses Player
+  micro_ap/             # Preserved AP comparison prototype
+tests/                  # All existing automated tests and fixtures
+tools/                  # Validation, batch and documentation tools
+assets/
+docs/
+```
+
+F5 still starts the generated-map combat playground. For F6, open
+`scenes/debug/time_cost_test_room.tscn`. The original root `main.tscn` remains
+available at `prototypes/exploration/main.tscn`; it is not the configured main scene.
+The preserved AP comparison room is `prototypes/micro_ap/micro_ap_test_room.tscn`.
+
+This folder change preserves class names, APIs, algorithms and content values.
+Future authored gameplay resources belong under `content/`; that directory is not
+created empty and this branch does not implement the separate single-source work.
+See [M030](docs/milestones/M030_project_folder_structure.md) and the
+[exact move map](docs/reviews/2026-09-29-folder-moves.json).
 
 ## Third-party material and references
 

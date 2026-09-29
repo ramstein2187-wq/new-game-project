@@ -4,7 +4,7 @@ areas = ["전투", "코어"]
 type = "알고리즘"
 systems = "D20 hit / damage dice / hit location / armor / damage"
 milestones = "M017, M018, M024, M027"
-code_paths = ["time_cost/combat/combat_rules.gd", "time_cost/time_cost_game.gd", "time_cost/actions/attack_action.gd", "time_cost/combat/combat_content_catalog.gd"]
+code_paths = ["game/combat/combat_rules.gd", "game/time_cost_game.gd", "game/actions/attack_action.gd", "game/combat/combat_content_catalog.gd"]
 diagram = "docs/diagrams/combat_resolution.svg"
 +++
 # 근접 전투 판정 알고리즘 상세

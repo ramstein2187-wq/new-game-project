@@ -4,7 +4,7 @@ areas = ["전투", "코어"]
 type = "상태 모델"
 systems = "BodyTemplate / BodyInstance / capability"
 milestones = "M017, M024"
-code_paths = ["time_cost/combat/body_template.gd", "time_cost/combat/body_instance.gd", "time_cost/combat/combat_species.gd"]
+code_paths = ["game/combat/body_template.gd", "game/combat/body_instance.gd", "game/combat/combat_species.gd"]
 diagram = "docs/diagrams/body_injury.svg"
 +++
 # 신체 부위 · 부상 · 기능 효율 상세

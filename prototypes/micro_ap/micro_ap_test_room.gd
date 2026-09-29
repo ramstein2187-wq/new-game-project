@@ -1,6 +1,6 @@
 extends Node2D
 
-const MicroApGameScript := preload("res://micro_ap/micro_ap_game.gd")
+const MicroApGameScript := preload("res://prototypes/micro_ap/micro_ap_game.gd")
 
 const CELL_SIZE := 48.0
 const ROOM_ORIGIN := Vector2(64.0, 132.0)

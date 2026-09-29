@@ -4,7 +4,7 @@ areas = ["시뮬레이션", "전투", "AI"]
 type = "알고리즘"
 systems = "Threat Rating / CombatBatchRunner"
 milestones = "M023"
-code_paths = ["time_cost/simulation/combat_batch_runner.gd", "time_cost/combat/combat_rules.gd", "time_cost/ai/rat_tactics.gd"]
+code_paths = ["game/simulation/combat_batch_runner.gd", "game/combat/combat_rules.gd", "game/ai/rat_tactics.gd"]
 diagram = "docs/diagrams/threat_rating.svg"
 +++
 # 몬스터 Threat Rating 모델 — TR-v0

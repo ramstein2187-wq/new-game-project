@@ -111,7 +111,7 @@ func _test_generated_terrain_and_costs() -> void:
 func _test_keypad_dispatch() -> void:
 	var bindings := {KEY_KP_7: Vector2i(-1, -1), KEY_KP_8: Vector2i.UP, KEY_KP_9: Vector2i(1, -1),
 		KEY_KP_4: Vector2i.LEFT, KEY_KP_6: Vector2i.RIGHT, KEY_KP_1: Vector2i(-1, 1), KEY_KP_2: Vector2i.DOWN, KEY_KP_3: Vector2i(1, 1)}
-	for path in ["res://time_cost/time_cost_test_room.tscn", "res://time_cost/generated_map_combat_playground.tscn"]:
+	for path in ["res://scenes/debug/time_cost_test_room.tscn", "res://scenes/debug/generated_map_combat_playground.tscn"]:
 		var scene: Node = load(path).instantiate()
 		root.add_child(scene)
 		await process_frame

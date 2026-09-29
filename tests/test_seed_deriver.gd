@@ -1,6 +1,6 @@
 extends SceneTree
 
-const SeedDeriverScript := preload("res://procgen/seed_deriver.gd")
+const SeedDeriverScript := preload("res://worldgen/seed_deriver.gd")
 
 
 func _init() -> void:

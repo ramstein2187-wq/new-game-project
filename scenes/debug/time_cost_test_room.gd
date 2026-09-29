@@ -1,6 +1,6 @@
 extends Node2D
 
-const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
+const TimeCostGameScript := preload("res://game/time_cost_game.gd")
 
 const CELL_SIZE := 48.0
 const ROOM_ORIGIN := Vector2(64.0, 280.0)

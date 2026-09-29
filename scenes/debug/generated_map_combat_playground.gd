@@ -1,7 +1,7 @@
 extends Node2D
 
-const MapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
-const CombatGameScript := preload("res://time_cost/generated_map_combat_game.gd")
+const MapGeneratorScript := preload("res://worldgen/simple_map_generator.gd")
+const CombatGameScript := preload("res://game/generated_map_combat_game.gd")
 const CELL_SIZE := 16.0
 const MAP_ORIGIN := Vector2(24.0, 112.0)
 const GROUND_COLOR := Color("#6f8f4e")
@@ -12,7 +12,7 @@ const PLAYER_COLOR := Color("#69b7ff")
 const RAT_COLOR := Color("#d36b6b")
 
 @export var world_seed: int = 1234
-@export var generation_settings: GenerationSettings = preload("res://procgen/default_generation_settings.tres")
+@export var generation_settings: GenerationSettings = preload("res://worldgen/default_generation_settings.tres")
 
 var game: GeneratedMapCombatGame
 var generated_map := PackedStringArray()

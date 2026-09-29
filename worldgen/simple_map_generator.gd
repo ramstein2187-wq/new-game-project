@@ -1,7 +1,7 @@
 class_name SimpleMapGenerator
 extends RefCounted
 
-const SeedDeriverScript := preload("res://procgen/seed_deriver.gd")
+const SeedDeriverScript := preload("res://worldgen/seed_deriver.gd")
 
 const GROUND := "."
 const TREE := "T"

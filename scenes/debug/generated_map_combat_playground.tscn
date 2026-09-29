@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://time_cost/generated_map_combat_playground.gd" id="1_playground"]
+[ext_resource type="Script" path="res://scenes/debug/generated_map_combat_playground.gd" id="1_playground"]
 
 [node name="GeneratedMapCombatPlayground" type="Node2D"]
 script = ExtResource("1_playground")

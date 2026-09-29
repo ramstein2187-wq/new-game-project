@@ -1,8 +1,8 @@
 extends SceneTree
 
-const SimpleMapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
-const GenerationSettingsScript := preload("res://procgen/generation_settings.gd")
-const DefaultGenerationSettings := preload("res://procgen/default_generation_settings.tres")
+const SimpleMapGeneratorScript := preload("res://worldgen/simple_map_generator.gd")
+const GenerationSettingsScript := preload("res://worldgen/generation_settings.gd")
+const DefaultGenerationSettings := preload("res://worldgen/default_generation_settings.tres")
 
 
 func _init() -> void:

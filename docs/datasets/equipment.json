@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "runtime_authority": "time_cost/combat/combat_content_catalog.gd",
+  "runtime_authority": "game/combat/combat_content_catalog.gd",
   "normal_melee_action_cost": 1000,
   "armor_profiles": [
     {"id":"SOFT","multipliers":{"Cut":1.0,"Puncture":0.8,"Blunt":1.2},"default_multiplier":1.0},

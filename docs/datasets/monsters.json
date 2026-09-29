@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "runtime_authority": "time_cost/combat/combat_content_catalog.gd",
+  "runtime_authority": "game/combat/combat_content_catalog.gd",
   "defaults": {"unspecified_ability_score":10,"proficiency_bonus":2,"normal_melee_action_cost":1000,"threat_rating":null,"taxonomy":{"origin":null,"composition":null,"cognition":null,"combat_roles":[],"behavior_motivations":[]}},
   "records": [
     {"id":"rat","name":"Rat","body_template_id":"quadruped_canine","hp":30,"abilities":{"STR":10,"DEX":10},"move":[750,1050],"natural_armor":0,"attack":{"id":"bite","damage":"1d4 + DEX","type":"Puncture","penetration":20,"capability":"bite"},"ai_policy":"rat_tactics","threat_rating":null,"natural_armor_profile":"SOFT"},

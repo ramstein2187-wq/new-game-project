@@ -644,7 +644,7 @@ def _normalize_skills_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any
             "requirements": record.get("requirements", ""),
             "ai_use": True,
             "milestones": record.get("milestones", ""),
-            "source_url": _repo_url("time_cost/actions/attack_action.gd"),
+            "source_url": _repo_url("game/actions/attack_action.gd"),
             "notes": list(record.get("notes", [])),
         })
     return result
@@ -691,7 +691,7 @@ def _normalize_threat_v2(data: dict[str, Any], path: Path) -> list[dict[str, Any
                 f"move {monster['move_cardinal']}/{monster['move_diagonal']}; "
                 f"AI {monster['ai_policy']}; protocol {protocol}"
             ),
-            "source_url": _repo_url("time_cost/simulation/combat_batch_runner.gd"),
+            "source_url": _repo_url("game/simulation/combat_batch_runner.gd"),
             "notes": [
                 "정적/시뮬레이션/최종 Threat 점수는 calibration 전까지 null을 유지한다.",
                 "M024 paired smoke는 production 경로가 정상 동작하는지만 검증했다.",

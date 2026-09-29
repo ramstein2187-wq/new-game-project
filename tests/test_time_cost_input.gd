@@ -7,7 +7,7 @@ func _init() -> void:
 
 
 func _run_tests() -> void:
-	var scene := preload("res://time_cost/time_cost_test_room.tscn").instantiate()
+	var scene := preload("res://scenes/debug/time_cost_test_room.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame
 	var game: TimeCostGame = scene.game

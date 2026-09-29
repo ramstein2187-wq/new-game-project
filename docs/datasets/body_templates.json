@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "runtime_authority": "time_cost/combat/body_template.gd",
+  "runtime_authority": "game/combat/body_template.gd",
   "default_part_armor": null,
   "templates": [
     {

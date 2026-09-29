@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://procgen/procedural_playground.gd" id="1_playground"]
-[ext_resource type="Script" path="res://player.gd" id="2_player"]
+[ext_resource type="Script" path="res://scenes/debug/procedural_playground.gd" id="1_playground"]
+[ext_resource type="Script" path="res://prototypes/exploration/player.gd" id="2_player"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape_player"]
 size = Vector2(10, 10)

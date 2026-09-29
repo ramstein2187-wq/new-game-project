@@ -1,6 +1,6 @@
 extends SceneTree
 
-const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
+const TimeCostGameScript := preload("res://game/time_cost_game.gd")
 const Fixture := preload("res://tests/support/combat_fixture.gd")
 
 
@@ -97,7 +97,7 @@ func _test_player_wins_ready_time_ties() -> bool:
 
 
 func _test_scene_loads() -> bool:
-	var packed_scene := load("res://time_cost/time_cost_test_room.tscn") as PackedScene
+	var packed_scene := load("res://scenes/debug/time_cost_test_room.tscn") as PackedScene
 	if packed_scene == null:
 		return _fail("Could not load time_cost_test_room.tscn")
 

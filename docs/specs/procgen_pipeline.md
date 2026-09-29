@@ -4,7 +4,7 @@ areas = ["월드 생성"]
 type = "파이프라인"
 systems = "SimpleMapGenerator / SeedDeriver / GeneratedMapCombatGame"
 milestones = "M003–M009, M016"
-code_paths = ["procgen/simple_map_generator.gd", "procgen/seed_deriver.gd", "procgen/generation_settings.gd", "time_cost/generated_map_combat_game.gd"]
+code_paths = ["worldgen/simple_map_generator.gd", "worldgen/seed_deriver.gd", "worldgen/generation_settings.gd", "game/generated_map_combat_game.gd"]
 diagram = "docs/diagrams/procgen_pipeline.svg"
 +++
 # 현재 지역 절차 생성 파이프라인 상세

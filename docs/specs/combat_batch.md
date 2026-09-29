@@ -4,7 +4,7 @@ areas = ["시뮬레이션", "전투", "AI"]
 type = "파이프라인"
 systems = "CombatBatchRunner / CombatSimulationGame"
 milestones = "M022"
-code_paths = ["time_cost/simulation/combat_batch_runner.gd", "time_cost/simulation/combat_simulation_game.gd", "tools/run_combat_batch.gd"]
+code_paths = ["game/simulation/combat_batch_runner.gd", "game/simulation/combat_simulation_game.gd", "tools/run_combat_batch.gd"]
 diagram = "docs/diagrams/combat_batch.svg"
 +++
 # Headless 전투 배치 측정기 상세

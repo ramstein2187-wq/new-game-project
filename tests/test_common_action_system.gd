@@ -1,6 +1,6 @@
 extends SceneTree
 
-const TimeCostGameScript := preload("res://time_cost/time_cost_game.gd")
+const TimeCostGameScript := preload("res://game/time_cost_game.gd")
 const Fixture := preload("res://tests/support/combat_fixture.gd")
 
 # A new action can be added without modifying TimeScheduler or TimeCostGame.

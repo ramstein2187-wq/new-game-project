@@ -1,7 +1,7 @@
 class_name ProceduralMapPreview
 extends Node2D
 
-const SimpleMapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
+const SimpleMapGeneratorScript := preload("res://worldgen/simple_map_generator.gd")
 
 const GROUND_COLOR := Color("#6f8f4e")
 const TREE_COLOR := Color("#284d32")
@@ -10,7 +10,7 @@ const RUIN_COLOR := Color("#77736b")
 const MAP_ORIGIN := Vector2(24.0, 56.0)
 
 @export var seed_value: int = 1234
-@export var generation_settings: GenerationSettings = preload("res://procgen/default_generation_settings.tres")
+@export var generation_settings: GenerationSettings = preload("res://worldgen/default_generation_settings.tres")
 @export var cell_size: int = 16
 
 var generated_map := PackedStringArray()

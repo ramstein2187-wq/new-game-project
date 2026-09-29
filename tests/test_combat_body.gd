@@ -295,7 +295,7 @@ func _test_attack_causes_function_changes() -> void:
 	expect(not game.can_attack(&"rat") and game.rat_hp > 0, "Real head hits disable bite on living rat")
 
 func _test_ui() -> void:
-	for path in ["res://time_cost/time_cost_test_room.tscn", "res://time_cost/generated_map_combat_playground.tscn"]:
+	for path in ["res://scenes/debug/time_cost_test_room.tscn", "res://scenes/debug/generated_map_combat_playground.tscn"]:
 		var scene: Node = load(path).instantiate()
 		root.add_child(scene)
 		await process_frame

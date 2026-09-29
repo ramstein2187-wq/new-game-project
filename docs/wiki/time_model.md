@@ -22,7 +22,7 @@ icon = "⏱️"
 
 ## 구현 구조
 
-`time_cost/time_scheduler.gd`가 월드 시각과 Actor별 준비 시간을 관리한다. 스케줄러는 행동을 직접 실행하지 않고 다음에 행동할 Actor를 선택하는 책임만 가진다.
+`game/time/time_scheduler.gd`가 월드 시각과 Actor별 준비 시간을 관리한다. 스케줄러는 행동을 직접 실행하지 않고 다음에 행동할 Actor를 선택하는 책임만 가진다.
 
 ## 의미
 

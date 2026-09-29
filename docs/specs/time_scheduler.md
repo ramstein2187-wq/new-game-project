@@ -4,7 +4,7 @@ areas = ["시간/액션", "코어"]
 type = "알고리즘"
 systems = "Action-Cost Time / TimeScheduler"
 milestones = "M011, M013"
-code_paths = ["time_cost/time_scheduler.gd", "time_cost/time_cost_game.gd"]
+code_paths = ["game/time/time_scheduler.gd", "game/time_cost_game.gd"]
 diagram = "docs/diagrams/time_scheduler.svg"
 +++
 # Action-Cost 시간 스케줄러 상세
@@ -53,7 +53,7 @@ NPC ready time이 플레이어와 **정확히 같으면 플레이어가 우선**
 
 ## 구현 위치
 
-`time_cost/time_scheduler.gd`, `TimeCostGame.perform_action()`, `TimeCostGame._run_until_player_ready()`.
+`game/time/time_scheduler.gd`, `TimeCostGame.perform_action()`, `TimeCostGame._run_until_player_ready()`.
 
 ## 현재 한계
 

@@ -7,7 +7,7 @@ func _init() -> void:
 
 func _capture() -> void:
 	root.size = Vector2i(1152, 648)
-	var scene: Node = load("res://time_cost/generated_map_combat_playground.tscn").instantiate()
+	var scene: Node = load("res://scenes/debug/generated_map_combat_playground.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame
 	await process_frame

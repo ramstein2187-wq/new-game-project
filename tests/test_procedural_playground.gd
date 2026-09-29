@@ -1,6 +1,6 @@
 extends SceneTree
 
-const SimpleMapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
+const SimpleMapGeneratorScript := preload("res://worldgen/simple_map_generator.gd")
 
 
 func _init() -> void:
@@ -8,7 +8,7 @@ func _init() -> void:
 
 
 func _run() -> void:
-	var packed_scene := load("res://procgen/procedural_playground.tscn") as PackedScene
+	var packed_scene := load("res://scenes/debug/procedural_playground.tscn") as PackedScene
 	if packed_scene == null:
 		_fail("Could not load procedural playground scene")
 		return

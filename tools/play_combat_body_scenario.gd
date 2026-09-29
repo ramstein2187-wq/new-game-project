@@ -19,7 +19,7 @@ func _start() -> void:
 		push_error("Unknown scenario; choose one of: " + str(fixtures.keys()))
 		quit(1)
 		return
-	var scene := preload("res://time_cost/time_cost_test_room.tscn").instantiate()
+	var scene := preload("res://scenes/debug/time_cost_test_room.tscn").instantiate()
 	root.add_child(scene)
 	var game: TimeCostGame = scene.game
 	game.player_position = Vector2i(7, 3)
