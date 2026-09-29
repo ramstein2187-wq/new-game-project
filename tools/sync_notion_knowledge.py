@@ -604,7 +604,7 @@ def _normalize_monsters_v2(data: dict[str, Any], path: Path) -> list[dict[str, A
             "base_damage": None,
             "damage_formula": damage_formula,
             "penetration": penetration,
-            "aggression": None,
+            "aggression": record.get("aggression"),
             "threat_rating": record.get("threat_rating"),
             "attack_id": attack_id,
             "damage_type": damage_type,
@@ -1088,6 +1088,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="validate without network access")
     args = parser.parse_args()
+
+    # Reject stale mirrors before validation or any network writes.
+    from check_combat_datasets import check as check_combat_datasets
+    check_combat_datasets()
 
     config = load_config()
     specs = discover_specs(config)

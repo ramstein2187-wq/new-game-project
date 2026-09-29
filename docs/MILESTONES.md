@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M029: **Complete on integration branch** `chat/m029-m030-integration` after relocation onto the M030 folder structure. The rebased branch passed editor import/main startup, all 25 project tests, exact combat dataset regeneration checks, the M030 layout audit, and offline Notion knowledge/wiki validation. It is not merged to `main`. [Combat content single source](milestones/M029_combat_content_single_source.md).
+
 - M030: **Complete on main** at `15e309e` via [PR #30](https://github.com/ramstein2187-wq/new-game-project/pull/30). The responsibility-based folder migration was validated on the task branch with all 24 project tests, cache-free import/load checks, UID preservation and a Git-base path-only audit; gameplay logic and balance data were unchanged. Manual visual/play acceptance was not required for this path-only integration. [Project folder structure](milestones/M030_project_folder_structure.md).
 
 - M028: **Complete on main** at `c90bdbd` via [PR #28](https://github.com/ramstein2187-wq/new-game-project/pull/28). The task branch passed all 24 project tests in chunks, focused M028 64 assertions, and a final 600-encounter paired sample with zero simulation errors/stalls. After merge, editor parse plus focused M028/M027/tactical AI, batch, multi-NPC and replay regressions passed on `main`, along with Notion wiki/knowledge validation. Manual visual/gameplay feel review remains a follow-up rather than an integration blocker. [Extensible melee tactical AI](milestones/M028_extensible_melee_ai.md).
@@ -33,6 +35,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
 | M030 | Complete on main | Path-only responsibility-based project layout; PR #30 merged with no gameplay changes | `docs/milestones/M030_project_folder_structure.md` |
+| M029 | Complete on integration branch | Native `.tres` combat content, Rat integration, generated datasets and tuning-independent tests; rebased after M030 | `docs/milestones/M029_combat_content_single_source.md` |
 | M028 | Complete on main | Extensible melee AI, qualitative weapon-action selection, armor matchup, coarse coverage and conservative bounded Retreat; PR #28 merged | `docs/milestones/M028_extensible_melee_ai.md` |
 | M027 | Complete on main | Physical damage, extensible armor profiles, weapon actions and capability-based hands; PR #26 merged | `docs/milestones/M027_physical_combat_weapon_actions.md` |
 | M024 | Complete on main | Damage dice, shared weapon/natural Attack data, shared 1000 attack cost, armor/loadouts, 10 hostile prototypes; PR #19 and post-merge checks passed | `docs/milestones/M024_combat_data_foundation.md` |

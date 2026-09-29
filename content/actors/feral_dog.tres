@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Resource" path="res://content/attacks/dog_bite.tres" id="1_exoes"]
+[ext_resource type="Script" path="res://game/combat/armor_definition.gd" id="2_ul30b"]
+[ext_resource type="Script" path="res://game/actors/actor_definition.gd" id="3_k7mi5"]
+[ext_resource type="Script" path="res://content/combat_actor_content.gd" id="4_vooor"]
+
+[sub_resource type="Resource" id="Resource_mw785"]
+script = ExtResource("3_k7mi5")
+type_id = &"feral_dog"
+display_name = "Feral Dog"
+attack_definition = ExtResource("1_exoes")
+max_hp = 16
+initial_scores = {
+&"DEX": 14,
+&"STR": 12
+}
+move_cardinal = 900
+move_diagonal = 1260
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("4_vooor")
+body_template_id = &"quadruped_canine"
+definition = SubResource("Resource_mw785")

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Resource" path="res://content/attacks/fist.tres" id="1_0n4u7"]
+[ext_resource type="Script" path="res://game/combat/armor_definition.gd" id="2_ukkoe"]
+[ext_resource type="Script" path="res://game/actors/actor_definition.gd" id="3_ev0lx"]
+[ext_resource type="Script" path="res://content/combat_actor_content.gd" id="4_vicd5"]
+
+[sub_resource type="Resource" id="Resource_w20mr"]
+script = ExtResource("3_ev0lx")
+type_id = &"feral_ape"
+display_name = "Feral Ape"
+attack_definition = ExtResource("1_0n4u7")
+natural_armor = 10
+max_hp = 38
+initial_scores = {
+&"DEX": 10,
+&"STR": 18
+}
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("4_vicd5")
+definition = SubResource("Resource_w20mr")

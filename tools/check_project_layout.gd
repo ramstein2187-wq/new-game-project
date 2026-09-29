@@ -40,7 +40,7 @@ func _run() -> void:
 			var reference := match_result.get_string()
 			if reference == "res://" or reference == "res://docs/reviews/2026-09-22-m019-scene.png":
 				continue
-			check(FileAccess.file_exists(reference), "Missing resource reference in " + path + ": " + reference)
+			check(FileAccess.file_exists(reference) or DirAccess.dir_exists_absolute(reference), "Missing resource reference in " + path + ": " + reference)
 		if path.ends_with(".tscn"):
 			var packed := load(path) as PackedScene
 			check(packed != null, "Cannot load scene: " + path)

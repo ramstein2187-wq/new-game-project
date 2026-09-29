@@ -20,11 +20,11 @@ func _init() -> void:
 	first.abilities.allocate(&"DEX", 1)
 	first.body.apply_damage(&"left_foreleg", 3)
 	first.attack.penetration = 99
-	expect(second.hp == 30 and second.fear() == 0 and second.aggression == 50, "HP and AI state isolated")
+	expect(second.hp == definition.max_hp and second.fear() == 0 and second.aggression == definition.aggression, "HP and AI state isolated")
 	expect(second.facing == Vector2i.RIGHT and second.target_id == &"player", "Facing and target isolated")
-	expect(second.abilities.scores.DEX == 10 and second.abilities.remaining == 12, "Ability allocation isolated")
+	expect(second.abilities.scores.DEX == definition.initial_scores.get(&"DEX", AbilityScores.new().scores[&"DEX"]) and second.abilities.remaining == definition.ability_points, "Ability allocation isolated")
 	expect(second.body.capability(&"locomotion") == 1.0 and first.body.capability(&"locomotion") < 1, "Body integrity isolated")
-	expect(second.attack.penetration == 20 and definition.active_attack().penetration == 20, "Debug attack overrides isolated from prototype")
+	expect(second.attack.penetration == definition.active_attack().penetration and definition.active_attack().penetration == ActorDefinition.rat_common().active_attack().penetration, "Debug attack overrides isolated from prototype")
 	var registry := ActorRegistry.new()
 	expect(registry.register(first) and registry.register(second), "Register two arbitrary IDs")
 	expect(not registry.register(Actor.new(&"scout", definition, Vector2i(3, 1))), "Duplicate ID rejected")
@@ -49,7 +49,7 @@ func _init() -> void:
 	expect(not game.remove_actor(&"player"), "Player removal unsupported explicitly")
 	var new_npc := Actor.new(&"late", definition, Vector2i(3, 3))
 	expect(game.register_actor(new_npc) and game.scheduler.get_ready_time(new_npc.id) == game.world_time, "New actor starts at current world time")
-	game.damage_actor(new_npc.id, 30)
+	game.damage_actor(new_npc.id, new_npc.max_hp)
 	expect(game.get_actor(new_npc.id) == new_npc and not game.scheduler.has_actor(new_npc.id), "Death retains body and removes schedule")
 	game.player_hp = 31
 	expect(game.get_actor(&"player").hp == 31, "Legacy HP accessor forwards ownership")

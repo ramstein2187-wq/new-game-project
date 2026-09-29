@@ -5,10 +5,13 @@ extends SceneTree
 const FIXTURE := "res://tests/fixtures/m027_single_rat_replay.sha256"
 const LEGACY_FIXTURE := "res://tests/fixtures/m018_single_rat_replay.sha256"
 
+const ReplayGame := preload("res://tests/support/fixed_combat_game.gd")
+
+
 func _init() -> void:
 	var runs: Array = []
 	for seed_value in [17017, 82, 999]:
-		var game := TimeCostGame.new()
+		var game := ReplayGame.new()
 		game.combat_seed = seed_value
 		game.reset()
 		game.door_open = true

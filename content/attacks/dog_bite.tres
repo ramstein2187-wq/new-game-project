@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AttackDefinition" format=3]
+
+[ext_resource type="Script" path="res://game/combat/damage_dice.gd" id="1_03t15"]
+[ext_resource type="Script" path="res://game/combat/attack_definition.gd" id="2_eyadd"]
+
+[sub_resource type="Resource" id="Resource_2cqbw"]
+script = ExtResource("1_03t15")
+dice_size = 6
+
+[resource]
+resource_name = "dog_bite"
+script = ExtResource("2_eyadd")
+id = &"bite"
+display_name = "Bite"
+damage_dice = SubResource("Resource_2cqbw")
+damage_type = &"Puncture"
+penetration = 10.0
+required_capability = &"bite"

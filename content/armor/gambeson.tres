@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" format=3]
+
+[ext_resource type="Script" path="res://game/combat/armor_definition.gd" id="1_w6rpl"]
+
+[resource]
+script = ExtResource("1_w6rpl")
+id = &"gambeson"
+display_name = "Gambeson"
+armor = 20
+coverage = Array[StringName]([&"torso", &"arm"])

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Resource" path="res://content/attacks/claw.tres" id="1_c2gyf"]
+[ext_resource type="Script" path="res://game/combat/armor_definition.gd" id="2_rsvao"]
+[ext_resource type="Script" path="res://game/actors/actor_definition.gd" id="3_oukjy"]
+[ext_resource type="Script" path="res://content/combat_actor_content.gd" id="4_ubl2b"]
+
+[sub_resource type="Resource" id="Resource_b7el4"]
+script = ExtResource("3_oukjy")
+type_id = &"giant_crab"
+display_name = "Giant Crab"
+attack_definition = ExtResource("1_c2gyf")
+natural_armor = 50
+natural_armor_profile = &"RIGID"
+max_hp = 30
+initial_scores = {
+&"DEX": 8,
+&"STR": 16
+}
+move_cardinal = 1200
+move_diagonal = 1680
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("4_ubl2b")
+body_template_id = &"crab"
+definition = SubResource("Resource_b7el4")

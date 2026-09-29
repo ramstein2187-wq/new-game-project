@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3]
+
+[ext_resource type="Script" path="res://game/combat/weapon_action_definition.gd" id="1_nia2m"]
+[ext_resource type="Script" path="res://game/combat/damage_dice.gd" id="2_0a4jd"]
+[ext_resource type="Script" path="res://game/combat/attack_definition.gd" id="3_s6nw4"]
+[ext_resource type="Script" path="res://game/combat/weapon_definition.gd" id="4_npj30"]
+
+[sub_resource type="Resource" id="Resource_3elbr"]
+script = ExtResource("1_nia2m")
+id = &"thrust"
+display_name = "Thrust"
+cost_multiplier = 1.25
+damage_type_override = &"Puncture"
+penetration_modifier = 10.0
+
+[sub_resource type="Resource" id="Resource_dqyui"]
+script = ExtResource("2_0a4jd")
+dice_size = 8
+
+[sub_resource type="Resource" id="Resource_e8hre"]
+script = ExtResource("3_s6nw4")
+id = &"longsword_attack"
+display_name = "Longsword strike"
+damage_dice = SubResource("Resource_dqyui")
+damage_type = &"Cut"
+penetration = 30.0
+
+[resource]
+script = ExtResource("4_npj30")
+id = &"longsword"
+display_name = "Longsword"
+attack_definition = SubResource("Resource_e8hre")
+actions = Array[ExtResource("1_nia2m")]([SubResource("Resource_3elbr")])

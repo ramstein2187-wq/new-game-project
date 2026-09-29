@@ -1,0 +1,18 @@
+[
+  "content",
+  "game/combat/combat_content_catalog.gd",
+  "game/actors/actor_definition.gd",
+  "game/actors/actor.gd",
+  "game/combat/combat_species.gd",
+  "game/combat/body_template.gd",
+  "game/combat/ability_scores.gd",
+  "game/combat/attack_definition.gd",
+  "game/combat/damage_dice.gd",
+  "game/combat/weapon_definition.gd",
+  "game/combat/weapon_action_definition.gd",
+  "game/combat/armor_definition.gd",
+  "game/combat/armor_profile_catalog.gd",
+  "game/actions/attack_action.gd",
+  "tools/export_combat_datasets.gd",
+  "tools/combat_dataset_sources.json"
+]
