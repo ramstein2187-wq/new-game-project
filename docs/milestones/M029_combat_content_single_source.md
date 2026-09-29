@@ -1,6 +1,6 @@
 # M029 — Combat content single source
 
-Status: Complete on integration branch `chat/m029-m030-integration`, rebased from `main` `6c64fdb` after M030. Original implementation and automated validation completed on `codex/combat-content-single-source` at `bce4614`; this branch relocates and revalidates it without merging to `main`.
+Status: Complete on `main` at `2216d5b` via PR #32. Original implementation and automated validation completed on `codex/combat-content-single-source` at `bce4614`; the work was then relocated and revalidated on `chat/m029-m030-integration` after M030 before squash merge.
 
 ## Scope and decision
 
@@ -39,4 +39,4 @@ Detailed continuation/evidence: [work record](../reviews/2026-09-29-combat-conte
 - M030 `check_project_layout.gd` passed after import: 123 resources, 85 script UIDs, 6 scenes instantiated.
 - Offline Notion knowledge validation passed (9 specs, 6 datasets) and wiki validation passed (13 pages).
 - Changed-file old-path scan found no remaining `time_cost/content`, `res://time_cost`, or `procgen/` references.
-- Manual Inspector/visual/gameplay and exported-package verification remain unperformed; `main` is unchanged by this integration branch.
+- Manual Inspector/visual/gameplay and exported-package verification remain unperformed. The validated relocation was squash-merged to `main` via PR #32 at `2216d5b`.
