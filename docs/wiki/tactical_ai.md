@@ -25,6 +25,7 @@ Rat 전용 `RatTactics`는 별도 정책으로 유지된다.
 - 상대의 coarse health 상태
 - 거리, 현재 노출, 주변 혼잡
 - 관찰 가능한 대표 Armor Profile
+- armor hit-weight를 none / partial / substantial로만 구분한 거친 피복 범주
 - 자신의 사용 가능한 기본 공격과 Weapon Action
 
 상대의 정확한 HP, Armor 절대값, 능력치, 명중률, 피해 기대값, RNG 상태, ready time, 미래 행동은 utility 점수에 사용하지 않는다.
@@ -51,7 +52,8 @@ AI는 Longsword, Warhammer 같은 구체적인 무기 ID를 알지 않는다. �
 
 - Armor Profile 배율이 0.8 수준이면 해당 피해 유형을 유리한 matchup으로 본다.
 - 1.2 수준이면 불리한 matchup으로 본다.
-- 상대가 장갑 상태일 때 자기 행동의 penetration 증가를 작은 질적 이점으로 본다.
+- partial 피복은 이 상성 신호를 약하게만 반영한다.
+- substantial 피복에서만 penetration 증가를 별도 질적 이점으로 본다.
 - 빠른 행동은 critical target이나 부상 상태에서 tempo 가치가 올라간다.
 - committed/heavy 행동은 aggression이 높을수록 받아들이기 쉽고 fear/부상이 높을수록 꺼린다.
 - 행동 자체의 authored damage/situation tradeoff도 제한된 범위에서 반영한다.
@@ -62,8 +64,9 @@ AI는 Longsword, Warhammer 같은 구체적인 무기 ID를 알지 않는다. �
 
 Hold/Retreat/Reposition의 반복 루프를 막기 위해 Actor마다 target별 caution 상태를 가진다.
 
-- 처음 두 번: 일반 Hold / Retreat / Reposition 가능
-- 두 번 소비 후: critical, 높은 fear, 공격 기능 상실 같은 명확한 위험에서만 비상 Retreat 1회 가능
+- Retreat은 `fear + injury - aggression/2 >= 60`일 때만 일반 후보가 된다. 공격 기능 상실은 예외적으로 항상 생존 후퇴를 허용한다.
+- 처음 두 번: 조건을 만족하는 Hold / Retreat / Reposition 가능
+- 두 번 소비 후: retreat 조건을 여전히 만족할 때만 비상 Retreat 1회 가능
 - 비상 Retreat까지 소비하면 추가 방어 행동 대신 교전 진전이 필요
 - 실제 Attack 실행 시 caution이 0으로 초기화
 - target이 바뀌면 새 target 기준으로 다시 시작

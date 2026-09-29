@@ -12,12 +12,17 @@ var can_move := false
 var aggression := 0
 var fear := 0
 var caution_spent := 0
+const ARMOR_NONE: StringName = &"none"
+const ARMOR_PARTIAL: StringName = &"partial"
+const ARMOR_SUBSTANTIAL: StringName = &"substantial"
+const SUBSTANTIAL_ARMOR_COVERAGE := 0.35
+
 var distance := 0
 var in_melee_range := false
 var exposure := 0
 var congestion := 0
-var target_armored := false
 var target_armor_profile: StringName = &""
+var target_armor_coverage: StringName = ARMOR_NONE
 var route_action: TimeAction
 var steps: Array[Dictionary] = []
 var attack_options: Array[MeleeAttackOption] = []
@@ -70,14 +75,24 @@ static func capture(game: RefCounted, actor_id: StringName, current_target: Stri
 
 func _observe_armor(target: Actor) -> void:
 	var weights: Dictionary = {}
+	var total_weight := 0.0
+	var armored_weight := 0.0
 	for part: Dictionary in target.body.parts.values():
+		var hit_weight := maxf(0.0, float(part.get("weight", 0.0)))
+		total_weight += hit_weight
 		if float(part.get("armor", -1)) <= 0.0:
 			continue
-		target_armored = true
+		armored_weight += hit_weight
 		var profile: StringName = part.get("armor_profile", &"")
 		if profile == &"":
 			continue
-		weights[profile] = float(weights.get(profile, 0.0)) + maxf(0.0, float(part.get("weight", 0.0)))
+		weights[profile] = float(weights.get(profile, 0.0)) + hit_weight
+
+	if armored_weight > 0.0 and total_weight > 0.0:
+		var coverage_ratio := armored_weight / total_weight
+		target_armor_coverage = ARMOR_SUBSTANTIAL \
+			if coverage_ratio >= SUBSTANTIAL_ARMOR_COVERAGE else ARMOR_PARTIAL
+
 	var best_weight := -1.0
 	var best_profile: StringName = &""
 	for profile: StringName in weights:

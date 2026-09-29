@@ -6,7 +6,7 @@
 <g font-family="sans-serif" font-size="15" text-anchor="middle">
 <rect x="90" y="70" width="680" height="68" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="430" y="96">MeleeContext 관찰</text>
-<text x="430" y="119" font-size="13">상태 · fear/aggression · 거리/혼잡 · 대표 Armor Profile</text>
+<text x="430" y="119" font-size="13">상태 · fear/aggression · 거리/혼잡 · Armor Profile + 피복 범주</text>
 
 <rect x="90" y="174" width="680" height="68" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="430" y="200">MeleeAttackOption 변환</text>
@@ -23,7 +23,7 @@
 
 <rect x="90" y="500" width="680" height="68" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="430" y="526">방어 행동 상태</text>
-<text x="430" y="549" font-size="13">일반 2회 → 위험 시 emergency Retreat 1회 → 이후 진전 필요</text>
+<text x="430" y="549" font-size="13">survival pressure 통과 시 후퇴 · 일반 2회 + emergency 1회 → 이후 진전</text>
 
 <rect x="90" y="604" width="680" height="68" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="430" y="630">TacticalPlanner</text>

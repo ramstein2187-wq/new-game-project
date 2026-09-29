@@ -13,7 +13,9 @@ func expect(condition: bool, description: String) -> void:
 
 func _init() -> void:
 	_test_profile_driven_weapon_actions()
+	_test_armor_coverage_observation()
 	_test_tempo_and_commitment()
+	_test_conservative_retreat()
 	_test_progress_and_survival_override()
 	_test_information_boundary()
 	_test_data_driven_action_extension()
@@ -85,6 +87,34 @@ func _test_profile_driven_weapon_actions() -> void:
 		"Unarmored target does not justify slower penetration-only special")
 
 
+func _test_armor_coverage_observation() -> void:
+	var game := _fighter_game(&"warhammer")
+	game.get_actor(&"player").body.equip_armor(CombatContentCatalog.armor(&"iron_helmet"))
+	var context := MeleeContext.capture(game, &"fighter", &"player")
+	expect(context.target_armor_coverage == MeleeContext.ARMOR_PARTIAL,
+		"Helmet-only armor is observed as partial coverage")
+	var choice := _choice(game)
+	expect(choice.action is AttackAction and choice.action.weapon_action_id == &"",
+		"Partial helmet coverage does not justify Crushing Blow")
+
+	game = _fighter_game(&"warhammer")
+	game.get_actor(&"player").body.equip_armor(CombatContentCatalog.armor(&"scrap_plate"))
+	context = MeleeContext.capture(game, &"fighter", &"player")
+	expect(context.target_armor_coverage == MeleeContext.ARMOR_SUBSTANTIAL,
+		"Torso plate crosses substantial coverage threshold")
+	choice = _choice(game)
+	expect(choice.action is AttackAction and choice.action.weapon_action_id == &"crushing_blow",
+		"Substantial RIGID coverage can justify Crushing Blow")
+
+	game = _fighter_game(&"longsword")
+	game.get_actor(&"player").body.equip_armor(CombatContentCatalog.armor(&"chain_shirt"))
+	context = MeleeContext.capture(game, &"fighter", &"player")
+	expect(context.target_armor_coverage == MeleeContext.ARMOR_SUBSTANTIAL,
+		"Chain shirt is observed as substantial coverage")
+	expect(_choice(game).action.weapon_action_id == &"thrust",
+		"Substantial MAIL coverage still favors Thrust")
+
+
 func _test_tempo_and_commitment() -> void:
 	var game := _fighter_game(&"hunting_knife")
 	var healthy := _choice(game)
@@ -118,6 +148,38 @@ func _test_tempo_and_commitment() -> void:
 	smash = _attack_choice_by_id(context, &"overhead_smash")
 	expect(smash != null and basic != null and smash.score < basic.score,
 		"Wounded fearful actor discounts heavy commitment")
+
+
+func _test_conservative_retreat() -> void:
+	var game := _fighter_game(&"longsword")
+	var fighter := game.get_actor(&"fighter")
+	fighter.hp = 12
+	fighter.aggression = 50
+	var choice := _choice(game)
+	expect(choice.action is AttackAction,
+		"Moderately wounded ordinary actor keeps fighting instead of automatically retreating")
+	expect(BasicMeleeTactics._retreat_pressure(MeleeContext.capture(game, &"fighter", &"player"))
+			< BasicMeleeTactics.RETREAT_PRESSURE_THRESHOLD,
+		"Wounded ordinary actor remains below retreat pressure threshold")
+
+	fighter.hp = 8
+	choice = _choice(game)
+	expect(choice.goal == &"survive",
+		"Critical ordinary actor may choose retreat once survival pressure is high")
+
+	fighter.aggression = 180
+	choice = _choice(game)
+	expect(choice.action is AttackAction,
+		"Highly aggressive critical actor can keep fighting instead of sharing universal retreat behavior")
+
+	game = _fighter_game(&"longsword")
+	fighter = game.get_actor(&"fighter")
+	for part: Dictionary in fighter.body.parts.values():
+		if part.functions.has(&"weapon_manipulation"):
+			fighter.body.apply_damage(part.id, part.maximum)
+	choice = _choice(game)
+	expect(choice.goal == &"survive",
+		"Loss of attack capability remains an explicit retreat trigger regardless of personality")
 
 
 func _test_progress_and_survival_override() -> void:

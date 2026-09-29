@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M028: **Implemented and automatically validated** on `chat/m028-extensible-melee-ai`, based on main `8224828`; all 24 project tests passed in chunks, focused M028 48 assertions passed, and a 600-encounter paired sample ended with zero errors/stalls. Manual gameplay review and main integration remain separate. [Extensible melee tactical AI](milestones/M028_extensible_melee_ai.md).
+- M028: **Implemented and automatically validated** on `chat/m028-extensible-melee-ai`, based on main `8224828`; all 24 project tests passed in chunks, focused M028 64 assertions passed, coarse armor coverage and conservative Retreat follow-ups are resolved, and the final 600-encounter paired sample ended with zero errors/stalls. Manual gameplay review and main integration remain separate. [Extensible melee tactical AI](milestones/M028_extensible_melee_ai.md).
 
 - M027: **Complete on main** at `7c49499` via [PR #26](https://github.com/ramstein2187-wq/new-game-project/pull/26). The task branch passed 23/23 tests, both headless scenes, deterministic replay and paired production batches; after merge, Godot editor parse and the focused M027 regression test passed on `main`. User authorized integration on 2026-09-29; manual feel/balance acceptance remains a follow-up rather than an integration blocker. [Physical combat and weapon actions](milestones/M027_physical_combat_weapon_actions.md).
 

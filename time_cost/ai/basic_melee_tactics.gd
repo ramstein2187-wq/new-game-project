@@ -5,7 +5,7 @@ const POLICY_REVISION: StringName = &"basic_melee_v3"
 const MAX_CAUTION_ACTIONS := 2
 const MAX_SURVIVAL_RETREATS := 1
 const MAX_DEFENSIVE_ACTIONS := MAX_CAUTION_ACTIONS + MAX_SURVIVAL_RETREATS
-const HIGH_FEAR := 80
+const RETREAT_PRESSURE_THRESHOLD := 60
 
 
 static func choose(game: RefCounted, actor_id: StringName, target_id: StringName) -> TacticalChoice:
@@ -20,7 +20,7 @@ static func candidates(context: MeleeContext) -> Array[TacticalChoice]:
 		if context.caution_spent < MAX_CAUTION_ACTIONS:
 			_add_hold(options, context)
 			_add_local_moves(options, context, true, true)
-		elif context.caution_spent < MAX_DEFENSIVE_ACTIONS and _survival_override(context):
+		elif context.caution_spent < MAX_DEFENSIVE_ACTIONS and _retreat_is_meaningful(context):
 			# After ordinary hesitation is spent, one emergency survival
 			# retreat remains. Hold/Reposition cannot loop forever and the
 			# emergency retreat itself cannot repeat indefinitely.
@@ -82,14 +82,17 @@ static func _apply_attack_option_factors(choice: TacticalChoice, option: MeleeAt
 		context: MeleeContext) -> void:
 	# Matchups are deliberately coarse. The policy sees profile identity but not
 	# exact armor value or a computed damage expectation.
-	if context.target_armor_profile != &"":
+	if context.target_armor_profile != &"" and context.target_armor_coverage != MeleeContext.ARMOR_NONE:
 		var multiplier := ArmorProfileCatalog.multiplier_for(context.target_armor_profile, option.damage_type)
+		var matchup_weight := 14 if context.target_armor_coverage == MeleeContext.ARMOR_SUBSTANTIAL else 6
 		if multiplier <= 0.85:
-			choice.add_factor(&"armor_match_favorable", 14)
+			choice.add_factor(&"armor_match_favorable", matchup_weight)
 		elif multiplier >= 1.15:
-			choice.add_factor(&"armor_match_poor", -14)
+			choice.add_factor(&"armor_match_poor", -matchup_weight)
 
-	if context.target_armored:
+	# Penetration-specific commitment is only justified when a meaningful share
+	# of likely hit locations is armored. A helmet alone is not "an armored target".
+	if context.target_armor_coverage == MeleeContext.ARMOR_SUBSTANTIAL:
 		var gain := option.penetration_gain()
 		if gain >= 20.0:
 			choice.add_factor(&"penetration_option", 12)
@@ -133,13 +136,14 @@ static func _add_hold(options: Array[TacticalChoice], context: MeleeContext) -> 
 static func _add_local_moves(options: Array[TacticalChoice], context: MeleeContext,
 		allow_retreat: bool, allow_reposition: bool) -> void:
 	for step: Dictionary in context.steps:
-		if allow_retreat and context.distance <= 2 and int(step.distance) > context.distance:
-			var retreat := TacticalChoice.new(MoveAction.new(step.direction), &"survive", 10)
+		if allow_retreat and _retreat_is_meaningful(context) \
+				and context.distance <= 2 and int(step.distance) > context.distance:
+			var retreat := TacticalChoice.new(MoveAction.new(step.direction), &"survive", 0)
 			retreat.add_factor(&"fear", context.fear)
 			retreat.add_factor(&"aggression", -context.aggression / 2)
 			retreat.add_factor(&"self_condition", _injury(context))
-			retreat.add_factor(&"distance_pressure", 8)
-			retreat.add_factor(&"exposure", (context.exposure - int(step.exposure)) * 8)
+			retreat.add_factor(&"distance_pressure", 4)
+			retreat.add_factor(&"exposure", (context.exposure - int(step.exposure)) * 6)
 			if not context.can_attack:
 				retreat.add_factor(&"attack_function_lost", 60)
 			if context.caution_spent >= MAX_CAUTION_ACTIONS:
@@ -158,8 +162,12 @@ static func _add_local_moves(options: Array[TacticalChoice], context: MeleeConte
 			options.append(reposition)
 
 
-static func _survival_override(context: MeleeContext) -> bool:
-	return context.self_condition == &"critical" or not context.can_attack or context.fear >= HIGH_FEAR
+static func _retreat_pressure(context: MeleeContext) -> int:
+	return context.fear + _injury(context) - context.aggression / 2
+
+
+static func _retreat_is_meaningful(context: MeleeContext) -> bool:
+	return not context.can_attack or _retreat_pressure(context) >= RETREAT_PRESSURE_THRESHOLD
 
 
 static func _injury(context: MeleeContext) -> int:

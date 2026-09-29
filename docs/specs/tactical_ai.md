@@ -28,6 +28,7 @@ diagram = "docs/diagrams/tactical_ai.svg"
 - target reach exposure 0/1
 - local congestion 0..3
 - dominant visible armor profile
+- coarse armor coverage: none / partial / substantial
 - route Action
 - legal one-step moves
 - current melee attack options
@@ -35,6 +36,14 @@ diagram = "docs/diagrams/tactical_ai.svg"
 HP category는 `hp * 3 <= max_hp`이면 critical, `hp * 3 <= max_hp * 2`이면 wounded, 나머지는 healthy다.
 
 대표 Armor Profile은 armor>0인 body part의 hit weight를 profile별로 합산하여 가장 큰 profile을 택한다. exact armor magnitude는 사용하지 않는다. 동률은 profile ID 문자열 순으로 결정한다.
+
+Armor coverage는 전체 hit weight 중 armor>0인 part의 비율로만 관찰한다.
+
+- none: 0%
+- partial: 0% 초과, 35% 미만
+- substantial: 35% 이상
+
+이 값은 피격 확률 분포의 거친 범주일 뿐 exact armor value나 effective armor가 아니다.
 
 ## MeleeAttackOption
 
@@ -75,15 +84,15 @@ Cost ratio band:
 
 대표 profile의 `ArmorProfileCatalog.multiplier_for(profile, damage_type)`만 읽는다.
 
-- <= 0.85: `armor_match_favorable +14`
-- >= 1.15: `armor_match_poor -14`
-- 그 외: neutral
+- substantial coverage: favorable +14 / poor -14
+- partial coverage: favorable +6 / poor -6
+- none: profile factor 없음
 
 Armor 절대값은 읽지 않는다.
 
 ### Penetration option
 
-target에 armor layer가 있고 option penetration이 base보다 증가할 때만 적용한다.
+target armor coverage가 substantial이고 option penetration이 base보다 증가할 때만 적용한다. partial coverage에는 penetration 전용 보너스를 주지 않는다.
 
 - gain >= 10: +8
 - gain >= 20: +12
@@ -116,11 +125,13 @@ M026의 유용한 local tactical 구조를 main 기반으로 재구성했다.
 
 - Approach / Interact: base 35 + A/2 - F/2 - injury
 - Hold: base 40 - A/2 + F/4 + injury
-- Retreat: base 10 + F - A/2 + injury + distance/exposure factors
+- Retreat: survival pressure가 임계값을 넘을 때만 생성. score는 base 0 + F - A/2 + injury + 작은 distance/exposure factors
 - Reposition: base 30 + congestion relief - A/4 + F/4 + exposure factor
 - Wait: base 0 fallback
 
 Route/Move legality는 common Action의 `can_execute()`를 그대로 사용한다.
+
+Retreat eligibility는 `survival_pressure = fear + injury - aggression/2`로 본다. attack capability를 잃은 경우는 항상 retreat가 의미 있는 것으로 취급하고, 그 외에는 survival pressure >= 60일 때만 Retreat 후보를 만든다. 따라서 보통 aggression의 wounded 적은 계속 싸울 수 있고, critical/고 fear 상태에서야 후퇴가 경쟁력을 얻는다. 높은 aggression은 같은 부상에서도 Retreat을 억제한다.
 
 ## 방어 행동 제한
 
@@ -129,10 +140,7 @@ Actor는 `melee_caution_target`, `melee_caution_spent`를 가진다.
 상태 의미:
 
 1. spent 0..1: Hold/Retreat/Reposition 허용
-2. spent 2: 일반 신중 행동은 종료. 다음 조건 중 하나면 emergency Retreat 1회 허용
-   - self critical
-   - fear >= 80
-   - attack capability lost
+2. spent 2: 일반 신중 행동은 종료. 위 retreat eligibility를 여전히 만족하면 emergency Retreat 1회 허용
 3. spent 3: 추가 defensive action 생성 안 함
 4. successful Attack: spent=0
 5. target 변경: 새 target 기준으로 0
