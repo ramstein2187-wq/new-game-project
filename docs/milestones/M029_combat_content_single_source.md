@@ -1,6 +1,6 @@
 # M029 — Combat content single source
 
-Status: Rebased integration in progress on `chat/m029-m030-integration` from `main` `6c64fdb`; original implementation and automated validation completed on `codex/combat-content-single-source` at `bce4614`.
+Status: Complete on integration branch `chat/m029-m030-integration`, rebased from `main` `6c64fdb` after M030. Original implementation and automated validation completed on `codex/combat-content-single-source` at `bce4614`; this branch relocates and revalidates it without merging to `main`.
 
 ## Scope and decision
 
@@ -28,3 +28,15 @@ The existing Resource classes already fit this task. No third-party dependency.
 - Manual Inspector/visual/gameplay and exported-package verification were not performed. The original M029 branch was not merged directly; this integration branch relocates the validated implementation onto the M030 responsibility-based project structure.
 
 Detailed continuation/evidence: [work record](../reviews/2026-09-29-combat-content-single-source.md).
+
+## M030 relocation validation
+
+- Authoritative combat content now lives under top-level `content/`; runtime facades use `game/` paths.
+- Existing M029 gameplay/content values were preserved while paths, exporter source inventory, CI filters and documentation references were relocated.
+- Godot 4.7.2 editor import and configured main-scene startup passed.
+- All 25 project tests passed, including `test_combat_content_source.gd`.
+- `export_combat_datasets.gd -- --check` and `python3 tools/check_combat_datasets.py` passed with regenerated source/output fingerprints.
+- M030 `check_project_layout.gd` passed after import: 123 resources, 85 script UIDs, 6 scenes instantiated.
+- Offline Notion knowledge validation passed (9 specs, 6 datasets) and wiki validation passed (13 pages).
+- Changed-file old-path scan found no remaining `time_cost/content`, `res://time_cost`, or `procgen/` references.
+- Manual Inspector/visual/gameplay and exported-package verification remain unperformed; `main` is unchanged by this integration branch.
