@@ -2,10 +2,10 @@ extends SceneTree
 
 const Fixture := preload("res://tests/support/combat_fixture.gd")
 
-const MapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
-const CombatGameScript := preload("res://time_cost/generated_map_combat_game.gd")
-const ScenePath := "res://time_cost/generated_map_combat_playground.tscn"
-const Settings := preload("res://procgen/default_generation_settings.tres")
+const MapGeneratorScript := preload("res://worldgen/simple_map_generator.gd")
+const CombatGameScript := preload("res://game/generated_map_combat_game.gd")
+const ScenePath := "res://scenes/debug/generated_map_combat_playground.tscn"
+const Settings := preload("res://worldgen/default_generation_settings.tres")
 
 
 func _init() -> void:

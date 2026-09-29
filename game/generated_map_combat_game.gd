@@ -1,7 +1,7 @@
 class_name GeneratedMapCombatGame
 extends TimeCostGame
 
-const MapGeneratorScript := preload("res://procgen/simple_map_generator.gd")
+const MapGeneratorScript := preload("res://worldgen/simple_map_generator.gd")
 
 # Only terrain, boundaries and initial placements differ from the fixed room.
 # All actor actions, routing, AI, turn scheduling and event logging are inherited.

@@ -2,7 +2,7 @@ extends SceneTree
 
 
 func _init() -> void:
-	var packed_scene := load("res://procgen/procedural_map_preview.tscn") as PackedScene
+	var packed_scene := load("res://scenes/debug/procedural_map_preview.tscn") as PackedScene
 	if packed_scene == null:
 		_fail("Could not load procedural map preview scene")
 		return

@@ -1,6 +1,6 @@
 extends SceneTree
 
-const GameScript := preload("res://time_cost/time_cost_game.gd")
+const GameScript := preload("res://game/time_cost_game.gd")
 
 
 func _init() -> void:
@@ -117,7 +117,7 @@ func _test_reset_clears_events() -> bool:
 
 
 func _test_room_loads_with_log_controls() -> bool:
-	var scene_resource := load("res://time_cost/time_cost_test_room.tscn") as PackedScene
+	var scene_resource := load("res://scenes/debug/time_cost_test_room.tscn") as PackedScene
 	if scene_resource == null:
 		return _fail("Time-cost test room cannot be loaded")
 	var scene := scene_resource.instantiate()

@@ -220,7 +220,7 @@ func _test_production_armor_and_rng() -> void:
 	expect(not result.hit and game.combat_rng.state == mirror.state, "Miss consumes D20 only")
 
 func _test_playground_controls() -> void:
-	for path in ["res://time_cost/time_cost_test_room.tscn", "res://time_cost/generated_map_combat_playground.tscn"]:
+	for path in ["res://scenes/debug/time_cost_test_room.tscn", "res://scenes/debug/generated_map_combat_playground.tscn"]:
 		var scene: Node = load(path).instantiate()
 		root.add_child(scene)
 		await process_frame

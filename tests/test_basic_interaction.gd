@@ -1,9 +1,9 @@
 extends SceneTree
 
 func _init() -> void:
-	var packed_scene := load("res://main.tscn") as PackedScene
+	var packed_scene := load("res://prototypes/exploration/main.tscn") as PackedScene
 	if packed_scene == null:
-		_fail("Could not load main.tscn")
+		_fail("Could not load prototypes/exploration/main.tscn")
 		return
 
 	var main := packed_scene.instantiate()

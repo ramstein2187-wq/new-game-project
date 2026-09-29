@@ -1,6 +1,6 @@
 extends SceneTree
 
-const TimeSchedulerScript := preload("res://time_cost/time_scheduler.gd")
+const TimeSchedulerScript := preload("res://game/time/time_scheduler.gd")
 
 
 func _init() -> void:

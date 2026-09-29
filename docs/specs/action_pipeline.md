@@ -4,7 +4,7 @@ areas = ["시간/액션", "코어", "전투"]
 type = "파이프라인"
 systems = "TimeAction / perform_action"
 milestones = "M014"
-code_paths = ["time_cost/actions/", "time_cost/time_cost_game.gd"]
+code_paths = ["game/actions/", "game/time_cost_game.gd"]
 diagram = "docs/diagrams/action_pipeline.svg"
 +++
 # 공통 Action 실행 파이프라인 상세

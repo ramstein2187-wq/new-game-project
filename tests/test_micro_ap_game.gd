@@ -1,6 +1,6 @@
 extends SceneTree
 
-const MicroApGameScript := preload("res://micro_ap/micro_ap_game.gd")
+const MicroApGameScript := preload("res://prototypes/micro_ap/micro_ap_game.gd")
 
 
 func _init() -> void:
@@ -84,7 +84,7 @@ func _test_turn_cycle() -> bool:
 
 
 func _test_scene_loads() -> bool:
-	var packed_scene := load("res://micro_ap/micro_ap_test_room.tscn") as PackedScene
+	var packed_scene := load("res://prototypes/micro_ap/micro_ap_test_room.tscn") as PackedScene
 	if packed_scene == null:
 		return _fail("Could not load micro_ap_test_room.tscn")
 

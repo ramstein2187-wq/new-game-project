@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cbjg7djo286vw"]
 
-[ext_resource type="Script" uid="uid://bvyddwe1pisyq" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bvyddwe1pisyq" path="res://prototypes/exploration/player.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://cpvruses57bga" path="res://icon.svg" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://cip6mv6yh7r21" path="res://chest.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://cip6mv6yh7r21" path="res://prototypes/exploration/chest.gd" id="3_h2yge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nnd5x"]
 
