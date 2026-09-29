@@ -8,6 +8,10 @@ var score: int
 var reasons: Array[StringName] = []
 var factors: Dictionary = {}
 var visible_cue: StringName = &""
+# Optional generic identity for variants of the same Action class, such as a
+# basic attack versus a weapon action. This keeps planner traces extensible.
+var option_id: StringName = &""
+var option_label := ""
 
 
 func _init(proposed_action: TimeAction, proposed_goal: StringName, base_score: int) -> void:
@@ -15,6 +19,12 @@ func _init(proposed_action: TimeAction, proposed_goal: StringName, base_score: i
 	goal = proposed_goal
 	score = base_score
 	factors[&"base"] = base_score
+
+
+func identify(id: StringName, label: String) -> TacticalChoice:
+	option_id = id
+	option_label = label
+	return self
 
 
 func add_factor(reason: StringName, value: int) -> TacticalChoice:

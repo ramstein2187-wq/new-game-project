@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M028: **Implemented and automatically validated** on `chat/m028-extensible-melee-ai`, based on main `8224828`; all 24 project tests passed in chunks, focused M028 48 assertions passed, and a 600-encounter paired sample ended with zero errors/stalls. Manual gameplay review and main integration remain separate. [Extensible melee tactical AI](milestones/M028_extensible_melee_ai.md).
+
 - M027: **Complete on main** at `7c49499` via [PR #26](https://github.com/ramstein2187-wq/new-game-project/pull/26). The task branch passed 23/23 tests, both headless scenes, deterministic replay and paired production batches; after merge, Godot editor parse and the focused M027 regression test passed on `main`. User authorized integration on 2026-09-29; manual feel/balance acceptance remains a follow-up rather than an integration blocker. [Physical combat and weapon actions](milestones/M027_physical_combat_weapon_actions.md).
 
 - M024: **Complete on main** at `e79ddb1` via [PR #19](https://github.com/ramstein2187-wq/new-game-project/pull/19). Data-driven damage dice, shared Attack definitions, capability-count weapon use, five weapons, five armor pieces, ten new hostile prototypes, and M023 paired smoke are integrated. User manual play validation reported no issues; post-merge `bash tools/check_godot.sh` passed all 22 test scripts. Final Threat Rating calibration remains out of scope. [Combat data foundation](milestones/M024_combat_data_foundation.md).
@@ -28,6 +30,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M028 | Complete on task branch; manual/integration pending | Extensible melee AI, qualitative weapon-action selection, armor matchup and bounded caution | `docs/milestones/M028_extensible_melee_ai.md` |
 | M027 | Complete on main | Physical damage, extensible armor profiles, weapon actions and capability-based hands; PR #26 merged | `docs/milestones/M027_physical_combat_weapon_actions.md` |
 | M024 | Complete on main | Damage dice, shared weapon/natural Attack data, shared 1000 attack cost, armor/loadouts, 10 hostile prototypes; PR #19 and post-merge checks passed | `docs/milestones/M024_combat_data_foundation.md` |
 | M023 | Complete on main | Configurable production matchups, paired side swaps, slot-bias and combat metrics; PR #17, post-merge checks passed; no final TR scale yet | `docs/milestones/M023_threat_measurement_foundation.md` |
