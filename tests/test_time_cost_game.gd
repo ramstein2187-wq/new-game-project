@@ -1,6 +1,6 @@
 extends SceneTree
 
-const TimeCostGameScript := preload("res://game/time_cost_game.gd")
+const TimeCostGameScript := preload("res://tests/support/fixed_combat_game.gd")
 const Fixture := preload("res://tests/support/combat_fixture.gd")
 
 
@@ -32,7 +32,7 @@ func _test_move_advances_time_and_allows_multiple_fast_responses() -> bool:
 		return _fail("Move did not advance player ready time by 1000")
 	if game.last_response_count != 2:
 		return _fail("A 750-cost rat should act twice before a 1000-cost player move resolves")
-	if game.rat_next_ready_time != TimeCostGame.RAT_MOVE_COST * 2:
+	if game.rat_next_ready_time != game.get_actor(&"rat").definition.move_cardinal * 2:
 		return _fail("Rat ready time did not advance by two fast moves")
 
 	return true
@@ -66,7 +66,7 @@ func _test_slow_attack_creates_opening() -> bool:
 		return _fail("Bumping the rat should resolve as an attack")
 	if game.player_position != Vector2i(7, 3):
 		return _fail("Bump attack should not move into the rat")
-	if game.rat_hp != TimeCostGame.RAT_MAX_HP - Fixture.FIXED_DAMAGE:
+	if game.rat_hp != game.get_actor(&"rat").max_hp - Fixture.FIXED_DAMAGE:
 		return _fail("Attack did not damage the rat")
 	if game.player_next_ready_time != TimeCostGame.ATTACK_COST:
 		return _fail("Attack did not use the shared 1000 time cost")
