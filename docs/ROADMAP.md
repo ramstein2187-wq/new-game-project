@@ -21,11 +21,11 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
-Snapshot: 2026-09-28, M019 is complete on main at `b109ffd`; M022 is complete on main at `542f534` via PR #8; M023 is complete on main at `8d71504` via PR #17; M024 is complete on main at `e79ddb1` via PR #19. User manual play validation for M024 reported no issues and post-merge `bash tools/check_godot.sh` passed all 22 tests. M019 manual play remains unverified. Earlier milestone acceptance remains separate.
+Snapshot: 2026-09-29, M019 is complete on main at `b109ffd`; M022 is complete on main at `542f534` via PR #8; M023 is complete on main at `8d71504` via PR #17; M024 is complete on main at `e79ddb1` via PR #19; M027 is complete on main at `7c49499` via PR #26. M027 passed 23/23 task-branch tests and a post-merge editor parse plus focused regression test. Manual feel/balance evaluation remains a follow-up. Earlier milestone acceptance remains separate.
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
-| Physical combat | Cut/Puncture/Blunt, extensible multiplier-based armor profiles, weapon actions and authoritative 1H/2H use requirements | Complete on task branch; manual acceptance pending | [M027](milestones/M027_physical_combat_weapon_actions.md), `codex/m027-physical-combat-weapon-actions`, independent of unmerged M025/M026. |
+| Physical combat | Cut/Puncture/Blunt, extensible multiplier-based armor profiles, weapon actions and authoritative 1H/2H use requirements | Complete on main | [M027](milestones/M027_physical_combat_weapon_actions.md), main `7c49499` via PR #26. User authorized integration; manual feel/balance remains a follow-up. M025/M026 remain separate branches. |
 | Combat follow-up | Profile/Weapon Action balance and Threat recalibration; AI special-action selection; future nonphysical types/status effects | Planned | [M027](milestones/M027_physical_combat_weapon_actions.md). M025/M026 remain separate branches; no final TR or new effects in M027. |
 | Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |
 | Combat data | Damage dice, shared Attack definitions, five weapons, five armor pieces and ten hostile prototypes | Complete on main | [M024](milestones/M024_combat_data_foundation.md), main `e79ddb1` via PR #19; user manual play validation reported no issues and post-merge 22-test check passed. Final Threat Rating and balance tuning remain planned. |

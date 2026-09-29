@@ -1,6 +1,6 @@
 # M027 — Physical combat, weapon actions and hand requirements
 
-Status: Implemented and automatically validated on `codex/m027-physical-combat-weapon-actions`.
+Status: Complete on `main` at `7c49499` via PR #26 (2026-09-29).
 Base: freshly fetched `origin/main` e232b28 (2026-09-29).
 Workspace: C:/GameDev/m027-physical-combat.
 
@@ -10,7 +10,7 @@ Workspace: C:/GameDev/m027-physical-combat.
 - M025 (`origin/chat/m025-threat-calibration`) and M026 (`origin/codex/basic-melee-v2`) are unmerged. M027 is unused in remote milestone inventories.
 - Original checkout and its untracked imports/reviews preserved. App create_worktree returned Not a git repository from C:/GameDev; used Git worktree fallback.
 - Windows SSH host-key verification failed; existing WSL Git successfully fetched origin without changing security settings. Use WSL Git for push.
-- Implement entire supplied physical-combat specification plus explicit 1H/2H requirements. No main merge.
+- Implement entire supplied physical-combat specification plus explicit 1H/2H requirements. Integrated to main through PR #26 after user authorization.
 
 ## Plan and decisions
 
@@ -24,7 +24,7 @@ Workspace: C:/GameDev/m027-physical-combat.
 
 ## Acceptance
 
-Implementation and automated validation complete on the task branch; main integration and GUI/manual acceptance remain separate. See [decisions and content table](../decisions/physical_combat_weapon_actions.md) and [validation evidence](../reviews/2026-09-29-m027-validation.md).
+Implementation and automated validation are complete and PR #26 is merged to `main` at `7c49499`. After merge, Godot editor parse and the focused M027 regression test passed on `main`. Manual feel/balance evaluation remains a follow-up. See [decisions and content table](../decisions/physical_combat_weapon_actions.md) and [validation evidence](../reviews/2026-09-29-m027-validation.md).
 
 ## Implementation checkpoint
 
