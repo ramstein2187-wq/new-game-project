@@ -354,12 +354,47 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
         raise SyncError(f"Invalid v2 equipment dataset: {path}")
     source_url = _runtime_url(data, path)
     normal_cost = int(data.get("normal_melee_action_cost", 1000))
+    armor_profiles = {
+        str(profile["id"]): profile
+        for profile in data.get("armor_profiles", [])
+        if isinstance(profile, dict) and profile.get("id")
+    }
     result: list[dict[str, Any]] = []
+
+    def armor_profile_summary(profile_id: str) -> str:
+        profile = armor_profiles.get(profile_id, {})
+        multipliers = profile.get("multipliers", {})
+        parts = [
+            f"{damage_type} ×{float(multipliers[damage_type]):.1f}"
+            for damage_type in ("Cut", "Puncture", "Blunt")
+            if damage_type in multipliers
+        ]
+        parts.append(f"default ×{float(profile.get('default_multiplier', 1.0)):.1f}")
+        return "; ".join(parts) if profile else ""
 
     for weapon in weapons:
         damage = weapon.get("damage", {})
         formula = _damage_expression(damage)
         properties = ", ".join(str(value) for value in weapon.get("properties", [])) or "없음"
+        weapon_actions = []
+        for action in weapon.get("weapon_actions", []):
+            multiplier = float(action.get("cost_multiplier", 1.0))
+            changes = []
+            if action.get("damage_type_override"):
+                changes.append(f"type={action['damage_type_override']}")
+            if action.get("penetration_modifier"):
+                changes.append(f"Pen {int(action['penetration_modifier']):+d}")
+            if action.get("damage_modifier"):
+                changes.append(f"damage {int(action['damage_modifier']):+d}")
+            if action.get("situation_modifier"):
+                changes.append(f"situation {int(action['situation_modifier']):+d}")
+            weapon_actions.append({
+                "id": str(action.get("id", "")),
+                "display_name": str(action.get("display_name") or action.get("id") or "Unnamed Action"),
+                "cost_multiplier": multiplier,
+                "resolved_cost": max(1, int(normal_cost * multiplier + 0.5)),
+                "changes": ", ".join(changes),
+            })
         result.append({
             "id": weapon["id"],
             "name": weapon["name"],
@@ -372,6 +407,19 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             "penetration": weapon.get("penetration"),
             "damage_type": weapon.get("damage_type", ""),
             "action_time_modifier": 0,
+            "base_action_cost": normal_cost,
+            "required_hands": int(weapon.get("required_hands", 1)),
+            "required_capability": str(weapon.get("required_capability", "weapon_manipulation")),
+            "weapon_properties": properties,
+            "weapon_actions": weapon_actions,
+            "weapon_actions_summary": " | ".join(
+                f"{action['display_name']} [{action['id']}] — cost ×{action['cost_multiplier']:g} = {action['resolved_cost']}"
+                + (f"; {action['changes']}" if action["changes"] else "")
+                for action in weapon_actions
+            ) or "없음",
+            "coverage": [],
+            "armor_profile": "",
+            "armor_profile_summary": "",
             "application": (
                 f"{formula}; {weapon.get('required_capability', 'weapon_manipulation')} "
                 f"x{weapon.get('required_hands', 1)}; properties={properties}; "
@@ -394,6 +442,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             slot = "다리"
         else:
             slot = "기타"
+        armor_profile = str(armor.get("profile", ""))
         result.append({
             "id": armor["id"],
             "name": armor["name"],
@@ -402,12 +451,22 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             "slot": slot,
             "armor": armor.get("armor"),
             "damage": None,
+            "damage_formula": "",
             "penetration": None,
             "damage_type": "",
             "action_time_modifier": 0,
+            "base_action_cost": None,
+            "required_hands": None,
+            "required_capability": "",
+            "weapon_properties": "",
+            "weapon_actions": [],
+            "weapon_actions_summary": "",
+            "coverage": coverage,
+            "armor_profile": armor_profile,
+            "armor_profile_summary": armor_profile_summary(armor_profile),
             "application": (
                 f"single-layer coverage: {', '.join(coverage) or '-'}; "
-                f"profile={armor.get('profile', '-')}"
+                f"profile={armor_profile or '-'}"
             ),
             "runtime_equippable": True,
             "source_url": source_url,
@@ -789,9 +848,18 @@ def equipment_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
         "슬롯": {"select": {"name": record["slot"]}},
         "방어력": {"number": record.get("armor")},
         "피해": {"number": record.get("damage")},
+        "피해식": text_prop(record.get("damage_formula", "")),
         "관통": {"number": record.get("penetration")},
         "피해 유형": text_prop(record.get("damage_type", "")),
         "행동 시간 수정": {"number": record.get("action_time_modifier", 0)},
+        "기본 공격 비용": {"number": record.get("base_action_cost")},
+        "필요 손 수": {"number": record.get("required_hands")},
+        "요구 기능": text_prop(record.get("required_capability", "")),
+        "무기 속성": text_prop(record.get("weapon_properties", "")),
+        "Weapon Actions": text_prop(record.get("weapon_actions_summary", "")),
+        "커버리지": text_prop(", ".join(record.get("coverage", []))),
+        "방어 프로필": text_prop(record.get("armor_profile", "")),
+        "프로필 배율": text_prop(record.get("armor_profile_summary", "")),
         "적용 방식": text_prop(record["application"]),
         "런타임 장착 가능": {"checkbox": bool(record["runtime_equippable"])},
         "소스 파일": text_prop(source),
@@ -871,9 +939,45 @@ def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[
             record.get("damage_formula") or "피해는 선택된 AttackDefinition에서 결정된다.",
         ))
     elif kind == "equipment":
-        if record.get("damage_formula"):
-            blocks.append(wiki.text_block("heading_2", "피해"))
-            blocks.append(wiki.text_block("paragraph", record["damage_formula"]))
+        if record["classification"] == "무기":
+            blocks.append(wiki.text_block("heading_2", "기본 공격"))
+            blocks.append(wiki.text_block(
+                "paragraph",
+                f"{record.get('damage_formula', '-')}; {record.get('damage_type', '-')}; "
+                f"Pen {record.get('penetration')}; cost {record.get('base_action_cost')}",
+            ))
+            blocks.append(wiki.text_block("heading_2", "사용 조건"))
+            blocks.append(wiki.text_block(
+                "paragraph",
+                f"{record.get('required_capability', '-')} x{record.get('required_hands')}; "
+                f"properties={record.get('weapon_properties') or '없음'}",
+            ))
+            blocks.append(wiki.text_block("heading_2", "Weapon Actions"))
+            actions = record.get("weapon_actions", [])
+            if actions:
+                for action in actions:
+                    text = (
+                        f"{action['display_name']} [{action['id']}] — "
+                        f"cost ×{action['cost_multiplier']:g} = {action['resolved_cost']}"
+                    )
+                    if action.get("changes"):
+                        text += f"; {action['changes']}"
+                    blocks.append(wiki.text_block("bulleted_list_item", text))
+            else:
+                blocks.append(wiki.text_block("paragraph", "없음"))
+        else:
+            blocks.append(wiki.text_block("heading_2", "방어"))
+            blocks.append(wiki.text_block(
+                "paragraph",
+                f"armor {record.get('armor')}; coverage "
+                f"{', '.join(record.get('coverage', [])) or '-'}; "
+                f"profile {record.get('armor_profile') or '-'}",
+            ))
+            blocks.append(wiki.text_block("heading_2", "Armor Profile"))
+            blocks.append(wiki.text_block(
+                "paragraph",
+                record.get("armor_profile_summary") or "프로필 배율 없음",
+            ))
         blocks.append(wiki.text_block("heading_2", "적용"))
         blocks.append(wiki.text_block("paragraph", record.get("application", "")))
     elif kind == "threat_ratings":
