@@ -1,6 +1,6 @@
 # M028 — Extensible melee tactical AI
 
-Status: Implemented and automatically validated on `chat/m028-extensible-melee-ai`; not merged to main.
+Status: Implemented and automatically validated on `chat/m028-extensible-melee-ai`; qualitative review found armor-coverage observation follow-up before main integration.
 Base: `origin/main` at `8224828` (M027 integrated).
 
 ## Goal
