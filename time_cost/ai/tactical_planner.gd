@@ -18,7 +18,11 @@ static func choose(game: RefCounted, actor_id: StringName, candidates: Array[Tac
 		var action_name: String = String(script.get_global_name()) if script != null else ""
 		if action_name.is_empty():
 			action_name = candidate.action.get_class()
-		considered.append({"action": action_name, "goal": candidate.goal, "score": candidate.score})
+		var trace := {"action": action_name, "goal": candidate.goal, "score": candidate.score}
+		if candidate.option_id != &"":
+			trace["option_id"] = candidate.option_id
+			trace["option_label"] = candidate.option_label
+		considered.append(trace)
 		if best == null or candidate.score > best.score:
 			best = candidate
 	if best == null:

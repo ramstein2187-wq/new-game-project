@@ -405,7 +405,10 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             "penetration": None,
             "damage_type": "",
             "action_time_modifier": 0,
-            "application": f"single-layer coverage: {', '.join(coverage) or '-'}",
+            "application": (
+                f"single-layer coverage: {', '.join(coverage) or '-'}; "
+                f"profile={armor.get('profile', '-')}"
+            ),
             "runtime_equippable": True,
             "source_url": source_url,
         })
@@ -415,7 +418,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
 def _weapon_catalog_v2() -> dict[str, dict[str, Any]]:
     path = ROOT / "docs" / "datasets" / "equipment.json"
     data = json.loads(path.read_text(encoding="utf-8"))
-    if data.get("version") != 2:
+    if data.get("version") not in {2, 3, 4}:
         return {}
     return {
         str(record["id"]): record
@@ -646,19 +649,19 @@ def load_dataset(path: Path, kind: str) -> list[dict[str, Any]]:
         records = data.get("records")
         if not isinstance(records, list):
             raise SyncError(f"Invalid v1 dataset: {path}")
-    elif version == 2:
-        if kind == "body_templates":
-            records = _normalize_body_templates_v2(data, path)
-        elif kind == "equipment":
+    elif version in {2, 3, 4}:
+        if kind == "equipment" and version in {2, 3, 4}:
             records = _normalize_equipment_v2(data, path)
-        elif kind == "monsters":
+        elif kind == "monsters" and version in {2, 3}:
             records = _normalize_monsters_v2(data, path)
-        elif kind == "skills":
+        elif version == 2 and kind == "body_templates":
+            records = _normalize_body_templates_v2(data, path)
+        elif version == 2 and kind == "skills":
             records = _normalize_skills_v2(data, path)
-        elif kind == "threat_ratings":
+        elif version == 2 and kind == "threat_ratings":
             records = _normalize_threat_v2(data, path)
         else:
-            raise SyncError(f"Unsupported v2 dataset kind '{kind}': {path}")
+            raise SyncError(f"Unsupported {kind} dataset version {version!r}: {path}")
     else:
         raise SyncError(f"Unsupported dataset version {version!r}: {path}")
 

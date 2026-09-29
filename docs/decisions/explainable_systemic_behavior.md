@@ -180,4 +180,15 @@ When the tactical AI architecture is implemented, favor systems that allow:
 5. AI to re-observe and reconsider after individual actions
 6. new actions, factions, relationships, and behavioral causes to be added without rewriting the whole decision system
 
+## Tactical Action Selection Boundary
+
+M028 applies this principle to melee action choice with an additional durable constraint:
+
+- concrete attacks should expose or be projected into a small AI-relevant meaning shape rather than requiring weapon/skill IDs in central policy code
+- exact hidden opponent values should not be consumed merely because runtime data can access them; prefer information the acting character could reasonably observe or categorize
+- action-time commitment, armor matchup and similar tactical properties may influence utility qualitatively without requiring exact expected-DPS optimization
+- new attack content should normally become eligible through data/adapters and the shared Action path, not by adding a new branch to the planner
+
+This keeps future weapon actions, mutations and skills compatible with explainable decision traces while leaving room for later perception/knowledge systems to control what an actor actually knows.
+
 This document defines a project-wide design principle, not a commitment to a specific utility formula or AI implementation.
