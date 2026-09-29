@@ -65,3 +65,11 @@ Full Block이어도 damage dice는 먼저 소비된다. 이 순서는 자동 테
 ## 현재 경계
 
 Critical, 비물리 피해 유형, 출혈/독/장기/절단, 다층·내구 방어구, 무기 내구도, 인벤토리/전리품, 원거리, multiattack, dual wield, versatile, 최종 Speed 공식과 최종 Threat Rating은 별도 범위다.
+
+## M029 콘텐츠 로딩 경계 (작업 브랜치)
+
+`.tres` 콘텐츠 → `catalog.tres` 참조 목록 → 중복 ID/잘못된 참조/정의 검증 →
+외부 리소스를 포함한 전체 복제 → 기존 ActorDefinition/WeaponDefinition → 위 전투 경로.
+공격·피해·스케줄러의 순서와 수치는 변경하지 않는다. Rat도 동일한 원본에서 로드하며
+기존 팩터리 API는 wrapper로 유지한다. 문서 JSON은 같은 정의로부터 생성하고,
+Notion sync 전에 생성 fingerprint를 검증한다. [데이터 흐름과 경계](../decisions/combat_content_authoring.md).
