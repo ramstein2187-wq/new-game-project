@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Script" path="res://game/combat/armor_definition.gd" id="1_pmp7e"]
+[ext_resource type="Resource" path="res://content/armor/scrap_plate.tres" id="2_dhpf5"]
+[ext_resource type="Resource" path="res://content/armor/iron_helmet.tres" id="3_thylp"]
+[ext_resource type="Resource" path="res://content/weapons/maul.tres" id="4_kyxe5"]
+[ext_resource type="Script" path="res://game/actors/actor_definition.gd" id="5_ha0n8"]
+[ext_resource type="Script" path="res://content/combat_actor_content.gd" id="6_nvy0u"]
+
+[sub_resource type="Resource" id="Resource_wtlw5"]
+script = ExtResource("5_ha0n8")
+type_id = &"armored_raider"
+display_name = "Armored Raider"
+equipped_weapon = ExtResource("4_kyxe5")
+equipped_armor = Array[ExtResource("1_pmp7e")]([ExtResource("2_dhpf5"), ExtResource("3_thylp")])
+max_hp = 34
+initial_scores = {
+&"DEX": 8,
+&"STR": 16
+}
+move_cardinal = 1100
+move_diagonal = 1540
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("6_nvy0u")
+definition = SubResource("Resource_wtlw5")

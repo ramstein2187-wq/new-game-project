@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Resource" path="res://content/attacks/tusk.tres" id="1_1oaq6"]
+[ext_resource type="Script" path="res://game/combat/armor_definition.gd" id="2_r4mf0"]
+[ext_resource type="Script" path="res://game/actors/actor_definition.gd" id="3_oo321"]
+[ext_resource type="Script" path="res://content/combat_actor_content.gd" id="4_3f81q"]
+
+[sub_resource type="Resource" id="Resource_tgjf5"]
+script = ExtResource("3_oo321")
+type_id = &"boar"
+display_name = "Boar"
+attack_definition = ExtResource("1_1oaq6")
+natural_armor = 20
+max_hp = 32
+initial_scores = {
+&"DEX": 10,
+&"STR": 16
+}
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("4_3f81q")
+body_template_id = &"quadruped"
+definition = SubResource("Resource_tgjf5")

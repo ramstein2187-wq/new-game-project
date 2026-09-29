@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3]
+
+[ext_resource type="Script" path="res://game/combat/weapon_action_definition.gd" id="1_ye8di"]
+[ext_resource type="Script" path="res://game/combat/damage_dice.gd" id="2_tvm8s"]
+[ext_resource type="Script" path="res://game/combat/attack_definition.gd" id="3_7rpqa"]
+[ext_resource type="Script" path="res://game/combat/weapon_definition.gd" id="4_i1mqn"]
+
+[sub_resource type="Resource" id="Resource_qh6dm"]
+script = ExtResource("1_ye8di")
+id = &"overhead_smash"
+display_name = "Overhead Smash"
+cost_multiplier = 1.75
+damage_type_override = &"Blunt"
+penetration_modifier = 20.0
+
+[sub_resource type="Resource" id="Resource_1rdbi"]
+script = ExtResource("2_tvm8s")
+dice_count = 2
+dice_size = 6
+
+[sub_resource type="Resource" id="Resource_0mgpt"]
+script = ExtResource("3_7rpqa")
+id = &"maul_attack"
+display_name = "Maul strike"
+damage_dice = SubResource("Resource_1rdbi")
+penetration = 50.0
+required_capability_count = 2
+
+[resource]
+script = ExtResource("4_i1mqn")
+id = &"maul"
+display_name = "Maul"
+attack_definition = SubResource("Resource_0mgpt")
+required_hands = 2
+actions = Array[ExtResource("1_ye8di")]([SubResource("Resource_qh6dm")])
