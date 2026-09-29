@@ -1,6 +1,6 @@
 extends SceneTree
 
-const GameScript := preload("res://time_cost/time_cost_game.gd")
+const GameScript := preload("res://tests/support/fixed_combat_game.gd")
 
 # The evaluator accepts a new action type without adding a case to its code.
 class CustomAction extends TimeAction:

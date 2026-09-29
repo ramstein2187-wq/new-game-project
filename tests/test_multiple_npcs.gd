@@ -107,7 +107,7 @@ func _test_attacks_and_death() -> void:
 	var attack: CombatEvent = game.combat_log.events[0]
 	expect(attack.target_id == &"rat_002" and attack.data.defeated, "Correct arbitrary target killed")
 	expect(not game.scheduler.has_actor(&"rat_002") and game.get_actor(&"rat_002") != null, "Dead body retained and unscheduled")
-	expect(game.get_actor(&"rat_003").body.parts == other_body and game.get_actor(&"rat_003").hp == 30, "Target damage does not affect sibling")
+	expect(game.get_actor(&"rat_003").body.parts == other_body and game.get_actor(&"rat_003").hp == game.get_actor(&"rat_003").max_hp, "Target damage does not affect sibling")
 	for event in game.combat_log.events:
 		expect(event.actor_id != &"rat_002", "Dead NPC cannot respond")
 	expect(game.player_move(Vector2i.RIGHT) and game.player_position == Vector2i(4, 3), "Player enters dead NPC cell")
@@ -184,7 +184,7 @@ func _test_generated_contracts() -> void:
 		expect(one.combat_rng.state == game.combat_rng.state, "Extra placement consumes no combat RNG")
 		game.player_wait()
 		game.get_actor(&"rat_002").body.apply_damage(&"head", 4)
-		game.damage_actor(&"rat_003", 30)
+		game.damage_actor(&"rat_003", game.get_actor(&"rat_003").max_hp)
 		var before := _snapshot(game)
 		expect(not game.configure(PackedStringArray(["TTTT", "T#TT", "TT#T", "TTTT"])), "Disconnected layout rejected")
 		expect(not game.configure(rows, 0), "Invalid NPC count rejected")
@@ -257,7 +257,7 @@ func _test_scene() -> void:
 	scene._unhandled_input(input)
 	expect(scene.game.get_actor(&"rat_002").hp == 0 and scene.log_label.text.contains("Rat 2 falls"), "Real scene bump kills and names the selected NPC")
 	scene._refresh()
-	expect(scene.status_label.text.contains("Rat 2 HP 0/30 (dead)"), "Dead NPC visible in status")
+	expect(scene.status_label.text.contains("Rat 2 HP 0/%d (dead)" % ActorDefinition.rat_common().max_hp), "Dead NPC visible in status")
 	var scroll: Control = scene.get_node("CanvasLayer/LogScroll")
 	expect(not scene.combat_panel.get_global_rect().intersects(scroll.get_global_rect()), "Four actor panel does not overlap log")
 	scene.queue_free()

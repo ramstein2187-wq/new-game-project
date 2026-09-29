@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" format=3]
+
+[ext_resource type="Script" path="res://time_cost/combat/armor_definition.gd" id="1_6u4k6"]
+
+[resource]
+script = ExtResource("1_6u4k6")
+profile = &"RIGID"
+id = &"scrap_plate"
+display_name = "Scrap Plate"
+armor = 70
+coverage = Array[StringName]([&"torso"])

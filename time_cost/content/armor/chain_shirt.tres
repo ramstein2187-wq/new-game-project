@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" format=3]
+
+[ext_resource type="Script" path="res://time_cost/combat/armor_definition.gd" id="1_0qr7b"]
+
+[resource]
+script = ExtResource("1_0qr7b")
+profile = &"MAIL"
+id = &"chain_shirt"
+display_name = "Chain Shirt"
+armor = 50
+coverage = Array[StringName]([&"torso", &"arm"])

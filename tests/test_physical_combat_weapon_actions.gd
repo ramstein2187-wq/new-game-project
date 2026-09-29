@@ -45,7 +45,12 @@ func _test_types_profiles() -> void:
 	expect(not attack.is_valid(), "Old Sharp authoring rejected")
 	var types := [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE, AttackDefinition.DAMAGE_BLUNT]
 	var profiles := [ArmorDefinition.SOFT, ArmorDefinition.MAIL, ArmorDefinition.RIGID]
-	var multipliers := [[1.0, 0.8, 1.2], [1.2, 1.0, 0.8], [1.2, 1.2, 0.8]]
+	var multipliers := []
+	for profile in profiles:
+		var row_values := []
+		for type in types:
+			row_values.append(float(ArmorProfileCatalog.PROFILE_MULTIPLIERS[profile].get(type, 1.0)))
+		multipliers.append(row_values)
 	expect(ArmorProfileCatalog.is_valid(), "Registered armor profiles are valid")
 	for row in range(3):
 		for column in range(3):
@@ -58,7 +63,7 @@ func _test_types_profiles() -> void:
 	expect(CombatRules.armor_result(250, 0, 99, 3, AttackDefinition.DAMAGE_CUT, ArmorDefinition.RIGID).damage == 0, "Upper 200 effective clamp")
 	for id in [&"hunting_knife", &"handaxe", &"longsword", &"warhammer", &"maul"]:
 		var weapon := CombatContentCatalog.weapon(id)
-		expect(weapon.is_valid() and weapon.required_hands == (2 if id == &"maul" else 1), "Current human weapon hands")
+		expect(weapon.is_valid() and weapon.required_hands == weapon.attack_definition.required_capability_count, "Current human weapon hands")
 		weapon.required_hands = 0
 		expect(not weapon.is_valid(), "Zero hands invalid")
 		weapon.required_hands = -1
@@ -141,28 +146,28 @@ func _test_natural_attacks() -> void:
 		expect(not game.can_attack(actor.id), "Natural capability damage disables attack")
 
 func _test_actions_and_isolation() -> void:
-	var cases := [[&"hunting_knife", &"quick_stab", 750, AttackDefinition.DAMAGE_PUNCTURE, 20.0, -1],
-		[&"longsword", &"thrust", 1250, AttackDefinition.DAMAGE_PUNCTURE, 40.0, 0],
-		[&"warhammer", &"crushing_blow", 1500, AttackDefinition.DAMAGE_BLUNT, 60.0, 0],
-		[&"maul", &"overhead_smash", 1750, AttackDefinition.DAMAGE_BLUNT, 70.0, 0]]
-	for sample in cases:
-		var game := _game(sample[0])
-		var actor := game.get_actor(&"player")
-		var base_type := actor.attack.damage_type
-		var base_pen := actor.attack.penetration
-		var action := AttackAction.new(&"rat", sample[1])
-		expect(AttackAction.new(&"rat").get_cost(game, actor.id) == 1000, "Shared basic cost")
-		expect(action.get_cost(game, actor.id) == sample[2] and game.perform_action(actor.id, action), "Special cost and common execution")
-		var event: CombatEvent = game.combat_log.events[0]
-		expect(event.action_id == sample[1] and event.action_cost == sample[2] and game.player_next_ready_time == sample[2], "Scheduler charges action multiplier")
-		expect(event.data.original_damage_type == sample[3] and event.data.penetration == sample[4], "Special type and penetration applied")
-		expect(event.data.raw_damage == CombatRules.damage_total(event.data.damage_rolls, event.data.damage_ability_modifier + int(sample[5])), "Sparse damage modifier applied once")
-		expect(event.data.action_cost == sample[2] and event.data.weapon_id == sample[0], "Event retains action identity and cost")
-		expect(actor.attack.damage_type == base_type and actor.attack.penetration == base_pen, "Execution does not mutate base attack")
-		expect(CombatLogFormatter.format_player_event(event).contains(event.data.attack_name), "Player log names special action")
-		expect(CombatLogFormatter.format_debug_event(event).contains("original_damage_type"), "Debug retains type trace")
-		event.data.armor_result = &"full"
-		expect(CombatLogFormatter.format_player_event(event).contains(event.data.attack_name), "Full block also names special action")
+	for weapon: WeaponDefinition in CombatContentCatalog.all_weapons().values():
+		for special in weapon.actions:
+			var game := _game(weapon.id)
+			var actor := game.get_actor(&"player")
+			var base_type := actor.attack.damage_type
+			var base_pen := actor.attack.penetration
+			var expected_cost := maxi(1, roundi(AttackAction.BASE_COST * special.cost_multiplier))
+			var expected_type := special.damage_type_override if special.damage_type_override != &"" else base_type
+			var action := AttackAction.new(&"rat", special.id)
+			expect(AttackAction.new(&"rat").get_cost(game, actor.id) == 1000, "Shared basic cost")
+			expect(action.get_cost(game, actor.id) == expected_cost and game.perform_action(actor.id, action), "Special cost and common execution")
+			var event: CombatEvent = game.combat_log.events[0]
+			expect(event.action_id == special.id and event.action_cost == expected_cost and game.player_next_ready_time == expected_cost, "Scheduler charges action multiplier")
+			expect(event.data.original_damage_type == expected_type and event.data.penetration == maxf(0.0, base_pen + special.penetration_modifier), "Special type and penetration applied")
+			expect(event.data.raw_damage == CombatRules.damage_total(event.data.damage_rolls, event.data.damage_ability_modifier + special.damage_modifier), "Sparse damage modifier applied once")
+			expect(event.data.action_cost == expected_cost and event.data.weapon_id == weapon.id, "Event retains action identity and cost")
+			expect(actor.attack.damage_type == base_type and actor.attack.penetration == base_pen, "Execution does not mutate base attack")
+			expect(CombatLogFormatter.format_player_event(event).contains(event.data.attack_name), "Player log names special action")
+			expect(CombatLogFormatter.format_debug_event(event).contains("original_damage_type"), "Debug retains type trace")
+			event.data.armor_result = &"full"
+			expect(CombatLogFormatter.format_player_event(event).contains(event.data.attack_name), "Full block also names special action")
+
 	var game := _game(&"handaxe")
 	expect(game.get_actor(&"player").available_weapon_actions().is_empty(), "Handaxe basic only")
 	var state := game.combat_rng.state
@@ -174,8 +179,8 @@ func _test_actions_and_isolation() -> void:
 	first.equipped_weapon.actions[0].penetration_modifier = 999
 	first.attack.damage_dice.dice_count = 9
 	first.body.apply_damage(&"left_arm", 100)
-	expect(second.equipped_weapon.actions[0].penetration_modifier == 10 and definition.equipped_weapon.actions[0].penetration_modifier == 10, "Actor action resources isolated from sibling and prototype")
-	expect(second.attack.damage_dice.dice_count == 1 and second.body.state(&"left_arm") == &"healthy", "Actor attack dice/body isolated")
+	expect(second.equipped_weapon.actions[0].penetration_modifier == definition.equipped_weapon.actions[0].penetration_modifier and definition.equipped_weapon.actions[0].penetration_modifier == CombatContentCatalog.weapon(&"longsword").actions[0].penetration_modifier, "Actor action resources isolated from sibling and prototype")
+	expect(second.attack.damage_dice.dice_count == definition.active_attack().damage_dice.dice_count and second.body.state(&"left_arm") == &"healthy", "Actor attack dice/body isolated")
 	# NPCs can explicitly execute the same special; AI selection is deferred.
 	game = _game()
 	game.get_actor(&"rat").set_weapon(CombatContentCatalog.weapon(&"hunting_knife"))
@@ -196,21 +201,21 @@ func _test_production_armor_and_rng() -> void:
 		mirror.state = game.combat_rng.state
 		var expected_d20 := mirror.randi_range(1, 20)
 		mirror.randf()
-		var expected_die := mirror.randi_range(1, 8)
+		var expected_dice := game.get_actor(&"player").attack.damage_dice.roll(mirror)
 		var expected_armor := mirror.randf() * 100.0
 		var result := game.resolve_attack(&"player", &"rat", &"thrust")
-		expect(result.d20 == expected_d20 and result.damage_rolls == [expected_die] and is_equal_approx(result.armor_roll, expected_armor) and mirror.state == game.combat_rng.state, "Profile/action preserves D20/location/dice/armor RNG order")
-		expect(result.effective_armor == clampf(roundi(result.base_armor * result.profile_multiplier) - 40, 0, 200), "Production profile penetration formula")
+		expect(result.d20 == expected_d20 and result.damage_rolls == expected_dice and is_equal_approx(result.armor_roll, expected_armor) and mirror.state == game.combat_rng.state, "Profile/action preserves D20/location/dice/armor RNG order")
+		expect(result.effective_armor == clampf(roundi(result.base_armor * result.profile_multiplier) - result.penetration, 0, 200), "Production profile penetration formula")
 		for part: Dictionary in target.body.parts.values():
 			part.weight = 1 if part.id == &"head" else 0
 		result = game.resolve_attack(&"player", &"rat")
 		expect(result.armor_result == &"unarmored" and not result.has("armor_roll") and result.profile_multiplier == 1.0, "No coverage means neutral profile and no armor RNG")
 	var beetle := Actor.new(&"beetle", CombatContentCatalog.actor(&"giant_beetle"), Vector2i.ZERO)
-	expect(beetle.body.parts.thorax.armor == 60 and beetle.body.parts.thorax.armor_profile == ArmorDefinition.RIGID, "Natural armor carries rigid profile")
+	expect(beetle.body.parts.thorax.armor == beetle.definition.natural_armor and beetle.body.parts.thorax.armor_profile == beetle.definition.natural_armor_profile, "Natural armor carries rigid profile")
 	var game := _game()
 	game.get_actor(&"rat").body.apply_natural_armor(60, ArmorDefinition.RIGID)
 	var result := game.resolve_attack(&"player", &"rat")
-	expect(result.armor_profile == ArmorDefinition.RIGID and is_equal_approx(result.profile_multiplier, 1.2) and result.effective_armor == 42, "Natural profile participates in production resolution")
+	expect(result.armor_profile == ArmorDefinition.RIGID and is_equal_approx(result.profile_multiplier, ArmorProfileCatalog.multiplier_for(ArmorDefinition.RIGID, game.get_actor(&"player").attack.damage_type)) and result.effective_armor == clampf(roundi(60 * result.profile_multiplier) - result.penetration, 0, 200), "Natural profile participates in production resolution")
 	game = _game()
 	game.get_actor(&"rat").abilities.scores[&"DEX"] = 1000
 	var mirror := RandomNumberGenerator.new()
@@ -227,7 +232,7 @@ func _test_playground_controls() -> void:
 		await process_frame
 		var panel: CombatDebugPanel = scene.combat_panel
 		var game: TimeCostGame = scene.game
-		for sample in [[&"hunting_knife", &"quick_stab", 750], [&"longsword", &"thrust", 1250], [&"warhammer", &"crushing_blow", 1500]]:
+		for sample in [[&"hunting_knife", &"quick_stab"], [&"longsword", &"thrust"], [&"warhammer", &"crushing_blow"]]:
 			game.reset()
 			game.get_actor(&"player").definition.proficiency_bonus = 100
 			for actor in game.actors.all():
@@ -243,7 +248,7 @@ func _test_playground_controls() -> void:
 			var button: Button = panel.find_child(String(sample[1]), true, false)
 			expect(button != null and button.focus_mode == Control.FOCUS_NONE, "Playground exposes special without capturing keys")
 			button.pressed.emit()
-			expect(game.last_action_cost == sample[2] and game.combat_log.events[0].data.weapon_action_id == sample[1], "Actual UI signal executes special through scheduler")
+			expect(game.last_action_cost == maxi(1, roundi(AttackAction.BASE_COST * CombatContentCatalog.weapon(sample[0]).get_action(sample[1]).cost_multiplier)) and game.combat_log.events[0].data.weapon_action_id == sample[1], "Actual UI signal executes special through scheduler")
 		await process_frame
 		await process_frame
 		var scroll: Control = scene.get_node("CanvasLayer/LogScroll")

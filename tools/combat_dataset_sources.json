@@ -1,0 +1,18 @@
+[
+  "time_cost/content",
+  "time_cost/combat/combat_content_catalog.gd",
+  "time_cost/actors/actor_definition.gd",
+  "time_cost/actors/actor.gd",
+  "time_cost/combat/combat_species.gd",
+  "time_cost/combat/body_template.gd",
+  "time_cost/combat/ability_scores.gd",
+  "time_cost/combat/attack_definition.gd",
+  "time_cost/combat/damage_dice.gd",
+  "time_cost/combat/weapon_definition.gd",
+  "time_cost/combat/weapon_action_definition.gd",
+  "time_cost/combat/armor_definition.gd",
+  "time_cost/combat/armor_profile_catalog.gd",
+  "time_cost/actions/attack_action.gd",
+  "tools/export_combat_datasets.gd",
+  "tools/combat_dataset_sources.json"
+]

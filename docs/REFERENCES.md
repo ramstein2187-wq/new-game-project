@@ -65,3 +65,9 @@ When adopting external material, record:
 
 For copied or substantially adapted code, also satisfy the upstream license's notice
 requirements in `THIRD_PARTY.md` and retain any required license text.
+
+## Godot Resource duplication semantics (M029, 2026-09-29)
+
+- Official API: https://docs.godotengine.org/en/4.6/classes/class_resource.html#class-resource-method-duplicate-deep
+- Consulted for `duplicate_deep(DEEP_DUPLICATE_ALL)` and external `.tres` isolation;
+  tested on installed Godot 4.7.2. Documentation reference only, no copied code/assets.

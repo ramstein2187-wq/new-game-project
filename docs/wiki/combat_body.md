@@ -24,7 +24,7 @@ M024는 기존 D20/신체/단일 방어층 파이프라인을 유지하면서 �
 
 ## 데이터셋
 
-런타임 권위는 `CombatContentCatalog`의 Godot Resource 정의다. 문서 카탈로그는 `docs/datasets/`에 mirror된다. 현재 5 weapons, 5 armor, Rat과 10개 신규 hostile Actor가 있다.
+M029 작업 브랜치에서는 `time_cost/content/`의 콘텐츠별 `.tres`가 단일 원본이며, `CombatContentCatalog`가 검증 후 기존 Resource 정의를 반환한다. Rat도 같은 경로를 사용한다. `tools/export_combat_datasets.gd`가 `docs/datasets/equipment.json`과 `monsters.json`을 생성하고, 기존 Notion sync가 이 결과를 읽는다. 숫자는 `.tres`에서만 수정하고 JSON은 재생성한다. 현재 5 weapons, 5 armor, Rat과 10개 신규 hostile Actor가 있다. [편집·검증 절차](../decisions/combat_content_authoring.md).
 
 ## 경계
 

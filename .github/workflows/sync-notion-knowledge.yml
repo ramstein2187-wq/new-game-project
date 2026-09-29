@@ -5,6 +5,11 @@ on:
     paths:
       - "docs/specs/**"
       - "docs/datasets/**"
+      - "time_cost/content/**"
+      - "time_cost/combat/**"
+      - "time_cost/actors/**"
+      - "time_cost/actions/attack_action.gd"
+      - "tools/*combat*"
       - "docs/diagrams/**"
       - "docs/notion-knowledge-config.json"
       - "tools/sync_notion_knowledge.py"
@@ -16,6 +21,11 @@ on:
     paths:
       - "docs/specs/**"
       - "docs/datasets/**"
+      - "time_cost/content/**"
+      - "time_cost/combat/**"
+      - "time_cost/actors/**"
+      - "time_cost/actions/attack_action.gd"
+      - "tools/*combat*"
       - "docs/diagrams/**"
       - "docs/notion-knowledge-config.json"
       - "tools/sync_notion_knowledge.py"
@@ -41,6 +51,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Check generated combat datasets
+        run: python tools/check_combat_datasets.py
 
       - name: Validate detailed specs and datasets
         run: python tools/sync_notion_knowledge.py --check

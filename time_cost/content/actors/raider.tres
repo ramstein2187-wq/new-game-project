@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Script" path="res://time_cost/combat/armor_definition.gd" id="1_gy5bi"]
+[ext_resource type="Resource" path="res://time_cost/content/armor/gambeson.tres" id="2_j6yy3"]
+[ext_resource type="Resource" path="res://time_cost/content/weapons/handaxe.tres" id="3_e5p41"]
+[ext_resource type="Script" path="res://time_cost/actors/actor_definition.gd" id="4_tge7c"]
+[ext_resource type="Script" path="res://time_cost/content/combat_actor_content.gd" id="5_x2v7s"]
+
+[sub_resource type="Resource" id="Resource_pw3qr"]
+script = ExtResource("4_tge7c")
+type_id = &"raider"
+display_name = "Raider"
+equipped_weapon = ExtResource("3_e5p41")
+equipped_armor = Array[ExtResource("1_gy5bi")]([ExtResource("2_j6yy3")])
+max_hp = 26
+initial_scores = {
+&"DEX": 12,
+&"STR": 12
+}
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("5_x2v7s")
+definition = SubResource("Resource_pw3qr")

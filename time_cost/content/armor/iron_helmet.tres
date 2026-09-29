@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ArmorDefinition" format=3]
+
+[ext_resource type="Script" path="res://time_cost/combat/armor_definition.gd" id="1_r0727"]
+
+[resource]
+script = ExtResource("1_r0727")
+profile = &"RIGID"
+id = &"iron_helmet"
+display_name = "Iron Helmet"
+armor = 60
+coverage = Array[StringName]([&"head"])

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Resource" path="res://time_cost/content/attacks/wolf_bite.tres" id="1_q3xbt"]
+[ext_resource type="Script" path="res://time_cost/combat/armor_definition.gd" id="2_4lofl"]
+[ext_resource type="Script" path="res://time_cost/actors/actor_definition.gd" id="3_11opn"]
+[ext_resource type="Script" path="res://time_cost/content/combat_actor_content.gd" id="4_moou7"]
+
+[sub_resource type="Resource" id="Resource_nkdtj"]
+script = ExtResource("3_11opn")
+type_id = &"wolf"
+display_name = "Wolf"
+attack_definition = ExtResource("1_q3xbt")
+natural_armor = 10
+max_hp = 22
+initial_scores = {
+&"DEX": 14,
+&"STR": 14
+}
+move_cardinal = 850
+move_diagonal = 1190
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("4_moou7")
+body_template_id = &"quadruped_canine"
+definition = SubResource("Resource_nkdtj")

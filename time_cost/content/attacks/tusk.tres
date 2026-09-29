@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AttackDefinition" format=3]
+
+[ext_resource type="Script" path="res://time_cost/combat/damage_dice.gd" id="1_y25ej"]
+[ext_resource type="Script" path="res://time_cost/combat/attack_definition.gd" id="2_euoeb"]
+
+[sub_resource type="Resource" id="Resource_p6u0j"]
+script = ExtResource("1_y25ej")
+dice_size = 8
+
+[resource]
+resource_name = "tusk"
+script = ExtResource("2_euoeb")
+id = &"tusk"
+display_name = "Tusk"
+damage_dice = SubResource("Resource_p6u0j")
+damage_type = &"Puncture"
+penetration = 30.0
+required_capability = &"tusk"

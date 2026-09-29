@@ -34,4 +34,7 @@ if ((${#tests[@]} > 0)); then
     done
 fi
 
+echo "== Generated combat dataset check =="
+"$GODOT_BIN" --headless --path "$PROJECT_WINDOWS_PATH" --script res://tools/export_combat_datasets.gd -- --check
+
 echo "All Godot checks passed."

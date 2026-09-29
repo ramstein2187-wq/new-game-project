@@ -25,6 +25,7 @@ Snapshot: 2026-09-29, M019 is complete on main at `b109ffd`; M022 is complete on
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
+| Combat authoring | Single-source native content and generated documentation datasets | Complete on task branch | [M029](milestones/M029_combat_content_single_source.md), `codex/combat-content-single-source` |
 | Physical combat | Cut/Puncture/Blunt, extensible multiplier-based armor profiles, weapon actions and authoritative 1H/2H use requirements | Complete on main | [M027](milestones/M027_physical_combat_weapon_actions.md), main `7c49499` via PR #26. User authorized integration; manual feel/balance remains a follow-up. M025/M026 remain separate branches. |
 | Combat follow-up | Extensible melee AI with qualitative Weapon Action/armor-profile selection; coarse armor coverage and conservative Retreat; later profile balance, Threat recalibration and nonphysical types/status effects | Complete on main | [M028](milestones/M028_extensible_melee_ai.md), main `c90bdbd` via PR #28. Coverage/retreat follow-ups are integrated; manual feel review and final TR recalibration remain separate. M026 remains an unmerged experiment/reference; M025 recalibration remains separate. |
 | Combat balance | Evaluate injury frequency, three-rat encounter pacing and species/weapon values under eight-way movement | Planned | The M017 500-seed sample is historical four-direction evidence, not current eight-way balance or full-game win rates. Functional changes remain covered by controlled real attacks. |

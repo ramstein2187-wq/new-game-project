@@ -30,6 +30,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M029 | Complete on task branch | Native combat content, Rat integration, generated datasets and tuning-independent tests | `docs/milestones/M029_combat_content_single_source.md` |
 | M028 | Complete on main | Extensible melee AI, qualitative weapon-action selection, armor matchup, coarse coverage and conservative bounded Retreat; PR #28 merged | `docs/milestones/M028_extensible_melee_ai.md` |
 | M027 | Complete on main | Physical damage, extensible armor profiles, weapon actions and capability-based hands; PR #26 merged | `docs/milestones/M027_physical_combat_weapon_actions.md` |
 | M024 | Complete on main | Damage dice, shared weapon/natural Attack data, shared 1000 attack cost, armor/loadouts, 10 hostile prototypes; PR #19 and post-merge checks passed | `docs/milestones/M024_combat_data_foundation.md` |

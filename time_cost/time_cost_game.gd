@@ -4,19 +4,30 @@ extends RefCounted
 const GRID_WIDTH := 11
 const GRID_HEIGHT := 7
 
-const MOVE_COST := 1000
-const DIAGONAL_MOVE_COST := 1400
+# Read-only legacy aliases derive from content; actions already use ActorDefinition.
+static var MOVE_COST: int:
+	get: return ActorDefinition.human_default().move_cardinal
+static var DIAGONAL_MOVE_COST: int:
+	get: return ActorDefinition.human_default().move_diagonal
 const ATTACK_COST := AttackAction.BASE_COST
-const INTERACT_COST := 500
-const WAIT_COST := 1000
+static var INTERACT_COST: int:
+	get: return ActorDefinition.human_default().interact_cost
+static var WAIT_COST: int:
+	get: return ActorDefinition.human_default().wait_cost
 
-const RAT_MOVE_COST := 750
-const RAT_DIAGONAL_MOVE_COST := 1050
-const RAT_INTERACT_COST := 500
-const RAT_WAIT_COST := 1000
+static var RAT_MOVE_COST: int:
+	get: return ActorDefinition.rat_common().move_cardinal
+static var RAT_DIAGONAL_MOVE_COST: int:
+	get: return ActorDefinition.rat_common().move_diagonal
+static var RAT_INTERACT_COST: int:
+	get: return ActorDefinition.rat_common().interact_cost
+static var RAT_WAIT_COST: int:
+	get: return ActorDefinition.rat_common().wait_cost
 
-const PLAYER_MAX_HP := 50
-const RAT_MAX_HP := 30
+static var PLAYER_MAX_HP: int:
+	get: return ActorDefinition.human_default().max_hp
+static var RAT_MAX_HP: int:
+	get: return ActorDefinition.rat_common().max_hp
 
 const CARDINAL_DIRECTIONS: Array[Vector2i] = [
 	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,

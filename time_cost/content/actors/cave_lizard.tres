@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CombatActorContent" format=3]
+
+[ext_resource type="Resource" path="res://time_cost/content/attacks/lizard_bite.tres" id="1_op5h8"]
+[ext_resource type="Script" path="res://time_cost/combat/armor_definition.gd" id="2_felow"]
+[ext_resource type="Script" path="res://time_cost/actors/actor_definition.gd" id="3_qn71p"]
+[ext_resource type="Script" path="res://time_cost/content/combat_actor_content.gd" id="4_2248w"]
+
+[sub_resource type="Resource" id="Resource_qhq61"]
+script = ExtResource("3_qn71p")
+type_id = &"cave_lizard"
+display_name = "Cave Lizard"
+attack_definition = ExtResource("1_op5h8")
+natural_armor = 30
+max_hp = 24
+initial_scores = {
+&"DEX": 12,
+&"STR": 12
+}
+move_cardinal = 950
+move_diagonal = 1330
+ai_policy = &"basic_melee"
+
+[resource]
+script = ExtResource("4_2248w")
+body_template_id = &"lizard"
+definition = SubResource("Resource_qhq61")
