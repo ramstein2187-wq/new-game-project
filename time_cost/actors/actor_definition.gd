@@ -9,6 +9,7 @@ extends Resource
 @export var equipped_weapon: WeaponDefinition
 @export var equipped_armor: Array[ArmorDefinition] = []
 @export var natural_armor := 0
+@export_enum("SOFT", "MAIL", "RIGID") var natural_armor_profile: String = "SOFT"
 @export var max_hp := 50
 @export var initial_scores: Dictionary = {}
 @export var ability_points := 12
@@ -51,5 +52,5 @@ func is_valid() -> bool:
 	for armor in equipped_armor:
 		if armor == null or not armor.is_valid():
 			return false
-	return max_hp > 0 and proficiency_bonus >= 0 and natural_armor >= 0 \
+	return max_hp > 0 and proficiency_bonus >= 0 and natural_armor >= 0 and ArmorDefinition.is_valid_profile(natural_armor_profile) \
 		and move_cardinal > 0 and move_diagonal > 0 and interact_cost > 0 and wait_cost > 0

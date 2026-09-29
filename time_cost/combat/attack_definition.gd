@@ -1,6 +1,10 @@
 class_name AttackDefinition
 extends Resource
 
+const DAMAGE_CUT: StringName = &"Cut"
+const DAMAGE_PUNCTURE: StringName = &"Puncture"
+const DAMAGE_BLUNT: StringName = &"Blunt"
+
 const ABILITY_STR: StringName = &"STR"
 const ABILITY_DEX: StringName = &"DEX"
 const ABILITY_BEST_STR_DEX: StringName = &"best_str_dex"
@@ -8,7 +12,7 @@ const ABILITY_BEST_STR_DEX: StringName = &"best_str_dex"
 @export var id: StringName = &"melee"
 @export var display_name := "Melee"
 @export var damage_dice := DamageDice.create(1, 4)
-@export_enum("Sharp", "Blunt") var damage_type := "Blunt"
+@export_enum("Cut", "Puncture", "Blunt") var damage_type: String = "Blunt"
 @export var penetration := 0.0
 @export var ability_rule: StringName = ABILITY_STR
 @export var required_capability: StringName = &"weapon_manipulation"
@@ -43,12 +47,16 @@ func is_valid() -> bool:
 		id != &""
 		and damage_dice != null
 		and damage_dice.is_valid()
-		and (damage_type == &"Sharp" or damage_type == &"Blunt")
+		and is_physical_damage_type(damage_type)
 		and penetration >= 0.0
 		and (ability_rule == ABILITY_STR or ability_rule == ABILITY_DEX or ability_rule == ABILITY_BEST_STR_DEX)
 		and required_capability != &""
 		and required_capability_count > 0
 	)
+
+
+static func is_physical_damage_type(type: StringName) -> bool:
+	return type in [DAMAGE_CUT, DAMAGE_PUNCTURE, DAMAGE_BLUNT]
 
 
 func ability_for(scores: AbilityScores) -> StringName:

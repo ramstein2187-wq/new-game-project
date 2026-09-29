@@ -27,6 +27,8 @@ static func format_player_event(
 		&"attack":
 			if event.data.has("hit"):
 				var subject := "You" if event.actor_id == &"player" else actor_name
+				if event.data.get("weapon_action_id", &"") != &"":
+					subject += " (" + String(event.data.get("attack_name", "attack")) + ")"
 				if not event.data.hit:
 					return subject + (" miss " if event.actor_id == &"player" else " misses ") + ("you" if event.target_id == &"player" else target_name) + "."
 				if event.data.get("no_valid_part", false):
@@ -35,11 +37,17 @@ static func format_player_event(
 				var owner := "your" if event.target_id == &"player" else target_name + "'s"
 				if event.data.get("armor_result") == &"full":
 					var attacker := "your" if event.actor_id == &"player" else actor_name + "'s"
-					return "%s %s armor blocks %s attack." % [owner.capitalize(), part_name, attacker]
+					var attack_name := String(event.data.get("attack_name", "attack")) if event.data.get("weapon_action_id", &"") != &"" else "attack"
+					return "%s %s armor blocks %s %s." % [owner.capitalize(), part_name, attacker, attack_name]
 				var verb := "hit" if event.actor_id == &"player" else ("bites" if event.action_id == &"bite" else "hits")
 				var text := "%s %s %s %s for %d damage" % [subject, verb, owner, part_name, event.data.damage]
+				if event.data.has("damage_type"):
+					text = text.replace(" damage", " %s damage" % event.data.damage_type)
 				if event.data.get("armor_result") == &"partial":
-					text += " (armor softens the blow)"
+					if event.data.get("original_damage_type", &"") in [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE]:
+						text += " (armor turns the %s into impact)" % String(event.data.original_damage_type).to_lower()
+					else:
+						text += " (armor softens the blow)"
 				if event.data.get("state_before") != event.data.get("state_after"):
 					text += "; %s is %s" % [part_name, event.data.state_after]
 				if event.data.get("defeated", false):
