@@ -28,16 +28,7 @@ static func human_default() -> ActorDefinition:
 	return definition
 
 static func rat_common() -> ActorDefinition:
-	var definition := ActorDefinition.new()
-	definition.type_id = &"rat"
-	definition.display_name = "Rat"
-	definition.combat_species = CombatSpecies.rat()
-	definition.attack_definition = CombatContentCatalog.natural_attack(&"rat_bite")
-	definition.max_hp = 30
-	definition.move_cardinal = 750
-	definition.move_diagonal = 1050
-	definition.ai_policy = &"rat_tactics"
-	return definition
+	return CombatContentCatalog.actor(&"rat")
 
 
 func active_attack() -> AttackDefinition:

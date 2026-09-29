@@ -10,10 +10,7 @@ static func human() -> CombatSpecies:
 	return species
 
 static func rat() -> CombatSpecies:
-	var species := CombatSpecies.new()
-	species.body_template = BodyTemplate.quadruped_canine()
-	species.body_size = 0.2
-	return species
+	return CombatContentCatalog.actor(&"rat").combat_species
 
 
 static func create(template: BodyTemplate, size: float = 1.0) -> CombatSpecies:
