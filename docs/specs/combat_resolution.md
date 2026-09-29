@@ -11,7 +11,7 @@ diagram = "docs/diagrams/combat_resolution.svg"
 
 ## 전체 흐름
 
-공격 capability/손 수 유효성 → 기본 비용 1000 × 선택 Weapon Action 배율 → D20 명중 → 피격 부위 → 피해 주사위 + 능력 수정치 → 선택 부위 단일 방어층 → 부위 integrity → 전체 HP → 사망 순서다.
+공격 capability/손 수 유효성 → 기본 비용 1000 × 선택 Weapon Action 배율 → D20 명중 → 피격 부위 → 피해 주사위 + 능력 수정치 → 선택 부위 단일 방어층의 profile 배율 × armor → penetration 차감 → 부위 integrity → 전체 HP → 사망 순서다.
 
 플레이어, Rat, 신규 몬스터와 M023 simulator가 모두 `AttackAction -> TimeCostGame.perform_action() -> CombatRules/Body -> CombatEvent -> TimeScheduler` 경로를 사용한다.
 
@@ -37,7 +37,8 @@ diagram = "docs/diagrams/combat_resolution.svg"
 
 선택 부위에는 한 armor value만 존재한다.
 
-- `effective = clamp(armor + profile_modifier(profile, damage_type) - penetration, 0, 200)`
+- `adjusted_armor = round(armor × profile_multiplier(profile, damage_type))`
+- `effective = clamp(adjusted_armor - penetration, 0, 200)`
 - Full% = `min(effective / 2, 100)`
 - Partial% = `min(effective / 2, 100 - Full%)`
 - 나머지는 Bypass.
@@ -45,7 +46,7 @@ diagram = "docs/diagrams/combat_resolution.svg"
 - Partial: `ceil(raw_damage / 2)`, Cut/Puncture/Blunt 모두 Blunt로 변환.
 - Bypass/Unarmored: raw 피해와 유형 유지.
 
-자연 방어와 장비 방어가 같은 판정을 사용한다. `ArmorDefinition.profile`과 `ActorDefinition.natural_armor_profile`은 SOFT/MAIL/RIGID 중 하나이며 중앙 표는 `CombatRules.ARMOR_PROFILE_MODIFIERS`에만 존재한다. [M027 결정과 표](../decisions/physical_combat_weapon_actions.md)를 참조한다. 제공된 콘텐츠는 같은 부위에 두 층을 겹치지 않는다.
+자연 방어와 장비 방어가 같은 판정을 사용한다. `ArmorDefinition.profile`과 `ActorDefinition.natural_armor_profile`은 등록된 profile ID를 참조한다. 현재 제공되는 초기 프로파일은 SOFT/MAIL/RIGID지만 닫힌 enum이 아니며, 배율 데이터는 `ArmorProfileCatalog`에 모여 있다. 프로파일이 특정 damage type 값을 생략하면 ×1.0으로 처리한다. 따라서 이후 profile이나 damage type을 추가할 때 기존 방어구 전부를 수정할 필요가 없다. [M027 결정과 표](../decisions/physical_combat_weapon_actions.md)를 참조한다. 제공된 콘텐츠는 같은 부위에 두 층을 겹치지 않는다.
 
 ## RNG 순서
 

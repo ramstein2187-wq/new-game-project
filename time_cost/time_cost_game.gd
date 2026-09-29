@@ -288,7 +288,7 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 		"armor_value": 0,
 		"base_armor": 0,
 		"armor_profile": &"",
-		"profile_modifier": 0,
+		"profile_multiplier": 1.0,
 		"effective_armor": 0.0,
 		"armor_result": &"unarmored",
 	}, true)

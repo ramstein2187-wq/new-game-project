@@ -1,15 +1,10 @@
 class_name CombatRules
 extends RefCounted
 
-# The only profile balance table. Unprofiled legacy/debug armor is neutral.
-const ARMOR_PROFILE_MODIFIERS := {
-	ArmorDefinition.SOFT: {AttackDefinition.DAMAGE_CUT: 0, AttackDefinition.DAMAGE_PUNCTURE: -10, AttackDefinition.DAMAGE_BLUNT: 10},
-	ArmorDefinition.MAIL: {AttackDefinition.DAMAGE_CUT: 20, AttackDefinition.DAMAGE_PUNCTURE: 0, AttackDefinition.DAMAGE_BLUNT: -20},
-	ArmorDefinition.RIGID: {AttackDefinition.DAMAGE_CUT: 20, AttackDefinition.DAMAGE_PUNCTURE: 10, AttackDefinition.DAMAGE_BLUNT: -10},
-}
-
-static func armor_profile_modifier(profile: StringName, damage_type: StringName) -> int:
-	return int(ARMOR_PROFILE_MODIFIERS.get(profile, {}).get(damage_type, 0))
+# Armor profile balance is content data in ArmorProfileCatalog. Combat resolution
+# only asks for a multiplier; unknown/omitted damage-type entries are neutral.
+static func armor_profile_multiplier(profile: StringName, damage_type: StringName) -> float:
+	return ArmorProfileCatalog.multiplier_for(profile, damage_type)
 
 # Reusable for combat and noncombat; no RNG or game dependencies.
 static func check(d20: int, ability_mod: int, proficiency: int, situation: int, difficulty: int) -> Dictionary:
@@ -35,8 +30,8 @@ static func armor_probabilities(armor: float, penetration: float) -> Dictionary:
 
 # roll is [0,100), supplied only when the selected part wears armor.
 static func armor_result(armor: float, penetration: float, roll: float, damage: int, damage_type: StringName, profile: StringName = &"") -> Dictionary:
-	var modifier := armor_profile_modifier(profile, damage_type)
-	var adjusted := armor + modifier
+	var multiplier := armor_profile_multiplier(profile, damage_type)
+	var adjusted := roundi(armor * multiplier)
 	var probabilities := armor_probabilities(adjusted, penetration)
 	var outcome := &"bypass"
 	if roll < probabilities.full:
@@ -46,6 +41,6 @@ static func armor_result(armor: float, penetration: float, roll: float, damage: 
 		outcome = &"partial"
 		damage = ceili(maxi(0, damage) / 2.0)
 		damage_type = AttackDefinition.DAMAGE_BLUNT
-	return {"base_armor": armor, "armor_profile": profile, "profile_modifier": modifier,
+	return {"base_armor": armor, "armor_profile": profile, "profile_multiplier": multiplier,
 		"profile_adjusted_armor": adjusted, "effective_armor": probabilities.effective, "effective": probabilities.effective, "armor_roll": roll, "armor_result": outcome,
 		"damage": damage, "damage_type": damage_type}

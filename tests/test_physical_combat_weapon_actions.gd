@@ -45,12 +45,15 @@ func _test_types_profiles() -> void:
 	expect(not attack.is_valid(), "Old Sharp authoring rejected")
 	var types := [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE, AttackDefinition.DAMAGE_BLUNT]
 	var profiles := [ArmorDefinition.SOFT, ArmorDefinition.MAIL, ArmorDefinition.RIGID]
-	var modifiers := [[0, -10, 10], [20, 0, -20], [20, 10, -10]]
+	var multipliers := [[1.0, 0.8, 1.2], [1.2, 1.0, 0.8], [1.2, 1.2, 0.8]]
+	expect(ArmorProfileCatalog.is_valid(), "Registered armor profiles are valid")
 	for row in range(3):
 		for column in range(3):
 			var result := CombatRules.armor_result(50, 30, 99, 7, types[column], profiles[row])
-			expect(CombatRules.armor_profile_modifier(profiles[row], types[column]) == modifiers[row][column], "Central profile table %d/%d" % [row, column])
-			expect(result.base_armor == 50 and result.profile_modifier == modifiers[row][column] and result.effective == 20 + modifiers[row][column], "Base + modifier - penetration")
+			var expected_adjusted := roundi(50 * multipliers[row][column])
+			expect(is_equal_approx(CombatRules.armor_profile_multiplier(profiles[row], types[column]), multipliers[row][column]), "Central profile table %d/%d" % [row, column])
+			expect(result.base_armor == 50 and is_equal_approx(result.profile_multiplier, multipliers[row][column]) and result.profile_adjusted_armor == expected_adjusted and result.effective == maxi(0, expected_adjusted - 30), "Base x multiplier - penetration")
+	expect(is_equal_approx(CombatRules.armor_profile_multiplier(ArmorDefinition.MAIL, &"Heat"), 1.0), "Undefined future damage type defaults to neutral multiplier")
 	expect(CombatRules.armor_result(5, 80, 0, 3, AttackDefinition.DAMAGE_PUNCTURE, ArmorDefinition.SOFT).effective == 0, "Lower effective clamp")
 	expect(CombatRules.armor_result(250, 0, 99, 3, AttackDefinition.DAMAGE_CUT, ArmorDefinition.RIGID).damage == 0, "Upper 200 effective clamp")
 	for id in [&"hunting_knife", &"handaxe", &"longsword", &"warhammer", &"maul"]:
@@ -197,17 +200,17 @@ func _test_production_armor_and_rng() -> void:
 		var expected_armor := mirror.randf() * 100.0
 		var result := game.resolve_attack(&"player", &"rat", &"thrust")
 		expect(result.d20 == expected_d20 and result.damage_rolls == [expected_die] and is_equal_approx(result.armor_roll, expected_armor) and mirror.state == game.combat_rng.state, "Profile/action preserves D20/location/dice/armor RNG order")
-		expect(result.effective_armor == clampf(result.base_armor + result.profile_modifier - 40, 0, 200), "Production profile penetration formula")
+		expect(result.effective_armor == clampf(roundi(result.base_armor * result.profile_multiplier) - 40, 0, 200), "Production profile penetration formula")
 		for part: Dictionary in target.body.parts.values():
 			part.weight = 1 if part.id == &"head" else 0
 		result = game.resolve_attack(&"player", &"rat")
-		expect(result.armor_result == &"unarmored" and not result.has("armor_roll") and result.profile_modifier == 0, "No coverage means no profile or armor RNG")
+		expect(result.armor_result == &"unarmored" and not result.has("armor_roll") and result.profile_multiplier == 1.0, "No coverage means neutral profile and no armor RNG")
 	var beetle := Actor.new(&"beetle", CombatContentCatalog.actor(&"giant_beetle"), Vector2i.ZERO)
 	expect(beetle.body.parts.thorax.armor == 60 and beetle.body.parts.thorax.armor_profile == ArmorDefinition.RIGID, "Natural armor carries rigid profile")
 	var game := _game()
 	game.get_actor(&"rat").body.apply_natural_armor(60, ArmorDefinition.RIGID)
 	var result := game.resolve_attack(&"player", &"rat")
-	expect(result.armor_profile == ArmorDefinition.RIGID and result.profile_modifier == 20 and result.effective_armor == 50, "Natural profile participates in production resolution")
+	expect(result.armor_profile == ArmorDefinition.RIGID and is_equal_approx(result.profile_multiplier, 1.2) and result.effective_armor == 42, "Natural profile participates in production resolution")
 	game = _game()
 	game.get_actor(&"rat").abilities.scores[&"DEX"] = 1000
 	var mirror := RandomNumberGenerator.new()

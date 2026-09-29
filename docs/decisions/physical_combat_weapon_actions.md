@@ -6,20 +6,22 @@ Status: Implemented on `codex/m027-physical-combat-weapon-actions`, based on mai
 
 `AttackDefinition` owns StringName constants Cut, Puncture and Blunt. Types do not create status effects. Existing dice, penetration and base armor values are preserved.
 
-Each armor has one value, coverage and SOFT/MAIL/RIGID profile. The only runtime balance table is `CombatRules.ARMOR_PROFILE_MODIFIERS`:
+Each armor has one value, coverage and a profile ID. SOFT/MAIL/RIGID are the initial profiles, not a closed enum. Their sparse multipliers live in `ArmorProfileCatalog`; an omitted damage type is neutral at ×1.0, so future damage types do not require rewriting every existing profile.
 
 | Profile | Cut | Puncture | Blunt |
 | --- | ---: | ---: | ---: |
-| SOFT | 0 | -10 | +10 |
-| MAIL | +20 | 0 | -20 |
-| RIGID | +20 | +10 | -10 |
+| SOFT | ×1.0 | ×0.8 | ×1.2 |
+| MAIL | ×1.2 | ×1.0 | ×0.8 |
+| RIGID | ×1.2 | ×1.2 | ×0.8 |
 
-`effective = clamp(base armor + profile modifier - penetration, 0, 200)`.
-Full chance is `min(effective / 2, 100)`; partial chance is `min(effective / 2, 100 - full)`; bypass is the remainder. Full damage is zero. Partial damage rounds up after halving and the final type is Blunt for all three physical inputs. Bypass preserves damage/type. Profiles apply only to a covering armor layer; a legacy/debug body part without a profile is neutral.
+`adjusted = round(base armor × profile multiplier)`, then `effective = clamp(adjusted - penetration, 0, 200)`.
+Full chance is `min(effective / 2, 100)`; partial chance is `min(effective / 2, 100 - full)`; bypass is the remainder. Full damage is zero. Partial damage rounds up after halving and the final type is Blunt for all three physical inputs. Bypass preserves damage/type. Profiles apply only to a covering armor layer; an unprofiled legacy/debug layer is neutral.
+
+Profile strength and armor tier are deliberately separate: armor value says how protective the item is, while the profile says what kinds of physical attacks it handles relatively well or poorly. New profile IDs can be registered in the catalog without changing `CombatRules` or `ArmorDefinition`.
 
 Gambeson/Leather Vest use SOFT; Chain Shirt MAIL; Scrap Plate/Iron Helmet RIGID. Beetle, spider and crab exoskeletons use RIGID; other natural armor uses SOFT (including cave-lizard hide). Natural armor zero creates no armor layer. `ActorDefinition -> BodyInstance.apply_natural_armor()` carries value/profile together. Equipment still replaces the layer on its covered parts; armor layering is not introduced.
 
-RNG contract remains D20, then on hit location, damage dice, and armor roll only for a present layer. Profile lookup and Weapon Action modifiers consume no random values.
+RNG contract remains D20, then on hit location, damage dice, and armor roll only for a present layer. Profile lookup and Weapon Action modifiers consume no random values. Cut/Puncture/Blunt are the selected physical set; future nonphysical damage types may use other resolution families rather than being forced through this armor formula.
 
 ## Weapon Actions and time
 

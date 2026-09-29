@@ -1,11 +1,13 @@
 class_name ArmorDefinition
 extends Resource
 
-const SOFT: StringName = &"SOFT"
-const MAIL: StringName = &"MAIL"
-const RIGID: StringName = &"RIGID"
+# Compatibility aliases for current built-in profiles. The valid profile set lives
+# in ArmorProfileCatalog and can grow without changing ArmorDefinition.
+const SOFT: StringName = ArmorProfileCatalog.SOFT
+const MAIL: StringName = ArmorProfileCatalog.MAIL
+const RIGID: StringName = ArmorProfileCatalog.RIGID
 
-@export_enum("SOFT", "MAIL", "RIGID") var profile: String = "SOFT"
+@export var profile: StringName = ArmorProfileCatalog.SOFT
 @export var id: StringName
 @export var display_name := ""
 @export var armor := 0
@@ -29,8 +31,5 @@ static func create(
 
 
 func is_valid() -> bool:
-	return id != &"" and not display_name.is_empty() and armor >= 0 and not coverage.is_empty() and is_valid_profile(profile)
-
-
-static func is_valid_profile(value: StringName) -> bool:
-	return value in [SOFT, MAIL, RIGID]
+	return id != &"" and not display_name.is_empty() and armor >= 0 and not coverage.is_empty() \
+		and ArmorProfileCatalog.has_profile(profile)

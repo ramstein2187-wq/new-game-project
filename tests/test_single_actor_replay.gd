@@ -44,7 +44,7 @@ func _init() -> void:
 				for key in ["weapon_name", "weapon_action_id", "attack_name", "required_capability",
 					"required_capability_count", "functional_capability_count", "attack_efficiency",
 					"cost_multiplier", "damage_modifier", "original_damage_type", "base_armor",
-					"armor_profile", "profile_modifier", "effective_armor", "action_cost"]:
+					"armor_profile", "profile_multiplier", "effective_armor", "action_cost"]:
 					data.erase(key)
 				if data.damage_type in [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE]:
 					data.damage_type = "Sharp"

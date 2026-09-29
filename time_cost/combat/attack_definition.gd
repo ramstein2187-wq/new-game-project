@@ -12,7 +12,9 @@ const ABILITY_BEST_STR_DEX: StringName = &"best_str_dex"
 @export var id: StringName = &"melee"
 @export var display_name := "Melee"
 @export var damage_dice := DamageDice.create(1, 4)
-@export_enum("Cut", "Puncture", "Blunt") var damage_type: String = "Blunt"
+# Kept as an open StringName so future resolution families can register additional
+# damage types without changing this Resource's serialized shape.
+@export var damage_type: StringName = DAMAGE_BLUNT
 @export var penetration := 0.0
 @export var ability_rule: StringName = ABILITY_STR
 @export var required_capability: StringName = &"weapon_manipulation"
