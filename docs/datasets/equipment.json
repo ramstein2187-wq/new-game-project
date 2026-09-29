@@ -1,23 +1,29 @@
 {
-  "version": 2,
+  "version": 4,
   "runtime_authority": "time_cost/combat/combat_content_catalog.gd",
   "normal_melee_action_cost": 1000,
+  "armor_profiles": [
+    {"id":"SOFT","multipliers":{"Cut":1.0,"Puncture":0.8,"Blunt":1.2},"default_multiplier":1.0},
+    {"id":"MAIL","multipliers":{"Cut":1.2,"Puncture":1.0,"Blunt":0.8},"default_multiplier":1.0},
+    {"id":"RIGID","multipliers":{"Cut":1.2,"Puncture":1.2,"Blunt":0.8},"default_multiplier":1.0}
+  ],
   "weapons": [
-    {"id":"hunting_knife","name":"Hunting Knife","damage":{"count":1,"size":4,"ability":"best_str_dex"},"damage_type":"Sharp","penetration":20,"required_hands":1,"required_capability":"weapon_manipulation","properties":["Finesse"]},
-    {"id":"handaxe","name":"Handaxe","damage":{"count":1,"size":6,"ability":"STR"},"damage_type":"Sharp","penetration":20,"required_hands":1,"required_capability":"weapon_manipulation","properties":[]},
-    {"id":"longsword","name":"Longsword","damage":{"count":1,"size":8,"ability":"STR"},"damage_type":"Sharp","penetration":30,"required_hands":1,"required_capability":"weapon_manipulation","properties":[]},
-    {"id":"warhammer","name":"Warhammer","damage":{"count":1,"size":8,"ability":"STR"},"damage_type":"Blunt","penetration":40,"required_hands":1,"required_capability":"weapon_manipulation","properties":[]},
-    {"id":"maul","name":"Maul","damage":{"count":2,"size":6,"ability":"STR"},"damage_type":"Blunt","penetration":50,"required_hands":2,"required_capability":"weapon_manipulation","properties":[]}
+    {"id":"hunting_knife","name":"Hunting Knife","damage":{"count":1,"size":4,"ability":"best_str_dex"},"damage_type":"Cut","penetration":20,"required_hands":1,"required_capability":"weapon_manipulation","properties":["Finesse"],"weapon_actions":[{"id":"quick_stab","display_name":"Quick Stab","cost_multiplier":0.75,"damage_type_override":"Puncture","damage_modifier":-1}]},
+    {"id":"handaxe","name":"Handaxe","damage":{"count":1,"size":6,"ability":"STR"},"damage_type":"Cut","penetration":20,"required_hands":1,"required_capability":"weapon_manipulation","properties":[],"weapon_actions":[]},
+    {"id":"longsword","name":"Longsword","damage":{"count":1,"size":8,"ability":"STR"},"damage_type":"Cut","penetration":30,"required_hands":1,"required_capability":"weapon_manipulation","properties":[],"weapon_actions":[{"id":"thrust","display_name":"Thrust","cost_multiplier":1.25,"damage_type_override":"Puncture","penetration_modifier":10}]},
+    {"id":"warhammer","name":"Warhammer","damage":{"count":1,"size":8,"ability":"STR"},"damage_type":"Blunt","penetration":40,"required_hands":1,"required_capability":"weapon_manipulation","properties":[],"weapon_actions":[{"id":"crushing_blow","display_name":"Crushing Blow","cost_multiplier":1.5,"damage_type_override":"Blunt","penetration_modifier":20}]},
+    {"id":"maul","name":"Maul","damage":{"count":2,"size":6,"ability":"STR"},"damage_type":"Blunt","penetration":50,"required_hands":2,"required_capability":"weapon_manipulation","properties":[],"weapon_actions":[{"id":"overhead_smash","display_name":"Overhead Smash","cost_multiplier":1.75,"damage_type_override":"Blunt","penetration_modifier":20}]}
   ],
   "armor": [
-    {"id":"gambeson","name":"Gambeson","armor":20,"coverage":["torso","arm"]},
-    {"id":"leather_vest","name":"Leather Vest","armor":30,"coverage":["torso"]},
-    {"id":"chain_shirt","name":"Chain Shirt","armor":50,"coverage":["torso","arm"]},
-    {"id":"scrap_plate","name":"Scrap Plate","armor":70,"coverage":["torso"]},
-    {"id":"iron_helmet","name":"Iron Helmet","armor":60,"coverage":["head"]}
+    {"id":"gambeson","name":"Gambeson","armor":20,"coverage":["torso","arm"],"profile":"SOFT"},
+    {"id":"leather_vest","name":"Leather Vest","armor":30,"coverage":["torso"],"profile":"SOFT"},
+    {"id":"chain_shirt","name":"Chain Shirt","armor":50,"coverage":["torso","arm"],"profile":"MAIL"},
+    {"id":"scrap_plate","name":"Scrap Plate","armor":70,"coverage":["torso"],"profile":"RIGID"},
+    {"id":"iron_helmet","name":"Iron Helmet","armor":60,"coverage":["head"],"profile":"RIGID"}
   ],
   "notes": [
     "Weapon data has no action_cost, attack_speed or weapon_speed field.",
-    "Armor is single-layer per body part; supplied prototype loadouts do not overlap natural and equipment armor."
+    "Armor is single-layer per body part; supplied prototype loadouts do not overlap natural and equipment armor.",
+    "Armor profile IDs are extensible catalog data; omitted damage types use a neutral x1.0 multiplier."
   ]
 }

@@ -102,12 +102,12 @@ func _test_armor_catalog_and_coverage() -> void:
 	expect(actor.body.parts.head.armor == 60 and actor.body.parts.head.armor_id == &"iron_helmet", "Iron Helmet covers Head")
 	expect(actor.body.parts.torso.armor == 30 and actor.body.parts.torso.armor_id == &"leather_vest", "Leather Vest covers Torso")
 	expect(actor.body.parts.left_arm.armor == -1 and actor.body.parts.right_arm.armor == -1, "Helmet and vest do not cover Arms")
-	var full := CombatRules.armor_result(100, 20, 0, 7, &"Sharp")
-	var partial := CombatRules.armor_result(100, 20, 50, 7, &"Sharp")
-	var bypass := CombatRules.armor_result(100, 20, 90, 7, &"Sharp")
+	var full := CombatRules.armor_result(100, 20, 0, 7, &"Cut")
+	var partial := CombatRules.armor_result(100, 20, 50, 7, &"Cut")
+	var bypass := CombatRules.armor_result(100, 20, 90, 7, &"Cut")
 	expect(full.damage == 0 and full.armor_result == &"full", "Full armor result deals zero damage")
-	expect(partial.damage == 4 and partial.damage_type == &"Blunt", "Partial armor result halves upward and converts Sharp to Blunt")
-	expect(bypass.damage == 7 and bypass.damage_type == &"Sharp", "Bypass preserves raw damage and type")
+	expect(partial.damage == 4 and partial.damage_type == &"Blunt", "Partial armor result halves upward and converts Cut to Blunt")
+	expect(bypass.damage == 7 and bypass.damage_type == &"Cut", "Bypass preserves raw damage and type")
 
 
 func _test_monster_catalog() -> void:

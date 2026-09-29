@@ -1,6 +1,11 @@
 class_name CombatRules
 extends RefCounted
 
+# Armor profile balance is content data in ArmorProfileCatalog. Combat resolution
+# only asks for a multiplier; unknown/omitted damage-type entries are neutral.
+static func armor_profile_multiplier(profile: StringName, damage_type: StringName) -> float:
+	return ArmorProfileCatalog.multiplier_for(profile, damage_type)
+
 # Reusable for combat and noncombat; no RNG or game dependencies.
 static func check(d20: int, ability_mod: int, proficiency: int, situation: int, difficulty: int) -> Dictionary:
 	var total := d20 + ability_mod + proficiency + situation
@@ -24,8 +29,10 @@ static func armor_probabilities(armor: float, penetration: float) -> Dictionary:
 	return {"effective": effective, "full": full, "partial": partial, "bypass": 100 - full - partial}
 
 # roll is [0,100), supplied only when the selected part wears armor.
-static func armor_result(armor: float, penetration: float, roll: float, damage: int, damage_type: StringName) -> Dictionary:
-	var probabilities := armor_probabilities(armor, penetration)
+static func armor_result(armor: float, penetration: float, roll: float, damage: int, damage_type: StringName, profile: StringName = &"") -> Dictionary:
+	var multiplier := armor_profile_multiplier(profile, damage_type)
+	var adjusted := roundi(armor * multiplier)
+	var probabilities := armor_probabilities(adjusted, penetration)
 	var outcome := &"bypass"
 	if roll < probabilities.full:
 		outcome = &"full"
@@ -33,7 +40,7 @@ static func armor_result(armor: float, penetration: float, roll: float, damage: 
 	elif roll < probabilities.full + probabilities.partial:
 		outcome = &"partial"
 		damage = ceili(maxi(0, damage) / 2.0)
-		if damage_type == &"Sharp":
-			damage_type = &"Blunt"
-	return {"effective": probabilities.effective, "armor_roll": roll, "armor_result": outcome,
+		damage_type = AttackDefinition.DAMAGE_BLUNT
+	return {"base_armor": armor, "armor_profile": profile, "profile_multiplier": multiplier,
+		"profile_adjusted_armor": adjusted, "effective_armor": probabilities.effective, "effective": probabilities.effective, "armor_roll": roll, "armor_result": outcome,
 		"damage": damage, "damage_type": damage_type}

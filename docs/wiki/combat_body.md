@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["전투"]
-milestones = "M017, M024"
+milestones = "M017, M024, M027"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/specs/combat_resolution.md"
 icon = "🎯"
 +++
@@ -13,7 +13,7 @@ M024는 기존 D20/신체/단일 방어층 파이프라인을 유지하면서 �
 
 ## 공격 흐름
 
-입력/AI → `AttackAction` → capability/손 수 확인 → 공통 비용 1000 → D20 → 피격 부위 → 피해 주사위 → 단일 방어층 → 부위/HP 피해 → 이벤트/스케줄러.
+입력/AI → `AttackAction` → capability/손 수 확인 → 기본 비용 1000 × Weapon Action 배율 → D20 → 피격 부위 → 피해 주사위 → 단일 방어층의 profile 배율 × armor → penetration 차감 → 부위/HP 피해 → 이벤트/스케줄러.
 
 ## 신체 기능
 
@@ -29,3 +29,7 @@ M024는 기존 D20/신체/단일 방어층 파이프라인을 유지하면서 �
 ## 경계
 
 Armor는 body part당 한 층이다. 인벤토리 UI, layered armor, durability, critical, ranged, poison/bleeding, 절단과 최종 Threat Rating은 아직 없다.
+
+## M027 확장
+
+물리 유형은 Cut/Puncture/Blunt다. 초기 방어 프로파일은 SOFT/MAIL/RIGID이며 각각 damage type별 배율을 가진다. 이 셋은 닫힌 enum이 아니라 등록된 초기 데이터이고, 생략된 damage type은 ×1.0으로 처리하므로 향후 chitin/composite 같은 프로파일과 새 공격 속성을 추가할 수 있다. 무기별 선택 행동과 1H/2H capability 요구량은 [전투 결정](../decisions/physical_combat_weapon_actions.md)에 정리한다. 현재 playground의 Test weapon 선택과 행동 버튼은 디버그 테스트용이며 인접 NPC 중 등록 순서상 첫 대상을 공격한다. 기본 공격은 기존 bump다.

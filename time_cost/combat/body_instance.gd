@@ -76,12 +76,13 @@ func attack_efficiency(capability_id: StringName, required_count: int = 1) -> fl
 	attack_part = selected[0]
 	return result
 
-func apply_natural_armor(value: int) -> void:
+func apply_natural_armor(value: int, profile: StringName = ArmorDefinition.SOFT) -> void:
 	if value <= 0:
 		return
 	for part: Dictionary in parts.values():
 		part.armor = value
 		part.armor_id = &"natural_armor"
+		part.armor_profile = profile
 
 func equip_armor(definition: ArmorDefinition) -> void:
 	if definition == null or not definition.is_valid():
@@ -90,6 +91,7 @@ func equip_armor(definition: ArmorDefinition) -> void:
 		if definition.coverage.has(part.type):
 			part.armor = definition.armor
 			part.armor_id = definition.id
+			part.armor_profile = definition.profile
 
 func select_part(unit_roll: float) -> StringName:
 	var total := 0.0

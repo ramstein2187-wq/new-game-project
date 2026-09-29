@@ -1,6 +1,6 @@
 # Normal weapon attacks use a shared base time cost
 
-Status: **Implemented on M024 task branch; pending main integration.**
+Status: **Shared 1000 cost integrated in M024; Weapon Action multipliers added on the M027 task branch.**
 
 ## Decision
 
@@ -47,4 +47,4 @@ Do not begin with a broad knife=fast / maul=slow numeric ladder.
 
 M024 removes `ActorDefinition.attack_cost`. `AttackAction.BASE_COST` owns the shared normal-melee cost of 1000, and every prototype weapon and natural attack uses that Action path. Weapon definitions contain damage dice, damage type, penetration, capability requirements, hand count and properties; they contain no speed field.
 
-Historical milestone documents retain their original 1250/1000 prototype values. Actor Speed, Quick Attack and Heavy Attack remain future systems.
+Historical milestone documents retain their original 1250/1000 prototype values. M027 adds sparse Weapon Action modifiers with relative costs through `AttackAction.cost_from_multiplier()`. Actor Speed remains a future system. See [physical combat and weapon actions](physical_combat_weapon_actions.md).

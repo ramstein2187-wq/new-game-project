@@ -2,7 +2,8 @@ extends SceneTree
 
 # Fixture originated before M019 and is intentionally versioned when a milestone
 # changes production combat semantics. --capture remains explicit.
-const FIXTURE := "res://tests/fixtures/m018_single_rat_replay.sha256"
+const FIXTURE := "res://tests/fixtures/m027_single_rat_replay.sha256"
+const LEGACY_FIXTURE := "res://tests/fixtures/m018_single_rat_replay.sha256"
 
 func _init() -> void:
 	var runs: Array = []
@@ -31,6 +32,26 @@ func _init() -> void:
 				str(game.combat_rng.state), game.bodies[&"player"].parts,
 				game.bodies[&"rat"].parts, events])
 		runs.append(frames)
+	# These unarmored actors must keep the exact M024 mechanics/RNG. Normalize
+	# only M027 telemetry and renamed damage types to the prior event schema.
+	var legacy_runs: Array = runs.duplicate(true)
+	for frames in legacy_runs:
+		for frame in frames:
+			for event in frame[10]:
+				if event[0] != &"attack":
+					continue
+				var data: Dictionary = event[7]
+				for key in ["weapon_name", "weapon_action_id", "attack_name", "required_capability",
+					"required_capability_count", "functional_capability_count", "attack_efficiency",
+					"cost_multiplier", "damage_modifier", "original_damage_type", "base_armor",
+					"armor_profile", "profile_multiplier", "effective_armor", "action_cost"]:
+					data.erase(key)
+				if data.damage_type in [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE]:
+					data.damage_type = "Sharp"
+	if JSON.stringify(legacy_runs, "\t").sha256_text() != FileAccess.get_file_as_string(LEGACY_FIXTURE).strip_edges():
+		push_error("M027 unarmored mechanics drifted from M024, beyond telemetry/type renaming")
+		quit(1)
+		return
 	var serialized := JSON.stringify(runs, "\t").sha256_text()
 	if "--capture" in OS.get_cmdline_user_args():
 		var file := FileAccess.open(FIXTURE, FileAccess.WRITE)
@@ -40,5 +61,5 @@ func _init() -> void:
 			push_error("Single-rat replay changed: positions, damage, body, AI events, clock or RNG (actual %s)" % serialized)
 			quit(1)
 			return
-	print("PASS: pre-M019 single-rat replay (3 seeds)")
+	print("PASS: M027 replay and normalized M024 mechanics (3 seeds)")
 	quit(0)

@@ -153,6 +153,10 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 	if not action.can_execute(self, actor_id):
 		if actor_id == &"player":
 			message = "Action unavailable: check range, path and body function. No time spent."
+			if action is AttackAction:
+				var reason := attack_unavailable_reason(actor_id, action.weapon_action_id)
+				if not reason.is_empty():
+					message = reason + " No time spent."
 		return false
 	var cost := action.get_cost(self, actor_id)
 	if cost <= 0:
@@ -185,20 +189,46 @@ func get_rat_fear() -> int:
 	return get_actor(&"rat").fear()
 
 
-func can_attack(actor_id: StringName) -> bool:
+func can_attack(actor_id: StringName, weapon_action_id: StringName = &"") -> bool:
+	return attack_unavailable_reason(actor_id, weapon_action_id).is_empty()
+
+
+func attack_unavailable_reason(actor_id: StringName, weapon_action_id: StringName = &"", detailed: bool = false) -> String:
 	var actor := get_actor(actor_id)
-	return actor != null and actor.is_alive() and actor.attack != null and actor.body.attack_efficiency(
-		actor.attack.required_capability, actor.attack.required_capability_count
-	) > 0
+	if actor == null or not actor.is_alive() or actor.attack == null:
+		return "Attacker unavailable."
+	if weapon_action_id != &"":
+		var selected := actor.weapon_action(weapon_action_id)
+		if selected == null or not selected.is_valid():
+			return "This weapon does not provide that action."
+	var capability := actor.attack_capability()
+	var required := actor.attack_capability_count()
+	var available := actor.body.functional_count(capability)
+	if required <= 0 or available < required:
+		var label := actor.equipped_weapon.display_name if actor.equipped_weapon != null else actor.attack.display_name
+		if detailed:
+			return "%s attack unavailable: requires %d functional %s limbs; %d available." % [label, required, capability, available]
+		return "Cannot use %s: too few functional limbs." % label
+	return ""
 
 
 func attack_efficiency(actor_id: StringName) -> float:
 	var actor := get_actor(actor_id)
 	if actor == null or actor.attack == null:
 		return 0.0
-	return actor.body.attack_efficiency(
-		actor.attack.required_capability, actor.attack.required_capability_count
-	)
+	return actor.body.attack_efficiency(actor.attack_capability(), actor.attack_capability_count())
+
+
+# The playground chooses an adjacent target in registry order; any Actor can
+# execute the same AttackAction with an explicit target and weapon action ID.
+func player_weapon_action(weapon_action_id: StringName) -> bool:
+	if not _can_player_act():
+		return false
+	for other in actors.all():
+		if other.id != &"player" and other.is_alive() and can_melee_reach(player_position, other.position):
+			return perform_action(&"player", AttackAction.new(other.id, weapon_action_id))
+	message = "Weapon action unavailable: no adjacent target. No time spent."
+	return false
 
 
 func movement_efficiency(actor_id: StringName) -> float:
@@ -206,31 +236,46 @@ func movement_efficiency(actor_id: StringName) -> float:
 	return actor.body.capability(&"locomotion") if actor != null and actor.is_alive() else 0.0
 
 
-func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
+func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_id: StringName = &"") -> Dictionary:
 	var attacker := get_actor(actor_id)
 	var defender := get_actor(target_id)
 	var attack: AttackDefinition = attacker.attack
+	var selected := attacker.weapon_action(weapon_action_id) if weapon_action_id != &"" else null
+	if selected != null:
+		attack = selected.modified_attack(attack)
 	var body: BodyInstance = attacker.body
 	var target: BodyInstance = defender.body
-	var efficiency := body.attack_efficiency(attack.required_capability, attack.required_capability_count)
+	var efficiency := body.attack_efficiency(attacker.attack_capability(), attacker.attack_capability_count())
 	var injury_mod := -2 if efficiency < 1 else 0
+	var situation_mod := injury_mod + (selected.situation_modifier if selected != null else 0)
+	var damage_mod := selected.damage_modifier if selected != null else 0
 	var ability := attack.ability_for(attacker.abilities)
 	var ability_modifier := attacker.abilities.get_modifier(ability)
 	var difficulty := 10 + defender.abilities.get_modifier(&"DEX")
 	var result := CombatRules.check(
 		combat_rng.randi_range(1, 20), ability_modifier, attacker.definition.proficiency_bonus,
-		injury_mod, difficulty
+		situation_mod, difficulty
 	)
 	result.merge({
 		"attack_id": attack.id,
 		"weapon_id": attacker.weapon_id,
+		"weapon_name": attacker.equipped_weapon.display_name if attacker.equipped_weapon != null else "",
+		"weapon_action_id": weapon_action_id,
+		"attack_name": attack.display_name,
+		"required_capability": attacker.attack_capability(),
+		"required_capability_count": attacker.attack_capability_count(),
+		"functional_capability_count": body.functional_count(attacker.attack_capability()),
+		"attack_efficiency": efficiency,
+		"cost_multiplier": selected.cost_multiplier if selected != null else 1.0,
+		"damage_modifier": damage_mod,
+		"original_damage_type": attack.damage_type,
 		"ability": ability,
 		"damage_ability": ability,
 		"damage_ability_modifier": ability_modifier,
 		"difficulty": difficulty,
 		"attack_total": result.total,
-		"situation_modifier": injury_mod,
-		"attack_parts": body.selected_functional_parts(attack.required_capability, attack.required_capability_count),
+		"situation_modifier": situation_mod,
+		"attack_parts": body.selected_functional_parts(attacker.attack_capability(), attacker.attack_capability_count()),
 		"attack_part": body.attack_part,
 		"damage_dice_count": attack.damage_dice.dice_count,
 		"damage_die_size": attack.damage_dice.dice_size,
@@ -241,6 +286,10 @@ func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
 		"damage_type": attack.damage_type,
 		"penetration": attack.penetration,
 		"armor_value": 0,
+		"base_armor": 0,
+		"armor_profile": &"",
+		"profile_multiplier": 1.0,
+		"effective_armor": 0.0,
 		"armor_result": &"unarmored",
 	}, true)
 	if result.hit:
@@ -248,7 +297,7 @@ func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
 		if part_id != &"":
 			var part: Dictionary = target.parts[part_id]
 			var damage_rolls := attack.damage_dice.roll(combat_rng)
-			var raw_damage := CombatRules.damage_total(damage_rolls, ability_modifier)
+			var raw_damage := CombatRules.damage_total(damage_rolls, ability_modifier + damage_mod)
 			result.merge({
 				"part": part_id,
 				"part_name": part.name,
@@ -262,7 +311,7 @@ func resolve_attack(actor_id: StringName, target_id: StringName) -> Dictionary:
 			if part.armor >= 0:
 				result.merge(CombatRules.armor_result(
 					part.armor, attack.penetration, combat_rng.randf() * 100.0,
-					raw_damage, attack.damage_type
+					raw_damage, attack.damage_type, part.get("armor_profile", &"")
 				), true)
 			result["final_damage"] = result.damage
 			result.merge(target.apply_damage(part_id, result.damage), true)
@@ -376,7 +425,13 @@ func get_recent_event_text(detailed: bool = false) -> String:
 
 
 func get_recent_debug_text() -> String:
-	return CombatLogFormatter.get_recent_debug_text(combat_log)
+	var lines: Array[String] = []
+	for actor in actors.all():
+		var reason := attack_unavailable_reason(actor.id, &"", true)
+		lines.append("%s: %s requires %d; functional %d; efficiency %.2f%s" % [actor.id,
+			actor.attack_capability(), actor.attack_capability_count(), actor.body.functional_count(actor.attack_capability()),
+			attack_efficiency(actor.id), " | " + reason if not reason.is_empty() else ""])
+	return "\n".join(lines) + "\n" + CombatLogFormatter.get_recent_debug_text(combat_log)
 
 
 func _build_room() -> void:

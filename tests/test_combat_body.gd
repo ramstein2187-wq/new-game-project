@@ -55,13 +55,13 @@ func _test_armor() -> void:
 		var p := CombatRules.armor_probabilities(row[0], 0)
 		expect(p.full == row[1] and p.partial == row[2] and p.bypass == row[3], "Armor probabilities E=%d" % row[0])
 	expect(CombatRules.armor_probabilities(10, 50).effective == 0 and CombatRules.armor_probabilities(300, 0).effective == 200, "E clamps")
-	var full := CombatRules.armor_result(100, 20, 39.99, 5, &"Sharp")
-	var partial := CombatRules.armor_result(100, 20, 40, 5, &"Sharp")
-	var bypass := CombatRules.armor_result(100, 20, 80, 5, &"Sharp")
+	var full := CombatRules.armor_result(100, 20, 39.99, 5, &"Cut")
+	var partial := CombatRules.armor_result(100, 20, 40, 5, &"Cut")
+	var bypass := CombatRules.armor_result(100, 20, 80, 5, &"Cut")
 	expect(full.damage == 0 and full.armor_result == &"full", "Full block")
 	expect(partial.damage == 3 and partial.damage_type == &"Blunt", "Half damage rounds up and converts")
-	expect(bypass.damage == 5 and bypass.damage_type == &"Sharp", "Bypass boundary")
-	expect(CombatRules.armor_result(100, 20, 40, 0, &"Sharp").damage == 0, "Zero stays zero")
+	expect(bypass.damage == 5 and bypass.damage_type == &"Cut", "Bypass boundary")
+	expect(CombatRules.armor_result(100, 20, 40, 0, &"Cut").damage == 0, "Zero stays zero")
 	expect(CombatRules.armor_result(100, 20, 40, 5, &"Blunt").damage_type == &"Blunt", "Blunt retained")
 
 func _test_bodies() -> void:
