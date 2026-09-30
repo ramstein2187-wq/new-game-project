@@ -15,7 +15,8 @@ icon = "⏱️"
 
 - Human: 문 상호작용 500 / 직선 이동 1000 / 대기 1000 / Normal Melee 1000
 - Rat: 문 상호작용 500 / 직선 이동 750 / Normal Melee 1000 / 막힘 대기 1000
-- 무기 종류는 Normal Melee 비용을 바꾸지 않는다. Actor Speed 공식과 Quick/Heavy Action은 아직 없다.
+- 무기 종류는 Normal Melee 비용을 바꾸지 않는다. M027 Weapon Action 배율을 유지한다.
+- M031 task branch: `ceil(1000 또는 1400 / resolved movement_speed / Body 효율)`에 외부 비용 modifier를 최종 반올림 전에 적용한다. 현재 healthy/부상 비용을 보존한다.
 - 플레이어 행동 후 플레이어의 다음 준비 시간보다 이른 NPC들을 반복 처리한다.
 - 준비 시간이 정확히 같으면 플레이어가 우선한다.
 - NPC끼리 동률이면 등록 순서를 사용해 결정성을 유지한다.
@@ -30,4 +31,6 @@ Quickness 하나로 모든 속도를 해결하기보다 행동 자체의 시간 
 
 ## 다음 확장
 
-전역 속도 배율, 상태효과 시간 처리, 반응 행동, animation/wind-up 등은 아직 별도 설계 대상이다.
+M031의 query 기반 [Modifier/Effect](attributes_effects.md)는 task branch에 구현했다.
+전역 Quickness/DEX 속도는 도입하지 않는다. duration/tick, 반응 행동,
+animation/wind-up은 후속 범위다.

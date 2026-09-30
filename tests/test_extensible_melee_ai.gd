@@ -252,7 +252,7 @@ func _test_data_driven_action_extension() -> void:
 	game.get_actor(&"player").body.equip_armor(CombatContentCatalog.armor(&"chain_shirt"))
 	var custom: WeaponDefinition = CombatContentCatalog.weapon(&"longsword").duplicate(true)
 	custom.actions.append(WeaponActionDefinition.create(
-		&"synthetic_hook", "Synthetic Hook", 1.0, AttackDefinition.DAMAGE_BLUNT
+		&"synthetic_hook", "Synthetic Hook", 0.0, AttackDefinition.DAMAGE_BLUNT
 	))
 	expect(custom.is_valid() and game.get_actor(&"fighter").set_weapon(custom),
 		"Synthetic valid action can be authored without AI code changes")
@@ -307,7 +307,7 @@ func _test_production_trace() -> void:
 	if found != null:
 		expect(found.data.get("ai_policy_revision") == &"basic_melee_v3",
 			"Production event records v3 policy revision")
-		expect(found.data.get("weapon_action_id") == &"thrust" and found.action_cost == maxi(1, roundi(AttackAction.BASE_COST * CombatContentCatalog.weapon(&"longsword").get_action(&"thrust").cost_multiplier)),
+		expect(found.data.get("weapon_action_id") == &"thrust" and found.action_cost == maxi(1, ceili(AttackAction.BASE_COST * (1.0 + CombatContentCatalog.weapon(&"longsword").get_action(&"thrust").cost_percent))),
 			"Chosen weapon action uses common AttackAction cost/execution")
 		expect(found.reason_codes.has(&"penetration_option"),
 			"Production trace preserves qualitative weapon-action reason")

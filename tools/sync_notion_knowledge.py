@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import math
 import os
 import re
 import sys
@@ -196,7 +197,7 @@ def discover_specs(config: dict[str, Any]) -> list[dict[str, Any]]:
     return records
 
 
-ABILITY_KEYS = ("STR", "DEX", "CON", "INT", "WIS", "CHA")
+ABILITY_KEYS = ("STR", "DEX", "CON", "PER", "INT", "WIL")
 
 MONSTER_ORIGINS = {
     "토착",
@@ -378,7 +379,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
         properties = ", ".join(str(value) for value in weapon.get("properties", [])) or "없음"
         weapon_actions = []
         for action in weapon.get("weapon_actions", []):
-            multiplier = float(action.get("cost_multiplier", 1.0))
+            percent = float(action.get("cost_percent", 0.0))
             changes = []
             if action.get("damage_type_override"):
                 changes.append(f"type={action['damage_type_override']}")
@@ -391,8 +392,8 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             weapon_actions.append({
                 "id": str(action.get("id", "")),
                 "display_name": str(action.get("display_name") or action.get("id") or "Unnamed Action"),
-                "cost_multiplier": multiplier,
-                "resolved_cost": max(1, int(normal_cost * multiplier + 0.5)),
+                "cost_percent": percent,
+                "resolved_cost": max(1, math.ceil(normal_cost * (1.0 + percent))),
                 "changes": ", ".join(changes),
             })
         result.append({
@@ -413,7 +414,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             "weapon_properties": properties,
             "weapon_actions": weapon_actions,
             "weapon_actions_summary": " | ".join(
-                f"{action['display_name']} [{action['id']}] — cost ×{action['cost_multiplier']:g} = {action['resolved_cost']}"
+                f"{action['display_name']} [{action['id']}] — cost {action['cost_percent']:+.0%} = {action['resolved_cost']}"
                 + (f"; {action['changes']}" if action["changes"] else "")
                 for action in weapon_actions
             ) or "없음",
@@ -779,8 +780,8 @@ def monster_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
         "DEX": {"number": abilities["DEX"]},
         "CON": {"number": abilities["CON"]},
         "INT": {"number": abilities["INT"]},
-        "WIS": {"number": abilities["WIS"]},
-        "CHA": {"number": abilities["CHA"]},
+        "PER": {"number": abilities["PER"]},
+        "WIL": {"number": abilities["WIL"]},
         "직선 이동 비용": {"number": record["move_cardinal"]},
         "대각선 이동 비용": {"number": record["move_diagonal"]},
         "공격 시간 비용": {"number": record["attack_cost"]},
@@ -958,7 +959,7 @@ def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[
                 for action in actions:
                     text = (
                         f"{action['display_name']} [{action['id']}] — "
-                        f"cost ×{action['cost_multiplier']:g} = {action['resolved_cost']}"
+                        f"cost {action['cost_percent']:+.0%} = {action['resolved_cost']}"
                     )
                     if action.get("changes"):
                         text += f"; {action['changes']}"
@@ -996,6 +997,27 @@ def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[
     return blocks
 
 
+def ensure_monster_attribute_properties(client: NotionClient, data_source_id: str) -> None:
+    """Add current numeric attributes; preserve historical columns and values.
+
+    https://developers.notion.com/reference/update-data-source-properties
+    Only the existing real-sync path calls this; --check never uses the network.
+    """
+    endpoint = f"/data_sources/{data_source_id}"
+    properties = client.request("GET", endpoint).get("properties", {})
+    missing: dict[str, Any] = {}
+    for key in ABILITY_KEYS:
+        if key not in properties:
+            missing[key] = {"number": {"format": "number"}}
+        elif properties[key].get("type") != "number":
+            raise SyncError(f"Monster attribute {key} must be a number property")
+    if missing:
+        client.request("PATCH", endpoint, {"properties": missing})
+        verified = client.request("GET", endpoint).get("properties", {})
+        if any(verified.get(key, {}).get("type") != "number" for key in ABILITY_KEYS):
+            raise SyncError("Monster attribute schema migration was not verified")
+
+
 def sync_dataset(
     client: NotionClient,
     data_source_id: str,
@@ -1003,6 +1025,8 @@ def sync_dataset(
     records: list[dict[str, Any]],
     kind: str,
 ) -> dict[str, str]:
+    if kind == "monsters":
+        ensure_monster_attribute_properties(client, data_source_id)
     existing = source_map(client, data_source_id)
     pages: dict[str, str] = {}
     active_sources: set[str] = set()

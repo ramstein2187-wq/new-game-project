@@ -11,7 +11,7 @@ diagram = "docs/diagrams/combat_resolution.svg"
 
 ## 전체 흐름
 
-공격 capability/손 수 유효성 → 기본 비용 1000 × 선택 Weapon Action 배율 → D20 명중 → 피격 부위 → 피해 주사위 + 능력 수정치 → 선택 부위 단일 방어층의 profile 배율 × armor → penetration 차감 → 부위 integrity → 전체 HP → 사망 순서다.
+공격 capability/손 수 유효성 → 공통 비용 resolver (기본 1000, Weapon/external Percent 합, Flat) → D20 명중 → 피격 부위 → 피해 주사위 + 능력 수정치 → 선택 부위 단일 방어층의 profile 배율 × armor → penetration 차감 → 부위 integrity → 전체 HP → 사망 순서다.
 
 플레이어, Rat, 신규 몬스터와 M023 simulator가 모두 `AttackAction -> TimeCostGame.perform_action() -> CombatRules/Body -> CombatEvent -> TimeScheduler` 경로를 사용한다.
 
@@ -23,7 +23,7 @@ diagram = "docs/diagrams/combat_resolution.svg"
 - Finesse는 STR/DEX modifier 중 높은 쪽을 명중과 피해에 함께 사용한다.
 - 자연 1/20 예외와 Critical Hit은 없다.
 
-`AttackDefinition`은 공격 ID, 피해 주사위, Cut/Puncture/Blunt, 관통, 능력 규칙, required capability와 수를 소유한다. `WeaponDefinition`은 이를 조합하고 손 수와 properties를 기록한다. 일반 공격 시간은 무기에 없다. M027의 `WeaponActionDefinition`은 기본 공격에 type/penetration/damage/situation 변경과 cost multiplier만 제공하며 독립 공격 전체를 복제 저장하지 않는다.
+`AttackDefinition`은 공격 ID, 피해 주사위, Cut/Puncture/Blunt, 관통, 능력 규칙, required capability와 수를 소유한다. `WeaponDefinition`은 이를 조합하고 손 수와 properties를 기록한다. 일반 공격 시간은 무기에 없다. `WeaponActionDefinition`은 기본 공격에 type/penetration/damage/situation 변경과 cost_percent delta를 제공하며 독립 공격 전체를 복제 저장하지 않는다.
 
 ## Capability와 부상
 

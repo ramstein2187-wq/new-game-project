@@ -25,6 +25,7 @@ var fear_bonus := 0
 # Per-instance bounded caution memory for basic_melee_v3. Recreated on reset.
 var melee_caution_target: StringName = &""
 var melee_caution_spent := 0
+var _effect_store := EffectStore.new()
 
 func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, label: String = "") -> void:
 	_id = actor_id
@@ -50,6 +51,38 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 
 func is_alive() -> bool:
 	return hp > 0
+
+# A definition ID has one active instance. Duplicate IDs reject; no stacking.
+# Deep copies prevent changes to a caller's Resource or sibling Actor leaking in.
+func add_effect(effect: GameplayEffectDefinition, source_id: StringName = &"system") -> bool:
+	return _effect_store.add(effect, source_id)
+
+func remove_effect(effect_id: StringName) -> bool:
+	return _effect_store.remove(effect_id)
+
+func has_effect(effect_id: StringName) -> bool:
+	return _effect_store.has(effect_id)
+
+func clear_effects() -> void:
+	_effect_store.clear()
+
+func active_effects() -> Array[GameplayEffectDefinition]:
+	return _effect_store.definition_snapshots()
+
+func active_effect_instances() -> Array[ActiveEffect]:
+	return _effect_store.snapshots()
+
+func stat_breakdown(stat: StringName) -> Dictionary:
+	if not StatCatalog.is_known(stat):
+		return {"stat": stat, "valid": false, "value": 0.0, "steps": []}
+	var base := definition.movement_speed if stat == StatCatalog.MOVEMENT_SPEED else float(abilities.scores[stat])
+	return StatResolver.resolve(stat, base, _effect_store, StringName("actor:" + String(definition.type_id)))
+
+func apply_action_cost_modifiers(base: float, tags: Array[StringName], intrinsic_percent: float = 0.0, intrinsic_source: StringName = &"") -> Dictionary:
+	return _effect_store.apply_action_cost_modifiers(base, tags, intrinsic_percent, intrinsic_source)
+
+func resolved_stat(stat: StringName) -> float:
+	return float(stat_breakdown(stat).value)
 
 func fear() -> int:
 	return maxi(0, roundi((max_hp - hp) * 120.0 / max_hp) + fear_bonus)

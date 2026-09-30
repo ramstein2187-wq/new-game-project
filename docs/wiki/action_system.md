@@ -17,6 +17,7 @@ icon = "🎬"
 
 - `can_execute(game, actor_id)`
 - `get_cost(game, actor_id)`
+- `cost_breakdown(game, actor_id)` (M031 task branch; source/operation/value/result)
 - `execute(game, actor_id, cost)` → `CombatEvent`
 
 현재 구체 Action은 `MoveAction`, `AttackAction`, `InteractAction`, `WaitAction`이다.
@@ -28,6 +29,12 @@ icon = "🎬"
 ## 설계 효과
 
 새 행동을 추가할 때 스케줄러 자체를 수정하지 않아도 된다. 시간 계산, 행동 규칙, 로그, AI를 서로 분리하는 기반이다.
+
+## 비용 해석 (M031 task branch)
+
+M031 task branch에서 모든 비용은 ActionCostResolver를 통과한다. Action 표준
+비용, Weapon Action 배율, Move speed/Body, 태그 외부 modifier를 합성한 뒤
+한 번 ceil한다. [비용 명세](../specs/action_cost_resolution.md).
 
 ## 아직 없는 것
 

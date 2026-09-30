@@ -1,13 +1,21 @@
 class_name WaitAction
 extends TimeAction
 
+const BASE_COST := 1000
+
 
 func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	return game.actor_is_alive(actor_id)
 
 
-func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return game.get_actor(actor_id).definition.wait_cost
+func base_cost() -> float:
+	return BASE_COST
+
+func cost_source() -> StringName:
+	return &"wait"
+
+func get_tags() -> Array[StringName]:
+	return [&"WAIT"]
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

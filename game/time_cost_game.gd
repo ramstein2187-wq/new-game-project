@@ -4,25 +4,25 @@ extends RefCounted
 const GRID_WIDTH := 11
 const GRID_HEIGHT := 7
 
-# Read-only legacy aliases derive from content; actions already use ActorDefinition.
+# Read-only legacy aliases: Action standard costs or content-derived healthy moves.
 static var MOVE_COST: int:
-	get: return ActorDefinition.human_default().move_cardinal
+	get: return MoveAction.CARDINAL_BASE_COST
 static var DIAGONAL_MOVE_COST: int:
-	get: return ActorDefinition.human_default().move_diagonal
+	get: return MoveAction.DIAGONAL_BASE_COST
 const ATTACK_COST := AttackAction.BASE_COST
 static var INTERACT_COST: int:
-	get: return ActorDefinition.human_default().interact_cost
+	get: return InteractAction.BASE_COST
 static var WAIT_COST: int:
-	get: return ActorDefinition.human_default().wait_cost
+	get: return WaitAction.BASE_COST
 
 static var RAT_MOVE_COST: int:
-	get: return ActorDefinition.rat_common().move_cardinal
+	get: return ceili(MoveAction.CARDINAL_BASE_COST / ActorDefinition.rat_common().movement_speed)
 static var RAT_DIAGONAL_MOVE_COST: int:
-	get: return ActorDefinition.rat_common().move_diagonal
+	get: return ceili(MoveAction.DIAGONAL_BASE_COST / ActorDefinition.rat_common().movement_speed)
 static var RAT_INTERACT_COST: int:
-	get: return ActorDefinition.rat_common().interact_cost
+	get: return InteractAction.BASE_COST
 static var RAT_WAIT_COST: int:
-	get: return ActorDefinition.rat_common().wait_cost
+	get: return WaitAction.BASE_COST
 
 static var PLAYER_MAX_HP: int:
 	get: return ActorDefinition.human_default().max_hp
@@ -280,7 +280,8 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 		"required_capability_count": attacker.attack_capability_count(),
 		"functional_capability_count": body.functional_count(attacker.attack_capability()),
 		"attack_efficiency": efficiency,
-		"cost_multiplier": selected.cost_multiplier if selected != null else 1.0,
+		# Historical replay telemetry only; calculators use cost_percent instead.
+		"cost_multiplier": 1.0 + selected.cost_percent if selected != null else 1.0,
 		"damage_modifier": damage_mod,
 		"original_damage_type": attack.damage_type,
 		"ability": ability,

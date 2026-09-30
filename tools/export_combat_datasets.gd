@@ -69,7 +69,7 @@ func equipment(data: CombatContentData) -> Dictionary:
 		var attack := item.attack_definition
 		var actions := []
 		for action in item.actions:
-			actions.append({"id": action.id, "display_name": action.display_name, "cost_multiplier": action.cost_multiplier,
+			actions.append({"id": action.id, "display_name": action.display_name, "cost_percent": action.cost_percent,
 				"damage_type_override": action.damage_type_override, "penetration_modifier": action.penetration_modifier,
 				"damage_modifier": action.damage_modifier, "situation_modifier": action.situation_modifier})
 		result.weapons.append({"id": item.id, "name": item.display_name,
@@ -98,15 +98,19 @@ func monsters(data: CombatContentData) -> Dictionary:
 	for entry: CombatActorContent in entries:
 		var item := entry.instantiate_definition()
 		var runtime := Actor.new(item.type_id, item, Vector2i.ZERO)
-		var abilities := {"STR": runtime.abilities.scores[&"STR"], "DEX": runtime.abilities.scores[&"DEX"]}
-		for key in item.initial_scores:
-			abilities[key] = item.initial_scores[key]
+		var game := TimeCostGame.new()
+		game.actors = ActorRegistry.new()
+		game.actors.register(runtime)
+		var abilities := {}
+		for key in AbilityScores.NAMES:
+			abilities[key] = runtime.abilities.scores[key]
 		var record := {"id": item.type_id, "name": item.display_name, "body_template_id": entry.body_template_id,
-			"hp": item.max_hp, "abilities": abilities, "move": [item.move_cardinal, item.move_diagonal],
+			"hp": item.max_hp, "abilities": abilities, "movement_speed": item.movement_speed,
+			"move": [MoveAction.new(Vector2i.RIGHT).get_cost(game, runtime.id), MoveAction.new(Vector2i(1, 1)).get_cost(game, runtime.id)],
 			"natural_armor": item.natural_armor, "natural_armor_profile": item.natural_armor_profile,
 			"ai_policy": item.ai_policy, "aggression": item.aggression, "body_size": entry.body_size,
 			"proficiency_bonus": item.proficiency_bonus, "ability_points": item.ability_points,
-			"interact_cost": item.interact_cost, "wait_cost": item.wait_cost, "threat_rating": null}
+			"interact_cost": InteractAction.BASE_COST, "wait_cost": WaitAction.BASE_COST, "threat_rating": null}
 		if item.equipped_weapon != null:
 			record["weapon"] = item.equipped_weapon.id
 		else:

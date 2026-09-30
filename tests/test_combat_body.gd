@@ -211,7 +211,7 @@ func _test_actions_and_ai() -> void:
 	expect(MoveAction.new(Vector2i.LEFT).get_cost(game, &"rat") == 858, "Injured quadruped actual cost")
 	game.player_position = Vector2i(8, 1) # Unobstructed approach, independent of the new diagonal route around the door.
 	game.player_wait()
-	expect(game.combat_log.events[1].action_cost == ceili(game.get_actor(&"rat").definition.move_cardinal / game.bodies[&"rat"].capability(&"locomotion")) and game.rat_next_ready_time == game.combat_log.events[1].action_cost + AttackAction.BASE_COST, "Approach costs 858 then adjacent bite costs 1000 exactly once")
+	expect(game.combat_log.events[1].action_cost == ceili((MoveAction.CARDINAL_BASE_COST / game.get_actor(&"rat").definition.movement_speed) / game.bodies[&"rat"].capability(&"locomotion")) and game.rat_next_ready_time == game.combat_log.events[1].action_cost + AttackAction.BASE_COST, "Approach costs 858 then adjacent bite costs 1000 exactly once")
 	game.reset()
 	game.player_position = Vector2i(7, 3)
 	game.rat_hp = 10
@@ -286,7 +286,7 @@ func _test_attack_causes_function_changes() -> void:
 	for part: Dictionary in game.bodies[&"rat"].parts.values():
 		part.weight = 1 if part.id == &"left_foreleg" else 0
 	game.resolve_attack(&"player", &"rat")
-	expect(MoveAction.new(Vector2i.LEFT).get_cost(game, &"rat") == ceili(game.get_actor(&"rat").definition.move_cardinal / game.bodies[&"rat"].capability(&"locomotion")) and game.can_attack(&"rat"), "Real foreleg hit increases movement cost but preserves bite")
+	expect(MoveAction.new(Vector2i.LEFT).get_cost(game, &"rat") == ceili((MoveAction.CARDINAL_BASE_COST / game.get_actor(&"rat").definition.movement_speed) / game.bodies[&"rat"].capability(&"locomotion")) and game.can_attack(&"rat"), "Real foreleg hit increases movement cost but preserves bite")
 	for part: Dictionary in game.bodies[&"rat"].parts.values():
 		part.weight = 1 if part.id == &"head" else 0
 	game.resolve_attack(&"player", &"rat")

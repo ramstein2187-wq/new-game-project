@@ -9,7 +9,7 @@
 script = ExtResource("1_ye8di")
 id = &"overhead_smash"
 display_name = "Overhead Smash"
-cost_multiplier = 1.75
+cost_percent = 0.75
 damage_type_override = &"Blunt"
 penetration_modifier = 20.0
 

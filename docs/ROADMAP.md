@@ -25,6 +25,8 @@ Snapshot: 2026-09-29, M019 is complete on main at `b109ffd`; M022 is complete on
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
+| Attributes/effects | Six attributes, movement_speed migration, minimal Modifier/Effect and shared cost resolver with breakdown | Complete on task branch | [M031](milestones/M031_attributes_effects_foundation.md), `codex/m031-attributes-effects-foundation` from main `e375455`; 26-script check and no-effect golden pass. Not merged. |
+| Attributes/effects follow-up | Wire resolved attributes/new derived combat stats when required; manually review Inspector/play and verify live mirror/export | Planned | M031 wires only movement_speed. MaxHP/Accuracy/Dodge, character sheet and Skill/Trait/Thought require separate scope. Duration/tick/stacking/trigger/aura/cooldown deferred. |
 | Project structure | Move existing gameplay/runtime, debug scenes and legacy prototypes into responsibility-based directories without behavior changes | Complete on main | [M030](milestones/M030_project_folder_structure.md), main `15e309e` via PR #30 |
 | Content integration | Reconcile M029 single-source combat content with the M030 project layout and top-level `content/` authority | Complete on main | [M029](milestones/M029_combat_content_single_source.md), main `2216d5b` via PR #32; exporter/CI/source inventories use the new paths. |
 | Prototype retirement | Review whether exploration and micro_ap prototypes should eventually be retired | Candidate | Both are preserved and tested by M030. The procedural walking viewer still depends on the exploration Player. Removal needs separate scope. |

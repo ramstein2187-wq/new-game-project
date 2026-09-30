@@ -104,7 +104,7 @@
       "required_hands": 1,
       "weapon_actions": [
         {
-          "cost_multiplier": 0.75,
+          "cost_percent": -0.25,
           "damage_modifier": -1,
           "damage_type_override": "Puncture",
           "display_name": "Quick Stab",
@@ -144,7 +144,7 @@
       "required_hands": 1,
       "weapon_actions": [
         {
-          "cost_multiplier": 1.25,
+          "cost_percent": 0.25,
           "damage_modifier": 0,
           "damage_type_override": "Puncture",
           "display_name": "Thrust",
@@ -169,7 +169,7 @@
       "required_hands": 1,
       "weapon_actions": [
         {
-          "cost_multiplier": 1.5,
+          "cost_percent": 0.5,
           "damage_modifier": 0,
           "damage_type_override": "Blunt",
           "display_name": "Crushing Blow",
@@ -194,7 +194,7 @@
       "required_hands": 2,
       "weapon_actions": [
         {
-          "cost_multiplier": 1.75,
+          "cost_percent": 0.75,
           "damage_modifier": 0,
           "damage_type_override": "Blunt",
           "display_name": "Overhead Smash",
