@@ -17,16 +17,23 @@ func _capture() -> void:
 		root.size = resolution
 		root.content_scale_size = resolution
 		root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_IGNORE
+		screen.close_inspector()
+		for frame in range(8):
+			await process_frame
+		await _save_capture(output, "closed", resolution)
 		screen.inspect(&"armor")
 		for frame in range(8):
 			await process_frame
-		await RenderingServer.frame_post_draw
-		var path := "%s/overview-%dx%d.png" % [output, resolution.x, resolution.y]
-		var error := root.get_texture().get_image().save_png(path)
-		if error != OK:
-			push_error("Capture failed: " + path)
-			quit(1)
-			return
-		print("Captured: ", ProjectSettings.globalize_path(path))
+		await _save_capture(output, "inspector", resolution)
 	scene.queue_free()
 	quit()
+
+func _save_capture(output: String, state: String, resolution: Vector2i) -> void:
+	await RenderingServer.frame_post_draw
+	var path := "%s/overview-%s-%dx%d.png" % [output, state, resolution.x, resolution.y]
+	var error := root.get_texture().get_image().save_png(path)
+	if error != OK:
+		push_error("Capture failed: " + path)
+		quit(1)
+		return
+	print("Captured: ", ProjectSettings.globalize_path(path))

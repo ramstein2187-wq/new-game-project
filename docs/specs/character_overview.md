@@ -67,10 +67,20 @@ stat과 실제 attack base modifier의 차이를 Inspector에서 명시한다.
 ## UI 및 입력
 
 CharacterScreen → inspectable Button rows → CharacterInspector(title/value/body).
+각 row는 `Label / optional Hint / Final Value`를 분리한다. Primary Attribute의 Hint는
+새로운 stat delta가 아니라 기존 `AbilityScores.modifier(int(resolved_value))`이며,
+STR/DEX/CON/PER/INT/WIL의 full presentation label만 사용한다. Final Value는 밝은
+중립 결과색, Hint는 전달받은 semantic tone만 렌더링한다. Row 자체는 gameplay 값을
+계산하거나 +/- 부호에서 유불리를 추론하지 않는다.
+
 Margin/VBox/HBox(BoxContainer)/Panel/ScrollContainer가 viewport anchors에 배치된다.
-1080p~4K는 Identity/Overview/Inspector 세 영역, 작은 창은 세로 배치 및 outer scroll.
-Inspector 본문은 별도 scroll이다. Typography/양옆 폭은 viewport 높이에 따라 조절한다.
-Prototype fallback font와 기존 색상을 재사용하며 별도 전역 Theme 변경은 없다.
+화면을 처음 열면 Inspector는 숨겨지고 Identity + Overview region이 가용 폭을 모두
+사용한다. 값을 선택하면 Inspector가 열리며 wide layout은 Overview:Inspector를 약
+1.7:1 stretch ratio로 분할한다. Inspector Close는 선택 marker를 해제하고 이전 row에
+focus를 돌려준 뒤 Overview가 전체 폭을 회수한다. Esc/C의 기존 화면 전체 닫기 semantics는
+변경하지 않는다. 작은 창은 Overview 내부와 Inspector를 세로 배치하고 outer scroll을
+사용한다. Inspector 본문은 별도 scroll이다. Typography/열 폭은 viewport 높이에 따라
+조절한다. Prototype fallback font와 기존 색상을 재사용하며 별도 전역 Theme 변경은 없다.
 
 C action은 프로젝트 InputMap에 추가했다. CharacterScreen._input은 C/Esc를 처리하고
 열려 있을 때 비-GUI 키를 소비한다. host _unhandled_input은 visible이면 반환하여
@@ -84,7 +94,8 @@ GUI navigation key도 gameplay로 새지 않는다. 전체화면 Control은 mous
 stat/cost/attack/Inspector query 일치, 모델 Resource 부재 및 mutation 격리,
 RNG/time/event/body/attack_part/Actor 보존, live requery.
 `test_character_screen.gd`: 양쪽 production scene input, click/Enter, modal,
-reset/regeneration, 1080p/1440p/4K/1152×648/640×480 Control geometry.
+Inspector closed/open/close width handoff, project-defined six attribute labels,
+Hint/Final 분리, reset/regeneration, 1080p/1440p/4K/1152×648/640×480 Control geometry.
 Headless 물리 window resize는 dummy display가 무시하므로 logical canvas size도 설정한다.
 `tools/capture_character_overview.gd`: 실제 renderer에서 네 해상도 PNG 생성.
 스크린샷/geometry 검증은 수동 interaction/가독성/플레이감 승인을 대체하지 않는다.

@@ -8,6 +8,7 @@ var rows: Dictionary = {}
 var identity_name: Label
 var identity_type: Label
 var content: BoxContainer
+var overview_region: BoxContainer
 var identity_panel: PanelContainer
 var inspector_panel: PanelContainer
 var margin: MarginContainer
@@ -55,8 +56,14 @@ func _ready() -> void:
 	content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	content.add_theme_constant_override("separation", 16)
 	scroll.add_child(content)
+	overview_region = BoxContainer.new()
+	overview_region.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	overview_region.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	overview_region.size_flags_stretch_ratio = 1.7
+	overview_region.add_theme_constant_override("separation", 16)
+	content.add_child(overview_region)
 	identity_panel = _panel()
-	content.add_child(identity_panel)
+	overview_region.add_child(identity_panel)
 	var identity := _box(identity_panel)
 	identity.add_child(_label("IDENTITY"))
 	identity_name = _label("")
@@ -69,7 +76,7 @@ func _ready() -> void:
 		_row(identity, stat)
 	var overview_panel := _panel()
 	overview_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	content.add_child(overview_panel)
+	overview_region.add_child(overview_panel)
 	var overview := _box(overview_panel)
 	for group in [
 		["HEALTH", [&"health"]], ["COMBAT", [&"attack", &"damage", &"penetration"]],
@@ -79,10 +86,15 @@ func _ready() -> void:
 			_row(overview, key)
 		overview.add_child(HSeparator.new())
 	inspector_panel = _panel()
+	inspector_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inspector_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	inspector_panel.size_flags_stretch_ratio = 1.0
 	content.add_child(inspector_panel)
 	inspector = CharacterInspector.new()
 	_box(inspector_panel).add_child(inspector)
 	inspector.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	inspector.close_requested.connect(close_inspector)
+	inspector_panel.hide()
 	root_box.add_child(_label("›  Hover for a quick explanation · Select for sources · C / Esc to close"))
 	resized.connect(_responsive_layout)
 	_responsive_layout()
@@ -92,7 +104,9 @@ func open() -> void:
 	if game == null or game.get_actor(actor_id) == null:
 		return
 	_selected_key = &""
+	inspector_panel.hide()
 	refresh()
+	_responsive_layout()
 	show()
 	_close_button.grab_focus()
 
@@ -113,25 +127,45 @@ func refresh() -> void:
 	identity_name.text = model.name
 	identity_type.text = model.type if model.type != model.name else ""
 	for attribute: Dictionary in model.attributes:
-		rows[attribute.id].present(attribute.id, String(attribute.id), "%s (%s)" % [CharacterOverviewText.number(attribute.value), CharacterOverviewText.signed(attribute.modifier)],
-			"Current attribute and its modifier. Click for sources.")
-	rows.health.present(&"health", "HP", "%d / %d" % [model.hp, model.max_hp], "Current and maximum health.")
+		var hint := "%+d" % int(attribute.modifier)
+		rows[attribute.id].present(attribute.id, CharacterOverviewText.ATTRIBUTE_NAMES[attribute.id],
+			CharacterOverviewText.number(attribute.value), hint,
+			InspectorNumberStyle.modifier_tone(float(attribute.modifier)),
+			"Current resolved attribute and its D20 ability modifier. Click for sources.")
+	rows.health.present(&"health", "HP", "%d / %d" % [model.hp, model.max_hp], "", InspectorNumberStyle.Tone.NEUTRAL,
+		"Current and maximum health.")
 	var attack: Dictionary = model.attack
 	var hover := CharacterOverviewText.attack_hover(attack)
-	rows.attack.present(&"attack", "Main Attack", attack.name if attack.get("valid", false) else "Unavailable", hover)
-	rows.damage.present(&"damage", "Damage", CharacterOverviewText.damage(attack), hover)
-	rows.penetration.present(&"penetration", "Penetration", CharacterOverviewText.number(attack.penetration) if attack.get("valid", false) else "—", hover)
-	rows.armor.present(&"armor", "Average Armor", "%.1f" % model.armor.value, "Raw armor weighted by part hit probability.\n" + CharacterOverviewText.armor_lines(model.armor, false))
-	rows.move.present(&"move", "Move Time", "%d μt" % model.move.cost if model.move.valid else "Unavailable", "Time for a standard cardinal move. Includes movement speed, body efficiency and Effects.")
-	var state_lines: Array[String] = []
-	for state: Dictionary in model.states:
-		state_lines.append("! %s: %d/%d (%s)" % [state.name, state.current, state.maximum, state.state] if state.has("state") else "• " + state.name)
-	rows.state.present(&"state", "", "\n".join(state_lines) if not state_lines.is_empty() else "No injuries or active Effects", "Current body integrity and active Effects. Select for details.")
-	inspector.show_inspection(CharacterOverviewText.inspection(model, _selected_key))
+	rows.attack.present(&"attack", "Main Attack", attack.name if attack.get("valid", false) else "Unavailable", "", InspectorNumberStyle.Tone.NEUTRAL, hover)
+	rows.damage.present(&"damage", "Damage", CharacterOverviewText.damage(attack), "", InspectorNumberStyle.Tone.NEUTRAL, hover)
+	rows.penetration.present(&"penetration", "Penetration", CharacterOverviewText.number(attack.penetration) if attack.get("valid", false) else "—", "", InspectorNumberStyle.Tone.NEUTRAL, hover)
+	rows.armor.present(&"armor", "Average Armor", "%.1f" % model.armor.value, "", InspectorNumberStyle.Tone.NEUTRAL,
+		"Raw armor weighted by part hit probability.\n" + CharacterOverviewText.armor_lines(model.armor, false))
+	rows.move.present(&"move", "Move Time", "%d μt" % model.move.cost if model.move.valid else "Unavailable", "", InspectorNumberStyle.Tone.NEUTRAL,
+		"Time for a standard cardinal move. Includes movement speed, body efficiency and Effects.")
+	var state_summary := "Healthy" if model.states.is_empty() else "%d condition%s" % [model.states.size(), "" if model.states.size() == 1 else "s"]
+	rows.state.present(&"state", "Status", state_summary, "", InspectorNumberStyle.Tone.NEUTRAL,
+		"Current body integrity and active Effects. Select for details.")
+	for key: StringName in rows:
+		rows[key].set_selected(inspector_panel.visible and key == _selected_key)
+	if inspector_panel.visible and _selected_key != &"":
+		inspector.show_inspection(CharacterOverviewText.inspection(model, _selected_key))
 
 func inspect(key: StringName) -> void:
 	_selected_key = key
+	inspector_panel.show()
 	refresh()
+	_responsive_layout()
+
+func close_inspector() -> void:
+	var previous_key := _selected_key
+	_selected_key = &""
+	inspector_panel.hide()
+	for row: InspectableValueRow in rows.values():
+		row.set_selected(false)
+	_responsive_layout()
+	if rows.has(previous_key):
+		rows[previous_key].grab_focus()
 
 # _input runs before gameplay _unhandled_input. All open-screen keys are consumed,
 # including reset and log toggles; GUI still receives navigation/activation keys.
@@ -179,13 +213,14 @@ func _responsive_layout() -> void:
 	theme.default_font_size = roundi(18 * scale_factor)
 	var narrow := size.x < 940 * scale_factor
 	content.vertical = narrow
+	overview_region.vertical = narrow
 	identity_panel.custom_minimum_size.x = 0 if narrow else 260 * scale_factor
-	inspector_panel.custom_minimum_size.x = 0 if narrow else 380 * scale_factor
+	inspector_panel.custom_minimum_size.x = 0 if narrow else 360 * scale_factor
 	inspector.scroll.custom_minimum_size.y = 300 * scale_factor
 	for edge in ["left", "top", "right", "bottom"]:
 		margin.add_theme_constant_override("margin_" + edge, roundi(20 * scale_factor))
 	for row: InspectableValueRow in rows.values():
-		row._fit_height()
+		row.set_column_widths(64 * scale_factor, 120 * scale_factor)
 
 func _build_theme() -> void:
 	# Existing combat prototypes use fallback font and these muted game colors.

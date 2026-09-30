@@ -2,7 +2,7 @@
 status = "구현 완료"
 areas = ["UI/로그", "코어", "전투", "시간/액션"]
 milestones = "M032 — task branch"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/character-overview-v1/docs/milestones/M032_character_overview.md"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/chat/character-overview-adaptive-inspector/docs/milestones/M032_character_overview.md"
 icon = "🧾"
 +++
 # Character Screen · Overview
@@ -20,7 +20,18 @@ Abilities/Traits 탭은 비활성 navigation이며 실제 화면은 아직 없�
 sprite 대신 원을 그리므로 새 portrait pipeline이나 가짜 identity를 만들지 않았다.
 
 주요 값은 **기본 결과 → hover 빠른 설명 → click/Enter Inspector 상세 출처**로
-읽는다. `›` 표시와 pointer, hover/focus 테두리로 inspectable임을 표현한다.
+읽는다. 화면을 처음 열면 Inspector는 닫혀 있고 Identity + Overview가 가용 폭을 모두
+사용한다. row를 선택하면 Inspector가 열리며 넓은 화면에서는 Overview와 Inspector가
+약 1.7:1로 폭을 나눈다. Inspector의 Close는 선택 표시를 해제하고 Overview가 다시
+전체 폭을 회수한다. C/Esc는 기존처럼 Character Screen 전체를 닫는다.
+
+각 inspectable row는 `Label / Optional Hint / Final Value`를 분리한다. Attribute row는
+STR/DEX/CON/PER/INT/WIL을 각각 Strength/Dexterity/Constitution/Perception/
+Intelligence/Willpower로 표시하고, Hint에는 resolved score에서 계산한 기존 D20
+Ability Modifier만 둔다. 즉 Hint는 Effect 변화량이 아니다. HP/공격/방어/이동 등은
+의미 있는 Hint가 아직 없으므로 빈 열을 유지하고 Final Value만 보여준다. Current State는
+기본 화면에서 Healthy 또는 condition 개수로 요약하고 세부 body/effect 목록은 Inspector에 둔다.
+`›` 표시와 pointer, hover/focus 및 조용한 선택 marker로 inspectable임을 표현한다.
 Inspector는 값/제목/본문을 받는 재사용 가능한 UI이며 Actor를 소유하지 않는다.
 Inspector의 signed modifier 수치만 저채도 초록(양수)/빨강(음수)으로 표시한다.
 0/+0/-0은 기존 중립색, 최종 Attack Bonus/Damage/resolved stat/Move Time은 더 밝은
@@ -34,8 +45,9 @@ ability/proficiency/situation, nested movement-speed Effect만 같은 sign 규�
 색상은 InspectorNumberStyle 한 곳에 정의한다. 표현 모델의 text/tone span을
 RichTextLabel로 렌더링하며 출처 이름은 BBCode로 해석하지 않는다. 기존 plain body와
 기본 hover tooltip은 그대로 유지한다. [표현 개선 작업 기록](../reviews/2026-09-30-character-modifier-tones.md).
-Tab/Enter/Space로 값 선택이 가능하다. 1080p/1440p/4K에서 세 영역을 유지하고,
-좁은 창에서는 세로로 배치한다. 전체 내용 및 Inspector는 필요한 경우 스크롤한다.
+Tab/Enter/Space로 값 선택이 가능하다. 1080p/1440p/4K에서는 Inspector가 열렸을 때
+가로 분할하고, 좁은 창에서는 Overview 내부와 Inspector를 세로로 배치한다. 전체 내용 및
+Inspector는 필요한 경우 스크롤한다.
 
 Average Armor는 `BodyInstance.average_armor_breakdown()`에서
 **Σ(max(0, part.weight) / 실제 weight 합 × max(0, part.armor))**로 조회한다.

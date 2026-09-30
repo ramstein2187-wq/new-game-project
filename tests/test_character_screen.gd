@@ -30,10 +30,28 @@ func _run() -> void:
 		await process_frame
 		expect(screen.visible, "Mapped C opens screen in " + scene_path)
 		expect(screen.rows.size() == 13, "Six attributes and seven Overview rows, no extra stats")
+		expect(not screen.inspector_panel.visible, "Inspector starts closed so Overview uses the available width")
 		expect(screen.rows.health.value_label.text == "%d / %d" % [game.player_hp, game.PLAYER_MAX_HP], "Real runtime HP shown")
+		var expected_attribute_names := {&"STR": "STRENGTH", &"DEX": "DEXTERITY", &"CON": "CONSTITUTION",
+			&"PER": "PERCEPTION", &"INT": "INTELLIGENCE", &"WIL": "WILLPOWER"}
+		for stat: StringName in AbilityScores.NAMES:
+			expect(screen.rows[stat].caption.text == expected_attribute_names[stat], "Primary attribute uses project-defined full name: " + String(stat))
+			expect(screen.rows[stat].hint_label.text == "%+d" % game.get_actor(&"player").abilities.get_modifier(stat), "Ability modifier is a separate hint: " + String(stat))
+		var closed_overview_width := screen.overview_region.size.x
 		_click(screen.rows.armor.get_global_rect().get_center())
 		await process_frame
+		await process_frame
+		expect(screen.inspector_panel.visible and screen.overview_region.size.x < closed_overview_width, "Selecting a row opens Inspector and yields Overview width")
 		expect(screen.inspector.title_label.text == "AVERAGE ARMOR", "Mouse selects armor Inspector")
+		expect(screen.rows.armor.selection_marker.text.strip_edges() != "", "Inspected row has a quiet selection marker")
+		_click(screen.inspector.close_button.get_global_rect().get_center())
+		await process_frame
+		await process_frame
+		expect(not screen.inspector_panel.visible and screen.overview_region.size.x >= closed_overview_width - 1.0, "Closing Inspector returns width to Overview")
+		expect(screen.rows.armor.selection_marker.text.strip_edges().is_empty(), "Closing Inspector clears row selection")
+		_click(screen.rows.armor.get_global_rect().get_center())
+		await process_frame
+		expect(screen.inspector.title_label.text == "AVERAGE ARMOR", "Inspector can reopen after returning to full Overview")
 		for key: StringName in screen.rows:
 			var row: InspectableValueRow = screen.rows[key]
 			expect(not row.tooltip_text.is_empty() and row.mouse_default_cursor_shape == Control.CURSOR_POINTING_HAND, "Hover explanation and pointer: " + String(key))
@@ -68,9 +86,9 @@ func _run() -> void:
 				expect(rect.position.y >= previous_bottom, "Rows do not overlap at " + str(resolution))
 				previous_bottom = rect.end.y
 			if resolution.x >= 1152:
-				expect(not screen.content.vertical, "Three columns retained")
+				expect(not screen.content.vertical and not screen.overview_region.vertical, "Wide layout retains Overview/Inspector split")
 			else:
-				expect(screen.content.vertical, "Small window stacks accessible scroll content")
+				expect(screen.content.vertical and screen.overview_region.vertical, "Small window stacks Overview and Inspector content")
 		root.size = Vector2i(1152, 648)
 		root.content_scale_size = Vector2i(1152, 648)
 		await process_frame
@@ -82,7 +100,7 @@ func _run() -> void:
 		actor.set_weapon(CombatContentCatalog.weapon(&"knife"))
 		_press(KEY_C)
 		expect(screen.rows.health.value_label.text.begins_with(str(actor.hp)), "Reopen reads changed HP")
-		expect(screen.rows[&"PER"].value_label.text == "15 (+2)", "Reopen reads changed attributes")
+		expect(screen.rows[&"PER"].value_label.text == "15" and screen.rows[&"PER"].hint_label.text == "+2", "Reopen separates changed attribute final value and modifier hint")
 		expect(screen.rows.attack.value_label.text == actor.equipped_weapon.display_name, "Reopen reads changed weapon")
 		_press(KEY_C)
 		expect(not screen.visible, "C toggles close")

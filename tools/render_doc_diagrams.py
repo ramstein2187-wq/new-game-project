@@ -16,8 +16,8 @@ FLOWS = {
         "Body: Σ max(0, weight) / 실제 weight 합 × max(0, raw armor)",
         "MoveAction(RIGHT).cost_breakdown → 기존 ActionCostResolver",
         "scalar value model → 기본 결과 / hover 빠른 설명",
-        "선택 → 새 query → Inspector 단계 · contribution · provenance",
-        "C / Esc → 닫기 (RNG · time · event · gameplay state 변경 없음)"
+        "선택 → Inspector 열림 / Overview 축소 → 새 query · 상세 provenance",
+        "Inspector Close → Overview 전체 폭 · C / Esc → 화면 닫기 / gameplay 불변"
     ]),
     "time_scheduler": ("Action-Cost 시간 스케줄러", [
         "플레이어 Action 성공", "Player ready time += cost",

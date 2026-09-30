@@ -52,6 +52,31 @@ Workspace: `C:/GameDev/character-overview-v1`.
   Reproduce with graphical Godot `--rendering-method gl_compatibility --script
   res://tools/capture_character_overview.gd`; omit --headless for real image output.
 
+## Adaptive Inspector / row follow-up — 2026-10-01 KST
+
+- Follow-up branch `chat/character-overview-adaptive-inspector`, based on M032 commit
+  `9ff4e0b`; no main merge. Gameplay/query/resolver data structures remain unchanged.
+- Inspectable rows now separate **Label / Optional Hint / Final Value**. Attribute
+  rows use only the authoritative STR/DEX/CON/PER/INT/WIL catalog and display full
+  names. Their Hint is the existing D20 Ability Modifier computed from the resolved
+  score, not an Effect delta; Final Value remains neutral-emphasis. Other rows keep
+  the Hint column empty until an authoritative presentation meaning exists.
+- Character Screen opens with Inspector hidden. Identity + Overview consume the full
+  available width; selecting a row opens Inspector and wide layouts split about
+  1.7:1. Inspector Close clears the quiet row marker, returns focus to the inspected
+  row and gives the full width back to Overview. C/Esc still close the whole screen.
+- Current State is summarized as Healthy / N conditions in the Overview; detailed
+  body/effect records remain in Inspector. No new status classification is created.
+- Focused validation passes: Character modifier tones **53 assertions**, Overview
+  query **281**, Character Screen/input/layout **188**. All **29 project test scripts**
+  were then run in bounded groups and passed, plus editor import, main-scene startup
+  and exact combat dataset exporter check. The monolithic check command exceeded the
+  MCP call-time limit, so equivalent stages were executed separately.
+- NVIDIA/OpenGL renderer generated closed + Inspector-open captures at 1920×1080,
+  2560×1440, 3840×2160 and 640×480 (**8 PNGs**). Geometry automation passed at those
+  targets plus 1152×648. The capture bytes could not be transported back through the
+  DevSpace chat bridge for visual inspection, so human readability review remains pending.
+
 ## Manual verification and limits
 
 1. Open this worktree in Godot 4.7.2. F5 generated map, then F6 fixed room.

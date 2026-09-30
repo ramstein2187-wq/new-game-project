@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M032: **Complete on task branch** on `codex/character-overview-v1`; read-only Character Screen Overview, hover and Inspector; 28-script full Godot check and 443 new assertions pass. [Character Overview](milestones/M032_character_overview.md).
+- M032: **Complete on follow-up branch** on `chat/character-overview-adaptive-inspector`, based on `codex/character-overview-v1`; adaptive read-only Character Overview, Label/Hint/Final rows and on-demand Inspector. All 29 tests passed in bounded groups plus import/startup/export check; focused Character suites total 522 assertions. Manual visual acceptance remains pending. [Character Overview](milestones/M032_character_overview.md).
 
 - M031: **Complete on main** at `0b859aa` via [PR #34](https://github.com/ramstein2187-wq/new-game-project/pull/34). Six attributes, movement-speed migration, Modifier/Effect ownership and common stat/action-cost breakdown resolution are integrated. Task-branch validation passed the full 26-script Godot check; post-merge validation on a fresh worktree passed editor import, the 405-assertion M031 suite, focused M027/M028 regressions, combat-content/batch checks and exact dataset verification. Manual GUI/play and live Notion remain follow-ups. [Attributes/effects](milestones/M031_attributes_effects_foundation.md).
 
@@ -38,7 +38,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M032 | Complete on task branch; manual acceptance pending | Read-only Character Screen Overview and Inspector | `docs/milestones/M032_character_overview.md` |
+| M032 | Complete on follow-up branch; manual acceptance pending | Read-only Character Overview with adaptive Inspector and shared Label/Hint/Final rows | `docs/milestones/M032_character_overview.md` |
 | M031 | Complete on main | Six attributes, movement speed, minimal Effects/Modifiers and common stat/action-cost breakdown; PR #34 merged at `0b859aa` | `docs/milestones/M031_attributes_effects_foundation.md` |
 | M030 | Complete on main | Path-only responsibility-based project layout; PR #30 merged with no gameplay changes | `docs/milestones/M030_project_folder_structure.md` |
 | M029 | Complete on main | Native `.tres` combat content, Rat integration, generated datasets and tuning-independent tests; PR #32 squash-merged after M030 | `docs/milestones/M029_combat_content_single_source.md` |

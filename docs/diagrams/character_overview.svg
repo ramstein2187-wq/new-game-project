@@ -20,9 +20,9 @@
 <text x="380" y="582.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">scalar value model → 기본 결과 / hover 빠른 설명</text>
 <line x1="380" y1="516" x2="380" y2="546" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="646" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">선택 → 새 query → Inspector 단계 · contribution · provenance</text>
+<text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">선택 → Inspector 열림 / Overview 축소 → 새 query · 상세 provenance</text>
 <line x1="380" y1="612" x2="380" y2="642" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="742" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">C / Esc → 닫기 (RNG · time · event · gameplay state 변경 없음)</text>
+<text x="380" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Inspector Close → Overview 전체 폭 · C / Esc → 화면 닫기 / gameplay 불변</text>
 <line x1="380" y1="708" x2="380" y2="738" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 </svg>

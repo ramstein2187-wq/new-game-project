@@ -1,15 +1,26 @@
 class_name CharacterInspector
 extends VBoxContainer
 
+signal close_requested
+
 var title_label: Label
 var value_label: Label
 var body_label: RichTextLabel
 var scroll: ScrollContainer
+var close_button: Button
 
 func _init() -> void:
 	add_theme_constant_override("separation", 12)
+	var header := HBoxContainer.new()
+	add_child(header)
 	title_label = _label("INSPECTOR")
-	add_child(title_label)
+	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header.add_child(title_label)
+	close_button = Button.new()
+	close_button.text = "Close"
+	close_button.tooltip_text = "Close Inspector"
+	close_button.pressed.connect(func(): close_requested.emit())
+	header.add_child(close_button)
 	value_label = _label("")
 	value_label.add_theme_color_override("font_color", InspectorNumberStyle.RESULT)
 	add_child(value_label)
