@@ -24,15 +24,23 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	)
 
 
-static func cost_from_multiplier(multiplier: float) -> int:
-	return maxi(1, roundi(BASE_COST * multiplier))
+func base_cost() -> float:
+	return BASE_COST
 
-func get_cost(game: RefCounted, actor_id: StringName) -> int:
+func cost_source() -> StringName:
+	return &"attack:normal_melee"
+
+func get_tags() -> Array[StringName]:
+	return [&"ATTACK", &"MELEE", &"PHYSICAL"]
+
+func intrinsic_cost(game: RefCounted, actor_id: StringName) -> Dictionary:
 	if weapon_action_id == &"":
-		return BASE_COST
+		return super.intrinsic_cost(game, actor_id)
 	var actor: Actor = game.get_actor(actor_id)
 	var selected := actor.weapon_action(weapon_action_id) if actor != null else null
-	return cost_from_multiplier(selected.cost_multiplier) if selected != null and selected.is_valid() else 0
+	if selected == null or not selected.is_valid():
+		return {"valid": false}
+	return {"valid": true, "source": StringName("weapon_action:" + String(selected.id)), "value": selected.cost_multiplier}
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

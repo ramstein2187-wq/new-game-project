@@ -32,7 +32,7 @@ func _test_move_advances_time_and_allows_multiple_fast_responses() -> bool:
 		return _fail("Move did not advance player ready time by 1000")
 	if game.last_response_count != 2:
 		return _fail("A 750-cost rat should act twice before a 1000-cost player move resolves")
-	if game.rat_next_ready_time != game.get_actor(&"rat").definition.move_cardinal * 2:
+	if game.rat_next_ready_time != (MoveAction.CARDINAL_BASE_COST / game.get_actor(&"rat").definition.movement_speed) * 2:
 		return _fail("Rat ready time did not advance by two fast moves")
 
 	return true

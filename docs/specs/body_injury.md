@@ -25,7 +25,10 @@ diagram = "docs/diagrams/body_injury.svg"
 
 `capability("locomotion")`은 locomotion 기능을 가진 원래 모든 부위의 효율 평균이다.
 
-`actual_move_cost = ceil(base_move_cost / locomotion_efficiency)`
+M031 task branch: `actual_move_cost = ceil(standard_base_move_cost / resolved_movement_speed / locomotion_efficiency)` (외부 비용 modifier는 최종 ceil 전 적용).
+
+Body는 기존 locomotion 평균을 그대로 반환하며 부상을 Effect로 재작성하지 않는다.
+[비용 상세](action_cost_resolution.md).
 
 현재 예시:
 

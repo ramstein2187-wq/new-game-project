@@ -1,6 +1,8 @@
 class_name InteractAction
 extends TimeAction
 
+const BASE_COST := 500
+
 var target_cell: Vector2i
 
 
@@ -20,8 +22,14 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	)
 
 
-func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return game.get_actor(actor_id).definition.interact_cost
+func base_cost() -> float:
+	return BASE_COST
+
+func cost_source() -> StringName:
+	return &"interact"
+
+func get_tags() -> Array[StringName]:
+	return [&"INTERACT", &"PHYSICAL"]
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

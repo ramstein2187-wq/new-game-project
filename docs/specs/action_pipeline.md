@@ -3,7 +3,7 @@ status = "구현 완료"
 areas = ["시간/액션", "코어", "전투"]
 type = "파이프라인"
 systems = "TimeAction / perform_action"
-milestones = "M014"
+milestones = "M014, M031 (task branch)"
 code_paths = ["game/actions/", "game/time_cost_game.gd"]
 diagram = "docs/diagrams/action_pipeline.svg"
 +++
@@ -21,6 +21,7 @@ diagram = "docs/diagrams/action_pipeline.svg"
 
 - `can_execute(game, actor_id)`: 현재 상태에서 합법적인가.
 - `get_cost(game, actor_id)`: 성공 시 소비할 시간.
+- `cost_breakdown(game, actor_id)`: source/operation/value/result 계산 근거.
 - `execute(game, actor_id, cost)`: 원자적 상태 변화를 적용하고 `CombatEvent`를 반환.
 
 현재 구체 Action은 Move, Attack, Interact, Wait다.
@@ -32,13 +33,16 @@ diagram = "docs/diagrams/action_pipeline.svg"
 3. Actor ready time이 현재 world time인지 검사한다.
 4. NPC라면 Player보다 이른 시각인지 검사한다.
 5. `can_execute`를 검사한다.
-6. `get_cost > 0`인지 검사한다.
+6. 공통 resolver로 base → intrinsic → Move speed/Body → external modifier → 최종 ceil/최소 1을 계산하고 `get_cost > 0`인지 검사한다.
 7. `execute`가 실제 CombatEvent를 반환해야 한다.
 8. reason code와 AI trace를 이벤트에 복사한다.
 9. 로그에 기록하고 scheduler ready time을 증가시킨다.
 10. Player Action이면 NPC 응답 루프를 실행한다.
 
-어느 검증 단계에서 실패하더라도 **시간 0 / 이벤트 0**이다.
+어느 검증 단계에서 실패하더라도 **시간 0 / RNG 0 / 이벤트 0**이다.
+
+M031 task branch는 MOVE/ATTACK/MELEE/INTERACT/WAIT/PHYSICAL 최소 태그와
+Actor effect의 ADD/MULTIPLY만 제공한다. [비용 상세](action_cost_resolution.md).
 
 ## 설계 효과
 

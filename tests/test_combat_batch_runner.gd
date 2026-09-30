@@ -32,7 +32,7 @@ func _test_production_path() -> void:
 	expect(game.combat_log.events.size() >= 2, "Production scheduler emits both sides' CombatEvents")
 	for event in game.combat_log.events:
 		expect(event.data.has("ai_goal"), "Each AI action retains the production decision trace")
-		expect(event.action_cost in [game.get_actor(event.actor_id).definition.move_cardinal, game.get_actor(event.actor_id).definition.move_diagonal, AttackAction.BASE_COST, game.get_actor(event.actor_id).definition.wait_cost, game.get_actor(event.actor_id).definition.interact_cost], "Rat action keeps production costs")
+		expect(event.action_cost in [MoveAction.new(Vector2i.RIGHT).get_cost(game, event.actor_id), MoveAction.new(Vector2i(1, 1)).get_cost(game, event.actor_id), AttackAction.BASE_COST, WaitAction.BASE_COST, InteractAction.BASE_COST], "Rat action keeps production costs")
 
 
 func _test_deterministic_batch_and_metrics() -> void:

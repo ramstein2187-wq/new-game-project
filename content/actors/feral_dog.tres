@@ -15,8 +15,7 @@ initial_scores = {
 &"DEX": 14,
 &"STR": 12
 }
-move_cardinal = 900
-move_diagonal = 1260
+movement_speed = 1.1111111111111112
 ai_policy = &"basic_melee"
 
 [resource]

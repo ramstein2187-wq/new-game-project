@@ -196,7 +196,7 @@ def discover_specs(config: dict[str, Any]) -> list[dict[str, Any]]:
     return records
 
 
-ABILITY_KEYS = ("STR", "DEX", "CON", "INT", "WIS", "CHA")
+ABILITY_KEYS = ("STR", "DEX", "CON", "PER", "INT", "WIL")
 
 MONSTER_ORIGINS = {
     "토착",
@@ -779,8 +779,8 @@ def monster_properties(record: dict[str, Any], source: str) -> dict[str, Any]:
         "DEX": {"number": abilities["DEX"]},
         "CON": {"number": abilities["CON"]},
         "INT": {"number": abilities["INT"]},
-        "WIS": {"number": abilities["WIS"]},
-        "CHA": {"number": abilities["CHA"]},
+        "PER": {"number": abilities["PER"]},
+        "WIL": {"number": abilities["WIL"]},
         "직선 이동 비용": {"number": record["move_cardinal"]},
         "대각선 이동 비용": {"number": record["move_diagonal"]},
         "공격 시간 비용": {"number": record["attack_cost"]},
@@ -996,6 +996,27 @@ def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[
     return blocks
 
 
+def ensure_monster_attribute_properties(client: NotionClient, data_source_id: str) -> None:
+    """Add current numeric attributes; preserve historical columns and values.
+
+    https://developers.notion.com/reference/update-data-source-properties
+    Only the existing real-sync path calls this; --check never uses the network.
+    """
+    endpoint = f"/data_sources/{data_source_id}"
+    properties = client.request("GET", endpoint).get("properties", {})
+    missing: dict[str, Any] = {}
+    for key in ABILITY_KEYS:
+        if key not in properties:
+            missing[key] = {"number": {"format": "number"}}
+        elif properties[key].get("type") != "number":
+            raise SyncError(f"Monster attribute {key} must be a number property")
+    if missing:
+        client.request("PATCH", endpoint, {"properties": missing})
+        verified = client.request("GET", endpoint).get("properties", {})
+        if any(verified.get(key, {}).get("type") != "number" for key in ABILITY_KEYS):
+            raise SyncError("Monster attribute schema migration was not verified")
+
+
 def sync_dataset(
     client: NotionClient,
     data_source_id: str,
@@ -1003,6 +1024,8 @@ def sync_dataset(
     records: list[dict[str, Any]],
     kind: str,
 ) -> dict[str, str]:
+    if kind == "monsters":
+        ensure_monster_attribute_properties(client, data_source_id)
     existing = source_map(client, data_source_id)
     pages: dict[str, str] = {}
     active_sources: set[str] = set()

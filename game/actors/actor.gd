@@ -25,6 +25,7 @@ var fear_bonus := 0
 # Per-instance bounded caution memory for basic_melee_v3. Recreated on reset.
 var melee_caution_target: StringName = &""
 var melee_caution_spent := 0
+var _effects: Dictionary = {}
 
 func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, label: String = "") -> void:
 	_id = actor_id
@@ -50,6 +51,34 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 
 func is_alive() -> bool:
 	return hp > 0
+
+# A definition ID has one active instance. Duplicate IDs reject; no stacking.
+# Deep copies prevent changes to a caller's Resource or sibling Actor leaking in.
+func add_effect(effect: GameplayEffectDefinition) -> bool:
+	if effect == null or not effect.is_valid() or _effects.has(effect.id):
+		return false
+	_effects[effect.id] = effect.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
+	return true
+
+func remove_effect(effect_id: StringName) -> bool:
+	return _effects.erase(effect_id)
+
+func active_effects() -> Array[GameplayEffectDefinition]:
+	var result: Array[GameplayEffectDefinition] = []
+	var ids: Array = _effects.keys()
+	ids.sort()
+	for effect_id in ids:
+		result.append(_effects[effect_id].duplicate_deep(Resource.DEEP_DUPLICATE_ALL))
+	return result
+
+func stat_breakdown(stat: StringName) -> Dictionary:
+	if stat != &"movement_speed" and not AbilityScores.NAMES.has(stat):
+		return {"stat": stat, "valid": false, "value": 0.0, "steps": []}
+	var base := definition.movement_speed if stat == &"movement_speed" else float(abilities.scores[stat])
+	return StatResolver.resolve(stat, base, active_effects(), StringName("actor:" + String(definition.type_id)))
+
+func resolved_stat(stat: StringName) -> float:
+	return float(stat_breakdown(stat).value)
 
 func fear() -> int:
 	return maxi(0, roundi((max_hp - hp) * 120.0 / max_hp) + fear_bonus)

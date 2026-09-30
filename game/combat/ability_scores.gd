@@ -1,7 +1,7 @@
 class_name AbilityScores
 extends RefCounted
 
-const NAMES := [&"STR", &"DEX", &"CON", &"INT", &"WIS", &"CHA"]
+const NAMES := [&"STR", &"DEX", &"CON", &"PER", &"INT", &"WIL"]
 var scores: Dictionary = {}
 var remaining := 12
 
@@ -9,6 +9,7 @@ func _init() -> void:
 	reset()
 
 func reset() -> void:
+	scores.clear()
 	for ability in NAMES:
 		scores[ability] = 10
 	remaining = 12

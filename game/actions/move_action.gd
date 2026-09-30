@@ -1,6 +1,9 @@
 class_name MoveAction
 extends TimeAction
 
+const CARDINAL_BASE_COST := 1000
+const DIAGONAL_BASE_COST := 1400
+
 var direction: Vector2i
 
 
@@ -17,14 +20,14 @@ func can_execute(game: RefCounted, actor_id: StringName) -> bool:
 	return game.can_step(game.get_actor_position(actor_id), direction) and not game.blocks_actor_movement(target, actor_id)
 
 
-func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	var efficiency: float = game.movement_efficiency(actor_id)
-	if efficiency <= 0:
-		return 0
-	var diagonal := direction.x != 0 and direction.y != 0
-	var definition: ActorDefinition = game.get_actor(actor_id).definition
-	var base_cost := definition.move_diagonal if diagonal else definition.move_cardinal
-	return ceili(base_cost / efficiency)
+func base_cost() -> float:
+	return DIAGONAL_BASE_COST if direction.x != 0 and direction.y != 0 else CARDINAL_BASE_COST
+
+func cost_source() -> StringName:
+	return &"move:diagonal" if direction.x != 0 and direction.y != 0 else &"move:cardinal"
+
+func get_tags() -> Array[StringName]:
+	return [&"MOVE", &"PHYSICAL"]
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

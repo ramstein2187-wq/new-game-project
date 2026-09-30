@@ -43,7 +43,8 @@ NPC ready time이 플레이어와 **정확히 같으면 플레이어가 우선**
 - Human: 직선 1000 / 대각선 1400 / Normal Melee 1000 / 상호작용 500 / 대기 1000.
 - Rat: 직선 750 / 대각선 1050 / 공격 1000 / 상호작용 500 / 대기 1000.
 - `AttackAction`이 공통 Normal Melee 비용을 소유하며 무기에는 speed/time 필드가 없다.
-- 이동 부상은 `ceil(base_cost / locomotion_efficiency)`로 합성된다.
+- M031 task branch: `ceil(standard_base / resolved_movement_speed / locomotion_efficiency)`에 외부 Action Cost Modifier를 최종 ceil 전에 적용하고 최소 1을 보장한다.
+- 비용은 공통 resolver가 계산한다. Scheduler의 양수 정수 비용/tie 규칙은 유지한다. [비용 상세](action_cost_resolution.md).
 
 ## 불변 조건
 
