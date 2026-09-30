@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import math
 import os
 import re
 import sys
@@ -378,7 +379,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
         properties = ", ".join(str(value) for value in weapon.get("properties", [])) or "없음"
         weapon_actions = []
         for action in weapon.get("weapon_actions", []):
-            multiplier = float(action.get("cost_multiplier", 1.0))
+            percent = float(action.get("cost_percent", 0.0))
             changes = []
             if action.get("damage_type_override"):
                 changes.append(f"type={action['damage_type_override']}")
@@ -391,8 +392,8 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             weapon_actions.append({
                 "id": str(action.get("id", "")),
                 "display_name": str(action.get("display_name") or action.get("id") or "Unnamed Action"),
-                "cost_multiplier": multiplier,
-                "resolved_cost": max(1, int(normal_cost * multiplier + 0.5)),
+                "cost_percent": percent,
+                "resolved_cost": max(1, math.ceil(normal_cost * (1.0 + percent))),
                 "changes": ", ".join(changes),
             })
         result.append({
@@ -413,7 +414,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
             "weapon_properties": properties,
             "weapon_actions": weapon_actions,
             "weapon_actions_summary": " | ".join(
-                f"{action['display_name']} [{action['id']}] — cost ×{action['cost_multiplier']:g} = {action['resolved_cost']}"
+                f"{action['display_name']} [{action['id']}] — cost {action['cost_percent']:+.0%} = {action['resolved_cost']}"
                 + (f"; {action['changes']}" if action["changes"] else "")
                 for action in weapon_actions
             ) or "없음",
@@ -958,7 +959,7 @@ def dataset_blocks(source: str, record: dict[str, Any], kind: str) -> list[dict[
                 for action in actions:
                     text = (
                         f"{action['display_name']} [{action['id']}] — "
-                        f"cost ×{action['cost_multiplier']:g} = {action['resolved_cost']}"
+                        f"cost {action['cost_percent']:+.0%} = {action['resolved_cost']}"
                     )
                     if action.get("changes"):
                         text += f"; {action['changes']}"

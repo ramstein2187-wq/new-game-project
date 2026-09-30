@@ -69,7 +69,7 @@ func equipment(data: CombatContentData) -> Dictionary:
 		var attack := item.attack_definition
 		var actions := []
 		for action in item.actions:
-			actions.append({"id": action.id, "display_name": action.display_name, "cost_multiplier": action.cost_multiplier,
+			actions.append({"id": action.id, "display_name": action.display_name, "cost_percent": action.cost_percent,
 				"damage_type_override": action.damage_type_override, "penetration_modifier": action.penetration_modifier,
 				"damage_modifier": action.damage_modifier, "situation_modifier": action.situation_modifier})
 		result.weapons.append({"id": item.id, "name": item.display_name,

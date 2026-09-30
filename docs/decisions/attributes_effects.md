@@ -29,8 +29,10 @@ dodge and attribute-derived combat changes require a later explicit migration.
 Actor -> EffectStore -> ActiveEffect -> GameplayEffectDefinition
 ```
 
-- StatModifier: source_id, target_stat, operation ADD/MULTIPLY, finite value.
-- ActionCostModifier: source_id, required_tags, operation ADD/MULTIPLY, finite value.
+- StatModifier: source_id, target_stat, operation FLAT/PERCENT, finite value.
+- ActionCostModifier: source_id, required_tags, operation FLAT/PERCENT, finite value.
+- ModifierOperation.Kind: small independent shared FLAT/PERCENT enum; cost
+  modifiers do not depend on StatModifier implementation.
 - GameplayEffectDefinition Resource: authored static id and modifier arrays.
 - ActiveEffect: actor-specific applied instance, definition and opaque source_id.
 - EffectStore: sole active-instance ownership, add/remove/clear/has, deterministic
@@ -39,9 +41,11 @@ Actor -> EffectStore -> ActiveEffect -> GameplayEffectDefinition
   and external cost calculation. Callers need no store implementation knowledge.
 - StatCatalog: valid IDs; AbilityScores: primary values and allocation rules.
 
-Multipliers must be positive. Empty/unknown tag selectors, missing source IDs,
-unknown stats, nonfinite values and empty definitions reject insertion. ADD can
-be negative. Resolved nonpositive movement speed rejects Move at cost validation;
+FLAT values are signed absolute deltas. PERCENT values are signed fractional
+deltas (+0.20 means +20%, not a 1.20 multiplier). Finite values have no caps,
+including -100% or lower. Empty/unknown tag selectors, missing source IDs,
+unknown stats, nonfinite values and empty definitions reject insertion.
+Resolved nonpositive movement speed rejects Move at cost validation;
 it does not create an infinite scheduler loop. Overflow/nonfinite costs reject.
 
 Definitions are deep-copied once on insertion (including external Resources),
@@ -71,20 +75,16 @@ implementation-only, and no supported API exposes it or returns live references.
 
 ## Deterministic resolution
 
-Stat formula: **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**.
-Apply stat MULTIPLY modifiers to base first, then ADD modifiers; flat bonuses are
-never amplified by another effect. Base STR 10, ADD +4, MULTIPLY ×1.5 resolves to
-19. The same rule applies to movement_speed. Breakdown steps show BASE, each
-MULTIPLY result, then each ADD result; top-level value is the final resolved stat.
-No intermediate rounding or new FINAL step is introduced, so no-effect traces
-remain unchanged.
+Stat formula: **Resolved Stat = Base × (1 + Σ Percent) + Σ Flat**.
+Action Cost formula: **Unrounded Cost = Adjusted Base × (1 + Σ Percent) + Σ Flat**.
+Percent modifiers are additive, not multiplicative, and apply only to base/adjusted
+base. Flat bonuses are never amplified by Percent. Base STR 10, +20%, +30%, flat
++2 resolves to 17, not 17.6. The same rule applies to movement_speed.
 
-Action Cost retains external ADD before MULTIPLY. Intrinsic Weapon Action and
-external multipliers still multiply together; the stat formula does not apply to
-cost modifiers. Stat phases sort lexically by textual ID; costs retain their
-existing deterministic ordering. Modifiers keep their authored array order.
-Insertion order cannot change values
-or traces. A cost modifier matches
+EffectStore sums Percent first, then Flat, in textual effect-ID lexical order and
+authored order within each effect. Effect insertion order cannot change values or
+traces; changing authored order keeps the same arithmetic meaning and the trace
+follows that authored order. A cost modifier matches
 only if the Action contains **all** required tags. Empty selectors are invalid.
 
 | Action | Tags | Standard base cost |
@@ -97,22 +97,38 @@ only if the Action contains **all** required tags. Empty selectors are invalid.
 `TimeAction.get_cost` delegates to `cost_breakdown` -> ActionCostResolver:
 
 1. Action-owned base cost.
-2. Intrinsic Weapon Action cost_multiplier (unchanged resource).
-3. Move divides by resolved movement_speed, then authoritative Body locomotion.
-4. Matching external action-cost modifiers, ADD then MULTIPLY.
+2. For Move only, divide by resolved movement_speed, then authoritative Body
+   locomotion, producing adjusted_base. Other Actions keep their standard base.
+3. Add intrinsic Weapon Action cost_percent to matching external Percent deltas
+   in the same pool; apply adjusted_base × (1 + percent_total).
+4. Add matching external Flat deltas after the percent calculation.
 5. One final ceil (integer-boundary float noise within 8 machine-epsilon units is
    snapped only here), then minimum cost 1. Nonfinite or magnitude > 2^31-1 rejects.
 6. Existing perform_action delivers that integer to the unchanged scheduler.
 
-Current authored Weapon Action costs were already integers and remain identical.
+WeaponActionDefinition now authors cost_percent: knife -0.25, longsword +0.25,
+warhammer +0.50, maul +0.75, migrated from old values by subtracting 1. Their
+standalone authored timing and current production results remain identical.
+No legacy multiplier property or arithmetic operation is retained in the model.
 New fractional combinations use ceil rather than the old special-attack-only
 nearest rounding. No intermediate rounding occurs. The minimum never revives a
 Move with unavailable locomotion or invalid speed. DEX has no global-cost role;
 no Quickness or weapon attack-speed field is added.
 
+There is no percent/discount cap or diminishing return. Reductions past -100%
+can produce a nonpositive unrounded action cost; the existing final minimum 1
+protects Scheduler. This minimum never revives invalid movement speed/Body.
+Rare, legible, strong action-time manipulation is intentional design space;
+routine growth/always-accumulating discounts are not assumed, and no new content
+effects are added here. Future cap policy is explicitly deferred.
+
 ## Explainability and preservation
 
 Stat/cost breakdown dictionaries contain base, valid, value/cost and ordered steps.
+Both expose percent_total, flat_total and unrounded final. Cost additionally
+exposes adjusted_base, rounded and final cost after minimum. Steps read BASE,
+physical DIVIDE stages (Move), PERCENT, FLAT, final CEIL/MAX (cost only).
+Modifier steps expose running percent_total/flat_total and recalculated result.
 Each step retains source, operation, value and result; external steps also keep
 effect_id and add source_id. Here effect_id identifies the definition, source_id
 identifies the applied origin (e.g. `skill:rapid_strike`), and legacy source labels
@@ -122,7 +138,9 @@ equipment/skill/trait/thought/status/system can be encoded in the opaque ID with
 introducing a taxonomy or those systems. Origins do not change ordering.
 The Move speed step embeds its stat breakdown. Final rounding/minimum
 steps show the delivered cost. Queries consume no RNG, time or events. These are
-developer APIs; event schema and visible combat log remain unchanged.
+developer APIs. Historical CombatEvent cost_multiplier telemetry is retained as
+the derived value 1 + cost_percent solely for replay compatibility; it is never
+read by cost calculation. Event schema/visible combat log remain unchanged.
 
 Body capability, damage, disabled limbs and locomotion remain authoritative.
 The resolver consumes Body output; it does not duplicate wounds as effects.
@@ -134,7 +152,9 @@ HP, hit/damage/armor rules and normal weapon effects are unchanged.
 `content/actors/*.tres` owns species movement speed; derived healthy `move` values
 in monsters.json are exported through real MoveAction resolution. The exporter
 also writes all six attributes and movement_speed, preserving IDs/schema envelopes
-and existing consumer cost fields. Do not hand-edit generated JSON. Source
+and existing consumer cost fields. equipment.json migrates Weapon Action metadata
+to cost_percent; offline Notion payload/display consumes that delta and shows
+signed percentages. Current standalone costs are unchanged. Do not hand-edit generated JSON. Source
 fingerprints include actions and effects; Threat Ratings remain null.
 
 Notion tooling writes PER/WIL instead of WIS/CHA. During a future real sync it

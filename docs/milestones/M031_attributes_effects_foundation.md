@@ -10,10 +10,11 @@ Workspace: `C:/GameDev/m031-attributes-effects-foundation`.
 - Six primary attributes STR/DEX/CON/PER/INT/WIL; unchanged modifier/allocation.
 - ActorDefinition movement_speed replaces directly authored movement costs.
   Interact/Wait standard costs now belong to their Action classes.
-- Query-time StatResolver: **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**,
-  textual effect IDs lexical in each phase, authored modifier order.
-  ActionCostResolver retains external ADD then MULTIPLY, intrinsic/external
-  multiplier composition, one final ceil and minimum 1.
+- Unified FLAT/PERCENT via independent ModifierOperation.Kind. Stat:
+  **Base × (1 + Σ Percent) + Σ Flat**. Action Cost:
+  **Adjusted Base × (1 + Σ Percent) + Σ Flat**; intrinsic Weapon Action deltas
+  share the external Percent pool. Textual effect IDs lexical in each phase,
+  authored modifier order, one final cost ceil and minimum 1, no percent caps.
 - StatModifier, ActionCostModifier and GameplayEffectDefinition Resources; explicit
   Actor addition/removal, isolated copies, unique IDs, small all-required-tag matching.
 - Structured stat/cost breakdown includes source, operation, value and results.
@@ -174,6 +175,8 @@ mixed-stat trace hash. Ownership/provenance remain current.
 
 ## M031 follow-up — base-only stat multiplication
 
+Historical formula at `69cd608`; superseded by the unified model below.
+
 - Starts at `86fd3e5d475cd0c1bee8baead51e00b1bfeed34e`, same branch; separate
   follow-up commit/push, no main merge or previous commit rewrite/amend.
 - New formula: **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**.
@@ -208,6 +211,63 @@ mixed-stat trace hash. Ownership/provenance remain current.
   Audit: `C:/GameDev/m031-stat-audit.py`; continuation/delivery record:
   `C:/GameDev/m031-work-record.md`. Deferred features and manual limits unchanged.
 
+## M031 follow-up — unified FLAT/PERCENT
+
+- Starts at HEAD `69cd608f6ae668b35eec4b327156b31f0ad1cafa`, same branch; separate
+  new commit/push. No prior commit amend/rewrite, squash or main merge.
+- Replaces the historical stat product and intrinsic/external compounded cost
+  arithmetic with **Stat = Base × (1 + Σ Percent) + Σ Flat** and
+  **Action Cost = Adjusted Base × (1 + Σ Percent) + Σ Flat**.
+  PERCENT stores deltas, e.g. +0.20/-0.25. Percent adds instead of compounding and
+  never amplifies Flat. A shared independent ModifierOperation.Kind defines only
+  FLAT/PERCENT. Modifier Resources have no legacy operation/apply-multiplier API.
+- Move retains standard base / resolved movement_speed / authoritative Body
+  locomotion, then percent/flat. Weapon Action cost_percent joins the same action
+  pool as external Percent; origin remains explicit in breakdown. Final integer
+  boundary noise handling, one ceil, minimum1 and rejection invariants remain.
+- Ownership Actor → Store → ActiveEffect → Definition, seven StatCatalog IDs,
+  AbilityScores allocation and zero-copy uncached queries remain. Percent and Flat
+  phases use textual effect-ID lexical order with authored order within effects;
+  reverse effect insertion yields identical canonical traces.
+- Migrated four authored Weapon Actions: knife 0.75→-0.25, longsword 1.25→+0.25,
+  warhammer 1.50→+0.50, maul 1.75→+0.75. Standalone costs remain 750/1250/1500/1750.
+  Test fixtures/create calls/exporter/offline mirror/debug action labels migrated.
+  Historical CombatEvent cost_multiplier is derived as 1+cost_percent solely for
+  replay telemetry compatibility; cost calculation does not consume that field.
+- Breakdowns expose base, adjusted_base (cost), percent_total, flat_total, unrounded,
+  rounded/final cost, and ordered BASE/DIVIDE/PERCENT/FLAT/CEIL/MAX steps. External
+  steps preserve effect_id/source_id/modifier source; intrinsic identifies
+  weapon_action:id. Running totals make shared percent pooling visible.
+- **405 focused assertions = previous335 migrated + new70**, all pass. Includes
+  signed Flats/Percent, +20%/+30%→+50%, mixed examples, intrinsic -25% + external
+  -20%→550, -20% + flat100→900, Move1000/1.25/.8 then -20%+50→850, reverse
+  insertion/authored permutations, nonfinite validation, uncached ownership and
+  -100%-or-lower reductions versus nonpositive movement-speed rejection.
+- Full `bash tools/check_godot.sh` passes editor import/startup/**26 scripts** and
+  exporter --check; no ERROR/FAIL. Original **96 movement golden**/**160 paired
+  metrics hashes** preserved, including Rat/Rat32 existing stalls and zero errors.
+  Existing M027 and normalized M024 **3-seed replay hashes** pass unchanged.
+- New independently checked semantic golden:
+  `f87f2cc98c4c72839d326e789820427f12abbe47a9d08841941ff35fabeef043`, frozen in
+  tests/fixtures/m031_flat_percent_breakdown.sha256. Legacy mixed modifier traces
+  intentionally change vocabulary/schema and stacked arithmetic; old production
+  movement/paired/replay fixtures remain untouched.
+- Independent audit verifies formulas/totals/physical stages/provenance/order/ceil/
+  minimum across all golden records. equipment.json changes only action metadata
+  schema to cost_percent; all other values and standalone timing preserved.
+  monsters.json byte-identical; exporter/source fingerprint manifest regenerated.
+- Resource/UID/scene audit passes **134 resources /96 script UIDs /6 scenes**;
+  offline dataset fingerprints, knowledge10 specs/6 datasets and wiki14 pages pass.
+  First full run caught an old debug-panel property access; fixed that consumer
+  without changing gameplay. Final suite passes; automated UI checks are headless.
+- Percent/discount caps, diminishing returns, priority, duration, stacking engines,
+  triggers and new consumer/gameplay systems remain deferred. Rare/legible/strong
+  action-time manipulation is design space, not ordinary growth or new content.
+- Logs: `C:/GameDev/m031-percent-{baseline,import,focused,full-check,export,layout,
+  probe}.log`; independent audit `C:/GameDev/m031-percent-audit.py`; continuation
+  record `C:/GameDev/m031-work-record.md`. Both checkouts' 12 EverRogue imports
+  remain hash-unchanged/unstaged; only intended migration files are committed.
+
 ## Manual verification (unperformed)
 
 1. Open this worktree in Godot 4.7.2; F5 generated playground and F6 fixed room.
@@ -216,7 +276,7 @@ mixed-stat trace hash. Ownership/provenance remain current.
 4. Damage a leg in the existing debug playground and confirm the previous slowdown;
    disable all locomotion and confirm rejected movement consumes no time.
 5. In debugger/script create a test GameplayEffectDefinition with a MOVE-only
-   ActionCostModifier x0.8 or MELEE x0.5, call actor.add_effect, inspect
+   ActionCostModifier PERCENT -0.20 or MELEE PERCENT -0.50, call actor.add_effect, inspect
    action.cost_breakdown(game, actor.id), then remove the ID and confirm restoration.
 6. Confirm combat readability/feel and Inspector usability. No effect controls or
    character-sheet UI are included. Headless checks do not establish visual acceptance.

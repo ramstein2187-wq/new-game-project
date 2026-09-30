@@ -9,7 +9,7 @@
 script = ExtResource("1_dkcs6")
 id = &"quick_stab"
 display_name = "Quick Stab"
-cost_multiplier = 0.75
+cost_percent = -0.25
 damage_type_override = &"Puncture"
 damage_modifier = -1
 

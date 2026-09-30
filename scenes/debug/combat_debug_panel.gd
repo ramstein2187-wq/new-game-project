@@ -93,7 +93,8 @@ func refresh() -> void:
 		child.queue_free()
 	if player.equipped_weapon != null:
 		for action in player.equipped_weapon.actions:
-			var button := _button("%s (x%.2f)" % [action.display_name, action.cost_multiplier], weapon_actions)
+			var sign_prefix := "+" if action.cost_percent >= 0.0 else ""
+			var button := _button("%s (%s%d%% time)" % [action.display_name, sign_prefix, roundi(action.cost_percent * 100.0)], weapon_actions)
 			button.name = String(action.id)
 			# Keep clickable to explain unavailable body/range through game.message.
 			button.tooltip_text = "Use on first adjacent living NPC. Bump for basic attack."

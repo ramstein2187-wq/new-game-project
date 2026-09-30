@@ -12,11 +12,8 @@ static func resolve(action: TimeAction, game: RefCounted, actor_id: StringName) 
 	var result := base
 	var steps: Array[Dictionary] = [{"source": action.cost_source(), "operation": &"BASE", "value": base, "result": base}]
 	var intrinsic := action.intrinsic_cost(game, actor_id)
-	if base <= 0.0 or not is_finite(base) or not intrinsic.valid:
+	if base <= 0.0 or not is_finite(base) or not intrinsic.valid or not is_finite(float(intrinsic.value)):
 		return _invalid(steps, &"invalid_action_cost")
-	if intrinsic.source != &"":
-		result *= float(intrinsic.value)
-		steps.append({"source": intrinsic.source, "operation": &"MULTIPLY", "value": intrinsic.value, "result": result})
 	if action.get_tags().has(&"MOVE"):
 		var speed := actor.stat_breakdown(StatCatalog.MOVEMENT_SPEED)
 		var efficiency: float = game.movement_efficiency(actor_id)
@@ -27,7 +24,8 @@ static func resolve(action: TimeAction, game: RefCounted, actor_id: StringName) 
 			"result": result, "stat_breakdown": speed})
 		result /= efficiency
 		steps.append({"source": &"body:locomotion", "operation": &"DIVIDE", "value": efficiency, "result": result})
-	var external := actor.apply_action_cost_modifiers(result, action.get_tags())
+	var adjusted_base := result
+	var external := actor.apply_action_cost_modifiers(adjusted_base, action.get_tags(), float(intrinsic.value), intrinsic.source)
 	result = float(external.value)
 	steps.append_array(external.steps)
 	if not is_finite(result) or absf(result) > MAX_COST:
@@ -41,7 +39,8 @@ static func resolve(action: TimeAction, game: RefCounted, actor_id: StringName) 
 	steps.append({"source": &"final_rounding", "operation": &"CEIL", "value": result, "result": rounded})
 	var cost := maxi(1, rounded)
 	steps.append({"source": &"minimum_cost", "operation": &"MAX", "value": 1, "result": cost})
-	return {"valid": true, "cost": cost, "unrounded": result, "steps": steps}
+	return {"valid": true, "base": base, "adjusted_base": adjusted_base, "cost": cost, "rounded": rounded,
+		"unrounded": result, "percent_total": external.percent_total, "flat_total": external.flat_total, "steps": steps}
 
 static func _invalid(steps: Array[Dictionary], reason: StringName) -> Dictionary:
 	return {"valid": false, "cost": 0, "reason": reason, "steps": steps}

@@ -13,7 +13,8 @@ M031 task branch에서 구현했다. main 통합과 수동 플레이 평가는 �
 공식을 유지한다. ActorDefinition에는 직접 이동비용 대신 movement_speed가 있다.
 Effect가 없는 현재 모든 Actor의 healthy/부상 이동비용은 이전 결과를 보존한다.
 
-StatModifier와 ActionCostModifier는 source, 대상, ADD/MULTIPLY, 값을 가진 Resource다.
+StatModifier와 ActionCostModifier는 source, 대상, FLAT/PERCENT, 값을 가진 Resource다.
+작은 독립 ModifierOperation.Kind enum을 공유한다. Percent는 +0.20 = +20% delta다.
 최종 ownership은 Actor → EffectStore → ActiveEffect → GameplayEffectDefinition이다.
 Definition은 authored static Resource, ActiveEffect는 Actor별 적용 instance와 source_id,
 EffectStore는 ownership/mutation/결정적 계산/snapshot 경계를 담당한다.
@@ -26,17 +27,22 @@ StatCatalog는 여섯 primary와 MOVEMENT_SPEED ID만 정의하고 modifier vali
 AbilityScores는 여전히 primary 값/배분을 담당한다.
 실제 gameplay 연결은 movement_speed이며 primary stat 질의는 향후 확장을 위한 API다.
 
-Stat 공식은 **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**다.
-Base에 MULTIPLY들을 먼저 적용한 후 ADD를 더한다. STR 10, +4, ×1.5는 19다.
-movement_speed도 같으며, breakdown은 BASE → MULTIPLY → ADD와 최종 value를 보여준다.
+Stat 공식은 **Base × (1 + Σ Percent) + Σ Flat**이다. Percent들은 서로 합산하고
+base에만 적용한다. STR 10, +20%, +30%, flat +2는 17이다. movement_speed도 같다.
+FLAT은 Percent로 증폭되지 않는다. Breakdown은 BASE → PERCENT → FLAT 및 totals를 보인다.
 
-Action 비용은 base → Weapon Action 배율 → 이동 speed/Body → 외부 modifier →
-최종 ceil → 최소 1 순서다. MOVE/ATTACK/MELEE/INTERACT/WAIT/PHYSICAL 태그의
-필요한 조합만 제공한다. Wait는 PHYSICAL이 아니다. Cost는 계속 ADD 후 MULTIPLY다.
-Intrinsic/external 배율은 서로 곱해진다. 두 계산 모두 각 phase에서 effect ID와
+Action 공식은 **Adjusted Base × (1 + Σ Percent) + Σ Flat**이다.
+Move는 base / movement_speed / Body로 adjusted base를 먼저 계산한다.
+Weapon Action cost_percent와 external percent는 같은 pool에 합산하고 flat을 더한다.
+마지막 한 번 ceil → 최소 1이다. MOVE/ATTACK/MELEE/INTERACT/WAIT/PHYSICAL 태그의
+필요한 조합만 제공한다. Wait는 PHYSICAL이 아니다. 두 계산 모두 각 phase에서 문자열 effect ID와
 선언 순서로 결정적으로 적용한다. Cost/stat breakdown은 기존 source(수식 이름)와
 effect_id(Definition ID)를 유지하고 source_id(예: skill:rapid_strike)를 추가해 origin을 구분한다.
-기존 호출자의 기본 origin은 system이다. Stat phase만 MULTIPLY 후 ADD로 바뀌었다.
+기존 호출자의 기본 origin은 system이다. Cost는 adjusted_base/percent_total/flat_total/
+unrounded/rounded/final cost까지 보여준다. 기존 Weapon Action은 old value - 1로 migrate해
+단독 750/1250/1500/1750 시간을 보존했다. Percent/cost cap은 없고 -100% 이하 cost는
+최종 minimum 1을 쓴다. 비양수 이동 speed는 Move를 거부한다.
+Action-time 조절은 rare/legible/strong 기믹을 위한 기반이며 일반 성장 보너스로 전제하지 않는다.
 
 Body 부상, 공격/방어, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
 Global Quickness, DEX 전체 속도, duration/stacking, Skill/Trait/Thought 시스템은 없다.

@@ -24,6 +24,11 @@ class SnapshotSpyStore extends EffectStore:
 		snapshot_calls += 1
 		return super.snapshots()
 
+# Synthetic physical input for the documented 1000 / 1.25 / .8 example.
+class FixedLocomotionGame extends TimeCostGame:
+	func movement_efficiency(_actor_id: StringName) -> float:
+		return 0.8
+
 func expect(condition: bool, label: String) -> void:
 	assertions += 1
 	if not condition:
@@ -34,7 +39,8 @@ func _init() -> void:
 	_attributes()
 	_golden()
 	_effects_and_costs()
-	_base_only_stat_multipliers()
+	_percent_phases()
+	_flat_percent_contract()
 	_rejections_and_scheduler()
 	_validation()
 	_zero_copy_resolution()
@@ -76,7 +82,7 @@ func _golden() -> void:
 		expect(actual.paired[pair].sha256 == golden.paired[pair].sha256, "Exact production paired metrics golden: " + pair)
 		expect(actual.paired[pair].errors == 0, "No simulation errors: " + pair)
 
-func _stat(source: StringName, stat: StringName, operation: StatModifier.Operation, value: float) -> StatModifier:
+func _stat(source: StringName, stat: StringName, operation: ModifierOperation.Kind, value: float) -> StatModifier:
 	var modifier := StatModifier.new()
 	modifier.source_id = source
 	modifier.target_stat = stat
@@ -84,7 +90,7 @@ func _stat(source: StringName, stat: StringName, operation: StatModifier.Operati
 	modifier.value = value
 	return modifier
 
-func _cost(source: StringName, tags: Array[StringName], value: float, operation: StatModifier.Operation = StatModifier.Operation.MULTIPLY) -> ActionCostModifier:
+func _cost(source: StringName, tags: Array[StringName], value: float, operation: ModifierOperation.Kind = ModifierOperation.Kind.PERCENT) -> ActionCostModifier:
 	var modifier := ActionCostModifier.new()
 	modifier.source_id = source
 	modifier.required_tags = tags
@@ -106,9 +112,9 @@ func _effects_and_costs() -> void:
 	var attack := AttackAction.new(&"rat")
 	expect(move.get_cost(game, actor.id) == 1000 and attack.get_cost(game, actor.id) == 1000, "No-effect standard costs")
 	expect(InteractAction.new().get_cost(game, actor.id) == 500 and WaitAction.new().get_cost(game, actor.id) == 1000, "Action-owned interact/wait costs")
-	var a := _effect(&"a", [_stat(&"boots", &"movement_speed", StatModifier.Operation.ADD, 0.25)])
-	var b := _effect(&"b", [_stat(&"haste", &"movement_speed", StatModifier.Operation.MULTIPLY, 2.0),
-		_stat(&"study", &"INT", StatModifier.Operation.ADD, 2.0)])
+	var a := _effect(&"a", [_stat(&"boots", &"movement_speed", ModifierOperation.Kind.FLAT, 0.25)])
+	var b := _effect(&"b", [_stat(&"haste", &"movement_speed", ModifierOperation.Kind.PERCENT, 1.0),
+		_stat(&"study", &"INT", ModifierOperation.Kind.FLAT, 2.0)])
 	expect(actor.add_effect(b) and actor.add_effect(a), "Actor accepts multiple valid effects")
 	expect(actor.resolved_stat(&"movement_speed") == 2.25 and actor.resolved_stat(&"INT") == 12.0, "Stat multiplies base then adds flat bonuses; multi-modifier effect")
 	expect(actor.definition.movement_speed == 1.0 and actor.abilities.scores[&"INT"] == 10, "Base remains distinct from resolved query")
@@ -125,17 +131,17 @@ func _effects_and_costs() -> void:
 	expect(not actor.add_effect(b), "Duplicate effect IDs reject without stacking")
 	expect(actor.remove_effect(&"a") and actor.resolved_stat(&"movement_speed") == 2.0, "Removal resolves immediately without stale cache")
 	actor.remove_effect(&"b")
-	var melee := _effect(&"melee", [], [_cost(&"training", [&"ATTACK", &"MELEE"], 0.5)])
+	var melee := _effect(&"melee", [], [_cost(&"training", [&"ATTACK", &"MELEE"], -0.5)])
 	actor.add_effect(melee)
 	expect(attack.get_cost(game, actor.id) == 500 and move.get_cost(game, actor.id) == 1000, "Melee x0.5 all-tag selector")
-	actor.add_effect(_effect(&"travel", [], [_cost(&"travel", [&"MOVE"], 0.8)]))
+	actor.add_effect(_effect(&"travel", [], [_cost(&"travel", [&"MOVE"], -0.2)]))
 	expect(move.get_cost(game, actor.id) == 800 and attack.get_cost(game, actor.id) == 500, "Move-only effect filters Attack")
-	actor.add_effect(_effect(&"physical", [], [_cost(&"burden", [&"PHYSICAL"], 1.1)]))
-	expect(move.get_cost(game, actor.id) == 880 and attack.get_cost(game, actor.id) == 550 and InteractAction.new().get_cost(game, actor.id) == 550, "Physical x1.1 includes movement/melee/interact")
+	actor.add_effect(_effect(&"physical", [], [_cost(&"burden", [&"PHYSICAL"], 0.1)]))
+	expect(move.get_cost(game, actor.id) == 900 and attack.get_cost(game, actor.id) == 600 and InteractAction.new().get_cost(game, actor.id) == 550, "Physical +10% joins each matching action's additive percent pool")
 	expect(WaitAction.new().get_cost(game, actor.id) == 1000, "Wait has no PHYSICAL tag")
 	actor.remove_effect(&"physical")
 	actor.remove_effect(&"melee")
-	actor.add_effect(_effect(&"speed", [_stat(&"species_boost", &"movement_speed", StatModifier.Operation.ADD, 1.0 / 3.0)]))
+	actor.add_effect(_effect(&"speed", [_stat(&"species_boost", &"movement_speed", ModifierOperation.Kind.FLAT, 1.0 / 3.0)]))
 	actor.body.parts[&"left_leg"].current = 1
 	var trace := move.cost_breakdown(game, actor.id)
 	expect(trace.cost == 800 and trace.steps[1].operation == &"DIVIDE" and trace.steps[2].value == 0.75, "Speed/body/external order: 1000 / 1.3333 / .75 x .8 = 800")
@@ -144,27 +150,27 @@ func _effects_and_costs() -> void:
 	actor.remove_effect(&"speed")
 	actor.remove_effect(&"travel")
 	actor.body.parts[&"left_leg"].current = 25
-	# Weapon intrinsic and external fractions compose BEFORE a single ceil.
-	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"fraction", "Fraction", 0.5001))
-	actor.add_effect(_effect(&"fraction_effect", [], [_cost(&"fraction_effect", [&"MELEE"], 0.5)]))
+	# Weapon intrinsic and external deltas sum BEFORE a single ceil.
+	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"fraction", "Fraction", -0.2499))
+	actor.add_effect(_effect(&"fraction_effect", [], [_cost(&"fraction_effect", [&"MELEE"], -0.25)]))
 	var special := AttackAction.new(&"rat", &"fraction")
-	expect(special.get_cost(game, actor.id) == 251, "One final ceil: 1000 x .5001 x .5 = 250.05 -> 251")
+	expect(special.get_cost(game, actor.id) == 501, "One final ceil: 1000 * (1 - .2499 - .25) = 500.1 -> 501")
 	var special_trace := special.cost_breakdown(game, actor.id)
 	expect(special_trace.steps[1].source == &"weapon_action:fraction" and special_trace.steps[2].source == &"fraction_effect", "Weapon intrinsic precedes external cost modifier")
 	actor.remove_effect(&"fraction_effect")
-	actor.add_effect(_effect(&"discount", [], [_cost(&"discount", [&"MOVE"], -2000.0, StatModifier.Operation.ADD)]))
+	actor.add_effect(_effect(&"discount", [], [_cost(&"discount", [&"MOVE"], -2000.0, ModifierOperation.Kind.FLAT)]))
 	expect(move.get_cost(game, actor.id) == 1, "Minimum positive cost after additive discount")
 	game.reset()
 	expect(game.get_actor(actor.id).active_effects().is_empty() and move.get_cost(game, actor.id) == 1000, "Reset recreates clean effect state")
 
-func _base_only_stat_multipliers() -> void:
+func _percent_phases() -> void:
 	var game := TimeCostGame.new()
 	var actor := game.get_actor(&"player")
-	actor.add_effect(_effect(&"a_bonus", [_stat(&"bonus", StatCatalog.STR, StatModifier.Operation.ADD, 4.0)]), &"equipment:test")
-	actor.add_effect(_effect(&"z_multiplier", [_stat(&"multiplier", StatCatalog.STR, StatModifier.Operation.MULTIPLY, 1.5)]), &"skill:test")
+	actor.add_effect(_effect(&"a_bonus", [_stat(&"bonus", StatCatalog.STR, ModifierOperation.Kind.FLAT, 4.0)]), &"equipment:test")
+	actor.add_effect(_effect(&"z_multiplier", [_stat(&"multiplier", StatCatalog.STR, ModifierOperation.Kind.PERCENT, 0.5)]), &"skill:test")
 	var simple := actor.stat_breakdown(StatCatalog.STR)
 	expect(simple.base == 10.0 and simple.value == 19.0, "Base STR 10 * 1.5 + 4 = 19, never 21")
-	expect(simple.steps.map(func(step): return step.operation) == [&"BASE", &"MULTIPLY", &"ADD"], "Stat breakdown phases are BASE, MULTIPLY, ADD; final value is explicit")
+	expect(simple.steps.map(func(step): return step.operation) == [&"BASE", &"PERCENT", &"FLAT"], "Stat breakdown phases are BASE, PERCENT, FLAT; final value is explicit")
 	expect(simple.steps.map(func(step): return step.result) == [10.0, 15.0, 19.0], "Simple breakdown exposes each intermediate and final result")
 	expect(simple.steps[1].effect_id == &"z_multiplier" and simple.steps[1].source_id == &"skill:test" and simple.steps[2].effect_id == &"a_bonus" and simple.steps[2].source_id == &"equipment:test", "Provenance follows multiplier/additive phase order, not global ID order")
 	actor.clear_effects()
@@ -173,14 +179,14 @@ func _base_only_stat_multipliers() -> void:
 	var z := _effect(&"cost_z")
 	for stat in StatCatalog.ALL:
 		# Interleave authored operations to verify phase filtering preserves order.
-		a.stat_modifiers.append(_stat(&"a_add1", stat, StatModifier.Operation.ADD, 4.0))
-		a.stat_modifiers.append(_stat(&"a_m1", stat, StatModifier.Operation.MULTIPLY, 1.5))
-		a.stat_modifiers.append(_stat(&"a_m2", stat, StatModifier.Operation.MULTIPLY, 2.0))
-		a.stat_modifiers.append(_stat(&"a_add2", stat, StatModifier.Operation.ADD, -1.0))
-		z.stat_modifiers.append(_stat(&"z_add1", stat, StatModifier.Operation.ADD, 3.0))
-		z.stat_modifiers.append(_stat(&"z_m1", stat, StatModifier.Operation.MULTIPLY, 0.5))
-		z.stat_modifiers.append(_stat(&"z_add2", stat, StatModifier.Operation.ADD, 2.0))
-		z.stat_modifiers.append(_stat(&"z_m2", stat, StatModifier.Operation.MULTIPLY, 2.0))
+		a.stat_modifiers.append(_stat(&"a_add1", stat, ModifierOperation.Kind.FLAT, 4.0))
+		a.stat_modifiers.append(_stat(&"a_m1", stat, ModifierOperation.Kind.PERCENT, 0.5))
+		a.stat_modifiers.append(_stat(&"a_m2", stat, ModifierOperation.Kind.PERCENT, 1.0))
+		a.stat_modifiers.append(_stat(&"a_add2", stat, ModifierOperation.Kind.FLAT, -1.0))
+		z.stat_modifiers.append(_stat(&"z_add1", stat, ModifierOperation.Kind.FLAT, 3.0))
+		z.stat_modifiers.append(_stat(&"z_m1", stat, ModifierOperation.Kind.PERCENT, -0.5))
+		z.stat_modifiers.append(_stat(&"z_add2", stat, ModifierOperation.Kind.FLAT, 2.0))
+		z.stat_modifiers.append(_stat(&"z_m2", stat, ModifierOperation.Kind.PERCENT, 1.0))
 	actor.add_effect(z, &"trait:test")
 	actor.add_effect(a, &"skill:test")
 	var sibling := Actor.new(&"sibling", ActorDefinition.human_default(), Vector2i.ZERO)
@@ -189,20 +195,105 @@ func _base_only_stat_multipliers() -> void:
 	for stat in StatCatalog.ALL:
 		var trace := actor.stat_breakdown(stat)
 		var is_speed: bool = stat == StatCatalog.MOVEMENT_SPEED
-		expect(trace.value == (11.0 if is_speed else 38.0), "Multiple multipliers affect base only, positive/negative ADD remain flat: " + stat)
+		expect(trace.value == (11.0 if is_speed else 38.0), "Percent deltas sum against base; positive/negative flats remain flat: " + stat)
 		expect(trace == sibling.stat_breakdown(stat), "Both phases and traces independent of insertion order: " + stat)
 		expect(trace.steps.slice(1).map(func(step): return step.source) == [&"a_m1", &"a_m2", &"z_m1", &"z_m2", &"a_add1", &"a_add2", &"z_add1", &"z_add2"], "Lexical effect IDs and authored order preserved within each stat phase: " + stat)
-		expect(trace.steps.map(func(step): return step.result) == ([1.0, 1.5, 3.0, 1.5, 3.0, 7.0, 6.0, 9.0, 11.0] if is_speed else [10.0, 15.0, 30.0, 15.0, 30.0, 34.0, 33.0, 36.0, 38.0]), "All intermediate/final stat results follow new formula: " + stat)
+		expect(trace.steps.map(func(step): return step.result) == ([1.0, 1.5, 2.5, 2.0, 3.0, 7.0, 6.0, 9.0, 11.0] if is_speed else [10.0, 15.0, 25.0, 20.0, 30.0, 34.0, 33.0, 36.0, 38.0]), "Each percent contributes base * delta without compounding: " + stat)
 	expect(MoveAction.new(Vector2i.RIGHT).get_cost(game, actor.id) == 91, "Move consumes the new movement_speed stat with existing final ceil")
-	# Cost ADD is still multiplied; intrinsic/external factors still compose.
+	# Cost flat bonuses are not amplified; intrinsic/external percent deltas sum.
 	actor.clear_effects()
-	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"formula_cost", "Formula cost", 1.5))
-	actor.add_effect(_effect(&"cost_a", [], [_cost(&"cost_add", [&"MELEE"], -100.0, StatModifier.Operation.ADD), _cost(&"cost_m1", [&"MELEE"], 0.5)]))
-	actor.add_effect(_effect(&"cost_z", [], [_cost(&"cost_m2", [&"MELEE"], 1.25)]))
+	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"formula_cost", "Formula cost", 0.5))
+	actor.add_effect(_effect(&"cost_a", [], [_cost(&"cost_add", [&"MELEE"], -100.0, ModifierOperation.Kind.FLAT), _cost(&"cost_m1", [&"MELEE"], -0.5)]))
+	actor.add_effect(_effect(&"cost_z", [], [_cost(&"cost_m2", [&"MELEE"], 0.25)]))
 	var cost := AttackAction.new(&"rat", &"formula_cost").cost_breakdown(game, actor.id)
-	expect(cost.unrounded == 875.0 and cost.cost == 875, "Cost still computes (1000 * intrinsic 1.5 - 100) * external .5 * 1.25")
-	expect(cost.steps.map(func(step): return float(step.result)) == [1000.0, 1500.0, 1400.0, 1750.0, 875.0, 875.0, 875.0], "Existing cost order, intermediate trace, one ceil and minimum remain unchanged")
-	expect(cost.steps.map(func(step): return step.operation) == [&"BASE", &"MULTIPLY", &"ADD", &"MULTIPLY", &"MULTIPLY", &"CEIL", &"MAX"], "Action cost retains intrinsic followed by external ADD then MULTIPLY")
+	expect(cost.unrounded == 1150.0 and cost.cost == 1150, "Cost = 1000 * (1 + .5 - .5 + .25) - 100")
+	expect(cost.steps.map(func(step): return float(step.result)) == [1000.0, 1500.0, 1000.0, 1250.0, 1150.0, 1150.0, 1150.0], "Cost shows shared percent pool followed by flat, ceil and minimum")
+	expect(cost.steps.map(func(step): return step.operation) == [&"BASE", &"PERCENT", &"PERCENT", &"PERCENT", &"FLAT", &"CEIL", &"MAX"], "Action cost vocabulary and percent-before-flat order")
+
+func _flat_percent_contract() -> void:
+	var game := TimeCostGame.new()
+	var actor := game.get_actor(&"player")
+	for sample in [
+		{"p": [], "f": [2.0], "expected": 12.0},
+		{"p": [], "f": [2.0, -3.0], "expected": 9.0},
+		{"p": [0.2], "f": [], "expected": 12.0},
+		{"p": [-0.2], "f": [], "expected": 8.0},
+		{"p": [0.2, 0.3], "f": [], "expected": 15.0},
+		{"p": [0.5], "f": [4.0], "expected": 19.0},
+		{"p": [0.2, 0.3], "f": [4.0, 3.0], "expected": 22.0}]:
+		actor.clear_effects()
+		var effect := _effect(&"stat_case")
+		for i in sample.p.size():
+			effect.stat_modifiers.append(_stat(StringName("percent_%d" % i), StatCatalog.STR, ModifierOperation.Kind.PERCENT, sample.p[i]))
+		for i in sample.f.size():
+			effect.stat_modifiers.append(_stat(StringName("flat_%d" % i), StatCatalog.STR, ModifierOperation.Kind.FLAT, sample.f[i]))
+		actor.add_effect(effect, &"system:stat_case")
+		var trace := actor.stat_breakdown(StatCatalog.STR)
+		expect(is_equal_approx(trace.value, sample.expected), "Stat FLAT/PERCENT example: " + str(sample))
+		expect(is_equal_approx(trace.percent_total, sample.p.reduce(func(total, value): return total + value, 0.0)) and trace.flat_total == sample.f.reduce(func(total, value): return total + value, 0.0), "Stat exposes both additive totals")
+		expect(trace.base == 10.0 and trace.unrounded == trace.value and trace.steps[-1].result == trace.value, "Stat base, unrounded and final trace agree")
+		effect.stat_modifiers.reverse()
+		actor.remove_effect(effect.id)
+		actor.add_effect(effect)
+		expect(is_equal_approx(actor.resolved_stat(StatCatalog.STR), sample.expected), "Reordering authored modifier set does not alter final stat")
+	var attack := AttackAction.new(&"rat")
+	for sample in [
+		{"p": [-0.25, -0.2], "f": [], "expected": 550},
+		{"p": [-0.25, 0.1], "f": [], "expected": 850},
+		{"p": [], "f": [-100.0], "expected": 900},
+		{"p": [-0.2], "f": [100.0], "expected": 900},
+		{"p": [-0.6, -0.5], "f": [], "expected": 1},
+		{"p": [-1.2], "f": [], "expected": 1}]:
+		actor.clear_effects()
+		var effect := _effect(&"cost_case")
+		for i in sample.p.size():
+			effect.action_cost_modifiers.append(_cost(StringName("percent_%d" % i), [&"MELEE"], sample.p[i]))
+		for i in sample.f.size():
+			effect.action_cost_modifiers.append(_cost(StringName("flat_%d" % i), [&"MELEE"], sample.f[i], ModifierOperation.Kind.FLAT))
+		expect(actor.add_effect(effect, &"skill:cost_case"), "Finite action percentages are accepted without caps")
+		var trace := attack.cost_breakdown(game, actor.id)
+		expect(trace.cost == sample.expected and trace.adjusted_base == 1000.0, "Action cost additive-percent/flat example: " + str(sample))
+		expect(is_equal_approx(trace.percent_total, sample.p.reduce(func(total, value): return total + value, 0.0)) and trace.flat_total == sample.f.reduce(func(total, value): return total + value, 0.0), "Cost exposes both additive totals")
+		expect(trace.steps[-2].operation == &"CEIL" and trace.steps[-1].operation == &"MAX" and trace.steps[-1].result == trace.cost, "One final ceil then minimum protects all action percentages")
+		effect.action_cost_modifiers.reverse()
+		actor.remove_effect(effect.id)
+		actor.add_effect(effect)
+		expect(attack.get_cost(game, actor.id) == sample.expected, "Reordering authored modifier set does not alter delivered cost")
+	actor.clear_effects()
+	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"quick_test", "Quick test", -0.25))
+	var quick := AttackAction.new(&"rat", &"quick_test")
+	expect(quick.get_cost(game, actor.id) == 750, "Migrated intrinsic -25% has unchanged standalone time")
+	var skill := _effect(&"a_skill", [], [_cost(&"training", [&"MELEE"], -0.2)])
+	var status := _effect(&"z_status", [], [_cost(&"fatigue", [&"MELEE"], 0.1), _cost(&"other", [&"MELEE"], 50.0, ModifierOperation.Kind.FLAT)])
+	actor.add_effect(status, &"status:fatigue")
+	actor.add_effect(skill, &"skill:training")
+	var combined := quick.cost_breakdown(game, actor.id)
+	expect(combined.cost == 700 and is_equal_approx(combined.percent_total, -0.35) and combined.flat_total == 50.0, "Intrinsic -25%, external -20%/+10%, flat +50 -> 700")
+	expect(combined.steps[1].source == &"weapon_action:quick_test" and combined.steps[1].operation == &"PERCENT" and combined.steps[1].value == -0.25, "Intrinsic origin and percent delta remain explainable")
+	expect(combined.steps[2].effect_id == &"a_skill" and combined.steps[2].source_id == &"skill:training" and combined.steps[2].source == &"training", "External definition/origin/modifier provenance survives shared pool")
+	actor.clear_effects()
+	actor.add_effect(skill, &"skill:training")
+	actor.add_effect(status, &"status:fatigue")
+	expect(quick.cost_breakdown(game, actor.id) == combined, "Reversed effect insertion gives identical canonical cost trace")
+	actor.clear_effects()
+	actor.add_effect(skill)
+	expect(quick.get_cost(game, actor.id) == 550, "Weapon -25% plus external -20% gives 550, not 600")
+	var move_game := FixedLocomotionGame.new()
+	var mover := move_game.get_actor(&"player")
+	mover.add_effect(_effect(&"speed", [_stat(&"long_legs", StatCatalog.MOVEMENT_SPEED, ModifierOperation.Kind.PERCENT, 0.25)]))
+	mover.add_effect(_effect(&"travel", [], [_cost(&"travel", [&"MOVE"], -0.2), _cost(&"extra", [&"MOVE"], 50.0, ModifierOperation.Kind.FLAT)]))
+	var move := MoveAction.new(Vector2i.RIGHT)
+	var trace := move.cost_breakdown(move_game, mover.id)
+	expect(trace.adjusted_base == 1000.0 and trace.unrounded == 850.0 and trace.cost == 850, "1000 / speed1.25 / Body.8 = adjusted1000; -20% + flat50 =850")
+	expect(trace.steps[1].source == &"movement_speed" and trace.steps[2].source == &"body:locomotion" and trace.steps[3].operation == &"PERCENT" and trace.steps[4].operation == &"FLAT", "Physical stages precede action percent/flat pool")
+	var invalid_game := TimeCostGame.new()
+	var invalid_actor := invalid_game.get_actor(&"player")
+	invalid_actor.add_effect(_effect(&"speed_reductions", [_stat(&"slow1", StatCatalog.MOVEMENT_SPEED, ModifierOperation.Kind.PERCENT, -0.6), _stat(&"slow2", StatCatalog.MOVEMENT_SPEED, ModifierOperation.Kind.PERCENT, -0.5)]))
+	expect(invalid_actor.resolved_stat(StatCatalog.MOVEMENT_SPEED) < 0.0 and not move.cost_breakdown(invalid_game, invalid_actor.id).valid, "Nonpositive resolved speed rejects Move instead of minimum resurrection")
+	_unchanged_rejection(invalid_game, move, "negative percent-resolved movement speed")
+	invalid_actor.clear_effects()
+	invalid_actor.add_effect(_effect(&"cost_reduction", [], [_cost(&"rare", [&"WAIT"], -1.2)]))
+	expect(invalid_game.perform_action(invalid_actor.id, WaitAction.new()) and invalid_game.last_action_cost == 1, "Below -100% action reduction still delivers minimum1 through real scheduler")
 
 func _unchanged_rejection(game: TimeCostGame, action: TimeAction, label: String) -> void:
 	var before := [game.world_time, game.player_next_ready_time, game.rat_next_ready_time, game.combat_rng.state, game.combat_log.events.size()]
@@ -214,7 +305,7 @@ func _rejections_and_scheduler() -> void:
 	_unchanged_rejection(game, AttackAction.new(&"rat"), "out of range")
 	_unchanged_rejection(game, MoveAction.new(Vector2i.ZERO), "invalid direction")
 	_unchanged_rejection(game, InteractAction.new(Vector2i.ZERO), "invalid interaction")
-	game.get_actor(&"player").add_effect(_effect(&"immobile", [_stat(&"immobile", &"movement_speed", StatModifier.Operation.ADD, -1.0)]))
+	game.get_actor(&"player").add_effect(_effect(&"immobile", [_stat(&"immobile", &"movement_speed", ModifierOperation.Kind.FLAT, -1.0)]))
 	_unchanged_rejection(game, MoveAction.new(Vector2i.RIGHT), "nonpositive resolved speed")
 	game.get_actor(&"player").remove_effect(&"immobile")
 	game.get_actor(&"player").add_effect(_effect(&"overflow", [], [_cost(&"overflow", [&"MOVE"], 1e308)]))
@@ -222,11 +313,11 @@ func _rejections_and_scheduler() -> void:
 	game.reset()
 	game.rat_hp = 0
 	game.scheduler.unregister_actor(&"rat")
-	game.get_actor(&"player").add_effect(_effect(&"travel", [], [_cost(&"travel", [&"MOVE"], 0.8)]))
+	game.get_actor(&"player").add_effect(_effect(&"travel", [], [_cost(&"travel", [&"MOVE"], -0.2)]))
 	expect(game.perform_action(&"player", MoveAction.new(Vector2i.RIGHT)) and game.player_next_ready_time == 800 and game.world_time == 800, "Resolved Move cost reaches real scheduler")
 	game.reset()
 	game.rat_position = game.player_position + Vector2i.RIGHT
-	game.get_actor(&"player").add_effect(_effect(&"training", [], [_cost(&"training", [&"MELEE"], 0.5)]))
+	game.get_actor(&"player").add_effect(_effect(&"training", [], [_cost(&"training", [&"MELEE"], -0.5)]))
 	expect(game.perform_action(&"player", AttackAction.new(&"rat")) and game.last_action_cost == 500 and game.combat_log.events[0].action_cost == 500, "Resolved melee cost reaches real execution/event/scheduler")
 	var scheduler := TimeScheduler.new()
 	scheduler.reset()
@@ -251,11 +342,13 @@ func _validation() -> void:
 	expect(not actor.stat_breakdown(&"unknown").valid, "Unknown stat rejected")
 	expect(not actor.add_effect(_effect(&"empty")), "Empty effect rejected")
 	for bad in [0.0, -1.0, INF, NAN]:
-		expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [&"MELEE"], bad)])), "Invalid cost multiplier rejected")
-		expect(not actor.add_effect(_effect(&"bad", [_stat(&"bad", &"movement_speed", StatModifier.Operation.MULTIPLY, bad)])), "Invalid stat multiplier rejected")
-	expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [], 1.0)])), "Empty/global selector rejected")
-	expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [&"TYPO"], 1.0)])), "Unknown tag rejected")
-	expect(not actor.add_effect(_effect(&"bad", [_stat(&"", &"movement_speed", StatModifier.Operation.ADD, 1.0)])), "Missing source rejected")
+		expect(actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [&"MELEE"], bad)])) == is_finite(bad), "Cost percent accepts finite values without caps and rejects nonfinite data")
+		actor.clear_effects()
+		expect(actor.add_effect(_effect(&"bad", [_stat(&"bad", &"movement_speed", ModifierOperation.Kind.PERCENT, bad)])) == is_finite(bad), "Stat percent accepts finite values without caps and rejects nonfinite data")
+		actor.clear_effects()
+	expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [], 0.0)])), "Empty/global selector rejected")
+	expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [&"TYPO"], 0.0)])), "Unknown tag rejected")
+	expect(not actor.add_effect(_effect(&"bad", [_stat(&"", &"movement_speed", ModifierOperation.Kind.FLAT, 1.0)])), "Missing source rejected")
 
 func _zero_copy_resolution() -> void:
 	var game := TimeCostGame.new()
@@ -265,19 +358,19 @@ func _zero_copy_resolution() -> void:
 	game.actors.register(actor)
 	var sibling := other_game.get_actor(&"player")
 	var a := _effect(&"a", [
-		_stat(&"first_add", &"movement_speed", StatModifier.Operation.ADD, 0.25),
-		_stat(&"second_add", &"movement_speed", StatModifier.Operation.ADD, 0.125),
-		_stat(&"first_mul", &"movement_speed", StatModifier.Operation.MULTIPLY, 1.2)], [
-		_cost(&"move_add", [&"MOVE"], -11.25, StatModifier.Operation.ADD),
-		_cost(&"move_mul", [&"MOVE"], 0.8)])
-	var z := _effect(&"z", [_stat(&"last_mul", &"movement_speed", StatModifier.Operation.MULTIPLY, 1.1)], [
-		_cost(&"physical", [&"PHYSICAL"], 1.05), _cost(&"melee", [&"MELEE"], 0.5)])
+		_stat(&"first_add", &"movement_speed", ModifierOperation.Kind.FLAT, 0.25),
+		_stat(&"second_add", &"movement_speed", ModifierOperation.Kind.FLAT, 0.125),
+		_stat(&"first_mul", &"movement_speed", ModifierOperation.Kind.PERCENT, 0.2)], [
+		_cost(&"move_add", [&"MOVE"], -11.25, ModifierOperation.Kind.FLAT),
+		_cost(&"move_mul", [&"MOVE"], -0.2)])
+	var z := _effect(&"z", [_stat(&"last_mul", &"movement_speed", ModifierOperation.Kind.PERCENT, 0.1)], [
+		_cost(&"physical", [&"PHYSICAL"], 0.05), _cost(&"melee", [&"MELEE"], -0.5)])
 	actor.add_effect(z)
 	actor.add_effect(a)
 	sibling.add_effect(a)
 	sibling.add_effect(z)
 	for combatant: Actor in [actor, sibling]:
-		combatant.equipped_weapon.actions.append(WeaponActionDefinition.create(&"fraction", "Fraction", 0.5001))
+		combatant.equipped_weapon.actions.append(WeaponActionDefinition.create(&"fraction", "Fraction", -0.4999))
 	var before := [game.world_time, game.combat_rng.state, game.combat_log.events.size()]
 	var move := MoveAction.new(Vector2i.RIGHT)
 	var stat_trace := actor.stat_breakdown(&"movement_speed")
@@ -304,9 +397,9 @@ func _zero_copy_resolution() -> void:
 	var first := _followup_trace_records(game)
 	var second := _followup_trace_records(other_game)
 	expect(JSON.stringify(first, "  ") == JSON.stringify(second, "  "), "Stat/cost source ordering and authored modifier order identical across insertion orders")
-	# Captured from 86fd3e5 before the stat formula change. Move/stat traces change
-	# intentionally; Attack (normal/fractional), Interact and Wait must not change.
-	expect(JSON.stringify(_non_move_cost_traces(first), "  ").sha256_text() == "26f0451a96470bd21cd84e7a61d8dce7a927b2f803a4d259b298110bb933f652", "Exact unchanged non-Move cost breakdown golden, including intrinsic/external multiplication")
+	# New semantic golden intentionally replaces legacy arithmetic/schema traces.
+	var semantic_hash := (JSON.stringify(first, "  ") + "\n").sha256_text()
+	expect(semantic_hash == FileAccess.get_file_as_string("res://tests/fixtures/m031_flat_percent_breakdown.sha256").strip_edges(), "FLAT/PERCENT stat/cost semantic golden: " + semantic_hash)
 	expect(actor.snapshot_calls == 0, "Whole golden trace uses the internal zero-copy path")
 	expect(actor.active_effects().is_empty() and actor.resolved_stat(&"movement_speed") == 1.0, "Removals restore base immediately without cache")
 	actor.add_effect(z)
@@ -319,12 +412,12 @@ func _ownership_and_provenance() -> void:
 	expect(AbilityScores.NAMES == StatCatalog.PRIMARY, "Primary storage/allocation retains catalog's six primary IDs")
 	for stat in StatCatalog.ALL:
 		expect(StatCatalog.is_known(stat), "Known catalog stat: " + stat)
-		expect(_stat(&"catalog_test", stat, StatModifier.Operation.ADD, 1.0).is_valid(), "Modifier accepts catalog stat: " + stat)
+		expect(_stat(&"catalog_test", stat, ModifierOperation.Kind.FLAT, 1.0).is_valid(), "Modifier accepts catalog stat: " + stat)
 	for stat in [&"", &"unknown", &"max_hp", &"accuracy", &"dodge", &"carry_capacity", &"WIS", &"CHA"]:
-		expect(not StatCatalog.is_known(stat) and not _stat(&"catalog_test", stat, StatModifier.Operation.ADD, 1.0).is_valid(), "Unknown/future stat remains rejected: " + stat)
+		expect(not StatCatalog.is_known(stat) and not _stat(&"catalog_test", stat, ModifierOperation.Kind.FLAT, 1.0).is_valid(), "Unknown/future stat remains rejected: " + stat)
 	var definition := _effect(&"rapid_attack_discount", [
-		_stat(&"training", StatCatalog.STR, StatModifier.Operation.ADD, 2.0)], [
-		_cost(&"training", [&"MELEE"], 0.5)])
+		_stat(&"training", StatCatalog.STR, ModifierOperation.Kind.FLAT, 2.0)], [
+		_cost(&"training", [&"MELEE"], -0.5)])
 	var caller_source: StringName = &"skill:rapid_strike"
 	var game := TimeCostGame.new()
 	var actor := game.get_actor(&"player")
@@ -365,7 +458,7 @@ func _ownership_and_provenance() -> void:
 	expect(actor.stat_breakdown(StatCatalog.STR).steps[1].source_id == &"skill:rapid_strike" and attack.cost_breakdown(game, actor.id).cost == 500, "Breakdown mutation cannot change subsequent resolution")
 	expect(actor.remove_effect(&"rapid_attack_discount") and not actor.has_effect(&"rapid_attack_discount"), "Explicit removal targets definition identity")
 	expect(actor.resolved_stat(StatCatalog.STR) == 10.0 and attack.cost_breakdown(game, actor.id).cost == 1000, "Removal immediately restores stat and cost without cache")
-	var fresh := _effect(&"rapid_attack_discount", [_stat(&"training", StatCatalog.STR, StatModifier.Operation.ADD, 2.0)], [_cost(&"training", [&"MELEE"], 0.5)])
+	var fresh := _effect(&"rapid_attack_discount", [_stat(&"training", StatCatalog.STR, ModifierOperation.Kind.FLAT, 2.0)], [_cost(&"training", [&"MELEE"], -0.5)])
 	expect(actor.add_effect(fresh, &"equipment:plate_armor") and actor.resolved_stat(StatCatalog.STR) == 12.0, "After removal, a different source can apply the definition")
 	actor.clear_effects()
 	expect(actor.active_effects().is_empty() and actor.active_effect_instances().is_empty() and not actor.has_effect(fresh.id), "Clear removes every owned instance and both snapshot views")
@@ -401,13 +494,6 @@ func _contains_object(value: Variant) -> bool:
 			if _contains_object(entry):
 				return true
 	return false
-
-func _non_move_cost_traces(records: Array) -> Array:
-	var result: Array = []
-	for record in records:
-		if record.has("costs"):
-			result.append(record.costs.slice(2))
-	return result
 
 func _followup_trace_records(game: TimeCostGame) -> Array:
 	var actor := game.get_actor(&"player")

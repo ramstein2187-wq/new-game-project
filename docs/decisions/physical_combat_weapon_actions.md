@@ -25,7 +25,7 @@ RNG contract remains D20, then on hit location, damage dice, and armor roll only
 
 ## Weapon Actions and time
 
-Basic attacks always use `AttackAction.BASE_COST = 1000`. Special cost is `max(1, roundi(BASE_COST * cost_multiplier))`, centralized in AttackAction. The positive floor prevents a positive fractional multiplier from producing a free action; current content yields 750/1250/1500/1750 exactly. No weapon speed or Actor speed system is added.
+Basic attacks use `AttackAction.BASE_COST = 1000`. M031 migrates authored action time to `cost_percent` deltas, summed with external effect percentages before flat cost. Shared ActionCostResolver calculates `base * (1 + percent_total) + flat_total`, then one final ceil and minimum 1. Current standalone content still yields 750/1250/1500/1750 exactly. The [M031 rule](attributes_effects.md) supersedes the historical special-action rounding/multiplier model. No weapon speed or global Actor speed system is added.
 
 `WeaponActionDefinition` owns ID/name, multiplier, optional damage type, penetration modifier, flat damage modifier and situation modifier. An execution makes a temporary deep copy of the actor's base attack and applies sparse modifiers; no copied full attacks are stored as content. Flat damage is added before the existing zero clamp and armor. No hand override is offered.
 

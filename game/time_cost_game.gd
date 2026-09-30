@@ -280,7 +280,8 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 		"required_capability_count": attacker.attack_capability_count(),
 		"functional_capability_count": body.functional_count(attacker.attack_capability()),
 		"attack_efficiency": efficiency,
-		"cost_multiplier": selected.cost_multiplier if selected != null else 1.0,
+		# Historical replay telemetry only; calculators use cost_percent instead.
+		"cost_multiplier": 1.0 + selected.cost_percent if selected != null else 1.0,
 		"damage_modifier": damage_mod,
 		"original_damage_type": attack.damage_type,
 		"ability": ability,

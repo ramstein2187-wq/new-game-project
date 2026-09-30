@@ -34,7 +34,7 @@ func get_tags() -> Array[StringName]:
 	return []
 
 func intrinsic_cost(_game: RefCounted, _actor_id: StringName) -> Dictionary:
-	return {"valid": true, "source": &"", "value": 1.0}
+	return {"valid": true, "source": &"", "value": 0.0}
 
 
 func execute(_game: RefCounted, _actor_id: StringName, _cost: int) -> CombatEvent:

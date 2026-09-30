@@ -13,7 +13,7 @@ M024는 기존 D20/신체/단일 방어층 파이프라인을 유지하면서 �
 
 ## 공격 흐름
 
-입력/AI → `AttackAction` → capability/손 수 확인 → 기본 비용 1000 × Weapon Action 배율 → D20 → 피격 부위 → 피해 주사위 → 단일 방어층의 profile 배율 × armor → penetration 차감 → 부위/HP 피해 → 이벤트/스케줄러.
+입력/AI → `AttackAction` → capability/손 수 확인 → 공통 비용 resolver (기본1000, Weapon/external Percent 합, Flat) → D20 → 피격 부위 → 피해 주사위 → 단일 방어층의 profile 배율 × armor → penetration 차감 → 부위/HP 피해 → 이벤트/스케줄러.
 
 ## 신체 기능
 

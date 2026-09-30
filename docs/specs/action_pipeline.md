@@ -42,7 +42,8 @@ diagram = "docs/diagrams/action_pipeline.svg"
 어느 검증 단계에서 실패하더라도 **시간 0 / RNG 0 / 이벤트 0**이다.
 
 M031 task branch는 MOVE/ATTACK/MELEE/INTERACT/WAIT/PHYSICAL 최소 태그와
-Actor effect의 ADD/MULTIPLY만 제공한다. [비용 상세](action_cost_resolution.md).
+Actor effect의 FLAT/PERCENT를 제공한다. Move는 speed/Body로 physical base를 조정한 뒤
+intrinsic/external Percent를 합산하고 Flat을 더한다. [비용 상세](action_cost_resolution.md).
 
 ## 설계 효과
 

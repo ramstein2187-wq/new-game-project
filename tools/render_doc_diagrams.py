@@ -30,14 +30,13 @@ FLOWS = {
         "part current / maximum", "current ≤ 0 → Disabled (0.0)",
         "0 < current ≤ 50% → Damaged (0.5)", "그 외 Healthy (1.0)",
         "부모 Disabled면 자식 효율 0", "locomotion 부위 효율 평균",
-        "Move resolver: ceil(base / speed / efficiency × cost modifiers)",
+        "Move: ceil((base / speed / efficiency) × (1 + Percent 합) + Flat 합)",
         "capability + required count → 최적 기능 부위 선택\n부족 → 공격 불가 / 선택 효율 0.5 → 명중 -2"
     ]),
     "action_cost_resolution": ("Action 비용 · Stat 해석 (M031)", [
-        "Action 표준 base cost", "Intrinsic: Weapon Action cost_multiplier",
-        "Move: Actor → EffectStore stat (MULTIPLY → ADD)",
+        "Action 표준 base cost", "Move: Actor → EffectStore stat (PERCENT → FLAT)",
         "Move: 기존 Body locomotion_efficiency",
-        "EffectStore: 태그에 맞는 외부 비용 ADD → MULTIPLY",
+        "Adjusted base × (1 + intrinsic/external Percent 합) + Flat 합",
         "최종 한 번 ceil → 최소 1 (invalid → 거부)",
         "source · effect_id · source_id · operation · value · result",
         "기존 perform_action → TimeScheduler ready_time"

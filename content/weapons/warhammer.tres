@@ -9,7 +9,7 @@
 script = ExtResource("1_xnula")
 id = &"crushing_blow"
 display_name = "Crushing Blow"
-cost_multiplier = 1.5
+cost_percent = 0.5
 damage_type_override = &"Blunt"
 penetration_modifier = 20.0
 

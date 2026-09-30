@@ -40,7 +40,7 @@ func intrinsic_cost(game: RefCounted, actor_id: StringName) -> Dictionary:
 	var selected := actor.weapon_action(weapon_action_id) if actor != null else null
 	if selected == null or not selected.is_valid():
 		return {"valid": false}
-	return {"valid": true, "source": StringName("weapon_action:" + String(selected.id)), "value": selected.cost_multiplier}
+	return {"valid": true, "source": StringName("weapon_action:" + String(selected.id)), "value": selected.cost_percent}
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:

@@ -39,41 +39,55 @@ func resolve_stat(stat: StringName, base: float, source: StringName) -> Dictiona
 	if not StatCatalog.is_known(stat):
 		return {"stat": stat, "valid": false, "value": 0.0, "steps": []}
 	var result := base
+	var percent_total := 0.0
+	var flat_total := 0.0
 	var steps: Array[Dictionary] = [{"source": source, "operation": &"BASE", "value": base, "result": base}]
 	var ids := _ordered_ids()
-	# Stat phases require textual ID order, independent of StringName ordering.
-	ids.sort_custom(func(left, right): return String(left) < String(right))
-	# Base * product(MULTIPLY) + sum(ADD): flat bonuses are never multiplied.
-	for operation in [StatModifier.Operation.MULTIPLY, StatModifier.Operation.ADD]:
+	for operation in [ModifierOperation.Kind.PERCENT, ModifierOperation.Kind.FLAT]:
 		for effect_id in ids:
 			var active: ActiveEffect = _instances[effect_id]
 			for modifier in active.definition.stat_modifiers:
 				if modifier.target_stat == stat and modifier.operation == operation:
-					result = modifier.apply(result)
-					steps.append(_step(active, modifier.source_id, modifier.operation_name(), modifier.value, result))
-	return {"stat": stat, "base": base, "value": result, "valid": is_finite(result), "steps": steps}
+					if operation == ModifierOperation.Kind.PERCENT:
+						percent_total += modifier.value
+					else:
+						flat_total += modifier.value
+					result = base * (1.0 + percent_total) + flat_total
+					steps.append(_step(active, modifier.source_id, modifier.operation_name(), modifier.value, result, percent_total, flat_total))
+	return {"stat": stat, "base": base, "value": result, "unrounded": result, "valid": is_finite(result),
+		"percent_total": percent_total, "flat_total": flat_total, "steps": steps}
 
 # Pure calculation, no rounding: ActionCostResolver owns final ceil/minimum.
-func apply_action_cost_modifiers(input: float, tags: Array[StringName]) -> Dictionary:
-	var result := input
+func apply_action_cost_modifiers(base: float, tags: Array[StringName], intrinsic_percent: float = 0.0, intrinsic_source: StringName = &"") -> Dictionary:
+	var percent_total := intrinsic_percent
+	var flat_total := 0.0
+	var result := base * (1.0 + percent_total)
 	var steps: Array[Dictionary] = []
+	if intrinsic_source != &"":
+		steps.append({"source": intrinsic_source, "operation": &"PERCENT", "value": intrinsic_percent,
+			"result": result, "percent_total": percent_total, "flat_total": flat_total})
 	var ids := _ordered_ids()
-	for operation in [StatModifier.Operation.ADD, StatModifier.Operation.MULTIPLY]:
+	for operation in [ModifierOperation.Kind.PERCENT, ModifierOperation.Kind.FLAT]:
 		for effect_id in ids:
 			var active: ActiveEffect = _instances[effect_id]
 			for modifier in active.definition.action_cost_modifiers:
 				if modifier.operation == operation and modifier.matches(tags):
-					result = modifier.apply(result)
-					steps.append(_step(active, modifier.source_id, modifier.operation_name(), modifier.value, result))
-	return {"value": result, "steps": steps}
+					if operation == ModifierOperation.Kind.PERCENT:
+						percent_total += modifier.value
+					else:
+						flat_total += modifier.value
+					result = base * (1.0 + percent_total) + flat_total
+					steps.append(_step(active, modifier.source_id, modifier.operation_name(), modifier.value, result, percent_total, flat_total))
+	return {"value": result, "percent_total": percent_total, "flat_total": flat_total, "steps": steps}
 
 # Only scalar IDs leave this helper, never a live Resource collection.
 func _ordered_ids() -> Array[StringName]:
 	var ids: Array[StringName] = []
 	ids.assign(_instances.keys())
-	ids.sort()
+	ids.sort_custom(func(left, right): return String(left) < String(right))
 	return ids
 
-func _step(active: ActiveEffect, modifier_source: StringName, operation: StringName, value: float, result: float) -> Dictionary:
+func _step(active: ActiveEffect, modifier_source: StringName, operation: StringName, value: float, result: float, percent_total: float, flat_total: float) -> Dictionary:
 	return {"source": modifier_source, "effect_id": active.definition.id, "source_id": active.source_id,
-		"operation": operation, "value": value, "result": result}
+		"operation": operation, "value": value, "result": result,
+		"percent_total": percent_total, "flat_total": flat_total}
