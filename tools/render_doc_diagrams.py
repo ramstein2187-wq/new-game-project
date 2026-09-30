@@ -9,6 +9,16 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "diagrams"
 
 FLOWS = {
+    "character_overview": ("Character Overview — read-only presentation (M032)", [
+        "C → CharacterScreen 열기 / modal gameplay 입력 차단",
+        "현재 Actor: identity · HP · six attributes / stat breakdown",
+        "기본 attack: 기존 ability · proficiency · body situation query",
+        "Body: Σ max(0, weight) / 실제 weight 합 × max(0, raw armor)",
+        "MoveAction(RIGHT).cost_breakdown → 기존 ActionCostResolver",
+        "scalar value model → 기본 결과 / hover 빠른 설명",
+        "선택 → 새 query → Inspector 단계 · contribution · provenance",
+        "C / Esc → 닫기 (RNG · time · event · gameplay state 변경 없음)"
+    ]),
     "time_scheduler": ("Action-Cost 시간 스케줄러", [
         "플레이어 Action 성공", "Player ready time += cost",
         "ready time < Player 인 NPC 선택", "NPC Action 1회 실행 + ready time 증가",

@@ -18,6 +18,7 @@ var game: TimeCostGame
 var detailed_log := false
 var debug_log := false
 var combat_panel: CombatDebugPanel
+var character_screen: CharacterScreen
 
 @onready var status_label: Label = $CanvasLayer/UI/VBox/Status
 @onready var timeline_label: Label = $CanvasLayer/UI/VBox/Timeline
@@ -34,10 +35,15 @@ func _ready() -> void:
 	combat_panel.game = game
 	$CanvasLayer.add_child(combat_panel)
 	combat_panel.changed.connect(_refresh)
+	character_screen = preload("res://scenes/ui/character_screen.tscn").instantiate()
+	character_screen.game = game
+	$CanvasLayer.add_child(character_screen)
 	_refresh()
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if character_screen != null and character_screen.visible:
+		return
 	if not (event is InputEventKey):
 		return
 	if not event.pressed or event.echo:
@@ -144,7 +150,7 @@ func _refresh() -> void:
 	timeline_label.text = game.get_timeline_text()
 	help_label.text = (
 		"WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump NPC: attack | E: door\n"
-		+ "Space/Enter: wait | R: reset | L: details | F3: trace\n"
+		+ "Space/Enter: wait | C: character | R: reset | L: details | F3: trace\n"
 		+ "Injuries change costs and available actions. Ties favor you."
 	)
 	message_label.text = game.message
@@ -153,6 +159,8 @@ func _refresh() -> void:
 	else:
 		event_log_label.text = "Combat log:\n" + game.get_recent_event_text(detailed_log)
 	combat_panel.refresh()
+	if character_screen != null and character_screen.visible:
+		character_screen.refresh()
 	queue_redraw()
 
 
