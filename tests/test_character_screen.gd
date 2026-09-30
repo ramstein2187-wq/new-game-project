@@ -40,7 +40,7 @@ func _run() -> void:
 			row.grab_focus()
 			_press(KEY_ENTER)
 			await process_frame
-			expect(not screen.inspector.body_label.text.is_empty(), "Keyboard activation opens Inspector: " + String(key))
+			expect(not screen.inspector.body_label.get_parsed_text().is_empty(), "Keyboard activation opens Inspector: " + String(key))
 		screen.rows.damage.grab_focus()
 		for key in [KEY_RIGHT, KEY_UP, KEY_W, KEY_D, KEY_KP_6, KEY_SPACE, KEY_R, KEY_L, KEY_F3, KEY_E]:
 			_press(key)

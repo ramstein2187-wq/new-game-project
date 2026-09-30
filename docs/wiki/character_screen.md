@@ -22,6 +22,16 @@ sprite 대신 원을 그리므로 새 portrait pipeline이나 가짜 identity를
 주요 값은 **기본 결과 → hover 빠른 설명 → click/Enter Inspector 상세 출처**로
 읽는다. `›` 표시와 pointer, hover/focus 테두리로 inspectable임을 표현한다.
 Inspector는 값/제목/본문을 받는 재사용 가능한 UI이며 Actor를 소유하지 않는다.
+Inspector의 signed modifier 수치만 저채도 초록(양수)/빨강(음수)으로 표시한다.
+0/+0/-0은 기존 중립색, 최종 Attack Bonus/Damage/resolved stat/Move Time은 더 밝은
+중립 강조를 사용한다. +/- 부호와 라벨은 유지하며 라벨이나 행 전체를 색칠하지 않는다.
+HP/armor/penetration/weight/확률/base/divisor/중간 결과 및 modifier pool 합계는
+양수라는 이유로 초록색이 되지 않는다. Attribute/Effect FLAT·PERCENT와 공격의
+ability/proficiency/situation, nested movement-speed Effect만 같은 sign 규칙을 쓴다.
+비용 delta도 숫자 부호 기준으로 표시하며, 유불리 판정을 새로 계산하지 않는다.
+색상은 InspectorNumberStyle 한 곳에 정의한다. 표현 모델의 text/tone span을
+RichTextLabel로 렌더링하며 출처 이름은 BBCode로 해석하지 않는다. 기존 plain body와
+기본 hover tooltip은 그대로 유지한다. [표현 개선 작업 기록](../reviews/2026-09-30-character-modifier-tones.md).
 Tab/Enter/Space로 값 선택이 가능하다. 1080p/1440p/4K에서 세 영역을 유지하고,
 좁은 창에서는 세로로 배치한다. 전체 내용 및 Inspector는 필요한 경우 스크롤한다.
 
