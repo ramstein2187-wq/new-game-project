@@ -81,3 +81,21 @@ on hue. Interactive human play/readability acceptance remains unperformed.
 Commit only reviewed UI/palette/test/UID/wiki/work-record files to the existing
 codex/character-overview-v1 branch and push. Do not include project.godot or imports,
 or merge main. Commit SHA and push result will be saved in local delivery Markdown.
+
+## Follow-up: single divider before final results
+
+User requested a single line separating final results. CharacterOverviewText now
+defines one neutral divider reused immediately before Resolved attribute values,
+Attack Bonus, Damage and valid Final Move Time. Tone/sign rules, plain hover,
+resolver queries and gameplay data are unchanged. No divider is added to an
+unavailable Move reason. Updated the current-system wiki in the same change.
+Validation: full tools/check_godot.sh passes all 29 test scripts, including the
+53 semantic-tone assertions and existing M032 query/input/layout tests, plus
+dataset freshness. Actual graphical fixture captures confirm single-line neutral
+dividers before all four result types at 1920×1080; the 1152×648 attack capture
+also confirms a single line. The divider uses 12 box-drawing
+characters so the current Inspector width does not wrap it. Graphical captures
+remain separate from human interactive play approval. All 13 pre-existing user
+files retain their SHA256 hashes; project.godot and imports are excluded.
+Logs: .godot/result-divider-check.log and .godot/result-divider-render*.log.
+Delivery SHA/push evidence: .godot/result-divider-delivery.md after commit/push.

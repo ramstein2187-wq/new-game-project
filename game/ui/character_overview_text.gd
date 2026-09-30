@@ -1,6 +1,8 @@
 class_name CharacterOverviewText
 extends RefCounted
 
+const RESULT_DIVIDER := "────────────"
+
 const ATTRIBUTE_NAMES := {&"STR": "STRENGTH", &"DEX": "DEXTERITY", &"CON": "CONSTITUTION",
 	&"PER": "PERCEPTION", &"INT": "INTELLIGENCE", &"WIL": "WILLPOWER"}
 
@@ -100,7 +102,7 @@ static func inspection(model: Dictionary, key: StringName) -> Dictionary:
 		if attribute.id == key:
 			var b: Dictionary = attribute.breakdown
 			return _details(ATTRIBUTE_NAMES[key], number(attribute.value), _format_spans(
-				"Base × (1 + Σ Percent) + Σ Flat\n\n%s\n\nBase %s · Percent %s% · Flat %s\nResolved %s · Modifier %s\n\nModifier uses the whole score, discarding any fractional part.\nCombat currently uses base attributes; primary attribute Effects do not modify attacks.", [
+				"Base × (1 + Σ Percent) + Σ Flat\n\n%s\n\nBase %s · Percent %s% · Flat %s\n" + RESULT_DIVIDER + "\nResolved %s · Modifier %s\n\nModifier uses the whole score, discarding any fractional part.\nCombat currently uses base attributes; primary attribute Effects do not modify attacks.", [
 					_steps_spans(b), number(b.base), number(b.percent_total * 100), signed(b.flat_total), _result(number(b.value)),
 					_modifier(attribute.modifier, "%+d" % attribute.modifier)]))
 	match key:
@@ -112,7 +114,7 @@ static func inspection(model: Dictionary, key: StringName) -> Dictionary:
 			if not a.get("valid", false):
 				return {"title": "MAIN ATTACK", "value": "Unavailable", "body": "No attack definition."}
 			return _details(a.attack_name.to_upper(), damage(a), _format_spans(
-				"TO HIT\n%s Modifier (base attribute)   %s\nProficiency   %s\nSituation (body injury)   %s\nAttack Bonus   %s\n\nd20 + Attack Bonus is checked against defender difficulty. No target is selected here.\n\nDAMAGE\n%s   %s\n%s Modifier   %s\nDamage   %s\nDamage is floored at zero after rolling.\n\nPenetration   %s\nDamage Type   %s\n\n%s\nSources: current weapon / natural attack and basic attack rules.\nPrimary attribute Effects currently do not modify combat.", [
+				"TO HIT\n%s Modifier (base attribute)   %s\nProficiency   %s\nSituation (body injury)   %s\n" + RESULT_DIVIDER + "\nAttack Bonus   %s\n\nd20 + Attack Bonus is checked against defender difficulty. No target is selected here.\n\nDAMAGE\n%s   %s\n%s Modifier   %s\n" + RESULT_DIVIDER + "\nDamage   %s\nDamage is floored at zero after rolling.\n\nPenetration   %s\nDamage Type   %s\n\n%s\nSources: current weapon / natural attack and basic attack rules.\nPrimary attribute Effects currently do not modify combat.", [
 					a.ability, _modifier(a.ability_modifier, "%+d" % a.ability_modifier),
 					_modifier(a.proficiency, "%+d" % a.proficiency), _modifier(a.situation, "%+d" % a.situation), _result("%+d" % a.attack_bonus),
 					a.name, a.dice, a.ability, _modifier(a.ability_modifier, "%+d" % a.ability_modifier), _result(damage(a)),
@@ -125,7 +127,7 @@ static func inspection(model: Dictionary, key: StringName) -> Dictionary:
 			var b: Dictionary = model.move
 			var final_spans: Array[Dictionary] = []
 			if b.valid:
-				final_spans = _format_spans("Final   %s", [_result("%d μt" % b.cost)])
+				final_spans = _format_spans(RESULT_DIVIDER + "\nFinal   %s", [_result("%d μt" % b.cost)])
 			else:
 				final_spans.append(InspectorNumberStyle.span("Reason: " + source_label(b.reason)))
 			return _details("MOVE TIME", "%d μt" % b.cost if b.valid else "Unavailable", _format_spans(

@@ -25,6 +25,8 @@ Inspector는 값/제목/본문을 받는 재사용 가능한 UI이며 Actor를 �
 Inspector의 signed modifier 수치만 저채도 초록(양수)/빨강(음수)으로 표시한다.
 0/+0/-0은 기존 중립색, 최종 Attack Bonus/Damage/resolved stat/Move Time은 더 밝은
 중립 강조를 사용한다. +/- 부호와 라벨은 유지하며 라벨이나 행 전체를 색칠하지 않는다.
+Inspector의 Resolved 능력치, Attack Bonus, Damage, 최종 Move Time 앞에는 중립색
+구분선 한 줄을 표시하여 modifier breakdown과 최종 결과를 구분한다.
 HP/armor/penetration/weight/확률/base/divisor/중간 결과 및 modifier pool 합계는
 양수라는 이유로 초록색이 되지 않는다. Attribute/Effect FLAT·PERCENT와 공격의
 ability/proficiency/situation, nested movement-speed Effect만 같은 sign 규칙을 쓴다.
