@@ -9,7 +9,7 @@
 script = ExtResource("1_nia2m")
 id = &"thrust"
 display_name = "Thrust"
-cost_multiplier = 1.25
+cost_percent = 0.25
 damage_type_override = &"Puncture"
 penetration_modifier = 10.0
 

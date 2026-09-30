@@ -3,6 +3,7 @@
 
 from html import escape
 from pathlib import Path
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "diagrams"
@@ -16,7 +17,7 @@ FLOWS = {
     "action_pipeline": ("공통 Action 실행 파이프라인", [
         "플레이어 입력 / AI가 TimeAction 선택", "perform_action 공통 진입",
         "등록·생존·현재 차례 검증", "can_execute 검증",
-        "실패 → 시간 0 / 이벤트 0", "성공 → get_cost > 0", "execute → CombatEvent",
+        "실패 → 시간 0 / RNG 0 / 이벤트 0", "성공 → 공통 resolver get_cost > 0", "execute → CombatEvent",
         "로그 기록 + scheduler.advance", "플레이어 Action이면 NPC 응답 루프"
     ]),
     "combat_resolution": ("근접 전투 판정", [
@@ -29,7 +30,16 @@ FLOWS = {
         "part current / maximum", "current ≤ 0 → Disabled (0.0)",
         "0 < current ≤ 50% → Damaged (0.5)", "그 외 Healthy (1.0)",
         "부모 Disabled면 자식 효율 0", "locomotion 부위 효율 평균",
-        "move cost = ceil(base / efficiency)", "attack part 효율 0.5 → 명중 -2 / 0 → 공격 불가"
+        "Move: ceil((base / speed / efficiency) × (1 + Percent 합) + Flat 합)",
+        "capability + required count → 최적 기능 부위 선택\n부족 → 공격 불가 / 선택 효율 0.5 → 명중 -2"
+    ]),
+    "action_cost_resolution": ("Action 비용 · Stat 해석 (M031)", [
+        "Action 표준 base cost", "Move: Actor → EffectStore stat (PERCENT → FLAT)",
+        "Move: 기존 Body locomotion_efficiency",
+        "Adjusted base × (1 + intrinsic/external Percent 합) + Flat 합",
+        "최종 한 번 ceil → 최소 1 (invalid → 거부)",
+        "source · effect_id · source_id · operation · value · result",
+        "기존 perform_action → TimeScheduler ready_time"
     ]),
     "tactical_ai": ("설명 가능한 전술 AI", [
         "상태 읽기: 거리·HP/fear·aggression·신체", "후보 생성: Attack / Approach / Door / Retreat / Wait",
@@ -74,7 +84,12 @@ def svg(title, labels):
     for i,label in enumerate(labels):
         y=70+i*(box_h+gap); ys.append(y)
         s.append(f'<rect x="{x}" y="{y}" width="{box_w}" height="{box_h}" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>')
-        s.append(f'<text x="380" y="{y+box_h/2+1}" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">{escape(label)}</text>')
+        if "\n" in label:
+            first, second = label.split("\n", 1)
+            s.append(f'<text x="380" y="{y+24.0}" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">{escape(first)}</text>')
+            s.append(f'<text x="380" y="{y+46.0}" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="14">{escape(second)}</text>')
+        else:
+            s.append(f'<text x="380" y="{y+box_h/2+1}" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">{escape(label)}</text>')
         if i:
             prev=ys[i-1]
             s.append(f'<line x1="380" y1="{prev+box_h}" x2="380" y2="{y-4}" stroke="#555" stroke-width="2" marker-end="url(#a)"/>')
@@ -82,10 +97,15 @@ def svg(title, labels):
     return "\n".join(s)+"\n"
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--only", nargs="+", choices=sorted(FLOWS), help="regenerate only the named diagrams")
+    args = parser.parse_args()
+    names = args.only or list(FLOWS)
     OUT.mkdir(parents=True, exist_ok=True)
-    for name,(title,labels) in FLOWS.items():
+    for name in names:
+        title, labels = FLOWS[name]
         (OUT/f"{name}.svg").write_text(svg(title,labels),encoding="utf-8")
-    print(f"generated {len(FLOWS)} diagrams")
+    print(f"generated {len(names)} diagrams")
 
 if __name__=="__main__":
     main()

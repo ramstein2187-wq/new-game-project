@@ -5,7 +5,7 @@
 - `monsters.json`: 몬스터/적 Actor의 전투·AI 기준값과 다른 데이터 레코드 연결 키. 선택적 `taxonomy` 객체로 기원(origin), 구성(composition), 지능(cognition), 전투 역할(combat_roles), 행동 동기(behavior_motivations)를 기록한다. 신체 구조는 신체 템플릿에서 파생한다.
 - `skills.json`: 기본 공격 및 향후 액티브/패시브 스킬 수치.
 - `body_templates.json`: 종별 신체 부위, integrity, 피격 가중치, 기능과 기본 방어.
-- `equipment.json`: runtime weapon/armor 정의, 공통 Normal Melee 비용, 1H/2H 기능 요구, Weapon Actions, M027 armor profile 배율을 mirror.
+- `equipment.json`: runtime weapon/armor 정의, 공통 Normal Melee 비용, 1H/2H 기능 요구, Weapon Actions, M027 armor profile 배율을 mirror. M031 Weapon Action `cost_percent`는 delta (+0.25 = +25% 시간)이며 외부 Percent와 합산한다.
 - `statuses_traits.json`: 특성, 파생 상태, 상태이상과 태그.
 - `threat_ratings.json`: Threat 모델 버전과 몬스터별 측정 기록. 미검증 점수는 0이 아니라 null.
 

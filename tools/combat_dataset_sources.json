@@ -12,7 +12,9 @@
   "game/combat/weapon_action_definition.gd",
   "game/combat/armor_definition.gd",
   "game/combat/armor_profile_catalog.gd",
-  "game/actions/attack_action.gd",
+  "game/actions",
+  "game/effects",
+  "game/time_cost_game.gd",
   "tools/export_combat_datasets.gd",
   "tools/combat_dataset_sources.json"
 ]

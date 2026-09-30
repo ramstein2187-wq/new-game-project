@@ -13,9 +13,13 @@ icon = "👥"
 
 ## 현재 구조
 
-Actor 단위로 능력치, 신체, active `AttackDefinition`, weapon ID, AI, 위치, facing 등 상태를 분리하고 `ActorRegistry`가 개체를 관리한다. 공유 `ActorDefinition`은 species/body template, proficiency, 이동 비용과 prototype loadout을 제공하며, 각 Actor는 전투 튜닝과 부상이 서로 누출되지 않도록 runtime 사본을 가진다.
+Actor 단위로 능력치, 신체, active `AttackDefinition`, weapon ID, AI, 위치, facing 등 상태를 분리하고 `ActorRegistry`가 개체를 관리한다. 공유 `ActorDefinition`은 species/body template, proficiency, movement_speed와 prototype loadout을 제공하며, 각 Actor는 전투 튜닝과 부상이 서로 누출되지 않도록 runtime 사본을 가진다.
 
 ## 기본 생성 장면
+
+M031 task branch에서는 직접 이동비용을 movement_speed로 교체하며,
+능력치는 STR/DEX/CON/PER/INT/WIL이다. Actor는 active effect 사본을 소유하고
+base/resolved 값을 질의로 구분한다. [Modifier/Effect](attributes_effects.md).
 
 기본 generated scene은 플레이어와 번호가 붙은 Rat 3마리를 사용한다. 작은 맵에서는 가능한 수만큼 배치하고 reset 시 구성된 roster를 복원한다.
 

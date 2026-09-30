@@ -76,7 +76,7 @@ func _test_invalid_data(source: CombatContentData) -> void:
 	invalid.weapons[0].attack_definition.penetration = INF
 	expect(not invalid.validation_errors().is_empty(), "Nonfinite weapon tuning rejected")
 	invalid = source.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
-	invalid.weapons[0].actions[0].cost_multiplier = 0
+	invalid.weapons[0].actions[0].cost_percent = NAN
 	expect(not invalid.validation_errors().is_empty(), "Invalid action multiplier rejected")
 	invalid = source.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 	invalid.actors[0].definition.ai_policy = &"typo"

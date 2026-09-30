@@ -18,10 +18,10 @@ func _init() -> void:
 			return
 
 	game.reset()
-	if MoveAction.new(Vector2i.RIGHT).get_cost(game, &"player") != 1000 or MoveAction.new(Vector2i.RIGHT).get_cost(game, &"rat") != game.get_actor(&"rat").definition.move_cardinal:
+	if MoveAction.new(Vector2i.RIGHT).get_cost(game, &"player") != 1000 or MoveAction.new(Vector2i.RIGHT).get_cost(game, &"rat") != (MoveAction.CARDINAL_BASE_COST / game.get_actor(&"rat").definition.movement_speed):
 		fail("Cardinal movement costs must remain unchanged")
 		return
-	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"rat") != game.get_actor(&"rat").definition.move_diagonal:
+	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"rat") != (MoveAction.DIAGONAL_BASE_COST / game.get_actor(&"rat").definition.movement_speed):
 		fail("Rat diagonal movement must cost 1050")
 		return
 	game.bodies[&"player"].apply_damage(&"left_leg", 13)
@@ -29,7 +29,7 @@ func _init() -> void:
 	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"player") != 1867:
 		fail("Injured player diagonal movement must apply efficiency and round up")
 		return
-	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"rat") != ceili(game.get_actor(&"rat").definition.move_diagonal / game.bodies[&"rat"].capability(&"locomotion")):
+	if MoveAction.new(Vector2i(1, 1)).get_cost(game, &"rat") != ceili((MoveAction.DIAGONAL_BASE_COST / game.get_actor(&"rat").definition.movement_speed) / game.bodies[&"rat"].capability(&"locomotion")):
 		fail("Injured rat diagonal movement must apply efficiency and round up")
 		return
 

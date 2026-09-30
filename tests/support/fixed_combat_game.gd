@@ -15,8 +15,7 @@ func _create_initial_actors() -> void:
 	rat.attack_definition = AttackDefinition.create(&"bite", "Bite", 1, 4,
 		AttackDefinition.DAMAGE_PUNCTURE, 20.0, AttackDefinition.ABILITY_DEX, &"bite")
 	rat.max_hp = 30
-	rat.move_cardinal = 750
-	rat.move_diagonal = 1050
+	rat.movement_speed = 1000.0 / 750.0
 	rat.ai_policy = &"rat_tactics"
 	actors.register(Actor.new(&"player", player, Vector2i(2, 3), "You"))
 	register_actor(Actor.new(&"rat", rat, Vector2i(8, 3), "The rat"))

@@ -90,6 +90,12 @@ migration and must get its own explicit authority when needed.
 
 ## Validation boundaries and future moves
 
+M031 task branch replaces authored movement costs with finite positive
+`definition.movement_speed`. Interact/Wait costs belong to Actions. Exported `move`
+fields remain compatibility values derived from production MoveAction, and records
+also expose movement_speed and all six STR/DEX/CON/PER/INT/WIL scores. Fingerprints
+include Action/effect resolution. [Attributes/effects decision](attributes_effects.md).
+
 `tools/validate_combat_tuning.py --godot <executable> --project <path seen by Godot>`
 temporarily changes Boar HP, Longsword penetration/die size and Iron Helmet armor,
 one file per scenario. It runs the unchanged entire Godot test suite per scenario,

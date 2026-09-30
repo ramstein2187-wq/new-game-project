@@ -14,10 +14,7 @@ extends Resource
 @export var initial_scores: Dictionary = {}
 @export var ability_points := 12
 @export var proficiency_bonus := 2
-@export var move_cardinal := 1000
-@export var move_diagonal := 1400
-@export var interact_cost := 500
-@export var wait_cost := 1000
+@export var movement_speed := 1.0
 @export var ai_policy: StringName = &"wait"
 @export var aggression := 50
 
@@ -35,6 +32,9 @@ func active_attack() -> AttackDefinition:
 	return equipped_weapon.attack_definition if equipped_weapon != null else attack_definition
 
 func is_valid() -> bool:
+	for ability in initial_scores:
+		if not AbilityScores.NAMES.has(ability) or not initial_scores[ability] is int:
+			return false
 	var attack := active_attack()
 	if combat_species == null or combat_species.body_template == null or attack == null or not attack.is_valid():
 		return false
@@ -45,4 +45,4 @@ func is_valid() -> bool:
 			return false
 	return max_hp > 0 and proficiency_bonus >= 0 and natural_armor >= 0 \
 		and ArmorProfileCatalog.has_profile(natural_armor_profile) \
-		and move_cardinal > 0 and move_diagonal > 0 and interact_cost > 0 and wait_cost > 0
+		and is_finite(movement_speed) and movement_speed > 0.0

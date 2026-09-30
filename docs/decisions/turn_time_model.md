@@ -10,7 +10,7 @@ Use the M011 action-cost / next-ready-time model as the game's baseline turn sys
 - If an NPC and the player are ready at exactly the same time, offer the player the next decision first. The NPC's pending action is **not** discarded.
 - NPCs tied with one another are resolved in stable registration order for deterministic behavior.
 
-Initial cost numbers (500/750/1000/1250) are prototype values, not final balance. Quickness and a generalized Action system remain separate decisions.
+Initial cost numbers (500/750/1000/1250) were prototype values. Current Normal Melee is 1000; Weapon Action multipliers remain action-specific. M031 does not introduce Quickness or global DEX speed.
 
 ## Implementation Boundary
 
@@ -20,6 +20,18 @@ See `docs/milestones/M013_independent_time_scheduler.md` for the first extracted
 
 ## M018 movement cost extension
 
+The following is the historical M018 rule; M031 replaces authored movement costs
+with speed while preserving its outcomes, and M024 standardized Normal Melee at 1000.
+
 The selected M018 follow-up uses 1.4× diagonal movement base cost: player 1400 vs cardinal 1000, rat 1050 vs cardinal 750. Apply the M017 locomotion efficiency to the direction-specific base and round up once. A damaged human leg gives 1334/1867; one damaged rat leg gives 858/1200. Diagonal melee remains a normal attack (1250/1000), not a move plus an attack. Blocked corners and unavailable body functions reject the action without time or RNG consumption.
 
 Movement, melee reach, AI approach selection and visible striking-range feedback share the same blocked-corner rule. Changing direction costs does not change scheduler ownership or player-priority ties. Route search still minimizes steps rather than elapsed time; cost-aware route planning is a separate follow-up, not an implicit scheduler change.
+
+## M031 attributes/effects foundation (task branch)
+
+Actions own Move 1000/1400, melee 1000, Interact 500 and Wait 1000. Actor
+movement_speed replaces direct movement costs. Resolve base, Weapon Action
+multiplier, movement speed and Body efficiency, matching external modifiers,
+then ceil once and minimum 1. Healthy/injured production movement costs and
+Scheduler code/ties stay unchanged. [Decision](attributes_effects.md),
+[cost spec](../specs/action_cost_resolution.md).

@@ -15,8 +15,12 @@
   "records": [
     {
       "abilities": {
+        "CON": 10,
         "DEX": 10,
-        "STR": 10
+        "INT": 10,
+        "PER": 10,
+        "STR": 10,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -37,6 +41,7 @@
         750,
         1050
       ],
+      "movement_speed": 1.33333333333333,
       "name": "Rat",
       "natural_armor": 0,
       "natural_armor_profile": "SOFT",
@@ -46,8 +51,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 14,
-        "STR": 12
+        "INT": 10,
+        "PER": 10,
+        "STR": 12,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -68,6 +77,7 @@
         900,
         1260
       ],
+      "movement_speed": 1.11111111111111,
       "name": "Feral Dog",
       "natural_armor": 0,
       "natural_armor_profile": "SOFT",
@@ -77,8 +87,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 14,
-        "STR": 14
+        "INT": 10,
+        "PER": 10,
+        "STR": 14,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -99,6 +113,7 @@
         850,
         1190
       ],
+      "movement_speed": 1.17647058823529,
       "name": "Wolf",
       "natural_armor": 10,
       "natural_armor_profile": "SOFT",
@@ -108,8 +123,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 10,
-        "STR": 16
+        "INT": 10,
+        "PER": 10,
+        "STR": 16,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -130,6 +149,7 @@
         1000,
         1400
       ],
+      "movement_speed": 1.0,
       "name": "Boar",
       "natural_armor": 20,
       "natural_armor_profile": "SOFT",
@@ -139,8 +159,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 8,
-        "STR": 14
+        "INT": 10,
+        "PER": 10,
+        "STR": 14,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -161,6 +185,7 @@
         1200,
         1680
       ],
+      "movement_speed": 0.833333333333333,
       "name": "Giant Beetle",
       "natural_armor": 60,
       "natural_armor_profile": "RIGID",
@@ -170,8 +195,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 12,
-        "STR": 12
+        "INT": 10,
+        "PER": 10,
+        "STR": 12,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -192,6 +221,7 @@
         950,
         1330
       ],
+      "movement_speed": 1.05263157894737,
       "name": "Cave Lizard",
       "natural_armor": 30,
       "natural_armor_profile": "SOFT",
@@ -201,8 +231,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 16,
-        "STR": 10
+        "INT": 10,
+        "PER": 10,
+        "STR": 10,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -223,6 +257,7 @@
         800,
         1120
       ],
+      "movement_speed": 1.25,
       "name": "Giant Spider",
       "natural_armor": 10,
       "natural_armor_profile": "RIGID",
@@ -232,8 +267,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 8,
-        "STR": 16
+        "INT": 10,
+        "PER": 10,
+        "STR": 16,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -254,6 +293,7 @@
         1200,
         1680
       ],
+      "movement_speed": 0.833333333333333,
       "name": "Giant Crab",
       "natural_armor": 50,
       "natural_armor_profile": "RIGID",
@@ -263,8 +303,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 10,
-        "STR": 18
+        "INT": 10,
+        "PER": 10,
+        "STR": 18,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -285,6 +329,7 @@
         1000,
         1400
       ],
+      "movement_speed": 1.0,
       "name": "Feral Ape",
       "natural_armor": 10,
       "natural_armor_profile": "SOFT",
@@ -294,8 +339,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 12,
-        "STR": 12
+        "INT": 10,
+        "PER": 10,
+        "STR": 12,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -312,6 +361,7 @@
         1000,
         1400
       ],
+      "movement_speed": 1.0,
       "name": "Raider",
       "natural_armor": 0,
       "natural_armor_profile": "SOFT",
@@ -322,8 +372,12 @@
     },
     {
       "abilities": {
+        "CON": 10,
         "DEX": 8,
-        "STR": 16
+        "INT": 10,
+        "PER": 10,
+        "STR": 16,
+        "WIL": 10
       },
       "ability_points": 12,
       "aggression": 50,
@@ -341,6 +395,7 @@
         1100,
         1540
       ],
+      "movement_speed": 0.909090909090909,
       "name": "Armored Raider",
       "natural_armor": 0,
       "natural_armor_profile": "SOFT",

@@ -79,11 +79,11 @@ func _test_types_profiles() -> void:
 	maul.attack_definition.required_capability_count = 3
 	expect(maul.is_valid(), "Engine permits future positive counts beyond two")
 	var invalid := CombatContentCatalog.weapon(&"longsword")
-	invalid.actions[0].cost_multiplier = 0
-	expect(not invalid.is_valid(), "Zero multiplier invalid")
-	invalid.actions[0].cost_multiplier = NAN
-	expect(not invalid.is_valid(), "Nonfinite multiplier invalid")
-	invalid.actions[0].cost_multiplier = 1.25
+	invalid.actions[0].cost_percent = -1.2
+	expect(invalid.is_valid(), "Finite percent below -100% is allowed; runtime minimum protects cost")
+	invalid.actions[0].cost_percent = NAN
+	expect(not invalid.is_valid(), "Nonfinite percent invalid")
+	invalid.actions[0].cost_percent = 0.25
 	invalid.actions.append(invalid.actions[0])
 	expect(not invalid.is_valid(), "Duplicate weapon action IDs invalid")
 	var armor := CombatContentCatalog.armor(&"chain_shirt")
@@ -152,7 +152,7 @@ func _test_actions_and_isolation() -> void:
 			var actor := game.get_actor(&"player")
 			var base_type := actor.attack.damage_type
 			var base_pen := actor.attack.penetration
-			var expected_cost := maxi(1, roundi(AttackAction.BASE_COST * special.cost_multiplier))
+			var expected_cost := maxi(1, ceili(AttackAction.BASE_COST * (1.0 + special.cost_percent)))
 			var expected_type := special.damage_type_override if special.damage_type_override != &"" else base_type
 			var action := AttackAction.new(&"rat", special.id)
 			expect(AttackAction.new(&"rat").get_cost(game, actor.id) == 1000, "Shared basic cost")
@@ -248,7 +248,7 @@ func _test_playground_controls() -> void:
 			var button: Button = panel.find_child(String(sample[1]), true, false)
 			expect(button != null and button.focus_mode == Control.FOCUS_NONE, "Playground exposes special without capturing keys")
 			button.pressed.emit()
-			expect(game.last_action_cost == maxi(1, roundi(AttackAction.BASE_COST * CombatContentCatalog.weapon(sample[0]).get_action(sample[1]).cost_multiplier)) and game.combat_log.events[0].data.weapon_action_id == sample[1], "Actual UI signal executes special through scheduler")
+			expect(game.last_action_cost == maxi(1, ceili(AttackAction.BASE_COST * (1.0 + CombatContentCatalog.weapon(sample[0]).get_action(sample[1]).cost_percent))) and game.combat_log.events[0].data.weapon_action_id == sample[1], "Actual UI signal executes special through scheduler")
 		await process_frame
 		await process_frame
 		var scroll: Control = scene.get_node("CanvasLayer/LogScroll")
