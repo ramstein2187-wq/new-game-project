@@ -41,7 +41,10 @@ func resolve_stat(stat: StringName, base: float, source: StringName) -> Dictiona
 	var result := base
 	var steps: Array[Dictionary] = [{"source": source, "operation": &"BASE", "value": base, "result": base}]
 	var ids := _ordered_ids()
-	for operation in [StatModifier.Operation.ADD, StatModifier.Operation.MULTIPLY]:
+	# Stat phases require textual ID order, independent of StringName ordering.
+	ids.sort_custom(func(left, right): return String(left) < String(right))
+	# Base * product(MULTIPLY) + sum(ADD): flat bonuses are never multiplied.
+	for operation in [StatModifier.Operation.MULTIPLY, StatModifier.Operation.ADD]:
 		for effect_id in ids:
 			var active: ActiveEffect = _instances[effect_id]
 			for modifier in active.definition.stat_modifiers:

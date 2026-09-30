@@ -34,6 +34,7 @@ func _init() -> void:
 	_attributes()
 	_golden()
 	_effects_and_costs()
+	_base_only_stat_multipliers()
 	_rejections_and_scheduler()
 	_validation()
 	_zero_copy_resolution()
@@ -109,18 +110,18 @@ func _effects_and_costs() -> void:
 	var b := _effect(&"b", [_stat(&"haste", &"movement_speed", StatModifier.Operation.MULTIPLY, 2.0),
 		_stat(&"study", &"INT", StatModifier.Operation.ADD, 2.0)])
 	expect(actor.add_effect(b) and actor.add_effect(a), "Actor accepts multiple valid effects")
-	expect(actor.resolved_stat(&"movement_speed") == 2.5 and actor.resolved_stat(&"INT") == 12.0, "Stat ADD then MULTIPLY; multi-modifier effect")
+	expect(actor.resolved_stat(&"movement_speed") == 2.25 and actor.resolved_stat(&"INT") == 12.0, "Stat multiplies base then adds flat bonuses; multi-modifier effect")
 	expect(actor.definition.movement_speed == 1.0 and actor.abilities.scores[&"INT"] == 10, "Base remains distinct from resolved query")
-	expect(move.get_cost(game, actor.id) == 400 and attack.get_cost(game, actor.id) == 1000, "Movement speed affects only Move")
+	expect(move.get_cost(game, actor.id) == 445 and attack.get_cost(game, actor.id) == 1000, "Movement speed affects only Move")
 	var speed_trace := actor.stat_breakdown(&"movement_speed")
-	expect(speed_trace.steps[1].source == &"boots" and speed_trace.steps[1].result == 1.25 and speed_trace.steps[2].source == &"haste" and speed_trace.steps[2].result == 2.5, "Source / operation / intermediate stat trace")
+	expect(speed_trace.steps[1].source == &"haste" and speed_trace.steps[1].result == 2.0 and speed_trace.steps[2].source == &"boots" and speed_trace.steps[2].result == 2.25, "Trace shows base multiplication before flat addition")
 	var sibling := Actor.new(&"sibling", ActorDefinition.human_default(), Vector2i.ZERO)
 	sibling.add_effect(a)
 	sibling.add_effect(b)
 	expect(actor.stat_breakdown(&"movement_speed") == sibling.stat_breakdown(&"movement_speed"), "Insertion order independent deterministic stat trace")
 	a.stat_modifiers[0].value = 999
 	actor.active_effects()[0].stat_modifiers[0].value = 555
-	expect(actor.resolved_stat(&"movement_speed") == 2.5 and sibling.resolved_stat(&"movement_speed") == 2.5, "Effect insertion/query snapshots isolated")
+	expect(actor.resolved_stat(&"movement_speed") == 2.25 and sibling.resolved_stat(&"movement_speed") == 2.25, "Effect insertion/query snapshots isolated")
 	expect(not actor.add_effect(b), "Duplicate effect IDs reject without stacking")
 	expect(actor.remove_effect(&"a") and actor.resolved_stat(&"movement_speed") == 2.0, "Removal resolves immediately without stale cache")
 	actor.remove_effect(&"b")
@@ -155,6 +156,53 @@ func _effects_and_costs() -> void:
 	expect(move.get_cost(game, actor.id) == 1, "Minimum positive cost after additive discount")
 	game.reset()
 	expect(game.get_actor(actor.id).active_effects().is_empty() and move.get_cost(game, actor.id) == 1000, "Reset recreates clean effect state")
+
+func _base_only_stat_multipliers() -> void:
+	var game := TimeCostGame.new()
+	var actor := game.get_actor(&"player")
+	actor.add_effect(_effect(&"a_bonus", [_stat(&"bonus", StatCatalog.STR, StatModifier.Operation.ADD, 4.0)]), &"equipment:test")
+	actor.add_effect(_effect(&"z_multiplier", [_stat(&"multiplier", StatCatalog.STR, StatModifier.Operation.MULTIPLY, 1.5)]), &"skill:test")
+	var simple := actor.stat_breakdown(StatCatalog.STR)
+	expect(simple.base == 10.0 and simple.value == 19.0, "Base STR 10 * 1.5 + 4 = 19, never 21")
+	expect(simple.steps.map(func(step): return step.operation) == [&"BASE", &"MULTIPLY", &"ADD"], "Stat breakdown phases are BASE, MULTIPLY, ADD; final value is explicit")
+	expect(simple.steps.map(func(step): return step.result) == [10.0, 15.0, 19.0], "Simple breakdown exposes each intermediate and final result")
+	expect(simple.steps[1].effect_id == &"z_multiplier" and simple.steps[1].source_id == &"skill:test" and simple.steps[2].effect_id == &"a_bonus" and simple.steps[2].source_id == &"equipment:test", "Provenance follows multiplier/additive phase order, not global ID order")
+	actor.clear_effects()
+	# These prefixed IDs also exercise textual rather than native StringName order.
+	var a := _effect(&"cost_a")
+	var z := _effect(&"cost_z")
+	for stat in StatCatalog.ALL:
+		# Interleave authored operations to verify phase filtering preserves order.
+		a.stat_modifiers.append(_stat(&"a_add1", stat, StatModifier.Operation.ADD, 4.0))
+		a.stat_modifiers.append(_stat(&"a_m1", stat, StatModifier.Operation.MULTIPLY, 1.5))
+		a.stat_modifiers.append(_stat(&"a_m2", stat, StatModifier.Operation.MULTIPLY, 2.0))
+		a.stat_modifiers.append(_stat(&"a_add2", stat, StatModifier.Operation.ADD, -1.0))
+		z.stat_modifiers.append(_stat(&"z_add1", stat, StatModifier.Operation.ADD, 3.0))
+		z.stat_modifiers.append(_stat(&"z_m1", stat, StatModifier.Operation.MULTIPLY, 0.5))
+		z.stat_modifiers.append(_stat(&"z_add2", stat, StatModifier.Operation.ADD, 2.0))
+		z.stat_modifiers.append(_stat(&"z_m2", stat, StatModifier.Operation.MULTIPLY, 2.0))
+	actor.add_effect(z, &"trait:test")
+	actor.add_effect(a, &"skill:test")
+	var sibling := Actor.new(&"sibling", ActorDefinition.human_default(), Vector2i.ZERO)
+	sibling.add_effect(a, &"skill:test")
+	sibling.add_effect(z, &"trait:test")
+	for stat in StatCatalog.ALL:
+		var trace := actor.stat_breakdown(stat)
+		var is_speed: bool = stat == StatCatalog.MOVEMENT_SPEED
+		expect(trace.value == (11.0 if is_speed else 38.0), "Multiple multipliers affect base only, positive/negative ADD remain flat: " + stat)
+		expect(trace == sibling.stat_breakdown(stat), "Both phases and traces independent of insertion order: " + stat)
+		expect(trace.steps.slice(1).map(func(step): return step.source) == [&"a_m1", &"a_m2", &"z_m1", &"z_m2", &"a_add1", &"a_add2", &"z_add1", &"z_add2"], "Lexical effect IDs and authored order preserved within each stat phase: " + stat)
+		expect(trace.steps.map(func(step): return step.result) == ([1.0, 1.5, 3.0, 1.5, 3.0, 7.0, 6.0, 9.0, 11.0] if is_speed else [10.0, 15.0, 30.0, 15.0, 30.0, 34.0, 33.0, 36.0, 38.0]), "All intermediate/final stat results follow new formula: " + stat)
+	expect(MoveAction.new(Vector2i.RIGHT).get_cost(game, actor.id) == 91, "Move consumes the new movement_speed stat with existing final ceil")
+	# Cost ADD is still multiplied; intrinsic/external factors still compose.
+	actor.clear_effects()
+	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"formula_cost", "Formula cost", 1.5))
+	actor.add_effect(_effect(&"cost_a", [], [_cost(&"cost_add", [&"MELEE"], -100.0, StatModifier.Operation.ADD), _cost(&"cost_m1", [&"MELEE"], 0.5)]))
+	actor.add_effect(_effect(&"cost_z", [], [_cost(&"cost_m2", [&"MELEE"], 1.25)]))
+	var cost := AttackAction.new(&"rat", &"formula_cost").cost_breakdown(game, actor.id)
+	expect(cost.unrounded == 875.0 and cost.cost == 875, "Cost still computes (1000 * intrinsic 1.5 - 100) * external .5 * 1.25")
+	expect(cost.steps.map(func(step): return float(step.result)) == [1000.0, 1500.0, 1400.0, 1750.0, 875.0, 875.0, 875.0], "Existing cost order, intermediate trace, one ceil and minimum remain unchanged")
+	expect(cost.steps.map(func(step): return step.operation) == [&"BASE", &"MULTIPLY", &"ADD", &"MULTIPLY", &"MULTIPLY", &"CEIL", &"MAX"], "Action cost retains intrinsic followed by external ADD then MULTIPLY")
 
 func _unchanged_rejection(game: TimeCostGame, action: TimeAction, label: String) -> void:
 	var before := [game.world_time, game.player_next_ready_time, game.rat_next_ready_time, game.combat_rng.state, game.combat_log.events.size()]
@@ -256,9 +304,9 @@ func _zero_copy_resolution() -> void:
 	var first := _followup_trace_records(game)
 	var second := _followup_trace_records(other_game)
 	expect(JSON.stringify(first, "  ") == JSON.stringify(second, "  "), "Stat/cost source ordering and authored modifier order identical across insertion orders")
-	# Captured with b5eced0 BEFORE this optimization (33,120 bytes), not recaptured.
-	# Only newly added provenance metadata is omitted; every old field/order survives.
-	expect((JSON.stringify(_legacy_breakdown(first), "  ") + "\n").sha256_text() == "22e1a215b0c217a4c9df42dbbaace239f3c0704eff5dd32b256f9f8a3cef34c0", "Exact pre-follow-up stat/cost breakdown golden including injury and removals")
+	# Captured from 86fd3e5 before the stat formula change. Move/stat traces change
+	# intentionally; Attack (normal/fractional), Interact and Wait must not change.
+	expect(JSON.stringify(_non_move_cost_traces(first), "  ").sha256_text() == "26f0451a96470bd21cd84e7a61d8dce7a927b2f803a4d259b298110bb933f652", "Exact unchanged non-Move cost breakdown golden, including intrinsic/external multiplication")
 	expect(actor.snapshot_calls == 0, "Whole golden trace uses the internal zero-copy path")
 	expect(actor.active_effects().is_empty() and actor.resolved_stat(&"movement_speed") == 1.0, "Removals restore base immediately without cache")
 	actor.add_effect(z)
@@ -354,19 +402,12 @@ func _contains_object(value: Variant) -> bool:
 				return true
 	return false
 
-func _legacy_breakdown(value: Variant) -> Variant:
-	if value is Dictionary:
-		var result := {}
-		for key in value:
-			if key != "source_id":
-				result[key] = _legacy_breakdown(value[key])
-		return result
-	if value is Array:
-		var result: Array = []
-		for entry in value:
-			result.append(_legacy_breakdown(entry))
-		return result
-	return value
+func _non_move_cost_traces(records: Array) -> Array:
+	var result: Array = []
+	for record in records:
+		if record.has("costs"):
+			result.append(record.costs.slice(2))
+	return result
 
 func _followup_trace_records(game: TimeCostGame) -> Array:
 	var actor := game.get_actor(&"player")

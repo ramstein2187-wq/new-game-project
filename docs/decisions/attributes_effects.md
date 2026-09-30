@@ -71,9 +71,20 @@ implementation-only, and no supported API exposes it or returns live references.
 
 ## Deterministic resolution
 
-Within each modifier family, apply all ADD modifiers before all MULTIPLY modifiers.
-Within a phase, effects sort lexically by ID; modifiers keep their authored array
-order. Insertion order cannot change values or traces. A cost modifier matches
+Stat formula: **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**.
+Apply stat MULTIPLY modifiers to base first, then ADD modifiers; flat bonuses are
+never amplified by another effect. Base STR 10, ADD +4, MULTIPLY ×1.5 resolves to
+19. The same rule applies to movement_speed. Breakdown steps show BASE, each
+MULTIPLY result, then each ADD result; top-level value is the final resolved stat.
+No intermediate rounding or new FINAL step is introduced, so no-effect traces
+remain unchanged.
+
+Action Cost retains external ADD before MULTIPLY. Intrinsic Weapon Action and
+external multipliers still multiply together; the stat formula does not apply to
+cost modifiers. Stat phases sort lexically by textual ID; costs retain their
+existing deterministic ordering. Modifiers keep their authored array order.
+Insertion order cannot change values
+or traces. A cost modifier matches
 only if the Action contains **all** required tags. Empty selectors are invalid.
 
 | Action | Tags | Standard base cost |

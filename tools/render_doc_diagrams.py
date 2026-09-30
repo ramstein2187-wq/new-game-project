@@ -35,7 +35,7 @@ FLOWS = {
     ]),
     "action_cost_resolution": ("Action 비용 · Stat 해석 (M031)", [
         "Action 표준 base cost", "Intrinsic: Weapon Action cost_multiplier",
-        "Move: Actor → EffectStore stat (ADD → MULTIPLY)",
+        "Move: Actor → EffectStore stat (MULTIPLY → ADD)",
         "Move: 기존 Body locomotion_efficiency",
         "EffectStore: 태그에 맞는 외부 비용 ADD → MULTIPLY",
         "최종 한 번 ceil → 최소 1 (invalid → 거부)",

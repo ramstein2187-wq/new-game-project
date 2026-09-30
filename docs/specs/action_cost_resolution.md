@@ -33,8 +33,15 @@ Store 내부에서 live Definition/modifier를 읽으며 외부로 raw 참조를
    최종 단계에서 정수로 맞춘다. 중간 반올림은 없다.
 6. 기존 perform_action이 정수 cost를 Scheduler에 전달한다.
 
-각 modifier family에서 ADD 먼저/MULTIPLY 다음, effect ID 사전순, 각 effect
-배열 선언순으로 계산한다. 빈 selector는 거부한다. MOVE/PHYSICAL,
+Cost 외부 modifier는 ADD 먼저/MULTIPLY 다음이다. Intrinsic/external 배율은
+서로 곱해진다. Stat은 **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**:
+base에 MULTIPLY를 먼저 적용한 뒤 ADD를 더하므로 ADD 보너스를 증폭하지 않는다.
+STR 10, +4, ×1.5는 19다. movement_speed에도 같은 stat 규칙을 적용한다.
+Stat trace는 BASE → 각 MULTIPLY → 각 ADD를 보이고 top-level value가 final이다.
+No-effect trace 보존을 위해 별도 FINAL step은 추가하지 않는다.
+Stat의 각 phase에서는 문자열 effect ID 사전순, 같은 effect 배열 선언순으로 계산한다.
+Cost는 기존 결정적 순서와 같은 effect 안의 선언순을 유지한다.
+빈 cost selector는 거부한다. MOVE/PHYSICAL,
 ATTACK/MELEE/PHYSICAL, INTERACT/PHYSICAL, WAIT만 있다. Wait는 PHYSICAL이 아니다.
 
 ## 계산 근거 예

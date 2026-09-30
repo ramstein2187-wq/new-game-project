@@ -10,8 +10,10 @@ Workspace: `C:/GameDev/m031-attributes-effects-foundation`.
 - Six primary attributes STR/DEX/CON/PER/INT/WIL; unchanged modifier/allocation.
 - ActorDefinition movement_speed replaces directly authored movement costs.
   Interact/Wait standard costs now belong to their Action classes.
-- Query-time StatResolver and shared ActionCostResolver; ADD then MULTIPLY,
-  lexical effect IDs, authored modifier order, one final ceil and minimum 1.
+- Query-time StatResolver: **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**,
+  textual effect IDs lexical in each phase, authored modifier order.
+  ActionCostResolver retains external ADD then MULTIPLY, intrinsic/external
+  multiplier composition, one final ceil and minimum 1.
 - StatModifier, ActionCostModifier and GameplayEffectDefinition Resources; explicit
   Actor addition/removal, isolated copies, unique IDs, small all-required-tag matching.
 - Structured stat/cost breakdown includes source, operation, value and results.
@@ -119,6 +121,9 @@ the final ownership hardening below.
 
 ## M031 follow-up — final ownership hardening
 
+Historical validation at `86fd3e5`; stat-only formula changes below supersede its
+mixed-stat trace hash. Ownership/provenance remain current.
+
 - Starts at follow-up HEAD `5fde601d510bcc1af1f5f118ad59064c6c4c6cc9`, same branch.
   Separate new commit; no rewrite/amend, squash, main checkout or merge.
 - Final ownership: **Actor → EffectStore → ActiveEffect → GameplayEffectDefinition**.
@@ -166,6 +171,42 @@ the final ownership hardening below.
   Existing gameplay/action cost/Body/RNG/event/AI balance is unchanged. Duration,
   stacking, triggers, future stat wiring, Skill/Trait/Thought/Status, equipment
   integration, Character Sheet, Save/Load and M032 remain deferred.
+
+## M031 follow-up — base-only stat multiplication
+
+- Starts at `86fd3e5d475cd0c1bee8baead51e00b1bfeed34e`, same branch; separate
+  follow-up commit/push, no main merge or previous commit rewrite/amend.
+- New formula: **Resolved Stat = Base × Product(MULTIPLY) + Sum(ADD)**.
+  STR base 10, ADD +4, MULTIPLY ×1.5 resolves to 19. movement_speed uses the same
+  rule. Stat breakdown: BASE → each MULTIPLY → each ADD; final is top-level value.
+  No FINAL step is added; no-effect stat traces remain identical.
+- Runtime diff is confined to EffectStore.resolve_stat(): multiply phase first,
+  then add phase; explicitly compare textual IDs for lexical order in each phase.
+  Native StringName ordering differs for prefixed IDs (e.g. cost_a/cost_z), so
+  regression includes these IDs. Authored order within each effect is preserved.
+- Action Cost retains its existing ordering and formula; intrinsic/external
+  multipliers compose and external ADD is still multiplied. Store ownership,
+  ActiveEffect/provenance, StatCatalog, Body, Scheduler, AI and combat rules unchanged.
+- Focused **335 assertions** (299 retained/updated + 36 new) pass. Covers simple
+  example, multiple positive/negative ADD and MULTIPLY across all seven stats,
+  lexical/authored order, reverse insertion trace, Move consumption and cost
+  `(1000 × intrinsic 1.5 - 100) × .5 × 1.25 = 875` with existing intermediate order.
+- Whole `bash tools/check_godot.sh` passes import/startup/**26 scripts**/exporter.
+  Existing **96 movement golden**, **160 paired metrics hashes**, M027 and normalized
+  M024 **3-seed replay** fixtures are unchanged; rejection/scheduler tests pass.
+- Pre-change Attack/fractional Attack/Interact/Wait cost breakdown hash remains
+  `26f0451a96470bd21cd84e7a61d8dce7a927b2f803a4d259b298110bb933f652`.
+  Mixed stat/Move trace intentionally changes to
+  `1758f7a64a1d79876693c4c4e0999e9f6f46c365fa93f70ef4a34a194846c7a8`.
+  Independent before/after audit verifies new stat formula and unchanged Body/cost
+  factors; after removing ADD/all effects, entire traces are unchanged.
+- All other production game files, dataset/golden/replay bytes and exporter schema
+  are unchanged. Generated manifest updates only EffectStore's source fingerprint.
+  Offline dataset/knowledge/wiki checks pass. EverRogue imports (12 per checkout)
+  are hash-unchanged, untouched and excluded from staging.
+- Logs: `C:/GameDev/m031-stat-{baseline,before,after,focused,full-check,export}.log`.
+  Audit: `C:/GameDev/m031-stat-audit.py`; continuation/delivery record:
+  `C:/GameDev/m031-work-record.md`. Deferred features and manual limits unchanged.
 
 ## Manual verification (unperformed)
 
