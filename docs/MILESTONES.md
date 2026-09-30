@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M031: **Complete on task branch** `codex/m031-attributes-effects-foundation`, based on main `e375455`; not merged. Six attributes, movement-speed migration, Modifier/Effect and common cost/breakdown resolution. Healthy/injured costs and 160 paired encounters preserve golden results; full 26-script Godot check passed. Manual GUI/play and live Notion unverified. [Attributes/effects](milestones/M031_attributes_effects_foundation.md).
+- M031: **Complete on main** at `0b859aa` via [PR #34](https://github.com/ramstein2187-wq/new-game-project/pull/34). Six attributes, movement-speed migration, Modifier/Effect ownership and common stat/action-cost breakdown resolution are integrated. Task-branch validation passed the full 26-script Godot check; post-merge validation on a fresh worktree passed editor import, the 405-assertion M031 suite, focused M027/M028 regressions, combat-content/batch checks and exact dataset verification. Manual GUI/play and live Notion remain follow-ups. [Attributes/effects](milestones/M031_attributes_effects_foundation.md).
 
 - M029: **Complete on main** at `2216d5b` via [PR #32](https://github.com/ramstein2187-wq/new-game-project/pull/32). The M029 single-source combat content work was relocated onto the M030 folder structure and squash-merged after editor import/main startup, all 25 project tests, exact dataset regeneration checks, the M030 layout audit, and offline Notion knowledge/wiki validation passed. [Combat content single source](milestones/M029_combat_content_single_source.md).
 
@@ -36,7 +36,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M031 | Complete on task branch | Six attributes, movement speed, minimal Effects/Modifiers and common cost breakdown; main integration pending | `docs/milestones/M031_attributes_effects_foundation.md` |
+| M031 | Complete on main | Six attributes, movement speed, minimal Effects/Modifiers and common stat/action-cost breakdown; PR #34 merged at `0b859aa` | `docs/milestones/M031_attributes_effects_foundation.md` |
 | M030 | Complete on main | Path-only responsibility-based project layout; PR #30 merged with no gameplay changes | `docs/milestones/M030_project_folder_structure.md` |
 | M029 | Complete on main | Native `.tres` combat content, Rat integration, generated datasets and tuning-independent tests; PR #32 squash-merged after M030 | `docs/milestones/M029_combat_content_single_source.md` |
 | M028 | Complete on main | Extensible melee AI, qualitative weapon-action selection, armor matchup, coarse coverage and conservative bounded Retreat; PR #28 merged | `docs/milestones/M028_extensible_melee_ai.md` |
