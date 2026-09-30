@@ -4,18 +4,25 @@ const Snapshot := preload("res://tests/support/m031_regression_snapshot.gd")
 var failures := 0
 var assertions := 0
 
-# Spy on the public copy boundary and internal collection, without timing tests.
+# Spy on public copy boundaries, without timing tests or live-reference access.
 class SnapshotSpyActor extends Actor:
 	var snapshot_calls := 0
-	var effect_collections := 0
+	var instance_snapshot_calls := 0
 
 	func active_effects() -> Array[GameplayEffectDefinition]:
 		snapshot_calls += 1
 		return super.active_effects()
 
-	func _ordered_effect_refs() -> Array[GameplayEffectDefinition]:
-		effect_collections += 1
-		return super._ordered_effect_refs()
+	func active_effect_instances() -> Array[ActiveEffect]:
+		instance_snapshot_calls += 1
+		return super.active_effect_instances()
+
+class SnapshotSpyStore extends EffectStore:
+	var snapshot_calls := 0
+
+	func snapshots() -> Array[ActiveEffect]:
+		snapshot_calls += 1
+		return super.snapshots()
 
 func expect(condition: bool, label: String) -> void:
 	assertions += 1
@@ -30,6 +37,7 @@ func _init() -> void:
 	_rejections_and_scheduler()
 	_validation()
 	_zero_copy_resolution()
+	_ownership_and_provenance()
 	if failures == 0:
 		print("PASS: M031 attributes/effects, movement and paired golden (%d assertions)" % assertions)
 	quit(1 if failures else 0)
@@ -225,16 +233,15 @@ func _zero_copy_resolution() -> void:
 	var before := [game.world_time, game.combat_rng.state, game.combat_log.events.size()]
 	var move := MoveAction.new(Vector2i.RIGHT)
 	var stat_trace := actor.stat_breakdown(&"movement_speed")
-	expect(actor.snapshot_calls == 0 and actor.effect_collections == 1, "Stat query borrows once without public snapshot calls")
-	actor.effect_collections = 0
+	expect(actor.snapshot_calls == 0 and actor.instance_snapshot_calls == 0, "Stat query resolves without either public snapshot API")
 	var cost_trace := move.cost_breakdown(game, actor.id)
-	expect(actor.snapshot_calls == 0 and actor.effect_collections == 1, "Move shares one borrowed view across stat and both cost phases")
+	expect(actor.snapshot_calls == 0 and actor.instance_snapshot_calls == 0, "Move resolves stat and external cost phases without snapshots")
 	expect(stat_trace == sibling.stat_breakdown(&"movement_speed") and cost_trace == move.cost_breakdown(other_game, sibling.id), "Stat/cost trace independent of effect insertion order")
-	var refs := actor._ordered_effect_refs()
-	expect(refs.is_read_only() and refs[0].id == &"a" and refs[1].id == &"z", "Internal view container is read-only and explicitly ID-sorted")
-	expect(refs[0] == actor._ordered_effect_refs()[0], "Internal queries return same owned Resource refs rather than duplicates")
+	expect(not actor.has_method("_ordered_effect_refs") and not actor.has_method("_stat_breakdown_with_effects"), "Actor has no borrowed Resource collection or resolver bridge")
+	var first_snapshot := actor.active_effects()
+	expect(first_snapshot[0].id == &"a" and first_snapshot[1].id == &"z", "Public snapshots retain deterministic definition ordering")
 	var snapshot := actor.active_effects()
-	expect(snapshot[0] != refs[0] and snapshot[0].stat_modifiers[0] != refs[0].stat_modifiers[0] and snapshot[0].action_cost_modifiers[0] != refs[0].action_cost_modifiers[0], "Public snapshots deeply isolate both modifier families")
+	expect(snapshot[0] != first_snapshot[0] and snapshot[0].stat_modifiers[0] != first_snapshot[0].stat_modifiers[0] and snapshot[0].action_cost_modifiers[0] != first_snapshot[0].action_cost_modifiers[0], "Public snapshots deeply isolate both modifier families")
 	snapshot[0].id = &"poison"
 	snapshot[0].stat_modifiers[0].value = 999.0
 	snapshot[0].action_cost_modifiers[0].value = 888.0
@@ -250,13 +257,116 @@ func _zero_copy_resolution() -> void:
 	var second := _followup_trace_records(other_game)
 	expect(JSON.stringify(first, "  ") == JSON.stringify(second, "  "), "Stat/cost source ordering and authored modifier order identical across insertion orders")
 	# Captured with b5eced0 BEFORE this optimization (33,120 bytes), not recaptured.
-	expect((JSON.stringify(first, "  ") + "\n").sha256_text() == "22e1a215b0c217a4c9df42dbbaace239f3c0704eff5dd32b256f9f8a3cef34c0", "Exact pre-follow-up stat/cost breakdown golden including injury and removals")
+	# Only newly added provenance metadata is omitted; every old field/order survives.
+	expect((JSON.stringify(_legacy_breakdown(first), "  ") + "\n").sha256_text() == "22e1a215b0c217a4c9df42dbbaace239f3c0704eff5dd32b256f9f8a3cef34c0", "Exact pre-follow-up stat/cost breakdown golden including injury and removals")
 	expect(actor.snapshot_calls == 0, "Whole golden trace uses the internal zero-copy path")
 	expect(actor.active_effects().is_empty() and actor.resolved_stat(&"movement_speed") == 1.0, "Removals restore base immediately without cache")
 	actor.add_effect(z)
 	expect(actor.resolved_stat(&"movement_speed") == 1.1, "Add after removal immediately affects resolved value")
 	actor.remove_effect(z.id)
 	expect(before == [game.world_time, game.combat_rng.state, game.combat_log.events.size()], "Zero-copy queries consume no time, RNG or events")
+
+func _ownership_and_provenance() -> void:
+	expect(StatCatalog.ALL == [&"STR", &"DEX", &"CON", &"PER", &"INT", &"WIL", &"movement_speed"], "Catalog contains exactly the current seven stat IDs")
+	expect(AbilityScores.NAMES == StatCatalog.PRIMARY, "Primary storage/allocation retains catalog's six primary IDs")
+	for stat in StatCatalog.ALL:
+		expect(StatCatalog.is_known(stat), "Known catalog stat: " + stat)
+		expect(_stat(&"catalog_test", stat, StatModifier.Operation.ADD, 1.0).is_valid(), "Modifier accepts catalog stat: " + stat)
+	for stat in [&"", &"unknown", &"max_hp", &"accuracy", &"dodge", &"carry_capacity", &"WIS", &"CHA"]:
+		expect(not StatCatalog.is_known(stat) and not _stat(&"catalog_test", stat, StatModifier.Operation.ADD, 1.0).is_valid(), "Unknown/future stat remains rejected: " + stat)
+	var definition := _effect(&"rapid_attack_discount", [
+		_stat(&"training", StatCatalog.STR, StatModifier.Operation.ADD, 2.0)], [
+		_cost(&"training", [&"MELEE"], 0.5)])
+	var caller_source: StringName = &"skill:rapid_strike"
+	var game := TimeCostGame.new()
+	var actor := game.get_actor(&"player")
+	var sibling := Actor.new(&"sibling", ActorDefinition.human_default(), Vector2i.ZERO)
+	expect(actor.get("_effect_store") is EffectStore, "Actor delegates ownership to EffectStore")
+	expect(actor.add_effect(definition, caller_source), "Apply definition with explicit provenance")
+	expect(sibling.add_effect(definition, &"trait:stoic"), "Same authored definition can be applied to another actor")
+	expect(actor.has_effect(definition.id) and sibling.has_effect(definition.id), "Both actors own an independent applied instance")
+	var snapshot := actor.active_effect_instances()[0]
+	expect(snapshot is ActiveEffect and snapshot.definition is GameplayEffectDefinition, "Applied instance and authored definition are distinct types")
+	expect(snapshot.definition.id == &"rapid_attack_discount" and snapshot.source_id == caller_source, "Definition identity is distinct from origin")
+	expect(sibling.active_effect_instances()[0].source_id == &"trait:stoic", "Sibling has independent provenance")
+	var stat := actor.stat_breakdown(StatCatalog.STR)
+	var attack := AttackAction.new(&"rat")
+	var cost := attack.cost_breakdown(game, actor.id)
+	expect(stat.value == 12.0 and cost.cost == 500, "Provenance does not alter stat/cost calculation")
+	var stat_step: Dictionary = stat.steps[1]
+	expect(stat_step.effect_id == &"rapid_attack_discount" and stat_step.source_id == &"skill:rapid_strike" and stat_step.source == &"training", "Stat breakdown preserves definition, origin and authored modifier label")
+	var cost_steps: Array = cost.steps.filter(func(step): return step.has("effect_id"))
+	expect(cost_steps.size() == 1 and cost_steps[0].effect_id == &"rapid_attack_discount" and cost_steps[0].source_id == &"skill:rapid_strike" and cost_steps[0].source == &"training", "Action cost breakdown preserves all three provenance identities")
+	expect(not _contains_object(stat) and not _contains_object(cost), "Breakdowns expose only value data, never live objects")
+	expect(not actor.add_effect(definition, &"equipment:plate_armor"), "Duplicate definition rejects even with a different source; no source stacking")
+	expect(actor.active_effect_instances().size() == 1 and actor.active_effect_instances()[0].source_id == &"skill:rapid_strike", "Duplicate rejection leaves original instance/provenance intact")
+	caller_source = &"status:changed"
+	definition.id = &"changed_definition"
+	definition.stat_modifiers[0].value = 999.0
+	definition.action_cost_modifiers[0].value = 9.0
+	expect(actor.stat_breakdown(StatCatalog.STR) == stat and attack.cost_breakdown(game, actor.id) == cost, "Caller definition edits and source reassignment cannot change applied state")
+	expect(sibling.resolved_stat(StatCatalog.STR) == 12.0 and sibling.active_effect_instances()[0].source_id == &"trait:stoic", "Caller mutation does not leak to the sibling")
+	snapshot.source_id = &"thought:changed"
+	snapshot.definition.id = &"snapshot_id"
+	snapshot.definition.stat_modifiers[0].value = 777.0
+	snapshot.definition.action_cost_modifiers[0].required_tags.clear()
+	expect(actor.stat_breakdown(StatCatalog.STR) == stat and attack.cost_breakdown(game, actor.id) == cost, "ActiveEffect snapshot edits isolate provenance, definition and nested modifiers")
+	expect(actor.active_effect_instances()[0] != snapshot and actor.active_effect_instances()[0].source_id == &"skill:rapid_strike", "Every instance query creates an independent safe snapshot")
+	stat_step.source_id = &"fake"
+	cost_steps[0].value = 666.0
+	expect(actor.stat_breakdown(StatCatalog.STR).steps[1].source_id == &"skill:rapid_strike" and attack.cost_breakdown(game, actor.id).cost == 500, "Breakdown mutation cannot change subsequent resolution")
+	expect(actor.remove_effect(&"rapid_attack_discount") and not actor.has_effect(&"rapid_attack_discount"), "Explicit removal targets definition identity")
+	expect(actor.resolved_stat(StatCatalog.STR) == 10.0 and attack.cost_breakdown(game, actor.id).cost == 1000, "Removal immediately restores stat and cost without cache")
+	var fresh := _effect(&"rapid_attack_discount", [_stat(&"training", StatCatalog.STR, StatModifier.Operation.ADD, 2.0)], [_cost(&"training", [&"MELEE"], 0.5)])
+	expect(actor.add_effect(fresh, &"equipment:plate_armor") and actor.resolved_stat(StatCatalog.STR) == 12.0, "After removal, a different source can apply the definition")
+	actor.clear_effects()
+	expect(actor.active_effects().is_empty() and actor.active_effect_instances().is_empty() and not actor.has_effect(fresh.id), "Clear removes every owned instance and both snapshot views")
+	expect(actor.resolved_stat(StatCatalog.STR) == 10.0 and attack.cost_breakdown(game, actor.id).cost == 1000, "Clear immediately restores uncached stat/cost results")
+	expect(sibling.resolved_stat(StatCatalog.STR) == 12.0, "Actor removal/clear never affects another actor")
+	expect(not actor.add_effect(fresh, &""), "Empty instance provenance is rejected")
+	expect(actor.add_effect(fresh) and actor.active_effect_instances()[0].source_id == &"system", "Legacy callers receive explicit system provenance")
+	var store := SnapshotSpyStore.new()
+	expect(store.add(fresh, &"skill:rapid_strike") and store.has(fresh.id), "Standalone EffectStore owns a valid applied instance")
+	expect(store.resolve_stat(StatCatalog.STR, 10.0, &"base").value == 12.0, "Store owns stat resolution")
+	expect(store.apply_action_cost_modifiers(1000.0, [&"MELEE"]).value == 500.0, "Store owns external cost resolution")
+	expect(store.snapshot_calls == 0, "Both store resolutions avoid snapshot/deep-copy APIs")
+	var store_snapshot := store.snapshots()[0]
+	store_snapshot.definition.stat_modifiers[0].value = 888.0
+	store_snapshot.definition.action_cost_modifiers[0].value = 8.0
+	store_snapshot.source_id = &"changed"
+	expect(store.resolve_stat(StatCatalog.STR, 10.0, &"base").value == 12.0 and store.apply_action_cost_modifiers(1000.0, [&"MELEE"]).value == 500.0, "Direct store snapshots also cannot mutate live state")
+	expect(not store.resolve_stat(&"max_hp", 10.0, &"base").valid, "Store rejects unknown stat resolution")
+	store.clear()
+	expect(not store.has(fresh.id) and store.snapshots().is_empty() and store.resolve_stat(StatCatalog.STR, 10.0, &"base").value == 10.0, "Store clear applies immediately")
+	expect(store.add(fresh) and store.remove(fresh.id) and not store.remove(fresh.id), "Store explicit add/remove semantics are immediate and stable")
+	expect(not store.has_method("_ordered_effect_refs"), "Store has no live Resource collection getter")
+
+func _contains_object(value: Variant) -> bool:
+	if value is Object:
+		return true
+	if value is Dictionary:
+		for key in value:
+			if _contains_object(key) or _contains_object(value[key]):
+				return true
+	elif value is Array:
+		for entry in value:
+			if _contains_object(entry):
+				return true
+	return false
+
+func _legacy_breakdown(value: Variant) -> Variant:
+	if value is Dictionary:
+		var result := {}
+		for key in value:
+			if key != "source_id":
+				result[key] = _legacy_breakdown(value[key])
+		return result
+	if value is Array:
+		var result: Array = []
+		for entry in value:
+			result.append(_legacy_breakdown(entry))
+		return result
+	return value
 
 func _followup_trace_records(game: TimeCostGame) -> Array:
 	var actor := game.get_actor(&"player")

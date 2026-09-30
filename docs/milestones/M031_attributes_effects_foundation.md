@@ -84,6 +84,9 @@ Speed was authored from `1000.0 / old_cardinal`, with round-trip float precision
 
 ## M031 follow-up — resolution copy boundary
 
+Historical follow-up `5fde601`; its borrowed-reference helper is superseded by
+the final ownership hardening below.
+
 - Based on M031 commit `b5eced0a83595780f5da0186fbccc6d0f0b142b5`, on the same
   branch; a separate follow-up commit preserves the original history. No main merge.
 - Insertion and public `active_effects()` still deep-copy Resources. The internal
@@ -113,6 +116,56 @@ Speed was authored from `1000.0 / old_cardinal`, with round-trip float precision
 - Final diff/whitespace audit passed. Only the three runtime files, focused test,
   these two documents and generated manifest belong to the follow-up commit.
   Delivery commit/push results are retained in Git and `C:/GameDev/m031-work-record.md`.
+
+## M031 follow-up — final ownership hardening
+
+- Starts at follow-up HEAD `5fde601d510bcc1af1f5f118ad59064c6c4c6cc9`, same branch.
+  Separate new commit; no rewrite/amend, squash, main checkout or merge.
+- Final ownership: **Actor → EffectStore → ActiveEffect → GameplayEffectDefinition**.
+  Definition is static authored Resource data; ActiveEffect is an actor-specific
+  applied instance with definition and opaque StringName source_id only. No timers,
+  stacks, charges or triggers. EffectStore owns instances/mutation/snapshots and
+  deterministic stat/external cost calculation; Actor delegates public APIs.
+- StatCatalog owns exactly STR/DEX/CON/PER/INT/WIL/MOVEMENT_SPEED IDs. StatModifier
+  validates against the catalog; AbilityScores still owns primary values/allocation.
+- Definition deep-copy once at insertion isolates callers and actors. The previous
+  raw-reference helper is removed. Public active_effects() keeps safe Definition
+  snapshots; active_effect_instances() adds safe ActiveEffect/provenance snapshots.
+  Resolver iteration reads live refs only inside Store, returning scalar/value data.
+  No per-resolution Resource copying or resolved/ordering cache. GDScript private
+  fields are a convention; no supported API exposes internal storage/live refs.
+- source_id defaults to system; explicit empty origin rejects. Breakdown keeps
+  modifier source and definition effect_id, adding ActiveEffect source_id such as
+  skill:rapid_strike. One instance per **definition ID**, even with different sources;
+  duplicates reject, original origin survives, removal permits another-origin reapply.
+- Focused **299 assertions** pass: original 240 logical regressions retained with
+  raw-view tests replaced by safe-boundary equivalents, plus 59 catalog/ownership/
+  provenance assertions. Source/snapshot/nested modifier/breakdown mutation isolation,
+  two-actor separation, no snapshot calls during resolution and immediate add/remove/
+  clear are covered. Existing allocation, numerical values and ordering stay intact.
+- 96 movement golden costs and all 160 paired encounter metrics hashes unchanged.
+  Existing Rat/Rat 32 stalls preserved, zero simulation errors. M027 replay and
+  normalized M024 replay (3 seeds) pass against untouched fixtures.
+- Independent before/after audit: removing only 72 new source_id metadata fields
+  reproduces all 33,120 legacy breakdown bytes, SHA-256
+  `22e1a215b0c217a4c9df42dbbaace239f3c0704eff5dd32b256f9f8a3cef34c0`.
+  New metadata-inclusive trace SHA-256:
+  `265e607a13e7ad0df1d9735684b573551f17cc1f8fa1aa7d5cf643c946807b9f`.
+- Full `bash tools/check_godot.sh`: editor import, startup, **26 scripts**, rejection/
+  scheduler/replays and exporter --check pass; no ERROR/FAIL. Offline dataset,
+  knowledge (10 specs/6 datasets) and wiki (14 pages) checks pass.
+- Equipment/monsters JSON, original golden/replays, Body/AI/Scheduler/CombatRules
+  remain byte-identical to 5fde601. Exporter/consumer schemas unchanged; generated
+  manifest only adds 3 new source fingerprints and updates 6 changed source hashes.
+- Decision/wiki/action cost spec and matching diagram updated. New classes have
+  Godot UID sidecars. Logs: `C:/GameDev/m031-hardening-{before,after,focused,export,
+  full-check,layout}.log`; independent audit: `C:/GameDev/m031-hardening-audit.py`.
+  Durable continuation/delivery record: `C:/GameDev/m031-work-record.md`.
+- Both checkouts' 12 pre-existing EverRogue imports are hash-unchanged and excluded
+  from staging. Only reviewed follow-up files are staged/committed/pushed.
+  Existing gameplay/action cost/Body/RNG/event/AI balance is unchanged. Duration,
+  stacking, triggers, future stat wiring, Skill/Trait/Thought/Status, equipment
+  integration, Character Sheet, Save/Load and M032 remain deferred.
 
 ## Manual verification (unperformed)
 

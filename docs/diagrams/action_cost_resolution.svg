@@ -8,19 +8,19 @@
 <text x="380" y="198.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Intrinsic: Weapon Action cost_multiplier</text>
 <line x1="380" y1="132" x2="380" y2="162" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="262" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Move: query resolved movement_speed (ADD → MULTIPLY)</text>
+<text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Move: Actor → EffectStore stat (ADD → MULTIPLY)</text>
 <line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Move: 기존 Body locomotion_efficiency</text>
 <line x1="380" y1="324" x2="380" y2="354" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="454" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">태그에 맞는 외부 비용 ADD → MULTIPLY</text>
+<text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">EffectStore: 태그에 맞는 외부 비용 ADD → MULTIPLY</text>
 <line x1="380" y1="420" x2="380" y2="450" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="550" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="582.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">최종 한 번 ceil → 최소 1 (invalid → 거부)</text>
 <line x1="380" y1="516" x2="380" y2="546" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="646" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">source · operation · value · result breakdown</text>
+<text x="380" y="678.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">source · effect_id · source_id · operation · value · result</text>
 <line x1="380" y1="612" x2="380" y2="642" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="742" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="774.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">기존 perform_action → TimeScheduler ready_time</text>

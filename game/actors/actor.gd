@@ -25,7 +25,7 @@ var fear_bonus := 0
 # Per-instance bounded caution memory for basic_melee_v3. Recreated on reset.
 var melee_caution_target: StringName = &""
 var melee_caution_spent := 0
-var _effects: Dictionary = {}
+var _effect_store := EffectStore.new()
 
 func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, label: String = "") -> void:
 	_id = actor_id
@@ -54,42 +54,32 @@ func is_alive() -> bool:
 
 # A definition ID has one active instance. Duplicate IDs reject; no stacking.
 # Deep copies prevent changes to a caller's Resource or sibling Actor leaking in.
-func add_effect(effect: GameplayEffectDefinition) -> bool:
-	if effect == null or not effect.is_valid() or _effects.has(effect.id):
-		return false
-	_effects[effect.id] = effect.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
-	return true
+func add_effect(effect: GameplayEffectDefinition, source_id: StringName = &"system") -> bool:
+	return _effect_store.add(effect, source_id)
 
 func remove_effect(effect_id: StringName) -> bool:
-	return _effects.erase(effect_id)
+	return _effect_store.remove(effect_id)
+
+func has_effect(effect_id: StringName) -> bool:
+	return _effect_store.has(effect_id)
+
+func clear_effects() -> void:
+	_effect_store.clear()
 
 func active_effects() -> Array[GameplayEffectDefinition]:
-	var result: Array[GameplayEffectDefinition] = []
-	for effect in _ordered_effect_refs():
-		result.append(effect.duplicate_deep(Resource.DEEP_DUPLICATE_ALL))
-	return result
+	return _effect_store.definition_snapshots()
 
-# Resolver-only borrowed refs, read-only by contract (GDScript has no private
-# methods). Gameplay callers use active_effects() snapshots instead. Never mutate
-# these Resources; add_effect/remove_effect/recreation own active-state changes.
-func _ordered_effect_refs() -> Array[GameplayEffectDefinition]:
-	var result: Array[GameplayEffectDefinition] = []
-	var ids: Array = _effects.keys()
-	ids.sort()
-	for effect_id in ids:
-		result.append(_effects[effect_id])
-	result.make_read_only()
-	return result
+func active_effect_instances() -> Array[ActiveEffect]:
+	return _effect_store.snapshots()
 
 func stat_breakdown(stat: StringName) -> Dictionary:
-	return _stat_breakdown_with_effects(stat, _ordered_effect_refs())
-
-# Reuse the same per-query ordered view during Move cost resolution; no cache.
-func _stat_breakdown_with_effects(stat: StringName, effects: Array[GameplayEffectDefinition]) -> Dictionary:
-	if stat != &"movement_speed" and not AbilityScores.NAMES.has(stat):
+	if not StatCatalog.is_known(stat):
 		return {"stat": stat, "valid": false, "value": 0.0, "steps": []}
-	var base := definition.movement_speed if stat == &"movement_speed" else float(abilities.scores[stat])
-	return StatResolver.resolve(stat, base, effects, StringName("actor:" + String(definition.type_id)))
+	var base := definition.movement_speed if stat == StatCatalog.MOVEMENT_SPEED else float(abilities.scores[stat])
+	return StatResolver.resolve(stat, base, _effect_store, StringName("actor:" + String(definition.type_id)))
+
+func apply_action_cost_modifiers(input: float, tags: Array[StringName]) -> Dictionary:
+	return _effect_store.apply_action_cost_modifiers(input, tags)
 
 func resolved_stat(stat: StringName) -> float:
 	return float(stat_breakdown(stat).value)

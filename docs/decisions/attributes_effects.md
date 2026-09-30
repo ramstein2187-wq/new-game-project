@@ -14,38 +14,60 @@ retain their original WIS/CHA descriptions; these are not current runtime fields
 ActorDefinition owns base `movement_speed` (finite, positive, default 1.0), rather
 than authored cardinal/diagonal/Interact/Wait costs. Runtime allocated abilities
 remain Actor-owned. `Actor.stat_breakdown(stat)` and `resolved_stat(stat)` query
-base data plus effects without caching. Supported stat targets are the six primary
-attributes and movement_speed. Only movement_speed is connected to gameplay in
+base data plus effects without caching. `StatCatalog` owns exactly seven valid IDs:
+STR/DEX/CON/PER/INT/WIL and MOVEMENT_SPEED (serialized as `movement_speed`).
+StatModifier validation depends on this catalog, not AbilityScores. AbilityScores
+retains primary values/allocation; its NAMES uses the catalog's PRIMARY list.
+Adding a valid ID extends the catalog; defining its base value/gameplay wiring is
+a separate explicit change. Only movement_speed is connected to gameplay in
 M031; CombatRules still uses the existing ability-score/modifier path. HP, accuracy,
 dodge and attribute-derived combat changes require a later explicit migration.
 
-## Small Resource model
+## Ownership and small data model
+
+```text
+Actor -> EffectStore -> ActiveEffect -> GameplayEffectDefinition
+```
 
 - StatModifier: source_id, target_stat, operation ADD/MULTIPLY, finite value.
 - ActionCostModifier: source_id, required_tags, operation ADD/MULTIPLY, finite value.
-- GameplayEffectDefinition: id, arrays of stat and action-cost modifiers.
-- Actor: add_effect, remove_effect, active_effects (isolated read snapshots).
+- GameplayEffectDefinition Resource: authored static id and modifier arrays.
+- ActiveEffect: actor-specific applied instance, definition and opaque source_id.
+- EffectStore: sole active-instance ownership, add/remove/clear/has, deterministic
+  stat/cost calculation and external snapshot boundary.
+- Actor: delegates add_effect/remove_effect/has_effect/clear_effects, stat queries
+  and external cost calculation. Callers need no store implementation knowledge.
+- StatCatalog: valid IDs; AbilityScores: primary values and allocation rules.
 
 Multipliers must be positive. Empty/unknown tag selectors, missing source IDs,
 unknown stats, nonfinite values and empty definitions reject insertion. ADD can
 be negative. Resolved nonpositive movement speed rejects Move at cost validation;
 it does not create an infinite scheduler loop. Overflow/nonfinite costs reject.
 
-Effects are deep-copied on insertion, so external-resource edits cannot affect
-siblings or active state. One instance per effect ID; duplicate insertion rejects.
-Removing an ID removes the entire effect immediately; reset recreates an empty
-list. This uniqueness rule is not a stacking engine. No duration, periodic ticks,
-triggers, conditions, cooldowns, auras, immunity or nested effects are implemented.
+Definitions are deep-copied once on insertion (including external Resources),
+then attached to a new store-owned ActiveEffect. Resolvers never mutate definitions.
+Opaque StringName provenance needs no copy because it is a scalar value. Caller
+Resource edits/source reassignment cannot affect siblings or already-applied state.
+One instance per **definition ID**, even for different sources; duplicate insertion
+rejects without replacing the original provenance. Removing then reapplying with
+another source is allowed. No source-specific duplication/stacking is implemented.
+Removing/clearing applies immediately; Actor recreation starts with an empty store.
+No duration, periodic ticks, triggers, conditions, cooldowns, auras, immunity or
+nested effects are implemented. Duration/stack/charge/trigger runtime fields can
+later belong to ActiveEffect, but none are added now. Skill/Trait/Thought/Status,
+equipment integration, Character Sheet and Save/Load remain deferred consumers.
 
-M031 follow-up keeps insertion deep copies and public `active_effects()` deep-copy
-snapshots. Resolution uses `_ordered_effect_refs()`: a freshly ID-sorted, read-only
-array of borrowed internal Resources. GDScript has no private methods or immutable
-Resources; the underscored helpers are resolver-only and must never mutate their
-references. Gameplay uses the public snapshots and add/remove APIs. Move collects
-one view and shares it with movement stat and both external cost phases; standalone
-stat queries also use internal refs. No per-query Resource deep copy or resolved
-state cache is added. Operation/source order, rounding and breakdown values stay
-identical.
+`active_effects()` preserves the existing isolated Definition snapshot API.
+`active_effect_instances()` returns isolated ActiveEffect/Definition/modifier
+snapshots including source_id. Mutating either snapshot cannot alter live state.
+EffectStore's snapshot APIs enforce the same boundary for direct consumers.
+StatResolver delegates to store resolution; ActionCostResolver requests only value
+breakdowns via Actor. Live instance/Resource references never leave store resolution.
+The previous `_ordered_effect_refs()` helper is removed. Its replacement sorts only
+scalar IDs; references are read inside the store. No resolution-time Resource deep
+copies and no resolved-value or ordering cache exist. Add/remove/clear is reflected
+at the next query. GDScript does not enforce private fields; underscored storage is
+implementation-only, and no supported API exposes it or returns live references.
 
 ## Deterministic resolution
 
@@ -81,7 +103,13 @@ no Quickness or weapon attack-speed field is added.
 
 Stat/cost breakdown dictionaries contain base, valid, value/cost and ordered steps.
 Each step retains source, operation, value and result; external steps also keep
-effect_id. The Move speed step embeds its stat breakdown. Final rounding/minimum
+effect_id and add source_id. Here effect_id identifies the definition, source_id
+identifies the applied origin (e.g. `skill:rapid_strike`), and legacy source labels
+the authored modifier (e.g. `training`). `add_effect(definition, source_id)` defaults
+to `system` for existing callers and rejects an explicitly empty provenance.
+equipment/skill/trait/thought/status/system can be encoded in the opaque ID without
+introducing a taxonomy or those systems. Origins do not change ordering.
+The Move speed step embeds its stat breakdown. Final rounding/minimum
 steps show the delivered cost. Queries consume no RNG, time or events. These are
 developer APIs; event schema and visible combat log remain unchanged.
 

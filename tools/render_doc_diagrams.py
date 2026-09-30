@@ -35,11 +35,11 @@ FLOWS = {
     ]),
     "action_cost_resolution": ("Action 비용 · Stat 해석 (M031)", [
         "Action 표준 base cost", "Intrinsic: Weapon Action cost_multiplier",
-        "Move: query resolved movement_speed (ADD → MULTIPLY)",
+        "Move: Actor → EffectStore stat (ADD → MULTIPLY)",
         "Move: 기존 Body locomotion_efficiency",
-        "태그에 맞는 외부 비용 ADD → MULTIPLY",
+        "EffectStore: 태그에 맞는 외부 비용 ADD → MULTIPLY",
         "최종 한 번 ceil → 최소 1 (invalid → 거부)",
-        "source · operation · value · result breakdown",
+        "source · effect_id · source_id · operation · value · result",
         "기존 perform_action → TimeScheduler ready_time"
     ]),
     "tactical_ai": ("설명 가능한 전술 AI", [

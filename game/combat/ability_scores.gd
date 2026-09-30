@@ -1,7 +1,7 @@
 class_name AbilityScores
 extends RefCounted
 
-const NAMES := [&"STR", &"DEX", &"CON", &"PER", &"INT", &"WIL"]
+const NAMES := StatCatalog.PRIMARY
 var scores: Dictionary = {}
 var remaining := 12
 

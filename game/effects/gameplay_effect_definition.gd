@@ -1,6 +1,8 @@
 class_name GameplayEffectDefinition
 extends Resource
 
+# Authored static data. Applied state/provenance belong to ActiveEffect, and
+# EffectStore owns an isolated definition copy that resolvers only read.
 @export var id: StringName = &""
 @export var stat_modifiers: Array[StatModifier] = []
 @export var action_cost_modifiers: Array[ActionCostModifier] = []

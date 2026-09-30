@@ -17,10 +17,8 @@ static func resolve(action: TimeAction, game: RefCounted, actor_id: StringName) 
 	if intrinsic.source != &"":
 		result *= float(intrinsic.value)
 		steps.append({"source": intrinsic.source, "operation": &"MULTIPLY", "value": intrinsic.value, "result": result})
-	# Borrow once for this query; both stat and cost phases only read these refs.
-	var effects := actor._ordered_effect_refs()
 	if action.get_tags().has(&"MOVE"):
-		var speed := actor._stat_breakdown_with_effects(&"movement_speed", effects)
+		var speed := actor.stat_breakdown(StatCatalog.MOVEMENT_SPEED)
 		var efficiency: float = game.movement_efficiency(actor_id)
 		if not speed.valid or speed.value <= 0.0 or not is_finite(efficiency) or efficiency <= 0.0:
 			return _invalid(steps, &"movement_unavailable")
@@ -29,13 +27,9 @@ static func resolve(action: TimeAction, game: RefCounted, actor_id: StringName) 
 			"result": result, "stat_breakdown": speed})
 		result /= efficiency
 		steps.append({"source": &"body:locomotion", "operation": &"DIVIDE", "value": efficiency, "result": result})
-	for operation in [StatModifier.Operation.ADD, StatModifier.Operation.MULTIPLY]:
-		for effect in effects:
-			for modifier in effect.action_cost_modifiers:
-				if modifier.operation == operation and modifier.matches(action.get_tags()):
-					result = modifier.apply(result)
-					steps.append({"source": modifier.source_id, "effect_id": effect.id,
-						"operation": modifier.operation_name(), "value": modifier.value, "result": result})
+	var external := actor.apply_action_cost_modifiers(result, action.get_tags())
+	result = float(external.value)
+	steps.append_array(external.steps)
 	if not is_finite(result) or absf(result) > MAX_COST:
 		return _invalid(steps, &"nonfinite_or_overflow")
 	# Suppress only floating-point noise at an integer boundary, at final rounding.
