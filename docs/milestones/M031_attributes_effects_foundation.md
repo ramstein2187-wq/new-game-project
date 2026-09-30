@@ -82,6 +82,38 @@ Speed was authored from `1000.0 / old_cardinal`, with round-trip float precision
   record after execution. Original checkout still has main e375455 and only its
   pre-existing 12 untracked imports, no tracked changes.
 
+## M031 follow-up — resolution copy boundary
+
+- Based on M031 commit `b5eced0a83595780f5da0186fbccc6d0f0b142b5`, on the same
+  branch; a separate follow-up commit preserves the original history. No main merge.
+- Insertion and public `active_effects()` still deep-copy Resources. The internal
+  `_ordered_effect_refs()` explicitly sorts IDs and returns a read-only array of
+  borrowed refs. GDScript Resources are mutable; only internal read-only consumers
+  use these underscored helpers. Normal mutation remains add/remove/recreation.
+- Move collects effects once, sharing that view with stat and ADD/MULTIPLY cost
+  phases. Stat queries use the same zero-copy path. No cache or new Effect feature.
+- Existing 224 assertions retained; 16 added regression assertions pass (240 total),
+  including spy checks for no public snapshot calls/one collection, deep snapshot
+  isolation, stable Resource refs, insertion/authored order, repeat queries,
+  immediate add/remove and query time/RNG/event preservation.
+- Captured mixed-Effect stat/cost traces before runtime edits: healthy, damaged and
+  disabled leg, all four Action types, fractional Weapon Action and effect removals.
+  Before/after 33,120-byte output is identical, SHA-256
+  `22e1a215b0c217a4c9df42dbbaace239f3c0704eff5dd32b256f9f8a3cef34c0`.
+  This hash is frozen in the regression test; old movement/paired fixtures untouched.
+- Local follow-up logs: `C:/GameDev/m031-followup-{before,after,focused,full-check}.log`.
+- `bash tools/check_godot.sh` passed editor import, startup, all 26 test scripts
+  (including 240 M031 assertions, old 96 movement costs, 160 paired encounter hashes,
+  rejection/scheduler and unchanged 3-seed replay) and exact exporter `--check`.
+  Fingerprint and offline knowledge validation passed; no ERROR/FAIL lines.
+- Exporter regenerated only three source fingerprints in the manifest; equipment
+  and monster output bytes/hashes are unchanged. Old golden/replay fixtures,
+  Scheduler, Body and AI files are unchanged. Import hash audits preserved all
+  12 untracked files in both the worktree and original checkout; none staged.
+- Final diff/whitespace audit passed. Only the three runtime files, focused test,
+  these two documents and generated manifest belong to the follow-up commit.
+  Delivery commit/push results are retained in Git and `C:/GameDev/m031-work-record.md`.
+
 ## Manual verification (unperformed)
 
 1. Open this worktree in Godot 4.7.2; F5 generated playground and F6 fixed room.

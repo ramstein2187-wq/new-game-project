@@ -37,6 +37,16 @@ Removing an ID removes the entire effect immediately; reset recreates an empty
 list. This uniqueness rule is not a stacking engine. No duration, periodic ticks,
 triggers, conditions, cooldowns, auras, immunity or nested effects are implemented.
 
+M031 follow-up keeps insertion deep copies and public `active_effects()` deep-copy
+snapshots. Resolution uses `_ordered_effect_refs()`: a freshly ID-sorted, read-only
+array of borrowed internal Resources. GDScript has no private methods or immutable
+Resources; the underscored helpers are resolver-only and must never mutate their
+references. Gameplay uses the public snapshots and add/remove APIs. Move collects
+one view and shares it with movement stat and both external cost phases; standalone
+stat queries also use internal refs. No per-query Resource deep copy or resolved
+state cache is added. Operation/source order, rounding and breakdown values stay
+identical.
+
 ## Deterministic resolution
 
 Within each modifier family, apply all ADD modifiers before all MULTIPLY modifiers.

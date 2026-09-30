@@ -4,6 +4,19 @@ const Snapshot := preload("res://tests/support/m031_regression_snapshot.gd")
 var failures := 0
 var assertions := 0
 
+# Spy on the public copy boundary and internal collection, without timing tests.
+class SnapshotSpyActor extends Actor:
+	var snapshot_calls := 0
+	var effect_collections := 0
+
+	func active_effects() -> Array[GameplayEffectDefinition]:
+		snapshot_calls += 1
+		return super.active_effects()
+
+	func _ordered_effect_refs() -> Array[GameplayEffectDefinition]:
+		effect_collections += 1
+		return super._ordered_effect_refs()
+
 func expect(condition: bool, label: String) -> void:
 	assertions += 1
 	if not condition:
@@ -16,6 +29,7 @@ func _init() -> void:
 	_effects_and_costs()
 	_rejections_and_scheduler()
 	_validation()
+	_zero_copy_resolution()
 	if failures == 0:
 		print("PASS: M031 attributes/effects, movement and paired golden (%d assertions)" % assertions)
 	quit(1 if failures else 0)
@@ -186,3 +200,75 @@ func _validation() -> void:
 	expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [], 1.0)])), "Empty/global selector rejected")
 	expect(not actor.add_effect(_effect(&"bad", [], [_cost(&"bad", [&"TYPO"], 1.0)])), "Unknown tag rejected")
 	expect(not actor.add_effect(_effect(&"bad", [_stat(&"", &"movement_speed", StatModifier.Operation.ADD, 1.0)])), "Missing source rejected")
+
+func _zero_copy_resolution() -> void:
+	var game := TimeCostGame.new()
+	var other_game := TimeCostGame.new()
+	var actor := SnapshotSpyActor.new(&"player", ActorDefinition.human_default(), game.player_position)
+	game.actors.remove(&"player")
+	game.actors.register(actor)
+	var sibling := other_game.get_actor(&"player")
+	var a := _effect(&"a", [
+		_stat(&"first_add", &"movement_speed", StatModifier.Operation.ADD, 0.25),
+		_stat(&"second_add", &"movement_speed", StatModifier.Operation.ADD, 0.125),
+		_stat(&"first_mul", &"movement_speed", StatModifier.Operation.MULTIPLY, 1.2)], [
+		_cost(&"move_add", [&"MOVE"], -11.25, StatModifier.Operation.ADD),
+		_cost(&"move_mul", [&"MOVE"], 0.8)])
+	var z := _effect(&"z", [_stat(&"last_mul", &"movement_speed", StatModifier.Operation.MULTIPLY, 1.1)], [
+		_cost(&"physical", [&"PHYSICAL"], 1.05), _cost(&"melee", [&"MELEE"], 0.5)])
+	actor.add_effect(z)
+	actor.add_effect(a)
+	sibling.add_effect(a)
+	sibling.add_effect(z)
+	for combatant: Actor in [actor, sibling]:
+		combatant.equipped_weapon.actions.append(WeaponActionDefinition.create(&"fraction", "Fraction", 0.5001))
+	var before := [game.world_time, game.combat_rng.state, game.combat_log.events.size()]
+	var move := MoveAction.new(Vector2i.RIGHT)
+	var stat_trace := actor.stat_breakdown(&"movement_speed")
+	expect(actor.snapshot_calls == 0 and actor.effect_collections == 1, "Stat query borrows once without public snapshot calls")
+	actor.effect_collections = 0
+	var cost_trace := move.cost_breakdown(game, actor.id)
+	expect(actor.snapshot_calls == 0 and actor.effect_collections == 1, "Move shares one borrowed view across stat and both cost phases")
+	expect(stat_trace == sibling.stat_breakdown(&"movement_speed") and cost_trace == move.cost_breakdown(other_game, sibling.id), "Stat/cost trace independent of effect insertion order")
+	var refs := actor._ordered_effect_refs()
+	expect(refs.is_read_only() and refs[0].id == &"a" and refs[1].id == &"z", "Internal view container is read-only and explicitly ID-sorted")
+	expect(refs[0] == actor._ordered_effect_refs()[0], "Internal queries return same owned Resource refs rather than duplicates")
+	var snapshot := actor.active_effects()
+	expect(snapshot[0] != refs[0] and snapshot[0].stat_modifiers[0] != refs[0].stat_modifiers[0] and snapshot[0].action_cost_modifiers[0] != refs[0].action_cost_modifiers[0], "Public snapshots deeply isolate both modifier families")
+	snapshot[0].id = &"poison"
+	snapshot[0].stat_modifiers[0].value = 999.0
+	snapshot[0].action_cost_modifiers[0].value = 888.0
+	snapshot[1].action_cost_modifiers[0].required_tags.clear()
+	snapshot.clear()
+	a.stat_modifiers[0].value = 777.0
+	a.action_cost_modifiers[0].value = 666.0
+	actor.snapshot_calls = 0
+	for query in range(3):
+		expect(actor.stat_breakdown(&"movement_speed") == stat_trace and move.cost_breakdown(game, actor.id) == cost_trace, "Caller/snapshot mutations cannot alter repeated resolver traces")
+	expect(actor.snapshot_calls == 0, "Repeated internal resolution never calls public snapshot API")
+	var first := _followup_trace_records(game)
+	var second := _followup_trace_records(other_game)
+	expect(JSON.stringify(first, "  ") == JSON.stringify(second, "  "), "Stat/cost source ordering and authored modifier order identical across insertion orders")
+	# Captured with b5eced0 BEFORE this optimization (33,120 bytes), not recaptured.
+	expect((JSON.stringify(first, "  ") + "\n").sha256_text() == "22e1a215b0c217a4c9df42dbbaace239f3c0704eff5dd32b256f9f8a3cef34c0", "Exact pre-follow-up stat/cost breakdown golden including injury and removals")
+	expect(actor.snapshot_calls == 0, "Whole golden trace uses the internal zero-copy path")
+	expect(actor.active_effects().is_empty() and actor.resolved_stat(&"movement_speed") == 1.0, "Removals restore base immediately without cache")
+	actor.add_effect(z)
+	expect(actor.resolved_stat(&"movement_speed") == 1.1, "Add after removal immediately affects resolved value")
+	actor.remove_effect(z.id)
+	expect(before == [game.world_time, game.combat_rng.state, game.combat_log.events.size()], "Zero-copy queries consume no time, RNG or events")
+
+func _followup_trace_records(game: TimeCostGame) -> Array:
+	var actor := game.get_actor(&"player")
+	var records: Array = []
+	for integrity in [25, 1, 0]:
+		actor.body.parts[&"left_leg"].current = integrity
+		var costs: Array = []
+		for action: TimeAction in [MoveAction.new(Vector2i.RIGHT), MoveAction.new(Vector2i(1, 1)), AttackAction.new(&"rat"), AttackAction.new(&"rat", &"fraction"), InteractAction.new(), WaitAction.new()]:
+			costs.append(action.cost_breakdown(game, actor.id))
+		records.append({"stat": actor.stat_breakdown(&"movement_speed"), "costs": costs})
+	actor.remove_effect(&"a")
+	records.append({"stat": actor.stat_breakdown(&"movement_speed"), "cost": MoveAction.new(Vector2i.RIGHT).cost_breakdown(game, actor.id)})
+	actor.remove_effect(&"z")
+	records.append({"stat": actor.stat_breakdown(&"movement_speed"), "cost": MoveAction.new(Vector2i.RIGHT).cost_breakdown(game, actor.id)})
+	return records

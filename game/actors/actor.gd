@@ -65,17 +65,31 @@ func remove_effect(effect_id: StringName) -> bool:
 
 func active_effects() -> Array[GameplayEffectDefinition]:
 	var result: Array[GameplayEffectDefinition] = []
+	for effect in _ordered_effect_refs():
+		result.append(effect.duplicate_deep(Resource.DEEP_DUPLICATE_ALL))
+	return result
+
+# Resolver-only borrowed refs, read-only by contract (GDScript has no private
+# methods). Gameplay callers use active_effects() snapshots instead. Never mutate
+# these Resources; add_effect/remove_effect/recreation own active-state changes.
+func _ordered_effect_refs() -> Array[GameplayEffectDefinition]:
+	var result: Array[GameplayEffectDefinition] = []
 	var ids: Array = _effects.keys()
 	ids.sort()
 	for effect_id in ids:
-		result.append(_effects[effect_id].duplicate_deep(Resource.DEEP_DUPLICATE_ALL))
+		result.append(_effects[effect_id])
+	result.make_read_only()
 	return result
 
 func stat_breakdown(stat: StringName) -> Dictionary:
+	return _stat_breakdown_with_effects(stat, _ordered_effect_refs())
+
+# Reuse the same per-query ordered view during Move cost resolution; no cache.
+func _stat_breakdown_with_effects(stat: StringName, effects: Array[GameplayEffectDefinition]) -> Dictionary:
 	if stat != &"movement_speed" and not AbilityScores.NAMES.has(stat):
 		return {"stat": stat, "valid": false, "value": 0.0, "steps": []}
 	var base := definition.movement_speed if stat == &"movement_speed" else float(abilities.scores[stat])
-	return StatResolver.resolve(stat, base, active_effects(), StringName("actor:" + String(definition.type_id)))
+	return StatResolver.resolve(stat, base, effects, StringName("actor:" + String(definition.type_id)))
 
 func resolved_stat(stat: StringName) -> float:
 	return float(stat_breakdown(stat).value)
