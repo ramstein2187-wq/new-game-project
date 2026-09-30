@@ -1,9 +1,10 @@
 # M031 — Attributes and Effects Foundation
 
-Status: Implementation and automated validation complete on task branch
-`codex/m031-attributes-effects-foundation`. **Not merged to main**.
-Base: main `e375455` (2026-09-30 KST).
-Workspace: `C:/GameDev/m031-attributes-effects-foundation`.
+Status: **Complete on main** at `0b859aa` via [PR #34](https://github.com/ramstein2187-wq/new-game-project/pull/34).
+Implementation branch: `codex/m031-attributes-effects-foundation`, based on main `e375455` (2026-09-30 KST).
+Original workspace: `C:/GameDev/m031-attributes-effects-foundation`.
+
+Post-merge verification on a fresh `origin/main` worktree completed after a headless editor import: the M031 405-assertion suite, M027 physical combat/weapon actions, M028 melee AI, single-source combat content, deterministic combat batch runner and generated combat dataset `--check` all passed. The initial pre-import test attempt could not resolve global script classes in the fresh worktree; importing registered the 96 script classes and the same tests then passed.
 
 ## Scope and decisions
 
