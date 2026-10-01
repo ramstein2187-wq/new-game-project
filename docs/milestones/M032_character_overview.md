@@ -1,6 +1,6 @@
 # M032 — Character Screen Overview v1
 
-Status: **Complete on task branch; manual acceptance pending** on `codex/character-overview-v1`.
+Status: **Complete on main; manual acceptance pending** at `8245bfa` via PR #36.
 Base: fresh `origin/main` at `fedde4a`, M031 integrated; 2026-09-30 KST.
 Workspace: `C:/GameDev/character-overview-v1`.
 
@@ -55,7 +55,8 @@ Workspace: `C:/GameDev/character-overview-v1`.
 ## Adaptive Inspector / row follow-up — 2026-10-01 KST
 
 - Follow-up branch `chat/character-overview-adaptive-inspector`, based on M032 commit
-  `9ff4e0b`; no main merge. Gameplay/query/resolver data structures remain unchanged.
+  `9ff4e0b`, was integrated to main via PR #36 at `8245bfa`. Gameplay/query/resolver
+  data structures remain unchanged.
 - Inspectable rows now separate **Label / Optional Hint / Final Value**. Attribute
   rows use only the authoritative STR/DEX/CON/PER/INT/WIL catalog and display full
   names. Their Hint is the existing D20 Ability Modifier computed from the resolved
