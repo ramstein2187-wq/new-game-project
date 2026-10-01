@@ -1,6 +1,6 @@
 # M032 — Character Screen Overview v1
 
-Status: **Complete on main; manual acceptance pending** at `8245bfa` via PR #36.
+Status: **Complete on main; manual acceptance pending** through `aadc182` via PR #38.
 Base: fresh `origin/main` at `fedde4a`, M031 integrated; 2026-09-30 KST.
 Workspace: `C:/GameDev/character-overview-v1`.
 
@@ -80,8 +80,9 @@ Workspace: `C:/GameDev/character-overview-v1`.
 
 ## Compact attribute readability follow-up — 2026-10-01 KST
 
-- Branch `chat/compact-character-attributes` addresses a manual readability failure where
-  full attribute names could collapse into one-character-per-line text inside the Identity panel.
+- Branch `chat/compact-character-attributes` addressed a manual readability failure where
+  full attribute names could collapse into one-character-per-line text inside the Identity panel;
+  it was integrated to main via PR #38 at `aadc182`.
 - Attribute rows are now dense/flat single-line rows. Label wrapping is disabled, the Identity
   panel participates in horizontal expansion, and attribute Hint/Final columns use smaller fixed
   widths than general Overview rows.
