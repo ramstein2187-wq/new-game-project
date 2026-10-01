@@ -14,6 +14,7 @@ var inspector_panel: PanelContainer
 var margin: MarginContainer
 var _selected_key: StringName = &""
 var _close_button: Button
+var _compact_attribute_names := false
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -63,6 +64,8 @@ func _ready() -> void:
 	overview_region.add_theme_constant_override("separation", 16)
 	content.add_child(overview_region)
 	identity_panel = _panel()
+	identity_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	identity_panel.size_flags_stretch_ratio = 0.85
 	overview_region.add_child(identity_panel)
 	var identity := _box(identity_panel)
 	identity.add_child(_label("IDENTITY"))
@@ -73,9 +76,10 @@ func _ready() -> void:
 	identity.add_child(HSeparator.new())
 	identity.add_child(_label("ATTRIBUTES"))
 	for stat in AbilityScores.NAMES:
-		_row(identity, stat)
+		_row(identity, stat, true)
 	var overview_panel := _panel()
 	overview_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	overview_panel.size_flags_stretch_ratio = 1.15
 	overview_region.add_child(overview_panel)
 	var overview := _box(overview_panel)
 	for group in [
@@ -128,7 +132,7 @@ func refresh() -> void:
 	identity_type.text = model.type if model.type != model.name else ""
 	for attribute: Dictionary in model.attributes:
 		var hint := "%+d" % int(attribute.modifier)
-		rows[attribute.id].present(attribute.id, CharacterOverviewText.ATTRIBUTE_NAMES[attribute.id],
+		rows[attribute.id].present(attribute.id, _attribute_label(attribute.id),
 			CharacterOverviewText.number(attribute.value), hint,
 			InspectorNumberStyle.modifier_tone(float(attribute.modifier)),
 			"Current resolved attribute and its D20 ability modifier. Click for sources.")
@@ -184,12 +188,16 @@ func _input(event: InputEvent) -> void:
 		if not gui_key:
 			get_viewport().set_input_as_handled()
 
-func _row(parent: Node, key: StringName) -> void:
+func _row(parent: Node, key: StringName, dense: bool = false) -> void:
 	var row := InspectableValueRow.new()
 	row.name = String(key)
+	row.set_dense(dense)
 	parent.add_child(row)
 	rows[key] = row
 	row.inspect_requested.connect(inspect)
+
+func _attribute_label(stat: StringName) -> String:
+	return String(stat) if _compact_attribute_names else CharacterOverviewText.ATTRIBUTE_NAMES[stat]
 
 func _label(value: String) -> Label:
 	var label := Label.new()
@@ -212,15 +220,21 @@ func _responsive_layout() -> void:
 	var scale_factor := clampf(size.y / 1080.0, 0.8, 2.0)
 	theme.default_font_size = roundi(18 * scale_factor)
 	var narrow := size.x < 940 * scale_factor
+	_compact_attribute_names = size.x < 1280 * scale_factor
 	content.vertical = narrow
 	overview_region.vertical = narrow
-	identity_panel.custom_minimum_size.x = 0 if narrow else 260 * scale_factor
+	identity_panel.custom_minimum_size.x = 0 if narrow else 320 * scale_factor
 	inspector_panel.custom_minimum_size.x = 0 if narrow else 360 * scale_factor
 	inspector.scroll.custom_minimum_size.y = 300 * scale_factor
 	for edge in ["left", "top", "right", "bottom"]:
 		margin.add_theme_constant_override("margin_" + edge, roundi(20 * scale_factor))
-	for row: InspectableValueRow in rows.values():
-		row.set_column_widths(64 * scale_factor, 120 * scale_factor)
+	for key: StringName in rows:
+		var row: InspectableValueRow = rows[key]
+		if AbilityScores.NAMES.has(key):
+			row.caption.text = _attribute_label(key)
+			row.set_column_widths(44 * scale_factor, 56 * scale_factor)
+		else:
+			row.set_column_widths(56 * scale_factor, 112 * scale_factor)
 
 func _build_theme() -> void:
 	# Existing combat prototypes use fallback font and these muted game colors.

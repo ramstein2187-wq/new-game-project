@@ -78,6 +78,19 @@ Workspace: `C:/GameDev/character-overview-v1`.
   targets plus 1152×648. The capture bytes could not be transported back through the
   DevSpace chat bridge for visual inspection, so human readability review remains pending.
 
+## Compact attribute readability follow-up — 2026-10-01 KST
+
+- Branch `chat/compact-character-attributes` addresses a manual readability failure where
+  full attribute names could collapse into one-character-per-line text inside the Identity panel.
+- Attribute rows are now dense/flat single-line rows. Label wrapping is disabled, the Identity
+  panel participates in horizontal expansion, and attribute Hint/Final columns use smaller fixed
+  widths than general Overview rows.
+- Wide layouts show Strength/Dexterity/Constitution/Perception/Intelligence/Willpower; compact
+  layouts switch to STR/DEX/CON/PER/INT/WIL rather than wrapping. Gameplay/query/Inspector
+  semantics are unchanged.
+- Character Screen focused validation now asserts no-wrap labels, flat dense rows, wide full
+  names, compact abbreviations and bounded narrow-row height across the existing resolution matrix.
+
 ## Manual verification and limits
 
 1. Open this worktree in Godot 4.7.2. F5 generated map, then F6 fixed room.

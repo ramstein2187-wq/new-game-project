@@ -36,6 +36,8 @@ func _run() -> void:
 			&"PER": "PERCEPTION", &"INT": "INTELLIGENCE", &"WIL": "WILLPOWER"}
 		for stat: StringName in AbilityScores.NAMES:
 			expect(screen.rows[stat].caption.text == expected_attribute_names[stat], "Primary attribute uses project-defined full name: " + String(stat))
+			expect(screen.rows[stat].caption.autowrap_mode == TextServer.AUTOWRAP_OFF, "Attribute labels never wrap into vertical text: " + String(stat))
+			expect(screen.rows[stat].flat, "Attribute rows use dense flat presentation: " + String(stat))
 			expect(screen.rows[stat].hint_label.text == "%+d" % game.get_actor(&"player").abilities.get_modifier(stat), "Ability modifier is a separate hint: " + String(stat))
 		var closed_overview_width := screen.overview_region.size.x
 		_click(screen.rows.armor.get_global_rect().get_center())
@@ -87,8 +89,13 @@ func _run() -> void:
 				previous_bottom = rect.end.y
 			if resolution.x >= 1152:
 				expect(not screen.content.vertical and not screen.overview_region.vertical, "Wide layout retains Overview/Inspector split")
+				for stat: StringName in AbilityScores.NAMES:
+					expect(screen.rows[stat].caption.text == expected_attribute_names[stat], "Wide layout keeps full attribute name: " + String(stat))
 			else:
 				expect(screen.content.vertical and screen.overview_region.vertical, "Small window stacks Overview and Inspector content")
+				for stat: StringName in AbilityScores.NAMES:
+					expect(screen.rows[stat].caption.text == String(stat), "Narrow layout uses compact attribute abbreviation: " + String(stat))
+					expect(screen.rows[stat].size.y < 50, "Narrow attribute row stays compact instead of growing from wrap: " + String(stat))
 		root.size = Vector2i(1152, 648)
 		root.content_scale_size = Vector2i(1152, 648)
 		await process_frame

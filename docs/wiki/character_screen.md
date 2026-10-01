@@ -26,12 +26,15 @@ sprite 대신 원을 그리므로 새 portrait pipeline이나 가짜 identity를
 전체 폭을 회수한다. C/Esc는 기존처럼 Character Screen 전체를 닫는다.
 
 각 inspectable row는 `Label / Optional Hint / Final Value`를 분리한다. Attribute row는
-STR/DEX/CON/PER/INT/WIL을 각각 Strength/Dexterity/Constitution/Perception/
-Intelligence/Willpower로 표시하고, Hint에는 resolved score에서 계산한 기존 D20
+한 줄짜리 dense/flat list로 표시하며 label wrapping을 금지한다. 넓은 화면에서는
+Strength/Dexterity/Constitution/Perception/Intelligence/Willpower를 쓰고, 좁은
+화면에서는 STR/DEX/CON/PER/INT/WIL 약어로 전환한다. Hint/Final 열은 능력치에 맞게
+좁게 유지해 이름 영역을 우선 확보한다. Hint에는 resolved score에서 계산한 기존 D20
 Ability Modifier만 둔다. 즉 Hint는 Effect 변화량이 아니다. HP/공격/방어/이동 등은
 의미 있는 Hint가 아직 없으므로 빈 열을 유지하고 Final Value만 보여준다. Current State는
 기본 화면에서 Healthy 또는 condition 개수로 요약하고 세부 body/effect 목록은 Inspector에 둔다.
-`›` 표시와 pointer, hover/focus 및 조용한 선택 marker로 inspectable임을 표현한다.
+능력치 row의 평상시 card 테두리는 숨기고 hover/press/focus와 `›`, pointer, 조용한
+선택 marker로 inspectable임을 표현한다.
 Inspector는 값/제목/본문을 받는 재사용 가능한 UI이며 Actor를 소유하지 않는다.
 Inspector의 signed modifier 수치만 저채도 초록(양수)/빨강(음수)으로 표시한다.
 0/+0/-0은 기존 중립색, 최종 Attack Bonus/Damage/resolved stat/Move Time은 더 밝은
