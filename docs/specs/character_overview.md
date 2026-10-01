@@ -68,10 +68,12 @@ stat과 실제 attack base modifier의 차이를 Inspector에서 명시한다.
 
 CharacterScreen → inspectable Button rows → CharacterInspector(title/value/body).
 각 row는 `Label / optional Hint / Final Value`를 분리한다. Primary Attribute의 Hint는
-새로운 stat delta가 아니라 기존 `AbilityScores.modifier(int(resolved_value))`이며,
-STR/DEX/CON/PER/INT/WIL의 full presentation label만 사용한다. Final Value는 밝은
-중립 결과색, Hint는 전달받은 semantic tone만 렌더링한다. Row 자체는 gameplay 값을
-계산하거나 +/- 부호에서 유불리를 추론하지 않는다.
+새로운 stat delta가 아니라 기존 `AbilityScores.modifier(int(resolved_value))`이다.
+Attribute row는 dense/flat 한 줄 list이며 Label wrapping을 사용하지 않는다. Wide에서는
+full presentation label, compact viewport에서는 STR/DEX/CON/PER/INT/WIL 약어를 쓴다.
+능력치 Hint/Final 열은 일반 Overview row보다 좁게 배정해 Label 폭을 우선한다. Final
+Value는 밝은 중립 결과색, Hint는 전달받은 semantic tone만 렌더링한다. Row 자체는
+gameplay 값을 계산하거나 +/- 부호에서 유불리를 추론하지 않는다.
 
 Margin/VBox/HBox(BoxContainer)/Panel/ScrollContainer가 viewport anchors에 배치된다.
 화면을 처음 열면 Inspector는 숨겨지고 Identity + Overview region이 가용 폭을 모두
@@ -95,7 +97,8 @@ stat/cost/attack/Inspector query 일치, 모델 Resource 부재 및 mutation 격
 RNG/time/event/body/attack_part/Actor 보존, live requery.
 `test_character_screen.gd`: 양쪽 production scene input, click/Enter, modal,
 Inspector closed/open/close width handoff, project-defined six attribute labels,
-Hint/Final 분리, reset/regeneration, 1080p/1440p/4K/1152×648/640×480 Control geometry.
+full/abbreviated responsive labels, no-wrap dense attribute rows, Hint/Final 분리,
+reset/regeneration, 1080p/1440p/4K/1152×648/640×480 Control geometry.
 Headless 물리 window resize는 dummy display가 무시하므로 logical canvas size도 설정한다.
 `tools/capture_character_overview.gd`: 실제 renderer에서 네 해상도 PNG 생성.
 스크린샷/geometry 검증은 수동 interaction/가독성/플레이감 승인을 대체하지 않는다.
