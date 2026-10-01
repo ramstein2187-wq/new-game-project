@@ -1,14 +1,14 @@
 +++
 status = "구현 완료"
 areas = ["UI/로그", "코어", "전투", "시간/액션"]
-milestones = "M032 — task branch"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/chat/character-overview-adaptive-inspector/docs/milestones/M032_character_overview.md"
+milestones = "M032 — main"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M032_character_overview.md"
 icon = "🧾"
 +++
 # Character Screen · Overview
 
-M032 `codex/character-overview-v1`에서 구현한 read-only presentation이다.
-main 병합과 수동 플레이 승인은 별도다. F5 생성 맵과 F6 fixed room에서 **C**로
+M032는 `codex/character-overview-v1`에서 시작해 adaptive Inspector follow-up을 거쳐
+PR #36으로 main에 통합된 read-only presentation이다. 수동 플레이/가독성 승인은 별도다. F5 생성 맵과 F6 fixed room에서 **C**로
 열고 C/Esc/Close로 닫는다. 열려 있는 동안 gameplay 및 debug 변경 입력을 막으며,
 turn simulation을 별도로 pause하지 않는다.
 
