@@ -44,8 +44,8 @@
     "game/actions/move_action.gd": "9412efe142daaeaf46e008a777acf9088f48b998c36ab4ffdff50a46a14c5953",
     "game/actions/time_action.gd": "94ed3c241b944c2c162403334441fbe9de08b9f562c366dce471c663a43cb6af",
     "game/actions/wait_action.gd": "3aa92d36605ac404c6da7b40aa0afc089a09aaf006d780ccd78e708c240e81ba",
-    "game/actors/actor.gd": "148fdd578f7de6a1fde65c09d22b7dd96a0fe1ea9f843d48b542288506f0357e",
-    "game/actors/actor_definition.gd": "d94cbd2a5c9c21481b804c27e42896b11466cc4d1f375548772bd18ed95eeb0c",
+    "game/actors/actor.gd": "004343e873c21a42f6fbd4ae370b59114c91caca08a2af425669d41220e3b29e",
+    "game/actors/actor_definition.gd": "a390c8e0c997cede66588f88305d3673baa14fa4a5d49f5b772d11e471baec23",
     "game/combat/ability_scores.gd": "78a25ce2c1867b1080ec50c74dbc08c8bf4f1f75f2eca7e09892969478878fc6",
     "game/combat/armor_definition.gd": "56bc55c31eaeb981c8ab58b5712db7d6089af8a049989b2cc5aade7fbc93dc2a",
     "game/combat/armor_profile_catalog.gd": "e5bd24d8b1482019f65ba559595862e4c0ae815c720c26f27b4647c4e63f6b3a",
@@ -66,6 +66,6 @@
     "game/effects/stat_resolver.gd": "fc32f4521bd4858cc2ea54ff4f8b096f835d0d5ad40a4905923c37eef11ba1e2",
     "game/time_cost_game.gd": "8f1291a72d380c13abccb13a81f12ebcd2233847eb76ebdd825aa034e813c52a",
     "tools/combat_dataset_sources.json": "743dc0734b523663d750bca8be03c16cba434ab4745a6fe5e04650070c0d85f5",
-    "tools/export_combat_datasets.gd": "31960db35f82e9a9b0e10d4f9dfc011053ae68c39ee3ba86dded2bc4f895578b"
+    "tools/export_combat_datasets.gd": "901909af015c79e5574164aa93288b6788eefd377731333494f9ae92b2ebe180"
   }
 }

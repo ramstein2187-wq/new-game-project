@@ -1,19 +1,48 @@
 extends SceneTree
 
-# Fixture originated before M019 and is intentionally versioned when a milestone
-# changes production combat semantics. --capture remains explicit.
-const FIXTURE := "res://tests/fixtures/m027_single_rat_replay.sha256"
-const LEGACY_FIXTURE := "res://tests/fixtures/m018_single_rat_replay.sha256"
+# Production combat semantics intentionally changed when Human Base HP moved from
+# the historical 50-point validation value to 30 with CON-derived Max HP.
+# Keep the old M027 replay as a compatibility guard and version the new baseline.
+const FIXTURE := "res://tests/fixtures/primary_attribute_hp_single_rat_replay.sha256"
+const PRE_HP_FIXTURE := "res://tests/fixtures/m027_single_rat_replay.sha256"
 
 const ReplayGame := preload("res://tests/support/fixed_combat_game.gd")
 
 
 func _init() -> void:
+	# The only intended replay drift here is the Human HP baseline. Re-running the
+	# same current code with the historical 50 HP must still reproduce M027 exactly.
+	var pre_hp_runs := _collect_runs(50)
+	var pre_hp_hash := JSON.stringify(pre_hp_runs, "\t").sha256_text()
+	if pre_hp_hash != FileAccess.get_file_as_string(PRE_HP_FIXTURE).strip_edges():
+		push_error("Combat replay drifted beyond the intentional Human Base HP change")
+		quit(1)
+		return
+
+	var runs := _collect_runs()
+	var serialized := JSON.stringify(runs, "\t").sha256_text()
+	if "--capture" in OS.get_cmdline_user_args():
+		var file := FileAccess.open(FIXTURE, FileAccess.WRITE)
+		file.store_string(serialized)
+	else:
+		if FileAccess.get_file_as_string(FIXTURE).strip_edges() != serialized:
+			push_error("CON/HP replay changed: positions, damage, body, AI events, clock or RNG (actual %s)" % serialized)
+			quit(1)
+			return
+	print("PASS: CON/HP replay and pre-change M027 compatibility (3 seeds)")
+	quit(0)
+
+
+func _collect_runs(forced_player_max_hp: int = -1) -> Array:
 	var runs: Array = []
 	for seed_value in [17017, 82, 999]:
 		var game := ReplayGame.new()
 		game.combat_seed = seed_value
 		game.reset()
+		if forced_player_max_hp > 0:
+			var player := game.get_actor(&"player")
+			player.max_hp = forced_player_max_hp
+			player.hp = forced_player_max_hp
 		game.door_open = true
 		game.player_position = Vector2i(6, 3)
 		game.rat_aggression = 180
@@ -35,34 +64,4 @@ func _init() -> void:
 				str(game.combat_rng.state), game.bodies[&"player"].parts,
 				game.bodies[&"rat"].parts, events])
 		runs.append(frames)
-	# These unarmored actors must keep the exact M024 mechanics/RNG. Normalize
-	# only M027 telemetry and renamed damage types to the prior event schema.
-	var legacy_runs: Array = runs.duplicate(true)
-	for frames in legacy_runs:
-		for frame in frames:
-			for event in frame[10]:
-				if event[0] != &"attack":
-					continue
-				var data: Dictionary = event[7]
-				for key in ["weapon_name", "weapon_action_id", "attack_name", "required_capability",
-					"required_capability_count", "functional_capability_count", "attack_efficiency",
-					"cost_multiplier", "damage_modifier", "original_damage_type", "base_armor",
-					"armor_profile", "profile_multiplier", "effective_armor", "action_cost"]:
-					data.erase(key)
-				if data.damage_type in [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE]:
-					data.damage_type = "Sharp"
-	if JSON.stringify(legacy_runs, "\t").sha256_text() != FileAccess.get_file_as_string(LEGACY_FIXTURE).strip_edges():
-		push_error("M027 unarmored mechanics drifted from M024, beyond telemetry/type renaming")
-		quit(1)
-		return
-	var serialized := JSON.stringify(runs, "\t").sha256_text()
-	if "--capture" in OS.get_cmdline_user_args():
-		var file := FileAccess.open(FIXTURE, FileAccess.WRITE)
-		file.store_string(serialized)
-	else:
-		if FileAccess.get_file_as_string(FIXTURE).strip_edges() != serialized:
-			push_error("Single-rat replay changed: positions, damage, body, AI events, clock or RNG (actual %s)" % serialized)
-			quit(1)
-			return
-	print("PASS: M027 replay and normalized M024 mechanics (3 seeds)")
-	quit(0)
+	return runs

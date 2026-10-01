@@ -1,6 +1,10 @@
 class_name Actor
 extends RefCounted
 
+const CON_HP_BASELINE := 10.0
+const CON_HP_PERCENT_PER_POINT := 0.05
+const MIN_MAX_HP := 1
+
 var id: StringName:
 	get: return _id
 var _id: StringName
@@ -32,7 +36,10 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 	definition = prototype
 	position = cell
 	display_name = prototype.display_name if label.is_empty() else label
-	max_hp = prototype.max_hp
+	for ability in AbilityScores.NAMES:
+		abilities.scores[ability] = prototype.initial_scores.get(ability, 10)
+	abilities.remaining = prototype.ability_points
+	max_hp = int(max_hp_breakdown().value)
 	hp = max_hp
 	species = prototype.combat_species.duplicate(true)
 	if prototype.equipped_weapon != null:
@@ -43,9 +50,6 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 	body.apply_natural_armor(prototype.natural_armor, prototype.natural_armor_profile)
 	for armor in prototype.equipped_armor:
 		body.equip_armor(armor)
-	for ability in AbilityScores.NAMES:
-		abilities.scores[ability] = prototype.initial_scores.get(ability, 10)
-	abilities.remaining = prototype.ability_points
 	ai_policy = prototype.ai_policy
 	aggression = prototype.aggression
 
@@ -55,16 +59,23 @@ func is_alive() -> bool:
 # A definition ID has one active instance. Duplicate IDs reject; no stacking.
 # Deep copies prevent changes to a caller's Resource or sibling Actor leaking in.
 func add_effect(effect: GameplayEffectDefinition, source_id: StringName = &"system") -> bool:
-	return _effect_store.add(effect, source_id)
+	if not _effect_store.add(effect, source_id):
+		return false
+	_refresh_max_hp_preserving_damage()
+	return true
 
 func remove_effect(effect_id: StringName) -> bool:
-	return _effect_store.remove(effect_id)
+	if not _effect_store.remove(effect_id):
+		return false
+	_refresh_max_hp_preserving_damage()
+	return true
 
 func has_effect(effect_id: StringName) -> bool:
 	return _effect_store.has(effect_id)
 
 func clear_effects() -> void:
 	_effect_store.clear()
+	_refresh_max_hp_preserving_damage()
 
 func active_effects() -> Array[GameplayEffectDefinition]:
 	return _effect_store.definition_snapshots()
@@ -83,6 +94,51 @@ func apply_action_cost_modifiers(base: float, tags: Array[StringName], intrinsic
 
 func resolved_stat(stat: StringName) -> float:
 	return float(stat_breakdown(stat).value)
+
+func max_hp_breakdown() -> Dictionary:
+	var con_breakdown := stat_breakdown(StatCatalog.CON)
+	if not con_breakdown.get("valid", false):
+		return {"valid": false, "value": MIN_MAX_HP}
+	var con := float(con_breakdown.value)
+	var percent_total := CON_HP_PERCENT_PER_POINT * (con - CON_HP_BASELINE)
+	var multiplier := 1.0 + percent_total
+	var unrounded := float(definition.max_hp) * multiplier
+	var rounded := roundi(unrounded)
+	var value := maxi(MIN_MAX_HP, rounded)
+	return {
+		"valid": true,
+		"base_hp": definition.max_hp,
+		"con": con,
+		"con_breakdown": con_breakdown,
+		"baseline_con": CON_HP_BASELINE,
+		"percent_per_point": CON_HP_PERCENT_PER_POINT,
+		"percent_total": percent_total,
+		"multiplier": multiplier,
+		"unrounded": unrounded,
+		"rounded": rounded,
+		"minimum": MIN_MAX_HP,
+		"value": value,
+	}
+
+func allocate_ability(ability: StringName, delta: int) -> bool:
+	if not abilities.allocate(ability, delta):
+		return false
+	if ability == StatCatalog.CON:
+		_refresh_max_hp_preserving_damage()
+	return true
+
+func reset_abilities() -> void:
+	abilities.reset()
+	_refresh_max_hp_preserving_damage()
+
+func _refresh_max_hp_preserving_damage() -> void:
+	var was_dead := hp <= 0
+	var damage_taken := maxi(0, max_hp - hp)
+	max_hp = int(max_hp_breakdown().value)
+	if was_dead:
+		hp = 0
+	else:
+		hp = maxi(0, max_hp - damage_taken)
 
 func fear() -> int:
 	return maxi(0, roundi((max_hp - hp) * 120.0 / max_hp) + fear_bonus)

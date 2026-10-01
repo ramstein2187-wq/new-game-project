@@ -24,7 +24,7 @@ Label에 표현하고 반환 모델을 버린다. Inspector 선택 key만 presen
 - Attributes: Actor.stat_breakdown(stat), AbilityScores.modifier(int(value)).
   M031 공식 Base × (1 + Σ Percent) + Σ Flat/ordered steps를 그대로 읽는다.
   UI에서 percent/flat을 재해석해 최종 stat을 계산하지 않는다.
-- Health: Actor.hp/max_hp. 새 건강 등급 또는 CON-MaxHP 규칙이 없다.
+- Health: Actor.hp/max_hp와 Actor.max_hp_breakdown(). Human Base HP는 30이며 Max HP는 `Base HP × (1 + 0.05 × (Resolved CON - 10))`을 최종 한 번 반올림해 계산한다. Inspector는 Base HP/Resolved CON/CON scaling/최종 Max HP를 표시한다.
 - Attack: TimeCostGame.attack_breakdown(). 기본 attack만 표시하고 target은 없다.
 - Armor: BodyInstance.average_armor_breakdown().
 - Move: MoveAction(RIGHT).cost_breakdown(), 기존 M031 schema를 그대로 표시한다.

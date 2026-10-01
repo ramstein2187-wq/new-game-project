@@ -104,6 +104,8 @@ func _queries() -> void:
 		expect(model.attack.name == actor.equipped_weapon.display_name and model.attack.penetration == actor.attack.penetration, "Attack reads equipped content")
 		expect(model.attack.dice == actor.attack.damage_dice.notation(), "Damage dice reads definition")
 		expect(model.hp == actor.hp and model.max_hp == actor.max_hp, "HP reads Actor")
+		var health_details := CharacterOverviewText.inspection(model, &"health")
+		expect(health_details.body.contains("Base HP") and health_details.body.contains("Resolved CON") and health_details.body.contains("CON HP scaling"), "Health Inspector explains CON-derived Max HP")
 		expect(model.states.size() == 2, "Only existing injury and effect state")
 		for key in [&"health", &"attack", &"damage", &"penetration", &"armor", &"move", &"state"]:
 			var details := CharacterOverviewText.inspection(model, key)

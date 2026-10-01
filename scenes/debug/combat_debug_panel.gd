@@ -62,13 +62,13 @@ func _button(caption: String, parent: Node) -> Button:
 	return button
 
 func _allocate(ability: StringName, delta: int) -> void:
-	if game != null and game.get_actor(&"player").abilities.allocate(ability, delta):
+	if game != null and game.get_actor(&"player").allocate_ability(ability, delta):
 		refresh()
 		changed.emit()
 
 func _reset_scores() -> void:
 	if game != null:
-		game.get_actor(&"player").abilities.reset()
+		game.get_actor(&"player").reset_abilities()
 		refresh()
 		changed.emit()
 

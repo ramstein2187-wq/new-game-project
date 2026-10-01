@@ -105,7 +105,7 @@ func monsters(data: CombatContentData) -> Dictionary:
 		for key in AbilityScores.NAMES:
 			abilities[key] = runtime.abilities.scores[key]
 		var record := {"id": item.type_id, "name": item.display_name, "body_template_id": entry.body_template_id,
-			"hp": item.max_hp, "abilities": abilities, "movement_speed": item.movement_speed,
+			"hp": runtime.max_hp, "abilities": abilities, "movement_speed": item.movement_speed,
 			"move": [MoveAction.new(Vector2i.RIGHT).get_cost(game, runtime.id), MoveAction.new(Vector2i(1, 1)).get_cost(game, runtime.id)],
 			"natural_armor": item.natural_armor, "natural_armor_profile": item.natural_armor_profile,
 			"ai_policy": item.ai_policy, "aggression": item.aggression, "body_size": entry.body_size,

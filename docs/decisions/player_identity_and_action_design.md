@@ -178,5 +178,6 @@ The goal is **coherent differentiation with controlled complexity**, not maximal
 - [Common Actor Model](common_actor_model.md) establishes shared player/NPC actor and action foundations.
 - [Explainable Systemic Behavior](explainable_systemic_behavior.md) requires meaningful internal distinctions to reach the player's experience.
 - [Turn Model — Action-Cost Time](turn_time_model.md) provides the shared temporal grammar through which actions consume time.
+- [Primary Attribute Semantics](primary_attribute_semantics.md) defines the default meaning of STR/DEX/CON/PER/INT/WIL and permits build-defining content to reinterpret which single primary attribute governs a particular action.
 
 This document generalizes those implementation decisions into a durable content, action, and progression philosophy.

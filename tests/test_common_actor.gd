@@ -8,6 +8,26 @@ func expect(condition: bool, description: String) -> void:
 		push_error("FAIL: " + description)
 
 func _init() -> void:
+	var human_definition := ActorDefinition.human_default()
+	expect(human_definition.max_hp == 30, "Default human authored Base HP is 30")
+	var human := Actor.new(&"human_hp", human_definition, Vector2i.ZERO)
+	expect(human.max_hp == 30 and human.hp == 30, "CON 10 human starts at 30/30 HP")
+	human.hp = 20
+	expect(human.allocate_ability(StatCatalog.CON, 1) and human.max_hp == 32 and human.hp == 22, "CON 11 gives +5% Base HP and preserves damage")
+	expect(human.allocate_ability(StatCatalog.CON, 1) and human.max_hp == 33 and human.hp == 23, "CON 12 gives +10% Base HP and preserves damage")
+	var con_effect := GameplayEffectDefinition.new()
+	con_effect.id = &"test_con_boost"
+	var con_flat := StatModifier.new()
+	con_flat.source_id = &"test"
+	con_flat.target_stat = StatCatalog.CON
+	con_flat.operation = ModifierOperation.Kind.FLAT
+	con_flat.value = 2.0
+	con_effect.stat_modifiers = [con_flat]
+	expect(human.add_effect(con_effect) and human.max_hp == 36 and human.hp == 26, "Resolved CON effects update Max HP immediately")
+	expect(human.remove_effect(con_effect.id) and human.max_hp == 33 and human.hp == 23, "Removing CON effect restores Max HP without healing damage")
+	human.reset_abilities()
+	expect(human.max_hp == 30 and human.hp == 20, "Resetting CON returns to Base HP while preserving damage")
+
 	var definition := ActorDefinition.rat_common()
 	var first := Actor.new(&"scout", definition, Vector2i(1, 1), "Scout")
 	var second := Actor.new(&"guard", definition, Vector2i(2, 1), "Guard")
@@ -51,10 +71,10 @@ func _init() -> void:
 	expect(game.register_actor(new_npc) and game.scheduler.get_ready_time(new_npc.id) == game.world_time, "New actor starts at current world time")
 	game.damage_actor(new_npc.id, new_npc.max_hp)
 	expect(game.get_actor(new_npc.id) == new_npc and not game.scheduler.has_actor(new_npc.id), "Death retains body and removes schedule")
-	game.player_hp = 31
-	expect(game.get_actor(&"player").hp == 31, "Legacy HP accessor forwards ownership")
-	game.get_actor(&"player").hp = 29
-	expect(game.player_hp == 29 and game.bodies[&"player"] == game.get_actor(&"player").body, "Compatibility views reflect Actor state")
+	game.player_hp = 21
+	expect(game.get_actor(&"player").hp == 21, "Legacy HP accessor forwards ownership")
+	game.get_actor(&"player").hp = 19
+	expect(game.player_hp == 19 and game.bodies[&"player"] == game.get_actor(&"player").body, "Compatibility views reflect Actor state")
 	if failures == 0:
 		print("PASS: common Actor ownership, isolation, registry and lifecycle")
 	quit(1 if failures else 0)

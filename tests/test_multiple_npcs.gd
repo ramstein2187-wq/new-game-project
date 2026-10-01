@@ -87,7 +87,7 @@ func _test_attacks_and_death() -> void:
 	_surround(game)
 	_guarantee_hits(game)
 	game.player_wait()
-	expect(game.player_hp == 35 and game.last_response_count == 3, "Three independent attackers each damage player")
+	expect(game.player_hp == 15 and game.last_response_count == 3, "Three independent attackers each damage player")
 	var attacker_ids := {}
 	for event in game.combat_log.events:
 		if event.type == &"attack":
@@ -120,7 +120,7 @@ func _test_attacks_and_death() -> void:
 	game.get_actor(&"rat_003").ai_policy = &"wait"
 	game.get_actor(&"rat").ai_policy = &"wait"
 	game.player_wait()
-	expect(game.get_actor(&"rat_003").hp == 25 and game.player_hp == 50, "Arbitrary NPC attacks arbitrary target")
+	expect(game.get_actor(&"rat_003").hp == 25 and game.player_hp == game.PLAYER_MAX_HP, "Arbitrary NPC attacks arbitrary target")
 	game.reset()
 	_surround(game)
 	_guarantee_hits(game)
@@ -241,7 +241,7 @@ func _test_scene() -> void:
 	_surround(scene.game)
 	_guarantee_hits(scene.game)
 	scene._unhandled_input(input)
-	expect(scene.game.player_hp == 35, "Real scene input executes all three attacks")
+	expect(scene.game.player_hp == 15, "Real scene input executes all three attacks")
 	scene.game.get_actor(&"rat_002").hp = 10
 	scene._unhandled_input(input)
 	var retreated := false

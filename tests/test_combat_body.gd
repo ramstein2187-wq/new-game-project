@@ -275,12 +275,12 @@ func _test_attack_causes_function_changes() -> void:
 		part.weight = 1 if part.id == &"right_arm" else 0
 	for index in range(4):
 		game.resolve_attack(&"rat", &"player")
-	expect(game.can_attack(&"player"), "Disabling one arm preserves a one-hand attack through fallback")
+	expect(game.can_attack(&"player") and game.player_hp == 10, "At Base HP 30, disabling one arm preserves a living one-hand fallback")
 	for part: Dictionary in game.bodies[&"player"].parts.values():
 		part.weight = 1 if part.id == &"left_arm" else 0
-	for index in range(4):
+	for index in range(2):
 		game.resolve_attack(&"rat", &"player")
-	expect(not game.can_attack(&"player") and game.player_hp == 10, "Disabling both arms removes a one-hand attack before HP death")
+	expect(not game.get_actor(&"player").is_alive() and game.bodies[&"player"].parts.left_arm.current == 10, "At Base HP 30, fixed 5-damage hits deplete HP before a second healthy arm is fully destroyed")
 	game.reset()
 	Fixture.guaranteed_hits(game)
 	for part: Dictionary in game.bodies[&"rat"].parts.values():
@@ -313,7 +313,7 @@ func _test_ui() -> void:
 		game.bodies[&"player"].apply_damage(&"left_arm", 10)
 		game.damage_actor(&"player", 5)
 		panel.find_child("ResetAbilities", true, false).pressed.emit()
-		expect(game.abilities[&"player"].remaining == 12 and game.player_hp == 45 and game.bodies[&"player"].parts.right_arm.current == 10, "UI reset preserves HP/wounds")
+		expect(game.abilities[&"player"].remaining == 12 and game.player_hp == 25 and game.bodies[&"player"].parts.right_arm.current == 10, "UI reset preserves HP/wounds")
 		expect(panel.body_status.text.contains("impaired"), "Injury visible in panel")
 		expect(plus.focus_mode == Control.FOCUS_NONE, "Allocation cannot capture wait hotkey")
 		var scroll: ScrollContainer = scene.get_node("CanvasLayer/LogScroll")
@@ -326,7 +326,7 @@ func _test_ui() -> void:
 			expect(panel.get_global_rect().end.y <= scroll.position.y, "Generated-map panel stays above log")
 		game.reset()
 		panel.refresh()
-		expect(game.bodies[&"player"].parts.right_arm.current == 20 and game.player_hp == 50, "Full reset restores bodies and HP")
+		expect(game.bodies[&"player"].parts.right_arm.current == 20 and game.player_hp == game.PLAYER_MAX_HP, "Full reset restores bodies and HP")
 		if scene.has_method("regenerate"):
 			scene.regenerate(4321)
 			expect(panel.game == scene.game and panel.game != game, "Generated map replaces panel's game binding")
