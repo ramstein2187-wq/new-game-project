@@ -106,6 +106,25 @@ func select_part(unit_roll: float) -> StringName:
 			return id
 	return &""
 
+# Read-only expected raw armor using exactly select_part's nonnegative weights.
+# Disabled parts are still hittable; -1 is the existing unarmored sentinel.
+func average_armor_breakdown() -> Dictionary:
+	var total_weight := 0.0
+	for part: Dictionary in parts.values():
+		total_weight += maxf(0.0, part.weight)
+	var rows: Array[Dictionary] = []
+	var average := 0.0
+	for part: Dictionary in parts.values():
+		var weight := maxf(0.0, part.weight)
+		var probability := weight / total_weight if total_weight > 0.0 else 0.0
+		var armor := maxf(0.0, part.armor)
+		var contribution := probability * armor
+		average += contribution
+		rows.append({"id": part.id, "name": part.name, "weight": weight,
+			"probability": probability, "armor": armor, "armor_id": part.get("armor_id", &""),
+			"contribution": contribution})
+	return {"value": average, "total_weight": total_weight, "parts": rows}
+
 func apply_damage(id: StringName, amount: int) -> Dictionary:
 	var before: int = parts[id].current
 	var previous := state(id)

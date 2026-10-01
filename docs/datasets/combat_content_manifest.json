@@ -64,7 +64,7 @@
     "game/effects/stat_catalog.gd": "369dd068ec4727387868c8109f31f5cd72b0f8deb418fbfad3f162affc02a84e",
     "game/effects/stat_modifier.gd": "ca7f326041e01c012eb4b3bd36e08c0e9f0e9242ea5e836df5d9fd5f8a1a6cfb",
     "game/effects/stat_resolver.gd": "fc32f4521bd4858cc2ea54ff4f8b096f835d0d5ad40a4905923c37eef11ba1e2",
-    "game/time_cost_game.gd": "b30eba9fd9a4a1de275ef1ccc2be006ccf183cd35f32822a30b199f28fde6d5b",
+    "game/time_cost_game.gd": "8f1291a72d380c13abccb13a81f12ebcd2233847eb76ebdd825aa034e813c52a",
     "tools/combat_dataset_sources.json": "743dc0734b523663d750bca8be03c16cba434ab4745a6fe5e04650070c0d85f5",
     "tools/export_combat_datasets.gd": "31960db35f82e9a9b0e10d4f9dfc011053ae68c39ee3ba86dded2bc4f895578b"
   }

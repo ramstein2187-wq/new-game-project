@@ -19,6 +19,7 @@ var generated_map := PackedStringArray()
 var detailed_log := false
 var debug_log := false
 var combat_panel: CombatDebugPanel
+var character_screen: CharacterScreen
 
 @onready var status_label: Label = $CanvasLayer/Status
 @onready var help_label: Label = $CanvasLayer/Help
@@ -32,6 +33,8 @@ func _ready() -> void:
 	combat_panel.size.x = 450
 	$CanvasLayer.add_child(combat_panel)
 	combat_panel.changed.connect(_refresh)
+	character_screen = preload("res://scenes/ui/character_screen.tscn").instantiate()
+	$CanvasLayer.add_child(character_screen)
 	regenerate(world_seed)
 
 
@@ -44,12 +47,16 @@ func regenerate(seed_value: int) -> void:
 	world_seed = seed_value
 	generated_map = rows
 	game = next_game
+	if character_screen != null:
+		character_screen.game = game
 	if combat_panel != null:
 		combat_panel.game = game
 	_refresh()
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if character_screen != null and character_screen.visible:
+		return
 	if not (event is InputEventKey) or not event.pressed or event.echo or game == null:
 		return
 	var handled := true
@@ -133,9 +140,11 @@ func _refresh() -> void:
 	if game == null:
 		return
 	status_label.text = "Seed %d | t=%d | %s" % [world_seed, game.world_time, game.get_actor_status_text()]
-	help_label.text = "WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump NPC: attack | Space/Enter: wait | R: next seed | L: details | F3: debug"
+	help_label.text = "WASD/Arrows: 4-way | Numpad 1-9: 8-way | Bump NPC: attack | Space/Enter: wait | C: character | R: next seed | L: details | F3: debug"
 	message_label.text = game.message
 	log_label.text = ("Developer trace:\n" + game.get_recent_debug_text()) if debug_log else ("Combat log:\n" + game.get_recent_event_text(detailed_log))
 	if combat_panel != null:
 		combat_panel.refresh()
+	if character_screen != null and character_screen.visible:
+		character_screen.refresh()
 	queue_redraw()

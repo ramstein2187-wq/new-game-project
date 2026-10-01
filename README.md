@@ -55,12 +55,14 @@ game/                   # Shared gameplay runtime
   actors/               # Actor definitions, state and registry
   ai/                   # Tactical decisions
   combat/               # Combat/body/equipment rules and combat events
+  ui/                   # Read-only Character Overview, inspectable rows and Inspector
   time/                 # Independent scheduler
   simulation/           # Headless production-combat adapters
   time_cost_game.gd      # Gameplay state/action/turn orchestration
   generated_map_combat_game.gd
 worldgen/               # Map algorithms, generation settings and seed derivation
 scenes/debug/           # Combat rooms, generated-map playground and map viewers
+scenes/ui/              # Reusable Character Screen scene
 prototypes/
   exploration/          # Original movement/interaction scene; viewer reuses Player
   micro_ap/             # Preserved AP comparison prototype
@@ -74,6 +76,10 @@ F5 still starts the generated-map combat playground. For F6, open
 `scenes/debug/time_cost_test_room.tscn`. The original root `main.tscn` remains
 available at `prototypes/exploration/main.tscn`; it is not the configured main scene.
 The preserved AP comparison room is `prototypes/micro_ap/micro_ap_test_room.tscn`.
+
+In the combat scenes, C opens the Character Overview; C/Esc closes it. Hover values
+for quick explanations, then click or Tab+Enter for Inspector sources. Gameplay
+inputs are blocked while the screen is open. See [M032](docs/milestones/M032_character_overview.md).
 
 This folder change preserves class names, APIs, algorithms and content values.
 Future authored gameplay resources belong under `content/`; that directory is not

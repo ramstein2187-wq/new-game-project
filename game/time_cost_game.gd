@@ -250,6 +250,35 @@ func movement_efficiency(actor_id: StringName) -> float:
 	return actor.body.capability(&"locomotion") if actor != null and actor.is_alive() else 0.0
 
 
+# Target-independent attack explanation shared by resolution and presentation.
+# Does not call attack_efficiency(), which writes the legacy attack_part snapshot.
+func attack_breakdown(actor_id: StringName, weapon_action_id: StringName = &"") -> Dictionary:
+	var actor := get_actor(actor_id)
+	if actor == null or actor.attack == null:
+		return {"valid": false}
+	var selected := actor.weapon_action(weapon_action_id) if weapon_action_id != &"" else null
+	if weapon_action_id != &"" and selected == null:
+		return {"valid": false}
+	var attack: AttackDefinition = selected.modified_attack(actor.attack) if selected != null else actor.attack
+	var parts := actor.body.selected_functional_parts(actor.attack_capability(), actor.attack_capability_count())
+	var efficiency := 0.0
+	if parts.size() >= actor.attack_capability_count():
+		efficiency = 1.0
+		for part_id in parts:
+			efficiency = minf(efficiency, actor.body.efficiency(part_id))
+	var ability := attack.ability_for(actor.abilities)
+	var ability_mod := actor.abilities.get_modifier(ability)
+	var situation := (-2 if efficiency < 1 else 0) + (selected.situation_modifier if selected != null else 0)
+	var damage_mod := selected.damage_modifier if selected != null else 0
+	var check := CombatRules.check(0, ability_mod, actor.definition.proficiency_bonus, situation, 0)
+	return {"valid": true, "available": actor.is_alive() and efficiency > 0.0,
+		"name": actor.equipped_weapon.display_name if actor.equipped_weapon != null else attack.display_name,
+		"attack_name": attack.display_name, "attack_id": attack.id, "weapon_id": actor.weapon_id,
+		"ability": ability, "ability_modifier": ability_mod, "proficiency": check.proficiency,
+		"situation": check.situation, "attack_bonus": check.total, "efficiency": efficiency,
+		"dice": attack.damage_dice.notation(), "damage_modifier": damage_mod,
+		"penetration": attack.penetration, "damage_type": attack.damage_type}
+
 func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_id: StringName = &"") -> Dictionary:
 	var attacker := get_actor(actor_id)
 	var defender := get_actor(target_id)
@@ -260,11 +289,11 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 	var body: BodyInstance = attacker.body
 	var target: BodyInstance = defender.body
 	var efficiency := body.attack_efficiency(attacker.attack_capability(), attacker.attack_capability_count())
-	var injury_mod := -2 if efficiency < 1 else 0
-	var situation_mod := injury_mod + (selected.situation_modifier if selected != null else 0)
-	var damage_mod := selected.damage_modifier if selected != null else 0
-	var ability := attack.ability_for(attacker.abilities)
-	var ability_modifier := attacker.abilities.get_modifier(ability)
+	var explanation := attack_breakdown(actor_id, weapon_action_id)
+	var situation_mod: int = explanation.situation
+	var damage_mod: int = explanation.damage_modifier
+	var ability: StringName = explanation.ability
+	var ability_modifier: int = explanation.ability_modifier
 	var difficulty := 10 + defender.abilities.get_modifier(&"DEX")
 	var result := CombatRules.check(
 		combat_rng.randi_range(1, 20), ability_modifier, attacker.definition.proficiency_bonus,
