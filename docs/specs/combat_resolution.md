@@ -17,13 +17,24 @@ diagram = "docs/diagrams/combat_resolution.svg"
 
 ## 명중과 피해
 
-- 명중: `d20 + ability modifier + proficiency + situation >= 10 + target DEX modifier`.
+- 명중: `d20 + resolved governing ability modifier + proficiency + situation >= 10 + target resolved DEX modifier`.
 - 피해: `DamageDice 합 + 같은 공격의 relevant ability modifier`, 최소 0.
 - Proficiency는 명중에만 들어가며 피해에 더하지 않는다.
-- Finesse는 STR/DEX modifier 중 높은 쪽을 명중과 피해에 함께 사용한다.
+- Finesse는 resolved STR/DEX modifier 중 높은 하나를 명중과 피해에 함께 사용한다. 동점이면 STR이며 합산하지 않는다.
 - 자연 1/20 예외와 Critical Hit은 없다.
 
-`AttackDefinition`은 공격 ID, 피해 주사위, Cut/Puncture/Blunt, 관통, 능력 규칙, required capability와 수를 소유한다. `WeaponDefinition`은 이를 조합하고 손 수와 properties를 기록한다. 일반 공격 시간은 무기에 없다. `WeaponActionDefinition`은 기본 공격에 type/penetration/damage/situation 변경과 cost_percent delta를 제공하며 독립 공격 전체를 복제 저장하지 않는다.
+`AttackDefinition`은 공격 ID, 피해 주사위, Cut/Puncture/Blunt, 관통, 능력 규칙, required capability와 수를 소유한다. `WeaponDefinition`은 이를 조합하고 손 수와 properties를 기록한다. 일반 공격 시간은 무기에 없다. `WeaponActionDefinition`은 기본 공격에 type/penetration/damage/situation 변경과 cost_percent delta, 선택적 ability_rule_override를 제공하며 독립 공격 전체를 복제 저장하지 않는다.
+
+M033(`codex/primary-attribute-runtime`, base `005c7a6`)에서 ability_rule은
+STR/DEX/CON/PER/INT/WIL 중 하나 또는 legacy best_str_dex다. Weapon Action override가
+비어 있으면 base rule을 유지하고, 있으면 실행용 deep copy의 rule만 바꾼다.
+`AttackDefinition.ability_for(Actor)` → `Actor.ability_modifier_breakdown(primary)`
+→ `Actor.stat_breakdown` → `StatResolver` → `EffectStore.resolve_stat`로 조회한다.
+최종 raw score에만 `AbilityScores.modifier(int(value))`를 적용한다.
+`TimeCostGame.attack_breakdown`의 ability_modifier를 `resolve_attack`이 명중과 피해에
+공유하고, defender.resolved_ability_modifier(DEX)가 DV에 들어간다. 중간 cache나
+두 primary 합산은 없으며 Effect add/remove/clear 다음 판정부터 반영된다.
+CON/HP는 raw CON과 기존 최종 반올림을 유지하며 공격 modifier 공식으로 대체하지 않는다.
 
 ## Capability와 부상
 
@@ -57,6 +68,7 @@ diagram = "docs/diagrams/combat_resolution.svg"
 5. 피해 적용.
 
 Full Block이어도 damage dice는 먼저 소비된다. 이 순서는 자동 테스트로 고정된다.
+Governing rule 선택, resolved stat 조회와 override 적용은 RNG를 소비하지 않는다.
 
 ## CombatEvent 데이터
 

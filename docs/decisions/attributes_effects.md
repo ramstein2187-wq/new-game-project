@@ -19,9 +19,13 @@ STR/DEX/CON/PER/INT/WIL and MOVEMENT_SPEED (serialized as `movement_speed`).
 StatModifier validation depends on this catalog, not AbilityScores. AbilityScores
 retains primary values/allocation; its NAMES uses the catalog's PRIMARY list.
 Adding a valid ID extends the catalog; defining its base value/gameplay wiring is
-a separate explicit change. Only movement_speed is connected to gameplay in
-M031; CombatRules still uses the existing ability-score/modifier path. HP, accuracy,
-dodge and attribute-derived combat changes require a later explicit migration.
+a separate explicit change. M031 originally connected only movement_speed.
+CON/HP baseline `005c7a6` additionally derives Max HP from raw resolved CON.
+M033 (`codex/primary-attribute-runtime`) connects any authored governing primary
+to hit/damage and resolved defender DEX to the existing difficulty formula.
+Actor.ability_modifier_breakdown converts the final raw score at the existing
+integer AbilityScores.modifier boundary; runtime and UI share that query.
+No independent accuracy/dodge stat or automatic PER accuracy bonus is introduced.
 
 ## Ownership and small data model
 
@@ -145,7 +149,10 @@ read by cost calculation. Event schema/visible combat log remain unchanged.
 Body capability, damage, disabled limbs and locomotion remain authoritative.
 The resolver consumes Body output; it does not duplicate wounds as effects.
 Rejected actions preserve time/RNG/events. Scheduler ownership, ties, AI scoring,
-HP, hit/damage/armor rules and normal weapon effects are unchanged.
+The HP formula and hit/damage/armor arithmetic are preserved. M033 changes only
+the primary input to hit/damage/defense from base to resolved scores, plus an
+optional sparse per-Weapon-Action ability_rule_override; no-effect production
+attacks retain their existing results.
 
 ## Content and mirrors
 

@@ -8,7 +8,7 @@
 <text x="380" y="198.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">현재 Actor: identity · HP · six attributes / stat breakdown</text>
 <line x1="380" y1="132" x2="380" y2="162" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="262" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">기본 attack: 기존 ability · proficiency · body situation query</text>
+<text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">기본 attack: resolved governing primary · proficiency · body query</text>
 <line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Body: Σ max(0, weight) / 실제 weight 합 × max(0, raw armor)</text>

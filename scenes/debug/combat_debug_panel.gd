@@ -106,7 +106,8 @@ func refresh() -> void:
 	var scores: AbilityScores = game.get_actor(&"player").abilities
 	points.text = "Test abilities — points: %d / 12" % scores.remaining
 	for ability: StringName in rows:
-		rows[ability].text = "%s: %d (%+d)" % [ability, scores.scores[ability], scores.get_modifier(ability)]
+		var resolved := player.ability_modifier_breakdown(ability)
+		rows[ability].text = "%s: %s (%+d)" % [ability, CharacterOverviewText.number(resolved.value), resolved.modifier]
 	var lines: Array[String] = []
 	var details: Array[String] = []
 	for instance in game.actors.all():

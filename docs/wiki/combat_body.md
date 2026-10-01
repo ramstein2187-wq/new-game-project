@@ -17,6 +17,13 @@ M024는 기존 D20/신체/단일 방어층 파이프라인을 유지하면서 �
 
 ## 신체 기능
 
+M033(`codex/primary-attribute-runtime`)은 STR/DEX/CON/PER/INT/WIL 중 하나의
+resolved primary를 governing rule로 쓸 수 있게 한다. best_str_dex는 높은 modifier
+하나를 고르고 동점이면 STR이다. Weapon Action의 sparse ability_rule_override는
+실행용 공격 복사본에만 적용된다. 명중/피해는 같은 modifier를 공유하고 방어 난이도는
+기존 10 + DEX modifier를 resolved DEX로 조회한다. Effect 변경은 다음 판정부터 반영되며
+RNG/Body/cost/AI/scheduler는 유지한다. 새 production attack은 추가하지 않았다.
+
 - 한손 무기는 사용 가능한 `weapon_manipulation` 부위 중 가장 나은 하나를 사용한다.
 - Maul은 두 부위를 요구한다.
 - Bite/Claw는 손과 독립된 capability다.

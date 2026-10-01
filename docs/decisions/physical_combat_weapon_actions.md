@@ -27,7 +27,7 @@ RNG contract remains D20, then on hit location, damage dice, and armor roll only
 
 Basic attacks use `AttackAction.BASE_COST = 1000`. M031 migrates authored action time to `cost_percent` deltas, summed with external effect percentages before flat cost. Shared ActionCostResolver calculates `base * (1 + percent_total) + flat_total`, then one final ceil and minimum 1. Current standalone content still yields 750/1250/1500/1750 exactly. The [M031 rule](attributes_effects.md) supersedes the historical special-action rounding/multiplier model. No weapon speed or global Actor speed system is added.
 
-`WeaponActionDefinition` owns ID/name, multiplier, optional damage type, penetration modifier, flat damage modifier and situation modifier. An execution makes a temporary deep copy of the actor's base attack and applies sparse modifiers; no copied full attacks are stored as content. Flat damage is added before the existing zero clamp and armor. No hand override is offered.
+`WeaponActionDefinition` owns ID/name, cost_percent, optional damage type and ability_rule_override, penetration modifier, flat damage modifier and situation modifier. An execution makes a temporary full deep copy of the actor's base attack and applies sparse modifiers; no copied full attacks are stored as content. Empty ability_rule_override inherits the base rule; a valid primary or legacy best_str_dex substitutes that action's single governing rule. M033 validates this foundation with synthetic content, without adding production attacks. Flat damage is added before the existing zero clamp and armor. No hand override is offered.
 
 | Weapon | Hands | Basic | Special | Cost | Change from basic |
 | --- | ---: | --- | --- | ---: | --- |
@@ -37,7 +37,7 @@ Basic attacks use `AttackAction.BASE_COST = 1000`. M031 migrates authored action
 | Warhammer | 1 | 1d8 Blunt, Pen 40 | Crushing Blow | 1500 | Penetration +20 |
 | Maul | 2 | 2d6 Blunt, Pen 50 | Overhead Smash | 1750 | Penetration +20 |
 
-Damage retains the existing ability modifier. Quick Stab's single -1 tradeoff prevents strict domination of basic slash; Maul gets penetration only, without another die or hand-derived damage bonus. These are prototype choices, not calibrated optimal choices against every profile.
+Damage retains the same selected modifier as the hit check, now calculated from the Actor's resolved governing primary. Quick Stab's single -1 tradeoff prevents strict domination of basic slash; Maul gets penetration only, without another die or hand-derived damage bonus. These are prototype choices, not calibrated optimal choices against every profile.
 
 Actors own deep copies of weapon/action/attack resources. Any Actor can execute `AttackAction(target, weapon_action_id)` through `perform_action`; IDs not offered by its current weapon are rejected before cost/RNG/events. AI still chooses basic attacks. Future M026 AI integration should use `available_weapon_actions()` and the same Action path without duplicating armor or hand rules.
 

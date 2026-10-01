@@ -7,6 +7,10 @@ const DAMAGE_BLUNT: StringName = &"Blunt"
 
 const ABILITY_STR: StringName = &"STR"
 const ABILITY_DEX: StringName = &"DEX"
+const ABILITY_CON: StringName = &"CON"
+const ABILITY_PER: StringName = &"PER"
+const ABILITY_INT: StringName = &"INT"
+const ABILITY_WIL: StringName = &"WIL"
 const ABILITY_BEST_STR_DEX: StringName = &"best_str_dex"
 
 @export var id: StringName = &"melee"
@@ -51,7 +55,7 @@ func is_valid() -> bool:
 		and damage_dice.is_valid()
 		and is_physical_damage_type(damage_type)
 		and penetration >= 0.0
-		and (ability_rule == ABILITY_STR or ability_rule == ABILITY_DEX or ability_rule == ABILITY_BEST_STR_DEX)
+		and is_valid_ability_rule(ability_rule)
 		and required_capability != &""
 		and required_capability_count > 0
 	)
@@ -61,7 +65,13 @@ static func is_physical_damage_type(type: StringName) -> bool:
 	return type in [DAMAGE_CUT, DAMAGE_PUNCTURE, DAMAGE_BLUNT]
 
 
-func ability_for(scores: AbilityScores) -> StringName:
+static func is_valid_ability_rule(rule: StringName) -> bool:
+	return StatCatalog.PRIMARY.has(rule) or rule == ABILITY_BEST_STR_DEX
+
+
+# Select one primary, never sum them. Legacy finesse compares modifiers, with STR
+# winning ties (including odd/fractional scores with equal integer modifiers).
+func ability_for(actor: Actor) -> StringName:
 	if ability_rule == ABILITY_BEST_STR_DEX:
-		return ABILITY_DEX if scores.get_modifier(ABILITY_DEX) > scores.get_modifier(ABILITY_STR) else ABILITY_STR
+		return ABILITY_DEX if actor.resolved_ability_modifier(ABILITY_DEX) > actor.resolved_ability_modifier(ABILITY_STR) else ABILITY_STR
 	return ability_rule

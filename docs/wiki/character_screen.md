@@ -63,12 +63,15 @@ Move Time은 `MoveAction(Vector2i.RIGHT).cost_breakdown()`을 읽으며 destinat
 유효성 검사는 하지 않는다. 불능 이동은 0 μt 대신 Unavailable로 표시한다.
 Inspector는 M031 resolver의 단계, Effect provenance, 최종 ceil/minimum을 설명한다.
 
-능력치는 `Actor.stat_breakdown()`의 resolved 값을 표시한다. Modifier는 기존
-`AbilityScores.modifier(int(value))`이며 소수 점수는 기존 int API 경계에서 버린다.
-**M031에서 primary attribute Effects는 아직 combat에 연결되지 않았다.** 공격은
-실제 combat이 사용하는 base AbilityScores/ability_for/proficiency/부상 situation을
-설명하며, Inspector도 이 차이를 명시한다. 독립 Accuracy/Attack Bonus/Dodge stat은
-없다. Attack Bonus는 기본 공격의 설명/hover 안에서만 기존 판정 구성으로 제시한다.
+능력치는 `Actor.ability_modifier_breakdown()`의 resolved 값과 modifier를 표시한다.
+Modifier는 기존 `AbilityScores.modifier(int(value))`이며 소수 점수는 최종 int API
+경계에서 버린다. M033(`codex/primary-attribute-runtime`)에서 공격은 실제 combat과
+같은 resolved governing primary/proficiency/부상 situation을 설명한다. Inspector는
+선택된 rule/능력치/raw score/Effect 출처를 같은 attack breakdown에서 읽는다.
+여섯 primary 중 하나를 authored rule로 쓸 수 있고, Weapon Action의 sparse override는
+그 action에만 적용된다. 기본 Character 화면은 기본 공격을 표시한다.
+독립 Accuracy/Attack Bonus/Dodge stat은 없다. Attack Bonus는 기본 공격의
+설명/hover 안에서만 기존 판정 구성으로 제시한다.
 
 화면은 open/선택/host refresh 때 현재 runtime을 다시 읽는다. HP/stat/armor 캐시,
 게임플레이 상태 복사본, modifier 재계산, live Effect Resource 참조는 없다.

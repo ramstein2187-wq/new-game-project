@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M033: **Complete on task branch** `codex/primary-attribute-runtime` from CON/HP `005c7a6`. Resolved governing-primary hit/damage, defender DEX, sparse Weapon Action override and shared Inspector foundation; 571 focused assertions and full 30-script Godot check passed, existing golden/replay fixtures unchanged. No main merge. [Primary attribute runtime](milestones/M033_primary_attribute_runtime.md).
+
 - M032: **Complete on main** at `8245bfa` via [PR #36](https://github.com/ramstein2187-wq/new-game-project/pull/36). Adaptive read-only Character Overview, Label/Hint/Final rows and on-demand Inspector are integrated. All 29 tests passed in bounded groups before integration plus import/startup/export check; focused Character suites total 522 assertions. Manual visual acceptance remains pending. [Character Overview](milestones/M032_character_overview.md).
 
 - M031: **Complete on main** at `0b859aa` via [PR #34](https://github.com/ramstein2187-wq/new-game-project/pull/34). Six attributes, movement-speed migration, Modifier/Effect ownership and common stat/action-cost breakdown resolution are integrated. Task-branch validation passed the full 26-script Godot check; post-merge validation on a fresh worktree passed editor import, the 405-assertion M031 suite, focused M027/M028 regressions, combat-content/batch checks and exact dataset verification. Manual GUI/play and live Notion remain follow-ups. [Attributes/effects](milestones/M031_attributes_effects_foundation.md).

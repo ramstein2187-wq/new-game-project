@@ -21,7 +21,7 @@ scalar/Dictionary/Array만 반환한다. Resource/Actor 참조를 반환하거�
 Label에 표현하고 반환 모델을 버린다. Inspector 선택 key만 presentation state다.
 
 - Identity: Actor.display_name / definition.display_name.
-- Attributes: Actor.stat_breakdown(stat), AbilityScores.modifier(int(value)).
+- Attributes: Actor.ability_modifier_breakdown(stat), 내부에서 stat_breakdown과 AbilityScores.modifier(int(value))를 공유한다.
   M031 공식 Base × (1 + Σ Percent) + Σ Flat/ordered steps를 그대로 읽는다.
   UI에서 percent/flat을 재해석해 최종 stat을 계산하지 않는다.
 - Health: Actor.hp/max_hp와 Actor.max_hp_breakdown(). Human Base HP는 30이며 Max HP는 `Base HP × (1 + 0.05 × (Resolved CON - 10))`을 최종 한 번 반올림해 계산한다. Inspector는 Base HP/Resolved CON/CON scaling/최종 Max HP를 표시한다.
@@ -53,7 +53,12 @@ Overview는 한 자리 소수로 표시하며 계산 내부 값은 반올림하�
 `TimeCostGame.attack_breakdown()`은 기존 selected_functional_parts/efficiency로
 요구 capability 수량과 효율을 읽는다. `attack_efficiency()`는 legacy attack_part를
 쓰므로 조회에서는 호출하지 않는다. 기존 injury situation -2, Weapon Action의
-situation/damage delta, attack.ability_for(base AbilityScores), proficiency를 공유한다.
+situation/damage delta, attack.ability_for(Actor), proficiency를 공유한다.
+AttackDefinition은 여섯 primary 또는 best_str_dex를 허용한다. 후자는 resolved
+modifier를 비교해 하나를 선택하고 동점이면 STR이다. Weapon Action의 선택적
+ability_rule_override는 실행용 deep copy에만 적용하며 비어 있으면 base rule을 유지한다.
+선택한 Actor.ability_modifier_breakdown의 raw score/정수 score/modifier/출처를
+attack breakdown의 ability_rule/ability/ability_modifier/ability_breakdown으로 전달한다.
 `CombatRules.check(d20=0)`의 total은 설명용 Attack Bonus다. 명중률/특정 defender
 예측이나 독립 stat을 만들지 않는다. Damage는 definition dice notation와 실제
 combat modifier를 표시하며 실제 roll/최소 0 rule을 변경하지 않는다.
@@ -61,8 +66,12 @@ combat modifier를 표시하며 실제 roll/최소 0 rule을 변경하지 않는
 `resolve_attack()`은 기존 attack_efficiency 호출과 RNG/event 순서를 유지한 채
 이 pure query의 modifier 값을 읽는다. M027/M024 replay 및 M031 golden이 기존
 결과 보존을 검증한다. 특수 Weapon Action도 query/runtime 동등성 테스트에 포함한다.
-Primary attribute Effects는 아직 공격에 연결되지 않았으므로 Overview resolved
-stat과 실제 attack base modifier의 차이를 Inspector에서 명시한다.
+M033 작업 브랜치에서는 Primary attribute Effects가 실제 명중/피해 modifier에
+즉시 연결된다. Inspector는 같은 resolved governing attribute, raw score와 ordered
+Effect 출처를 표시하며 gameplay 수치를 다시 계산하지 않는다. 기본 Character 화면은
+기본 공격을 유지하고 특정 Weapon Action 설명은 attack_breakdown(actor, action_id)로
+조회한다. Defender DV는 기존 10 + DEX modifier 공식을 resolved DEX로 계산한다.
+조회/포맷은 RNG/time/event/Body를 변경하지 않고, 새 stat/cache는 없다.
 
 ## UI 및 입력
 

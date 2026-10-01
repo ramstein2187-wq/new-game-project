@@ -45,7 +45,7 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 	if prototype.equipped_weapon != null:
 		set_weapon(prototype.equipped_weapon)
 	else:
-		attack = prototype.active_attack().duplicate(true)
+		attack = prototype.active_attack().duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 	body = BodyInstance.new(species.body_template, attack.required_capability)
 	body.apply_natural_armor(prototype.natural_armor, prototype.natural_armor_profile)
 	for armor in prototype.equipped_armor:
@@ -94,6 +94,19 @@ func apply_action_cost_modifiers(base: float, tags: Array[StringName], intrinsic
 
 func resolved_stat(stat: StringName) -> float:
 	return float(stat_breakdown(stat).value)
+
+# Shared combat/presentation boundary. Truncate only at the existing integer
+# AbilityScores API, after resolving the full raw score and its Effects.
+func ability_modifier_breakdown(ability: StringName) -> Dictionary:
+	if not StatCatalog.PRIMARY.has(ability):
+		return {"valid": false, "modifier": 0}
+	var breakdown := stat_breakdown(ability)
+	breakdown["score"] = int(breakdown.value)
+	breakdown["modifier"] = AbilityScores.modifier(breakdown.score)
+	return breakdown
+
+func resolved_ability_modifier(ability: StringName) -> int:
+	return int(ability_modifier_breakdown(ability).modifier)
 
 func max_hp_breakdown() -> Dictionary:
 	var con_breakdown := stat_breakdown(StatCatalog.CON)
@@ -147,7 +160,7 @@ func fear() -> int:
 func set_weapon(weapon: WeaponDefinition) -> bool:
 	if weapon == null or not weapon.is_valid():
 		return false
-	equipped_weapon = weapon.duplicate(true)
+	equipped_weapon = weapon.duplicate_deep(Resource.DEEP_DUPLICATE_ALL)
 	attack = equipped_weapon.attack_definition
 	return true
 

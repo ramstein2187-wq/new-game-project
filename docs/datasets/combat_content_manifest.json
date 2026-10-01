@@ -44,17 +44,17 @@
     "game/actions/move_action.gd": "9412efe142daaeaf46e008a777acf9088f48b998c36ab4ffdff50a46a14c5953",
     "game/actions/time_action.gd": "94ed3c241b944c2c162403334441fbe9de08b9f562c366dce471c663a43cb6af",
     "game/actions/wait_action.gd": "3aa92d36605ac404c6da7b40aa0afc089a09aaf006d780ccd78e708c240e81ba",
-    "game/actors/actor.gd": "004343e873c21a42f6fbd4ae370b59114c91caca08a2af425669d41220e3b29e",
+    "game/actors/actor.gd": "31f516bf51944914954eeed363447632e12a218c7bac8a9c1be587d64987e203",
     "game/actors/actor_definition.gd": "a390c8e0c997cede66588f88305d3673baa14fa4a5d49f5b772d11e471baec23",
     "game/combat/ability_scores.gd": "78a25ce2c1867b1080ec50c74dbc08c8bf4f1f75f2eca7e09892969478878fc6",
     "game/combat/armor_definition.gd": "56bc55c31eaeb981c8ab58b5712db7d6089af8a049989b2cc5aade7fbc93dc2a",
     "game/combat/armor_profile_catalog.gd": "e5bd24d8b1482019f65ba559595862e4c0ae815c720c26f27b4647c4e63f6b3a",
-    "game/combat/attack_definition.gd": "5c966e0206b7b2c3372eb6ea0eb73d46d8c4b3c8c256170d2366ee5c64b0e045",
+    "game/combat/attack_definition.gd": "ee81a78bb1fdf79d228a7957d360631887fb2901c7489a53d10c6c91ca8b3fa2",
     "game/combat/body_template.gd": "1a87b0d2e73f2b8b9f698c4b0d726bd48a9a55d009522f7acc107dcca0f5f1af",
     "game/combat/combat_content_catalog.gd": "ef797f34afddaa47f8d8283a127803331bdacf1a1fea42b694b3dcafee773584",
     "game/combat/combat_species.gd": "ed2279da21533a7830d7a50e615e5a38e1d9fed6ae1efadd75940c073f6687f8",
     "game/combat/damage_dice.gd": "69007399c4e643e28a0e59d08c4a39fd06a372101b2290bd8560873602dfc9e2",
-    "game/combat/weapon_action_definition.gd": "ee3e22b59bc9c28b9a6b17f1ab71f40ac77a7e6782ea9183c381323e1817cbf1",
+    "game/combat/weapon_action_definition.gd": "9c5f565a83c41caa38f24a1143131b3a9dff3598d2d91e4fd017c5c8398eb616",
     "game/combat/weapon_definition.gd": "db7d7b91f3187e9220138a1d987e725e3353a154ce91376f799b98dc79b1a0aa",
     "game/effects/action_cost_modifier.gd": "0baf9c85b982568769a00eeaca06fed325ddce10a2a6c7d514a6564d7253b013",
     "game/effects/active_effect.gd": "469e88cce7804b436ea3644446840f699dc650ef57ec340bf4475af3dbeef4ed",
@@ -64,8 +64,8 @@
     "game/effects/stat_catalog.gd": "369dd068ec4727387868c8109f31f5cd72b0f8deb418fbfad3f162affc02a84e",
     "game/effects/stat_modifier.gd": "ca7f326041e01c012eb4b3bd36e08c0e9f0e9242ea5e836df5d9fd5f8a1a6cfb",
     "game/effects/stat_resolver.gd": "fc32f4521bd4858cc2ea54ff4f8b096f835d0d5ad40a4905923c37eef11ba1e2",
-    "game/time_cost_game.gd": "8f1291a72d380c13abccb13a81f12ebcd2233847eb76ebdd825aa034e813c52a",
+    "game/time_cost_game.gd": "e2b38c5276e9ccf5ec808811289d5307c0f1f73a5decf10211497f34019ca170",
     "tools/combat_dataset_sources.json": "743dc0734b523663d750bca8be03c16cba434ab4745a6fe5e04650070c0d85f5",
-    "tools/export_combat_datasets.gd": "901909af015c79e5574164aa93288b6788eefd377731333494f9ae92b2ebe180"
+    "tools/export_combat_datasets.gd": "24bde84e91396549d47fa55ae5050a7704ff23fd971f7a8b573566ceb69a7671"
   }
 }

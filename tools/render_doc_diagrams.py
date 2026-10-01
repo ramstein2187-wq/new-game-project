@@ -12,7 +12,7 @@ FLOWS = {
     "character_overview": ("Character Overview — read-only presentation (M032)", [
         "C → CharacterScreen 열기 / modal gameplay 입력 차단",
         "현재 Actor: identity · HP · six attributes / stat breakdown",
-        "기본 attack: 기존 ability · proficiency · body situation query",
+        "기본 attack: resolved governing primary · proficiency · body query",
         "Body: Σ max(0, weight) / 실제 weight 합 × max(0, raw armor)",
         "MoveAction(RIGHT).cost_breakdown → 기존 ActionCostResolver",
         "scalar value model → 기본 결과 / hover 빠른 설명",
@@ -31,7 +31,10 @@ FLOWS = {
         "로그 기록 + scheduler.advance", "플레이어 Action이면 NPC 응답 루프"
     ]),
     "combat_resolution": ("근접 전투 판정", [
-        "AttackAction 유효성: 생존·기능·근접·코너", "d20 + ability + proficiency + situation ≥ DV",
+        "AttackAction 유효성: 생존·기능·근접·코너",
+        "base ability_rule / sparse Weapon Action override → 단일 primary",
+        "Actor → StatResolver → EffectStore → resolved score → int modifier",
+        "d20 + 단일 modifier + proficiency + situation ≥ 10 + resolved DEX mod",
         "Miss → 피해 0", "Hit → 가중치 기반 피격 부위 선택",
         "선택 부위 armor 여부", "effective armor로 Full / Partial / Bypass",
         "전달 피해를 부위 integrity에 적용", "같은 전달 피해를 HP에 1회 적용", "HP 0 → 사망"

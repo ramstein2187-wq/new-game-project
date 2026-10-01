@@ -381,6 +381,8 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
         for action in weapon.get("weapon_actions", []):
             percent = float(action.get("cost_percent", 0.0))
             changes = []
+            if action.get("ability_rule_override"):
+                changes.append(f"ability={action['ability_rule_override']}")
             if action.get("damage_type_override"):
                 changes.append(f"type={action['damage_type_override']}")
             if action.get("penetration_modifier"):
@@ -393,6 +395,7 @@ def _normalize_equipment_v2(data: dict[str, Any], path: Path) -> list[dict[str, 
                 "id": str(action.get("id", "")),
                 "display_name": str(action.get("display_name") or action.get("id") or "Unnamed Action"),
                 "cost_percent": percent,
+                "ability_rule_override": str(action.get("ability_rule_override", "")),
                 "resolved_cost": max(1, math.ceil(normal_cost * (1.0 + percent))),
                 "changes": ", ".join(changes),
             })

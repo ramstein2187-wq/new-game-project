@@ -8,10 +8,9 @@ static func read(game: TimeCostGame, actor_id: StringName = &"player") -> Dictio
 		return {}
 	var attributes: Array[Dictionary] = []
 	for stat in AbilityScores.NAMES:
-		var breakdown := actor.stat_breakdown(stat)
-		# AbilityScores.modifier accepts int; truncate only at this existing boundary.
+		var breakdown := actor.ability_modifier_breakdown(stat)
 		attributes.append({"id": stat, "value": breakdown.value,
-			"modifier": AbilityScores.modifier(int(breakdown.value)), "breakdown": breakdown})
+			"modifier": breakdown.modifier, "breakdown": breakdown})
 	var states: Array[Dictionary] = []
 	for part: Dictionary in actor.body.parts.values():
 		if part.current < part.maximum:

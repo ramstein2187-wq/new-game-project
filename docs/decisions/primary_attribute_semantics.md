@@ -52,6 +52,32 @@ Prefer expressing these substitutions through authored action, trait, ability, o
 
 A substitution should create a distinct decision or play style, not merely move the same bonus from one attribute to another without changing anything the player can perceive.
 
+## Current Runtime Foundation
+
+Implemented on `codex/primary-attribute-runtime` from CON/HP baseline `005c7a6`;
+main integration is separate. `AttackDefinition.ability_rule` accepts any one of
+STR/DEX/CON/PER/INT/WIL. Legacy `best_str_dex` selects the greater resolved modifier,
+with STR winning ties; it never sums STR and DEX.
+
+`WeaponActionDefinition.ability_rule_override` is sparse: empty inherits the base
+attack rule; a valid primary or legacy rule replaces it on the isolated execution
+copy. No actor/weapon names determine the attribute, and current production
+content has no newly authored PER/CON/INT/WIL attack or override.
+
+At each query, Actor resolves Base × (1 + Σ Percent) + Σ Flat through its existing
+EffectStore. `Actor.ability_modifier_breakdown()` converts only the final raw score
+using `AbilityScores.modifier(int(value))`. `TimeCostGame.attack_breakdown()` uses
+the chosen primary's breakdown for both hit and damage; `resolve_attack()` reads
+that same explanation. Defender difficulty remains `10 + resolved DEX modifier`.
+Effect add/remove/clear is reflected on the next check without a resolved cache.
+Character Overview/Inspector uses the same value data and source provenance.
+
+CON-to-Max-HP still uses raw resolved CON and its own final round/minimum boundary;
+it does not use the attack ability modifier. No HP formula, Body, proficiency,
+situation, cost, scheduler, AI, RNG order or event schema is redesigned here.
+PER Awareness, INT Understanding and WIL Control remain consumer guidance:
+detection, interactions, resistance, psionics and Trait/Skill systems are deferred.
+
 ## Attribute Boundaries
 
 ### STR — Force
@@ -146,4 +172,4 @@ A stat may be primarily valuable through world interaction, information, resista
 - [Attributes and effects foundation](attributes_effects.md) remains authoritative for score storage, modifiers, effect resolution, action-cost resolution, and current runtime wiring.
 - [Player Identity and Action Design](player_identity_and_action_design.md) remains authoritative for the broader principle that traits, equipment, bodies, origins, learned abilities, and accumulated change should create differentiation through reusable capabilities and actions.
 - [Physical combat, weapon actions and functional hands](physical_combat_weapon_actions.md) remains authoritative for current physical attack data and weapon-action behavior.
-- This decision defines **semantic boundaries and future content guidance**. CON-to-Max-HP runtime wiring and the Human Base HP 30 baseline are implemented together with this decision. Other combat formulas, detection, status resistance, AI, progression, and authored content remain unchanged until explicitly implemented.
+- This decision defines **semantic boundaries and future content guidance**. CON-to-Max-HP and Human Base HP 30 are implemented at `005c7a6`; M033 adds resolved governing-primary attacks/defender DEX and sparse Weapon Action substitution on its task branch. Detection, status resistance, AI, progression and new authored attack content remain deferred.

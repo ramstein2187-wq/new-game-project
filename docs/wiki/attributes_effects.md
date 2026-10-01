@@ -25,7 +25,11 @@ active_effects()는 기존 Definition snapshot, active_effect_instances()는 pro
 질의는 Store 내부 참조를 읽어 계산하며 Resource deep-copy나 resolved cache가 없다.
 StatCatalog는 여섯 primary와 MOVEMENT_SPEED ID만 정의하고 modifier validation을 담당한다.
 AbilityScores는 여전히 primary 값/배분을 담당한다.
-실제 gameplay 연결은 movement_speed이며 primary stat 질의는 향후 확장을 위한 API다.
+M031은 movement_speed를 연결했고, baseline `005c7a6`은 raw resolved CON으로 Max HP를
+연결했다. M033 작업 브랜치는 여섯 primary 중 authored governing 하나를 실제 공격의
+명중/피해에 연결하고 defender의 기존 DEX 난이도에 resolved DEX를 사용한다.
+Weapon Action은 선택적 ability_rule_override로 자기 행동의 governing rule만 바꾼다.
+Attack/Character Inspector는 Actor의 같은 query-time modifier breakdown을 읽는다.
 
 Stat 공식은 **Base × (1 + Σ Percent) + Σ Flat**이다. Percent들은 서로 합산하고
 base에만 적용한다. STR 10, +20%, +30%, flat +2는 17이다. movement_speed도 같다.
@@ -44,7 +48,10 @@ unrounded/rounded/final cost까지 보여준다. 기존 Weapon Action은 old val
 최종 minimum 1을 쓴다. 비양수 이동 speed는 Move를 거부한다.
 Action-time 조절은 rare/legible/strong 기믹을 위한 기반이며 일반 성장 보너스로 전제하지 않는다.
 
-Body 부상, 공격/방어, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
+Body 부상, 공격/방어 수식, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
+Primary Effects는 governing modifier와 defender DEX 입력을 바꾸지만, PER가 자동으로
+일반 Accuracy를 올리거나 INT가 AI 정책을 개선하지 않는다. CON/HP 공식·최종 round·
+최소1·damage 보존·사망 후 비부활도 유지한다. Detection/interaction/resistance는 deferred다.
 Global Quickness, DEX 전체 속도, duration/stacking, Skill/Trait/Thought 시스템은 없다.
 
 [설계 결정](../decisions/attributes_effects.md),
