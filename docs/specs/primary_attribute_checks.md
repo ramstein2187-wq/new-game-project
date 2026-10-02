@@ -2,9 +2,9 @@
 status = "구현 중"
 areas = ["코어", "전투"]
 type = "알고리즘"
-systems = "PrimaryAttributeCheck / Actor / AttackDefinition"
+systems = "Actor.primary_attribute_check / AttackDefinition"
 milestones = "M033"
-code_paths = ["game/combat/primary_attribute_check.gd", "game/actors/actor.gd", "game/combat/attack_definition.gd", "game/time_cost_game.gd"]
+code_paths = ["game/actors/actor.gd", "game/combat/attack_definition.gd", "game/time_cost_game.gd"]
 +++
 # Primary Attribute Runtime Check
 
@@ -15,7 +15,7 @@ Force/Execution/Endurance/Awareness/Understanding/Control이다.
 authored primary
    + optional explicit alternate
               ↓
-PrimaryAttributeCheck
+Actor.primary_attribute_check
    → resolved_stat(primary/alternate)
    → choose exactly one
    → AbilityScores.modifier(int(score))
