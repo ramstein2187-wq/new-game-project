@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="640" viewBox="0 0 760 640">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
+<rect width="760" height="640" fill="white"/>
+<g font-family="sans-serif" text-anchor="middle" fill="#222">
+<text x="380" y="36" font-size="24" font-weight="700">CON / Endurance → Max HP (M034)</text>
+<g font-size="16">
+<rect x="40" y="65" width="320" height="70" rx="10" fill="#f7f7f8" stroke="#555"/>
+<text x="200" y="95">ActorDefinition.max_hp</text><text x="200" y="118">Authored Base HP (human 30)</text>
+<rect x="400" y="65" width="320" height="70" rx="10" fill="#f7f7f8" stroke="#555"/>
+<text x="560" y="95">Actor base CON + owned Effects</text><text x="560" y="118">Existing stat resolver</text>
+<rect x="100" y="185" width="560" height="75" rx="10" fill="#f7f7f8" stroke="#555"/>
+<text x="380" y="215">CON = Base CON × (1 + Σ Percent) + Σ Flat</text>
+<text x="380" y="240">HP scaling = 0.05 × (resolved CON − 10)</text>
+<rect x="80" y="310" width="600" height="75" rx="10" fill="#f7f7f8" stroke="#555"/>
+<text x="380" y="340">Max HP = max(1, round(Base HP × (1 + HP scaling)))</text>
+<text x="380" y="365">Pure Actor query → Overview / fresh dataset export</text>
+<rect x="80" y="435" width="600" height="75" rx="10" fill="#f7f7f8" stroke="#555"/>
+<text x="380" y="465">Living HP = max(0, Max HP − retained damage)</text>
+<text x="380" y="490">Maximum changes preserve damage; death stays latched</text>
+<rect x="80" y="560" width="600" height="55" rx="10" fill="#f7f7f8" stroke="#555"/>
+<text x="380" y="593">Lethal mutation → game_over / NPC unscheduling, body retained</text>
+</g></g>
+<g fill="none" stroke="#555" stroke-width="2" marker-end="url(#arrow)">
+<path d="M200 135 V285 H330 V305"/><path d="M560 135 V180"/>
+<path d="M380 260 V305"/><path d="M380 385 V430"/><path d="M380 510 V555"/>
+</g></svg>

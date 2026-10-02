@@ -3,7 +3,7 @@ status = "구현 완료"
 areas = ["UI/로그", "코어", "전투"]
 type = "상태 모델"
 systems = "CharacterScreen / CharacterOverviewQuery / BodyInstance"
-milestones = "M032 / M033"
+milestones = "M032 / M033 / M034"
 code_paths = ["game/ui/", "game/combat/body_instance.gd", "game/time_cost_game.gd", "scenes/ui/character_screen.tscn"]
 diagram = "docs/diagrams/character_overview.svg"
 +++
@@ -11,7 +11,7 @@ diagram = "docs/diagrams/character_overview.svg"
 
 ![Character Overview query](../diagrams/character_overview.svg)
 
-M032 task branch 구현이다. 새로운 gameplay rule/stat/Effect 기능은 없다.
+M032 read-only presentation이며 M033/M034의 authoritative runtime query를 사용한다.
 
 ## Query 경계
 
@@ -21,10 +21,12 @@ scalar/Dictionary/Array만 반환한다. Resource/Actor 참조를 반환하거�
 Label에 표현하고 반환 모델을 버린다. Inspector 선택 key만 presentation state다.
 
 - Identity: Actor.display_name / definition.display_name.
+- Health: Actor.hp / Actor.max_hp / Actor.max_hp_breakdown. M034 CON/Endurance
+  resolver trace와 Base HP/HP 기여율/최종 Max HP를 표현할 뿐 UI에서 계산하지 않는다.
+  [공식/상태 정책](con_max_hp.md).
 - Attributes: Actor.stat_breakdown(stat), AbilityScores.modifier(int(value)).
   M031 공식 Base × (1 + Σ Percent) + Σ Flat/ordered steps를 그대로 읽는다.
   UI에서 percent/flat을 재해석해 최종 stat을 계산하지 않는다.
-- Health: Actor.hp/max_hp. 새 건강 등급 또는 CON-MaxHP 규칙이 없다.
 - Attack: TimeCostGame.attack_breakdown(). 기본 attack만 표시하고 target은 없다.
 - Armor: BodyInstance.average_armor_breakdown().
 - Move: MoveAction(RIGHT).cost_breakdown(), 기존 M031 schema를 그대로 표시한다.

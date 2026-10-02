@@ -10,7 +10,8 @@ extends Resource
 @export var equipped_armor: Array[ArmorDefinition] = []
 @export var natural_armor := 0
 @export var natural_armor_profile: StringName = ArmorProfileCatalog.SOFT
-@export var max_hp := 50
+# Authored Base HP; Actor.max_hp derives the runtime maximum from resolved CON.
+@export var max_hp := 30
 @export var initial_scores: Dictionary = {}
 @export var ability_points := 12
 @export var proficiency_bonus := 2

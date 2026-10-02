@@ -1,6 +1,12 @@
 class_name Actor
 extends RefCounted
 
+signal max_hp_depleted(actor: Actor)
+
+const CON_HP_BASELINE := 10.0
+const CON_HP_PERCENT_PER_POINT := 0.05
+const MIN_MAX_HP := 1
+
 var id: StringName:
 	get: return _id
 var _id: StringName
@@ -8,8 +14,17 @@ var definition: ActorDefinition
 var display_name: String
 var position: Vector2i
 var facing := Vector2i.RIGHT
-var hp: int
-var max_hp: int
+var hp: int:
+	get: return 0 if _dead else maxi(0, max_hp - _damage_taken)
+	set(value):
+		var current := clampi(value, 0, max_hp)
+		_damage_taken = max_hp - current
+		_dead = current == 0
+# Derived on query; no writable runtime maximum or second CON authority.
+var max_hp: int:
+	get: return int(max_hp_breakdown().value)
+var _damage_taken := 0
+var _dead := false
 var abilities := AbilityScores.new()
 var body: BodyInstance
 # Instance copy supports prototype/debug combat tuning without mutating siblings.
@@ -32,8 +47,6 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 	definition = prototype
 	position = cell
 	display_name = prototype.display_name if label.is_empty() else label
-	max_hp = prototype.max_hp
-	hp = max_hp
 	species = prototype.combat_species.duplicate(true)
 	if prototype.equipped_weapon != null:
 		set_weapon(prototype.equipped_weapon)
@@ -46,6 +59,7 @@ func _init(actor_id: StringName, prototype: ActorDefinition, cell: Vector2i, lab
 	for ability in AbilityScores.NAMES:
 		abilities.scores[ability] = prototype.initial_scores.get(ability, 10)
 	abilities.remaining = prototype.ability_points
+	abilities.changed.connect(_on_max_hp_changed)
 	ai_policy = prototype.ai_policy
 	aggression = prototype.aggression
 
@@ -55,16 +69,23 @@ func is_alive() -> bool:
 # A definition ID has one active instance. Duplicate IDs reject; no stacking.
 # Deep copies prevent changes to a caller's Resource or sibling Actor leaking in.
 func add_effect(effect: GameplayEffectDefinition, source_id: StringName = &"system") -> bool:
-	return _effect_store.add(effect, source_id)
+	if not _effect_store.add(effect, source_id):
+		return false
+	_on_max_hp_changed()
+	return true
 
 func remove_effect(effect_id: StringName) -> bool:
-	return _effect_store.remove(effect_id)
+	if not _effect_store.remove(effect_id):
+		return false
+	_on_max_hp_changed()
+	return true
 
 func has_effect(effect_id: StringName) -> bool:
 	return _effect_store.has(effect_id)
 
 func clear_effects() -> void:
 	_effect_store.clear()
+	_on_max_hp_changed()
 
 func active_effects() -> Array[GameplayEffectDefinition]:
 	return _effect_store.definition_snapshots()
@@ -83,6 +104,26 @@ func apply_action_cost_modifiers(base: float, tags: Array[StringName], intrinsic
 
 func resolved_stat(stat: StringName) -> float:
 	return float(stat_breakdown(stat).value)
+
+func max_hp_breakdown() -> Dictionary:
+	# Same resolver as resolved_stat(CON); retain its trace for the Inspector.
+	var con_breakdown := stat_breakdown(StatCatalog.CON)
+	var con := float(con_breakdown.value)
+	var percent_total := CON_HP_PERCENT_PER_POINT * (con - CON_HP_BASELINE)
+	var unrounded := float(definition.max_hp) * (1.0 + percent_total)
+	var valid: bool = con_breakdown.valid and is_finite(unrounded)
+	var rounded := roundi(unrounded) if valid else MIN_MAX_HP
+	return {"valid": valid, "base_hp": definition.max_hp, "con": con,
+		"con_breakdown": con_breakdown, "baseline_con": CON_HP_BASELINE,
+		"percent_per_point": CON_HP_PERCENT_PER_POINT, "percent_total": percent_total,
+		"unrounded": unrounded, "rounded": rounded, "minimum": MIN_MAX_HP,
+		"value": maxi(MIN_MAX_HP, rounded)}
+
+func _on_max_hp_changed() -> void:
+	# Preserve absolute damage, not HP ratio. Maximum growth never revives.
+	if not _dead and hp == 0:
+		_dead = true
+		max_hp_depleted.emit(self)
 
 # Gameplay checks consume one resolved primary attribute. An alternate must be
 # supplied explicitly by the authored rule; it is never inferred from a domain.

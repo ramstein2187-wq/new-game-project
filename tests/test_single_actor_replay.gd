@@ -1,17 +1,40 @@
 extends SceneTree
 
-# Fixture originated before M019 and is intentionally versioned when a milestone
-# changes production combat semantics. --capture remains explicit.
-const FIXTURE := "res://tests/fixtures/m027_single_rat_replay.sha256"
+# Original CON/HP branch fixture is retained, not recaptured to fit current output.
+const FIXTURE := "res://tests/fixtures/primary_attribute_hp_single_rat_replay.sha256"
+const PRE_HP_FIXTURE := "res://tests/fixtures/m027_single_rat_replay.sha256"
 const LEGACY_FIXTURE := "res://tests/fixtures/m018_single_rat_replay.sha256"
 
 const ReplayGame := preload("res://tests/support/fixed_combat_game.gd")
 
 
 func _init() -> void:
+	var historical := _collect_runs(50)
+	if JSON.stringify(historical, "\t").sha256_text() != FileAccess.get_file_as_string(PRE_HP_FIXTURE).strip_edges():
+		push_error("Replay drift beyond intentional Human Base HP 50 -> 30")
+		quit(1)
+		return
+	if not _legacy_matches(historical):
+		push_error("Historical normalized M024 mechanics drifted")
+		quit(1)
+		return
+	var serialized := JSON.stringify(_collect_runs(), "\t").sha256_text()
+	if "--capture" in OS.get_cmdline_user_args():
+		var file := FileAccess.open(FIXTURE, FileAccess.WRITE)
+		file.store_string(serialized)
+	elif FileAccess.get_file_as_string(FIXTURE).strip_edges() != serialized:
+		push_error("CON/HP replay changed: positions, damage, body, AI, time or RNG (actual %s)" % serialized)
+		quit(1)
+		return
+	print("PASS: original CON/HP replay, M027 and normalized M024 compatibility (3 seeds each)")
+	quit(0)
+
+
+func _collect_runs(player_base_hp: int = -1) -> Array:
 	var runs: Array = []
 	for seed_value in [17017, 82, 999]:
 		var game := ReplayGame.new()
+		game.player_base_hp = player_base_hp
 		game.combat_seed = seed_value
 		game.reset()
 		game.door_open = true
@@ -35,6 +58,10 @@ func _init() -> void:
 				str(game.combat_rng.state), game.bodies[&"player"].parts,
 				game.bodies[&"rat"].parts, events])
 		runs.append(frames)
+	return runs
+
+
+func _legacy_matches(runs: Array) -> bool:
 	# These unarmored actors must keep the exact M024 mechanics/RNG. Normalize
 	# only M027 telemetry and renamed damage types to the prior event schema.
 	var legacy_runs: Array = runs.duplicate(true)
@@ -51,18 +78,4 @@ func _init() -> void:
 					data.erase(key)
 				if data.damage_type in [AttackDefinition.DAMAGE_CUT, AttackDefinition.DAMAGE_PUNCTURE]:
 					data.damage_type = "Sharp"
-	if JSON.stringify(legacy_runs, "\t").sha256_text() != FileAccess.get_file_as_string(LEGACY_FIXTURE).strip_edges():
-		push_error("M027 unarmored mechanics drifted from M024, beyond telemetry/type renaming")
-		quit(1)
-		return
-	var serialized := JSON.stringify(runs, "\t").sha256_text()
-	if "--capture" in OS.get_cmdline_user_args():
-		var file := FileAccess.open(FIXTURE, FileAccess.WRITE)
-		file.store_string(serialized)
-	else:
-		if FileAccess.get_file_as_string(FIXTURE).strip_edges() != serialized:
-			push_error("Single-rat replay changed: positions, damage, body, AI events, clock or RNG (actual %s)" % serialized)
-			quit(1)
-			return
-	print("PASS: M027 replay and normalized M024 mechanics (3 seeds)")
-	quit(0)
+	return JSON.stringify(legacy_runs, "\t").sha256_text() == FileAccess.get_file_as_string(LEGACY_FIXTURE).strip_edges()

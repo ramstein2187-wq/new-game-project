@@ -107,8 +107,12 @@ static func inspection(model: Dictionary, key: StringName) -> Dictionary:
 					_modifier(attribute.modifier, "%+d" % attribute.modifier)]))
 	match key:
 		&"health":
-			return {"title": "HEALTH", "value": "%d / %d" % [model.hp, model.max_hp],
-				"body": "Current HP   %d\nMaximum HP   %d\n\nSources: current health and starting maximum health.\nCON does not modify maximum HP in the current rules." % [model.hp, model.max_hp]}
+			var h: Dictionary = model.max_hp_breakdown
+			var con_percent := float(h.percent_total) * 100.0
+			return _details("HEALTH", "%d / %d" % [model.hp, model.max_hp], _format_spans(
+				"Current HP   %s\n\nBase HP   %s\n\nCON / Endurance\n%s\nResolved CON   %s\nCON HP scaling   %s\n" + RESULT_DIVIDER + "\nMaximum HP   %s\n\nEach resolved CON point above or below 10 changes Base HP by 5%%. Round once, minimum 1.\nMaximum changes preserve damage taken; decreases can kill. Later increases do not revive.", [
+					_result(str(model.hp)), number(h.base_hp), _steps_spans(h.con_breakdown), number(h.con),
+					_modifier(con_percent, signed(con_percent) + "%"), _result(str(model.max_hp))]))
 		&"attack", &"damage", &"penetration":
 			var a: Dictionary = model.attack
 			if not a.get("valid", false):

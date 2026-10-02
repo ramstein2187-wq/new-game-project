@@ -186,6 +186,8 @@ primary Stat Effects affect those checks consistently. With no primary Effects, 
 numbers and RNG order are unchanged.
 
 `movement_speed` remains an independent non-primary stat. DEX/Execution has no global
-movement-cost, weapon-speed, initiative or Quickness effect. CON does not automatically
-change HP, and the other semantic domains do not create derived stats by implication.
-Those mechanics require separate explicit design and wiring.
+movement-cost, weapon-speed, initiative or Quickness effect. Semantic domains do not
+create derived stats by implication; those require explicit design and wiring.
+M034 explicitly connects CON/Endurance to Max HP as a downstream resolved-stat consumer,
+not a primary check. See [CON Max HP](con_max_hp.md) for the preserved original formula,
+Base HP/runtime ownership and damage-preserving lifecycle policy.

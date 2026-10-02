@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["UI/로그", "코어", "전투", "시간/액션"]
-milestones = "M032 / M033"
+milestones = "M032 / M033 / M034"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M032_character_overview.md"
 icon = "🧾"
 +++
@@ -62,6 +62,12 @@ Penetration, Damage Type, armor profile 및 특정 공격자는 계산에 들어
 Move Time은 `MoveAction(Vector2i.RIGHT).cost_breakdown()`을 읽으며 destination
 유효성 검사는 하지 않는다. 불능 이동은 0 μt 대신 Unavailable로 표시한다.
 Inspector는 M031 resolver의 단계, Effect provenance, 최종 ceil/minimum을 설명한다.
+
+M034 task branch의 Health는 Actor.hp / Actor.max_hp / Actor.max_hp_breakdown을
+그대로 읽는다. Inspector는 Base HP, CON/Endurance의 base와 Effect 단계/출처,
+resolved CON, HP 기여율, 최종 Max HP를 설명한다. UI에는 HP 계산식이나 캐시가 없다.
+최대치 변경은 받은 피해량을 보존하며 감소로 사망할 수 있고 이후 증가로 부활하지 않는다.
+[HP 공식과 상태 정책](../specs/con_max_hp.md). 기존 Overview 범위와 입력 동작은 유지한다.
 
 능력치는 `Actor.stat_breakdown()`의 resolved 값을 표시한다. Modifier는 기존
 `AbilityScores.modifier(int(value))`이며 소수 점수는 기존 int API 경계에서 버린다.

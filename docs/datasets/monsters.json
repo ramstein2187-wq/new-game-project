@@ -12,6 +12,9 @@
     "threat_rating": null,
     "unspecified_ability_score": 10
   },
+  "notes": [
+    "hp is fresh Actor resolved Max HP with authored initial CON and no active Effects; ActorDefinition.max_hp is Base HP."
+  ],
   "records": [
     {
       "abilities": {
