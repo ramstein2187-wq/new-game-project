@@ -24,10 +24,10 @@ static var RAT_INTERACT_COST: int:
 static var RAT_WAIT_COST: int:
 	get: return WaitAction.BASE_COST
 
-static var PLAYER_MAX_HP: int:
-	get: return ActorDefinition.human_default().max_hp
-static var RAT_MAX_HP: int:
-	get: return ActorDefinition.rat_common().max_hp
+var PLAYER_MAX_HP: int:
+	get: return get_actor(&"player").max_hp
+var RAT_MAX_HP: int:
+	get: return get_actor(&"rat").max_hp
 
 const CARDINAL_DIRECTIONS: Array[Vector2i] = [
 	Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT,
@@ -108,6 +108,8 @@ func reset() -> void:
 	game_over = false
 	simulation_error = ""
 	_create_initial_actors()
+	for actor in actors.all():
+		_observe_max_hp_depletion(actor)
 	last_action_cost = 0
 	last_response_count = 0
 	combat_log.clear()
@@ -400,7 +402,20 @@ func register_actor(actor: Actor, ready_time: int = -1) -> bool:
 	if not scheduler.register_actor(actor.id, ready):
 		actors.remove(actor.id)
 		return false
+	_observe_max_hp_depletion(actor)
 	return true
+
+
+func _observe_max_hp_depletion(actor: Actor) -> void:
+	var callback := _on_max_hp_depleted
+	if not actor.max_hp_depleted.is_connected(callback):
+		actor.max_hp_depleted.connect(callback)
+
+
+func _on_max_hp_depleted(actor: Actor) -> void:
+	# Retained Actors from reset/removal must not affect the new registry.
+	if get_actor(actor.id) == actor:
+		damage_actor(actor.id, 0)
 
 
 func remove_actor(actor_id: StringName) -> bool:

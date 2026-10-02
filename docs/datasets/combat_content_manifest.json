@@ -2,7 +2,7 @@
   "generated_by": "tools/export_combat_datasets.gd",
   "outputs": {
     "docs/datasets/equipment.json": "907493075dec947ac64dd6c8bb21097e473a79d967375a958fce4e79e28be9d3",
-    "docs/datasets/monsters.json": "6284c24ddabc1f6d122cc6157930fe1128ee33759a13c91cd286cc8cdf7cf8f7"
+    "docs/datasets/monsters.json": "26c9b772e740776ed78e06521ae7805b9ea56aa05dc837aad675036b8ec02f64"
   },
   "sources": {
     "content/actors/armored_raider.tres": "838a05d427144ba9d02013e6869425974e78f697f31f2c39c129de4fe299e260",
@@ -44,9 +44,9 @@
     "game/actions/move_action.gd": "9412efe142daaeaf46e008a777acf9088f48b998c36ab4ffdff50a46a14c5953",
     "game/actions/time_action.gd": "94ed3c241b944c2c162403334441fbe9de08b9f562c366dce471c663a43cb6af",
     "game/actions/wait_action.gd": "3aa92d36605ac404c6da7b40aa0afc089a09aaf006d780ccd78e708c240e81ba",
-    "game/actors/actor.gd": "f12c21b641f12f5e470f7668703eaa62f49398ccc889a5d8dd4b85b8ab4837b6",
-    "game/actors/actor_definition.gd": "d94cbd2a5c9c21481b804c27e42896b11466cc4d1f375548772bd18ed95eeb0c",
-    "game/combat/ability_scores.gd": "78a25ce2c1867b1080ec50c74dbc08c8bf4f1f75f2eca7e09892969478878fc6",
+    "game/actors/actor.gd": "a0d115ca297835a5d350f0056cb2eafbe09d5de5d627b662b92ebe63c9ddad34",
+    "game/actors/actor_definition.gd": "293239edaee4bbcc110c11fdad1c9ecea319d245fdb6ee21deffb5998cf7bb0e",
+    "game/combat/ability_scores.gd": "d6e36909fa49c8a9332126206d64eb27ca96828a95c4fc2d9f419bdffa3aef1f",
     "game/combat/armor_definition.gd": "56bc55c31eaeb981c8ab58b5712db7d6089af8a049989b2cc5aade7fbc93dc2a",
     "game/combat/armor_profile_catalog.gd": "e5bd24d8b1482019f65ba559595862e4c0ae815c720c26f27b4647c4e63f6b3a",
     "game/combat/attack_definition.gd": "b82259bbf05244b15b0f85026bfa2d4db213bbca79c0a5c8124c5bd5151092bd",
@@ -64,8 +64,8 @@
     "game/effects/stat_catalog.gd": "edafeb403c3527e2168c4711dfc1ca594a73415c11e86fcfde2d637aa73aeab5",
     "game/effects/stat_modifier.gd": "ca7f326041e01c012eb4b3bd36e08c0e9f0e9242ea5e836df5d9fd5f8a1a6cfb",
     "game/effects/stat_resolver.gd": "fc32f4521bd4858cc2ea54ff4f8b096f835d0d5ad40a4905923c37eef11ba1e2",
-    "game/time_cost_game.gd": "f4b2240019257953240b283d927023d9d6c342e88df90cb3651bee99af9d1643",
+    "game/time_cost_game.gd": "79604eb6a8ecadecf62b23b25da7a13e048a09e7ab537334243fcf0780947278",
     "tools/combat_dataset_sources.json": "743dc0734b523663d750bca8be03c16cba434ab4745a6fe5e04650070c0d85f5",
-    "tools/export_combat_datasets.gd": "31960db35f82e9a9b0e10d4f9dfc011053ae68c39ee3ba86dded2bc4f895578b"
+    "tools/export_combat_datasets.gd": "6bcec7116afb3defb1a33291f926f19e3c635c83b63a97110b636dfeacde08df"
   }
 }

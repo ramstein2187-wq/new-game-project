@@ -1,6 +1,8 @@
 class_name AbilityScores
 extends RefCounted
 
+signal changed
+
 const NAMES := StatCatalog.PRIMARY
 var scores: Dictionary = {}
 var remaining := 12
@@ -13,6 +15,7 @@ func reset() -> void:
 	for ability in NAMES:
 		scores[ability] = 10
 	remaining = 12
+	changed.emit()
 
 static func modifier(score: int) -> int:
 	return floori((score - 10) / 2.0)
@@ -28,4 +31,5 @@ func allocate(ability: StringName, delta: int) -> bool:
 		return false
 	scores[ability] = next
 	remaining -= delta
+	changed.emit()
 	return true

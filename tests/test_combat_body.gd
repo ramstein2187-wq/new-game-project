@@ -269,6 +269,11 @@ func _test_actions_and_ai() -> void:
 
 func _test_attack_causes_function_changes() -> void:
 	var game := TimeCostGame.new()
+	# Isolate limb capability from the new 30-HP human survival boundary.
+	var durable := ActorDefinition.human_default()
+	durable.max_hp = 50
+	game.actors.remove(&"player")
+	game.actors.register(Actor.new(&"player", durable, Vector2i(2, 3)))
 	Fixture.guaranteed_hits(game)
 	# Control target selection only; damage and capabilities use production code.
 	for part: Dictionary in game.bodies[&"player"].parts.values():
@@ -313,7 +318,7 @@ func _test_ui() -> void:
 		game.bodies[&"player"].apply_damage(&"left_arm", 10)
 		game.damage_actor(&"player", 5)
 		panel.find_child("ResetAbilities", true, false).pressed.emit()
-		expect(game.abilities[&"player"].remaining == 12 and game.player_hp == 45 and game.bodies[&"player"].parts.right_arm.current == 10, "UI reset preserves HP/wounds")
+		expect(game.abilities[&"player"].remaining == 12 and game.player_hp == game.PLAYER_MAX_HP - 5 and game.bodies[&"player"].parts.right_arm.current == 10, "UI reset preserves HP/wounds")
 		expect(panel.body_status.text.contains("impaired"), "Injury visible in panel")
 		expect(plus.focus_mode == Control.FOCUS_NONE, "Allocation cannot capture wait hotkey")
 		var scroll: ScrollContainer = scene.get_node("CanvasLayer/LogScroll")
@@ -326,7 +331,7 @@ func _test_ui() -> void:
 			expect(panel.get_global_rect().end.y <= scroll.position.y, "Generated-map panel stays above log")
 		game.reset()
 		panel.refresh()
-		expect(game.bodies[&"player"].parts.right_arm.current == 20 and game.player_hp == 50, "Full reset restores bodies and HP")
+		expect(game.bodies[&"player"].parts.right_arm.current == 20 and game.player_hp == game.PLAYER_MAX_HP, "Full reset restores bodies and HP")
 		if scene.has_method("regenerate"):
 			scene.regenerate(4321)
 			expect(panel.game == scene.game and panel.game != game, "Generated map replaces panel's game binding")

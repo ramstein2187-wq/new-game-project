@@ -51,8 +51,8 @@ func _init() -> void:
 	expect(game.register_actor(new_npc) and game.scheduler.get_ready_time(new_npc.id) == game.world_time, "New actor starts at current world time")
 	game.damage_actor(new_npc.id, new_npc.max_hp)
 	expect(game.get_actor(new_npc.id) == new_npc and not game.scheduler.has_actor(new_npc.id), "Death retains body and removes schedule")
-	game.player_hp = 31
-	expect(game.get_actor(&"player").hp == 31, "Legacy HP accessor forwards ownership")
+	game.player_hp = 21
+	expect(game.get_actor(&"player").hp == 21, "Legacy HP accessor forwards ownership")
 	game.get_actor(&"player").hp = 29
 	expect(game.player_hp == 29 and game.bodies[&"player"] == game.get_actor(&"player").body, "Compatibility views reflect Actor state")
 	if failures == 0:

@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["코어", "시간/액션", "전투"]
-milestones = "M031 / M033"
+milestones = "M031 / M033 / M034"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/m031-attributes-effects-foundation/docs/milestones/M031_attributes_effects_foundation.md"
 icon = "🧩"
 +++
@@ -52,8 +52,18 @@ Action-time 조절은 rare/legible/strong 기믹을 위한 기반이며 일반 �
 
 Body 부상, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
 공격/방어의 수식과 RNG 순서는 유지하되 primary modifier 입력만 resolved 공통 경로로
-통일한다. Global Quickness, DEX 전체 속도, CON 자동 MaxHP, duration/stacking,
+통일한다. Global Quickness, DEX 전체 속도, duration/stacking,
 Skill/Trait/Thought 시스템은 없다.
+
+M034 `codex/con-hp-scaling-integration`에서는 CON/Endurance를 명시적인 Max HP
+derived mechanic에 연결했다. `max(1, round(Base HP × (1 + 0.05 × (resolved CON − 10))))`이며
+Human Base HP는 30이다. ActorDefinition.max_hp는 content Base HP, Actor.max_hp는
+기존 CON resolver에서 조회한 runtime 값이다. 판정용 ability modifier로 바꾸거나
+primary_attribute_check를 재사용하지 않는다. Effect Flat/Percent는 기존 CON 계산을
+거쳐 HP에 반영된다. 받은 피해량을 보존해 최대치 증가/감소만큼 현재 HP도 바뀌고,
+감소로 사망할 수 있지만 이후 증가로 자동 부활하지 않는다. 기존 배분/reset API도
+같은 정책을 사용한다. [HP 결정/정책](../decisions/con_max_hp.md),
+[상태/공식 상세](../specs/con_max_hp.md). main 통합과 수동 평가는 별도다.
 
 [설계 결정](../decisions/attributes_effects.md),
 [M031 검증/이동표](../milestones/M031_attributes_effects_foundation.md).

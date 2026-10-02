@@ -86,6 +86,7 @@ func monsters(data: CombatContentData) -> Dictionary:
 		"defaults": {"unspecified_ability_score": AbilityScores.new().scores[&"STR"],
 			"proficiency_bonus": defaults.proficiency_bonus, "normal_melee_action_cost": AttackAction.BASE_COST,
 			"threat_rating": null, "taxonomy": {"origin": null, "composition": null, "cognition": null, "combat_roles": [], "behavior_motivations": []}},
+		"notes": ["hp is fresh Actor resolved Max HP with authored initial CON and no active Effects; ActorDefinition.max_hp is Base HP."],
 		"records": []}
 	# Preserve the established dataset order with Rat first.
 	var entries: Array[CombatActorContent] = []
@@ -105,7 +106,7 @@ func monsters(data: CombatContentData) -> Dictionary:
 		for key in AbilityScores.NAMES:
 			abilities[key] = runtime.abilities.scores[key]
 		var record := {"id": item.type_id, "name": item.display_name, "body_template_id": entry.body_template_id,
-			"hp": item.max_hp, "abilities": abilities, "movement_speed": item.movement_speed,
+			"hp": runtime.max_hp, "abilities": abilities, "movement_speed": item.movement_speed,
 			"move": [MoveAction.new(Vector2i.RIGHT).get_cost(game, runtime.id), MoveAction.new(Vector2i(1, 1)).get_cost(game, runtime.id)],
 			"natural_armor": item.natural_armor, "natural_armor_profile": item.natural_armor_profile,
 			"ai_policy": item.ai_policy, "aggression": item.aggression, "body_size": entry.body_size,

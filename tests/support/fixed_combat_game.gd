@@ -1,9 +1,13 @@
 extends TimeCostGame
 
+var player_base_hp := -1
+
 # Synthetic historical scheduling/replay fixture, independent of authored balance.
 # Deliberate fixed inputs; never update these when tuning production content.
 func _create_initial_actors() -> void:
 	var player := ActorDefinition.new()
+	if player_base_hp > 0:
+		player.max_hp = player_base_hp
 	player.combat_species = CombatSpecies.human()
 	player.equipped_weapon = WeaponDefinition.create(&"longsword", "Longsword",
 		AttackDefinition.create(&"longsword_attack", "Longsword strike", 1, 8,
