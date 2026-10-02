@@ -65,8 +65,3 @@ func attribute_check_for(actor: Actor) -> Dictionary:
 	if ability_rule == ABILITY_BEST_STR_DEX:
 		return actor.primary_attribute_check(ABILITY_STR, ABILITY_DEX)
 	return actor.primary_attribute_check(ability_rule)
-
-
-func ability_for(actor: Actor) -> StringName:
-	var check := attribute_check_for(actor)
-	return check.selected if check.valid else &""
