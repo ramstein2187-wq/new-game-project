@@ -1,7 +1,7 @@
 +++
-status = "구현 완료"
+status = "구현 중"
 areas = ["UI/로그", "코어", "전투", "시간/액션"]
-milestones = "M032 — main"
+milestones = "M032 / M033"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M032_character_overview.md"
 icon = "🧾"
 +++
@@ -65,10 +65,14 @@ Inspector는 M031 resolver의 단계, Effect provenance, 최종 ceil/minimum을 
 
 능력치는 `Actor.stat_breakdown()`의 resolved 값을 표시한다. Modifier는 기존
 `AbilityScores.modifier(int(value))`이며 소수 점수는 기존 int API 경계에서 버린다.
-**M031에서 primary attribute Effects는 아직 combat에 연결되지 않았다.** 공격은
-실제 combat이 사용하는 base AbilityScores/ability_for/proficiency/부상 situation을
-설명하며, Inspector도 이 차이를 명시한다. 독립 Accuracy/Attack Bonus/Dodge stat은
-없다. Attack Bonus는 기본 공격의 설명/hover 안에서만 기존 판정 구성으로 제시한다.
+M033 task branch부터 공격도 같은 resolved primary 경로를 사용한다. 각 판정은
+Primary Attribute 하나만 소비하며, `best_str_dex`처럼 규칙이 alternate를 명시한
+경우에만 더 높은 modifier의 능력치 하나를 선택한다. 두 modifier를 합치지 않는다.
+STR/DEX/CON/PER/INT/WIL의 관할 의미는 Force/Execution/Endurance/Awareness/
+Understanding/Control이며 Inspector에서 현재 공격 능력치의 domain을 함께 설명한다.
+DEX/Execution은 `movement_speed`와 분리되어 Move Time을 자동 변경하지 않는다.
+독립 Accuracy/Attack Bonus/Dodge stat은 없다. Attack Bonus는 기본 공격의
+설명/hover 안에서만 기존 판정 구성으로 제시한다.
 
 화면은 open/선택/host refresh 때 현재 runtime을 다시 읽는다. HP/stat/armor 캐시,
 게임플레이 상태 복사본, modifier 재계산, live Effect Resource 참조는 없다.
