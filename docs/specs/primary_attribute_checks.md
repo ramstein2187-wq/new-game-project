@@ -1,5 +1,5 @@
 +++
-status = "구현 중"
+status = "구현 완료"
 areas = ["코어", "전투"]
 type = "알고리즘"
 systems = "Actor.primary_attribute_check / AttackDefinition"

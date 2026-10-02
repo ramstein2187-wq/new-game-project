@@ -1,5 +1,5 @@
 +++
-status = "구현 중"
+status = "구현 완료"
 areas = ["UI/로그", "코어", "전투", "시간/액션"]
 milestones = "M032 / M033"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/milestones/M032_character_overview.md"

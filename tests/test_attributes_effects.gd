@@ -107,7 +107,7 @@ func _primary_runtime_checks() -> void:
 	rat.add_effect(_effect(&"evasive_execution", [_stat(&"training", StatCatalog.DEX, ModifierOperation.Kind.FLAT, 4.0)]), &"trait:evasive_execution")
 	var defense := rat.primary_attribute_check(StatCatalog.DEX)
 	var result := game.resolve_attack(player.id, rat.id)
-	expect(result.defense_ability == StatCatalog.DEX and result.defense_ability_modifier == defense.modifier and result.difficulty == 10 + defense.modifier, "Defender difficulty uses resolved DEX through the same one-primary path")
+	expect(result.difficulty == 10 + defense.modifier, "Defender difficulty uses resolved DEX through the same one-primary path")
 
 func _golden() -> void:
 	var golden: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/m031_no_effect_golden.json"))

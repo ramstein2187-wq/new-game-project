@@ -1,6 +1,6 @@
 # M033 — Primary Attribute Runtime Contract
 
-Status: **In progress on `chat/m033-primary-attribute-runtime`**.
+Status: **Complete on task branch `chat/m033-primary-attribute-runtime`; main integration pending**.
 Base: `main` at `10f6f31`, 2026-10-02 KST.
 
 ## Goal
@@ -31,5 +31,14 @@ validation passes.
 
 ## Validation
 
-Implementation is prepared on the task branch. DevSpace was unavailable at task start, so
-local Godot validation remains required before marking M033 complete.
+Validated on 2026-10-02 KST in an isolated DevSpace worktree using Godot
+4.7.2.stable.mono. `bash tools/check_godot.sh` passed editor parse/import, main-scene
+startup, all 29 project test scripts, and the generated combat dataset check.
+`test_attributes_effects.gd` passed 422 assertions; Character Overview query/tone/screen
+suites passed 281/53/284 assertions. M027 single-actor replay and normalized M024 mechanics
+also passed, confirming no-Effect combat/RNG preservation.
+
+The first full run exposed two non-gameplay maintenance issues: new defense telemetry fields
+changed the replay event schema, so they were removed while retaining resolved DEX difficulty;
+and the generated combat manifest source hashes were refreshed. A second complete
+`tools/check_godot.sh` run then passed without errors.

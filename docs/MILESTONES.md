@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M033: **In progress** on `chat/m033-primary-attribute-runtime`. Defines the six semantic domains, a one-primary resolved runtime check with explicit alternates only, and keeps movement_speed independent. Local Godot validation is pending because DevSpace was unavailable at task start. [Primary Attribute Runtime Contract](milestones/M033_primary_attribute_runtime.md).
+- M033: **Complete on task branch; main integration pending** on `chat/m033-primary-attribute-runtime`. Defines the six semantic domains, a one-primary resolved runtime check with explicit alternates only, and keeps movement_speed independent. Godot 4.7.2 editor parse/startup, all 29 project tests, replay regressions and generated dataset checks passed. [Primary Attribute Runtime Contract](milestones/M033_primary_attribute_runtime.md).
 
 - M032: **Complete on main** at `8245bfa` via [PR #36](https://github.com/ramstein2187-wq/new-game-project/pull/36). Adaptive read-only Character Overview, Label/Hint/Final rows and on-demand Inspector are integrated. All 29 tests passed in bounded groups before integration plus import/startup/export check; focused Character suites total 522 assertions. Manual visual acceptance remains pending. [Character Overview](milestones/M032_character_overview.md).
 
@@ -40,7 +40,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M033 | In progress on task branch | Semantic domains; one resolved primary modifier per check; explicit alternate only; movement_speed independent | `docs/milestones/M033_primary_attribute_runtime.md` |
+| M033 | Complete on task branch; integration pending | Semantic domains; one resolved primary modifier per check; explicit alternate only; movement_speed independent | `docs/milestones/M033_primary_attribute_runtime.md` |
 | M032 | Complete on main; manual acceptance pending | Read-only Character Overview with adaptive Inspector and shared Label/Hint/Final rows; PR #36 merged at `8245bfa` | `docs/milestones/M032_character_overview.md` |
 | M031 | Complete on main | Six attributes, movement speed, minimal Effects/Modifiers and common stat/action-cost breakdown; PR #34 merged at `0b859aa` | `docs/milestones/M031_attributes_effects_foundation.md` |
 | M030 | Complete on main | Path-only responsibility-based project layout; PR #30 merged with no gameplay changes | `docs/milestones/M030_project_folder_structure.md` |

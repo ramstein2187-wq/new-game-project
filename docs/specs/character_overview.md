@@ -1,5 +1,5 @@
 +++
-status = "구현 중"
+status = "구현 완료"
 areas = ["UI/로그", "코어", "전투"]
 type = "상태 모델"
 systems = "CharacterScreen / CharacterOverviewQuery / BodyInstance"

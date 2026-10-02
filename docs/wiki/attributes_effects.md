@@ -1,5 +1,5 @@
 +++
-status = "구현 중"
+status = "구현 완료"
 areas = ["코어", "시간/액션", "전투"]
 milestones = "M031 / M033"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/m031-attributes-effects-foundation/docs/milestones/M031_attributes_effects_foundation.md"

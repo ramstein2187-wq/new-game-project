@@ -322,8 +322,6 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 		"ability": ability,
 		"damage_ability": ability,
 		"damage_ability_modifier": ability_modifier,
-		"defense_ability": defense_check.selected,
-		"defense_ability_modifier": defense_check.modifier,
 		"difficulty": difficulty,
 		"attack_total": result.total,
 		"situation_modifier": situation_mod,
