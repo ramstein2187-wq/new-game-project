@@ -5,8 +5,11 @@ type = "알고리즘"
 systems = "Actor.primary_attribute_check / AttackDefinition"
 milestones = "M033"
 code_paths = ["game/actors/actor.gd", "game/combat/attack_definition.gd", "game/time_cost_game.gd"]
+diagram = "docs/diagrams/primary_attribute_check.svg"
 +++
 # Primary Attribute Runtime Check
+
+![Primary Attribute check](../diagrams/primary_attribute_check.svg)
 
 Primary Attribute는 STR/DEX/CON/PER/INT/WIL 여섯 개이며 관할 의미는
 Force/Execution/Endurance/Awareness/Understanding/Control이다.
