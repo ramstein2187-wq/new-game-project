@@ -84,6 +84,46 @@ func apply_action_cost_modifiers(base: float, tags: Array[StringName], intrinsic
 func resolved_stat(stat: StringName) -> float:
 	return float(stat_breakdown(stat).value)
 
+# Gameplay checks consume one resolved primary attribute. An alternate must be
+# supplied explicitly by the authored rule; it is never inferred from a domain.
+func primary_attribute_check(primary: StringName, alternate: StringName = &"") -> Dictionary:
+	if not StatCatalog.is_primary(primary):
+		return _invalid_primary_attribute_check(primary, alternate)
+	if alternate != &"" and (alternate == primary or not StatCatalog.is_primary(alternate)):
+		return _invalid_primary_attribute_check(primary, alternate)
+
+	var selected := primary
+	var score := resolved_stat(primary)
+	var modifier := AbilityScores.modifier(int(score))
+	if alternate != &"":
+		var alternate_score := resolved_stat(alternate)
+		var alternate_modifier := AbilityScores.modifier(int(alternate_score))
+		if alternate_modifier > modifier:
+			selected = alternate
+			score = alternate_score
+			modifier = alternate_modifier
+
+	return {
+		"valid": true,
+		"primary": primary,
+		"alternate": alternate,
+		"selected": selected,
+		"domain": StatCatalog.primary_domain(selected),
+		"score": score,
+		"modifier": modifier,
+	}
+
+func _invalid_primary_attribute_check(primary: StringName, alternate: StringName) -> Dictionary:
+	return {
+		"valid": false,
+		"primary": primary,
+		"alternate": alternate,
+		"selected": &"",
+		"domain": "",
+		"score": 0.0,
+		"modifier": 0,
+	}
+
 func fear() -> int:
 	return maxi(0, roundi((max_hp - hp) * 120.0 / max_hp) + fear_bonus)
 

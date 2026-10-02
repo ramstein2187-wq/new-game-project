@@ -3,7 +3,7 @@ status = "구현 완료"
 areas = ["UI/로그", "코어", "전투"]
 type = "상태 모델"
 systems = "CharacterScreen / CharacterOverviewQuery / BodyInstance"
-milestones = "M032 (task branch)"
+milestones = "M032 / M033"
 code_paths = ["game/ui/", "game/combat/body_instance.gd", "game/time_cost_game.gd", "scenes/ui/character_screen.tscn"]
 diagram = "docs/diagrams/character_overview.svg"
 +++
@@ -53,16 +53,21 @@ Overview는 한 자리 소수로 표시하며 계산 내부 값은 반올림하�
 `TimeCostGame.attack_breakdown()`은 기존 selected_functional_parts/efficiency로
 요구 capability 수량과 효율을 읽는다. `attack_efficiency()`는 legacy attack_part를
 쓰므로 조회에서는 호출하지 않는다. 기존 injury situation -2, Weapon Action의
-situation/damage delta, attack.ability_for(base AbilityScores), proficiency를 공유한다.
+situation/damage delta와 proficiency를 공유한다. 공격 능력치는
+`AttackDefinition.attribute_check_for(actor)` → `Actor.primary_attribute_check()` →
+`Actor.resolved_stat()` 경로로 읽고, 하나의 selected primary modifier만 사용한다.
+`best_str_dex`처럼 definition이 alternate를 명시한 경우에만 두 resolved modifier를
+비교하며 동률은 authored primary인 STR을 유지한다.
 `CombatRules.check(d20=0)`의 total은 설명용 Attack Bonus다. 명중률/특정 defender
 예측이나 독립 stat을 만들지 않는다. Damage는 definition dice notation와 실제
 combat modifier를 표시하며 실제 roll/최소 0 rule을 변경하지 않는다.
 
 `resolve_attack()`은 기존 attack_efficiency 호출과 RNG/event 순서를 유지한 채
-이 pure query의 modifier 값을 읽는다. M027/M024 replay 및 M031 golden이 기존
-결과 보존을 검증한다. 특수 Weapon Action도 query/runtime 동등성 테스트에 포함한다.
-Primary attribute Effects는 아직 공격에 연결되지 않았으므로 Overview resolved
-stat과 실제 attack base modifier의 차이를 Inspector에서 명시한다.
+이 pure query의 modifier 값을 읽는다. defender difficulty의 DEX도 같은 resolved
+one-primary 경로를 사용한다. 특수 Weapon Action도 query/runtime 동등성 테스트에
+포함한다. M033 이후 Overview resolved attribute modifier와 실제 combat modifier는
+같은 authoritative 경로를 가리킨다. movement_speed는 별도 stat이므로 DEX Effect가
+Move Time을 자동 변경하지 않는다.
 
 ## UI 및 입력
 

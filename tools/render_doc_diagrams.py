@@ -9,10 +9,19 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "diagrams"
 
 FLOWS = {
+    "primary_attribute_check": ("Primary Attribute 판정 — M033", [
+        "authored primary + optional explicit alternate",
+        "Actor.primary_attribute_check",
+        "resolved_stat(primary) → existing AbilityScores modifier",
+        "alternate 명시 시에만 resolved modifier 비교",
+        "더 높은 하나 선택 · 동률은 primary · 합산 없음",
+        "기존 combat formula로 modifier 1개 전달",
+        "movement_speed는 별도 stat · DEX 자동 속도 효과 없음"
+    ]),
     "character_overview": ("Character Overview — read-only presentation (M032)", [
         "C → CharacterScreen 열기 / modal gameplay 입력 차단",
         "현재 Actor: identity · HP · six attributes / stat breakdown",
-        "기본 attack: 기존 ability · proficiency · body situation query",
+        "기본 attack: resolved primary · proficiency · body situation query",
         "Body: Σ max(0, weight) / 실제 weight 합 × max(0, raw armor)",
         "MoveAction(RIGHT).cost_breakdown → 기존 ActionCostResolver",
         "scalar value model → 기본 결과 / hover 빠른 설명",
