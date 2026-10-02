@@ -37,6 +37,7 @@ func expect(condition: bool, label: String) -> void:
 
 func _init() -> void:
 	_attributes()
+	_primary_runtime_checks()
 	_golden()
 	_effects_and_costs()
 	_percent_phases()
@@ -67,8 +68,46 @@ func _attributes() -> void:
 		scores.scores[obsolete] = 10
 	scores.reset()
 	expect(scores.scores.size() == 6, "Reset clears obsolete keys")
+	expect(StatCatalog.PRIMARY_DOMAINS == {
+		&"STR": "Force", &"DEX": "Execution", &"CON": "Endurance",
+		&"PER": "Awareness", &"INT": "Understanding", &"WIL": "Control",
+	}, "Primary attributes have one durable semantic domain each")
+	for stat in StatCatalog.PRIMARY:
+		expect(StatCatalog.is_primary(stat) and not StatCatalog.primary_domain(stat).is_empty(), "Primary domain is queryable: " + stat)
+	expect(not StatCatalog.is_primary(StatCatalog.MOVEMENT_SPEED) and StatCatalog.primary_domain(StatCatalog.MOVEMENT_SPEED).is_empty(), "Movement speed is not a primary attribute domain")
 	for entry in CombatContentCatalog.content().actors:
 		expect(entry.instantiate_definition().is_valid(), "All migrated production attributes validate")
+
+func _primary_runtime_checks() -> void:
+	var game := TimeCostGame.new()
+	var player := game.get_actor(&"player")
+	var rat := game.get_actor(&"rat")
+	var direct := player.primary_attribute_check(StatCatalog.STR)
+	expect(direct.valid and direct.primary == StatCatalog.STR and direct.alternate == &"" and direct.selected == StatCatalog.STR, "A normal check owns exactly one authored primary attribute")
+	expect(not player.primary_attribute_check(StatCatalog.MOVEMENT_SPEED).valid, "Non-primary stats cannot enter the primary check path")
+	expect(not player.primary_attribute_check(StatCatalog.STR, StatCatalog.STR).valid, "Alternate must be a distinct explicit primary attribute")
+
+	var base_move := MoveAction.new(Vector2i.RIGHT).get_cost(game, player.id)
+	player.add_effect(_effect(&"force_training", [_stat(&"training", StatCatalog.STR, ModifierOperation.Kind.FLAT, 4.0)]), &"trait:force_training")
+	var force_attack := game.attack_breakdown(player.id)
+	expect(force_attack.ability == StatCatalog.STR and force_attack.ability_score == 14.0 and force_attack.ability_modifier == 2, "Combat consumes resolved STR through the shared primary check")
+	expect(force_attack.attack_bonus == player.definition.proficiency_bonus + 2, "Resolved primary modifier feeds the existing attack formula")
+	expect(MoveAction.new(Vector2i.RIGHT).get_cost(game, player.id) == base_move, "STR changes do not leak into movement speed")
+	player.clear_effects()
+
+	player.set_weapon(CombatContentCatalog.weapon(&"hunting_knife"))
+	var tied_finesse := game.attack_breakdown(player.id)
+	expect(tied_finesse.ability == StatCatalog.STR and tied_finesse.ability_alternate == StatCatalog.DEX, "Explicit alternate ties keep the authored primary deterministically")
+	player.add_effect(_effect(&"execution_training", [_stat(&"training", StatCatalog.DEX, ModifierOperation.Kind.FLAT, 4.0)]), &"trait:execution_training")
+	var finesse := game.attack_breakdown(player.id)
+	expect(finesse.ability == StatCatalog.DEX and finesse.ability_domain == "Execution" and finesse.ability_modifier == 2, "Explicit best STR/DEX rule may select resolved DEX without combining modifiers")
+	expect(MoveAction.new(Vector2i.RIGHT).get_cost(game, player.id) == base_move, "DEX/Execution remains separate from movement_speed")
+	player.clear_effects()
+
+	rat.add_effect(_effect(&"evasive_execution", [_stat(&"training", StatCatalog.DEX, ModifierOperation.Kind.FLAT, 4.0)]), &"trait:evasive_execution")
+	var defense := rat.primary_attribute_check(StatCatalog.DEX)
+	var result := game.resolve_attack(player.id, rat.id)
+	expect(result.defense_ability == StatCatalog.DEX and result.defense_ability_modifier == defense.modifier and result.difficulty == 10 + defense.modifier, "Defender difficulty uses resolved DEX through the same one-primary path")
 
 func _golden() -> void:
 	var golden: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/m031_no_effect_golden.json"))

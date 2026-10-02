@@ -266,15 +266,20 @@ func attack_breakdown(actor_id: StringName, weapon_action_id: StringName = &"") 
 		efficiency = 1.0
 		for part_id in parts:
 			efficiency = minf(efficiency, actor.body.efficiency(part_id))
-	var ability := attack.ability_for(actor.abilities)
-	var ability_mod := actor.abilities.get_modifier(ability)
+	var attribute_check := attack.attribute_check_for(actor)
+	if not attribute_check.valid:
+		return {"valid": false}
+	var ability: StringName = attribute_check.selected
+	var ability_mod: int = attribute_check.modifier
 	var situation := (-2 if efficiency < 1 else 0) + (selected.situation_modifier if selected != null else 0)
 	var damage_mod := selected.damage_modifier if selected != null else 0
 	var check := CombatRules.check(0, ability_mod, actor.definition.proficiency_bonus, situation, 0)
 	return {"valid": true, "available": actor.is_alive() and efficiency > 0.0,
 		"name": actor.equipped_weapon.display_name if actor.equipped_weapon != null else attack.display_name,
 		"attack_name": attack.display_name, "attack_id": attack.id, "weapon_id": actor.weapon_id,
-		"ability": ability, "ability_modifier": ability_mod, "proficiency": check.proficiency,
+		"ability": ability, "ability_score": attribute_check.score, "ability_domain": attribute_check.domain,
+		"ability_primary": attribute_check.primary, "ability_alternate": attribute_check.alternate,
+		"ability_modifier": ability_mod, "proficiency": check.proficiency,
 		"situation": check.situation, "attack_bonus": check.total, "efficiency": efficiency,
 		"dice": attack.damage_dice.notation(), "damage_modifier": damage_mod,
 		"penetration": attack.penetration, "damage_type": attack.damage_type}
@@ -294,7 +299,8 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 	var damage_mod: int = explanation.damage_modifier
 	var ability: StringName = explanation.ability
 	var ability_modifier: int = explanation.ability_modifier
-	var difficulty := 10 + defender.abilities.get_modifier(&"DEX")
+	var defense_check := defender.primary_attribute_check(StatCatalog.DEX)
+	var difficulty := 10 + int(defense_check.modifier)
 	var result := CombatRules.check(
 		combat_rng.randi_range(1, 20), ability_modifier, attacker.definition.proficiency_bonus,
 		situation_mod, difficulty
@@ -316,6 +322,8 @@ func resolve_attack(actor_id: StringName, target_id: StringName, weapon_action_i
 		"ability": ability,
 		"damage_ability": ability,
 		"damage_ability_modifier": ability_modifier,
+		"defense_ability": defense_check.selected,
+		"defense_ability_modifier": defense_check.modifier,
 		"difficulty": difficulty,
 		"attack_total": result.total,
 		"situation_modifier": situation_mod,

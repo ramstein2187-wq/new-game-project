@@ -163,3 +163,29 @@ checks numeric attribute columns and adds missing ones using the documented
 Historical columns/values are preserved, and wrong existing types fail clearly.
 No live Notion operation is performed in M031; offline checks verify the payload
 and idempotent schema path, not live credentials, permissions or service behavior.
+
+
+## M033 follow-up: primary attribute semantic domains and runtime checks
+
+M033 defines a stable semantic responsibility for each primary attribute without renaming
+the six runtime IDs: STR = **Force**, DEX = **Execution**, CON = **Endurance**,
+PER = **Awareness**, INT = **Understanding**, WIL = **Control**. These domains guide
+future action/ability authoring; they are not six new derived stats.
+
+A gameplay check consumes exactly **one selected primary attribute modifier**. The shared
+`PrimaryAttributeCheck` first reads `Actor.resolved_stat()`, then applies the existing
+`AbilityScores.modifier(int(score))` boundary. A rule may declare one explicit alternate;
+the resolver chooses the higher modifier and deterministically keeps the authored primary
+on ties. It never adds two primary modifiers together and never infers an alternate merely
+because two domains seem relevant.
+
+Existing `best_str_dex` weapon content is the first explicit alternate rule and remains
+serialized unchanged. Direct STR/DEX attack rules remain single-primary. Attacker attack
+and damage modifiers, and defender DEX difficulty, now use the resolved primary path, so
+primary Stat Effects affect those checks consistently. With no primary Effects, production
+numbers and RNG order are unchanged.
+
+`movement_speed` remains an independent non-primary stat. DEX/Execution has no global
+movement-cost, weapon-speed, initiative or Quickness effect. CON does not automatically
+change HP, and the other semantic domains do not create derived stats by implication.
+Those mechanics require separate explicit design and wiring.

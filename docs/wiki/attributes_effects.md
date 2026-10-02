@@ -1,7 +1,7 @@
 +++
-status = "구현 완료"
+status = "구현 중"
 areas = ["코어", "시간/액션", "전투"]
-milestones = "M031 — task branch"
+milestones = "M031 / M033"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/m031-attributes-effects-foundation/docs/milestones/M031_attributes_effects_foundation.md"
 icon = "🧩"
 +++
@@ -25,7 +25,13 @@ active_effects()는 기존 Definition snapshot, active_effect_instances()는 pro
 질의는 Store 내부 참조를 읽어 계산하며 Resource deep-copy나 resolved cache가 없다.
 StatCatalog는 여섯 primary와 MOVEMENT_SPEED ID만 정의하고 modifier validation을 담당한다.
 AbilityScores는 여전히 primary 값/배분을 담당한다.
-실제 gameplay 연결은 movement_speed이며 primary stat 질의는 향후 확장을 위한 API다.
+M031에서는 실제 gameplay 연결이 movement_speed뿐이었고 primary stat 질의는 확장 API였다.
+M033 task branch에서는 primary runtime check를 연결한다. STR/DEX/CON/PER/INT/WIL의
+관할 의미는 각각 Force/Execution/Endurance/Awareness/Understanding/Control이다.
+판정은 resolved primary 하나의 modifier만 소비하고, 명시적으로 alternate가 선언된
+경우에만 둘 중 하나를 선택한다. 둘을 더하지 않는다. 현재 best_str_dex 무기가 첫
+명시적 alternate 사례다. 공격/피해와 방어측 DEX difficulty는 이 공통 경로를 사용한다.
+movement_speed는 primary가 아니며 DEX/Execution과 계속 분리된다.
 
 Stat 공식은 **Base × (1 + Σ Percent) + Σ Flat**이다. Percent들은 서로 합산하고
 base에만 적용한다. STR 10, +20%, +30%, flat +2는 17이다. movement_speed도 같다.
@@ -44,8 +50,10 @@ unrounded/rounded/final cost까지 보여준다. 기존 Weapon Action은 old val
 최종 minimum 1을 쓴다. 비양수 이동 speed는 Move를 거부한다.
 Action-time 조절은 rare/legible/strong 기믹을 위한 기반이며 일반 성장 보너스로 전제하지 않는다.
 
-Body 부상, 공격/방어, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
-Global Quickness, DEX 전체 속도, duration/stacking, Skill/Trait/Thought 시스템은 없다.
+Body 부상, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
+공격/방어의 수식과 RNG 순서는 유지하되 primary modifier 입력만 resolved 공통 경로로
+통일한다. Global Quickness, DEX 전체 속도, CON 자동 MaxHP, duration/stacking,
+Skill/Trait/Thought 시스템은 없다.
 
 [설계 결정](../decisions/attributes_effects.md),
 [M031 검증/이동표](../milestones/M031_attributes_effects_foundation.md).

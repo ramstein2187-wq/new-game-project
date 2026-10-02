@@ -61,7 +61,12 @@ static func is_physical_damage_type(type: StringName) -> bool:
 	return type in [DAMAGE_CUT, DAMAGE_PUNCTURE, DAMAGE_BLUNT]
 
 
-func ability_for(scores: AbilityScores) -> StringName:
+func attribute_check_for(actor: Actor) -> Dictionary:
 	if ability_rule == ABILITY_BEST_STR_DEX:
-		return ABILITY_DEX if scores.get_modifier(ABILITY_DEX) > scores.get_modifier(ABILITY_STR) else ABILITY_STR
-	return ability_rule
+		return actor.primary_attribute_check(ABILITY_STR, ABILITY_DEX)
+	return actor.primary_attribute_check(ability_rule)
+
+
+func ability_for(actor: Actor) -> StringName:
+	var check := attribute_check_for(actor)
+	return check.selected if check.valid else &""
