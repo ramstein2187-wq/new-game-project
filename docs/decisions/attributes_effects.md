@@ -173,7 +173,7 @@ PER = **Awareness**, INT = **Understanding**, WIL = **Control**. These domains g
 future action/ability authoring; they are not six new derived stats.
 
 A gameplay check consumes exactly **one selected primary attribute modifier**. The shared
-`PrimaryAttributeCheck` first reads `Actor.resolved_stat()`, then applies the existing
+`Actor.primary_attribute_check()` first reads `Actor.resolved_stat()`, then applies the existing
 `AbilityScores.modifier(int(score))` boundary. A rule may declare one explicit alternate;
 the resolver chooses the higher modifier and deterministically keeps the authored primary
 on ties. It never adds two primary modifiers together and never infers an alternate merely
