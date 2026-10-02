@@ -68,12 +68,12 @@ func _attributes() -> void:
 		scores.scores[obsolete] = 10
 	scores.reset()
 	expect(scores.scores.size() == 6, "Reset clears obsolete keys")
-	expect(StatCatalog.PRIMARY_DOMAINS == {
+	var expected_domains := {
 		&"STR": "Force", &"DEX": "Execution", &"CON": "Endurance",
 		&"PER": "Awareness", &"INT": "Understanding", &"WIL": "Control",
-	}, "Primary attributes have one durable semantic domain each")
+	}
 	for stat in StatCatalog.PRIMARY:
-		expect(StatCatalog.is_primary(stat) and not StatCatalog.primary_domain(stat).is_empty(), "Primary domain is queryable: " + stat)
+		expect(StatCatalog.is_primary(stat) and StatCatalog.primary_domain(stat) == expected_domains[stat], "Primary domain is queryable and stable: " + stat)
 	expect(not StatCatalog.is_primary(StatCatalog.MOVEMENT_SPEED) and StatCatalog.primary_domain(StatCatalog.MOVEMENT_SPEED).is_empty(), "Movement speed is not a primary attribute domain")
 	for entry in CombatContentCatalog.content().actors:
 		expect(entry.instantiate_definition().is_valid(), "All migrated production attributes validate")
