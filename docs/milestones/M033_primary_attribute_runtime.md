@@ -1,7 +1,7 @@
 # M033 — Primary Attribute Runtime Contract
 
-Status: **Complete on task branch `chat/m033-primary-attribute-runtime`; main integration pending**.
-Base: `main` at `10f6f31`, 2026-10-02 KST.
+Status: **Complete on main** at `96da962` via PR #40.
+Base: `main` at `10f6f31`; integrated to `main` at `96da962` via PR #40, 2026-10-02 KST.
 
 ## Goal
 
