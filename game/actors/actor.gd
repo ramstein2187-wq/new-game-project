@@ -89,10 +89,6 @@ func resolved_stat(stat: StringName) -> float:
 func primary_attribute_check(primary: StringName, alternate: StringName = &"") -> Dictionary:
 	return PrimaryAttributeCheck.resolve(self, primary, alternate)
 
-func primary_modifier(stat: StringName) -> int:
-	var check := primary_attribute_check(stat)
-	return int(check.modifier) if check.valid else 0
-
 func fear() -> int:
 	return maxi(0, roundi((max_hp - hp) * 120.0 / max_hp) + fear_bonus)
 
