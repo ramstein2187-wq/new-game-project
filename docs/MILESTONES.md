@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M035: **Complete on task branch; not merged main** on `codex/procedural-naming-v1`, base latest fetched `origin/main` `5c527e2`. Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar. Focused 30,266 assertions / 6,000 fixed-seed samples; full 31-test Godot check, offline wiki/spec and layout audits pass. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
+
 - M034: **Complete on task branch; main integration pending** `codex/con-hp-scaling-integration` over main `78ab715`; selectively reintegrates completed `005c7a6` through resolved CON, damage-preserving HP lifecycle and authoritative Overview/export queries. Full Godot check passes all 30 tests/import/startup/export; focused CON/HP 121 and M033 422 assertions pass. Manual visual/play/balance acceptance is separate. [CON derived Max HP](milestones/M034_con_max_hp.md).
 
 - M033: **Complete on main** at `96da962` via [PR #40](https://github.com/ramstein2187-wq/new-game-project/pull/40). Defines the six semantic domains, a one-primary resolved runtime check with explicit alternates only, and keeps movement_speed independent. Godot 4.7.2 editor parse/startup, all 29 project tests, replay regressions and generated dataset checks passed both before and after integration. [Primary Attribute Runtime Contract](milestones/M033_primary_attribute_runtime.md).
@@ -42,6 +44,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M035 | Complete on task branch; not merged main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; 30,266 focused assertions and full 31-test check pass | `docs/milestones/M035_procedural_naming_v1.md` |
 | M034 | Complete on task branch; main integration pending | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; full 30-test Godot check passes | `docs/milestones/M034_con_max_hp.md` |
 | M033 | Complete on main | Semantic domains; one resolved primary modifier per check; explicit alternate only; movement_speed independent; PR #40 merged at `96da962` | `docs/milestones/M033_primary_attribute_runtime.md` |
 | M032 | Complete on main; manual acceptance pending | Read-only Character Overview with adaptive Inspector and shared Label/Hint/Final rows; PR #36 merged at `8245bfa` | `docs/milestones/M032_character_overview.md` |

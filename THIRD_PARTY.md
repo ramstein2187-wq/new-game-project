@@ -19,6 +19,15 @@ No source code from the external reference repositories listed in
 was last reviewed. If source code is copied or substantially adapted in the future,
 add the upstream copyright/license notice here and record the exact upstream revision.
 
+## Procedural naming audit (M035, 2026-10-05)
+
+`content/naming/` contains only original hand-authored synthetic phonetic and
+semantic tokens, prototype cultures and grammar. No third-party naming rows,
+datasets, scraped lists or API results were retrieved, copied or shipped. No
+Wikidata material was imported. Existing third-party tileset notices above remain
+the only included external material recorded here; this audit grants no new license
+to original project content. See `docs/decisions/procedural_naming.md` for policy.
+
 ## Project License
 
 A project-wide license for original code/assets has not been selected in this file.

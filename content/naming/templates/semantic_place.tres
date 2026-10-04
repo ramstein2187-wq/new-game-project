@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="NameTemplate" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://game/naming/name_template.gd" id="template"]
+[ext_resource type="Script" path="res://game/naming/name_slot.gd" id="slot"]
+
+[sub_resource type="Resource" id="adjective"]
+script = ExtResource("slot")
+id = "adjective"
+kind = 1
+token_pools = Array[PackedStringArray]([PackedStringArray("RED", "ASHEN", "STILL", "BROKEN")])
+
+[sub_resource type="Resource" id="feature"]
+script = ExtResource("slot")
+id = "feature"
+kind = 1
+token_pools = Array[PackedStringArray]([PackedStringArray("WELL", "GATE", "MARSH", "REACH", "RUIN")])
+
+[resource]
+script = ExtResource("template")
+id = "semantic_place"
+name_types = PackedStringArray("semantic_location")
+slots = Array[ExtResource("slot")]([SubResource("adjective"), SubResource("feature")])
+patterns = {
+  "en": "{adjective} {feature}",
+  "ko": "{adjective} {feature}"
+}

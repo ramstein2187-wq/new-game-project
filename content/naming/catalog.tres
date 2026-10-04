@@ -1,0 +1,366 @@
+[gd_resource type="Resource" script_class="NamingContent" load_steps=51 format=3]
+
+[ext_resource type="Script" path="res://game/naming/naming_content.gd" id="content"]
+[ext_resource type="Script" path="res://game/naming/name_token.gd" id="token"]
+[ext_resource type="Script" path="res://game/naming/name_template.gd" id="template"]
+[ext_resource type="Script" path="res://game/naming/name_culture.gd" id="culture"]
+[ext_resource type="Resource" path="res://content/naming/templates/proper_two.tres" id="proper_two"]
+[ext_resource type="Resource" path="res://content/naming/templates/proper_three.tres" id="proper_three"]
+[ext_resource type="Resource" path="res://content/naming/templates/semantic_place.tres" id="semantic_place"]
+[ext_resource type="Resource" path="res://content/naming/templates/mixed_place.tres" id="mixed_place"]
+[ext_resource type="Resource" path="res://content/naming/templates/possessive_feature.tres" id="possessive_feature"]
+[ext_resource type="Resource" path="res://content/naming/templates/numbered_facility.tres" id="numbered_facility"]
+[ext_resource type="Resource" path="res://content/naming/cultures/prototype_surface.tres" id="prototype_surface"]
+[ext_resource type="Resource" path="res://content/naming/cultures/administrator.tres" id="administrator"]
+
+[sub_resource type="Resource" id="vei"]
+script = ExtResource("token")
+id = "vei"
+kind = 0
+forms = {
+"en": "vey",
+"ko": "베이"
+}
+
+[sub_resource type="Resource" id="na"]
+script = ExtResource("token")
+id = "na"
+kind = 0
+forms = {
+"en": "na",
+"ko": "나"
+}
+
+[sub_resource type="Resource" id="to"]
+script = ExtResource("token")
+id = "to"
+kind = 0
+forms = {
+"en": "to",
+"ko": "토"
+}
+
+[sub_resource type="Resource" id="se"]
+script = ExtResource("token")
+id = "se"
+kind = 0
+forms = {
+"en": "se",
+"ko": "세"
+}
+
+[sub_resource type="Resource" id="lu"]
+script = ExtResource("token")
+id = "lu"
+kind = 0
+forms = {
+"en": "lu",
+"ko": "루"
+}
+
+[sub_resource type="Resource" id="mi"]
+script = ExtResource("token")
+id = "mi"
+kind = 0
+forms = {
+"en": "mi",
+"ko": "미"
+}
+
+[sub_resource type="Resource" id="da"]
+script = ExtResource("token")
+id = "da"
+kind = 0
+forms = {
+"en": "da",
+"ko": "다"
+}
+
+[sub_resource type="Resource" id="ke"]
+script = ExtResource("token")
+id = "ke"
+kind = 0
+forms = {
+"en": "ke",
+"ko": "케"
+}
+
+[sub_resource type="Resource" id="zo"]
+script = ExtResource("token")
+id = "zo"
+kind = 0
+forms = {
+"en": "zo",
+"ko": "조"
+}
+
+[sub_resource type="Resource" id="fu"]
+script = ExtResource("token")
+id = "fu"
+kind = 0
+forms = {
+"en": "fu",
+"ko": "푸"
+}
+
+[sub_resource type="Resource" id="ha"]
+script = ExtResource("token")
+id = "ha"
+kind = 0
+forms = {
+"en": "ha",
+"ko": "하"
+}
+
+[sub_resource type="Resource" id="bo"]
+script = ExtResource("token")
+id = "bo"
+kind = 0
+forms = {
+"en": "bo",
+"ko": "보"
+}
+
+[sub_resource type="Resource" id="ra"]
+script = ExtResource("token")
+id = "ra"
+kind = 0
+forms = {
+"en": "ra",
+"ko": "라"
+}
+
+[sub_resource type="Resource" id="len"]
+script = ExtResource("token")
+id = "len"
+kind = 0
+forms = {
+"en": "len",
+"ko": "렌"
+}
+
+[sub_resource type="Resource" id="rin"]
+script = ExtResource("token")
+id = "rin"
+kind = 0
+forms = {
+"en": "rin",
+"ko": "린"
+}
+
+[sub_resource type="Resource" id="mon"]
+script = ExtResource("token")
+id = "mon"
+kind = 0
+forms = {
+"en": "mon",
+"ko": "몬"
+}
+
+[sub_resource type="Resource" id="sen"]
+script = ExtResource("token")
+id = "sen"
+kind = 0
+forms = {
+"en": "sen",
+"ko": "센"
+}
+
+[sub_resource type="Resource" id="lith"]
+script = ExtResource("token")
+id = "lith"
+kind = 0
+forms = {
+"en": "lith",
+"ko": "리스"
+}
+
+[sub_resource type="Resource" id="vak"]
+script = ExtResource("token")
+id = "vak"
+kind = 0
+forms = {
+"en": "vak",
+"ko": "바크"
+}
+
+[sub_resource type="Resource" id="nar"]
+script = ExtResource("token")
+id = "nar"
+kind = 0
+forms = {
+"en": "nar",
+"ko": "나르"
+}
+
+[sub_resource type="Resource" id="dor"]
+script = ExtResource("token")
+id = "dor"
+kind = 0
+forms = {
+"en": "dor",
+"ko": "도르"
+}
+
+[sub_resource type="Resource" id="wen"]
+script = ExtResource("token")
+id = "wen"
+kind = 0
+forms = {
+"en": "wen",
+"ko": "웬"
+}
+
+[sub_resource type="Resource" id="sil"]
+script = ExtResource("token")
+id = "sil"
+kind = 0
+forms = {
+"en": "sil",
+"ko": "실"
+}
+
+[sub_resource type="Resource" id="mar"]
+script = ExtResource("token")
+id = "mar"
+kind = 0
+forms = {
+"en": "mar",
+"ko": "마르"
+}
+
+[sub_resource type="Resource" id="RED"]
+script = ExtResource("token")
+id = "RED"
+kind = 1
+forms = {
+"en": "Red",
+"ko": "붉은"
+}
+
+[sub_resource type="Resource" id="ASHEN"]
+script = ExtResource("token")
+id = "ASHEN"
+kind = 1
+forms = {
+"en": "Ashen",
+"ko": "잿빛"
+}
+
+[sub_resource type="Resource" id="STILL"]
+script = ExtResource("token")
+id = "STILL"
+kind = 1
+forms = {
+"en": "Still",
+"ko": "고요한"
+}
+
+[sub_resource type="Resource" id="BROKEN"]
+script = ExtResource("token")
+id = "BROKEN"
+kind = 1
+forms = {
+"en": "Broken",
+"ko": "부서진"
+}
+
+[sub_resource type="Resource" id="WELL"]
+script = ExtResource("token")
+id = "WELL"
+kind = 1
+forms = {
+"en": "Well",
+"ko": "우물"
+}
+
+[sub_resource type="Resource" id="GATE"]
+script = ExtResource("token")
+id = "GATE"
+kind = 1
+forms = {
+"en": "Gate",
+"ko": "관문"
+}
+
+[sub_resource type="Resource" id="MARSH"]
+script = ExtResource("token")
+id = "MARSH"
+kind = 1
+forms = {
+"en": "Marsh",
+"ko": "늪"
+}
+
+[sub_resource type="Resource" id="REACH"]
+script = ExtResource("token")
+id = "REACH"
+kind = 1
+forms = {
+"en": "Reach",
+"ko": "변경"
+}
+
+[sub_resource type="Resource" id="RUIN"]
+script = ExtResource("token")
+id = "RUIN"
+kind = 1
+forms = {
+"en": "Ruin",
+"ko": "폐허"
+}
+
+[sub_resource type="Resource" id="BIOLOGICAL"]
+script = ExtResource("token")
+id = "BIOLOGICAL"
+kind = 1
+forms = {
+"en": "Biological",
+"ko": "생물"
+}
+
+[sub_resource type="Resource" id="PRESERVATION"]
+script = ExtResource("token")
+id = "PRESERVATION"
+kind = 1
+forms = {
+"en": "Preservation",
+"ko": "보존"
+}
+
+[sub_resource type="Resource" id="ARRAY"]
+script = ExtResource("token")
+id = "ARRAY"
+kind = 1
+forms = {
+"en": "Array",
+"ko": "배열체"
+}
+
+[sub_resource type="Resource" id="ANNEX"]
+script = ExtResource("token")
+id = "ANNEX"
+kind = 1
+forms = {
+"en": "Annex",
+"ko": "별관"
+}
+
+[sub_resource type="Resource" id="NODE"]
+script = ExtResource("token")
+id = "NODE"
+kind = 1
+forms = {
+"en": "Node",
+"ko": "노드"
+}
+
+[resource]
+script = ExtResource("content")
+required_locales = PackedStringArray("en", "ko")
+capitalize_phonetic_locales = PackedStringArray("en")
+tokens = Array[ExtResource("token")]([SubResource("vei"), SubResource("na"), SubResource("to"), SubResource("se"), SubResource("lu"), SubResource("mi"), SubResource("da"), SubResource("ke"), SubResource("zo"), SubResource("fu"), SubResource("ha"), SubResource("bo"), SubResource("ra"), SubResource("len"), SubResource("rin"), SubResource("mon"), SubResource("sen"), SubResource("lith"), SubResource("vak"), SubResource("nar"), SubResource("dor"), SubResource("wen"), SubResource("sil"), SubResource("mar"), SubResource("RED"), SubResource("ASHEN"), SubResource("STILL"), SubResource("BROKEN"), SubResource("WELL"), SubResource("GATE"), SubResource("MARSH"), SubResource("REACH"), SubResource("RUIN"), SubResource("BIOLOGICAL"), SubResource("PRESERVATION"), SubResource("ARRAY"), SubResource("ANNEX"), SubResource("NODE")])
+templates = Array[ExtResource("template")]([ExtResource("proper_two"), ExtResource("proper_three"), ExtResource("semantic_place"), ExtResource("mixed_place"), ExtResource("possessive_feature"), ExtResource("numbered_facility")])
+cultures = Array[ExtResource("culture")]([ExtResource("prototype_surface"), ExtResource("administrator")])
+reserved_canonical_keys = PackedStringArray()
+reserved_display_names = {}
