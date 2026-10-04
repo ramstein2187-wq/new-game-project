@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="NameTemplate" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://game/naming/name_template.gd" id="template"]
+[ext_resource type="Script" path="res://game/naming/name_slot.gd" id="slot"]
+
+[sub_resource type="Resource" id="domain"]
+script = ExtResource("slot")
+id = "domain"
+kind = 1
+token_pools = Array[PackedStringArray]([PackedStringArray("BIOLOGICAL")])
+
+[sub_resource type="Resource" id="purpose"]
+script = ExtResource("slot")
+id = "purpose"
+kind = 1
+token_pools = Array[PackedStringArray]([PackedStringArray("PRESERVATION")])
+
+[sub_resource type="Resource" id="feature"]
+script = ExtResource("slot")
+id = "feature"
+kind = 1
+token_pools = Array[PackedStringArray]([PackedStringArray("ARRAY", "ANNEX", "NODE")])
+
+[sub_resource type="Resource" id="number"]
+script = ExtResource("slot")
+id = "number"
+kind = 2
+number_min = 1
+number_max = 9999
+
+[resource]
+script = ExtResource("template")
+id = "numbered_facility"
+name_types = PackedStringArray("facility")
+slots = Array[ExtResource("slot")]([SubResource("domain"), SubResource("purpose"), SubResource("feature"), SubResource("number")])
+patterns = {
+  "en": "{domain} {purpose} {feature} {number}",
+  "ko": "{domain} {purpose} {feature} {number}"
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-labelledby="title desc">
+  <title id="title">Procedural Naming v1: canonical identity and locale display</title>
+  <desc id="desc">World seed and stable entity key feed SeedDeriver and NameGenerator. Native content feeds the catalog. GeneratedName stores canonical token IDs and numbers. Separate en and ko renderers produce display strings.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#53637b"/></marker></defs>
+  <rect width="1080" height="560" fill="#f6f8fc"/>
+  <g font-family="sans-serif" fill="#192e48" text-anchor="middle">
+    <text x="540" y="36" font-size="24" font-weight="bold">Procedural Naming v1</text>
+    <g fill="white" stroke="#7185a3" stroke-width="2">
+      <rect x="45" y="65" width="420" height="64" rx="10"/>
+      <rect x="45" y="162" width="420" height="64" rx="10"/>
+      <rect x="615" y="65" width="420" height="64" rx="10"/>
+      <rect x="615" y="162" width="420" height="64" rx="10"/>
+      <rect x="330" y="262" width="420" height="64" rx="10"/>
+      <rect x="330" y="362" width="420" height="64" rx="10" fill="#e2f0ff"/>
+      <rect x="65" y="473" width="420" height="64" rx="10"/>
+      <rect x="595" y="473" width="420" height="64" rx="10"/>
+    </g>
+    <g font-size="18">
+      <text x="255" y="104">World seed + stable entity key</text>
+      <text x="255" y="201">SeedDeriver v1 (unchanged)</text>
+      <text x="825" y="104">Native synthetic .tres content</text>
+      <text x="825" y="201">Validated indexed NamingCatalog</text>
+      <text x="540" y="301">NameGenerator (naming version 1)</text>
+      <text x="540" y="389">Canonical GeneratedName</text>
+      <text x="540" y="413" font-size="15">culture / type / template / token IDs / number</text>
+      <text x="275" y="500">NameRenderer(en)</text>
+      <text x="275" y="525" font-size="15">Veyra's Gate</text>
+      <text x="805" y="500">NameRenderer(ko)</text>
+      <text x="805" y="525" font-size="15">베이라의 관문</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#53637b" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M255 129 V162"/><path d="M825 129 V162"/>
+    <path d="M255 226 V294 H330"/><path d="M825 226 V294 H750"/>
+    <path d="M540 326 V362"/><path d="M430 426 V449 H275 V473"/>
+    <path d="M650 426 V449 H805 V473"/>
+  </g>
+</svg>

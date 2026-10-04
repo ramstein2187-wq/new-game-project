@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="NameTemplate" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://game/naming/name_template.gd" id="template"]
+[ext_resource type="Script" path="res://game/naming/name_slot.gd" id="slot"]
+
+[sub_resource type="Resource" id="proper"]
+script = ExtResource("slot")
+id = "proper"
+kind = 0
+token_pools = Array[PackedStringArray]([PackedStringArray("vei", "na", "to", "se", "lu", "mi", "da", "ke", "zo", "fu", "ha", "bo"), PackedStringArray("ra", "len", "rin", "mon", "sen", "lith", "vak", "nar", "dor", "wen", "sil", "mar")])
+
+[resource]
+script = ExtResource("template")
+id = "proper_two"
+name_types = PackedStringArray("person", "settlement")
+slots = Array[ExtResource("slot")]([SubResource("proper")])
+patterns = {
+  "en": "{proper}",
+  "ko": "{proper}"
+}
