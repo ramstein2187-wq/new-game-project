@@ -19,10 +19,30 @@ class SnapshotSpyActor extends Actor:
 
 class SnapshotSpyStore extends EffectStore:
 	var snapshot_calls := 0
+	var order_rebuilds := 0
+	var modifier_steps := 0
 
 	func snapshots() -> Array[ActiveEffect]:
 		snapshot_calls += 1
 		return super.snapshots()
+
+	func _rebuild_ordered_ids() -> void:
+		order_rebuilds += 1
+		super._rebuild_ordered_ids()
+
+	func _step(active: ActiveEffect, modifier_source: StringName, operation: StringName, value: float, result: float, percent_total: float, flat_total: float) -> Dictionary:
+		modifier_steps += 1
+		return super._step(active, modifier_source, operation, value, result, percent_total, flat_total)
+
+class SyntheticCostAction extends TimeAction:
+	var authored_base := 1000.0
+	var authored_percent := 0.0
+
+	func base_cost() -> float:
+		return authored_base
+
+	func intrinsic_cost(_game: RefCounted, _actor_id: StringName) -> Dictionary:
+		return {"valid": true, "source": &"synthetic", "value": authored_percent}
 
 # Synthetic physical input for the documented 1000 / 1.25 / .8 example.
 class FixedLocomotionGame extends TimeCostGame:
@@ -46,6 +66,8 @@ func _init() -> void:
 	_validation()
 	_zero_copy_resolution()
 	_ownership_and_provenance()
+	_numeric_cost_contract()
+	_effect_order_contract()
 	if failures == 0:
 		print("PASS: M031 attributes/effects, movement and paired golden (%d assertions)" % assertions)
 	quit(1 if failures else 0)
@@ -541,10 +563,111 @@ func _followup_trace_records(game: TimeCostGame) -> Array:
 		actor.body.parts[&"left_leg"].current = integrity
 		var costs: Array = []
 		for action: TimeAction in [MoveAction.new(Vector2i.RIGHT), MoveAction.new(Vector2i(1, 1)), AttackAction.new(&"rat"), AttackAction.new(&"rat", &"fraction"), InteractAction.new(), WaitAction.new()]:
-			costs.append(action.cost_breakdown(game, actor.id))
+			var trace := action.cost_breakdown(game, actor.id)
+			expect(action.get_cost(game, actor.id) == trace.cost, "Numeric/detailed parity across golden actions, injuries and reverse insertion")
+			costs.append(trace)
 		records.append({"stat": actor.stat_breakdown(&"movement_speed"), "costs": costs})
 	actor.remove_effect(&"a")
 	records.append({"stat": actor.stat_breakdown(&"movement_speed"), "cost": MoveAction.new(Vector2i.RIGHT).cost_breakdown(game, actor.id)})
 	actor.remove_effect(&"z")
 	records.append({"stat": actor.stat_breakdown(&"movement_speed"), "cost": MoveAction.new(Vector2i.RIGHT).cost_breakdown(game, actor.id)})
 	return records
+
+func _cost_parity(game: TimeCostGame, action: TimeAction, actor_id: StringName = &"player") -> Dictionary:
+	var trace := action.cost_breakdown(game, actor_id)
+	var numeric := ActionCostResolver.resolve(action, game, actor_id, false)
+	expect(trace.steps.is_typed() and trace.steps.get_typed_builtin() == TYPE_DICTIONARY, "Detailed cost retains typed Dictionary array on success and failure")
+	expect(action.get_cost(game, actor_id) == trace.cost, "Public numeric/detailed parity")
+	expect(numeric.steps == null, "Numeric resolution allocates no cost step array")
+	var detailed_values := trace.duplicate()
+	detailed_values.steps = null
+	expect(numeric == detailed_values, "All scalar intermediates and invalid reasons agree")
+	return trace
+
+func _numeric_cost_contract() -> void:
+	var game := TimeCostGame.new()
+	var actor := game.get_actor(&"player")
+	var store := SnapshotSpyStore.new()
+	actor.set("_effect_store", store)
+	var actions: Array[TimeAction] = [MoveAction.new(Vector2i.RIGHT), MoveAction.new(Vector2i(1, 1)), AttackAction.new(&"rat"),
+		AttackAction.new(&"rat", &"fraction"), InteractAction.new(), WaitAction.new()]
+	actor.equipped_weapon.actions.append(WeaponActionDefinition.create(&"fraction", "Fraction", -0.2499))
+	var before := [game.world_time, game.player_next_ready_time, game.rat_next_ready_time, game.combat_rng.state,
+		game.combat_log.events.size(), actor.position, actor.hp, actor.body.parts.duplicate(true)]
+	for mixed in [false, true]:
+		if mixed:
+			actor.add_effect(_effect(&"mixed", [_stat(&"speed_percent", StatCatalog.MOVEMENT_SPEED, ModifierOperation.Kind.PERCENT, 0.2),
+				_stat(&"speed_flat", StatCatalog.MOVEMENT_SPEED, ModifierOperation.Kind.FLAT, 0.125)], [
+				_cost(&"physical_percent", [&"PHYSICAL"], -0.2), _cost(&"physical_flat", [&"PHYSICAL"], 0.25, ModifierOperation.Kind.FLAT),
+				_cost(&"melee", [&"ATTACK", &"MELEE"], 0.1), _cost(&"wait", [&"WAIT"], -1.5)]))
+		for integrity in [25, 1, 0]:
+			actor.body.parts[&"left_leg"].current = integrity
+			for action in actions:
+				_cost_parity(game, action)
+				store.modifier_steps = 0
+				action.get_cost(game, actor.id)
+				expect(store.modifier_steps == 0, "Numeric Move stat and external modifiers never construct modifier explanations")
+		var stat := actor.stat_breakdown(StatCatalog.MOVEMENT_SPEED, false)
+		var external := actor.apply_action_cost_modifiers(1000.0, [&"PHYSICAL"], 0.25, &"intrinsic", false)
+		expect(stat.steps == null and external.steps == null, "Flag reaches both nested phases without empty arrays")
+		expect(actor.stat_breakdown(StatCatalog.MOVEMENT_SPEED).steps.is_typed() and actor.apply_action_cost_modifiers(1000.0, [&"PHYSICAL"]).steps.is_typed(), "Default nested phases retain typed step arrays")
+	actor.clear_effects()
+	actor.body.parts[&"left_leg"].current = 25
+	expect(before == [game.world_time, game.player_next_ready_time, game.rat_next_ready_time, game.combat_rng.state,
+		game.combat_log.events.size(), actor.position, actor.hp, actor.body.parts], "Queries leave time/RNG/events/position/HP/Body unchanged")
+	# Existing no-effects golden covers all production speed/Body combinations.
+	actor.definition = actor.definition.duplicate(true)
+	actor.definition.movement_speed = 1000.0 / 1100.0
+	for part in [&"left_leg", &"right_leg"]:
+		actor.body.parts[part].current = 1
+	expect(_cost_parity(game, MoveAction.new(Vector2i(1, 1))).cost == 3080, "Integer noise boundary still yields 3080")
+	for part in [&"left_leg", &"right_leg"]:
+		actor.body.parts[part].current = 0
+	expect(_cost_parity(game, MoveAction.new(Vector2i.RIGHT)).reason == &"movement_unavailable", "Disabled locomotion costs zero")
+	for part in [&"left_leg", &"right_leg"]:
+		actor.body.parts[part].current = 25
+	for speed in [0.0, -1.0, INF, NAN]:
+		actor.definition.movement_speed = speed
+		expect(_cost_parity(game, MoveAction.new(Vector2i.RIGHT)).cost == 0, "Invalid speed costs zero")
+	actor.definition.movement_speed = 1.0
+	var synthetic := SyntheticCostAction.new()
+	for base in [0.0, -1.0, INF, NAN, 2147483648.0]:
+		synthetic.authored_base = base
+		expect(_cost_parity(game, synthetic).cost == 0, "Invalid/overflow base costs zero")
+	synthetic.authored_base = 1000.0
+	for percent in [INF, NAN]:
+		synthetic.authored_percent = percent
+		expect(_cost_parity(game, synthetic).reason == &"invalid_action_cost", "Nonfinite intrinsic rejects")
+	synthetic.authored_percent = -1.5
+	expect(_cost_parity(game, synthetic).cost == 1, "Negative total retains final minimum")
+	for value in [1e308, -1e308]:
+		actor.add_effect(_effect(&"overflow", [], [_cost(&"overflow", [&"PHYSICAL"], value)]))
+		expect(_cost_parity(game, actions[0]).reason == &"nonfinite_or_overflow", "Signed external overflow costs zero")
+		actor.clear_effects()
+	expect(_cost_parity(game, actions[0], &"missing").reason == &"missing_actor", "Missing actor rejects without trace allocation")
+	expect(_cost_parity(game, AttackAction.new(&"rat", &"missing")).reason == &"invalid_action_cost", "Invalid weapon action rejects")
+	expect(actor.stat_breakdown(&"unknown", false).steps == null, "Invalid stat avoids trace allocation")
+
+func _effect_order_contract() -> void:
+	var store := SnapshotSpyStore.new()
+	var z := _effect(&"z", [_stat(&"z", StatCatalog.MOVEMENT_SPEED, ModifierOperation.Kind.FLAT, 0.25)])
+	var a := _effect(&"a", [], [_cost(&"a", [&"MOVE"], -0.2)])
+	expect(store.resolve_stat(StatCatalog.MOVEMENT_SPEED, 1.0, &"base").value == 1.0 and store.order_rebuilds == 1, "First empty query builds once")
+	expect(store.add(z) and store.add(a) and store.order_rebuilds == 1, "Successful additions mark dirty without eager repeated sorting")
+	var order := store._ordered_ids()
+	expect(order == [&"a", &"z"] and order.is_read_only() and store.order_rebuilds == 2, "Lexical cache is immutable")
+	for query in range(4):
+		store.resolve_stat(StatCatalog.MOVEMENT_SPEED, 1.0, &"base")
+		store.apply_action_cost_modifiers(1000.0, [&"MOVE"])
+		store.snapshots()
+		expect(is_same(order, store._ordered_ids()) and store.order_rebuilds == 2, "Stat/cost/snapshot queries reuse identical ID array")
+	expect(not store.add(a) and not store.add(null) and not store.add(_effect(&"invalid")) and not store.add(z, &"") and not store.remove(&"missing"), "Failed mutations reject")
+	expect(is_same(order, store._ordered_ids()) and store.order_rebuilds == 2, "Failed mutations do not invalidate order")
+	expect(store.remove(z.id) and store.resolve_stat(StatCatalog.MOVEMENT_SPEED, 1.0, &"base").value == 1.0 and store.order_rebuilds == 3, "Removal visible at first query")
+	store.clear()
+	expect(store.apply_action_cost_modifiers(1000.0, [&"MOVE"]).value == 1000.0 and store.order_rebuilds == 4, "Clear immediately restores cost and rebuilds empty order")
+	expect(store.add(z) and store.resolve_stat(StatCatalog.MOVEMENT_SPEED, 1.0, &"base").value == 1.25 and store.order_rebuilds == 5, "Re-add after clear immediately visible")
+	store.clear()
+	store.clear()
+	expect(store.snapshots().is_empty() and store.order_rebuilds == 6, "Repeated clear batches into one next-query rebuild")
+	expect(order == [&"a", &"z"] and order.is_read_only(), "Old ID view cannot change current cache or be changed by later rebuilds")

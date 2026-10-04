@@ -69,7 +69,9 @@ StatResolver delegates to store resolution; ActionCostResolver requests only val
 breakdowns via Actor. Live instance/Resource references never leave store resolution.
 The previous `_ordered_effect_refs()` helper is removed. Its replacement sorts only
 scalar IDs; references are read inside the store. No resolution-time Resource deep
-copies and no resolved-value or ordering cache exist. Add/remove/clear is reflected
+copies and no resolved-value cache exist. M035 caches only a read-only sorted scalar
+ID array, invalidated by successful add/remove and clear (failed mutations leave it
+unchanged), then rebuilt once at the next query. Add/remove/clear is reflected
 at the next query. GDScript does not enforce private fields; underscored storage is
 implementation-only, and no supported API exposes it or returns live references.
 
@@ -94,7 +96,9 @@ only if the Action contains **all** required tags. Empty selectors are invalid.
 | Interact | INTERACT, PHYSICAL | 500 |
 | Wait | WAIT | 1000 |
 
-`TimeAction.get_cost` delegates to `cost_breakdown` -> ActionCostResolver:
+`TimeAction.get_cost` and `cost_breakdown` share ActionCostResolver. M035 passes
+include_steps=false for the numeric query and retains the default true for explanations,
+including movement stat and external modifier resolution. Arithmetic stays in one path:
 
 1. Action-owned base cost.
 2. For Move only, divide by resolved movement_speed, then authoritative Body
