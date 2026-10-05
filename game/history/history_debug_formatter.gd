@@ -2,7 +2,8 @@ class_name HistoryDebugFormatter
 extends RefCounted
 
 func format(result: HistoryResult) -> String:
-	var lines: Array[String] = ["History Prototype v0.1 | seed %d | play start 0" % result.seed, "=== CANON ===", "Locked facts:"]
+	var lines: Array[String] = ["History architecture v%d | generation algorithm v%d | seed %d | play start 0" % [result.architecture_version, result.generation_version, result.seed],
+		"Configuration: " + JSON.stringify(result.configuration), "=== CANON ===", "Locked facts:"]
 	var keys: Array = result.canon.locked.keys()
 	keys.sort()
 	for key: String in keys:
@@ -11,17 +12,18 @@ func format(result: HistoryResult) -> String:
 	lines.append("=== OBJECTIVE HISTORY ===")
 	for event in result.objective_timeline:
 		lines.append("%d %s [%s] %s" % [event.year, event.id, event.type_name(), CanonPolicy.narrative(event)])
+		lines.append("  scope=%s | objective cause_domain=%s" % [event.scope, event.cause_domain])
 		var names: Array[String] = []
 		for id in event.actor_ids:
 			names.append(result.entity(id).name + " (" + id + ")")
-		lines.append("  actors: %s | causes: %s" % [", ".join(names), ", ".join(event.cause_event_ids)])
+		lines.append(("  actors: %s | causes: %s" % [", ".join(names), ", ".join(event.cause_event_ids)]).strip_edges(false, true))
 		lines.append("  effects: " + JSON.stringify(event.effects))
 	lines.append("=== PRESENT ===")
 	for entity in result.entities:
 		if entity.kind == "region":
 			lines.append("Region %s: %s" % [entity.id, entity.name])
 	for faction in result.present.active_factions:
-		lines.append("Faction %s: %s | %s" % [faction.id, faction.name, faction.way_of_life])
+		lines.append("Faction %s: %s | %s | knowledge=%s" % [faction.id, faction.name, faction.way_of_life, ", ".join(faction.knowledge_tags)])
 	for ancestry in result.present.faction_ancestry:
 		lines.append("Ancestry %s: parents=%s; ancestors=%s; sources=%s" % [ancestry.faction_id, ", ".join(ancestry.parent_ids), ", ".join(ancestry.ancestor_ids), ", ".join(ancestry.source_event_ids)])
 	for relation in result.present.relationships:
@@ -32,9 +34,11 @@ func format(result: HistoryResult) -> String:
 		lines.append("Ruin %s: %s | occupant=%s | region=%s | sources=%s" % [ruin.id, ruin.ruin_kind, ruin.occupant_id, ruin.location_id, ", ".join(ruin.source_event_ids)])
 	for discovery in result.present.discoveries:
 		lines.append("Discovery %s: %s | origin=%s | sources=%s" % [discovery.id, discovery.observation, discovery.origin, ", ".join(discovery.source_event_ids)])
+	for trace in result.present.system_traces:
+		lines.append("System consequence: " + JSON.stringify(trace))
 	lines.append("=== BELIEFS ===")
 	for faction in result.present.active_factions:
-		lines.append(faction.name + " (" + faction.id + "):")
+		lines.append(faction.name + " (" + faction.id + "; knowledge=" + ", ".join(faction.knowledge_tags) + "):")
 		for claim in result.historical_claims:
 			if claim.claimant_entity_id == faction.id:
 				lines.append("  [%s; confidence %.2f; %s] %s" % [claim.referenced_event_id if not claim.referenced_event_id.is_empty() else claim.topic, claim.confidence, claim.claim_type, claim.interpretation])

@@ -2,7 +2,9 @@ class_name HistoryResult
 extends RefCounted
 
 var seed: int = 0
-var generation_version: int = 1
+var generation_version: int = 2
+var architecture_version: int = 1
+var configuration: Dictionary = {}
 var canon: Dictionary = {}
 var entities: Array[HistoricalEntity] = []
 var objective_timeline: Array[HistoricalEvent] = []
@@ -20,7 +22,8 @@ func to_dict() -> Dictionary:
 		event_rows.append(item.to_dict())
 	for item in historical_claims:
 		claim_rows.append(item.to_dict())
-	return {"seed": seed, "generation_version": generation_version, "canon": canon.duplicate(true),
+	return {"seed": seed, "generation_version": generation_version, "architecture_version": architecture_version,
+		"configuration": configuration.duplicate(true), "canon": canon.duplicate(true),
 		"entities": entity_rows, "objective_timeline": event_rows, "present": present.to_dict(),
 		"historical_claims": claim_rows, "validation_report": validation_report.duplicate(true)}
 
@@ -36,3 +39,17 @@ func entity(id: String) -> HistoricalEntity:
 		if item.id == id:
 			return item
 	return null
+
+# Naming-only fields are excluded; chronology/effects/claims/configuration remain.
+func structural_output() -> String:
+	var value := to_dict()
+	value.erase("validation_report")
+	for row: Dictionary in value.entities:
+		row.erase("name")
+		row.erase("generated_name")
+	for row: Dictionary in value.present.active_factions:
+		row.erase("name")
+		row.erase("generated_name")
+	for row: Dictionary in value.present.settlements:
+		row.erase("name")
+	return JSON.stringify(value)

@@ -10,6 +10,7 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 	var sites := {}
 	var ruins := {}
 	var discoveries := {}
+	var traces := {}
 	for entity in entities:
 		definitions[entity.id] = entity
 	for event in timeline:
@@ -39,10 +40,19 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 				"discovery":
 					discoveries[effect.id] = {"id": effect.id, "location_id": effect.location_id,
 						"observation": effect.observation, "origin": effect.origin, "source_event_ids": [event.id]}
+				"system_trace":
+					var trace := effect.duplicate(true)
+					trace.erase("kind")
+					trace["cause_domain"] = event.cause_domain
+					trace["scope"] = event.scope
+					trace["source_event_ids"] = [event.id]
+					traces[effect.id] = trace
 	for id: String in _keys(active):
 		var entity: HistoricalEntity = definitions[id]
 		if entity.kind == "faction":
 			state.active_factions.append({"id": id, "name": entity.name, "way_of_life": entity.way_of_life,
+				"knowledge_tags": entity.knowledge_tags.duplicate(),
+				"generated_name": entity.generated_name.to_dict() if entity.generated_name != null else {},
 				"source_event_ids": [active[id]]})
 			var ancestors: Array[String] = []
 			_collect_ancestors(id, definitions, ancestors)
@@ -65,6 +75,8 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 		state.ruins.append(ruins[key])
 	for key: String in _keys(discoveries):
 		state.discoveries.append(discoveries[key])
+	for key: String in _keys(traces):
+		state.system_traces.append(traces[key])
 	return state
 
 func _collect_ancestors(id: String, definitions: Dictionary, found: Array[String]) -> void:

@@ -12,12 +12,11 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 		return report
 	if result.generation_version != HistoryGenerator.VERSION:
 		errors.append("Unknown history generation version")
+	if result.architecture_version != HistoryGenerator.ARCHITECTURE_VERSION:
+		errors.append("Unknown history architecture version")
+	errors.append_array(HistoryMotifs.config_errors(result.configuration))
 	if result.canon != CanonPolicy.snapshot():
 		errors.append("LOCKED/RESERVED Canon policy was changed")
-	if replay != null:
-		report.determinism = "pass" if result.canonical_output() == replay.canonical_output() else "fail"
-		if report.determinism == "fail":
-			errors.append("Same-seed replay differs")
 	var entities := {}
 	var events := {}
 	var order := {}
@@ -30,6 +29,20 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 		entities[entity.id] = entity
 		if entity.kind not in CanonPolicy.ENTITY_KINDS or entity.way_of_life not in CanonPolicy.WAYS_OF_LIFE or entity.name.strip_edges().is_empty():
 			errors.append("Invalid entity definition: " + entity.id)
+		for tag in entity.knowledge_tags:
+			if tag not in CanonPolicy.KNOWLEDGE_TAGS:
+				errors.append("Unknown knowledge tag: " + tag)
+		if entity.kind == "precursor_state" and entity.political_form not in HistoryMotifs.PRECURSORS:
+			errors.append("Invalid precursor political form")
+		if entity.generated_name != null:
+			var renderer := NameRenderer.new()
+			# Custom naming catalogs may have different displays; canonical shipping shape remains checked in naming tests.
+			if entity.generated_name.culture_id != entity.naming_culture_id:
+				errors.append("Canonical naming culture disagrees with lineage context")
+			if not renderer.validation_errors(entity.generated_name).is_empty():
+				report.warnings.append("Canonical name uses non-shipping naming content: " + entity.id)
+		else:
+			report.warnings.append("No canonical name (custom label or bounded naming fallback): " + entity.id)
 	for i in range(result.objective_timeline.size()):
 		var event := result.objective_timeline[i]
 		if event == null or event.id.is_empty():
@@ -47,6 +60,10 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			errors.append("Invalid importance: " + event.id)
 		if not CanonPolicy.NARRATIVES.has(event.narrative_key) or CanonPolicy.NARRATIVES[event.narrative_key][0] != event.type_name():
 			errors.append("Forbidden objective narrative/type: " + event.id)
+		elif event.cause_domain != CanonPolicy.NARRATIVES[event.narrative_key][2]:
+			errors.append("Objective narrative/domain mismatch: " + event.id)
+		if event.scope not in ["local", "regional"] or event.cause_domain not in CanonPolicy.DOMAINS:
+			errors.append("Invalid event scope/domain: " + event.id)
 		for effect in event.effects:
 			for message in CanonPolicy.effect_errors(effect):
 				errors.append(event.id + ": " + message)
@@ -89,7 +106,7 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			kinds[entity.kind] += 1
 	if kinds.region != 1 or kinds.precursor_state != 1 or projected.active_factions.size() != 3:
 		errors.append("Expected one region, one precursor and three current factions")
-	if result.objective_timeline.size() < 10 or result.objective_timeline.size() > 20 or projected.ruins.size() < 3 or projected.ruins.size() > 5 or projected.settlements.size() < 3:
+	if result.objective_timeline.size() < 14 or result.objective_timeline.size() > 24 or projected.ruins.size() < 3 or projected.ruins.size() > 5 or projected.settlements.size() < 3:
 		errors.append("History slice exceeds its size contract")
 	var collapses := 0
 	for event in result.objective_timeline:
@@ -131,6 +148,11 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 	if float(direct_count) / maxi(1, important) < MIN_SCAR_RATIO:
 		report.warnings.append("Some important events survive only through causal provenance")
 	_claims(result, projected, events, report)
+	_v2_boundaries(result, events, errors)
+	if replay != null and errors.is_empty():
+		report.determinism = "pass" if result.canonical_output() == replay.canonical_output() else "fail"
+		if report.determinism == "fail":
+			errors.append("Same-seed/version/content replay differs")
 	return report
 
 func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> void:
@@ -140,15 +162,16 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 	var scars := {}
 	var sites := {}
 	var discoveries := {}
+	var traces := {}
 	for event in result.objective_timeline:
 		for actor in event.actor_ids:
 			if not active.has(actor):
 				errors.append("Actor is not alive before event: " + event.id + "/" + actor)
 		var allowed := {
-			"FOUNDING": ["activate", "settlement"], "SPLIT": ["activate", "relationship"],
-			"SCHISM": ["activate", "relationship"], "MERGE": ["activate", "retire"],
+			"FOUNDING": ["activate", "settlement", "relationship"], "SPLIT": ["activate", "relationship", "ruin"],
+			"SCHISM": ["activate", "relationship", "ruin"], "MERGE": ["activate", "retire"],
 			"WAR": ["relationship", "ruin"], "MIGRATION": ["activate", "retire", "settlement", "relationship", "ruin"],
-			"DISASTER": ["ruin"], "COLLAPSE": ["retire", "ruin"],
+			"DISASTER": ["ruin", "system_trace"], "COLLAPSE": ["retire", "ruin"],
 			"RUIN_REOCCUPIED": ["activate", "settlement", "reoccupy"], "ANOMALOUS_DISCOVERY": ["discovery"],
 		}
 		var activated: Array[String] = []
@@ -177,7 +200,7 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 					_check_faction(effect.owner_id, active, entities, errors)
 					sites[effect.entity_id] = effect.owner_id
 				"ruin":
-					if scars.has(effect.id) or entities.has(effect.id) or discoveries.has(effect.id):
+					if scars.has(effect.id) or entities.has(effect.id) or discoveries.has(effect.id) or traces.has(effect.id):
 						errors.append("Duplicate ruin/object ID: " + effect.id)
 					scars[effect.id] = true
 				"relationship":
@@ -190,12 +213,18 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 						errors.append("Reoccupation requires existing ruin and owned settlement: " + event.id)
 					_check_faction(effect.owner_id, active, entities, errors)
 				"discovery":
-					if discoveries.has(effect.id) or entities.has(effect.id) or scars.has(effect.id):
+					if discoveries.has(effect.id) or entities.has(effect.id) or scars.has(effect.id) or traces.has(effect.id):
 						errors.append("Duplicate discovery/object ID: " + effect.id)
 					discoveries[effect.id] = true
-					var expected := {"crater": "machine_in_coastal_crater", "salt": "machine_in_salt_deposit", "manufacture": "unfamiliar_manufacturing"}
+					var expected := HistoryMotifs.DISCOVERY_OBSERVATIONS
 					if effect.observation != expected.get(event.narrative_key, ""):
 						errors.append("Discovery observation disagrees with narrative: " + event.id)
+				"system_trace":
+					if traces.has(effect.id) or entities.has(effect.id) or scars.has(effect.id) or discoveries.has(effect.id):
+						errors.append("Duplicate system/object ID: " + effect.id)
+					traces[effect.id] = true
+					if not HistoryMotifs.SYSTEMS.has(event.narrative_key) or effect != HistoryMotifs.system_effect(event.narrative_key, effect.id):
+						errors.append("Unbounded/unreviewed system mechanism or domain mismatch: " + event.id)
 			if effect.has("location_id") and (entities[effect.location_id].kind != "region" or not active.has(effect.location_id)):
 				errors.append("Invalid/inactive effect location: " + event.id)
 		for id in event.location_ids:
@@ -252,6 +281,10 @@ func _claims(result: HistoryResult, present: HistoryState, events: Dictionary, r
 			continue
 		if claim.claimant_entity_id not in current:
 			report.errors.append("Claimant must be a current faction")
+		else:
+			var lower := claim.interpretation.to_lower()
+			if ("observer" in lower or "관찰자" in lower) and "observer_scholarly_term" not in result.entity(claim.claimant_entity_id).knowledge_tags:
+				report.errors.append("Observer terminology requires scholarly knowledge: " + claim.claimant_entity_id)
 		if claim.claimant_entity_id not in claimants:
 			claimants.append(claim.claimant_entity_id)
 		if claim.referenced_event_id.is_empty() == claim.topic.is_empty():
@@ -275,3 +308,48 @@ func _claims(result: HistoryResult, present: HistoryState, events: Dictionary, r
 		different = different or interpretations[key].size() >= 2
 	if not different:
 		report.warnings.append("No event has differing perceived interpretations")
+
+func _v2_boundaries(result: HistoryResult, events: Dictionary, errors: Array) -> void:
+	var seen_names := {}
+	for entity in result.entities:
+		var label := entity.name.strip_edges().to_lower()
+		if seen_names.has(label):
+			errors.append("Colliding history entity labels: " + entity.id)
+		seen_names[label] = true
+	var config := result.configuration
+	var expected := {"h_found": config.precursor_form, "h_pressure": config.pressure_motif,
+		"h_response": config.response_motif, "h_failure": config.collapse_pattern,
+		"h_c_formed": config.faction_c_formation, "h_middle": config.middle_motif,
+		"h_recent": config.recent_motif, "h_discovery": config.discovery_motif}
+	for id in expected:
+		if not events.has(id) or events[id].narrative_key != expected[id]:
+			errors.append("Configuration does not explain objective event: " + id)
+	for id in {"precursor": config.precursor_form, "faction_a": config.successor_a_form,
+		"faction_b": config.successor_b_form, "faction_c": config.faction_c_formation}:
+		var entity := result.entity(id)
+		var form: String = config.precursor_form if id == "precursor" else config.successor_a_form if id == "faction_a" else config.successor_b_form if id == "faction_b" else config.faction_c_formation
+		if entity == null or (entity.political_form if id == "precursor" else entity.way_of_life) != form:
+			errors.append("Configuration does not explain polity/community form: " + id)
+	var legacy_counts := {"observer_legacy": 0, "core_intervention": 0}
+	var recent_count := 0
+	for event in result.objective_timeline:
+		if event.year >= -100:
+			recent_count += 1
+		if event.cause_domain in legacy_counts:
+			legacy_counts[event.cause_domain] += 1
+			var traces := 0
+			for effect in event.effects:
+				traces += int(effect.kind == "system_trace")
+			if traces != 1 or event.scope != "local" or not event.cause_event_ids.is_empty():
+				errors.append("Legacy event needs one bounded local trace and no invented activation cause")
+		elif event.effects.any(func(effect: Dictionary) -> bool: return effect.kind == "system_trace"):
+			errors.append("System trace outside its reviewed objective provenance")
+	if legacy_counts.observer_legacy > 1 or legacy_counts.core_intervention > 1:
+		errors.append("Regional legacy budget exceeded; assets cannot act without bounds")
+	if recent_count < 3:
+		errors.append("Recent history is too sparse")
+	for suffix: String in ["core", "orbital"]:
+		var key: String = config["extra_" + suffix]
+		var id := "h_legacy_" + suffix
+		if (key.is_empty() and events.has(id)) or (not key.is_empty() and (not events.has(id) or events[id].narrative_key != key)):
+			errors.append("Independent legacy budget/configuration mismatch: " + suffix)

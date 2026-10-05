@@ -25,6 +25,7 @@ Snapshot: 2026-10-02, M033 primary-attribute runtime is complete on main at `96d
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
+| Regional history v2 | Independent physical/human/legacy pressures, responses, successor forms, claims and canonical names | Complete on task branch; not merged main | [M037](milestones/M037_history_generation_v2.md), codex/history-generator-v0.2; exact base11127ef; no main merge or gameplay integration. |
 | Regional history | Canon-constrained History Prototype v0.1 with objective history, separate claims and projected scars | Complete on task branch | [M036](milestones/M036_history_generator_v0_1.md), codex/history-generator-v0.1; base origin/main b60d2b9; 809 focused assertions, 300 seeds, full 32-test check PASS; no main merge or gameplay/world-map integration. |
 | Procedural naming | Locale-independent canonical names, native synthetic vocabulary, en/ko renderer and deterministic SeedDeriver generation | Complete on task branch; not merged main | [M035](milestones/M035_procedural_naming_v1.md), `codex/procedural-naming-v1`, base latest fetched origin/main `5c527e2`; 30,266 assertions/6,000 samples and full 31-test check pass. No NPC/UI/save integration. |
 | Naming follow-up | Final culture/lore vocabulary, explicit save/version compatibility and eventual NPC/site integration | Candidate | M035 is a prototype foundation; global uniqueness, linguistic/manual quality and exported-package validation require separately scoped work. |

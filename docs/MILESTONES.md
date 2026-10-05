@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M037: **Complete on task branch; not merged main** codex/history-generator-v0.2, exact Observer-lore base11127ef; independent recipe axes, canonical naming, knowledge-gated claims. History 48,463 assertions / 1000 seeds, Naming 30,266 assertions, full 32-script check and ten qualitative reports pass. [Generation v2](milestones/M037_history_generation_v2.md).
+
 - M036: **Complete on task branch; not merged main** codex/history-generator-v0.1; constrained regional history and repo Canon. [History Prototype v0.1](milestones/M036_history_generator_v0_1.md).
 
 - M035: **Complete on task branch; not merged main** on `codex/procedural-naming-v1`, base latest fetched `origin/main` `5c527e2`. Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar. Focused 30,266 assertions / 6,000 fixed-seed samples; full 31-test Godot check, offline wiki/spec and layout audits pass. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
@@ -46,6 +48,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M037 | In progress on task branch | Independent pressure/response axes, knowledge gate and canonical naming | docs/milestones/M037_history_generation_v2.md |
 | M036 | Complete on task branch; not merged main | Canon-constrained history/present/claims; 809 focused assertions and full 32-test check PASS | docs/milestones/M036_history_generator_v0_1.md |
 | M035 | Complete on task branch; not merged main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; 30,266 focused assertions and full 31-test check pass | `docs/milestones/M035_procedural_naming_v1.md` |
 | M034 | Complete on task branch; main integration pending | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; full 30-test Godot check passes | `docs/milestones/M034_con_max_hp.md` |
