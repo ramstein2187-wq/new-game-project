@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M036: **Complete on task branch; not merged main** codex/history-generator-v0.1; constrained regional history and repo Canon. [History Prototype v0.1](milestones/M036_history_generator_v0_1.md).
+
 - M035: **Complete on task branch; not merged main** on `codex/procedural-naming-v1`, base latest fetched `origin/main` `5c527e2`. Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar. Focused 30,266 assertions / 6,000 fixed-seed samples; full 31-test Godot check, offline wiki/spec and layout audits pass. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
 
 - M034: **Complete on task branch; main integration pending** `codex/con-hp-scaling-integration` over main `78ab715`; selectively reintegrates completed `005c7a6` through resolved CON, damage-preserving HP lifecycle and authoritative Overview/export queries. Full Godot check passes all 30 tests/import/startup/export; focused CON/HP 121 and M033 422 assertions pass. Manual visual/play/balance acceptance is separate. [CON derived Max HP](milestones/M034_con_max_hp.md).
@@ -44,6 +46,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M036 | Complete on task branch; not merged main | Canon-constrained history/present/claims; 809 focused assertions and full 32-test check PASS | docs/milestones/M036_history_generator_v0_1.md |
 | M035 | Complete on task branch; not merged main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; 30,266 focused assertions and full 31-test check pass | `docs/milestones/M035_procedural_naming_v1.md` |
 | M034 | Complete on task branch; main integration pending | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; full 30-test Godot check passes | `docs/milestones/M034_con_max_hp.md` |
 | M033 | Complete on main | Semantic domains; one resolved primary modifier per check; explicit alternate only; movement_speed independent; PR #40 merged at `96da962` | `docs/milestones/M033_primary_attribute_runtime.md` |
