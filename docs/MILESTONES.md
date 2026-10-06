@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M040: **Complete on task branch; not merged main** over `codex/history-generator-v0.3-fixup`. Adds a non-serialized deterministic Faction identity/cultural-interpretation lens over v3 history; Claim wording varies by evidence-backed identity without new objective facts. Focused 12,983 assertions and full 35-script Godot gate PASS. [Faction identity lens](milestones/M040_faction_identity_interpretation.md).
+
 - M039: **Complete on isolated task branch; not merged main** codex/history-generator-v0.3-fixup; basef657025. Current4..8 via family bands/stop, structured population strata and authored social gate, lowercase Origins, generation3/architecture2 with legacy2/architecture1. 5000seed replay0failures; full34-script gate and183785 reported assertions PASS; nineteen histories inspected. [Contract alignment](milestones/M039_history_contract_alignment.md).
 
 - M038: **Complete on task branch; not merged main** codex/history-generator-v0.3; base9380df3; seven topology families,6..8active factions, population provenance, sparse event/present relations and compatible optional reuse. V3 119,402 / v2 48,463 / Naming 30,266 assertions; full33-script gate and1000seed replay PASS, ten canonical graphs inspected. [Topology/population v3](milestones/M038_history_topology_population.md).
@@ -52,6 +54,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M040 | Complete in isolated working tree; not merged main | Derived faction identity, interpretation modes and culturally varied Claims without objective-history mutation | `docs/milestones/M040_faction_identity_interpretation.md` |
 | M037 | In progress on task branch | Independent pressure/response axes, knowledge gate and canonical naming | docs/milestones/M037_history_generation_v2.md |
 | M036 | Complete on task branch; not merged main | Canon-constrained history/present/claims; 809 focused assertions and full 32-test check PASS | docs/milestones/M036_history_generator_v0_1.md |
 | M035 | Complete on task branch; not merged main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; 30,266 focused assertions and full 31-test check pass | `docs/milestones/M035_procedural_naming_v1.md` |

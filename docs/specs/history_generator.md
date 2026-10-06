@@ -2,9 +2,9 @@
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
 type = "알고리즘 / 데이터 모델"
-systems = "HistoryGenerator / HistoryTopology / HistoryProjector / HistoryValidator"
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup — codex/history-generator-v0.3-fixup; main 미병합"
-code_paths = ["game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "tools/analyze_history.gd"]
+systems = "HistoryGenerator / HistoryTopology / FactionIdentityResolver / HistoryProjector / HistoryValidator"
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 faction identity lens — codex/history-generator-v0.3-fixup; main 미병합"
+code_paths = ["game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "tools/analyze_history.gd"]
 diagram = "docs/diagrams/history_generator.svg"
 +++
 # History Generator v0.3 — topology and population contracts
@@ -135,6 +135,40 @@ from all recorded successors. The projector retains this separate disposition
 ledger. Neither disposition asserts all residents died or an Origin/species vanished.
 An untracked historical stock can remain a later recorded population source.
 
+## Derived Faction identity and cultural interpretation
+
+M040 adds a deliberately thin read-only lens between projected history and Claim wording.
+`FactionIdentityResolver` derives five axes for each current faction from existing
+formation, political continuity, lifestyle, regional role and recorded scars:
+
+- continuity stance: `heir/reformer/breakaway/new_foundation/outsider`
+- social anchor: `kin/locality/institution/craft/ritual/exchange/refuge`
+- adaptive stance: `preserve/adapt/rebuild/exploit/withdraw`
+- interpretation mode: `pragmatic/skeptical/technical/ritual`
+- memory frame: `continuity/rupture/grievance/debt/warning/opportunity`
+
+This is **not** another objective-history layer or culture simulator. The resolver is a pure
+deterministic query over already generated data. It neither emits events/effects nor mutates
+`HistoricalEntity` or `HistoryState`, so generation3 remains architecture2. The profile is
+not serialized as objective state; it can always be recomputed. Debug output shows the lens
+and the small provenance set used to explain it.
+
+Axes are weighted rather than mapped 1:1. A direct political heir strongly favors `heir`,
+a fragmentation favors `breakaway`, an authorized newcomer favors `outsider`, but current
+lifestyle/role and other history can produce different present identities. Memory frames are
+evidence-backed: grievance/debt require actual signed relation events; warning can cite the
+regional pressure or rare legacy event; opportunity comes from reuse/discovery or an
+adaptive rebuild/exploitation stance. Identity therefore compresses scars rather than adding
+new lore facts.
+
+The Claim builder uses the profile only as a **wording lens**. The same objective pressure,
+discovery, relation or legacy event can be described pragmatically, skeptically, technically
+or ritually while retaining its event evidence and Canon limits. Positive/negative relation
+Claims still preserve the recorded delta; present Claims still use accumulated score. Core
+purpose, Observer activation/target selection and discovery Origin remain unresolved.
+Identity means "how this faction frames itself"; interpretation means "how it habitually
+reads evidence"; an individual Claim remains the statement about one event/state.
+
 ## Canonical projection, renderer, claims and sites
 
 Entity/event/effect data creates history; `HistoryProjector` replays the present.
@@ -180,10 +214,10 @@ chronology/lifecycle, family bands/anchors/bounded steps, population authorizati
 donor explainability, formation semantics, retirement disposition, projection equality,
 claim evidence, safe ownership/reuse, sparse relations and deterministic replay.
 
-Final corpus and numerical results: [follow-up completion review](../reviews/2026-10-06-history-generator-v0_3-fixup.md),
+M039 structural corpus and numerical results remain applicable to topology/population because M040 does not alter objective history: [follow-up completion review](../reviews/2026-10-06-history-generator-v0_3-fixup.md),
 [5000-seed statistics](../reviews/history_v3_fixup/diversity.json),
 [readable histories](../reviews/history_v3_fixup/samples.md),
-[canonical snapshots](../reviews/history_v3_fixup/samples.json).
+[canonical snapshots](../reviews/history_v3_fixup/samples.json). Those saved readable histories predate M040 Claim wording; M040 validation and sample inspection are recorded in its milestone.
 Initial M038's "multi-origin histories334" measured flat category co-residence; it is
 not evidence of hybrid lineage. New statistics separate mixed society and multi-Origin
 lineage and explicitly report their zero shipping frequency under the conservative gate.

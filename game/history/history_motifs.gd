@@ -3,7 +3,7 @@ extends RefCounted
 
 # Small authored composition vocabulary, not a simulation/rule engine.
 const CONTENT_REVISION := "history-v2-authored-1"
-const CONTENT_REVISION_V3 := "history-v3-authored-2"
+const CONTENT_REVISION_V3 := "history-v3-authored-3"
 const TOPOLOGY_FAMILIES := ["polycentric_succession", "remnant_mosaic", "late_fragmentation",
 	"consolidation_resplit", "layered_migration", "no_direct_heir", "enclave_continuity"]
 const FORMATIONS := ["founding", "direct_successor", "fragmentation", "merger", "migration_settlement",

@@ -36,10 +36,15 @@ func format(result: HistoryResult) -> String:
 	for entity in result.entities:
 		if entity.kind == "region":
 			lines.append("Region %s: %s" % [entity.id, entity.name])
+	var identity_resolver := FactionIdentityResolver.new()
 	for faction in result.present.active_factions:
 		lines.append("Faction %s: %s | %s | knowledge=%s" % [faction.id, faction.name, faction.way_of_life, ", ".join(faction.knowledge_tags)])
 		if result.generation_version == 3:
 			lines.append("  origins=%s | formation=%s | regional_roles=%s" % [PopulationOrigins.format(faction.population_origin_profile), faction.formation_origin, ", ".join(faction.regional_roles)])
+			var identity: Dictionary = identity_resolver.resolve(result, faction.id)
+			lines.append("  identity=%s/%s/%s | interpretation=%s/%s | sources=%s" % [
+				identity.continuity_stance, identity.social_anchor, identity.adaptive_stance,
+				identity.interpretation_mode, identity.memory_frame, ", ".join(identity.source_event_ids)])
 	for ancestry in result.present.faction_ancestry:
 		lines.append("Ancestry %s: parents=%s; ancestors=%s; sources=%s" % [ancestry.faction_id, ", ".join(ancestry.parent_ids), ", ".join(ancestry.ancestor_ids), ", ".join(ancestry.source_event_ids)])
 	for relation in result.present.relationships:

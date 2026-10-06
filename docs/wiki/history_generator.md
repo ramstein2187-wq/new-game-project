@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup — main 미병합"
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 faction identity lens — main 미병합"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v0.3-fixup/docs/specs/history_generator.md"
 icon = "📜"
 +++
@@ -32,7 +32,17 @@ test-only catalog로 검증하며 새 세계관으로 등록하지 않는다. Un
 
 Generation3은 **architecture2**, legacy generation2는 **architecture1**이다.
 Canonical effect → projection → 별도 Claim → renderer 흐름을 유지한다.
-사건 relation Claim은 당시 delta, 현재 Claim은 누적 score를 읽는다.
+M040에서는 그 사이에 저장되지 않는 **Faction identity / cultural interpretation lens**를
+추가했다. 각 현재 세력은 기존 역사에서 `continuity stance / social anchor /
+adaptive stance / interpretation mode / memory frame`을 deterministic하게 유도한다.
+이 profile은 새 객관적 사실을 만들거나 저장하지 않고 필요할 때 재계산한다.
+
+예를 들어 같은 궤도 재난도 technical 세력은 물증과 미확정 원인을 강조하고,
+skeptical 세력은 과잉 해석을 경계하며, ritual 세력은 의례적 의미와 물리적 원인을
+구분하고, pragmatic 세력은 현재의 위험과 활용 가능한 사실을 우선한다.
+그럼에도 사건 relation Claim은 당시 delta, 현재 Claim은 누적 score를 읽으며
+Core 목적·Observer 발동/표적 이유·발견물 기원은 계속 미확정이다.
+
 유적 재사용은 optional이며 hazard/type/용도 compatibility를 검사한다.
 Observer/Core의 기존 희귀 예산과 Canon mystery, M035 naming/SeedDeriver는 유지한다.
 
@@ -40,5 +50,6 @@ Observer/Core의 기존 희귀 예산과 Canon mystery, M035 naming/SeedDeriver�
 [5000-seed 통계](../reviews/history_v3_fixup/diversity.json),
 [대표 역사 원문](../reviews/history_v3_fixup/samples.md),
 [후속 검토·검증 결과](../reviews/2026-10-06-history-generator-v0_3-fixup.md).
+이 저장 샘플은 M039 시점의 Claim 문구이며 M040 identity wording 이전 기록이다.
 M038 최초 review의6..8과 flat "multi-origin334"는 당시 구현 기록으로 남기고 후속 report에서 정정했다.
 `codex/history-generator-v0.3-fixup`은 main 미병합이다. 실제 NPC·경제·전쟁·지도·문화·save migration은 범위 밖이다.
