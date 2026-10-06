@@ -171,6 +171,13 @@ reads evidence"; an individual Claim remains the statement about one event/state
 
 ## Canonical projection, renderer, claims and sites
 
+M041 adds a further pure culture query over this unchanged M040 layer:
+Society Traits (structural patterns), Doctrines (normative desires), qualitative
+intensity, values/taboos and future Actor/goal hooks. It is not serialized into
+objective history and cannot rewrite Claims or activate unsupported future content.
+See [Faction culture contract](faction_culture.md) for the dedicated catalog,
+evidence gates, dormant definitions, Actor interactions and candidate boundaries.
+
 Entity/event/effect data creates history; `HistoryProjector` replays the present.
 `HistoryDebugFormatter` only reads it, including donor provenance and strata semantics.
 Claims are perceived accounts and cannot alter objective state. Event relation Claims use

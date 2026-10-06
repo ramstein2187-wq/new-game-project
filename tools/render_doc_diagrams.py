@@ -9,6 +9,25 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "diagrams"
 
 FLOWS = {
+    "faction_culture": ("Faction Society Traits & Doctrines — M041", [
+        "Objective history v3 / architecture v2 → projected present",
+        "M040 identity / interpretation (pure derived query)",
+        "Actual evidence records → all / any / preferences / forbids",
+        "Society Traits 2–4: organization and everyday life",
+        "Doctrines 0–2: normative values / taboos / desires / fears",
+        "Evidence-gated intensity + explicit conditional conflicts",
+        "Derived profile / provenance → future goal candidates",
+        "No objective mutation · no fabricated content · no simulation"
+    ]),
+    "society_actor_interaction": ("Actor semantic interaction — M041", [
+        "Actor semantic expressions (no real Actor Trait dependency)",
+        "Selected Society Trait values / tensions + Doctrine values / taboos",
+        "Simultaneous positive / negative / mixed reasons + provenance",
+        "Qualitative standing retains useful and suspect aspects",
+        "Role / dialogue / event / access hook candidates",
+        "Future authored policy and special cases at application boundary",
+        "No reputation number · no automatic access grant"
+    ]),
     "primary_attribute_check": ("Primary Attribute 판정 — M033", [
         "authored primary + optional explicit alternate",
         "Actor.primary_attribute_check",

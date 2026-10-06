@@ -1,0 +1,607 @@
+{
+	"combination_uniqueness": {
+		"definition": "First occurrence per combination is unique; later occurrences are repeats. Names, IDs and provenance excluded.",
+		"repeated_combination_occurrences": 2599,
+		"repeated_combination_rate": 0.416106308037144,
+		"repeated_profile_rate_including_identity": 0.00208133205251361,
+		"unique_including_identity_axes": 6233,
+		"unique_trait_doctrine_intensity_combinations": 3647
+	},
+	"content_revision": "faction-culture-v1-authored-1",
+	"doctrine_categories": {
+		"art": {
+			"eligible": 4394,
+			"selected": 808
+		},
+		"biotech": {
+			"eligible": 0,
+			"selected": 0
+		},
+		"deep": {
+			"eligible": 88,
+			"selected": 15
+		},
+		"environment": {
+			"eligible": 821,
+			"selected": 171
+		},
+		"ethics": {
+			"eligible": 386,
+			"selected": 90
+		},
+		"knowledge": {
+			"eligible": 3174,
+			"selected": 669
+		},
+		"machine": {
+			"eligible": 392,
+			"selected": 68
+		},
+		"philosophy": {
+			"eligible": 16375,
+			"selected": 3950
+		},
+		"sapience": {
+			"eligible": 0,
+			"selected": 0
+		},
+		"sky": {
+			"eligible": 470,
+			"selected": 69
+		}
+	},
+	"doctrine_counts": {
+		"0": 1270,
+		"1": 4112,
+		"2": 864
+	},
+	"doctrines": {
+		"ancestral_genome": {
+			"category": "biotech",
+			"eligible": 0,
+			"selected": 0
+		},
+		"beauty_against_ruin": {
+			"category": "art",
+			"eligible": 575,
+			"selected": 104
+		},
+		"bounded_automation": {
+			"category": "machine",
+			"eligible": 0,
+			"selected": 0
+		},
+		"closed_sky": {
+			"category": "sky",
+			"eligible": 235,
+			"selected": 38
+		},
+		"continuity": {
+			"category": "philosophy",
+			"eligible": 2918,
+			"selected": 821
+		},
+		"debt_of_shelter": {
+			"category": "ethics",
+			"eligible": 386,
+			"selected": 90
+		},
+		"depth_taboo": {
+			"category": "deep",
+			"eligible": 88,
+			"selected": 15
+		},
+		"designed_kinship": {
+			"category": "biotech",
+			"eligible": 0,
+			"selected": 0
+		},
+		"ecological_communion": {
+			"category": "biotech",
+			"eligible": 0,
+			"selected": 0
+		},
+		"kin_beyond_thought": {
+			"category": "sapience",
+			"eligible": 0,
+			"selected": 0
+		},
+		"last_human_measure": {
+			"category": "biotech",
+			"eligible": 0,
+			"selected": 0
+		},
+		"living_archive": {
+			"category": "art",
+			"eligible": 1740,
+			"selected": 348
+		},
+		"machine_kinship": {
+			"category": "machine",
+			"eligible": 0,
+			"selected": 0
+		},
+		"machine_revelation": {
+			"category": "machine",
+			"eligible": 392,
+			"selected": 68
+		},
+		"many_bodies_one_people": {
+			"category": "biotech",
+			"eligible": 0,
+			"selected": 0
+		},
+		"measured_doubt": {
+			"category": "knowledge",
+			"eligible": 2417,
+			"selected": 551
+		},
+		"mutable_human": {
+			"category": "biotech",
+			"eligible": 0,
+			"selected": 0
+		},
+		"new_ecology": {
+			"category": "environment",
+			"eligible": 177,
+			"selected": 36
+		},
+		"no_more_masters": {
+			"category": "philosophy",
+			"eligible": 3794,
+			"selected": 954
+		},
+		"order_above_survival": {
+			"category": "philosophy",
+			"eligible": 795,
+			"selected": 199
+		},
+		"practical_heresy": {
+			"category": "philosophy",
+			"eligible": 1387,
+			"selected": 292
+		},
+		"pure_flesh": {
+			"category": "machine",
+			"eligible": 0,
+			"selected": 0
+		},
+		"radical_impermanence": {
+			"category": "philosophy",
+			"eligible": 4519,
+			"selected": 1095
+		},
+		"reclamation": {
+			"category": "environment",
+			"eligible": 0,
+			"selected": 0
+		},
+		"return_to_deep": {
+			"category": "deep",
+			"eligible": 0,
+			"selected": 0
+		},
+		"sacred_craft": {
+			"category": "art",
+			"eligible": 1680,
+			"selected": 270
+		},
+		"silent_circuit": {
+			"category": "machine",
+			"eligible": 0,
+			"selected": 0
+		},
+		"skyward_hunger": {
+			"category": "sky",
+			"eligible": 235,
+			"selected": 31
+		},
+		"thinking_threshold": {
+			"category": "sapience",
+			"eligible": 0,
+			"selected": 0
+		},
+		"truth_through_trial": {
+			"category": "knowledge",
+			"eligible": 757,
+			"selected": 118
+		},
+		"unfinished_form": {
+			"category": "art",
+			"eligible": 399,
+			"selected": 86
+		},
+		"unspoiled_ground": {
+			"category": "environment",
+			"eligible": 644,
+			"selected": 135
+		},
+		"world_must_be_mended": {
+			"category": "philosophy",
+			"eligible": 2962,
+			"selected": 589
+		}
+	},
+	"dormant_doctrines": [
+		"ancestral_genome",
+		"bounded_automation",
+		"designed_kinship",
+		"ecological_communion",
+		"kin_beyond_thought",
+		"last_human_measure",
+		"machine_kinship",
+		"many_bodies_one_people",
+		"mutable_human",
+		"pure_flesh",
+		"reclamation",
+		"return_to_deep",
+		"silent_circuit",
+		"thinking_threshold"
+	],
+	"dormant_traits": [
+		"many_forms_one_hearth",
+		"rotating_stewardship"
+	],
+	"eligible_but_unselected_doctrines": [],
+	"errors": [],
+	"faction_count": 6246,
+	"history_count": 1000,
+	"intensities": {
+		"custom": 5290,
+		"doctrine": 536,
+		"orthodoxy": 14
+	},
+	"orthodoxy_percentage": 0.23972602739726,
+	"readable_representatives": [
+		{
+			"category": "two_doctrines",
+			"faction_id": "f_02",
+			"seed": 1
+		},
+		{
+			"category": "one_doctrine",
+			"faction_id": "f_00",
+			"seed": 2
+		},
+		{
+			"category": "mundane_zero_doctrines",
+			"faction_id": "f_01",
+			"seed": 3
+		},
+		{
+			"category": "philosophy_continuity",
+			"faction_id": "f_01",
+			"seed": 4
+		},
+		{
+			"category": "art_living_archive",
+			"faction_id": "f_11",
+			"seed": 5
+		},
+		{
+			"category": "philosophy_world_must_be_mended",
+			"faction_id": "f_02",
+			"seed": 6
+		},
+		{
+			"category": "art_sacred_craft",
+			"faction_id": "f_03",
+			"seed": 7
+		},
+		{
+			"category": "philosophy_no_more_masters",
+			"faction_id": "f_04",
+			"seed": 8
+		},
+		{
+			"category": "philosophy_radical_impermanence",
+			"faction_id": "f_10",
+			"seed": 9
+		},
+		{
+			"category": "philosophy_order_above_survival",
+			"faction_id": "f_07",
+			"seed": 10
+		},
+		{
+			"category": "art_beauty_against_ruin",
+			"faction_id": "f_09",
+			"seed": 13
+		},
+		{
+			"category": "art_unfinished_form",
+			"faction_id": "f_11",
+			"seed": 15
+		},
+		{
+			"category": "historical_scar_unspoiled_ground",
+			"faction_id": "f_00",
+			"seed": 17
+		},
+		{
+			"category": "philosophy_practical_heresy",
+			"faction_id": "f_08",
+			"seed": 18
+		},
+		{
+			"category": "unusual_technical_revelation",
+			"faction_id": "f_13",
+			"seed": 21
+		},
+		{
+			"category": "historical_scar_machine_revelation",
+			"faction_id": "f_10",
+			"seed": 22
+		},
+		{
+			"category": "historical_scar_skyward_hunger",
+			"faction_id": "f_00",
+			"seed": 33
+		},
+		{
+			"category": "historical_scar_new_ecology",
+			"faction_id": "f_07",
+			"seed": 73
+		},
+		{
+			"category": "unusual_skeptical_sky",
+			"faction_id": "f_07",
+			"seed": 89
+		},
+		{
+			"category": "shipping_orthodoxy",
+			"faction_id": "f_16",
+			"seed": 102
+		},
+		{
+			"category": "historical_scar_depth_taboo",
+			"faction_id": "f_06",
+			"seed": 107
+		},
+		{
+			"category": "historical_scar_closed_sky",
+			"faction_id": "f_00",
+			"seed": 144
+		},
+		{
+			"category": "unusual_ritual_trial",
+			"faction_id": "f_13",
+			"seed": 202
+		},
+		{
+			"category": "mundane_zero_extra_1",
+			"faction_id": "f_12",
+			"seed": 12
+		},
+		{
+			"category": "mundane_zero_extra_2",
+			"faction_id": "f_02",
+			"seed": 14
+		},
+		{
+			"category": "ethics_debt_of_shelter",
+			"faction_id": "f_12",
+			"seed": 20
+		}
+	],
+	"safety": {
+		"architecture_version_violations": 0,
+		"conflict_violations": 0,
+		"culture_replay_mismatches": 0,
+		"fabricated_goal_facts": 0,
+		"history_errors": 0,
+		"history_replay_mismatches": 0,
+		"intensity_errors": 0,
+		"invalid_provenance": 0,
+		"objective_mutations": 0,
+		"other_culture_errors": 0,
+		"unsupported_selections": 0
+	},
+	"seed_range": [
+		1,
+		1000
+	],
+	"semantic_tags": {
+		"desire_tags": {
+			"accommodate_changed_environment": 36,
+			"adapt_social_practice": 292,
+			"adaptive_aesthetics": 86,
+			"altitude_restraint": 38,
+			"beautiful_public_works": 104,
+			"clean_territory": 135,
+			"discourage_delving": 15,
+			"displaced_aid": 90,
+			"facility_restoration": 589,
+			"honor_skilled_making": 270,
+			"infrastructure_repair": 589,
+			"interpret_legacy_behavior": 68,
+			"land_purification": 135,
+			"launch_restraint": 38,
+			"launch_technology_search": 31,
+			"memory_source_recovery": 348,
+			"orbital_access": 31,
+			"performance_preservation": 348,
+			"preserve_institutions": 821,
+			"refugee_shelter": 90,
+			"reinforce_order": 199,
+			"renew_institutions": 1095,
+			"resist_domination": 954,
+			"restricted_deep_maps": 15,
+			"route_reconnection": 589,
+			"safe_relocation": 135,
+			"sealed_depths": 15,
+			"signal_restraint": 38,
+			"sky_signal_inquiry": 31,
+			"test_unknown_phenomena": 118,
+			"verify_claims": 551
+		},
+		"fear_tags": {
+			"abandonment": 90,
+			"contamination": 135,
+			"craft_loss": 270,
+			"deep_hazards": 15,
+			"ecological_rigidity": 36,
+			"false_certainty": 551,
+			"forced_completion": 86,
+			"infrastructure_loss": 589,
+			"institutional_stagnation": 1095,
+			"lost_guidance": 68,
+			"lost_sky_access": 31,
+			"memory_loss": 348,
+			"orbital_harm": 38,
+			"purely_utilitarian_rebuilding": 104,
+			"social_collapse": 821,
+			"social_disintegration": 199,
+			"subjugation": 954,
+			"tradition_driven_failure": 292,
+			"untested_hazards": 118
+		},
+		"taboo_tags": {
+			"absolute_authority": 954,
+			"craft_desecration": 270,
+			"delving": 15,
+			"enforced_aesthetic_stasis": 86,
+			"external_domination": 954,
+			"gratuitous_institutional_destruction": 821,
+			"harmful_rigidity": 292,
+			"insubordination": 199,
+			"land_contamination": 135,
+			"memory_erasure": 348,
+			"neglect": 589,
+			"refugee_rejection": 90,
+			"sky_signaling": 38,
+			"uncontrolled_launch": 38,
+			"unquestioned_hereditary_authority": 1095,
+			"unsupported_certainty": 551,
+			"untested_certainty": 118
+		},
+		"value_tags": {
+			"adaptability": 1483,
+			"artistry": 190,
+			"bodily_adaptation": 86,
+			"boundary_caution": 716,
+			"coalition_building": 449,
+			"compassion": 3188,
+			"craftsmanship": 1652,
+			"deep_caution": 60,
+			"discipline": 199,
+			"duty": 5061,
+			"ecological_adaptation": 36,
+			"experimentation": 204,
+			"fair_exchange": 1672,
+			"hazard_awareness": 3057,
+			"hospitality": 1136,
+			"household_autonomy": 1298,
+			"institutional_continuity": 2059,
+			"institutional_reform": 1095,
+			"item_provenance": 270,
+			"land_stewardship": 135,
+			"local_service": 2853,
+			"machine_study": 68,
+			"memory_preservation": 485,
+			"oral_history": 348,
+			"outsider": 437,
+			"performance": 348,
+			"public_beauty": 104,
+			"reciprocity": 2637,
+			"record_preservation": 1461,
+			"ritualism": 783,
+			"route_service": 1672,
+			"scavenging": 19,
+			"scholarship": 1411,
+			"shared_responsibility": 954,
+			"skepticism": 551,
+			"sky_caution": 130,
+			"sky_inquiry": 31,
+			"technical_competence": 2049,
+			"vigilance": 1310
+		}
+	},
+	"society_trait_counts": {
+		"2": 2074,
+		"3": 2143,
+		"4": 2029
+	},
+	"society_traits": {
+		"archive_legitimacy": {
+			"eligible": 1066,
+			"selected": 707
+		},
+		"borrowed_offices": {
+			"eligible": 2675,
+			"selected": 1689
+		},
+		"boundary_watch": {
+			"eligible": 2195,
+			"selected": 1310
+		},
+		"closed_roads": {
+			"eligible": 1098,
+			"selected": 716
+		},
+		"deep_boundary_keepers": {
+			"eligible": 88,
+			"selected": 53
+		},
+		"hazard_memory": {
+			"eligible": 6246,
+			"selected": 2982
+		},
+		"household_sovereignty": {
+			"eligible": 767,
+			"selected": 457
+		},
+		"local_mandate": {
+			"eligible": 6246,
+			"selected": 2853
+		},
+		"maintenance_covenant": {
+			"eligible": 1680,
+			"selected": 1120
+		},
+		"many_forms_one_hearth": {
+			"eligible": 0,
+			"selected": 0
+		},
+		"mutual_obligation": {
+			"eligible": 4341,
+			"selected": 2637
+		},
+		"newcomer_charter": {
+			"eligible": 595,
+			"selected": 357
+		},
+		"practical_heresy": {
+			"eligible": 465,
+			"selected": 271
+		},
+		"rebuilt_from_fragments": {
+			"eligible": 743,
+			"selected": 449
+		},
+		"ritual_stewardship": {
+			"eligible": 816,
+			"selected": 485
+		},
+		"rotating_stewardship": {
+			"eligible": 0,
+			"selected": 0
+		},
+		"route_commonwealth": {
+			"eligible": 2805,
+			"selected": 1672
+		},
+		"salvage_custom": {
+			"eligible": 50,
+			"selected": 19
+		},
+		"scarred_by_the_sky": {
+			"eligible": 195,
+			"selected": 113
+		},
+		"shelter_compact": {
+			"eligible": 1327,
+			"selected": 803
+		}
+	}
+}

@@ -1,0 +1,2512 @@
+{
+  "revision": "faction-culture-v1-authored-1",
+  "society_traits": [
+    {
+      "id": "archive_legitimacy",
+      "display_name": "Archive Legitimacy",
+      "category": "institutions",
+      "explanation": "An archive role or recorded archive accord makes records a practical source of institutional standing.",
+      "requires_all": [],
+      "requires_any": [
+        "role:archives",
+        "event:archive_accord"
+      ],
+      "prefers": [
+        "structure:inherited_offices"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "scholarship",
+        "record_preservation"
+      ],
+      "tension_tags": [
+        "record_destruction"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "borrowed_offices",
+      "display_name": "Borrowed Offices",
+      "category": "institutions",
+      "explanation": "Recorded institutional heirs govern through inherited offices rather than claiming an entirely new founding.",
+      "requires_all": [
+        "structure:inherited_offices"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "identity:heir",
+        "life:provincial_council"
+      ],
+      "forbids": [
+        "formation:newcomer_formation"
+      ],
+      "value_tags": [
+        "duty",
+        "institutional_continuity"
+      ],
+      "tension_tags": [
+        "anti_authority"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "boundary_watch",
+      "display_name": "Boundary Watch",
+      "category": "boundaries",
+      "explanation": "An assigned border-watch role or a directly witnessed border dispute makes guarding boundaries a daily concern.",
+      "requires_all": [],
+      "requires_any": [
+        "role:border_watch",
+        "event:border_dispute"
+      ],
+      "prefers": [
+        "life:military_remnant"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "duty",
+        "vigilance"
+      ],
+      "tension_tags": [
+        "unrestricted_travel"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "closed_roads",
+      "display_name": "Closed Roads",
+      "category": "boundaries",
+      "explanation": "An isolation role or a recorded regional access restriction supports constrained connections, without claiming every road is physically closed.",
+      "requires_all": [],
+      "requires_any": [
+        "role:isolation",
+        "scar:route_isolation",
+        "scar:core_quarantine"
+      ],
+      "prefers": [
+        "adaptive:withdraw"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "boundary_caution"
+      ],
+      "tension_tags": [
+        "unrestricted_travel"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "deep_boundary_keepers",
+      "display_name": "Deep Boundary Keepers",
+      "category": "boundaries",
+      "explanation": "Actual recorded underground closure makes deep access management salient without inventing Innerworld ancestry.",
+      "requires_all": [
+        "scar:deep_closure"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "role:border_watch",
+        "role:isolation"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "deep_caution"
+      ],
+      "tension_tags": [
+        "delving"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "hazard_memory",
+      "display_name": "Hazard Memory",
+      "category": "memory",
+      "explanation": "The real regional pressure remains part of practical safety memory. This is a memory custom, not a new faction-specific catastrophe.",
+      "requires_all": [
+        "history:regional_pressure"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "memory:warning"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "hazard_awareness"
+      ],
+      "tension_tags": [
+        "recklessness"
+      ],
+      "base_weight": 3,
+      "family": ""
+    },
+    {
+      "id": "household_sovereignty",
+      "display_name": "Household Sovereignty",
+      "category": "institutions",
+      "explanation": "A clan livelihood organizes household autonomy. A regional response alone cannot assign this to unrelated factions.",
+      "requires_all": [],
+      "requires_any": [
+        "life:kinship_clan",
+        "life:breakaway_clan"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "household_autonomy"
+      ],
+      "tension_tags": [
+        "external_domination"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "local_mandate",
+      "display_name": "Local Mandate",
+      "category": "institutions",
+      "explanation": "Authority is exercised over an actual local settlement belonging to this current polity. This does not assert elections or universal consent.",
+      "requires_all": [
+        "structure:local_settlement"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "life:village_union",
+        "life:regional_commune"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "local_service"
+      ],
+      "tension_tags": [
+        "external_domination"
+      ],
+      "base_weight": 3,
+      "family": ""
+    },
+    {
+      "id": "maintenance_covenant",
+      "display_name": "Maintenance Covenant",
+      "category": "livelihood",
+      "explanation": "The recorded maintenance role or facility/guild livelihood organizes daily service responsibilities.",
+      "requires_all": [],
+      "requires_any": [
+        "role:maintenance",
+        "life:infrastructure_guild",
+        "life:facility_community"
+      ],
+      "prefers": [
+        "event:maintenance_accord"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "technical_competence",
+        "duty",
+        "craftsmanship"
+      ],
+      "tension_tags": [
+        "neglect"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "many_forms_one_hearth",
+      "display_name": "Many Forms, One Hearth",
+      "category": "membership",
+      "explanation": "Actual local plurality of authored lineage templates or a multi-Origin lineage supports bodily/lineage coexistence; a lifestyle name is insufficient.",
+      "requires_all": [],
+      "requires_any": [
+        "population:mixed_lineages",
+        "population:multi_origin_lineage"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "bodily_adaptation",
+        "modified_lineage",
+        "inclusion"
+      ],
+      "tension_tags": [
+        "lineage_exclusion"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "mutual_obligation",
+      "display_name": "Mutual Obligation",
+      "category": "institutions",
+      "explanation": "Direct positive relationship events or a communal livelihood support obligations between members or communities.",
+      "requires_all": [],
+      "requires_any": [
+        "history:cooperation",
+        "life:regional_commune",
+        "life:village_union",
+        "life:migrant_confederation"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "duty",
+        "reciprocity",
+        "compassion"
+      ],
+      "tension_tags": [
+        "free_riding"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "newcomer_charter",
+      "display_name": "Newcomer Charter",
+      "category": "membership",
+      "explanation": "An actual newcomer formation or population join makes incorporation of arriving residents part of social life; no written charter is asserted.",
+      "requires_all": [],
+      "requires_any": [
+        "formation:newcomer_formation",
+        "history:population_join"
+      ],
+      "prefers": [
+        "role:shelter"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "outsider",
+        "hospitality"
+      ],
+      "tension_tags": [
+        "exclusion"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "practical_heresy",
+      "display_name": "Practical Heresy",
+      "category": "institutions",
+      "explanation": "Recorded institutional reorganization plus pragmatic interpretation supports adapting everyday conventions; it does not automatically choose the normative Doctrine of the same name.",
+      "requires_all": [
+        "formation:reorganization",
+        "interpretation:pragmatic"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "adaptability",
+        "technical_competence"
+      ],
+      "tension_tags": [
+        "rigidity"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "rebuilt_from_fragments",
+      "display_name": "Rebuilt From Fragments",
+      "category": "formation",
+      "explanation": "Actual merger or multiple political parents supports consolidated institutions, not biological fusion.",
+      "requires_all": [],
+      "requires_any": [
+        "formation:merger",
+        "structure:multiple_parents"
+      ],
+      "prefers": [
+        "identity:reformer"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "coalition_building"
+      ],
+      "tension_tags": [
+        "factional_exclusion"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "ritual_stewardship",
+      "display_name": "Ritual Stewardship",
+      "category": "memory",
+      "explanation": "An actual religious/ritual livelihood or recorded ritual-site reuse supports communal stewardship of rites.",
+      "requires_all": [],
+      "requires_any": [
+        "life:ritual_authority",
+        "life:religious_community",
+        "reuse:ritual_site"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "ritualism",
+        "memory_preservation"
+      ],
+      "tension_tags": [
+        "ritual_desecration"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "rotating_stewardship",
+      "display_name": "Rotating Stewardship",
+      "category": "institutions",
+      "explanation": "Office rotation requires an explicitly authored rotation institution; political reorganization alone does not prove rotating tenure.",
+      "requires_all": [
+        "institution:rotating_offices"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "shared_responsibility"
+      ],
+      "tension_tags": [
+        "hereditary_authority"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "route_commonwealth",
+      "display_name": "Route Commonwealth",
+      "category": "livelihood",
+      "explanation": "An assigned exchange role, trading livelihood or direct reopening accord organizes shared access and exchange.",
+      "requires_all": [],
+      "requires_any": [
+        "role:local_exchange",
+        "life:trading_house",
+        "life:resource_or_trade_commune",
+        "event:trade_reopening"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "fair_exchange",
+        "route_service"
+      ],
+      "tension_tags": [
+        "route_monopoly"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "salvage_custom",
+      "display_name": "Salvage Custom",
+      "category": "livelihood",
+      "explanation": "An actual recorded scavenging reuse supports salvage practice; technical competence alone is insufficient.",
+      "requires_all": [
+        "reuse:scavenging"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "value_tags": [
+        "scavenging",
+        "technical_competence"
+      ],
+      "tension_tags": [
+        "waste"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "scarred_by_the_sky",
+      "display_name": "Scarred by the Sky",
+      "category": "memory",
+      "explanation": "Recorded regional orbital damage or debris becomes shared hazard memory; it is not proof of Outerworld contact or purposeful targeting.",
+      "requires_all": [],
+      "requires_any": [
+        "scar:orbital_attack",
+        "scar:orbital_debris"
+      ],
+      "prefers": [
+        "memory:warning"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "sky_caution"
+      ],
+      "tension_tags": [
+        "sky_signaling"
+      ],
+      "base_weight": 6,
+      "family": ""
+    },
+    {
+      "id": "shelter_compact",
+      "display_name": "Shelter Compact",
+      "category": "membership",
+      "explanation": "An actual shelter role or refugee-community livelihood organizes refuge and local accommodation.",
+      "requires_all": [],
+      "requires_any": [
+        "role:shelter",
+        "life:refugee_community",
+        "event:recent_aid"
+      ],
+      "prefers": [
+        "history:population_join"
+      ],
+      "forbids": [],
+      "value_tags": [
+        "compassion",
+        "hospitality"
+      ],
+      "tension_tags": [
+        "cruelty"
+      ],
+      "base_weight": 6,
+      "family": ""
+    }
+  ],
+  "doctrines": [
+    {
+      "id": "ancestral_genome",
+      "display_name": "Ancestral Genome",
+      "category": "biotech",
+      "explanation": "Preserving inherited human form is important; generic kinship or a single baseline template cannot establish a genetic-preservation norm.",
+      "requires_all": [
+        "content:lineage_preservation"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "genetic_stability",
+        "lineage_continuity"
+      ],
+      "taboos": [
+        "coercive_lineage_modification"
+      ],
+      "desires": [
+        "preserve_lineage"
+      ],
+      "fears": [
+        "lineage_loss"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "content:lineage_preservation",
+            "institution:genetic_preservation"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "preserve_lineage",
+          "desire": "preserve_lineage",
+          "explanation": "Consider preserve lineage as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "beauty_against_ruin",
+      "display_name": "Beauty Against Ruin",
+      "category": "art",
+      "explanation": "A rebuilding community in an actual collapsed region may prioritize beauty in public reconstruction rather than utility alone.",
+      "requires_all": [
+        "history:regional_collapse",
+        "adaptive:rebuild",
+        "structure:local_settlement"
+      ],
+      "requires_any": [
+        "life:village_union",
+        "life:regional_commune",
+        "life:infrastructure_guild",
+        "life:facility_community"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "artistry",
+        "craftsmanship",
+        "public_beauty"
+      ],
+      "taboos": [],
+      "desires": [
+        "beautiful_public_works"
+      ],
+      "fears": [
+        "purely_utilitarian_rebuilding"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "adaptive:rebuild",
+            "role:maintenance"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "beautiful_public_works",
+          "desire": "beautiful_public_works",
+          "explanation": "Consider beautiful public works as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "bounded_automation",
+      "display_name": "Bounded Automation",
+      "category": "machine",
+      "explanation": "Machines may work while final judgment remains human; needs actual local automation use and an oversight institution.",
+      "requires_all": [
+        "capability:automation",
+        "institution:human_machine_oversight"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [
+        "institution:autonomous_machine_sovereignty"
+      ],
+      "values": [
+        "human_judgment",
+        "technical_competence"
+      ],
+      "taboos": [
+        "unaccountable_automation"
+      ],
+      "desires": [
+        "supervised_automation"
+      ],
+      "fears": [
+        "lost_control"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "capability:automation",
+            "institution:human_machine_oversight"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "supervised_automation",
+          "desire": "supervised_automation",
+          "explanation": "Consider supervised automation as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "closed_sky",
+      "display_name": "The Closed Sky",
+      "category": "sky",
+      "explanation": "Actual regional orbital damage, debris or failed surveillance motivates restraint on reaching or signaling upward. The source motive and any Outerworld connection remain unknown.",
+      "requires_all": [],
+      "requires_any": [
+        "scar:orbital_attack",
+        "scar:orbital_debris",
+        "scar:sky_signal"
+      ],
+      "prefers": [
+        "role:isolation",
+        "memory:warning"
+      ],
+      "forbids": [],
+      "values": [
+        "sky_caution"
+      ],
+      "taboos": [
+        "sky_signaling",
+        "uncontrolled_launch"
+      ],
+      "desires": [
+        "signal_restraint",
+        "launch_restraint",
+        "altitude_restraint"
+      ],
+      "fears": [
+        "orbital_harm"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:orbital_attack",
+            "role:isolation"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "scar:orbital_attack",
+            "role:isolation",
+            "history:hostility"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [
+        {
+          "id": "skyward_hunger",
+          "min_intensity": "custom",
+          "other_min_intensity": "custom"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "disable_signal_source",
+          "desire": "signal_restraint",
+          "explanation": "Consider a signal restriction; no target/source is fabricated."
+        },
+        {
+          "id": "prevent_launch",
+          "desire": "launch_restraint",
+          "explanation": "A prospective restraint, not an observed launch."
+        },
+        {
+          "id": "restrict_high_altitude_activity",
+          "desire": "altitude_restraint",
+          "explanation": "A future access-policy candidate."
+        }
+      ]
+    },
+    {
+      "id": "continuity",
+      "display_name": "Doctrine of Continuity",
+      "category": "philosophy",
+      "explanation": "Recorded institutional inheritance or long-lived enclave continuity can make communal survival a moral obligation.",
+      "requires_all": [],
+      "requires_any": [
+        "structure:inherited_offices",
+        "formation:enclave_continuity"
+      ],
+      "prefers": [
+        "identity:heir",
+        "memory:continuity"
+      ],
+      "forbids": [],
+      "values": [
+        "duty",
+        "institutional_continuity",
+        "record_preservation"
+      ],
+      "taboos": [
+        "gratuitous_institutional_destruction"
+      ],
+      "desires": [
+        "preserve_institutions"
+      ],
+      "fears": [
+        "social_collapse"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "structure:inherited_offices",
+            "role:archives"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "structure:inherited_offices",
+            "role:archives",
+            "history:cooperation"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [
+        {
+          "id": "radical_impermanence",
+          "min_intensity": "orthodoxy",
+          "other_min_intensity": "orthodoxy"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "preserve_institutions",
+          "desire": "preserve_institutions",
+          "explanation": "Consider preserve institutions as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "debt_of_shelter",
+      "display_name": "Debt of Shelter",
+      "category": "ethics",
+      "explanation": "An actual refugee-community livelihood can turn the experience of refuge into an obligation to shelter others.",
+      "requires_all": [
+        "life:refugee_community"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "role:shelter",
+        "memory:debt",
+        "history:population_join"
+      ],
+      "forbids": [],
+      "values": [
+        "compassion",
+        "hospitality",
+        "outsider"
+      ],
+      "taboos": [
+        "refugee_rejection"
+      ],
+      "desires": [
+        "refugee_shelter",
+        "displaced_aid"
+      ],
+      "fears": [
+        "abandonment"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "life:refugee_community",
+            "role:shelter"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "life:refugee_community",
+            "role:shelter",
+            "history:population_join"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "shelter_refugees",
+          "desire": "refugee_shelter",
+          "explanation": "A standing future obligation, not a claim that refugees are currently waiting."
+        },
+        {
+          "id": "aid_displaced_population",
+          "desire": "displaced_aid",
+          "explanation": "Consider aid when an actual displaced population is encountered."
+        }
+      ]
+    },
+    {
+      "id": "depth_taboo",
+      "display_name": "Depth Taboo",
+      "category": "deep",
+      "explanation": "Recorded underground closure supports a norm of keeping dangerous deep access closed, without implying Innerworld contact.",
+      "requires_all": [
+        "scar:deep_closure"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "role:isolation",
+        "memory:warning"
+      ],
+      "forbids": [],
+      "values": [
+        "deep_caution"
+      ],
+      "taboos": [
+        "delving"
+      ],
+      "desires": [
+        "sealed_depths",
+        "discourage_delving",
+        "restricted_deep_maps"
+      ],
+      "fears": [
+        "deep_hazards"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:deep_closure",
+            "role:isolation"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "scar:deep_closure",
+            "role:isolation",
+            "history:hostility"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [
+        {
+          "id": "return_to_deep",
+          "min_intensity": "custom",
+          "other_min_intensity": "custom"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "seal_deep_access",
+          "desire": "sealed_depths",
+          "explanation": "Consider closure; no actual sealing is performed."
+        },
+        {
+          "id": "discourage_delving",
+          "desire": "discourage_delving",
+          "explanation": "Discourage risky exploration through future social behavior."
+        },
+        {
+          "id": "restrict_deep_maps",
+          "desire": "restricted_deep_maps",
+          "explanation": "Consider map access restrictions; no existing map is assumed."
+        }
+      ]
+    },
+    {
+      "id": "designed_kinship",
+      "display_name": "Designed Kinship",
+      "category": "biotech",
+      "explanation": "Descendants may be intentionally shaped only where actual biotechnology and authored heredity design practice exist.",
+      "requires_all": [
+        "capability:biotechnology",
+        "institution:heredity_design"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "biotechnology",
+        "designed_heredity"
+      ],
+      "taboos": [],
+      "desires": [
+        "shape_descendants"
+      ],
+      "fears": [
+        "unaccountable_heredity_design"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "capability:biotechnology",
+            "institution:heredity_design"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "shape_descendants",
+          "desire": "shape_descendants",
+          "explanation": "Consider shape descendants as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "ecological_communion",
+      "display_name": "Ecological Communion",
+      "category": "biotech",
+      "explanation": "Human biology should adapt to local ecology, requiring actual local biological adaptation rather than a lifestyle label or planetary Canon.",
+      "requires_all": [
+        "history:biological_adaptation",
+        "content:local_adapted_lineage"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "bodily_adaptation",
+        "ecological_adaptation"
+      ],
+      "taboos": [],
+      "desires": [
+        "adapt_to_local_ecology"
+      ],
+      "fears": [
+        "ecological_mismatch"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "history:biological_adaptation",
+            "institution:ecological_adaptation"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "adapt_to_local_ecology",
+          "desire": "adapt_to_local_ecology",
+          "explanation": "Consider adapt to local ecology as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "kin_beyond_thought",
+      "display_name": "Kin Beyond Thought",
+      "category": "sapience",
+      "explanation": "Nonhuman or semi-sapient beings deserve protection; actual authored local contact is required.",
+      "requires_all": [],
+      "requires_any": [
+        "content:semi_sapient_contact",
+        "content:nonhuman_moral_contact"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "compassion",
+        "nonhuman_care"
+      ],
+      "taboos": [
+        "nonhuman_cruelty"
+      ],
+      "desires": [
+        "protect_nonhuman_kin"
+      ],
+      "fears": [
+        "nonhuman_exploitation"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "content:semi_sapient_contact",
+            "institution:nonhuman_protection"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "protect_nonhuman_kin",
+          "desire": "protect_nonhuman_kin",
+          "explanation": "Consider protect nonhuman kin as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "last_human_measure",
+      "display_name": "Last Human Measure",
+      "category": "biotech",
+      "explanation": "A bodily benchmark defines normative humanity only when an explicit local institution authored that benchmark.",
+      "requires_all": [
+        "institution:human_form_benchmark"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "genetic_stability"
+      ],
+      "taboos": [
+        "modified_lineage",
+        "bodily_adaptation"
+      ],
+      "desires": [
+        "enforce_human_benchmark"
+      ],
+      "fears": [
+        "human_boundary_loss"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "institution:human_form_benchmark",
+            "history:form_exclusion"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [
+        {
+          "id": "many_bodies_one_people",
+          "min_intensity": "custom",
+          "other_min_intensity": "custom"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "enforce_human_benchmark",
+          "desire": "enforce_human_benchmark",
+          "explanation": "Consider enforce human benchmark as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "living_archive",
+      "display_name": "Living Archive",
+      "category": "art",
+      "explanation": "Actual ritual stewardship or archive responsibility can recognize performance and oral memory as historical authority alongside records. It does not assert a particular invented song.",
+      "requires_all": [],
+      "requires_any": [
+        "life:ritual_authority",
+        "life:religious_community",
+        "role:archives",
+        "reuse:ritual_site"
+      ],
+      "prefers": [
+        "memory:continuity"
+      ],
+      "forbids": [],
+      "values": [
+        "ritualism",
+        "oral_history",
+        "performance",
+        "scholarship"
+      ],
+      "taboos": [
+        "memory_erasure"
+      ],
+      "desires": [
+        "performance_preservation",
+        "memory_source_recovery"
+      ],
+      "fears": [
+        "memory_loss"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "role:archives",
+            "life:ritual_authority"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "role:archives",
+            "life:ritual_authority",
+            "reuse:ritual_site"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "preserve_performance_tradition",
+          "desire": "performance_preservation",
+          "explanation": "A future preservation priority; no particular tradition is invented."
+        },
+        {
+          "id": "recover_lost_memory_source",
+          "desire": "memory_source_recovery",
+          "explanation": "Seek memory sources, without asserting a lost object exists."
+        }
+      ]
+    },
+    {
+      "id": "machine_kinship",
+      "display_name": "Machine Kinship",
+      "category": "machine",
+      "explanation": "Machines may be companions or community members only after actual authored local machine-society contact.",
+      "requires_all": [
+        "content:machine_society_contact"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "machine_integration",
+        "autonomous_machine",
+        "companionship"
+      ],
+      "taboos": [
+        "machine_abuse"
+      ],
+      "desires": [
+        "machine_cooperation"
+      ],
+      "fears": [
+        "machine_exclusion"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "content:machine_society_contact",
+            "institution:machine_membership"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "machine_cooperation",
+          "desire": "machine_cooperation",
+          "explanation": "Consider machine cooperation as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "machine_revelation",
+      "display_name": "Machine Revelation",
+      "category": "machine",
+      "explanation": "Recorded ancient infrastructure behavior may carry meaning or guidance. This is a normative interpretation, never a claim to know Core intention.",
+      "requires_all": [],
+      "requires_any": [
+        "scar:core_quarantine",
+        "scar:route_isolation",
+        "scar:deep_closure",
+        "scar:environmental_change"
+      ],
+      "prefers": [
+        "interpretation:ritual",
+        "interpretation:technical"
+      ],
+      "forbids": [],
+      "values": [
+        "ritualism",
+        "machine_study"
+      ],
+      "taboos": [],
+      "desires": [
+        "interpret_legacy_behavior"
+      ],
+      "fears": [
+        "lost_guidance"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "life:ritual_authority",
+            "scar:deep_closure"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "interpret_legacy_behavior",
+          "desire": "interpret_legacy_behavior",
+          "explanation": "Consider interpret legacy behavior as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "many_bodies_one_people",
+      "display_name": "Many Bodies, One People",
+      "category": "biotech",
+      "explanation": "Bodily form or lineage should not exclude people from membership; actual local authored plurality must precede this norm.",
+      "requires_all": [],
+      "requires_any": [
+        "population:mixed_lineages",
+        "population:multi_origin_lineage"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "bodily_adaptation",
+        "modified_lineage",
+        "inclusion"
+      ],
+      "taboos": [
+        "lineage_exclusion"
+      ],
+      "desires": [
+        "inclusive_membership"
+      ],
+      "fears": [
+        "body_based_exclusion"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "population:mixed_lineages",
+            "history:population_join"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "inclusive_membership",
+          "desire": "inclusive_membership",
+          "explanation": "Consider inclusive membership as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "measured_doubt",
+      "display_name": "Measured Doubt",
+      "category": "knowledge",
+      "explanation": "Actual unknown discovery, archive work or skeptical evidence handling supports a norm of withholding unsupported certainty.",
+      "requires_all": [],
+      "requires_any": [
+        "history:unknown_discovery",
+        "role:archives",
+        "interpretation:skeptical"
+      ],
+      "prefers": [
+        "role:archives"
+      ],
+      "forbids": [],
+      "values": [
+        "skepticism",
+        "scholarship"
+      ],
+      "taboos": [
+        "unsupported_certainty"
+      ],
+      "desires": [
+        "verify_claims"
+      ],
+      "fears": [
+        "false_certainty"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "role:archives",
+            "interpretation:skeptical"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "verify_claims",
+          "desire": "verify_claims",
+          "explanation": "Consider verify claims as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "mutable_human",
+      "display_name": "The Mutable Human",
+      "category": "biotech",
+      "explanation": "Intentional bodily change is legitimate only with actual local biotechnology and a recorded modification practice.",
+      "requires_all": [
+        "capability:biotechnology",
+        "history:bodily_modification"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "biotechnology",
+        "bodily_adaptation",
+        "augmented"
+      ],
+      "taboos": [
+        "forced_bodily_stasis"
+      ],
+      "desires": [
+        "intentional_adaptation"
+      ],
+      "fears": [
+        "biological_rigidity"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "capability:biotechnology",
+            "institution:bodily_modification"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [
+        {
+          "id": "ancestral_genome",
+          "min_intensity": "doctrine",
+          "other_min_intensity": "doctrine"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "intentional_adaptation",
+          "desire": "intentional_adaptation",
+          "explanation": "Consider intentional adaptation as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "new_ecology",
+      "display_name": "New Ecology",
+      "category": "environment",
+      "explanation": "Recorded environmental infrastructure changes may be accepted as a new ecological condition; acceptance is a norm, not knowledge of Core purpose.",
+      "requires_all": [
+        "scar:environmental_change"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "adaptive:adapt"
+      ],
+      "forbids": [],
+      "values": [
+        "ecological_adaptation"
+      ],
+      "taboos": [],
+      "desires": [
+        "accommodate_changed_environment"
+      ],
+      "fears": [
+        "ecological_rigidity"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:environmental_change",
+            "adaptive:adapt"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "accommodate_changed_environment",
+          "desire": "accommodate_changed_environment",
+          "explanation": "Consider accommodate changed environment as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "no_more_masters",
+      "display_name": "No More Masters",
+      "category": "philosophy",
+      "explanation": "Recorded fragmentation, breakaway livelihood or newcomer independence supports resistance to concentrated authority.",
+      "requires_all": [],
+      "requires_any": [
+        "formation:fragmentation",
+        "life:breakaway_clan",
+        "formation:newcomer_formation"
+      ],
+      "prefers": [
+        "identity:breakaway"
+      ],
+      "forbids": [],
+      "values": [
+        "household_autonomy",
+        "shared_responsibility"
+      ],
+      "taboos": [
+        "absolute_authority",
+        "external_domination"
+      ],
+      "desires": [
+        "resist_domination"
+      ],
+      "fears": [
+        "subjugation"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "formation:fragmentation",
+            "life:breakaway_clan"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "resist_domination",
+          "desire": "resist_domination",
+          "explanation": "Consider resist domination as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "order_above_survival",
+      "display_name": "Order Above Survival",
+      "category": "philosophy",
+      "explanation": "A military-remnant livelihood or institutional role, after recorded collapse, can make strict order a paramount norm.",
+      "requires_all": [
+        "history:regional_collapse"
+      ],
+      "requires_any": [
+        "life:military_remnant",
+        "life:provincial_council"
+      ],
+      "prefers": [
+        "history:hostility"
+      ],
+      "forbids": [],
+      "values": [
+        "duty",
+        "discipline"
+      ],
+      "taboos": [
+        "insubordination"
+      ],
+      "desires": [
+        "reinforce_order"
+      ],
+      "fears": [
+        "social_disintegration"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "life:military_remnant",
+            "history:hostility"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "life:military_remnant",
+            "history:hostility",
+            "role:border_watch"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [
+        {
+          "id": "no_more_masters",
+          "min_intensity": "doctrine",
+          "other_min_intensity": "doctrine"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "reinforce_order",
+          "desire": "reinforce_order",
+          "explanation": "Consider reinforce order as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "practical_heresy",
+      "display_name": "Practical Heresy",
+      "category": "philosophy",
+      "explanation": "Actual reorganization or adaptive service practice supports breaking tradition when survival or adaptation requires it.",
+      "requires_all": [],
+      "requires_any": [
+        "formation:reorganization",
+        "reuse:research",
+        "reuse:scavenging"
+      ],
+      "prefers": [
+        "interpretation:pragmatic"
+      ],
+      "forbids": [],
+      "values": [
+        "adaptability",
+        "technical_competence"
+      ],
+      "taboos": [
+        "harmful_rigidity"
+      ],
+      "desires": [
+        "adapt_social_practice"
+      ],
+      "fears": [
+        "tradition_driven_failure"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "formation:reorganization",
+            "interpretation:pragmatic"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "adapt_social_practice",
+          "desire": "adapt_social_practice",
+          "explanation": "Consider adapt social practice as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "pure_flesh",
+      "display_name": "Pure Flesh",
+      "category": "machine",
+      "explanation": "Human life should distance itself from machine integration or autonomous dependence. Requires a real authored anti-machine scar; Core barriers, isolation and sky debris do not qualify.",
+      "requires_all": [],
+      "requires_any": [
+        "scar:machine_war",
+        "scar:autonomous_machine_catastrophe",
+        "scar:augmentation_disaster"
+      ],
+      "prefers": [
+        "role:isolation"
+      ],
+      "forbids": [],
+      "values": [
+        "human_autonomy"
+      ],
+      "taboos": [
+        "machine_integration",
+        "augmented",
+        "autonomous_machine"
+      ],
+      "desires": [
+        "machine_independence"
+      ],
+      "fears": [
+        "machine_domination"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:machine_war",
+            "history:recent_machine_hostility"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "scar:machine_war",
+            "history:recent_machine_hostility",
+            "role:isolation"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [
+        {
+          "id": "machine_kinship",
+          "min_intensity": "custom",
+          "other_min_intensity": "custom"
+        },
+        {
+          "id": "machine_revelation",
+          "min_intensity": "custom",
+          "other_min_intensity": "custom"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "machine_independence",
+          "desire": "machine_independence",
+          "explanation": "Consider machine independence as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "radical_impermanence",
+      "display_name": "Radical Impermanence",
+      "category": "philosophy",
+      "explanation": "Actual reorganization or fragmentation can support institutional replacement rather than preservation merely for age.",
+      "requires_all": [],
+      "requires_any": [
+        "formation:reorganization",
+        "formation:fragmentation"
+      ],
+      "prefers": [
+        "identity:reformer",
+        "identity:breakaway"
+      ],
+      "forbids": [],
+      "values": [
+        "institutional_reform",
+        "adaptability"
+      ],
+      "taboos": [
+        "unquestioned_hereditary_authority"
+      ],
+      "desires": [
+        "renew_institutions"
+      ],
+      "fears": [
+        "institutional_stagnation"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "formation:reorganization",
+            "life:regional_commune"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "formation:reorganization",
+            "life:regional_commune",
+            "history:hostility"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "renew_institutions",
+          "desire": "renew_institutions",
+          "explanation": "Consider renew institutions as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "reclamation",
+      "display_name": "The Reclamation",
+      "category": "environment",
+      "explanation": "Ancestral homeland should be recovered only where actual loss and homeland association are authored. Migration and political extinction alone do not establish this.",
+      "requires_all": [
+        "scar:lost_homeland",
+        "history:homeland_association"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "homeland_memory"
+      ],
+      "taboos": [],
+      "desires": [
+        "homeland_recovery",
+        "ancestral_site_recovery"
+      ],
+      "fears": [
+        "homeland_erasure"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:lost_homeland",
+            "institution:homeland_memory"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "reclaim_homeland",
+          "desire": "homeland_recovery",
+          "explanation": "Seek a future opportunity; no territory or claim is created."
+        },
+        {
+          "id": "recover_ancestral_site",
+          "desire": "ancestral_site_recovery",
+          "explanation": "Seek a recorded ancestral site; no site is invented."
+        }
+      ]
+    },
+    {
+      "id": "return_to_deep",
+      "display_name": "Return to the Deep",
+      "category": "deep",
+      "explanation": "Recover lost Innerworld heritage only with actual local ancestry and recorded loss; Core-associated tunnels do not establish ancestry.",
+      "requires_all": [
+        "population:innerworld_ancestry",
+        "scar:lost_innerworld_site"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "innerworld_memory"
+      ],
+      "taboos": [],
+      "desires": [
+        "deep_route_recovery",
+        "innerworld_site_search"
+      ],
+      "fears": [
+        "deep_heritage_loss"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "population:innerworld_ancestry",
+            "institution:innerworld_memory"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "reopen_deep_route",
+          "desire": "deep_route_recovery",
+          "explanation": "Investigate reopening; no route is created."
+        },
+        {
+          "id": "locate_lost_innerworld_site",
+          "desire": "innerworld_site_search",
+          "explanation": "Seek a site; no location is asserted."
+        }
+      ]
+    },
+    {
+      "id": "sacred_craft",
+      "display_name": "Sacred Craft",
+      "category": "art",
+      "explanation": "Actual skilled maintenance/craft livelihood can treat skilled making as an aesthetic and moral act, granting artisans social authority.",
+      "requires_all": [],
+      "requires_any": [
+        "life:infrastructure_guild",
+        "life:facility_community",
+        "role:maintenance"
+      ],
+      "prefers": [
+        "interpretation:ritual"
+      ],
+      "forbids": [],
+      "values": [
+        "craftsmanship",
+        "item_provenance",
+        "technical_competence"
+      ],
+      "taboos": [
+        "craft_desecration"
+      ],
+      "desires": [
+        "honor_skilled_making"
+      ],
+      "fears": [
+        "craft_loss"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "life:infrastructure_guild",
+            "role:maintenance"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "honor_skilled_making",
+          "desire": "honor_skilled_making",
+          "explanation": "Consider honor skilled making as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "silent_circuit",
+      "display_name": "Silent Circuit",
+      "category": "machine",
+      "explanation": "Useful machines must not exercise autonomous judgment. Real autonomous-machine harm is required, not generic skepticism.",
+      "requires_all": [],
+      "requires_any": [
+        "scar:autonomous_machine_catastrophe",
+        "history:autonomous_machine_harm"
+      ],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "human_judgment",
+        "technical_competence"
+      ],
+      "taboos": [
+        "autonomous_machine"
+      ],
+      "desires": [
+        "restrain_machine_autonomy"
+      ],
+      "fears": [
+        "unaccountable_automation"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "history:autonomous_machine_harm",
+            "institution:human_machine_oversight"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [
+        {
+          "id": "machine_kinship",
+          "min_intensity": "doctrine",
+          "other_min_intensity": "doctrine"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "restrain_machine_autonomy",
+          "desire": "restrain_machine_autonomy",
+          "explanation": "Consider restrain machine autonomy as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "skyward_hunger",
+      "display_name": "Skyward Hunger",
+      "category": "sky",
+      "explanation": "Actual orbital debris, damage or sky signals may inspire investigation and recovered access even for skeptical interpreters; no origin/contact or working launch capability follows.",
+      "requires_all": [],
+      "requires_any": [
+        "scar:orbital_debris",
+        "scar:sky_signal",
+        "scar:orbital_attack"
+      ],
+      "prefers": [
+        "interpretation:technical",
+        "interpretation:skeptical",
+        "adaptive:rebuild"
+      ],
+      "forbids": [],
+      "values": [
+        "sky_inquiry",
+        "technical_competence"
+      ],
+      "taboos": [],
+      "desires": [
+        "orbital_access",
+        "sky_signal_inquiry",
+        "launch_technology_search"
+      ],
+      "fears": [
+        "lost_sky_access"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:sky_signal",
+            "role:maintenance"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "restore_orbital_link",
+          "desire": "orbital_access",
+          "explanation": "An aspirational investigation; no usable link exists by implication."
+        },
+        {
+          "id": "investigate_sky_signal",
+          "desire": "sky_signal_inquiry",
+          "explanation": "Seek evidence; the signal may be unknown or absent."
+        },
+        {
+          "id": "recover_launch_technology",
+          "desire": "launch_technology_search",
+          "explanation": "Seek technology, without assuming it exists locally."
+        }
+      ]
+    },
+    {
+      "id": "thinking_threshold",
+      "display_name": "The Thinking Threshold",
+      "category": "sapience",
+      "explanation": "Personhood requires a strict cognitive threshold; dormant without actual authored semi-sapient contact.",
+      "requires_all": [
+        "content:semi_sapient_contact"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "history:personhood_conflict"
+      ],
+      "forbids": [],
+      "values": [
+        "cognitive_accountability"
+      ],
+      "taboos": [
+        "unexamined_personhood"
+      ],
+      "desires": [
+        "define_personhood_threshold"
+      ],
+      "fears": [
+        "personhood_ambiguity"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "content:semi_sapient_contact",
+            "institution:personhood_threshold"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [
+        {
+          "id": "kin_beyond_thought",
+          "min_intensity": "doctrine",
+          "other_min_intensity": "doctrine"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "define_personhood_threshold",
+          "desire": "define_personhood_threshold",
+          "explanation": "Consider define personhood threshold as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "truth_through_trial",
+      "display_name": "Truth Through Trial",
+      "category": "knowledge",
+      "explanation": "Recorded research reuse or technical service may support experiment as a normative path to truth; ritual interpretation is compatible.",
+      "requires_all": [],
+      "requires_any": [
+        "reuse:research",
+        "life:infrastructure_guild",
+        "life:facility_community"
+      ],
+      "prefers": [
+        "history:unknown_discovery"
+      ],
+      "forbids": [],
+      "values": [
+        "experimentation",
+        "technical_competence",
+        "scholarship"
+      ],
+      "taboos": [
+        "untested_certainty"
+      ],
+      "desires": [
+        "test_unknown_phenomena"
+      ],
+      "fears": [
+        "untested_hazards"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "reuse:research",
+            "history:unknown_discovery"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "test_unknown_phenomena",
+          "desire": "test_unknown_phenomena",
+          "explanation": "Consider test unknown phenomena as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "unfinished_form",
+      "display_name": "The Unfinished Form",
+      "category": "art",
+      "explanation": "Actual institutional reorganization plus adaptive identity supports the aesthetic value of change and incompleteness; no local modified bodies are inferred.",
+      "requires_all": [
+        "formation:reorganization",
+        "adaptive:adapt"
+      ],
+      "requires_any": [],
+      "prefers": [],
+      "forbids": [],
+      "values": [
+        "artistry",
+        "experimentation",
+        "bodily_adaptation"
+      ],
+      "taboos": [
+        "enforced_aesthetic_stasis"
+      ],
+      "desires": [
+        "adaptive_aesthetics"
+      ],
+      "fears": [
+        "forced_completion"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "formation:reorganization",
+            "life:regional_commune"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "adaptive_aesthetics",
+          "desire": "adaptive_aesthetics",
+          "explanation": "Consider adaptive aesthetics as a future social priority; no target, capability or completed action is asserted."
+        }
+      ]
+    },
+    {
+      "id": "unspoiled_ground",
+      "display_name": "Unspoiled Ground",
+      "category": "environment",
+      "explanation": "Recorded chemical abandonment makes clean or restored land a social desire; candidate relocation is an aspiration, not an executed move.",
+      "requires_all": [
+        "scar:chemical_exposure"
+      ],
+      "requires_any": [],
+      "prefers": [
+        "role:shelter",
+        "adaptive:rebuild"
+      ],
+      "forbids": [],
+      "values": [
+        "land_stewardship",
+        "hazard_awareness"
+      ],
+      "taboos": [
+        "land_contamination"
+      ],
+      "desires": [
+        "clean_territory",
+        "land_purification",
+        "safe_relocation"
+      ],
+      "fears": [
+        "contamination"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "scar:chemical_exposure",
+            "role:shelter"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        }
+      },
+      "conflicts": [
+        {
+          "id": "new_ecology",
+          "min_intensity": "doctrine",
+          "other_min_intensity": "doctrine"
+        }
+      ],
+      "goal_candidates": [
+        {
+          "id": "find_clean_territory",
+          "desire": "clean_territory",
+          "explanation": "Seek suitable clean land; no destination is asserted."
+        },
+        {
+          "id": "purify_contaminated_land",
+          "desire": "land_purification",
+          "explanation": "Explore restoration; no purification capability is asserted."
+        },
+        {
+          "id": "relocate_population",
+          "desire": "safe_relocation",
+          "explanation": "Consider voluntary relocation; no movement is executed."
+        }
+      ]
+    },
+    {
+      "id": "world_must_be_mended",
+      "display_name": "The World Must Be Mended",
+      "category": "philosophy",
+      "explanation": "Recorded maintenance livelihood, role or service accord makes repair a social mission, not an automatically executed restoration.",
+      "requires_all": [],
+      "requires_any": [
+        "role:maintenance",
+        "life:infrastructure_guild",
+        "life:facility_community",
+        "event:maintenance_accord"
+      ],
+      "prefers": [
+        "adaptive:rebuild"
+      ],
+      "forbids": [],
+      "values": [
+        "craftsmanship",
+        "technical_competence",
+        "duty"
+      ],
+      "taboos": [
+        "neglect"
+      ],
+      "desires": [
+        "infrastructure_repair",
+        "route_reconnection",
+        "facility_restoration"
+      ],
+      "fears": [
+        "infrastructure_loss"
+      ],
+      "base_weight": 5,
+      "allowed_intensities": [
+        "custom",
+        "doctrine",
+        "orthodoxy"
+      ],
+      "intensity_rules": {
+        "doctrine": {
+          "requires_all": [
+            "role:maintenance",
+            "event:maintenance_accord"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 2,
+          "min_events": 1
+        },
+        "orthodoxy": {
+          "requires_all": [
+            "role:maintenance",
+            "life:infrastructure_guild",
+            "event:maintenance_accord"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
+        }
+      },
+      "conflicts": [],
+      "goal_candidates": [
+        {
+          "id": "repair_infrastructure",
+          "desire": "infrastructure_repair",
+          "explanation": "Consider repair; no new structure or capability is created."
+        },
+        {
+          "id": "reconnect_routes",
+          "desire": "route_reconnection",
+          "explanation": "Consider reconnection, without changing route state."
+        },
+        {
+          "id": "restore_facility",
+          "desire": "facility_restoration",
+          "explanation": "Seek restoration opportunities; no new facility is assumed."
+        }
+      ]
+    }
+  ]
+}

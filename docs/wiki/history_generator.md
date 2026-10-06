@@ -1,8 +1,8 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 faction identity lens — main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v0.3-fixup/docs/specs/history_generator.md"
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 derived culture query — main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/faction-culture-doctrines-v1/docs/specs/history_generator.md"
 icon = "📜"
 +++
 # 최근 역사: 정치 계보와 population의 기원
@@ -45,6 +45,11 @@ Core 목적·Observer 발동/표적 이유·발견물 기원은 계속 미확정
 
 유적 재사용은 optional이며 hazard/type/용도 compatibility를 검사한다.
 Observer/Core의 기존 희귀 예산과 Canon mystery, M035 naming/SeedDeriver는 유지한다.
+
+M041에서는 이 변경 없는 M040 위에 저장하지 않는 사회 특성·교리 조회를 추가했다.
+실제 역사 증거에서 사회 조직 방식과 규범적 욕구를 별도로 유도하고,
+개인 semantic 표현과의 반응 및 future goal 후보를 제공한다.
+[세력 사회 특성·교리](faction_culture.md)에서 별도 경계와 dormant content를 설명한다.
 
 [모델·band·종료 조건](../specs/history_generator.md),
 [5000-seed 통계](../reviews/history_v3_fixup/diversity.json),

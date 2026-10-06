@@ -1,0 +1,50 @@
+[
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal Alpha.png.import",
+    "sha256": "8FAD5B5CE26B45DA775D41FD744575CF44F2E961A2FBE2769FDCEB975033C9B5"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal.png.import",
+    "sha256": "00DCCC16598CC9C80E6660414AE43417978F8325DAFBF77E0CE16E1E377A7484"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed Alpha.png.import",
+    "sha256": "6C68881EDDB0A990E8ED5090C40BEF5AB988B0CAD642F6FD63D9CE3A1BC0C7B7"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed.png.import",
+    "sha256": "B904AB6E65AE1A5076AFC689D501E804C3FB982E940E533193F5C2CE92550B1A"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical Alpha.png.import",
+    "sha256": "1B10E89E5AE679120248EB9406F36AD19A6AD93F20ECB4D4F94383C1D7A1B357"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical.png.import",
+    "sha256": "BCB771AAA3694CF2016167F2130FBA52DDEF2BEC066BED7E8064A5B782C44F53"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal Alpha.png.import",
+    "sha256": "3569CA83A22E04B6F5F62BD09EFF54B58CBF5061789D4444559765D5C5F5C59A"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal.png.import",
+    "sha256": "903AA6EFFC086818D006A1F33C8C8AFA02D4B00AD9C8C78A537FE577DA5438B2"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed Alpha.png.import",
+    "sha256": "8F4025936A99FD4B7F4599C292A286845435AEEC35E71B6588DA19824EA95964"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed.png.import",
+    "sha256": "899CA27D08F8DC3B742F87CB261AA1EAF426047E1348891BAB8733A7EE04EFB1"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical Alpha.png.import",
+    "sha256": "5585B42B9A537CF7C21CC169A0F89CC806652BAA14F4E3B8082EC9FCCB8949CE"
+  },
+  {
+    "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical.png.import",
+    "sha256": "ADAD850888DC61FC73B1E10B57A1A6ED8DECBFAA7F14C50011645AF5AAD15B60"
+  }
+]

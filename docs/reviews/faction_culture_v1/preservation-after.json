@@ -1,0 +1,83 @@
+{
+  "original_checkout": "C:/GameDev/history-generator-v0.3-fixup",
+  "original_head": "ae03d6dd9e0f93b1d7b67cd88a640bf1816a8e2b",
+  "original_tracked_changes": [],
+  "main_before": "10f6f31cd39f165a7e04c658921056089eb794ef",
+  "main_after": "10f6f31cd39f165a7e04c658921056089eb794ef",
+  "main_preserved": true,
+  "sidecars": [
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal Alpha.png.import",
+      "sha256_before": "8FAD5B5CE26B45DA775D41FD744575CF44F2E961A2FBE2769FDCEB975033C9B5",
+      "sha256_after": "8FAD5B5CE26B45DA775D41FD744575CF44F2E961A2FBE2769FDCEB975033C9B5",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal.png.import",
+      "sha256_before": "00DCCC16598CC9C80E6660414AE43417978F8325DAFBF77E0CE16E1E377A7484",
+      "sha256_after": "00DCCC16598CC9C80E6660414AE43417978F8325DAFBF77E0CE16E1E377A7484",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed Alpha.png.import",
+      "sha256_before": "6C68881EDDB0A990E8ED5090C40BEF5AB988B0CAD642F6FD63D9CE3A1BC0C7B7",
+      "sha256_after": "6C68881EDDB0A990E8ED5090C40BEF5AB988B0CAD642F6FD63D9CE3A1BC0C7B7",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed.png.import",
+      "sha256_before": "B904AB6E65AE1A5076AFC689D501E804C3FB982E940E533193F5C2CE92550B1A",
+      "sha256_after": "B904AB6E65AE1A5076AFC689D501E804C3FB982E940E533193F5C2CE92550B1A",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical Alpha.png.import",
+      "sha256_before": "1B10E89E5AE679120248EB9406F36AD19A6AD93F20ECB4D4F94383C1D7A1B357",
+      "sha256_after": "1B10E89E5AE679120248EB9406F36AD19A6AD93F20ECB4D4F94383C1D7A1B357",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical.png.import",
+      "sha256_before": "BCB771AAA3694CF2016167F2130FBA52DDEF2BEC066BED7E8064A5B782C44F53",
+      "sha256_after": "BCB771AAA3694CF2016167F2130FBA52DDEF2BEC066BED7E8064A5B782C44F53",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal Alpha.png.import",
+      "sha256_before": "3569CA83A22E04B6F5F62BD09EFF54B58CBF5061789D4444559765D5C5F5C59A",
+      "sha256_after": "3569CA83A22E04B6F5F62BD09EFF54B58CBF5061789D4444559765D5C5F5C59A",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal.png.import",
+      "sha256_before": "903AA6EFFC086818D006A1F33C8C8AFA02D4B00AD9C8C78A537FE577DA5438B2",
+      "sha256_after": "903AA6EFFC086818D006A1F33C8C8AFA02D4B00AD9C8C78A537FE577DA5438B2",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed Alpha.png.import",
+      "sha256_before": "8F4025936A99FD4B7F4599C292A286845435AEEC35E71B6588DA19824EA95964",
+      "sha256_after": "8F4025936A99FD4B7F4599C292A286845435AEEC35E71B6588DA19824EA95964",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed.png.import",
+      "sha256_before": "899CA27D08F8DC3B742F87CB261AA1EAF426047E1348891BAB8733A7EE04EFB1",
+      "sha256_after": "899CA27D08F8DC3B742F87CB261AA1EAF426047E1348891BAB8733A7EE04EFB1",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical Alpha.png.import",
+      "sha256_before": "5585B42B9A537CF7C21CC169A0F89CC806652BAA14F4E3B8082EC9FCCB8949CE",
+      "sha256_after": "5585B42B9A537CF7C21CC169A0F89CC806652BAA14F4E3B8082EC9FCCB8949CE",
+      "preserved": true
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical.png.import",
+      "sha256_before": "ADAD850888DC61FC73B1E10B57A1A6ED8DECBFAA7F14C50011645AF5AAD15B60",
+      "sha256_after": "ADAD850888DC61FC73B1E10B57A1A6ED8DECBFAA7F14C50011645AF5AAD15B60",
+      "preserved": true
+    }
+  ],
+  "excluded_task_sidecars": 12
+}
