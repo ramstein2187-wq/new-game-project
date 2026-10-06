@@ -3,6 +3,15 @@ extends RefCounted
 
 # Small authored composition vocabulary, not a simulation/rule engine.
 const CONTENT_REVISION := "history-v2-authored-1"
+const CONTENT_REVISION_V3 := "history-v3-authored-1"
+const TOPOLOGY_FAMILIES := ["polycentric_succession", "remnant_mosaic", "late_fragmentation",
+	"consolidation_resplit", "layered_migration", "no_direct_heir", "enclave_continuity"]
+const ORIGINS := ["Planetary", "Human-derived", "Observer", "Innerworld", "Outerworld", "Unknown"]
+const FORMATIONS := ["founding", "direct_successor", "fragmentation", "merger", "migration_settlement",
+	"reorganization", "enclave_continuity", "newcomer_formation"]
+const ANCESTRY_KINDS := ["root", "direct_successor", "split_descendant", "merge_descendant",
+	"reorganized_descendant", "newcomer", "no_political_predecessor"]
+const REGIONAL_ROLES := ["local_exchange", "shelter", "maintenance", "archives", "border_watch", "isolation"]
 const PRECURSORS := ["trade_league", "dynastic_crown", "provincial_compact", "city_confederation", "administrative_federation"]
 const PRESSURES := {
 	"natural": ["extreme_seasons", "geophysical_stress", "chemical_exposure", "radiative_haze"],
@@ -49,6 +58,16 @@ const SYSTEMS := {
 }
 # [event type, narrative, objective domain]. No unbounded physical claims.
 const NARRATIVES := {
+	"local_successor": ["FOUNDING", "A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.", "human"],
+	"enclave_survives": ["FOUNDING", "An autonomous enclave established its own institutions before the regional collapse.", "human"],
+	"site_reuse": ["RUIN_REOCCUPIED", "A community adopted a recorded compatible use of an older site; the damage and hazard record remained.", "human"],
+	"political_split": ["SPLIT", "A political community fragmented into successors; the parent either dissolved or retained its own institutions as recorded in the effects.", "human"],
+	"political_merge": ["MERGE", "Existing political communities consolidated into one polity; population contributions are recorded separately and do not imply biological fusion.", "human"],
+	"political_reorganization": ["REORGANIZATION", "Residents reorganized political institutions, recording predecessor offices separately from contributing populations.", "human"],
+	"population_migration": ["MIGRATION", "Part of an existing population moved to a new political settlement while its source community continued.", "human"],
+	"newcomer_entry": ["NEWCOMER", "A population from outside the local political lineage entered the region and established independent institutions.", "human"],
+	"population_join": ["MIGRATION", "Arriving residents joined an existing community without making their source a political parent.", "human"],
+	"political_extinction": ["EXTINCTION", "A political community ceased to exist, leaving institutional records and an abandoned site; its population origins were not erased from the world.", "human"],
 	"trade_league": ["FOUNDING", "A trade league linked regional markets and travel stations.", "human"],
 	"dynastic_crown": ["FOUNDING", "A dynastic crown united several regional districts.", "human"],
 	"provincial_compact": ["FOUNDING", "A provincial compact pooled local obligations.", "human"],
@@ -118,7 +137,7 @@ static func system_effect(key: String, id: String) -> Dictionary:
 	return {"kind": "system_trace", "id": id, "system_id": row[0], "operation": row[1], "physical_basis": row[2],
 		"intent": "unknown", "activation_reason": "unknown", "target_selection_reason": "unknown"}
 
-static func config_errors(config: Dictionary) -> Array[String]:
+static func config_errors(config: Dictionary, version: int = 2) -> Array[String]:
 	var errors: Array[String] = []
 	var pools := {"precursor_form": PRECURSORS, "pressure_domain": PRESSURES.keys(), "response_motif": RESPONSES,
 		"collapse_pattern": COLLAPSES, "successor_a_form": SUCCESSOR_A, "successor_b_form": SUCCESSOR_B,
@@ -126,6 +145,12 @@ static func config_errors(config: Dictionary) -> Array[String]:
 		"discovery_motif": DISCOVERIES, "belief_profile": BELIEFS, "ancestry_mode": ANCESTRY_MODES,
 		"extra_core": [""] + PRESSURES.core_intervention, "extra_orbital": [""] + PRESSURES.observer_legacy,
 		"content_revision": [CONTENT_REVISION]}
+	if version == 3:
+		for axis in ["successor_a_form", "successor_b_form", "faction_c_formation", "ancestry_mode", "middle_motif", "recent_motif", "belief_profile"]:
+			pools.erase(axis)
+		pools.content_revision = [CONTENT_REVISION_V3]
+		pools.topology_family = TOPOLOGY_FAMILIES
+		pools.target_factions = [6, 7, 8]
 	for field in pools:
 		if config.get(field) not in pools[field]:
 			errors.append("Invalid configuration axis: " + field)

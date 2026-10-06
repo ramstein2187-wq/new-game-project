@@ -1,51 +1,43 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036 architecture / M037 generation v2 — main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v0.2/docs/specs/history_generator.md"
+milestones = "M036 architecture / M037 v2 / M038 v3 — main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v0.3/docs/specs/history_generator.md"
 icon = "📜"
 +++
-# 최근 역사 생성과 현재의 흔적
+# 최근 역사: 정치 계보와 population의 기원
 
-History Generator v0.2는 M036의 데이터 흐름을 유지하고 generation algorithm을
-1에서 2로 바꾼 독립 지역사 prototype다. [Canon](../lore/world_canon_v0_1.md)과
-[생성 계약](../lore/history_generation_contract.md)은 변경하지 않았다. 지역 대국의
-붕괴에 기여한 압력과 인간 반응을 생성하며, 세계 전체 붕괴 원인은 RESERVED다.
+History Generator v0.3은 이름·재난 종류 외에 현재 세력이 만들어진 계보를 바꾼다.
+기존 v2의 A/B/C와 필수 재난지 재점유 대신, 일곱 topology family의 제약·가중치 아래
+공통 split/merge/migration/newcomer/reorganization/extinction 연산을 조합한다.
+현재6–8세력은 계획된 역사 변환의 결과이며 마지막에 숫자 맞추기용 세력을 보충하지 않는다.
 
-Canon → objective events/effects → present projection → 별도 claims → validation
-순서다. 세 개의 고정 variant 대신 전신 정치형태 5종, 자연/인간/Core/Observer 압력,
-인간 반응 4종, 붕괴 양상 3종, 후계 A/B 각각 6종, C 형성 4종을 독립 seed로 조합한다.
-극단 계절, 임계 지질 응력, 개조 잔여 화학층, 방사 환경과 행정·계승·이주·적응 갈등이
-서로 다른 지역사를 만든다. 모든 역사를 물 부족·운하·펌프로 설명하지 않는다.
+정치적 `parent_ids`, `formation_origin`, population의 `source_ids`·Origin profile,
+현재 생활 방식·지역 역할을 구분한다. 합병은2–3부모를 표현하지만 생물학적 혼합을
+강제하지 않는다. Origin은 Planetary / Human-derived / Observer / Innerworld /
+Outerworld / Unknown이며 복수값을 유지한다. Composite는 별도 Origin이 아니다.
+기존 주민이 새 조직을 세울 수 있고, 외부 집단이 추가되며, 사라진 정치체의 기록도 남는다.
 
-한 지역에 세 후계 공동체, 19~21 사건, 유적3~4, 정착지5, 미확인 발견1을 남긴다.
-초기 붕괴와 재건이 조밀하고 중간은 성기며 최근 100년에는 작은 사건 다섯 개가 이어진다.
-A는 두 잔존 집단의 합류, B는 이주 가구, C는 B의 분화로 생긴다. 형태와 계보가 다르며
-현재 관계 점수는 실제 사건 effect를 replay한 결과다. 출처 event ID를 계속 보존한다.
+Canonical entity/event/effect → present projection → 별도 claims → validation 흐름은
+유지된다. Historical polities에는 소멸한 세력도 포함하며 active subset만 현재 행동한다.
+인구 출처·형성 사건·정착지 소유 이전의 event ID로 현재 세력을 설명할 수 있다.
+Renderer는 이 사실을 읽는다. Claim은 사실이나 projection을 변경하지 않는다.
 
-Observer는 개발 용어이자 일부 학자·기술자의 분류명이며 실제 자칭이 아니다.
-`observer_scholarly_term`이 없는 공동체의 Claim에는 Observer/관찰자라는 단어가
-나오지 않는다. 고대 건설자, 하늘 기계, 유성·신벌·비밀 무기 같은 해석을 사용할 수 있다.
-객관적 provenance와 주민의 해석은 분리한다. Claim의 확신은 진실의 확률이 아니다.
-계보·생활 방식·정당성·최근 관계·관점이 해석을 바꾸며 Claim은 현재 상태를 수정하지 않는다.
+관계는 sparse하다. 사건의 relation delta와 현재 누적 score를 별도 scope/evidence로
+참조하므로 과거 적대 사건을 현재 협력 문장으로 바꾸지 않는다. 유적 재사용은 optional이며
+site type/hazard와 용도·생활 방식의 compatibility를 요구한다. 화학/불발병기/restricted
+위험은 해제하지 않는다. 재난지가 방치되는 결과도 정상이다.
 
-희귀 Observer 궤도 자산 피해와 Core 개입은 별도 budget/시스템으로 기록한다.
-Core는 기존 장벽·시설·유체압·임계 지형을 이용한 국소 결과만 남긴다. 의도와 활성화·표적
-선택 이유는 unknown이다. 모든 잔존 자산을 하나의 AI로 묶지 않는다. 확인된 Observer
-잔해는 별도 system consequence이고 일반 발견물의 기원은 계속 unknown이다.
+[세계 Canon](../lore/world_canon_v0_1.md)의 LOCKED/RESERVED는 유지한다.
+Observer/Core의 v2확률·희귀 예산·물리적 제한을 보존했고, default에서 살아 있는 Observer
+문명이나 Outerworld국가를 생성하지 않는다. Observer 용어는 기존 학술 knowledge gate를
+따른다. M035 naming과 SeedDeriver를 재사용하며 en/ko명명 콘텐츠는 계보를 변경하지 않는다.
 
-기본 이름은 M035 canonical GeneratedName과 en/ko 작명 데이터를 사용한다.
-역사 ID와 이름을 분리하고 생활·계보에 최소 naming context를 남긴다. 이름의 번역·형태
-변경이나 발견 motif 선택은 붕괴·관계 등 다른 RNG domain을 바꾸지 않는다.
-기존 naming prototype culture ID `administrator`는 이번에 변경하지 않았다.
+1,000seed:오류·invariant·재생 mismatch0;현재6/7/8개=340/333/327,역사정치체9..24,
+깊이1..11. Observer/Core없는 역사861,Observer38,Core103,궤도폭격11,유적재사용414.
+[상세 모델/제약](../specs/history_generator.md), [통계](../reviews/history_v3/diversity.json),
+[10개 원문 출력](../reviews/history_v3/samples.md), [구조 비교](../reviews/2026-10-06-history-generator-v0_3.md).
 
-1~1000 seed에서 Observer/Core 없는 역사 85.7%, Observer 유산 4.5%, Core 10.2%,
-궤도 폭격 0.7%가 관측되었다. 이는 유한 표본의 실제 발생률이다.
-[분포 JSON](../reviews/history_v2/diversity.json), [대표 10개 전체 출력](../reviews/history_v2/samples.md),
-[질적 검토와 검증 기록](../reviews/2026-10-06-history-generator-v0_2.md)을 함께 확인할 수 있다.
-
-실행은 `tools/preview_history.gd -- 42`, `--json`으로 diagnostic output을 출력한다.
-`tools/analyze_history.gd -- 1000 OUTPUT_DIRECTORY`는 분포와 대표 보고서를 재생성한다.
-[상세 설계](../specs/history_generator.md)와 [M037](../milestones/M037_history_generation_v2.md)에
-구체적인 API/검증 범위를 기록했다. Gameplay/map/save/post-start simulation은 아직 연결하지
-않았다. 다음 단계는 projected records를 worldgen/faction의 명시적 year-0 경계로 전달하는 일이다.
+`codex/history-generator-v0.3`에서 완료, main미병합. v2명시 실행/48,463assertions은 보존했다.
+게임플레이·실시간 population/경제/전쟁/문화 시뮬레이션은 이후 범위다. 진단 JSON은 exporter
+출력이며 저장 게임이나 외부 snapshot입력 계약이 아니다.

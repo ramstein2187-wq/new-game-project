@@ -14,7 +14,7 @@ func _init(custom_provider: Callable = Callable(), catalog: NamingCatalog = null
 	_generator = NameGenerator.new(_catalog)
 	_renderer = NameRenderer.new(_catalog)
 
-func assign(entity: HistoricalEntity, seed: int, used: Dictionary) -> void:
+func assign(entity: HistoricalEntity, seed: int, used: Dictionary, version: int = 2) -> void:
 	var canonical: GeneratedName
 	var label := ""
 	if provider.is_valid():
@@ -28,7 +28,7 @@ func assign(entity: HistoricalEntity, seed: int, used: Dictionary) -> void:
 		var blocked := {}
 		for locale in _catalog.locales():
 			blocked[locale] = used.get(locale, []).duplicate()
-		canonical = _generator.generate(seed, "history/v2/" + entity.naming_lineage_id + "/" + entity.id,
+		canonical = _generator.generate(seed, "history/v%d/" % version + entity.naming_lineage_id + "/" + entity.id,
 			entity.naming_culture_id, type, {"max_attempts": 32, "blocked_display_names": blocked})
 	if canonical != null and _renderer.validation_errors(canonical).is_empty():
 		label = _renderer.render(canonical, "en")

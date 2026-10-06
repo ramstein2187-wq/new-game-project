@@ -1,30 +1,37 @@
 class_name HistoryGenerator
 extends RefCounted
 
-const VERSION := 2
+const VERSION := 3
 const ARCHITECTURE_VERSION := 1
 var _names: HistoryNameSource
 var _discovery_pool: Array
+var _version: int
 
-func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotifs.DISCOVERIES) -> void:
+func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotifs.DISCOVERIES, version: int = VERSION) -> void:
 	_names = names if names != null else HistoryNameSource.new()
 	_discovery_pool = discovery_pool.duplicate()
+	_version = version
 
 func generate(seed: int) -> HistoryResult:
 	var result := HistoryResult.new()
 	result.seed = seed
-	result.generation_version = VERSION
+	result.generation_version = _version
 	result.architecture_version = ARCHITECTURE_VERSION
 	result.canon = CanonPolicy.snapshot()
 	result.configuration = _configuration(seed)
 	var local := _local_collapse(result)
-	_successors(result, local)
-	_later_history(result, local)
+	if _version == 2:
+		_successors(result, local)
+		_later_history(result, local)
+	else:
+		HistoryTopology.new().build(result, local, self)
+		_later_history_v3(result)
+	result.objective_timeline.sort_custom(func(a: HistoricalEvent, b: HistoricalEvent) -> bool: return a.year < b.year or (a.year == b.year and a.id < b.id))
 	var used := {}
 	var definitions := result.entities.duplicate()
 	definitions.sort_custom(func(a: HistoricalEntity, b: HistoricalEntity) -> bool: return a.id < b.id)
 	for entity in definitions:
-		_names.assign(entity, seed, used)
+		_names.assign(entity, seed, used, _version)
 	result.present = HistoryProjector.new().project(result.entities, result.objective_timeline)
 	result.historical_claims = HistoryClaimBuilder.new().build(result)
 	result.validation_report = HistoryValidator.new().validate(result)
@@ -54,6 +61,12 @@ func _configuration(seed: int) -> Dictionary:
 		config.extra_core = _pick(seed, "legacy/core/motif", HistoryMotifs.PRESSURES.core_intervention)
 	if domain != "observer_legacy" and _rng(seed, "legacy/orbital/budget").randi_range(0, 999) < 20:
 		config.extra_orbital = _pick(seed, "legacy/orbital/motif", HistoryMotifs.PRESSURES.observer_legacy)
+	if _version == 3:
+		for field in ["successor_a_form", "successor_b_form", "faction_c_formation", "ancestry_mode", "middle_motif", "recent_motif", "belief_profile"]:
+			config.erase(field)
+		config.content_revision = HistoryMotifs.CONTENT_REVISION_V3
+		config.topology_family = _pick(seed, "topology/family", HistoryMotifs.TOPOLOGY_FAMILIES)
+		config.target_factions = _rng(seed, "topology/target").randi_range(6, 8)
 	return config
 
 func _local_collapse(result: HistoryResult) -> Dictionary:
@@ -62,7 +75,14 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 	var precursor := _entity(result, "precursor", "precursor_state")
 	precursor.political_form = c.precursor_form
 	var found_year := _year(result.seed, "found", -560, -480)
-	_emit(result, "h_found", found_year, c.precursor_form, [], [], [_activate("region"), _activate("precursor")])
+	var founding: Array[Dictionary] = [_activate("region"), _activate("precursor")]
+	if _version == 3:
+		precursor.formation_origin = "founding"
+		precursor.ancestry_kind = "root"
+		precursor.political_continuity = true
+		precursor.population_origin_profile = ["Human-derived"]
+		founding.append(_population("precursor", ["Human-derived"], [], "seed"))
+	_emit(result, "h_found", found_year, c.precursor_form, [], [], founding)
 	_entity(result, "regional_body", "group", ["precursor"])
 	_emit(result, "h_body", found_year + 25, "regional_body", ["precursor"], ["h_found"], [_activate("regional_body")])
 	var pressure_year := _year(result.seed, "pressure", -370, -340)
@@ -203,7 +223,7 @@ func _emit(result: HistoryResult, id: String, year: int, key: String, actors: Ar
 
 func _rng(seed: int, domain: String) -> RandomNumberGenerator:
 	var rng := RandomNumberGenerator.new()
-	rng.seed = SeedDeriver.derive(seed, ["history", str(VERSION), domain])
+	rng.seed = SeedDeriver.derive(seed, ["history", str(_version), domain])
 	return rng
 
 func _pick(seed: int, domain: String, pool: Array) -> String:
@@ -219,10 +239,87 @@ func _retire(id: String) -> Dictionary:
 	return {"kind": "retire", "entity_id": id}
 
 func _ruin(id: String, kind: String) -> Dictionary:
-	return {"kind": "ruin", "id": id, "ruin_kind": kind, "location_id": "region"}
+	var effect := {"kind": "ruin", "id": id, "ruin_kind": kind, "location_id": "region"}
+	if _version == 3:
+		effect.merge(HistorySites.description(kind))
+	return effect
+
+func _population(id: String, origins: Array, sources: Array, mode: String) -> Dictionary:
+	var ordered: Array[String] = []
+	for origin: String in HistoryMotifs.ORIGINS:
+		if origin in origins:
+			ordered.append(origin)
+	return {"kind": "population", "entity_id": id, "origin_ids": ordered, "source_ids": sources.duplicate(), "mode": mode}
 
 func _settlement(id: String, owner: String) -> Dictionary:
 	return {"kind": "settlement", "entity_id": id, "owner_id": owner, "location_id": "region"}
 
 func _relation(seed: int, a: String, b: String, minimum: int, maximum: int, phase: String) -> Dictionary:
 	return {"kind": "relationship", "a": a, "b": b, "delta": _rng(seed, "relations/" + phase).randi_range(minimum, maximum)}
+
+func _later_history_v3(result: HistoryResult) -> void:
+	var active: Array[String] = []
+	for entity in result.entities:
+		if entity.kind == "faction" and entity.retired_event_id.is_empty():
+			active.append(entity.id)
+	active.sort()
+	for domain: String in ["core", "orbital"]:
+		var key: String = result.configuration["extra_" + domain]
+		if not key.is_empty():
+			_emit(result, "h_legacy_" + domain, _year(result.seed, domain + "-legacy", -144, -132) if domain == "core" else _year(result.seed, domain + "-legacy", -123, -112), key, [], [], [HistoryMotifs.system_effect(key, "legacy_" + domain)])
+	# Reuse is optional and selected only from canonical compatible site/faction pairs.
+	if _rng(result.seed, "sites/reuse/budget").randi_range(0, 99) < 40:
+		var options: Array[Dictionary] = []
+		for event in result.objective_timeline:
+			for effect in event.effects:
+				if effect.kind != "ruin":
+					continue
+				for id in active:
+					for purpose: String in ["settlement", "research", "scavenging", "military_post", "ritual_site"]:
+						if HistorySites.compatible(effect, result.entity(id), purpose):
+							options.append({"ruin": effect.id, "event": event.id, "owner": id, "purpose": purpose})
+		if not options.is_empty():
+			var option: Dictionary = options[_rng(result.seed, "sites/reuse/choice").randi_range(0, options.size() - 1)]
+			_entity(result, "reused_site", "settlement")
+			_emit(result, "h_reuse", -37, "site_reuse", [option.owner], [option.event, result.entity(option.owner).created_event_id],
+				[_activate("reused_site"), _settlement("reused_site", option.owner),
+				{"kind": "reoccupy", "ruin_id": option.ruin, "owner_id": option.owner, "settlement_id": "reused_site", "purpose": option.purpose}])
+	# Sparse witnessed relationships, not an all-pairs diplomacy matrix.
+	var pairs: Array[Array] = []
+	var isolated: String = active[_rng(result.seed, "relations/isolation").randi_range(0, active.size() - 1)]
+	if result.configuration.topology_family == "enclave_continuity":
+		for id in active:
+			if result.entity(id).formation_origin == "enclave_continuity":
+				isolated = id
+	for i in range(active.size()):
+		for j in range(i + 1, active.size()):
+			if active[i] != isolated and active[j] != isolated:
+				pairs.append([active[i], active[j]])
+	var rng := _rng(result.seed, "relations/pairs")
+	for i in range(pairs.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var pair := pairs[i]
+		pairs[i] = pairs[j]
+		pairs[j] = pair
+	var count := rng.randi_range(3, active.size() - 2)
+	for i in range(count):
+		var a: String = pairs[i][0]
+		var b: String = pairs[i][1]
+		# Movement requires recorded population effects; these are diplomatic encounters.
+		var key: String = _pick(result.seed, "recent/pair/" + str(i), ["border_dispute", "trade_reopening", "local_alliance", "maintenance_accord"])
+		var hostile := key == "border_dispute"
+		var effects: Array[Dictionary] = [_relation(result.seed, a, b, -35 if hostile else 10, -15 if hostile else 35, "recent/" + str(i))]
+		if hostile:
+			effects.append(_ruin("watchpost_%d" % i, "watchtower"))
+		_emit(result, "h_relation_%d" % i, -28 + i * 2, key, [a, b], [result.entity(a).created_event_id, result.entity(b).created_event_id], effects)
+	# This event's sign is distinct from accumulated sentiment after other events.
+	var first_pair: Array = pairs[0]
+	var previous_hostile: bool = result.objective_timeline.filter(func(e: HistoricalEvent) -> bool: return e.id == "h_relation_0")[0].effects[0].delta < 0
+	_emit(result, "h_last", -5, "maintenance_accord" if previous_hostile else "recent_rivalry",
+		[first_pair[0], first_pair[1]], ["h_relation_0"],
+		[_relation(result.seed, first_pair[0], first_pair[1], 20 if previous_hostile else -30, 45 if previous_hostile else -10, "last")])
+	if _rng(result.seed, "discovery/budget").randi_range(0, 99) < 60:
+		var finder: String = active[_rng(result.seed, "discovery/finder").randi_range(0, active.size() - 1)]
+		var motif: String = result.configuration.discovery_motif
+		_emit(result, "h_discovery", -12, motif, [finder], [result.entity(finder).created_event_id],
+			[{"kind": "discovery", "id": "unknown_object", "location_id": "region", "observation": HistoryMotifs.DISCOVERY_OBSERVATIONS[motif], "origin": "unknown"}])

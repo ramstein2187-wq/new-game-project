@@ -3,7 +3,7 @@
 Canon constrains what can be true. History generation decides what happened.
 Cultures decide what it means. Simulation decides what happens next.
 
-> **Implementation note:** 이 문서는 다음 History Generator 개선의 authoritative lore contract다. 현재 v0.1 코드에는 `administrator_*` 같은 legacy identifier와 구 문구가 남아 있을 수 있으며, 코드 명칭/Claim knowledge gate는 후속 generation v2 작업에서 맞춘다.
+> **Implementation note:** M038 v0.3은 아래 LOCKED/RESERVED를 유지한다. v0.1의 세 faction과 고정 크기 예시는 원래 slice 범위이며, v3은 역사적 변환 결과로 현재6–8faction을 만든다. v2의 Observer 명칭/학술 knowledge gate, 희귀 예산을 유지한다. 최신 구현·테스트 범위는 [History Generator spec](../specs/history_generator.md)을 따른다.
 
 ## LOCKED — 변경 불가능한 객관적 진실
 

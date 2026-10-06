@@ -11,9 +11,12 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 	var ruins := {}
 	var discoveries := {}
 	var traces := {}
+	var profiles := {}
+	var events := {}
 	for entity in entities:
 		definitions[entity.id] = entity
 	for event in timeline:
+		events[event.id] = event
 		for effect in event.effects:
 			match effect.kind:
 				"activate": active[effect.entity_id] = event.id
@@ -21,9 +24,18 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 				"settlement":
 					sites[effect.entity_id] = {"id": effect.entity_id, "name": definitions[effect.entity_id].name,
 						"owner_id": effect.owner_id, "location_id": effect.location_id, "source_event_ids": [event.id]}
+				"site_owner":
+					sites[effect.entity_id].owner_id = effect.owner_id
+					sites[effect.entity_id].source_event_ids.append(event.id)
+				"population":
+					profiles[effect.entity_id] = effect.origin_ids.duplicate()
+					state.population_history.append({"entity_id": effect.entity_id, "origin_ids": effect.origin_ids.duplicate(),
+						"source_ids": effect.source_ids.duplicate(), "mode": effect.mode, "year": event.year, "source_event_ids": [event.id]})
 				"ruin":
 					ruins[effect.id] = {"id": effect.id, "ruin_kind": effect.ruin_kind, "location_id": effect.location_id,
 						"occupant_id": "", "source_event_ids": [event.id]}
+					if effect.has("hazard"):
+						ruins[effect.id].merge({"hazard": effect.hazard, "site_type": effect.site_type, "reuse_purpose": ""})
 				"relationship":
 					var pair: Array[String] = [effect.a, effect.b]
 					pair.sort()
@@ -35,6 +47,8 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 				"reoccupy":
 					ruins[effect.ruin_id].occupant_id = effect.owner_id
 					ruins[effect.ruin_id].source_event_ids.append(event.id)
+					if effect.has("purpose"):
+						ruins[effect.ruin_id].reuse_purpose = effect.purpose
 					if event.id not in sites[effect.settlement_id].source_event_ids:
 						sites[effect.settlement_id].source_event_ids.append(event.id)
 				"discovery":
@@ -54,6 +68,11 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 				"knowledge_tags": entity.knowledge_tags.duplicate(),
 				"generated_name": entity.generated_name.to_dict() if entity.generated_name != null else {},
 				"source_event_ids": [active[id]]})
+			if not entity.formation_origin.is_empty():
+				state.active_factions[-1].merge({"formation_origin": entity.formation_origin, "ancestry_kind": entity.ancestry_kind,
+					"parent_ids": entity.parent_ids.duplicate(), "political_continuity": entity.political_continuity,
+					"regional_roles": entity.regional_roles.duplicate(), "population_origin_profile": profiles[id].duplicate(),
+					"formation_year": events[entity.created_event_id].year})
 			var ancestors: Array[String] = []
 			_collect_ancestors(id, definitions, ancestors)
 			ancestors.sort()
@@ -71,6 +90,17 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 	for key: String in _keys(sites):
 		if active.has(key):
 			state.settlements.append(sites[key])
+	for id: String in _keys(definitions):
+		var entity: HistoricalEntity = definitions[id]
+		if entity.kind in ["faction", "precursor_state"] and not entity.formation_origin.is_empty():
+			var row := entity.to_dict()
+			row.merge({"active": active.has(id), "formation_year": events[entity.created_event_id].year,
+				"dissolution_year": null if entity.retired_event_id.is_empty() else events[entity.retired_event_id].year,
+				"founding_population_origin_profile": entity.population_origin_profile.duplicate(),
+				"population_origin_profile": profiles[id].duplicate(), "source_event_ids": [entity.created_event_id]})
+			if not entity.retired_event_id.is_empty():
+				row.source_event_ids.append(entity.retired_event_id)
+			state.historical_factions.append(row)
 	for key: String in _keys(ruins):
 		state.ruins.append(ruins[key])
 	for key: String in _keys(discoveries):

@@ -3,7 +3,7 @@ extends SceneTree
 const Statistics = preload("res://tools/history_statistics.gd")
 var failures := 0
 var assertions := 0
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 2)
 
 func expect(condition: bool, message: String) -> void:
 	assertions += 1
@@ -213,7 +213,7 @@ func _system_effect(result: HistoryResult) -> Dictionary:
 func _name_boundary() -> void:
 	var normal := generator.generate(42)
 	var source := HistoryNameSource.new(func(seed: int, id: String, kind: String) -> String: return "%s/%s/%s" % [seed, id, kind])
-	var custom := HistoryGenerator.new(source).generate(42)
+	var custom := HistoryGenerator.new(source, HistoryMotifs.DISCOVERIES, 2).generate(42)
 	expect(custom.structural_output() == normal.structural_output(), "Name provider changes names only, including claims and projected facts")
 	expect(custom.validation_report.errors.is_empty(), "Pure custom labels remain supported")
 	var content := (load(NamingCatalog.CONTENT_PATH) as NamingContent).duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as NamingContent
@@ -222,7 +222,7 @@ func _name_boundary() -> void:
 			token.forms[locale] = str(token.forms[locale]) + ("x" if locale == "en" else "라")
 	var catalog := NamingCatalog.new(content)
 	expect(catalog.is_valid(), "Alternate authored localized forms validate")
-	var changed := HistoryGenerator.new(HistoryNameSource.new(Callable(), catalog)).generate(42)
+	var changed := HistoryGenerator.new(HistoryNameSource.new(Callable(), catalog), HistoryMotifs.DISCOVERIES, 2).generate(42)
 	expect(changed.entity("faction_a").name != normal.entity("faction_a").name, "Naming content really changes display")
 	expect(changed.structural_output() == normal.structural_output(), "en/ko form edits cannot change history structures")
 	for entity in normal.entities:
@@ -234,9 +234,9 @@ func _name_boundary() -> void:
 func _discovery_boundary() -> void:
 	var reordered := HistoryMotifs.DISCOVERIES.duplicate()
 	reordered.reverse()
-	var changed_generator := HistoryGenerator.new(null, reordered)
+	var changed_generator := HistoryGenerator.new(null, reordered, 2)
 	var changed_count := 0
-	var smaller_generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES.slice(0, 5))
+	var smaller_generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES.slice(0, 5), 2)
 	for seed in range(1, 21):
 		var normal := generator.generate(seed)
 		var changed := changed_generator.generate(seed)

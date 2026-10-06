@@ -2,6 +2,7 @@ extends RefCounted
 
 # Read-only diagnostics, never an input into generation or a content authority.
 var count := 0
+var generation_version := 2
 var distributions := {}
 var frequencies := {"no_observer_or_core": 0, "natural_and_human_only": 0,
 	"human_only": 0, "observer_legacy": 0, "core_intervention": 0, "orbital_bombardment": 0}
@@ -14,6 +15,7 @@ var min_scar_ratio := 1.0
 var invalid_seeds: Array[int] = []
 
 func add(result: HistoryResult) -> void:
+	generation_version = result.generation_version
 	count += 1
 	var c := result.configuration
 	for axis: String in ["precursor_form", "pressure_domain", "pressure_motif", "response_motif",
@@ -83,7 +85,7 @@ func to_dict() -> Dictionary:
 	var rates := {}
 	for key in frequencies:
 		rates[key] = {"count": frequencies[key], "percent": 100.0 * frequencies[key] / maxi(1, count)}
-	return {"generation_version": HistoryGenerator.VERSION, "architecture_version": HistoryGenerator.ARCHITECTURE_VERSION,
+	return {"generation_version": generation_version, "architecture_version": HistoryGenerator.ARCHITECTURE_VERSION,
 		"sample_count": count, "seed_range": [1, count], "distributions": distributions.duplicate(true),
 		"frequencies": rates, "unique_structural_signatures": structural_signatures.size(),
 		"unique_configuration_recipes": recipes.size(), "unique_event_type_topologies": event_topologies.size(),

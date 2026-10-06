@@ -9,16 +9,21 @@ var settlements: Array[Dictionary] = []
 var ruins: Array[Dictionary] = []
 var discoveries: Array[Dictionary] = []
 var system_traces: Array[Dictionary] = []
+var historical_factions: Array[Dictionary] = []
+var population_history: Array[Dictionary] = []
 
 func to_dict() -> Dictionary:
-	return {"active_factions": active_factions.duplicate(true), "faction_ancestry": faction_ancestry.duplicate(true),
+	var row := {"active_factions": active_factions.duplicate(true), "faction_ancestry": faction_ancestry.duplicate(true),
 		"relationships": relationships.duplicate(true), "settlements": settlements.duplicate(true),
 		"ruins": ruins.duplicate(true), "discoveries": discoveries.duplicate(true),
 		"system_traces": system_traces.duplicate(true)}
+	if not historical_factions.is_empty():
+		row.merge({"historical_factions": historical_factions.duplicate(true), "population_history": population_history.duplicate(true)})
+	return row
 
 func direct_scar_event_ids() -> Array[String]:
 	var ids: Array[String] = []
-	for collection: Array in [active_factions, faction_ancestry, relationships, settlements, ruins, discoveries, system_traces]:
+	for collection: Array in [active_factions, faction_ancestry, relationships, settlements, ruins, discoveries, system_traces, historical_factions, population_history]:
 		for item: Dictionary in collection:
 			for source: String in item.source_event_ids:
 				if source not in ids:

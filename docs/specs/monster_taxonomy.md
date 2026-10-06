@@ -17,14 +17,18 @@ diagram = "docs/diagrams/monster_taxonomy.svg"
 
 ## 1. 기원 · Origin
 
-- **토착 / Native** — 행성 자연계에서 기원.
-- **관찰자 유산 / Observer Legacy** — 관찰자 문명이 직접 남긴 생명체·기계·관련 존재.
-- **심층 / Innerworld** — 일정 심도 이하의 미지 지저권에서 기원했거나 그곳에서 올라온 것으로 분류되는 존재.
-- **인간 제작 / Human-made** — 현 행성 인류가 제작하거나 본질적으로 개조한 존재.
-- **외우주 / Outerworld** — 행성 바깥에서 유입된 존재. 관찰자 유산과 별도 분류.
-- **복합 / Composite** — 서로 다른 기원이 본질적으로 결합.
+- **행성 / Planetary** — 행성 자체에 기원을 둔 존재.
+- **인간 계통 / Human-derived** — 인간 원형에서 유래한 계통과 그 제작·개조 계열.
+- **관찰자 / Observer** — 관찰자 문명에서 유래한 유산. 현재 살아 있는 관찰자 문명을 뜻하지 않는다.
+- **심층 / Innerworld** — 미지 지저권에서 기원한 존재.
+- **외우주 / Outerworld** — 행성 밖에서 유입된 존재. Observer와 별도 기원.
 - **불명 / Unknown** — 기원을 특정할 수 없음.
 
+M038과 함께 canonical vocabulary를 위 여섯 값으로 통일한다. 기존 Native / Human-made /
+Observer Legacy는 각각 Planetary / Human-derived / Observer로 대응하며, Composite는
+별도 Origin이 아니다. 여러 기원은 multi-origin profile로 보존한다. 정치적 합병·형성 사건은
+생물학적 기원과 다르다. 몬스터의 현재 단일 Origin 속성은 미확정 null을 유지하며, population
+profile은 복수값이다. 데이터의 알려지지 않은 기원을 문서 변경만으로 채우지 않는다.
 파생은 Origin에서 제외한다. 장기간 자생화, 자기개조, 계통 분화처럼 원형에서 멀어진 정도는 향후 Trait로 표현한다.
 
 ## 2. 구성 · Composition

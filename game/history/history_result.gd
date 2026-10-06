@@ -2,7 +2,7 @@ class_name HistoryResult
 extends RefCounted
 
 var seed: int = 0
-var generation_version: int = 2
+var generation_version: int = 3
 var architecture_version: int = 1
 var configuration: Dictionary = {}
 var canon: Dictionary = {}
@@ -52,4 +52,7 @@ func structural_output() -> String:
 		row.erase("generated_name")
 	for row: Dictionary in value.present.settlements:
 		row.erase("name")
+	for row: Dictionary in value.present.get("historical_factions", []):
+		row.erase("name")
+		row.erase("generated_name")
 	return JSON.stringify(value)

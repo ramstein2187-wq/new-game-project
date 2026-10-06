@@ -21,6 +21,8 @@ const ACCOUNTS := {
 }
 
 func build(result: HistoryResult) -> Array[HistoricalClaim]:
+	if result.generation_version == 3:
+		return _build_v3(result)
 	var claims: Array[HistoricalClaim] = []
 	for faction in result.present.active_factions:
 		var entity := result.entity(faction.id)
@@ -121,5 +123,47 @@ func _add(claims: Array[HistoricalClaim], seed: int, claimant: String, event_id:
 	claim.claim_type = type
 	var rng := RandomNumberGenerator.new()
 	rng.seed = SeedDeriver.derive(seed, ["history", "2", "beliefs", claimant, event_id, topic])
+	claim.confidence = float(rng.randi_range(35, 90)) / 100.0
+	claims.append(claim)
+
+func _build_v3(result: HistoryResult) -> Array[HistoricalClaim]:
+	var claims: Array[HistoricalClaim] = []
+	for row in result.present.active_factions:
+		var entity := result.entity(row.id)
+		var lineage := "Our offices continue an older political lineage. " if entity.political_continuity else "We claim no direct inheritance of the old central offices. "
+		_add_v3(claims, result.seed, entity.id, entity.created_event_id, "event", {},
+			"Our recorded formation was %s. %s%s" % [entity.formation_origin, lineage, ACCOUNTS[entity.way_of_life]], "legitimacy")
+		var pressure := "Regional records: " + _pressure_memory(result.configuration.pressure_motif).replace("Our elders", "Older local households") + " These accounts do not settle the end of the whole age of great states."
+		_add_v3(claims, result.seed, entity.id, "h_pressure", "event", {}, pressure)
+		for event in result.objective_timeline:
+			for effect in event.effects:
+				if effect.kind == "relationship" and entity.id in [effect.a, effect.b]:
+					var memory := "That recorded agreement increased trust at the time." if effect.delta > 0 else "That recorded dispute reduced trust at the time."
+					_add_v3(claims, result.seed, entity.id, event.id, "event",
+						{"a": effect.a, "b": effect.b, "delta": effect.delta}, memory)
+			if event.cause_domain in ["core_intervention", "observer_legacy"]:
+				var account := _core_memory(event.narrative_key) if event.cause_domain == "core_intervention" else "Some suspect an " + _old_term(entity) + " sky-machine; a meteor or enemy weapon is another account."
+				_add_v3(claims, result.seed, entity.id, event.id, "event", {}, account)
+			if event.id == "h_discovery":
+				_add_v3(claims, result.seed, entity.id, event.id, "event", {},
+					"We compare it with " + _old_term(entity) + " works, but resemblance does not establish its origin.")
+		for relation in result.present.relationships:
+			if entity.id not in [relation.a, relation.b]:
+				continue
+			var sentiment := "Current dealings are cooperative." if relation.score > 0 else "Current dealings are distrustful." if relation.score < 0 else "Current obligations remain unsettled."
+			_add_v3(claims, result.seed, entity.id, "", "present",
+				{"a": relation.a, "b": relation.b, "score": relation.score}, sentiment)
+	return claims
+
+func _add_v3(claims: Array[HistoricalClaim], seed: int, claimant: String, event: String, scope: String, evidence: Dictionary, text: String, type: String = "interpretation") -> void:
+	var claim := HistoricalClaim.new()
+	claim.claimant_entity_id = claimant
+	claim.referenced_event_id = event
+	claim.reference_scope = scope
+	claim.evidence = evidence.duplicate(true)
+	claim.interpretation = text
+	claim.claim_type = type
+	var rng := RandomNumberGenerator.new()
+	rng.seed = SeedDeriver.derive(seed, ["history", "3", "beliefs", claimant, event, scope, JSON.stringify(evidence)])
 	claim.confidence = float(rng.randi_range(35, 90)) / 100.0
 	claims.append(claim)
