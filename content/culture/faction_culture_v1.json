@@ -1,5 +1,5 @@
 {
-  "revision": "faction-culture-v1-authored-1",
+  "revision": "faction-culture-v1-authored-2",
   "society_traits": [
     {
       "id": "archive_legitimacy",
@@ -130,7 +130,12 @@
       "requires_all": [
         "history:regional_pressure"
       ],
-      "requires_any": [],
+      "requires_any": [
+        "memory:warning",
+        "role:border_watch",
+        "role:shelter",
+        "history:local_hazard_response"
+      ],
       "prefers": [
         "memory:warning"
       ],
@@ -173,7 +178,12 @@
       "requires_all": [
         "structure:local_settlement"
       ],
-      "requires_any": [],
+      "requires_any": [
+        "anchor:locality",
+        "life:village_union",
+        "life:regional_commune",
+        "institution:rotating_office"
+      ],
       "prefers": [
         "life:village_union",
         "life:regional_commune"
@@ -287,10 +297,10 @@
       "family": ""
     },
     {
-      "id": "practical_heresy",
-      "display_name": "Practical Heresy",
+      "id": "adaptive_customs",
+      "display_name": "Adaptive Customs",
       "category": "institutions",
-      "explanation": "Recorded institutional reorganization plus pragmatic interpretation supports adapting everyday conventions; it does not automatically choose the normative Doctrine of the same name.",
+      "explanation": "Daily customs can change to meet concrete survival needs; this structural habit is distinct from the normative doctrine Practical Heresy.",
       "requires_all": [
         "formation:reorganization",
         "interpretation:pragmatic"
@@ -360,7 +370,7 @@
       "category": "institutions",
       "explanation": "Office rotation requires an explicitly authored rotation institution; political reorganization alone does not prove rotating tenure.",
       "requires_all": [
-        "institution:rotating_offices"
+        "institution:rotating_office"
       ],
       "requires_any": [],
       "prefers": [],
@@ -475,7 +485,7 @@
       "category": "biotech",
       "explanation": "Preserving inherited human form is important; generic kinship or a single baseline template cannot establish a genetic-preservation norm.",
       "requires_all": [
-        "content:lineage_preservation"
+        "history:lineage_loss"
       ],
       "requires_any": [],
       "prefers": [],
@@ -493,15 +503,15 @@
       "fears": [
         "lineage_loss"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
-            "content:lineage_preservation",
+            "history:lineage_loss",
             "institution:genetic_preservation"
           ],
           "requires_any": [],
@@ -552,11 +562,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "adaptive:rebuild",
             "role:maintenance"
@@ -584,7 +594,7 @@
       "explanation": "Machines may work while final judgment remains human; needs actual local automation use and an oversight institution.",
       "requires_all": [
         "capability:automation",
-        "institution:human_machine_oversight"
+        "institution:human_oversight"
       ],
       "requires_any": [],
       "prefers": [],
@@ -604,22 +614,35 @@
       "fears": [
         "lost_control"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "capability:automation",
-            "institution:human_machine_oversight"
+            "institution:human_oversight"
           ],
           "requires_any": [],
           "prefers": [],
           "forbids": [],
           "min_tags": 2,
           "min_events": 1
+        },
+        "fanatic": {
+          "requires_all": [
+            "capability:automation",
+            "institution:human_oversight",
+            "history:oversight_review"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
         }
       },
       "conflicts": [],
@@ -664,12 +687,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:orbital_attack",
             "role:isolation"
@@ -680,7 +703,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "scar:orbital_attack",
             "role:isolation",
@@ -696,8 +719,8 @@
       "conflicts": [
         {
           "id": "skyward_hunger",
-          "min_intensity": "custom",
-          "other_min_intensity": "custom"
+          "min_intensity": "moderate",
+          "other_min_intensity": "moderate"
         }
       ],
       "goal_candidates": [
@@ -749,12 +772,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "structure:inherited_offices",
             "role:archives"
@@ -765,7 +788,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "structure:inherited_offices",
             "role:archives",
@@ -781,8 +804,8 @@
       "conflicts": [
         {
           "id": "radical_impermanence",
-          "min_intensity": "orthodoxy",
-          "other_min_intensity": "orthodoxy"
+          "min_intensity": "fanatic",
+          "other_min_intensity": "fanatic"
         }
       ],
       "goal_candidates": [
@@ -798,10 +821,11 @@
       "display_name": "Debt of Shelter",
       "category": "ethics",
       "explanation": "An actual refugee-community livelihood can turn the experience of refuge into an obligation to shelter others.",
-      "requires_all": [
-        "life:refugee_community"
+      "requires_all": [],
+      "requires_any": [
+        "life:refugee_community",
+        "history:clone_repopulation"
       ],
-      "requires_any": [],
       "prefers": [
         "role:shelter",
         "memory:debt",
@@ -825,12 +849,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "life:refugee_community",
             "role:shelter"
@@ -841,7 +865,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "life:refugee_community",
             "role:shelter",
@@ -873,10 +897,11 @@
       "display_name": "Depth Taboo",
       "category": "deep",
       "explanation": "Recorded underground closure supports a norm of keeping dangerous deep access closed, without implying Innerworld contact.",
-      "requires_all": [
-        "scar:deep_closure"
+      "requires_all": [],
+      "requires_any": [
+        "scar:deep_closure",
+        "history:deep_exile"
       ],
-      "requires_any": [],
       "prefers": [
         "role:isolation",
         "memory:warning"
@@ -898,12 +923,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:deep_closure",
             "role:isolation"
@@ -914,11 +939,11 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
-            "scar:deep_closure",
-            "role:isolation",
-            "history:hostility"
+            "history:deep_residence",
+            "history:deep_exile",
+            "institution:deep_memory"
           ],
           "requires_any": [],
           "prefers": [],
@@ -930,8 +955,8 @@
       "conflicts": [
         {
           "id": "return_to_deep",
-          "min_intensity": "custom",
-          "other_min_intensity": "custom"
+          "min_intensity": "moderate",
+          "other_min_intensity": "moderate"
         }
       ],
       "goal_candidates": [
@@ -975,13 +1000,13 @@
       "fears": [
         "unaccountable_heredity_design"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "capability:biotechnology",
             "institution:heredity_design"
@@ -1027,11 +1052,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "history:biological_adaptation",
             "institution:ecological_adaptation"
@@ -1079,14 +1104,14 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "content:semi_sapient_contact",
-            "institution:nonhuman_protection"
+            "institution:protection_compact"
           ],
           "requires_any": [],
           "prefers": [],
@@ -1130,14 +1155,14 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "institution:human_form_benchmark",
-            "history:form_exclusion"
+            "history:lineage_exclusion"
           ],
           "requires_any": [],
           "prefers": [],
@@ -1149,8 +1174,8 @@
       "conflicts": [
         {
           "id": "many_bodies_one_people",
-          "min_intensity": "custom",
-          "other_min_intensity": "custom"
+          "min_intensity": "moderate",
+          "other_min_intensity": "moderate"
         }
       ],
       "goal_candidates": [
@@ -1195,12 +1220,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "role:archives",
             "life:ritual_authority"
@@ -1211,7 +1236,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "role:archives",
             "life:ritual_authority",
@@ -1244,7 +1269,7 @@
       "category": "machine",
       "explanation": "Machines may be companions or community members only after actual authored local machine-society contact.",
       "requires_all": [
-        "content:machine_society_contact"
+        "content:machine_contact"
       ],
       "requires_any": [],
       "prefers": [],
@@ -1263,22 +1288,35 @@
       "fears": [
         "machine_exclusion"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
-            "content:machine_society_contact",
-            "institution:machine_membership"
+            "content:machine_contact",
+            "institution:machine_accommodation"
           ],
           "requires_any": [],
           "prefers": [],
           "forbids": [],
           "min_tags": 2,
           "min_events": 1
+        },
+        "fanatic": {
+          "requires_all": [
+            "content:machine_contact",
+            "institution:machine_accommodation",
+            "history:machine_aid_renewal"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
         }
       },
       "conflicts": [],
@@ -1320,11 +1358,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "life:ritual_authority",
             "scar:deep_closure"
@@ -1373,11 +1411,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "population:mixed_lineages",
             "history:population_join"
@@ -1428,11 +1466,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "role:archives",
             "interpretation:skeptical"
@@ -1479,13 +1517,13 @@
       "fears": [
         "biological_rigidity"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "capability:biotechnology",
             "institution:bodily_modification"
@@ -1500,8 +1538,8 @@
       "conflicts": [
         {
           "id": "ancestral_genome",
-          "min_intensity": "doctrine",
-          "other_min_intensity": "doctrine"
+          "min_intensity": "hardline",
+          "other_min_intensity": "hardline"
         }
       ],
       "goal_candidates": [
@@ -1537,11 +1575,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:environmental_change",
             "adaptive:adapt"
@@ -1571,7 +1609,8 @@
       "requires_any": [
         "formation:fragmentation",
         "life:breakaway_clan",
-        "formation:newcomer_formation"
+        "formation:newcomer_formation",
+        "history:clone_emancipation"
       ],
       "prefers": [
         "identity:breakaway"
@@ -1593,11 +1632,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "formation:fragmentation",
             "life:breakaway_clan"
@@ -1649,12 +1688,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "life:military_remnant",
             "history:hostility"
@@ -1665,7 +1704,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "life:military_remnant",
             "history:hostility",
@@ -1681,8 +1720,8 @@
       "conflicts": [
         {
           "id": "no_more_masters",
-          "min_intensity": "doctrine",
-          "other_min_intensity": "doctrine"
+          "min_intensity": "hardline",
+          "other_min_intensity": "hardline"
         }
       ],
       "goal_candidates": [
@@ -1723,11 +1762,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "formation:reorganization",
             "interpretation:pragmatic"
@@ -1777,14 +1816,14 @@
       "fears": [
         "machine_domination"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:machine_war",
             "history:recent_machine_hostility"
@@ -1795,11 +1834,11 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "scar:machine_war",
-            "history:recent_machine_hostility",
-            "role:isolation"
+            "history:machine_harm_memory",
+            "institution:human_oversight"
           ],
           "requires_any": [],
           "prefers": [],
@@ -1811,13 +1850,13 @@
       "conflicts": [
         {
           "id": "machine_kinship",
-          "min_intensity": "custom",
-          "other_min_intensity": "custom"
+          "min_intensity": "moderate",
+          "other_min_intensity": "moderate"
         },
         {
           "id": "machine_revelation",
-          "min_intensity": "custom",
-          "other_min_intensity": "custom"
+          "min_intensity": "moderate",
+          "other_min_intensity": "moderate"
         }
       ],
       "goal_candidates": [
@@ -1858,12 +1897,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "formation:reorganization",
             "life:regional_commune"
@@ -1874,7 +1913,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "formation:reorganization",
             "life:regional_commune",
@@ -1903,7 +1942,7 @@
       "explanation": "Ancestral homeland should be recovered only where actual loss and homeland association are authored. Migration and political extinction alone do not establish this.",
       "requires_all": [
         "scar:lost_homeland",
-        "history:homeland_association"
+        "history:homeland_displacement"
       ],
       "requires_any": [],
       "prefers": [],
@@ -1919,13 +1958,14 @@
       "fears": [
         "homeland_erasure"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:lost_homeland",
             "institution:homeland_memory"
@@ -1935,6 +1975,18 @@
           "forbids": [],
           "min_tags": 2,
           "min_events": 1
+        },
+        "fanatic": {
+          "requires_all": [
+            "scar:lost_homeland",
+            "history:homeland_displacement",
+            "institution:homeland_memory"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
         }
       },
       "conflicts": [],
@@ -1957,8 +2009,8 @@
       "category": "deep",
       "explanation": "Recover lost Innerworld heritage only with actual local ancestry and recorded loss; Core-associated tunnels do not establish ancestry.",
       "requires_all": [
-        "population:innerworld_ancestry",
-        "scar:lost_innerworld_site"
+        "history:deep_residence",
+        "site:lost_deep_settlement"
       ],
       "requires_any": [],
       "prefers": [],
@@ -1974,22 +2026,35 @@
       "fears": [
         "deep_heritage_loss"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
-            "population:innerworld_ancestry",
-            "institution:innerworld_memory"
+            "history:deep_residence",
+            "institution:deep_memory"
           ],
           "requires_any": [],
           "prefers": [],
           "forbids": [],
           "min_tags": 2,
           "min_events": 1
+        },
+        "fanatic": {
+          "requires_all": [
+            "history:deep_residence",
+            "history:deep_exile",
+            "institution:deep_memory"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
         }
       },
       "conflicts": [],
@@ -2037,11 +2102,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "life:infrastructure_guild",
             "role:maintenance"
@@ -2087,29 +2152,42 @@
       "fears": [
         "unaccountable_automation"
       ],
-      "base_weight": 5,
+      "base_weight": 10,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "history:autonomous_machine_harm",
-            "institution:human_machine_oversight"
+            "institution:human_oversight"
           ],
           "requires_any": [],
           "prefers": [],
           "forbids": [],
           "min_tags": 2,
           "min_events": 1
+        },
+        "fanatic": {
+          "requires_all": [
+            "history:autonomous_machine_harm",
+            "institution:human_oversight",
+            "history:machine_harm_memory"
+          ],
+          "requires_any": [],
+          "prefers": [],
+          "forbids": [],
+          "min_tags": 3,
+          "min_events": 2
         }
       },
       "conflicts": [
         {
           "id": "machine_kinship",
-          "min_intensity": "doctrine",
-          "other_min_intensity": "doctrine"
+          "min_intensity": "hardline",
+          "other_min_intensity": "hardline"
         }
       ],
       "goal_candidates": [
@@ -2152,11 +2230,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:sky_signal",
             "role:maintenance"
@@ -2214,11 +2292,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "content:semi_sapient_contact",
             "institution:personhood_threshold"
@@ -2233,8 +2311,8 @@
       "conflicts": [
         {
           "id": "kin_beyond_thought",
-          "min_intensity": "doctrine",
-          "other_min_intensity": "doctrine"
+          "min_intensity": "hardline",
+          "other_min_intensity": "hardline"
         }
       ],
       "goal_candidates": [
@@ -2253,11 +2331,12 @@
       "requires_all": [],
       "requires_any": [
         "reuse:research",
-        "life:infrastructure_guild",
-        "life:facility_community"
+        "history:recorded_testing"
       ],
       "prefers": [
-        "history:unknown_discovery"
+        "history:unknown_discovery",
+        "life:facility_community",
+        "life:infrastructure_guild"
       ],
       "forbids": [],
       "values": [
@@ -2276,11 +2355,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "reuse:research",
             "history:unknown_discovery"
@@ -2329,11 +2408,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "formation:reorganization",
             "life:regional_commune"
@@ -2385,11 +2464,11 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine"
+        "moderate",
+        "hardline"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "scar:chemical_exposure",
             "role:shelter"
@@ -2404,8 +2483,8 @@
       "conflicts": [
         {
           "id": "new_ecology",
-          "min_intensity": "doctrine",
-          "other_min_intensity": "doctrine"
+          "min_intensity": "hardline",
+          "other_min_intensity": "hardline"
         }
       ],
       "goal_candidates": [
@@ -2460,12 +2539,12 @@
       ],
       "base_weight": 5,
       "allowed_intensities": [
-        "custom",
-        "doctrine",
-        "orthodoxy"
+        "moderate",
+        "hardline",
+        "fanatic"
       ],
       "intensity_rules": {
-        "doctrine": {
+        "hardline": {
           "requires_all": [
             "role:maintenance",
             "event:maintenance_accord"
@@ -2476,7 +2555,7 @@
           "min_tags": 2,
           "min_events": 1
         },
-        "orthodoxy": {
+        "fanatic": {
           "requires_all": [
             "role:maintenance",
             "life:infrastructure_guild",

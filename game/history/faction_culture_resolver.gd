@@ -85,7 +85,7 @@ func errors(result: HistoryResult, faction_id: String, profile: Dictionary) -> A
 	var event_ids := {}
 	for event in result.objective_timeline:
 		event_ids[event.id] = true
-	if profile.get("society_traits", []).size() not in [2, 3, 4] or profile.get("doctrines", []).size() > 2:
+	if profile.get("society_traits", []).size() > 4 or profile.get("doctrines", []).size() > 2:
 		issues.append("bounds: Invalid culture selection counts")
 	for kind: String in ["society_trait", "doctrine"]:
 		var seen := {}

@@ -3,260 +3,181 @@ status = "구현 완료"
 areas = ["코어", "월드 생성"]
 type = "알고리즘 / 데이터 모델"
 systems = "FactionCultureCatalog / CultureEvidence / CultureRules / FactionCultureResolver / SocietyActorInteraction / CultureGoalQuery"
-milestones = "M041 — codex/faction-culture-doctrines-v1; main 미병합"
-code_paths = ["content/culture/faction_culture_v1.json", "game/history/faction_culture_catalog.gd", "game/history/culture_evidence.gd", "game/history/culture_rules.gd", "game/history/faction_culture_resolver.gd", "game/history/society_actor_interaction.gd", "game/history/culture_goal_query.gd", "tools/analyze_faction_culture.gd"]
+milestones = "M041 foundation / M042 — codex/history-social-incidents-v1; main 미병합"
+code_paths = ["content/culture/faction_culture_v1.json", "game/history/culture_evidence.gd", "game/history/culture_rules.gd", "game/history/faction_culture_catalog.gd", "game/history/faction_culture_resolver.gd", "game/history/society_actor_interaction.gd", "game/history/culture_goal_query.gd", "tools/analyze_social_incidents.gd"]
 diagram = "docs/diagrams/faction_culture.svg"
 +++
-# Faction Society Traits & Doctrines v1 — M041
-
-Implemented on `codex/faction-culture-doctrines-v1`, exact M040 base
-`ae03d6dd9e0f93b1d7b67cd88a640bf1816a8e2b`; not merged main.
-Catalog authority: `content/culture/faction_culture_v1.json`, revision
-`faction-culture-v1-authored-1`. This version describes a derived query layer,
-not a culture/religion generator or post-start simulation.
-
-## Ownership and boundaries
+# Faction Society Traits & Doctrines — M042 current contract
 
 ![Derived history/culture pipeline](../diagrams/faction_culture.svg)
 
-Objective History → projected present state → M040 identity/interpretation →
-Society Traits → Doctrines → values/taboos/desires/fears → future goal candidates.
-Claims remain separate perceived statements. Interpretation asks how evidence is
-read; Doctrine asks what should be valued or done. Neither changes the evidence.
-M040 Claim wording, generation RNG, content revision and serialization are untouched.
+Implemented over exact M041 base `ef18814f34abfa7ab278c0914ae289806b22dc12`,
+isolated `codex/history-social-incidents-v1`; not merged main.
+Authored authority: `content/culture/faction_culture_v1.json`, revision
+`faction-culture-v1-authored-2`. M041 milestone/review artifacts remain historical
+evidence of the earlier intensity enum and dormant count; this is the current contract.
+
+## Responsibilities and state ownership
+
+Objective history → projected present → M040 identity/interpretation → Society
+Traits → Doctrines → values/taboos/desires/fears → future goal candidates.
+Claims remain perceived accounts, never truth inputs. Culture profiles are detached
+pure queries, not serialized objective state; recomputation mutates no entity,
+event, effect, present record or Claim. No global resolved-profile cache/autoload.
 Generation3 remains architecture2; legacy generation2 remains architecture1.
 
-`FactionCultureResolver.resolve(result, faction_id)` accepts a current v3 faction
-and recomputes a detached Dictionary. It writes no entities, events, effects,
-HistoryState, Claims or save records. There is no global cache or new autoload.
-Names, locale and Claim prose are never evidence inputs.
-
-## Composable responsibilities
+History creates what happened. Culture interprets what it means. See the
+[social incident contract](social_historical_incidents.md) for the new objective
+layer and all14previously dormant Doctrine activation paths.
 
 | Source | Responsibility |
 | --- | --- |
-| `FactionCultureCatalog` | Read/copy/validate authored JSON, 20 Society Traits and 33 Doctrines |
-| `CultureEvidence` | Real entity/projected-state/event/M040 evidence with source records |
-| `CultureRules` | Generic all/any/preferences/forbids, weighted selection, intensity and conflicts |
-| `FactionCultureResolver` | Compose query, aggregate tags and emit selection provenance |
-| `SocietyActorInteraction` | Match an independent semantic Actor profile to selected values/taboos/tensions |
-| `CultureGoalQuery` | Expose authored candidates from selected Doctrine desires only |
+| FactionCultureCatalog | Copy/validate authored20traits and33Doctrines |
+| CultureEvidence | Trace real events, projected current/historical facts, authored population and M040 identity |
+| CultureRules | Common requirements/preferences/vetoes, selection, intensity and conflicts |
+| FactionCultureResolver | Compose detached profile with support and choice provenance |
+| SocietyActorInteraction | Simultaneous semantic reasons and prospective application hooks |
+| CultureGoalQuery | Candidate intentions plus verifiable historical reference IDs |
 
-JSON follows the existing authored social-population catalog approach. Definitions
-are data, with no per-Doctrine procedural if/elif logic. Catalog access returns deep
-copies; caller edits cannot mutate the catalog.
+## Evidence contract
 
-## Evidence vocabulary and scope
+Evidence is `{tag:[{source_event_ids,source_path,detail,scope,...}]}`.
+Scopes distinguish faction, regional and derived_identity; free synthetic fixture
+records are explicitly labelled synthetic. Social records also retain
+`reference_ids` and `content_ids`. All shipping evidence cites actual objective
+events. Local loss/contact/capability is never inferred from region-wide scars.
 
-Evidence is `{tag: [source_record, ...]}`. A source record carries
-`source_event_ids`, `source_path`, `detail`, and `scope` (`faction`, `regional`,
-`derived_identity`; explicit fixtures use `synthetic`). Multiple events may
-support a tag. All shipping records reference existing objective events.
+Existing formation/lifestyle/role, political continuity, actual signed relation,
+population donor/join and reuse/discovery evidence remains. New capability and
+institution tags come from **current established** social facts. Historical
+harm/loss/residence/testing tags come from the objective social ledger. Abolition
+removes current institutions while preserving history. The extractor does not
+read Claim prose, names, locale or anonymous artifact Origin guesses.
 
-Current supported namespaces:
+Political merge does not imply lineage plurality. Different approved resident
+templates/lineage records can establish plurality; cloning does not. Actual Deep
+residence/loss establishes return eligibility without changing human Origin.
+Generic Core tunnel closure cannot establish residence, machine presence cannot
+establish cooperation, Observer malfunction cannot establish machine war, modified
+human lifestyle cannot establish local biotech, and migration cannot establish a
+lost identifiable home. Ordinary reproduction cannot establish heredity design.
 
-- `formation:*`, `life:*`, `role:*`: exact recorded faction metadata.
-- `structure:inherited_offices`, `structure:multiple_parents`,
-  `structure:local_settlement`: political continuity, parents and currently owned settlements.
-- `identity:*`, `interpretation:*`, `memory:*`, `adaptive:*`, `anchor:*`:
-  exact M040 axes, explicitly labelled derived with M040 provenance.
-- `event:*`: direct involvement by actor ID or faction-addressed effect.
-- `history:cooperation/hostility`: signed faction relationship effects, not present
-  score or rumors. `history:population_join` requires an actual join effect.
-- `history:unknown_discovery` and `reuse:*`: actual finder and reuse purpose.
-- `history:regional_pressure/collapse`: recorded shared regional history.
-- `scar:orbital_attack/orbital_debris/sky_signal/core_quarantine/route_isolation/
-  deep_closure/chemical_exposure/environmental_change`: exact reviewed narrative keys.
-  Regional evidence remains regional; it does not establish personal injury or inherited loss.
-- `population:mixed_lineages`: multiple actual current authored lineage templates;
-  `population:multi_origin_lineage`: one actual stratum with multiple Origins.
-  These are distinct from mixed-origin society and political merger.
+## Definition and selection contracts
 
-No `capability:biotechnology`, semi-sapient/machine-society contact, machine-war scar,
-Innerworld ancestry, homeland loss or reproduction institution is inferred from
-planetary Canon, lifestyle names, Core interventions, anonymous discovery, orbital
-debris, political extinction or migration. Future tags can appear in definitions,
-but the shipping extractor does not supply them without a separately reviewed
-authoring contract. A future catalog registration alone cannot bypass extraction.
+Definitions have stable ID/name/category/explanation, requires_all/any, prefers,
+forbids and positive integer base_weight. All requires_all must match; any requires_any
+needs one match; forbids vetoes. Preferences affect weight only. At least one real
+requirement is mandatory. Traits add values/tensions and optional family exclusion.
+Doctrines add semantic values/taboos/desires/fears, candidates, intensities,
+reinforcement rules and symmetric conditional conflict checks.
 
-## Definition contracts
+Pools are sorted by ID; eligible weight is base_weight +2×matched_preferences.
+The nine newly reachable local-incident Doctrines use base_weight10, uniformly
+emphasizing the salience of actual local history over generic norms at5. This is
+not a guarantee of selection: prerequisite gates, count draws and conflicts still
+apply. The5000 corpus raised Designed Kinship from0.70% to1.28% of worlds and
+fanatic exposure from24.10% to29.86% without changing incident frequencies or
+inventing evidence. See the [full audit](../reviews/social_incidents_v1/delivery.md).
+Trait target is2–4; Doctrine target0/1/2 uses20%/65%/15%. Select without replacement,
+reject conflicting second choices. Sparse truthful evidence may return below the
+target (including one Trait); no unsupported padding. Normally shipping factions
+have several independent everyday-pattern supports.
 
-Both catalogs require unique `id`, `display_name`, `category`, `explanation`,
-`requires_all[]`, `requires_any[]`, `prefers[]`, `forbids[]`, `base_weight > 0`.
-`requires_all` must all match; an empty `requires_any` imposes no extra condition;
-a nonempty one needs at least one match. Any `forbids` match vetoes eligibility.
-Every definition has at least one requirement. Traits also expose `value_tags[]`,
-`tension_tags[]` and an optional near-duplicate `family` group. There is no
-default stat modifier or reputation effect.
+Culture streams remain `SeedDeriver(seed,[history,3,culture,1,faction_id,axis])`,
+separate for counts and selection. Intensity is evidence-driven, so its old lottery
+stream is no longer consumed. Catalog order is irrelevant; expansion can affect
+culture selection but cannot alter topology/names/objective history.
 
-Doctrines add `conflicts[]`, `values[]`, `taboos[]`, `desires[]`, `fears[]`,
-`allowed_intensities[]`, `intensity_rules{}` and `goal_candidates[]`.
-Every desire has at least one explicitly authored candidate. All candidate records
-name one of that Doctrine's desires and explain their prospective status.
+Adaptive Customs is the renamed Society Trait for flexible everyday practices.
+Doctrine Practical Heresy retains its normative meaning. Truth Through Trial now
+requires research reuse or recorded testing; facility/technical lifestyle is only
+a preference. Ritual interpretation can still select it. Hazard Memory combines
+regional pressure with warning memory, relevant shelter/border role or actual
+local hazard response. Local Mandate combines owned settlement with locality
+anchor, village/commune organization or actual rotating offices.
 
-## Selection and determinism
+## Moderate / hardline / fanatic
 
-1. Resolve M040 identity and actual evidence.
-2. Filter trait definitions by all/any/forbids.
-3. Weight each eligible definition as `base_weight + 2 × matched_preferences`.
-4. Draw a target of 2–4 traits and select without replacement, respecting optional families.
-5. Filter Doctrines with the same evaluator; draw a target of 0/1/2 with 20%/65%/15% bands.
-6. Select weighted candidates without replacement; calculate their intensity and reject
-   any conflict with already selected Doctrines. The count is an upper bound.
-7. Aggregate semantic tags and preserve evidence/selection/intensity reasons.
+| Level | Meaning | Prospective consumer severity |
+| --- | --- | --- |
+| moderate / 온건 | Clear preference; disagreement and violation generally tolerated | preference / dialogue reaction / soft bias |
+| hardline / 강경 | Important social norm, with authored reinforcement | restriction_candidate for role/access/office/membership review |
+| fanatic / 광신 | Core uncompromising identity norm | enforcement_candidate / strong taboo / major membership conflict / goal pressure |
 
-Pools and final selections are sorted by stable catalog IDs. Every random stream
-uses `SeedDeriver(seed, [history, 3, culture, 1, faction_id, axis])`, with separate
-trait-count/selection, doctrine-count/selection and per-Doctrine intensity axes.
-Queries never consume historical topology, naming or identity streams. Catalog
-expansion can affect culture choices but cannot alter upstream history/M040.
-Reordering the same definitions cannot change selection.
+The strongest satisfied authored rule wins. Fanatic always requires at least3
+relevant reinforcement tags and2different objective source events. Several aliases
+of one event cannot suffice. There is no additional12% or other small independent
+roll after evidence gates. This is a semantic intensity, never a stat multiplier.
+Debug output pairs every Doctrine name with its intensity explanation, so a strong
+name at moderate level means a tolerated preference rather than automatic prohibition.
 
-Shipping factions have enough real trait evidence to satisfy 2–4 selections:
-local settlement/pressure memory plus recorded lifestyle and regional roles.
-Fixtures without enough evidence return fewer traits rather than fabricate support.
-Doctrines are optional; eligible does not mean selected, and uniform frequencies
-are not a success criterion.
+Some strong norms use institutional/role history plus a second relation event;
+machine/Deep/homeland fanatic paths use actual incident and later review/memory
+events. Corpus measures world exposure, independently of faction-level counts.
+Evidence must remain correct even if the25–40% initial target is not attained.
 
-## Qualitative intensity and conflict semantics
+Conflict records specify both minimum levels. Pure Flesh vs Machine Kinship/
+Revelation, Last Human Measure vs Many Bodies, Depth Taboo vs Return to Deep,
+and Closed Sky vs Skyward Hunger remain hard conflicts. Mutable Human vs Ancestral
+Genome and Unspoiled Ground vs New Ecology conflict at mutual hardline or above.
+Continuity vs Radical Impermanence conflict at mutual fanatic. Lesser tensions
+remain possible; interpretation mode imposes no ideological veto.
 
-`custom` is a lightly enforced preference. `doctrine` needs its authored reinforcement
-rule and denotes a recognized norm or major expectation. `orthodoxy` requires
-at least three specified evidence tags from at least two distinct objective events.
-After that gate, a separate 12% roll permits the stronger level; it cannot create
-missing evidence. This roll keeps well-supported extremes uncommon rather than
-making all eligible factions orthodox. Custom provenance always retains eligibility
-evidence; stronger entries add the exact reinforcement tags.
+## Profiles, gated content and candidates
 
-Example Pure Flesh orthodoxy: real machine-war scar + recent machine hostility +
-isolation role. Three aliases of the same event do not suffice. Shipping maintenance,
-archive, ritual, military and shelter norms have their own authored reinforcement
-rules. Intensity is not a numerical modifier.
+Profile contains faction_id/revision/unchanged identity, selected rows, intensity
+map, aggregated semantic tags, support and weighted-choice reasons, all evidence,
+eligible lists and selection targets. Each row separates required/preferred tags
+and exact reinforcement records. Validator independently checks support/conflicts/
+intensity and equality with authoritative recomputation.
 
-Conflict records specify `id`, `min_intensity`, `other_min_intensity`; the evaluator
-checks both directions even when a relation is authored on only one side.
-Pure Flesh/Machine Kinship or Revelation, Last Human Measure/Many Bodies,
-Depth Taboo/Return to Deep, and Closed Sky/Skyward Hunger are hard conflicts.
-Mutable Human/Ancestral Genome and Unspoiled Ground/New Ecology conflict only
-when both reach at least `doctrine`. Continuity/Radical Impermanence conflict only
-at mutual `orthodoxy`. Weaker conceptual tensions remain valid.
+Nine previously dormant Doctrines have shipping local-history paths: Pure Flesh,
+Machine Kinship, Silent Circuit, Bounded Automation, Mutable Human, Ancestral Genome,
+Designed Kinship, Reclamation, Return to the Deep. Rotating Stewardship is reachable.
+Five remain gated: Ecological Communion (approved adapted lineage), Last Human
+Measure/Many Bodies (approved distinct lineages), Thinking Threshold/Kin Beyond
+Thought (approved historical semi-sapient contacts). Many Forms, One Hearth is
+also gated. Empty shipping contact content is explicit; authoring no invented
+species/physiology is preferred over forcing doctrine rates. Objective injected
+fixtures validate all5paths and default validator rejects their content identity.
 
-Interpretive modes impose no ideological veto: a skeptic may select Skyward Hunger,
-a ritual faction may select Truth Through Trial, and a technical faction may select
-Machine Revelation without claiming to know the purpose of old infrastructure.
-
-## Culture Profile
-
-```text
-faction_id, culture_revision, identity_profile
-society_traits[{id, display_name, category, value_tags, tension_tags, provenance}]
-doctrines[{id, display_name, category, values, taboos, desires, fears,
-           intensity{level, support_tags, explanation}, goal_candidates, provenance}]
-doctrine_intensities{id: level}
-value_tags[], taboo_tags[], desire_tags[], fear_tags[], tension_tags[]
-provenance[]
-evidence{tag: source_records[]}
-eligible_traits[], eligible_doctrines[]
-selection_targets{society_traits, doctrines}
-```
-
-Each provenance entry separates matched requirements, matched preferences, support
-records, explanation, weighted choice and target. Eligibility is an explanation
-of permission; the selected weight and independent stream explain the choice
-among permitted options. The diagnostic lists support eligible/selected-frequency
-analysis without changing source-of-truth ownership.
-`errors` independently checks eligibility, references, intensity and conflicts,
-then checks equality with authoritative recomputation. Profiles are local query
-results, not trusted externally supplied saves or a public ingestion format.
-
-## Dormant content gates
-
-The following 14 Doctrines intentionally remain unavailable in shipping history.
-Zero eligible frequency is distinct from a random failure to select a rare entry.
-
-| Doctrine | Future local authored evidence required |
-| --- | --- |
-| Pure Flesh | Machine war, autonomous catastrophe or augmentation disaster; recent hostility/institutional reinforcement for stronger levels |
-| Machine Kinship | Actual machine-society contact; membership institution for a recognized norm |
-| Silent Circuit | Actual autonomous-machine harm; human oversight for stronger norms |
-| Bounded Automation | Actual automation capability and human oversight; sovereign autonomous institution is a veto |
-| The Mutable Human | Local biotechnology and recorded bodily modification; a modification institution for stronger norms |
-| Ancestral Genome | Explicit lineage-preservation content and genetic-preservation institution |
-| Designed Kinship | Local biotechnology and an authored heredity-design institution |
-| Ecological Communion | Actual local biological adaptation and an authored adapted lineage |
-| Last Human Measure | A locally authored human-form benchmark institution; exclusion evidence for stronger norms |
-| Many Bodies, One People | Actual local multiple authored lineages or a multi-Origin lineage; baseline-only population and lifestyle names cannot activate it |
-| The Thinking Threshold | Actual semi-sapient contact and optional personhood-conflict/threshold institution |
-| Kin Beyond Thought | Actual semi-sapient or other nonhuman moral contact; protection institution for stronger norms |
-| The Reclamation | Actual recorded homeland loss and homeland association; migration alone is insufficient |
-| Return to the Deep | Actual Innerworld ancestry and recorded lost Innerworld site; tunnels alone are insufficient |
-
-Two Society Traits are also dormant: Rotating Stewardship requires an actual
-rotating-office institution; Many Forms, One Hearth requires actual local lineage
-plurality. Synthetic fixtures live under `tests/fixtures/`; the explicit
-`resolve_fixture` authoring/test query requires every source to be labelled
-`synthetic` and marks its output. Ordinary generation never invokes it. The corpus
-tool appends a clearly separate synthetic example, excluded from shipping counts.
+`CultureGoalQuery.candidates(profile)` returns only selected Doctrine desires,
+`status=candidate`, intensity, explanation, provenance and
+`historical_reference_ids`. The latter is supporting history, **not target acquisition**.
+No actual capacity, territory, war, migration, research, biotech, quest or AI action
+follows. Future consumers independently verify current target/capability/world facts.
 
 ## Actor semantic interaction
 
-![Actor semantic interaction](../diagrams/society_actor_interaction.svg)
+![Simultaneous Actor reasons](../diagrams/society_actor_interaction.svg)
 
-`SocietyActorInteraction.resolve(profile, {expresses: [...]})` needs no real Actor,
-Actor Trait Resource, UI or stat resolver. It matches selected trait values/tensions
-and Doctrine values/taboos to individual expressions. Tags are deduplicated/sorted.
-It returns simultaneous `positive_reasons`, `negative_reasons`, `mixed_reasons`,
-qualitative `standing` and `role_hooks/dialogue_hooks/event_hooks/access_hooks`.
-Reasons retain source kind/ID/intensity and culture provenance.
+`resolve(profile,{expresses:[...]})` returns positive_reasons, negative_reasons,
+mixed_reasons, standing and role/dialogue/event/access hooks. Strongest negative
+sets qualitative standing, while usefulness remains: moderate taboo → watched,
+hardline → disfavored, fanatic → taboo. Positive-only → welcomed, no match → accepted.
+Reasons preserve severity and culture provenance. Hooks remain review candidates.
+**standing != final decision**: no universal rejection based on a taboo label.
+Maintenance Covenant + Pure Flesh fanatic can value technical competence and
+craftsmanship while opposing augmentation. Workshop work, membership, political
+office and repair requests must use their own relevant reasons/hooks.
 
-With no match the individual is `accepted`; positive-only matches are `welcomed`.
-Trait tension or custom taboo makes them `watched`; Doctrine taboo makes them
-`disfavored`; orthodox taboo makes them `taboo`. Strongest negative consequence
-sets standing while all positive usefulness/eligibility reasons remain available.
-Maintenance Covenant + Pure Flesh can therefore find an augmented craftsperson
-technically useful and culturally suspect at the same time.
+Future semantic vocabulary includes clone_born, natural_born, founder_template,
+batch_sibling, genetically_divergent, designed and inherited_modification.
+It creates no Actor Resource/real Trait/NPC system. Existing art/knowledge/office
+hooks remain; this milestone implements no access enforcement or dialogue UI.
 
-Hooks express `consider_eligibility` or `review_restriction`, not automatic access
-grants, a reputation number or implemented dialogue/events. Living Archive maps
-oral/performance tags to historical authority and memory performances; Beauty Against
-Ruin maps artistry to public commissions/priorities; Sacred Craft maps craftsmanship
-to artisan standing, provenance review and workshop access; Unfinished Form maps
-bodily adaptation to membership/aesthetic review. Philosophy maps continuity and
-reform to office review, while knowledge norms map skepticism/experiment to evidence
-and unknown-phenomenon review. Authored special cases can later compose additional
-reason/hook records at a separate application boundary without replacing default
-semantic matching or discarding opposing reasons.
+## Verification and future boundary
 
-## Future simulation goal boundary
+`test_faction_culture.gd` retains rule/selection/conflict/interaction checks and exact
+v2 baseline. `test_social_incidents.gd` adds causal negative tests, actual5gated
+fixture paths, physical/source checks, pure candidates, multi-event fanatic gates,
+catalog order, preexisting topology/formation/naming/relation component baselines.
+Old v3 full hashes intentionally change; prior v2 hashes remain exact.
 
-`CultureGoalQuery.candidates(profile)` returns deterministic
-`{id, desire, source_doctrine_id, intensity, status: candidate, explanation, provenance}`.
-Only selected Doctrines contribute. No target ID, location, known species/contact,
-launch capacity, map, ancestral object or successful operation follows from a desire.
-For example `restore_orbital_link` is an aspiration/search opportunity, and
-`relocate_population` is a proposed response; neither creates a link or moves anyone.
-No AI priority score, economy, research, war, settlement building, territorial claim,
-migration, quest or post-start cultural evolution is implemented.
-
-Next integration should consume this profile through player-knowledge filtering and
-explicit role/dialogue/access policy. Later simulation must independently validate
-capability, actual target and current world facts before accepting any candidate.
-
-## Reproducible validation
-
-- `tests/test_faction_culture.gd`: rule/selection/provenance/conflict/intensity,
-  fixture isolation, Actor reactions, candidate boundaries and upstream regressions.
-- `tests/fixtures/history_m040_baseline.json`: ten canonical/structural/M040 output
-  hashes captured by running the exact base checkout, including legacy v2.
-- `tools/analyze_faction_culture.gd -- 1000 OUTPUT_DIRECTORY`: replayed shipping
-  histories, profile recomputation, eligible/selected frequencies, categories,
-  intensities, tag distributions, repeated combinations and safety counts.
-- Full gate: `bash tools/check_godot.sh`; exact combat datasets remain unchanged.
-- Saved [corpus](../reviews/faction_culture_v1/statistics.json),
-  [readable samples](../reviews/faction_culture_v1/samples.md),
-  [qualitative review](../reviews/faction_culture_v1/qualitative_review.md),
-  and [delivery review](../reviews/2026-10-06-faction-culture-v1.md).
-
-These are headless/semantic and source-readability checks. GUI/play/package,
-player-knowledge display, balancing, language quality and live Notion sync remain
-outside this implementation's validation.
+`tools/analyze_social_incidents.gd -- 5000 OUTPUT_DIRECTORY` measures family/subtype
+world/conditional exposure, all trait/Doctrine eligibility/selection, intensity,
+dead content, duplicates and zero-safety counters with replay. Raw-source reviews
+are separate from structural tests. [Statistics](../reviews/social_incidents_v1/statistics.json),
+[samples](../reviews/social_incidents_v1/samples.md), [work log](../reviews/social_incidents_v1/WORK_LOG.md).
+Run full `bash tools/check_godot.sh`; GUI/play/package/balance/literary quality and
+live Notion acceptance remain outside automated validation.

@@ -13,12 +13,25 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 	var traces := {}
 	var profiles := {}
 	var events := {}
+	var social := {}
 	for entity in entities:
 		definitions[entity.id] = entity
 	for event in timeline:
 		events[event.id] = event
 		for effect in event.effects:
 			match effect.kind:
+				"social_record":
+					var row := effect.duplicate(true)
+					row.erase("kind")
+					row.merge({"year": event.year, "source_event_ids": [event.id]})
+					state.social_history.append(row)
+					var key: String = effect.entity_id + "/" + effect.record_type + "/" + effect.record_id + "/" + effect.reference_id + "/" + effect.content_id
+					if effect.operation == "abolish":
+						for previous: String in social.keys():
+							if social[previous].entity_id == effect.entity_id and social[previous].record_type == effect.record_type and social[previous].record_id == effect.record_id:
+								social.erase(previous)
+					elif effect.operation == "establish":
+						social[key] = row
 				"activate": active[effect.entity_id] = event.id
 				"retire": active.erase(effect.entity_id)
 				"settlement":
@@ -109,6 +122,8 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 		state.discoveries.append(discoveries[key])
 	for key: String in _keys(traces):
 		state.system_traces.append(traces[key])
+	for key: String in _keys(social):
+		state.social_facts.append(social[key])
 	return state
 
 func _collect_ancestors(id: String, definitions: Dictionary, found: Array[String]) -> void:

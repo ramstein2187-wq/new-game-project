@@ -4,6 +4,13 @@ extends RefCounted
 # Semantic profiles are independent of Actor/real Trait resources. Reactions are
 # qualitative reasons and prospective hooks, never reputation/stat modifiers.
 const SEMANTIC_HOOKS := {
+	"clone_born": ["membership_candidate", "cohort_provenance", "citizenship_review", "settlement"],
+	"natural_born": ["membership_candidate", "citizenship_review", "citizenship_review", "settlement"],
+	"founder_template": ["inheritance_petitioner", "template_and_personhood", "inheritance_dispute", "office"],
+	"batch_sibling": ["cohort_member", "cohort_provenance", "cohort_review", "settlement"],
+	"genetically_divergent": ["membership_candidate", "form_and_membership", "membership_review", "settlement"],
+	"designed": ["membership_candidate", "heredity_design", "membership_review", "settlement"],
+	"inherited_modification": ["membership_candidate", "form_and_membership", "membership_review", "settlement"],
 	"duty": ["service_steward", "service_obligations", "duty_review", "service_office"],
 	"hospitality": ["shelter_helper", "shelter_obligation", "refuge_request", "shelter"],
 	"scavenging": ["salvage_worker", "salvage_rights", "salvage_review", "salvage_site"],
@@ -37,7 +44,7 @@ func resolve(profile: Dictionary, actor_profile: Dictionary) -> Dictionary:
 	actor_tags.sort()
 	var strongest_negative := -1
 	for society_trait: Dictionary in profile.society_traits:
-		strongest_negative = maxi(strongest_negative, _match(output, actor_tags, society_trait, "society_trait", "custom", society_trait.value_tags, society_trait.tension_tags, "tension"))
+		strongest_negative = maxi(strongest_negative, _match(output, actor_tags, society_trait, "society_trait", "moderate", society_trait.value_tags, society_trait.tension_tags, "tension"))
 	for doctrine: Dictionary in profile.doctrines:
 		strongest_negative = maxi(strongest_negative, _match(output, actor_tags, doctrine, "doctrine", doctrine.intensity.level, doctrine.values, doctrine.taboos, "taboo"))
 	if not output.positive_reasons.is_empty() and not output.negative_reasons.is_empty():
@@ -63,6 +70,7 @@ func _match(output: Dictionary, actor_tags: Array, source: Dictionary, kind: Str
 			if tag not in (values if positive else negatives):
 				continue
 			var reason := {"actor_tag": tag, "source_id": source.id, "source_kind": kind, "intensity": intensity,
+				"severity": "preference" if intensity == "moderate" else "restriction_candidate" if intensity == "hardline" else "enforcement_candidate",
 				"relation": "value" if positive else negative_kind, "provenance": source.provenance.duplicate(true)}
 			output["positive_reasons" if positive else "negative_reasons"].append(reason)
 			if not positive:

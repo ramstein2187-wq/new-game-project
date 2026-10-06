@@ -3,9 +3,11 @@ extends RefCounted
 
 const MIN_SCAR_RATIO := 0.75
 var _populations: SocialPopulationCatalog
+var _incidents: SocialIncidentCatalog
 
-func _init(populations: SocialPopulationCatalog = null) -> void:
+func _init(populations: SocialPopulationCatalog = null, incidents: SocialIncidentCatalog = null) -> void:
 	_populations = populations if populations != null else SocialPopulationCatalog.new()
+	_incidents = incidents if incidents != null else SocialIncidentCatalog.new()
 
 # Optional replay supplied by caller: never recursively invokes generation.
 func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary:
@@ -21,6 +23,8 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 	errors.append_array(HistoryMotifs.config_errors(result.configuration, result.generation_version))
 	if result.generation_version == 3 and result.configuration.get("population_catalog_id") != _populations.id:
 		errors.append("Population catalog identity mismatch")
+	if result.generation_version == 3 and (result.configuration.get("social_content_id") != _incidents.content_id or result.configuration.get("social_revision") != _incidents.revision):
+		errors.append("Social incident content identity/revision mismatch")
 	if result.canon != CanonPolicy.snapshot():
 		errors.append("LOCKED/RESERVED Canon policy was changed")
 	var entities := {}
@@ -71,7 +75,10 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			errors.append("Timeline is not chronological: " + event.id)
 		if event.importance < 0 or event.importance > 2:
 			errors.append("Invalid importance: " + event.id)
-		if not CanonPolicy.NARRATIVES.has(event.narrative_key) or CanonPolicy.NARRATIVES[event.narrative_key][0] != event.type_name():
+		if event.event_type == HistoricalEvent.Type.SOCIAL_INCIDENT:
+			if result.generation_version != 3 or _incidents.definition(event.narrative_key).is_empty() or event.cause_domain != "human" or event.scope != "local":
+				errors.append("Forbidden social incident narrative/domain: " + event.id)
+		elif not CanonPolicy.NARRATIVES.has(event.narrative_key) or CanonPolicy.NARRATIVES[event.narrative_key][0] != event.type_name():
 			errors.append("Forbidden objective narrative/type: " + event.id)
 		elif event.cause_domain != CanonPolicy.NARRATIVES[event.narrative_key][2]:
 			errors.append("Objective narrative/domain mismatch: " + event.id)
@@ -108,7 +115,7 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			if not events.has(cause) or order.get(cause, 999999) >= order[event.id]:
 				errors.append("Missing, future or cyclic cause: " + event.id + "/" + cause)
 		for effect in event.effects:
-			for field: String in ["entity_id", "owner_id", "settlement_id", "location_id", "a", "b"]:
+			for field: String in ["entity_id", "owner_id", "settlement_id", "location_id", "reference_id", "a", "b"]:
 				if effect.has(field) and not entities.has(effect[field]):
 					errors.append("Invalid effect entity reference: " + event.id + "/" + field)
 			for source: String in effect.get("source_ids", []) + effect.get("successor_ids", []):
@@ -117,6 +124,8 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 	if not errors.is_empty():
 		return report
 	_lifecycle(result, entities, errors)
+	if result.generation_version == 3:
+		errors.append_array(SocialIncidentValidator.new(_incidents).errors(result))
 	if not errors.is_empty():
 		return report
 	var projected := HistoryProjector.new().project(result.entities, result.objective_timeline)
@@ -203,6 +212,7 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 			"RUIN_REOCCUPIED": ["activate", "settlement", "reoccupy"], "ANOMALOUS_DISCOVERY": ["discovery"],
 		}
 		if result.generation_version == 3:
+			allowed.SOCIAL_INCIDENT = ["social_record", "activate", "retire", "settlement", "ruin"]
 			for type in ["FOUNDING", "SPLIT", "SCHISM", "MERGE", "MIGRATION", "RUIN_REOCCUPIED"]:
 				allowed[type].append_array(["population", "site_owner"])
 			allowed.SPLIT.append_array(["retire", "settlement"])

@@ -9,4 +9,5 @@ static func evidence(tags: Array) -> Dictionary:
 
 static func strong_machine_scar() -> Dictionary:
 	return evidence(["structure:local_settlement", "life:infrastructure_guild", "role:maintenance",
-		"scar:machine_war", "history:recent_machine_hostility", "role:isolation"])
+		"scar:machine_war", "history:recent_machine_hostility", "role:isolation",
+		"history:machine_harm_memory", "institution:human_oversight"])

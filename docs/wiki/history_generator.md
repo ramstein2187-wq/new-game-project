@@ -1,8 +1,8 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 derived culture query — main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/faction-culture-doctrines-v1/docs/specs/history_generator.md"
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 derived culture / M042 objective social incidents — main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-social-incidents-v1/docs/specs/history_generator.md"
 icon = "📜"
 +++
 # 최근 역사: 정치 계보와 population의 기원
@@ -58,3 +58,23 @@ M041에서는 이 변경 없는 M040 위에 저장하지 않는 사회 특성·�
 이 저장 샘플은 M039 시점의 Claim 문구이며 M040 identity wording 이전 기록이다.
 M038 최초 review의6..8과 flat "multi-origin334"는 당시 구현 기록으로 남기고 후속 report에서 정정했다.
 `codex/history-generator-v0.3-fixup`은 main 미병합이다. 실제 NPC·경제·전쟁·지도·문화·save migration은 범위 밖이다.
+
+## M042 실제 사회사 → 문화 해석
+
+Topology/세력 형성 뒤, recent relations 앞에 bounded social incident layer를 둔다.
+기계 갈등·협력·인간의 자동화 감독, 실제 생물공학 프로그램, human-derived clone
+cohort와 선행 조건을 가진 후속 사건, 실제 소유한 고향 상실, Human의 Deep 거주·
+퇴거, 순환 공직이 event/effect/projected record로 남는다. 새 정치 faction은 없다.
+독립 social namespace로 기존 topology/formation/naming/관계 RNG를 보존한다.
+
+15/45/30/10%를0/1/2/3개 family episode의 초기 budget으로 사용하고,
+준비/후속/강화 objective events도 별도로 모두 측정한다. 콘텐츠 희귀성은
+종류·조합·문화적 결론에서 만들며 한두 세계만 보는 플레이어에게 거의 숨기지 않는다.
+Generation3/architecture2, 기존45/45/8/2 pressure와 rare-system policy는 유지한다.
+승인된 lineage/준지성 접촉은 별도 catalog gate이고 없으면 synthetic 검증만 한다.
+
+Canon constrains what can be true. History generation decides what happened.
+Cultures decide what it means. Simulation decides what happens next.
+
+[M042 사회사 계약](../specs/social_historical_incidents.md),
+[새 문화 계약](../specs/faction_culture.md), [5000 corpus](../reviews/social_incidents_v1/statistics.json).

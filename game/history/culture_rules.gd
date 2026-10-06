@@ -1,7 +1,7 @@
 class_name CultureRules
 extends RefCounted
 
-const INTENSITIES := ["custom", "doctrine", "orthodoxy"]
+const INTENSITIES := ["moderate", "hardline", "fanatic"]
 
 # Same evaluator for traits, doctrines and reinforcement rules.
 func evaluate(definition: Dictionary, evidence: Dictionary) -> Dictionary:
@@ -45,9 +45,9 @@ func eligible(catalog: Array, evidence: Dictionary) -> Array[Dictionary]:
 	return rows
 
 func intensity(definition: Dictionary, evidence: Dictionary, seed: int, faction_id: String) -> Dictionary:
-	var level := "custom"
+	var level := "moderate"
 	var support: Array = []
-	for candidate: String in ["doctrine", "orthodoxy"]:
+	for candidate: String in ["hardline", "fanatic"]:
 		if candidate not in definition.allowed_intensities:
 			continue
 		var rule: Dictionary = definition.intensity_rules.get(candidate, {})
@@ -61,12 +61,10 @@ func intensity(definition: Dictionary, evidence: Dictionary, seed: int, faction_
 					source_ids[id] = true
 		if not evaluation.eligible or evaluation.matched_required.size() < int(rule.get("min_tags", 1)) or source_ids.size() < int(rule.get("min_events", 1)):
 			continue
-		# A roll can lower a justified maximum; it can never create reinforcement.
-		if candidate == "orthodoxy" and rng(seed, faction_id, "intensity/" + definition.id).randi_range(0, 99) >= 12:
-			continue
+		# Evidence determines the strongest justified level. No small final lottery.
 		level = candidate
 		support = evaluation.matched_required
-	return {"level": level, "support_tags": support, "explanation": "Common preference; no stronger reinforcement selected" if level == "custom" else "Authored reinforcement rule satisfied by recorded evidence"}
+	return {"level": level, "support_tags": support, "explanation": "A clear preference that generally tolerates disagreement or violation" if level == "moderate" else "Important social norm; restriction candidate requires consumer review" if level == "hardline" else "Core uncompromising identity norm; enforcement candidate requires consumer review"}
 
 func conflicts(first: Dictionary, first_level: String, second: Dictionary, second_level: String) -> bool:
 	return _conflicts_one(first, first_level, second.id, second_level) or _conflicts_one(second, second_level, first.id, first_level)

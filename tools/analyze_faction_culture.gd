@@ -11,7 +11,7 @@ var combinations := {}
 var full_combinations := {}
 var stats := {"history_count": 0, "faction_count": 0, "society_traits": {}, "doctrines": {},
 	"doctrine_categories": {}, "society_trait_counts": {"2": 0, "3": 0, "4": 0},
-	"doctrine_counts": {"0": 0, "1": 0, "2": 0}, "intensities": {"custom": 0, "doctrine": 0, "orthodoxy": 0},
+	"doctrine_counts": {"0": 0, "1": 0, "2": 0}, "intensities": {"moderate": 0, "hardline": 0, "fanatic": 0},
 	"semantic_tags": {"value_tags": {}, "taboo_tags": {}, "desire_tags": {}, "fear_tags": {}},
 	"safety": {"history_errors": 0, "conflict_violations": 0, "unsupported_selections": 0, "invalid_provenance": 0,
 		"architecture_version_violations": 0, "intensity_errors": 0, "other_culture_errors": 0,
@@ -122,7 +122,7 @@ func _finalize() -> void:
 		"unique_including_identity_axes": full_combinations.size(),
 		"repeated_profile_rate_including_identity": float(stats.faction_count - full_combinations.size()) / stats.faction_count,
 		"definition": "First occurrence per combination is unique; later occurrences are repeats. Names, IDs and provenance excluded."}
-	stats["orthodoxy_percentage"] = 100.0 * stats.intensities.orthodoxy / maxi(1, stats.intensities.custom + stats.intensities.doctrine + stats.intensities.orthodoxy)
+	stats["fanatic_percentage"] = 100.0 * stats.intensities.fanatic / maxi(1, stats.intensities.moderate + stats.intensities.hardline + stats.intensities.fanatic)
 	stats["dormant_doctrines"] = []
 	stats["eligible_but_unselected_doctrines"] = []
 	stats["dormant_traits"] = []
@@ -181,8 +181,8 @@ func _consider_sample(seed: int, profile: Dictionary) -> void:
 			categories.append("philosophy_" + row.id)
 		if row.id in ["closed_sky", "skyward_hunger", "depth_taboo", "unspoiled_ground", "new_ecology", "machine_revelation"]:
 			categories.append("historical_scar_" + row.id)
-		if row.intensity.level == "orthodoxy":
-			categories.push_front("shipping_orthodoxy")
+		if row.intensity.level == "fanatic":
+			categories.push_front("shipping_fanatic")
 		if row.id == "truth_through_trial" and profile.identity_profile.interpretation_mode == "ritual":
 			categories.push_front("unusual_ritual_trial")
 		if row.id == "skyward_hunger" and profile.identity_profile.interpretation_mode == "skeptical":
@@ -235,10 +235,10 @@ func _profile_text(profile: Dictionary) -> String:
 func _synthetic_example() -> Dictionary:
 	for seed in range(1, 1001):
 		var profile := resolver.resolve_fixture(seed, "synthetic_only", Fixtures.strong_machine_scar())
-		if profile.doctrine_intensities.get("pure_flesh") == "orthodoxy" and profile.society_traits.any(func(row: Dictionary) -> bool: return row.id == "maintenance_covenant"):
-			return {"category": "synthetic_only_dormant_orthodoxy", "seed": seed, "profile": profile,
+		if profile.doctrine_intensities.get("pure_flesh") == "fanatic" and profile.society_traits.any(func(row: Dictionary) -> bool: return row.id == "maintenance_covenant"):
+			return {"category": "synthetic_only_dormant_fanatic", "seed": seed, "profile": profile,
 				"interaction": SocietyActorInteraction.new().resolve(profile, {"expresses": ["augmented", "technical_competence", "craftsmanship"]})}
-	assert(false, "Synthetic orthodoxy fixture not found")
+	assert(false, "Synthetic fanatic fixture not found")
 	return {}
 
 func _increment(values: Dictionary, key: String) -> void:

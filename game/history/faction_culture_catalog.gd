@@ -59,8 +59,8 @@ func errors() -> Array[String]:
 				issues.append("Doctrine field must be an array: " + field)
 		for field in ["values", "taboos", "desires", "fears"]:
 			_check_tags(row, field, issues)
-		if row.get("allowed_intensities", []).is_empty() or "custom" not in row.get("allowed_intensities", []):
-			issues.append("Doctrine needs a custom intensity")
+		if row.get("allowed_intensities", []).is_empty() or "moderate" not in row.get("allowed_intensities", []):
+			issues.append("Doctrine needs a moderate intensity")
 		for level in row.get("allowed_intensities", []):
 			if level not in CultureRules.INTENSITIES:
 				issues.append("Unknown intensity")
@@ -75,12 +75,12 @@ func errors() -> Array[String]:
 		else:
 			for level in row.intensity_rules:
 				var rule: Dictionary = row.intensity_rules[level]
-				if level not in ["doctrine", "orthodoxy"] or level not in row.allowed_intensities:
+				if level not in ["hardline", "fanatic"] or level not in row.allowed_intensities:
 					issues.append("Invalid reinforcement level")
 				if rule.get("requires_all", []).is_empty() and rule.get("requires_any", []).is_empty():
 					issues.append("Reinforcement requires evidence")
-				if level == "orthodoxy" and (int(rule.get("min_tags", 0)) < 3 or int(rule.get("min_events", 0)) < 2):
-					issues.append("Orthodoxy must require >=3 tags and >=2 objective events")
+				if level == "fanatic" and (int(rule.get("min_tags", 0)) < 3 or int(rule.get("min_events", 0)) < 2):
+					issues.append("Fanatic must require >=3 tags and >=2 objective events")
 	return issues
 
 func _check_tags(row: Dictionary, field: String, issues: Array[String]) -> void:

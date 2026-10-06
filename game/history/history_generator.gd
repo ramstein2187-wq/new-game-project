@@ -11,12 +11,14 @@ var _names: HistoryNameSource
 var _discovery_pool: Array
 var _version: int
 var _populations: SocialPopulationCatalog
+var _incidents: SocialIncidentCatalog
 
-func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotifs.DISCOVERIES, version: int = VERSION, populations: SocialPopulationCatalog = null) -> void:
+func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotifs.DISCOVERIES, version: int = VERSION, populations: SocialPopulationCatalog = null, incidents: SocialIncidentCatalog = null) -> void:
 	_names = names if names != null else HistoryNameSource.new()
 	_discovery_pool = discovery_pool.duplicate()
 	_version = version
 	_populations = populations if populations != null else SocialPopulationCatalog.new()
+	_incidents = incidents if incidents != null else SocialIncidentCatalog.new()
 
 func generate(seed: int) -> HistoryResult:
 	var result := HistoryResult.new()
@@ -31,16 +33,20 @@ func generate(seed: int) -> HistoryResult:
 		_later_history(result, local)
 	else:
 		HistoryTopology.new().build(result, local, self)
+		SocialIncidentPlanner.new(_incidents).build(result, self)
 		_later_history_v3(result)
 	result.objective_timeline.sort_custom(func(a: HistoricalEvent, b: HistoricalEvent) -> bool: return a.year < b.year or (a.year == b.year and a.id < b.id))
 	var used := {}
 	var definitions := result.entities.duplicate()
-	definitions.sort_custom(func(a: HistoricalEntity, b: HistoricalEntity) -> bool: return a.id < b.id)
+	definitions.sort_custom(func(a: HistoricalEntity, b: HistoricalEntity) -> bool:
+		if a.id.begins_with("s_") != b.id.begins_with("s_"):
+			return not a.id.begins_with("s_")
+		return a.id < b.id)
 	for entity in definitions:
 		_names.assign(entity, seed, used, _version)
 	result.present = HistoryProjector.new().project(result.entities, result.objective_timeline)
 	result.historical_claims = HistoryClaimBuilder.new().build(result)
-	result.validation_report = HistoryValidator.new(_populations).validate(result)
+	result.validation_report = HistoryValidator.new(_populations, _incidents).validate(result)
 	return result
 
 func _configuration(seed: int) -> Dictionary:
@@ -73,6 +79,8 @@ func _configuration(seed: int) -> Dictionary:
 		config.content_revision = HistoryMotifs.CONTENT_REVISION_V3
 		config.topology_family = _pick(seed, "topology/family", HistoryMotifs.TOPOLOGY_FAMILIES)
 		config.population_catalog_id = _populations.id
+		config.social_content_id = _incidents.content_id
+		config.social_revision = _incidents.revision
 	return config
 
 func _local_collapse(result: HistoryResult) -> Dictionary:
@@ -229,6 +237,28 @@ func _emit(result: HistoryResult, id: String, year: int, key: String, actors: Ar
 			result.entity(effect.entity_id).retired_event_id = event.id
 	result.objective_timeline.append(event)
 
+func _emit_social(result: HistoryResult, id: String, year: int, definition: Dictionary, actors: Array[String], causes: Array[String], effects: Array[Dictionary]) -> void:
+	var event := HistoricalEvent.new()
+	event.id = id
+	event.year = year
+	event.event_type = HistoricalEvent.Type.SOCIAL_INCIDENT
+	event.narrative_key = definition.id
+	event.scope = "local"
+	event.cause_domain = "human"
+	event.actor_ids = actors.duplicate()
+	event.location_ids = ["region"]
+	event.cause_event_ids = causes.duplicate()
+	event.effects = effects.duplicate(true)
+	for effect in effects:
+		for field: String in ["entity_id", "owner_id", "reference_id"]:
+			if effect.has(field) and effect[field] not in event.entity_ids:
+				event.entity_ids.append(effect[field])
+		if effect.kind == "activate":
+			result.entity(effect.entity_id).created_event_id = event.id
+		elif effect.kind == "retire":
+			result.entity(effect.entity_id).retired_event_id = event.id
+	result.objective_timeline.append(event)
+
 func _rng(seed: int, domain: String) -> RandomNumberGenerator:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = SeedDeriver.derive(seed, ["history", str(_version), domain])
@@ -279,7 +309,7 @@ func _later_history_v3(result: HistoryResult) -> void:
 		var options: Array[Dictionary] = []
 		for event in result.objective_timeline:
 			for effect in event.effects:
-				if effect.kind != "ruin":
+				if effect.kind != "ruin" or event.id.begins_with("s_"):
 					continue
 				for id in active:
 					for purpose: String in ["settlement", "research", "scavenging", "military_post", "ritual_site"]:

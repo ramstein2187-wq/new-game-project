@@ -53,11 +53,15 @@ static func snapshot() -> Dictionary:
 		"generatable": GENERATABLE.duplicate(), "belief_only": BELIEF_ONLY.duplicate()}
 
 static func narrative(event: HistoricalEvent) -> String:
+	if event.event_type == HistoricalEvent.Type.SOCIAL_INCIDENT:
+		return str(SocialIncidentCatalog.new().definition(event.narrative_key).get("narrative", "INVALID SOCIAL NARRATIVE"))
 	return NARRATIVES.get(event.narrative_key, ["", "INVALID NARRATIVE"])[1]
 
 static func effect_errors(effect: Dictionary, version: int = 2) -> Array[String]:
 	var errors: Array[String] = []
 	var kind: String = str(effect.get("kind", ""))
+	if kind == "social_record":
+		return SocialIncidentCatalog.record_errors(effect) if version == 3 else ["Unknown v2 objective effect: social_record"]
 	if not EFFECT_FIELDS.has(kind):
 		return ["Unknown objective effect: " + kind]
 	var fields: Array = EFFECT_FIELDS[kind].duplicate()

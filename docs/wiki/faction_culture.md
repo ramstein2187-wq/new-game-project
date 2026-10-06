@@ -1,53 +1,57 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M041 Society Traits & Doctrines v1 — task branch, main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/faction-culture-doctrines-v1/docs/specs/faction_culture.md"
+milestones = "M041 foundation / M042 social incidents — task branch, main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-social-incidents-v1/docs/specs/faction_culture.md"
 icon = "🏘️"
 +++
 # 세력 사회 특성과 교리
 
-M041은 M040 identity 위에서 재계산하는 얇은 조회 계층이다.
-객관적 역사와 현재 projection을 바꾸거나 새 사건·종족·전쟁을 만들지 않는다.
-Generation3/architecture2와 legacy generation2/architecture1은 유지한다.
+M042는 실제 사회사를 생성하고 M041의 문화 조회가 그 사실을 해석하게 한다.
+**Objective History → Present → M040 Identity/Interpretation → Society Traits →
+Doctrines → Values/Taboos/Desires/Fears** 경계를 유지한다. Culture 자체는 역사를
+수정하지 않는다. Generation3/architecture2와 legacy2/architecture1을 유지한다.
 
-**History → Faction Identity → Society Traits → Doctrines →
-Values / Taboos / Desires / Fears → Future Goal Candidates** 흐름이다.
-Society Trait은 사회의 조직·일상 방식이고 Doctrine은 무엇을 원하고 금기시하는가다.
-Interpretation은 증거를 읽는 습관이며 Doctrine과 별개다. Claim은 계속 지각된 주장이다.
+20개 Trait과33개 Doctrine은 authored catalog에서 all/any/preferences/forbids로
+자격을 판정한다. 선택 목표는 Trait2–4개, Doctrine0–2개이며 근거가 적으면
+더 적게 반환한다. 일상적 관습의 유연성은 **Adaptive Customs**, 규범적으로
+전통을 깨야 한다는 믿음은 Doctrine **Practical Heresy**로 구분한다.
+Truth Through Trial은 실제 research reuse/기록된 testing을 요구한다.
+Hazard Memory와 Local Mandate도 해당 세력의 기억·역할·locality 근거를 더한다.
+ritual 해석과 실제 실험적 교리의 조합은 허용한다.
 
-JSON 카탈로그에는 사회 특성20개와 교리33개가 있다. 실제 formation·생활 방식·역할·
-사건·지역적 재난·현재 인구 strata와 M040 identity에서 증거를 만들고,
-공통 all/any/preferences/forbids 규칙으로 자격을 판정한다. 자격 없는 항목은
-무작위로 선택하지 않는다. 보통 사회 특성2–4개, 교리0–2개를 선택하고,
-서로 충돌하는 교리는 강도 조건에 따라 제외한다. 모든 결과에 근거와 선택 이유가 남는다.
+강도는 **moderate/온건**, **hardline/강경**, **fanatic/광신**이다.
+온건은 반대·위반을 대체로 허용하는 선호, 강경은 중요한 사회 규범,
+광신은 타협하기 어려운 핵심 정체성이다. 광신은3개 이상 관련 강화 tag와
+서로 다른 실제 사건2개 이상을 요구한다. 추가12% lottery는 없다.
+역할/접근 제한이나 집행은 restriction/enforcement **candidate**다.
+이름이 강한 Doctrine도 온건일 때의 허용 범위를 설명한다.
 
-교리 강도는 `custom / doctrine / orthodoxy`다. 강한 교리는 추가 근거를 요구하고,
-orthodoxy는 최소3개 강화 증거와 서로 다른 실제 사건2개 이상이 있어야 한다.
-자격을 충족한 뒤에도 별도 희귀 선택이 있어 극단적 사회가 흔해지지 않는다.
+기계 갈등/실패/협력/자동화 권한, 생물공학, clone cohort와 후속 시민권·해방·
+bottleneck·divergence·template 위기, 실제 고향 상실, Deep 거주·퇴거,
+순환 공직이 객관적 사건/효과/현재·과거 기록을 남긴다. Pure Flesh,
+Machine Kinship, Silent Circuit, Bounded Automation, Mutable Human, Ancestral
+Genome, Designed Kinship, Reclamation, Return to the Deep의 shipping 경로가 열린다.
+Rotating Stewardship도 실제 공직 제도에서 나온다.
 
-현재 shipping population은 human_baseline뿐이다. 기계 전쟁·지성 기계 접촉·
-생물공학·실제 신체/lineage 다양성·반지성체 접촉·Innerworld ancestry·잃은 고향의
-직접 증거가 없으므로 **교리14개는 의도적으로 dormant**다.
-`modified_human_community`라는 이름, Core 터널, 궤도 잔해만으로 이를 활성화하지 않는다.
-Rotating Stewardship도 실제 순환 임기 제도가 없으면 dormant다.
-합성 fixture는 별도 표시하고 shipping Canon이나 통계에 포함하지 않는다.
+승인된 distinct lineage와 준지성 historical contact가 없으므로 Ecological
+Communion, Last Human Measure, Many Bodies, One People, Thinking Threshold,
+Kin Beyond Thought는 shipping에서 dormant다. 별도의 synthetic **객관적 역사**로
+경로를 검증하며 shipping validator는 fixture의 content ID를 거부한다.
+cloning은 human_derived Origin을 유지하고 자체로 biotech/다중lineage/
+동일 인격/설계된 후손을 뜻하지 않는다. Deep 거주는 Human의 실제 거주 역사이며
+Innerworld Origin으로 바꾸지 않는다. 같은 퇴거에서 return과 taboo를 허용한다.
 
-**Actor semantic expressions → 가치/금기/긴장 매칭 → 세력 반응과 hooks**는 별도 흐름이다.
-실제 Actor Trait 시스템 없이 `{expresses: [...]}`로 조회할 수 있다.
-긍정·부정·혼합 이유, welcomed/accepted/watched/disfavored/taboo 상태,
-역할·대화·사건·접근 hooks를 돌려준다. reputation 숫자로 상쇄하지 않는다.
-예를 들어 증강된 기술자는 Maintenance Covenant에 유용하면서 Pure Flesh에는
-의심받을 수 있다. 예술 교리는 역사적 권위·공공 미관·장인 지위·형태와 membership
-심사 hooks를 갖는다.
+Actor `{expresses:[...]}` 조회는 긍정·부정·혼합 이유와 role/dialogue/event/access
+hooks를 동시에 보존한다. **standing != final decision**이다. 광신 Pure Flesh도
+기술자의 유용성을 지우지 않는다. 실제 Actor Trait/NPC/대화/UI/정책 집행은 없다.
 
-교리의 desires는 선택된 교리에서만 future goal candidates를 만든다.
-궤도 링크 복원·깊은 경로 봉쇄·피난민 보호 같은 후보는 의도이며 실행·실재 target·
-시설·능력을 뜻하지 않는다. AI·경제·연구·전쟁·이주 simulation은 아직 없다.
+CultureGoalQuery는 `status=candidate`와 source provenance를 반환한다.
+잃은 site의 historical reference ID는 후속 consumer가 확인할 수 있지만
+target acquisition이나 실제 전쟁·이주·연구·경제·영토·quest·AI를 실행하지 않는다.
 
-[상세 계약과 dormant 목록](../specs/faction_culture.md),
-[통계](../reviews/faction_culture_v1/statistics.json),
-[읽기용 사례](../reviews/faction_culture_v1/samples.md),
-[검토 결과](../reviews/2026-10-06-faction-culture-v1.md).
-실제 통합은 player knowledge와 role/dialogue/access 정책 경계에서 시작하는 것이 좋다.
-`codex/faction-culture-doctrines-v1`은 main 미병합이며 live Notion sync는 수행하지 않았다.
+[문화 계약](../specs/faction_culture.md), [객관적 사회사](../specs/social_historical_incidents.md),
+[5,000 history 분석](../reviews/social_incidents_v1/statistics.json),
+[raw 사례](../reviews/social_incidents_v1/samples.md).
+branch는 main 미병합이며 player knowledge/실제 정책·simulation 통합,
+GUI/play/package/언어·balance/live Notion 검증은 별도 경계다.

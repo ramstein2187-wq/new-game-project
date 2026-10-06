@@ -33,6 +33,11 @@ func format(result: HistoryResult) -> String:
 		for row in result.present.population_fates:
 			lines.append("%d %s: %s | absorbed_into=%s | untracked_strata=%s | events=%s" % [row.year, row.entity_id, row.disposition, ", ".join(row.successor_ids), ", ".join(row.untracked_template_ids), ", ".join(row.source_event_ids)])
 		lines.append("=== CURRENT WORLD ===")
+		lines.append("=== OBJECTIVE SOCIAL HISTORY / CURRENT FACTS ===")
+		for record in result.present.social_history:
+			lines.append("Social record: " + JSON.stringify(record))
+		for record in result.present.social_facts:
+			lines.append("Current social fact: " + JSON.stringify(record))
 	for entity in result.entities:
 		if entity.kind == "region":
 			lines.append("Region %s: %s" % [entity.id, entity.name])
@@ -45,6 +50,11 @@ func format(result: HistoryResult) -> String:
 			lines.append("  identity=%s/%s/%s | interpretation=%s/%s | sources=%s" % [
 				identity.continuity_stance, identity.social_anchor, identity.adaptive_stance,
 				identity.interpretation_mode, identity.memory_frame, ", ".join(identity.source_event_ids)])
+			var culture := FactionCultureResolver.new().resolve(result, faction.id)
+			var trait_names: Array = culture.society_traits.map(func(row: Dictionary) -> String: return row.display_name)
+			lines.append("  society patterns: " + ", ".join(trait_names))
+			for doctrine: Dictionary in culture.doctrines:
+				lines.append("  %s — %s: %s | reinforcement=%s" % [doctrine.display_name, doctrine.intensity.level, doctrine.intensity.explanation, ", ".join(doctrine.intensity.support_tags)])
 	for ancestry in result.present.faction_ancestry:
 		lines.append("Ancestry %s: parents=%s; ancestors=%s; sources=%s" % [ancestry.faction_id, ", ".join(ancestry.parent_ids), ", ".join(ancestry.ancestor_ids), ", ".join(ancestry.source_event_ids)])
 	for relation in result.present.relationships:

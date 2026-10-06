@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="772" viewBox="0 0 760 772">
 <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
 <rect width="100%" height="100%" fill="white"/>
-<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Actor semantic interaction — M041</text>
+<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Actor semantic interaction — M042</text>
 <rect x="70" y="70" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="102.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Actor semantic expressions (no real Actor Trait dependency)</text>
 <rect x="70" y="166" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
@@ -11,7 +11,7 @@
 <text x="380" y="294.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Simultaneous positive / negative / mixed reasons + provenance</text>
 <line x1="380" y1="228" x2="380" y2="258" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="358" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Qualitative standing retains useful and suspect aspects</text>
+<text x="380" y="390.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Standing != final decision; useful and suspect aspects coexist</text>
 <line x1="380" y1="324" x2="380" y2="354" stroke="#555" stroke-width="2" marker-end="url(#a)"/>
 <rect x="70" y="454" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="486.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Role / dialogue / event / access hook candidates</text>

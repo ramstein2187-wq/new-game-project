@@ -3,8 +3,8 @@ status = "구현 완료"
 areas = ["코어", "월드 생성"]
 type = "알고리즘 / 데이터 모델"
 systems = "HistoryGenerator / HistoryTopology / FactionIdentityResolver / HistoryProjector / HistoryValidator"
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 faction identity lens — codex/history-generator-v0.3-fixup; main 미병합"
-code_paths = ["game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "tools/analyze_history.gd"]
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 culture / M042 social incidents — codex/history-social-incidents-v1; main 미병합"
+code_paths = ["game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "game/history/social_incident_planner.gd", "tools/analyze_social_incidents.gd", "tools/analyze_history.gd"]
 diagram = "docs/diagrams/history_generator.svg"
 +++
 # History Generator v0.3 — topology and population contracts
@@ -12,6 +12,8 @@ diagram = "docs/diagrams/history_generator.svg"
 ![Canonical history and separate claims](../diagrams/history_generator.svg)
 
 ## Version and scope
+
+History revision is now `history-v3-authored-4`; frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
 
 Default generation **3 uses architecture2**; explicit generation **2 uses architecture1**.
 M039 corrects M038's exact6..8 planning, flattened Origin sets and implicit social content.
@@ -171,7 +173,9 @@ reads evidence"; an individual Claim remains the statement about one event/state
 
 ## Canonical projection, renderer, claims and sites
 
-M041 adds a further pure culture query over this unchanged M040 layer:
+M042 inserts an objective social incident layer after topology/faction formation and before recent relations. It retains generation3/architecture2 and exact legacy v2. See [Social incident contract](social_historical_incidents.md) for families, prerequisites, clone chains, content gates and projected records.
+
+M041/M042 add a further pure culture query over the M040 layer:
 Society Traits (structural patterns), Doctrines (normative desires), qualitative
 intensity, values/taboos and future Actor/goal hooks. It is not serialized into
 objective history and cannot rewrite Claims or activate unsupported future content.
@@ -238,8 +242,8 @@ graph-isomorphism proof. Distributions describe observed seeds, not gameplay bal
 ## Limits and next boundary
 
 One abstract region, qualitative strata and finite family anchors remain intentional.
-No population numbers/births/deaths/breeding/species generator, economy, territory/map
-placement, personal genealogy/leaders, language/religion/culture/quest generator or
+No population numbers/births/deaths/breeding/species simulation, economy, territory/map
+placement, personal genealogy/leaders, language/religion/quest generator or
 post-start simulation/save migration. No new sapient species is authored here.
 Next integration should consume projected IDs, event provenance, profiles and M035
 names through a player-knowledge/world import boundary; claims must remain separate

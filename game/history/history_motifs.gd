@@ -3,7 +3,7 @@ extends RefCounted
 
 # Small authored composition vocabulary, not a simulation/rule engine.
 const CONTENT_REVISION := "history-v2-authored-1"
-const CONTENT_REVISION_V3 := "history-v3-authored-3"
+const CONTENT_REVISION_V3 := "history-v3-authored-4"
 const TOPOLOGY_FAMILIES := ["polycentric_succession", "remnant_mosaic", "late_fragmentation",
 	"consolidation_resplit", "layered_migration", "no_direct_heir", "enclave_continuity"]
 const FORMATIONS := ["founding", "direct_successor", "fragmentation", "merger", "migration_settlement",
@@ -150,6 +150,11 @@ static func config_errors(config: Dictionary, version: int = 2) -> Array[String]
 		pools.content_revision = [CONTENT_REVISION_V3]
 		pools.topology_family = TOPOLOGY_FAMILIES
 		pools.population_catalog_id = [config.get("population_catalog_id")]
+		pools.social_content_id = [config.get("social_content_id")]
+		pools.social_revision = [config.get("social_revision")]
+		for axis: String in ["social_content_id", "social_revision"]:
+			if not config.get(axis) is String or config.get(axis, "").is_empty():
+				errors.append("Missing social incident content provenance")
 		if not config.get("population_catalog_id") is String or config.get("population_catalog_id", "").is_empty():
 			errors.append("Missing population catalog identity")
 	for field in pools:
