@@ -2,6 +2,10 @@ class_name HistoryValidator
 extends RefCounted
 
 const MIN_SCAR_RATIO := 0.75
+var _populations: SocialPopulationCatalog
+
+func _init(populations: SocialPopulationCatalog = null) -> void:
+	_populations = populations if populations != null else SocialPopulationCatalog.new()
 
 # Optional replay supplied by caller: never recursively invokes generation.
 func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary:
@@ -12,9 +16,11 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 		return report
 	if result.generation_version not in [2, 3]:
 		errors.append("Unknown history generation version")
-	if result.architecture_version != HistoryGenerator.ARCHITECTURE_VERSION:
+	if result.architecture_version != HistoryGenerator.architecture_version_for_generation(result.generation_version):
 		errors.append("Unknown history architecture version")
 	errors.append_array(HistoryMotifs.config_errors(result.configuration, result.generation_version))
+	if result.generation_version == 3 and result.configuration.get("population_catalog_id") != _populations.id:
+		errors.append("Population catalog identity mismatch")
 	if result.canon != CanonPolicy.snapshot():
 		errors.append("LOCKED/RESERVED Canon policy was changed")
 	var entities := {}
@@ -105,7 +111,7 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			for field: String in ["entity_id", "owner_id", "settlement_id", "location_id", "a", "b"]:
 				if effect.has(field) and not entities.has(effect[field]):
 					errors.append("Invalid effect entity reference: " + event.id + "/" + field)
-			for source: String in effect.get("source_ids", []):
+			for source: String in effect.get("source_ids", []) + effect.get("successor_ids", []):
 				if not entities.has(source):
 					errors.append("Missing population source: " + source)
 	if not errors.is_empty():
@@ -204,6 +210,8 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 			allowed.NEWCOMER = ["activate", "population", "settlement"]
 			allowed.REORGANIZATION = ["activate", "population", "settlement", "site_owner", "retire"]
 			allowed.EXTINCTION = ["retire", "ruin"]
+			for type in ["SPLIT", "MERGE", "REORGANIZATION", "EXTINCTION", "COLLAPSE"]:
+				allowed[type].append("population_fate")
 		var activated: Array[String] = []
 		var retired: Array[String] = []
 		for effect in event.effects:
@@ -289,6 +297,7 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 				errors.append("Merge must retire at least two source groups: " + event.id)
 		if result.generation_version == 3:
 			_formation_semantics(event, activated, retired, entities, errors)
+			_population_retirement(event, retired, entities, profiles, errors)
 		if event.event_type == HistoricalEvent.Type.COLLAPSE:
 			var precursor_retired := false
 			for id in retired:
@@ -323,6 +332,7 @@ func _claims(result: HistoryResult, present: HistoryState, events: Dictionary, r
 	for faction in present.active_factions:
 		current.append(faction.id)
 	var interpretations := {}
+	var evidence_keys := {}
 	var claimants: Array[String] = []
 	for claim in result.historical_claims:
 		if claim == null:
@@ -338,6 +348,10 @@ func _claims(result: HistoryResult, present: HistoryState, events: Dictionary, r
 			claimants.append(claim.claimant_entity_id)
 		if result.generation_version == 3:
 			_claim_evidence(claim, present, events, report.errors)
+			var key := JSON.stringify([claim.claimant_entity_id, claim.reference_scope, claim.referenced_event_id, claim.claim_type, claim.evidence])
+			if evidence_keys.has(key):
+				report.errors.append("Duplicate Claim evidence")
+			evidence_keys[key] = true
 		elif claim.referenced_event_id.is_empty() == claim.topic.is_empty():
 			report.errors.append("Claim needs exactly one event reference or belief topic")
 		if not claim.referenced_event_id.is_empty() and not events.has(claim.referenced_event_id):
@@ -405,15 +419,8 @@ func _v2_boundaries(result: HistoryResult, events: Dictionary, errors: Array) ->
 		if (key.is_empty() and events.has(id)) or (not key.is_empty() and (not events.has(id) or events[id].narrative_key != key)):
 			errors.append("Independent legacy budget/configuration mismatch: " + suffix)
 
-func _profile_errors(profile: Array) -> Array[String]:
-	var errors: Array[String] = []
-	var canonical: Array = []
-	for origin: String in HistoryMotifs.ORIGINS:
-		if origin in profile:
-			canonical.append(origin)
-	if profile.is_empty() or canonical != profile:
-		errors.append("Population profile must be a nonempty canonical set of the six Origins")
-	return errors
+func _profile_errors(profile: Dictionary) -> Array[String]:
+	return _populations.profile_errors(profile)
 
 func _unique(values: Array) -> Dictionary:
 	var found := {}
@@ -423,25 +430,22 @@ func _unique(values: Array) -> Dictionary:
 
 func _population_effect(effect: Dictionary, event: HistoricalEvent, profiles: Dictionary, entities: Dictionary, active: Dictionary, errors: Array) -> void:
 	var id: String = effect.entity_id
-	var profile: Array = effect.origin_ids
-	errors.append_array(_profile_errors(profile))
+	var profile: Dictionary = effect.profile
+	var issues := _populations.profile_errors(profile, effect.mode == "arrival" and event.type_name() == "NEWCOMER")
+	errors.append_array(issues)
+	if not issues.is_empty():
+		return
 	if not active.has(id) or entities[id].kind not in ["faction", "precursor_state", "group"]:
 		errors.append("Population operation requires a living population holder")
 	var sources: Array = effect.source_ids
-	var union: Array = []
+	var stocks: Array = []
 	var seen := {}
 	for source: String in sources:
 		if seen.has(source) or not profiles.has(source):
 			errors.append("Missing, duplicate or future population source: " + source)
-			continue
+			return
 		seen[source] = true
-		for origin in profiles[source]:
-			if origin not in union:
-				union.append(origin)
-	var ordered: Array = []
-	for origin: String in HistoryMotifs.ORIGINS:
-		if origin in union:
-			ordered.append(origin)
+		stocks.append(profiles[source])
 	var initial := not profiles.has(id)
 	if initial and entities[id].kind in ["faction", "precursor_state"] and profile != entities[id].population_origin_profile:
 		errors.append("Founding population metadata differs from founding effect: " + id)
@@ -454,18 +458,49 @@ func _population_effect(effect: Dictionary, event: HistoricalEvent, profiles: Di
 			if not initial or not sources.is_empty():
 				errors.append("Initial population stock cannot claim inherited sources")
 		"inherit":
-			if sources.size() != 1 or profile != ordered:
-				errors.append("Inherited profile must match its source population")
+			if stocks.size() != 1 or profile != stocks[0]:
+				errors.append("Inherited population profile must match its source")
 		"subset":
-			if sources.size() != 1 or not profile.all(func(origin: Variant) -> bool: return origin in ordered):
-				errors.append("Split population must be a subset of its source")
+			var parent_lineages: Dictionary = PopulationOrigins.lineages(stocks[0]) if stocks.size() == 1 else {}
+			for row: Dictionary in profile.strata:
+				if parent_lineages.get(row.template_id) != row.origins:
+					errors.append("Split population cannot invent Origin or lineage")
+			if stocks.size() != 1:
+				errors.append("Subset population requires one donor")
 		"co_residence":
-			if sources.size() < 2 or profile != ordered:
-				errors.append("Co-residence must preserve the contributing Origin sets")
+			if stocks.size() < 2 or profile != PopulationOrigins.combine(stocks):
+				errors.append("Co-residence must preserve donor strata without hybrid fusion")
 		"join":
-			if initial or id not in sources or sources.size() < 2 or profile != ordered:
-				errors.append("Join must retain existing residents and the recorded arrivals")
-	profiles[id] = profile.duplicate()
+			if initial or sources.size() < 2 or sources[0] != id or profile != PopulationOrigins.combine(stocks, true):
+				errors.append("Population join must preserve residents and arrival strata")
+	profiles[id] = profile.duplicate(true)
+
+func _population_retirement(event: HistoricalEvent, retired: Array[String], entities: Dictionary, profiles: Dictionary, errors: Array) -> void:
+	var dispositions := {}
+	for effect in event.effects:
+		if effect.kind != "population_fate":
+			continue
+		var id: String = effect.entity_id
+		if id not in retired or entities[id].kind not in ["faction", "precursor_state"] or dispositions.has(id):
+			errors.append("Population fate requires one actually retired polity")
+		dispositions[id] = true
+		if (effect.disposition == "absorbed") != (not effect.successor_ids.is_empty()) or effect.successor_ids.size() != _unique(effect.successor_ids).size():
+			errors.append("Population disposition differs from recorded successors")
+		var stocks: Array = []
+		for successor: String in effect.successor_ids:
+			var explained := false
+			for population in event.effects:
+				if population.kind == "population" and population.entity_id == successor and id in population.source_ids:
+					explained = true
+			if not explained or not profiles.has(successor):
+				errors.append("Population absorption needs an actual recorded donor contribution")
+			else:
+				stocks.append(profiles[successor])
+		if not profiles.has(id) or effect.untracked_template_ids != PopulationOrigins.untracked_templates(profiles[id], stocks):
+			errors.append("Population disposition must record every untracked donor lineage")
+	for id in retired:
+		if entities[id].kind in ["faction", "precursor_state"] and not dispositions.has(id):
+			errors.append("Retired political faction must explain its population disposition")
 
 func _formation_semantics(event: HistoricalEvent, activated: Array[String], retired: Array[String], entities: Dictionary, errors: Array) -> void:
 	var children: Array[String] = []
@@ -534,8 +569,9 @@ func _claim_evidence(claim: HistoricalClaim, present: HistoryState, events: Dict
 			errors.append("Present relation claim differs from accumulated state")
 
 func _v3_boundaries(result: HistoryResult, projected: HistoryState, events: Dictionary, errors: Array) -> void:
-	if projected.active_factions.size() < 6 or projected.active_factions.size() > 8 or projected.active_factions.size() != result.configuration.target_factions:
-		errors.append("Active faction count must be the planned 6..8")
+	var band: Array = HistoryTopology.BANDS[result.configuration.topology_family]
+	if projected.active_factions.size() < 4 or projected.active_factions.size() > 8 or projected.active_factions.size() < band[0] or projected.active_factions.size() > band[1]:
+		errors.append("Active faction count must satisfy global 4..8 and its family band")
 	if projected.relationships.size() >= projected.active_factions.size() * (projected.active_factions.size() - 1) / 2:
 		errors.append("Present relation graph must be sparse")
 	var names := {}
@@ -572,6 +608,18 @@ func _v3_boundaries(result: HistoryResult, projected: HistoryState, events: Dict
 		if (key.is_empty() and events.has(id)) or (not key.is_empty() and (not events.has(id) or events[id].narrative_key != key)):
 			errors.append("Independent legacy configuration mismatch")
 	var family: String = result.configuration.topology_family
+	var planned: Array[HistoricalEvent] = []
+	for event in result.objective_timeline:
+		if event.id.begins_with("t_step_"):
+			planned.append(event)
+	var minimum_steps := 4 if family == "late_fragmentation" else 5
+	var maximum_steps := 8 if family == "late_fragmentation" else 11
+	if planned.size() < minimum_steps or planned.size() > maximum_steps:
+		errors.append("Topology needs bounded meaningful transformation complexity")
+	if family == "late_fragmentation" and (planned.is_empty() or planned[0].type_name() != "SPLIT" or planned[0].year < -100):
+		errors.append("Late Fragmentation requires a recent successor split")
+	if family == "layered_migration" and planned.filter(func(event: HistoricalEvent) -> bool: return event.type_name() == "NEWCOMER").size() < 2:
+		errors.append("Layered Migration requires two external population layers")
 	if family == "no_direct_heir" and projected.active_factions.any(func(row: Dictionary) -> bool: return row.political_continuity):
 		errors.append("No Direct Heir retained institutional heirs")
 	if family == "enclave_continuity" and not projected.active_factions.any(func(row: Dictionary) -> bool: return row.formation_origin == "enclave_continuity" and row.formation_year < events.h_collapse.year):

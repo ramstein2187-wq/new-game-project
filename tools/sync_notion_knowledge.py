@@ -199,14 +199,7 @@ def discover_specs(config: dict[str, Any]) -> list[dict[str, Any]]:
 
 ABILITY_KEYS = ("STR", "DEX", "CON", "PER", "INT", "WIL")
 
-MONSTER_ORIGINS = {
-    "Planetary",
-    "Human-derived",
-    "Observer",
-    "Innerworld",
-    "Outerworld",
-    "Unknown",
-}
+MONSTER_ORIGINS = {row["id"] for row in json.loads((ROOT / "content/population/origins.json").read_text(encoding="utf-8"))}
 MONSTER_COMPOSITIONS = {"생체", "기계", "생체기계", "기타"}
 MONSTER_COGNITIONS = {
     "본능형",

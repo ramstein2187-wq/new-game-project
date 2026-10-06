@@ -3,7 +3,7 @@ extends RefCounted
 
 var seed: int = 0
 var generation_version: int = 3
-var architecture_version: int = 1
+var architecture_version: int = 2
 var configuration: Dictionary = {}
 var canon: Dictionary = {}
 var entities: Array[HistoricalEntity] = []

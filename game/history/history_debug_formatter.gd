@@ -25,10 +25,13 @@ func format(result: HistoryResult) -> String:
 			lines.append("%s: %s | %s..%s | %s | parents=%s | formation=%s | ancestry=%s | institutional_heir=%s | founding_origins=%s | last_origins=%s" % [
 				row.id, row.name, row.formation_year, "present" if row.active else str(row.dissolution_year),
 				"active" if row.active else "extinct", ", ".join(row.parent_ids), row.formation_origin, row.ancestry_kind,
-				row.political_continuity, ", ".join(row.founding_population_origin_profile), ", ".join(row.population_origin_profile)])
+				row.political_continuity, PopulationOrigins.format(row.founding_population_origin_profile), PopulationOrigins.format(row.population_origin_profile)])
 		lines.append("=== POPULATION PROVENANCE (distinct from political parents) ===")
 		for row in result.present.population_history:
-			lines.append("%d %s: %s | mode=%s | donors=%s | events=%s" % [row.year, row.entity_id, ", ".join(row.origin_ids), row.mode, ", ".join(row.source_ids), ", ".join(row.source_event_ids)])
+			lines.append("%d %s: %s | mode=%s | donors=%s | events=%s" % [row.year, row.entity_id, PopulationOrigins.format(row.profile), row.mode, ", ".join(row.source_ids), ", ".join(row.source_event_ids)])
+		lines.append("=== POLITICAL RETIREMENT / POPULATION DISPOSITION ===")
+		for row in result.present.population_fates:
+			lines.append("%d %s: %s | absorbed_into=%s | untracked_strata=%s | events=%s" % [row.year, row.entity_id, row.disposition, ", ".join(row.successor_ids), ", ".join(row.untracked_template_ids), ", ".join(row.source_event_ids)])
 		lines.append("=== CURRENT WORLD ===")
 	for entity in result.entities:
 		if entity.kind == "region":
@@ -36,7 +39,7 @@ func format(result: HistoryResult) -> String:
 	for faction in result.present.active_factions:
 		lines.append("Faction %s: %s | %s | knowledge=%s" % [faction.id, faction.name, faction.way_of_life, ", ".join(faction.knowledge_tags)])
 		if result.generation_version == 3:
-			lines.append("  origins=%s | formation=%s | regional_roles=%s" % [", ".join(faction.population_origin_profile), faction.formation_origin, ", ".join(faction.regional_roles)])
+			lines.append("  origins=%s | formation=%s | regional_roles=%s" % [PopulationOrigins.format(faction.population_origin_profile), faction.formation_origin, ", ".join(faction.regional_roles)])
 	for ancestry in result.present.faction_ancestry:
 		lines.append("Ancestry %s: parents=%s; ancestors=%s; sources=%s" % [ancestry.faction_id, ", ".join(ancestry.parent_ids), ", ".join(ancestry.ancestor_ids), ", ".join(ancestry.source_event_ids)])
 	for relation in result.present.relationships:

@@ -42,7 +42,8 @@ const EFFECT_FIELDS := {
 	"reoccupy": ["kind", "ruin_id", "owner_id", "settlement_id"],
 	"discovery": ["kind", "id", "location_id", "observation", "origin"],
 	"system_trace": ["kind", "id", "system_id", "operation", "physical_basis", "intent", "activation_reason", "target_selection_reason"],
-	"population": ["kind", "entity_id", "origin_ids", "source_ids", "mode"],
+	"population": ["kind", "entity_id", "profile", "source_ids", "mode"],
+	"population_fate": ["kind", "entity_id", "disposition", "successor_ids", "untracked_template_ids"],
 	"site_owner": ["kind", "entity_id", "owner_id"],
 }
 const NARRATIVES := HistoryMotifs.NARRATIVES
@@ -60,7 +61,7 @@ static func effect_errors(effect: Dictionary, version: int = 2) -> Array[String]
 	if not EFFECT_FIELDS.has(kind):
 		return ["Unknown objective effect: " + kind]
 	var fields: Array = EFFECT_FIELDS[kind].duplicate()
-	if version == 2 and kind in ["population", "site_owner"]:
+	if version == 2 and kind in ["population", "population_fate", "site_owner"]:
 		return ["Unknown v2 objective effect: " + kind]
 	if version == 3 and kind == "ruin":
 		fields.append_array(["site_type", "hazard"])
@@ -73,7 +74,7 @@ static func effect_errors(effect: Dictionary, version: int = 2) -> Array[String]
 		if field not in fields:
 			errors.append("Forbidden objective fact field: " + str(field))
 	for field in fields:
-		if field in ["delta", "origin_ids", "source_ids"] or not effect.has(field):
+		if field in ["delta", "profile", "source_ids", "successor_ids", "untracked_template_ids"] or not effect.has(field):
 			continue
 		if not effect[field] is String or effect[field].is_empty():
 			errors.append("Effect field must be a nonempty String: " + field)
@@ -91,9 +92,16 @@ static func effect_errors(effect: Dictionary, version: int = 2) -> Array[String]
 			if effect.get(field) != "unknown":
 				errors.append("RESERVED system reason resolved: " + field)
 	if kind == "population":
-		for field in ["origin_ids", "source_ids"]:
+		if not effect.get("profile") is Dictionary:
+			errors.append("Population profile must be a dictionary")
+		for field in ["source_ids"]:
 			if not effect.get(field) is Array or not effect[field].all(func(value: Variant) -> bool: return value is String and not value.is_empty()):
 				errors.append("Population field must be a String array: " + field)
 		if effect.get("mode") not in ["seed", "arrival", "inherit", "subset", "co_residence", "join"]:
 			errors.append("Unknown population operation")
+	if kind == "population_fate":
+		if effect.get("disposition") not in ["absorbed", "untracked"] or not effect.get("successor_ids") is Array or not effect.successor_ids.all(func(value: Variant) -> bool: return value is String and not value.is_empty()):
+			errors.append("Invalid population retirement disposition")
+		if not effect.get("untracked_template_ids") is Array or not effect.untracked_template_ids.all(func(value: Variant) -> bool: return value is String and not value.is_empty()):
+			errors.append("Population untracked templates must be a String array")
 	return errors

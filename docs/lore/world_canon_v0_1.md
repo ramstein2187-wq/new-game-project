@@ -125,3 +125,16 @@ Faction은 반드시 Ideology가 아니다. 종교집단, 부족, 도시국가, 
 
 게임의 핵심 주제: **이 기묘한 세계에서 어떻게 살아갈 것인가,
 그리고 그 과정에서 어떤 존재가 될 것인가.**
+
+## 생성 데이터의 Origin / social content 경계 (M039)
+
+세계관 표시는 Planetary / Human-derived / Observer / Innerworld / Outerworld / Unknown을
+사용할 수 있으나 canonical ID는 `planetary/human_derived/observer/innerworld/outerworld/unknown`이다.
+표시 mapping의 authority는 `content/population/origins.json`이다. Composite는 독립 Origin이 아니다.
+복수 strata는 사회적 공존, 한 stratum의 복수 Origin은 명시적으로 허가된 lineage의 복합 기원이다.
+정치적 합병과 생물학적 혼합은 동일하지 않다.
+
+이 범주는 비인간 지성 사회를 절차적으로 발명할 허가가 아니다. 현재 명시적으로 허가된
+social population content는 인간계 baseline이다. 비인간 Origin의 세력 구성은 별도 authored
+template의 허가를 필요로 한다. 기능 검증용 synthetic population은 테스트에만 존재한다.
+현재 세력4–8은 지역 역사 생성 범위이며 세계 전체의 국가 수나 새 Canon 연대기가 아니다.

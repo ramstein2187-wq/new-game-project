@@ -1,0 +1,6 @@
+{
+  "id": "shipping_social_v1",
+  "templates": [
+    {"id":"human_baseline","origins":["human_derived"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":100}
+  ]
+}

@@ -26,7 +26,7 @@ func _init() -> void:
 	if not _write(directory.path_join("diversity.json"), JSON.stringify(stats.to_dict(), "\t") + "\n"):
 		quit(2)
 		return
-	var reports := "# History v0.%d representative readable outputs\n\nGenerated with algorithm v%d / architecture v1. Objective debug facts and faction beliefs are separate.\n\n" % [version, version]
+	var reports := "# History v0.%d representative readable outputs\n\nGenerated with algorithm v%d / architecture v%d. Objective debug facts and faction beliefs are separate.\n\n" % [version, version, HistoryGenerator.architecture_version_for_generation(version)]
 	var snapshots: Array = []
 	for category in stats.representatives:
 		var seed: int = stats.representatives[category]
@@ -40,7 +40,7 @@ func _init() -> void:
 	if version == 3 and not _write(directory.path_join("samples.json"), JSON.stringify(snapshots, "\t") + "\n"):
 		quit(2)
 		return
-	print(JSON.stringify(stats.to_dict()))
+	print("History diversity report: %d seeds, %d invalid, %d representative histories" % [int(args[0]), stats.invalid_seeds.size(), stats.representatives.size()])
 	quit(0 if stats.invalid_seeds.is_empty() and stats.representatives.size() >= 10 else 1)
 
 func _write(path: String, contents: String) -> bool:

@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M039: **Complete on isolated task branch; not merged main** codex/history-generator-v0.3-fixup; basef657025. Current4..8 via family bands/stop, structured population strata and authored social gate, lowercase Origins, generation3/architecture2 with legacy2/architecture1. 5000seed replay0failures; full34-script gate and183785 reported assertions PASS; nineteen histories inspected. [Contract alignment](milestones/M039_history_contract_alignment.md).
+
 - M038: **Complete on task branch; not merged main** codex/history-generator-v0.3; base9380df3; seven topology families,6..8active factions, population provenance, sparse event/present relations and compatible optional reuse. V3 119,402 / v2 48,463 / Naming 30,266 assertions; full33-script gate and1000seed replay PASS, ten canonical graphs inspected. [Topology/population v3](milestones/M038_history_topology_population.md).
 
 - M037: **Complete on task branch; not merged main** codex/history-generator-v0.2, exact Observer-lore base11127ef; independent recipe axes, canonical naming, knowledge-gated claims. History 48,463 assertions / 1000 seeds, Naming 30,266 assertions, full 32-script check and ten qualitative reports pass. [Generation v2](milestones/M037_history_generation_v2.md).

@@ -2,21 +2,27 @@ class_name HistoryGenerator
 extends RefCounted
 
 const VERSION := 3
-const ARCHITECTURE_VERSION := 1
+const ARCHITECTURE_VERSION_V2 := 1
+const ARCHITECTURE_VERSION_V3 := 2
+
+static func architecture_version_for_generation(version: int) -> int:
+	return ARCHITECTURE_VERSION_V2 if version == 2 else ARCHITECTURE_VERSION_V3 if version == 3 else -1
 var _names: HistoryNameSource
 var _discovery_pool: Array
 var _version: int
+var _populations: SocialPopulationCatalog
 
-func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotifs.DISCOVERIES, version: int = VERSION) -> void:
+func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotifs.DISCOVERIES, version: int = VERSION, populations: SocialPopulationCatalog = null) -> void:
 	_names = names if names != null else HistoryNameSource.new()
 	_discovery_pool = discovery_pool.duplicate()
 	_version = version
+	_populations = populations if populations != null else SocialPopulationCatalog.new()
 
 func generate(seed: int) -> HistoryResult:
 	var result := HistoryResult.new()
 	result.seed = seed
 	result.generation_version = _version
-	result.architecture_version = ARCHITECTURE_VERSION
+	result.architecture_version = architecture_version_for_generation(_version)
 	result.canon = CanonPolicy.snapshot()
 	result.configuration = _configuration(seed)
 	var local := _local_collapse(result)
@@ -34,7 +40,7 @@ func generate(seed: int) -> HistoryResult:
 		_names.assign(entity, seed, used, _version)
 	result.present = HistoryProjector.new().project(result.entities, result.objective_timeline)
 	result.historical_claims = HistoryClaimBuilder.new().build(result)
-	result.validation_report = HistoryValidator.new().validate(result)
+	result.validation_report = HistoryValidator.new(_populations).validate(result)
 	return result
 
 func _configuration(seed: int) -> Dictionary:
@@ -66,7 +72,7 @@ func _configuration(seed: int) -> Dictionary:
 			config.erase(field)
 		config.content_revision = HistoryMotifs.CONTENT_REVISION_V3
 		config.topology_family = _pick(seed, "topology/family", HistoryMotifs.TOPOLOGY_FAMILIES)
-		config.target_factions = _rng(seed, "topology/target").randi_range(6, 8)
+		config.population_catalog_id = _populations.id
 	return config
 
 func _local_collapse(result: HistoryResult) -> Dictionary:
@@ -80,8 +86,8 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 		precursor.formation_origin = "founding"
 		precursor.ancestry_kind = "root"
 		precursor.political_continuity = true
-		precursor.population_origin_profile = ["Human-derived"]
-		founding.append(_population("precursor", ["Human-derived"], [], "seed"))
+		precursor.population_origin_profile = PopulationOrigins.from_template(_populations.template("human_baseline"))
+		founding.append(_population("precursor", precursor.population_origin_profile, [], "seed"))
 	_emit(result, "h_found", found_year, c.precursor_form, [], [], founding)
 	_entity(result, "regional_body", "group", ["precursor"])
 	_emit(result, "h_body", found_year + 25, "regional_body", ["precursor"], ["h_found"], [_activate("regional_body")])
@@ -111,6 +117,8 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 	if result.entity("pressure_group") != null:
 		effects.append(_retire("pressure_group"))
 	actors.append("province")
+	if _version == 3:
+		effects.append(_population_fate("precursor", [], ["human_baseline"]))
 	_emit(result, "h_collapse", collapse_year, "collapse", actors, ["h_failure", "h_pressure"], effects)
 	return {"collapse_year": collapse_year}
 
@@ -244,12 +252,11 @@ func _ruin(id: String, kind: String) -> Dictionary:
 		effect.merge(HistorySites.description(kind))
 	return effect
 
-func _population(id: String, origins: Array, sources: Array, mode: String) -> Dictionary:
-	var ordered: Array[String] = []
-	for origin: String in HistoryMotifs.ORIGINS:
-		if origin in origins:
-			ordered.append(origin)
-	return {"kind": "population", "entity_id": id, "origin_ids": ordered, "source_ids": sources.duplicate(), "mode": mode}
+func _population(id: String, profile: Dictionary, sources: Array, mode: String) -> Dictionary:
+	return {"kind": "population", "entity_id": id, "profile": profile.duplicate(true), "source_ids": sources.duplicate(), "mode": mode}
+
+func _population_fate(id: String, successors: Array, untracked: Array) -> Dictionary:
+	return {"kind": "population_fate", "entity_id": id, "disposition": "absorbed" if not successors.is_empty() else "untracked", "successor_ids": successors.duplicate(), "untracked_template_ids": untracked.duplicate()}
 
 func _settlement(id: String, owner: String) -> Dictionary:
 	return {"kind": "settlement", "entity_id": id, "owner_id": owner, "location_id": "region"}
@@ -301,7 +308,7 @@ func _later_history_v3(result: HistoryResult) -> void:
 		var pair := pairs[i]
 		pairs[i] = pairs[j]
 		pairs[j] = pair
-	var count := rng.randi_range(3, active.size() - 2)
+	var count := rng.randi_range(2, maxi(2, active.size() - 2))
 	for i in range(count):
 		var a: String = pairs[i][0]
 		var b: String = pairs[i][1]

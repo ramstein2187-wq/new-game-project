@@ -3,7 +3,7 @@
 Canon constrains what can be true. History generation decides what happened.
 Cultures decide what it means. Simulation decides what happens next.
 
-> **Implementation note:** M038 v0.3은 아래 LOCKED/RESERVED를 유지한다. v0.1의 세 faction과 고정 크기 예시는 원래 slice 범위이며, v3은 역사적 변환 결과로 현재6–8faction을 만든다. v2의 Observer 명칭/학술 knowledge gate, 희귀 예산을 유지한다. 최신 구현·테스트 범위는 [History Generator spec](../specs/history_generator.md)을 따른다.
+> **Implementation note:** M039 후속 수정은 LOCKED/RESERVED와 v3 variable topology를 유지하며 현재4–8faction을 역사 결과로 만든다. exact count는 입력이 아니다. Generation2/architecture1과 generation3/architecture2를 명시적으로 분리한다. v0.1의 세 faction 예시는 원래 slice 범위다. 최신 계약은 [History Generator spec](../specs/history_generator.md)과 [후속 review](../reviews/2026-10-06-history-generator-v0_3-fixup.md)를 따른다.
 
 ## LOCKED — 변경 불가능한 객관적 진실
 
@@ -98,3 +98,18 @@ ANOMALOUS_DISCOVERY는 origin=unknown인 관찰 record를 남긴다.
 독립 RNG와 안정된 배열/정렬을 사용한다. 외부 name provider는 deterministic/pure 계약을 지켜야 한다.
 validator는 ID/reference, chronology/lifecycle, ancestry, effect semantics, policy,
 재투영 일치, 현재 규모/흔적, claims 분리/불일치와 optional replay determinism을 검사한다.
+
+## M039 population content / canonical ID contract
+
+Canonical Origin IDs: `planetary`, `human_derived`, `observer`, `innerworld`, `outerworld`, `unknown`.
+표시 문자열은 별도 mapping이며 `content/population/origins.json`이 코드/분류 checker의 vocabulary다.
+Composite는 독립 Origin이 아니다. Mixed society는 복수 population strata의 공존이며,
+multi-Origin lineage는 한 stratum 내부의 복수 Origin이다. 정치 merge가 후자를 발명하지 않는다.
+Unknown과 known Origin은 한 stratum 안에서 결합하지 않는다.
+
+Origin 존재와 sapient/social faction membership 허가는 별개다. Authoritative repo content에서
+비인간 사회 구성원이 확인되지 않았으므로 기본 생성의 허가 population은 인간계 baseline뿐이다.
+Innerworld/Planetary/Observer/Outerworld/Unknown을 taxonomy만으로 독립 사회로 만들지 않는다.
+새 사회 template은 명시적 authored content로 허가받아야 하며 테스트 fixture는 Canon이 아니다.
+Faction 소멸은 정치적 retirement이고 인구의 전멸을 뜻하지 않는다. 객관적 history는
+흡수 successor 또는 추적 중단을 명시한다. 이 정책은 LOCKED/RESERVED의 재정의가 아니다.

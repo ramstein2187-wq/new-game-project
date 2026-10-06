@@ -3,10 +3,9 @@ extends RefCounted
 
 # Small authored composition vocabulary, not a simulation/rule engine.
 const CONTENT_REVISION := "history-v2-authored-1"
-const CONTENT_REVISION_V3 := "history-v3-authored-1"
+const CONTENT_REVISION_V3 := "history-v3-authored-2"
 const TOPOLOGY_FAMILIES := ["polycentric_succession", "remnant_mosaic", "late_fragmentation",
 	"consolidation_resplit", "layered_migration", "no_direct_heir", "enclave_continuity"]
-const ORIGINS := ["Planetary", "Human-derived", "Observer", "Innerworld", "Outerworld", "Unknown"]
 const FORMATIONS := ["founding", "direct_successor", "fragmentation", "merger", "migration_settlement",
 	"reorganization", "enclave_continuity", "newcomer_formation"]
 const ANCESTRY_KINDS := ["root", "direct_successor", "split_descendant", "merge_descendant",
@@ -150,7 +149,9 @@ static func config_errors(config: Dictionary, version: int = 2) -> Array[String]
 			pools.erase(axis)
 		pools.content_revision = [CONTENT_REVISION_V3]
 		pools.topology_family = TOPOLOGY_FAMILIES
-		pools.target_factions = [6, 7, 8]
+		pools.population_catalog_id = [config.get("population_catalog_id")]
+		if not config.get("population_catalog_id") is String or config.get("population_catalog_id", "").is_empty():
+			errors.append("Missing population catalog identity")
 	for field in pools:
 		if config.get(field) not in pools[field]:
 			errors.append("Invalid configuration axis: " + field)

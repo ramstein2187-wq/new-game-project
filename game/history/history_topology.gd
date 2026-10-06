@@ -13,6 +13,11 @@ const BIASES := {
 	"no_direct_heir": ["newcomer", "migration", "reorganization", "reorganization", "split", "extinction"],
 	"enclave_continuity": ["split", "migration", "newcomer", "join", "reorganization", "extinction"],
 }
+const BANDS := {
+	"polycentric_succession": [5, 8], "remnant_mosaic": [4, 8],
+	"late_fragmentation": [4, 8], "consolidation_resplit": [4, 6],
+	"layered_migration": [5, 8], "no_direct_heir": [4, 7], "enclave_continuity": [4, 8],
+}
 var _g: HistoryGenerator
 var _result: HistoryResult
 var _active: Array[String] = []
@@ -25,7 +30,7 @@ var _cohort_number := 0
 func build(result: HistoryResult, local: Dictionary, generator: HistoryGenerator) -> void:
 	_g = generator
 	_result = result
-	_profiles.precursor = ["Human-derived"]
+	_profiles.precursor = result.entity("precursor").population_origin_profile.duplicate(true)
 	var family: String = result.configuration.topology_family
 	var rng: RandomNumberGenerator = _g._rng(result.seed, "topology/plan")
 	var start: int = local.collapse_year + 12
@@ -51,14 +56,19 @@ func build(result: HistoryResult, local: Dictionary, generator: HistoryGenerator
 		if enclave:
 			year = _event("h_found").year + 35
 		_root(year, heir and not enclave, enclave, "precursor" if heir or family == "no_direct_heir" else "")
-	var steps := rng.randi_range(7, 11)
-	if family == "late_fragmentation":
-		steps = rng.randi_range(5, 8)
+	var minimum_steps := 4 if family == "late_fragmentation" else 5
+	var maximum_steps := 8 if family == "late_fragmentation" else 11
+	var band: Array = BANDS[family]
 	var first_year := -95 if family == "late_fragmentation" else start + 12
 	var final_year := -48 if family == "late_fragmentation" else -110
 	var consolidation := ""
-	for step in range(steps):
-		var year := first_year + int(float(final_year - first_year) * step / maxi(1, steps - 1))
+	for step in range(maximum_steps):
+		# Count is observed here, never drawn as a generation input. By minimum_steps
+		# each family anchor is complete. A separate stop stream cannot perturb choices.
+		if step >= minimum_steps and _active.size() >= band[0] and _active.size() <= band[1]:
+			if step == maximum_steps - 1 or _g._rng(result.seed, "topology/stop/%d" % step).randi_range(0, 99) < 55:
+				break
+		var year := first_year + int(float(final_year - first_year) * step / maxi(1, maximum_steps - 1))
 		var specs: Array[Dictionary] = []
 		var eligible := _eligible()
 		for operation: String in BIASES[family]:
@@ -84,8 +94,7 @@ func build(result: HistoryResult, local: Dictionary, generator: HistoryGenerator
 		elif family == "layered_migration" and step in [0, 2]:
 			mandatory = "newcomer"
 		var choices: Array[Dictionary] = []
-		var remaining := steps - step - 1
-		var target: int = result.configuration.target_factions
+		var remaining := maximum_steps - step - 1
 		for spec in specs:
 			var after: int = _active.size() + spec.delta
 			if not mandatory.is_empty() and spec.operation != mandatory:
@@ -93,12 +102,15 @@ func build(result: HistoryResult, local: Dictionary, generator: HistoryGenerator
 			if eligible.is_empty() and spec.operation != "newcomer":
 				continue
 			# Leave an actionable lineage beside any protected continuity anchor.
-			if after < 2 or after > target + 2:
+			if after < 2 or after > band[1]:
 				continue
-			# Count is part of the operation plan, never a final padding stage.
-			if after + 3 * remaining < target or after - remaining > target:
+			# The protected consolidation still has to split at the next step.
+			if family == "consolidation_resplit" and step == 1 and after >= band[1]:
 				continue
-			if remaining == 0 and after != target:
+			# Reserve enough legal growth for the minimum band, never an exact target.
+			if after + 3 * remaining < band[0]:
+				continue
+			if remaining == 0 and after < band[0]:
 				continue
 			choices.append(spec)
 		assert(not choices.is_empty(), "Bounded topology plan has no legal operation")
@@ -110,7 +122,7 @@ func build(result: HistoryResult, local: Dictionary, generator: HistoryGenerator
 		if family == "consolidation_resplit" and step == 0:
 			consolidation = created
 			_protected.append(consolidation)
-	assert(_active.size() == result.configuration.target_factions)
+	assert(_active.size() >= band[0] and _active.size() <= band[1])
 	for id in _active:
 		var faction := result.entity(id)
 		var scholarly := faction.way_of_life in ["infrastructure_guild", "facility_community"]
@@ -127,7 +139,7 @@ func _root(year: int, heir: bool, enclave: bool, source: String) -> void:
 	var sources: Array[String] = []
 	if not source.is_empty():
 		sources.append(source)
-	var origins: Array = _profiles[source].duplicate() if not source.is_empty() else _local_profile(id)
+	var origins: Dictionary = _profiles[source].duplicate(true) if not source.is_empty() else _local_profile(id)
 	var effects := _birth(id, parents, formation, ancestry, heir, origins, sources, "inherit" if not sources.is_empty() else "seed")
 	var cause: Array[String] = ["h_found" if enclave else "h_collapse"]
 	_g._emit(_result, "t_root_" + id, year, "enclave_survives" if enclave else "local_successor", [], cause, effects)
@@ -143,7 +155,7 @@ func _perform(spec: Dictionary, year: int, key: String, rng: RandomNumberGenerat
 		_extinction(parent, year, key)
 		return ""
 	if operation in ["newcomer", "join"]:
-		return _arrival(year, key, parent if operation == "join" else "", rng)
+		return _arrival(year, key, parent if operation == "join" else "")
 	var event_id := "t_" + key
 	var effects: Array[Dictionary] = []
 	var actors: Array[String] = [parent]
@@ -152,15 +164,16 @@ func _perform(spec: Dictionary, year: int, key: String, rng: RandomNumberGenerat
 	if operation == "split":
 		for child_index in range(spec.children):
 			var id := _new_id()
-			var profile: Array = _profiles[parent].duplicate()
+			var profile: Dictionary = _profiles[parent].duplicate(true)
+			var inheritance := _g._rng(_result.seed, "population/inheritance/" + id)
 			var mode := "inherit"
-			if profile.size() > 1 and rng.randi_range(0, 1) == 0:
-				profile = [profile[rng.randi_range(0, profile.size() - 1)]]
+			if profile.strata.size() > 1 and inheritance.randi_range(0, 1) == 0:
+				profile = PopulationOrigins.subset(profile, inheritance)
 				mode = "subset"
 			effects.append_array(_birth(id, [parent], "fragmentation", "split_descendant", _result.entity(parent).political_continuity, profile, [parent], mode))
 			created.append(id)
 		if not spec.retain:
-			effects.append_array(_dissolve(parent, created[0]))
+			effects.append_array(_dissolve(parent, created[0], created))
 		else:
 			effects.append(_g._relation(_result.seed, parent, created[0], -25, -5, key))
 	elif operation in ["merge", "reorganization"]:
@@ -171,12 +184,12 @@ func _perform(spec: Dictionary, year: int, key: String, rng: RandomNumberGenerat
 			causes.append(_result.entity(candidates[i]).created_event_id)
 		var id := _new_id()
 		# Political participants and actual population contributors need not coincide.
-		var contributors := actors.duplicate() if rng.randi_range(0, 1) == 0 else [actors[0]]
-		var origins: Array = []
+		var donors_rng := _g._rng(_result.seed, "population/contributors/" + id)
+		var contributors := actors.duplicate() if donors_rng.randi_range(0, 1) == 0 else [actors[0]]
+		var stocks: Array = []
 		for source: String in contributors:
-			for origin in _profiles[source]:
-				if origin not in origins:
-					origins.append(origin)
+			stocks.append(_profiles[source])
+		var origins: Dictionary = PopulationOrigins.combine(stocks) if contributors.size() > 1 else stocks[0].duplicate(true)
 		var continuity := false
 		for source in actors:
 			continuity = continuity or _result.entity(source).political_continuity
@@ -186,7 +199,7 @@ func _perform(spec: Dictionary, year: int, key: String, rng: RandomNumberGenerat
 			"merge_descendant" if operation == "merge" else "reorganized_descendant", continuity, origins, contributors,
 			"co_residence" if contributors.size() > 1 else "inherit"))
 		for source in actors:
-			effects.append_array(_dissolve(source, id))
+			effects.append_array(_dissolve(source, id, [id] if source in contributors else []))
 		created.append(id)
 	else:
 		var id := _new_id()
@@ -198,12 +211,12 @@ func _perform(spec: Dictionary, year: int, key: String, rng: RandomNumberGenerat
 	_g._emit(_result, event_id, year, narrative[operation], actors, causes, effects)
 	return created[0]
 
-func _arrival(year: int, key: String, target: String, rng: RandomNumberGenerator) -> String:
+func _arrival(year: int, key: String, target: String) -> String:
 	var cohort := "cohort_%02d" % _cohort_number
 	_cohort_number += 1
 	_g._entity(_result, cohort, "group")
-	# Other-region residents, not automatic extraterrestrial/Observer arrivals.
-	var profile: Array = [["Human-derived"], ["Unknown"], ["Planetary"], ["Innerworld"]][rng.randi_range(0, 3)].duplicate()
+	# Social membership requires an authored template, never an Origin-category draw.
+	var profile: Dictionary = _g._populations.select(_g._rng(_result.seed, "population/arrival/" + cohort), target.is_empty())
 	_profiles[cohort] = profile
 	var effects: Array[Dictionary] = [_g._activate(cohort), _g._population(cohort, profile, [], "arrival")]
 	var actors: Array[String] = []
@@ -215,16 +228,13 @@ func _arrival(year: int, key: String, target: String, rng: RandomNumberGenerator
 	else:
 		actors.append(target)
 		causes.append(_result.entity(target).created_event_id)
-		var joined: Array = _profiles[target].duplicate()
-		for origin in profile:
-			if origin not in joined:
-				joined.append(origin)
+		var joined := PopulationOrigins.combine([_profiles[target], profile], true)
 		effects.append(_g._population(target, joined, [target, cohort], "join"))
-		_profiles[target] = effects[-1].origin_ids.duplicate()
+		_profiles[target] = effects[-1].profile.duplicate(true)
 	_g._emit(_result, "t_" + key, year, "population_join" if not target.is_empty() else "newcomer_entry", actors, causes, effects)
 	return id
 
-func _birth(id: String, parents: Array[String], formation: String, ancestry: String, heir: bool, origins: Array, sources: Array, mode: String) -> Array[Dictionary]:
+func _birth(id: String, parents: Array[String], formation: String, ancestry: String, heir: bool, origins: Dictionary, sources: Array, mode: String) -> Array[Dictionary]:
 	var life: String = _g._pick(_result.seed, "topology/lifestyle/" + id, HistoryMotifs.SUCCESSOR_A + HistoryMotifs.SUCCESSOR_B + HistoryMotifs.FORMATION_C)
 	var faction: HistoricalEntity = _g._entity(_result, id, "faction", parents, life)
 	faction.formation_origin = formation
@@ -234,26 +244,30 @@ func _birth(id: String, parents: Array[String], formation: String, ancestry: Str
 	if parents.is_empty():
 		faction.naming_lineage_id = id
 	var population: Dictionary = _g._population(id, origins, sources, mode)
-	faction.population_origin_profile.assign(population.origin_ids)
-	_profiles[id] = population.origin_ids.duplicate()
+	faction.population_origin_profile = population.profile.duplicate(true)
+	_profiles[id] = population.profile.duplicate(true)
 	_active.append(id)
 	var site_id := "home_" + id
 	_g._entity(_result, site_id, "settlement")
 	_homes[id] = [site_id]
 	return [_g._activate(id), population, _g._activate(site_id), _g._settlement(site_id, id)]
 
-func _dissolve(id: String, successor: String) -> Array[Dictionary]:
+func _dissolve(id: String, successor: String, population_successors: Array) -> Array[Dictionary]:
 	var effects: Array[Dictionary] = []
 	for site: String in _homes[id]:
 		effects.append({"kind": "site_owner", "entity_id": site, "owner_id": successor})
 		_homes[successor].append(site)
 	effects.append(_g._retire(id))
+	var stocks: Array = []
+	for successor_id in population_successors:
+		stocks.append(_profiles[successor_id])
+	effects.append(_g._population_fate(id, population_successors, PopulationOrigins.untracked_templates(_profiles[id], stocks)))
 	_active.erase(id)
 	_homes.erase(id)
 	return effects
 
 func _extinction(id: String, year: int, key: String) -> void:
-	var effects: Array[Dictionary] = [_g._retire(id)]
+	var effects: Array[Dictionary] = [_g._retire(id), _g._population_fate(id, [], PopulationOrigins.untracked_templates(_profiles[id], []))]
 	for site: String in _homes[id]:
 		effects.append(_g._retire(site))
 	effects.append(_g._ruin("abandoned_" + id, "administrative_site"))
@@ -273,9 +287,8 @@ func _new_id() -> String:
 	_number += 1
 	return id
 
-func _local_profile(id: String) -> Array:
-	var roll: int = _g._rng(_result.seed, "population/local/" + id).randi_range(0, 9)
-	return ["Human-derived", "Planetary"] if roll < 2 else ["Human-derived", "Unknown"] if roll == 2 else ["Human-derived"]
+func _local_profile(id: String) -> Dictionary:
+	return _g._populations.select(_g._rng(_result.seed, "population/local/" + id))
 
 func _event(id: String) -> HistoricalEvent:
 	for event in _result.objective_timeline:

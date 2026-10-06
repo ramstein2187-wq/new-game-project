@@ -24,11 +24,15 @@ diagram = "docs/diagrams/monster_taxonomy.svg"
 - **외우주 / Outerworld** — 행성 밖에서 유입된 존재. Observer와 별도 기원.
 - **불명 / Unknown** — 기원을 특정할 수 없음.
 
-M038과 함께 canonical vocabulary를 위 여섯 값으로 통일한다. 기존 Native / Human-made /
-Observer Legacy는 각각 Planetary / Human-derived / Observer로 대응하며, Composite는
-별도 Origin이 아니다. 여러 기원은 multi-origin profile로 보존한다. 정치적 합병·형성 사건은
-생물학적 기원과 다르다. 몬스터의 현재 단일 Origin 속성은 미확정 null을 유지하며, population
-profile은 복수값이다. 데이터의 알려지지 않은 기원을 문서 변경만으로 채우지 않는다.
+M039 canonical IDs는 `planetary`, `human_derived`, `observer`, `innerworld`, `outerworld`, `unknown`이다.
+영어/한국어 display mapping은 `content/population/origins.json`에서 관리하고 History와
+offline taxonomy checker가 같은 vocabulary를 읽는다. Composite는 독립 Origin이 아니다.
+몬스터의 현재 미분류 Origin은 null로 유지하며 문서 변경으로 설정을 채우지 않는다.
+Mixed society는 다른 single-Origin strata의 공존, multi-Origin lineage는 한 stratum 내부의
+복수 Origin이다. 정치 merge는 strata를 합할 뿐 lineage를 융합하지 않는다.
+Taxonomy에 Origin이 있다고 sapient/social faction membership이 허가되는 것은 아니다.
+명시적 SocialPopulationTemplate이 그 허가를 제공하며 기본 shipping은 human_derived만 사용한다.
+Unknown은 authored 분류 불능 population에만 허용하고 같은 stratum의 known Origin과 결합하지 않는다.
 파생은 Origin에서 제외한다. 장기간 자생화, 자기개조, 계통 분화처럼 원형에서 멀어진 정도는 향후 Trait로 표현한다.
 
 ## 2. 구성 · Composition

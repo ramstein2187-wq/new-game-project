@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-labelledby="title desc">
-  <title id="title">History architecture v1 and generation algorithm v3</title>
+  <title id="title">History architecture v2 and generation algorithm v3</title>
   <desc id="desc">Fixed Canon constrains recent seeded history. Objective effects project the present. Separate perceived claims cannot alter objective truth. Validator checks references, policy, replay and surviving scars. Gameplay simulation is deferred.</desc>
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#53637b"/></marker></defs>
   <rect width="1080" height="560" fill="#f6f8fc"/>
   <g font-family="sans-serif" fill="#192e48" text-anchor="middle">
-    <text x="540" y="35" font-size="24" font-weight="bold">History architecture v1 / generation algorithm v3</text>
+    <text x="540" y="35" font-size="24" font-weight="bold">History architecture v2 / generation algorithm v3</text>
     <g fill="white" stroke="#7185a3" stroke-width="2">
       <rect x="40" y="65" width="440" height="68" rx="10"/>
       <rect x="600" y="65" width="440" height="68" rx="10"/>
@@ -14,13 +14,13 @@
       <rect x="280" y="446" width="520" height="72" rx="10"/>
     </g>
     <g font-size="18">
-      <text x="260" y="92">CanonPolicy</text><text x="260" y="117" font-size="14">LOCKED / RESERVED / generation permissions</text>
-      <text x="820" y="92">SeedDeriver + local RNG</text><text x="820" y="117" font-size="14">7 family biases / bounded transformations / independent RNG + M035</text>
-      <text x="540" y="204">Generated Objective History</text><text x="540" y="229" font-size="14">political DAG + lifecycles / separate population sources / optional reuse</text>
-      <text x="260" y="334">HistoryProjector → Present State</text><text x="260" y="362" font-size="14">6–8 active / extinct records / Origin profiles / sparse relations / sites</text>
+      <text x="260" y="92">CanonPolicy</text><text x="260" y="117" font-size="14">LOCKED / RESERVED / authored social content gate</text>
+      <text x="820" y="92">SeedDeriver + local RNG</text><text x="820" y="117" font-size="14">7 family bands / bounded stop / independent RNG + M035</text>
+      <text x="540" y="204">Generated Objective History</text><text x="540" y="229" font-size="14">political DAG + lifecycle / population strata + donors / optional reuse</text>
+      <text x="260" y="334">HistoryProjector → Present State</text><text x="260" y="362" font-size="14">4–8 active / extinct records / strata / sparse relations / sites</text>
       <text x="820" y="334">Separate Perceived History</text><text x="820" y="362" font-size="14">event delta or present score / scholarly terminology knowledge gate</text>
-      <text x="540" y="473">HistoryValidator → HistoryResult / CLI</text><text x="540" y="501" font-size="14">policy / chronology / donor inheritance / hazards / 1000 seed replay / knowledge</text>
-      <text x="540" y="547" font-size="14">Playable-map integration and post-start simulation are future work.</text>
+      <text x="540" y="473">HistoryValidator → HistoryResult / CLI</text><text x="540" y="501" font-size="14">policy / chronology / donor inheritance / hazards / 5000 seed replay / knowledge</text>
+      <text x="540" y="547" font-size="14">Generation2 remains architecture1; map import and live simulation are future work.</text>
     </g>
     <g fill="none" stroke="#53637b" stroke-width="2" marker-end="url(#arrow)">
       <path d="M260 133 L260 160 L400 160 L400 177"/>

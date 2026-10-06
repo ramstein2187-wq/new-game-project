@@ -156,6 +156,9 @@ func _build_v3(result: HistoryResult) -> Array[HistoricalClaim]:
 	return claims
 
 func _add_v3(claims: Array[HistoricalClaim], seed: int, claimant: String, event: String, scope: String, evidence: Dictionary, text: String, type: String = "interpretation") -> void:
+	for existing in claims:
+		if existing.claimant_entity_id == claimant and existing.referenced_event_id == event and existing.reference_scope == scope and existing.evidence == evidence and existing.claim_type == type:
+			return
 	var claim := HistoricalClaim.new()
 	claim.claimant_entity_id = claimant
 	claim.referenced_event_id = event

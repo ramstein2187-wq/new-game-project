@@ -17,7 +17,7 @@ var formation_origin: String = ""
 var ancestry_kind: String = ""
 var political_continuity: bool = false
 # Founding population only; later changes are replayed from population effects.
-var population_origin_profile: Array[String] = []
+var population_origin_profile: Dictionary = {}
 var regional_roles: Array[String] = []
 
 func to_dict() -> Dictionary:
@@ -30,5 +30,5 @@ func to_dict() -> Dictionary:
 	if not formation_origin.is_empty():
 		row.merge({"formation_origin": formation_origin, "ancestry_kind": ancestry_kind,
 			"political_continuity": political_continuity,
-			"population_origin_profile": population_origin_profile.duplicate(), "regional_roles": regional_roles.duplicate()})
+			"population_origin_profile": population_origin_profile.duplicate(true), "regional_roles": regional_roles.duplicate()})
 	return row

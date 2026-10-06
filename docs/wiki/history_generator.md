@@ -1,43 +1,44 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036 architecture / M037 v2 / M038 v3 — main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v0.3/docs/specs/history_generator.md"
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup — main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v0.3-fixup/docs/specs/history_generator.md"
 icon = "📜"
 +++
 # 최근 역사: 정치 계보와 population의 기원
 
-History Generator v0.3은 이름·재난 종류 외에 현재 세력이 만들어진 계보를 바꾼다.
-기존 v2의 A/B/C와 필수 재난지 재점유 대신, 일곱 topology family의 제약·가중치 아래
-공통 split/merge/migration/newcomer/reorganization/extinction 연산을 조합한다.
-현재6–8세력은 계획된 역사 변환의 결과이며 마지막에 숫자 맞추기용 세력을 보충하지 않는다.
+History Generator v0.3은 일곱 family의 구조적 제약과 공통 transformation으로
+정치 계보를 바꾼다. M039 후속 수정에서 **현재4–8세력**으로 계약을 정렬했다.
+정확한 개수를 사전에 뽑지 않는다. family 핵심 사건과 최소 단계 수를 충족하고
+생존 세력이 허용 band 안에 있으면 독립 RNG로 종료한다. 최대 단계 수가 있으며
+마지막 숫자 맞추기용 faction이나 소멸 처리는 없다. 4세력도 긴 역사와 소멸 기록을 가진다.
 
-정치적 `parent_ids`, `formation_origin`, population의 `source_ids`·Origin profile,
-현재 생활 방식·지역 역할을 구분한다. 합병은2–3부모를 표현하지만 생물학적 혼합을
-강제하지 않는다. Origin은 Planetary / Human-derived / Observer / Innerworld /
-Outerworld / Unknown이며 복수값을 유지한다. Composite는 별도 Origin이 아니다.
-기존 주민이 새 조직을 세울 수 있고, 외부 집단이 추가되며, 사라진 정치체의 기록도 남는다.
+Historical/current faction, 정치적 `parent_ids`, `formation_origin`, population의
+`source_ids`, 생활 방식·지역 역할은 별개다. 합병은 복수 정치 부모와 실제 인구 donor를
+따로 기록한다. 정치체가 사라져도 인구가 전멸한 것은 아니다. 객관적 사건은 인구의
+후계 흡수 또는 추적 중단을 명시하고, 기존 인구 stock과 유적 기록을 보존한다.
 
-Canonical entity/event/effect → present projection → 별도 claims → validation 흐름은
-유지된다. Historical polities에는 소멸한 세력도 포함하며 active subset만 현재 행동한다.
-인구 출처·형성 사건·정착지 소유 이전의 event ID로 현재 세력을 설명할 수 있다.
-Renderer는 이 사실을 읽는다. Claim은 사실이나 projection을 변경하지 않는다.
+Origin canonical ID는 `planetary/human_derived/observer/innerworld/outerworld/unknown`이다.
+표시 이름은 영어·한국어 mapping으로 분리한다. Composite는 독립 Origin이 아니다.
+**Mixed society**는 서로 다른 single-Origin strata의 공존이고,
+**multi-Origin lineage**는 한 stratum 자체가 복수 Origin을 갖는 경우다.
+Profile은 `strata[{template_id,origins,prevalence}]`이며 prevalence는 정성적 구간이다.
+합병/join은 strata를 합하고 split은 기존 strata를 상속한다. 정치 사건이 hybrid를 만들지 않는다.
 
-관계는 sparse하다. 사건의 relation delta와 현재 누적 score를 별도 scope/evidence로
-참조하므로 과거 적대 사건을 현재 협력 문장으로 바꾸지 않는다. 유적 재사용은 optional이며
-site type/hazard와 용도·생활 방식의 compatibility를 요구한다. 화학/불발병기/restricted
-위험은 해제하지 않는다. 재난지가 방치되는 결과도 정상이다.
+SocialPopulationCatalog가 authored template의 세력 구성·무작위 생성·newcomer 허가를
+검사한다. taxonomy만으로 지성 종족을 발명하지 않는다. 현재 shipping은 허가된
+`human_baseline=[human_derived]`만 사용한다. 비인간·mixed·hybrid 기능은 명시적
+test-only catalog로 검증하며 새 세계관으로 등록하지 않는다. Unknown도 filler가 아니다.
 
-[세계 Canon](../lore/world_canon_v0_1.md)의 LOCKED/RESERVED는 유지한다.
-Observer/Core의 v2확률·희귀 예산·물리적 제한을 보존했고, default에서 살아 있는 Observer
-문명이나 Outerworld국가를 생성하지 않는다. Observer 용어는 기존 학술 knowledge gate를
-따른다. M035 naming과 SeedDeriver를 재사용하며 en/ko명명 콘텐츠는 계보를 변경하지 않는다.
+Generation3은 **architecture2**, legacy generation2는 **architecture1**이다.
+Canonical effect → projection → 별도 Claim → renderer 흐름을 유지한다.
+사건 relation Claim은 당시 delta, 현재 Claim은 누적 score를 읽는다.
+유적 재사용은 optional이며 hazard/type/용도 compatibility를 검사한다.
+Observer/Core의 기존 희귀 예산과 Canon mystery, M035 naming/SeedDeriver는 유지한다.
 
-1,000seed:오류·invariant·재생 mismatch0;현재6/7/8개=340/333/327,역사정치체9..24,
-깊이1..11. Observer/Core없는 역사861,Observer38,Core103,궤도폭격11,유적재사용414.
-[상세 모델/제약](../specs/history_generator.md), [통계](../reviews/history_v3/diversity.json),
-[10개 원문 출력](../reviews/history_v3/samples.md), [구조 비교](../reviews/2026-10-06-history-generator-v0_3.md).
-
-`codex/history-generator-v0.3`에서 완료, main미병합. v2명시 실행/48,463assertions은 보존했다.
-게임플레이·실시간 population/경제/전쟁/문화 시뮬레이션은 이후 범위다. 진단 JSON은 exporter
-출력이며 저장 게임이나 외부 snapshot입력 계약이 아니다.
+[모델·band·종료 조건](../specs/history_generator.md),
+[5000-seed 통계](../reviews/history_v3_fixup/diversity.json),
+[대표 역사 원문](../reviews/history_v3_fixup/samples.md),
+[후속 검토·검증 결과](../reviews/2026-10-06-history-generator-v0_3-fixup.md).
+M038 최초 review의6..8과 flat "multi-origin334"는 당시 구현 기록으로 남기고 후속 report에서 정정했다.
+`codex/history-generator-v0.3-fixup`은 main 미병합이다. 실제 NPC·경제·전쟁·지도·문화·save migration은 범위 밖이다.

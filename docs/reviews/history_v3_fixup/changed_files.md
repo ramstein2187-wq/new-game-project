@@ -1,0 +1,52 @@
+# M039 intended changed-file inventory
+
+Generated from the fixup checkout before staging. EverRogue sidecars and unrelated local files are excluded.
+
+- `content/population/origins.json`
+- `content/population/social_templates.json`
+- `docs/diagrams/history_generator.svg`
+- `docs/diagrams/monster_taxonomy.svg`
+- `docs/lore/history_generation_contract.md`
+- `docs/lore/world_canon_v0_1.md`
+- `docs/MILESTONES.md`
+- `docs/milestones/M039_history_contract_alignment.md`
+- `docs/reviews/2026-10-06-history-generator-v0_3-fixup.md`
+- `docs/reviews/history_v3_fixup/changed_files.md`
+- `docs/reviews/history_v3_fixup/diversity.json`
+- `docs/reviews/history_v3_fixup/fixture_samples.json`
+- `docs/reviews/history_v3_fixup/fixture_samples.md`
+- `docs/reviews/history_v3_fixup/fixture_statistics.json`
+- `docs/reviews/history_v3_fixup/inspection.md`
+- `docs/reviews/history_v3_fixup/samples.json`
+- `docs/reviews/history_v3_fixup/samples.md`
+- `docs/ROADMAP.md`
+- `docs/specs/history_generator.md`
+- `docs/specs/monster_taxonomy.md`
+- `docs/wiki/history_generator.md`
+- `game/history/canon_policy.gd`
+- `game/history/historical_entity.gd`
+- `game/history/history_claim_builder.gd`
+- `game/history/history_debug_formatter.gd`
+- `game/history/history_generator.gd`
+- `game/history/history_motifs.gd`
+- `game/history/history_projector.gd`
+- `game/history/history_result.gd`
+- `game/history/history_state.gd`
+- `game/history/history_topology.gd`
+- `game/history/history_validator.gd`
+- `game/history/origin_catalog.gd`
+- `game/history/origin_catalog.gd.uid`
+- `game/history/population_origins.gd`
+- `game/history/population_origins.gd.uid`
+- `game/history/social_population_catalog.gd`
+- `game/history/social_population_catalog.gd.uid`
+- `tests/fixtures/social_population_templates.json`
+- `tests/test_history_topology.gd`
+- `tests/test_population_origins.gd`
+- `tests/test_population_origins.gd.uid`
+- `tools/analyze_history.gd`
+- `tools/history_statistics.gd`
+- `tools/history_topology_statistics.gd`
+- `tools/preview_population_fixture.gd`
+- `tools/preview_population_fixture.gd.uid`
+- `tools/sync_notion_knowledge.py`

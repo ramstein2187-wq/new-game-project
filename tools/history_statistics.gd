@@ -85,7 +85,7 @@ func to_dict() -> Dictionary:
 	var rates := {}
 	for key in frequencies:
 		rates[key] = {"count": frequencies[key], "percent": 100.0 * frequencies[key] / maxi(1, count)}
-	return {"generation_version": generation_version, "architecture_version": HistoryGenerator.ARCHITECTURE_VERSION,
+	return {"generation_version": generation_version, "architecture_version": HistoryGenerator.architecture_version_for_generation(generation_version),
 		"sample_count": count, "seed_range": [1, count], "distributions": distributions.duplicate(true),
 		"frequencies": rates, "unique_structural_signatures": structural_signatures.size(),
 		"unique_configuration_recipes": recipes.size(), "unique_event_type_topologies": event_topologies.size(),

@@ -28,7 +28,7 @@ func _stress() -> void:
 		stats.add(result, replay)
 		expect(result.validation_report.errors.is_empty(), "Seed %d: %s" % [seed, result.validation_report.errors])
 		expect(result.canonical_output() == replay.canonical_output(), "Exact deterministic canonical replay")
-		expect(result.present.active_factions.size() in [6, 7, 8], "6..8 historical outcomes")
+		expect(result.present.active_factions.size() in [4, 5, 6, 7, 8], "4..8 historical outcomes")
 		expect(HistoryProjector.new().project(result.entities, result.objective_timeline).to_dict() == result.present.to_dict(), "Projection replays objective effects")
 		var parsed: Dictionary = JSON.parse_string(result.canonical_output())
 		expect(_json_equivalent(parsed.present, result.present.to_dict()), "JSON round trip preserves multi-origin populations, graphs and provenance")
@@ -42,7 +42,7 @@ func _stress() -> void:
 				elif effect.kind == "retire":
 					active.erase(effect.entity_id)
 				elif effect.kind == "population":
-					expect(effect.origin_ids.all(func(origin: Variant) -> bool: return origin in HistoryMotifs.ORIGINS), "Closed six-Origin vocabulary")
+					expect(PopulationOrigins.errors(effect.profile).is_empty(), "Closed six-Origin vocabulary")
 			if event.narrative_key in ["political_split", "political_merge", "political_reorganization", "population_migration", "population_join", "newcomer_entry", "political_extinction", "site_reuse"] and not examples.has(event.narrative_key):
 				examples[event.narrative_key] = [seed, event.id]
 		for entity in result.entities:
@@ -58,9 +58,14 @@ func _stress() -> void:
 		if result.configuration.topology_family == "no_direct_heir":
 			expect(result.present.active_factions.all(func(row: Dictionary) -> bool: return not row.political_continuity), "All old offices are extinct, populations may survive")
 	var report: Dictionary = stats.to_dict()
+	print("Topology corpus: %d/1000 unique political graphs; counts %s" % [report.unique_political_graphs, JSON.stringify(report.distributions.active_factions)])
 	expect(stats.invalid_seeds.is_empty() and stats.deterministic_mismatches.is_empty(), "1000 seeds zero invariant/determinism failures")
 	expect(report.distributions.topology_family.size() == 7, "Seven families observed")
-	expect(report.unique_political_graphs > 100, "Actual graph diversity excludes names, prose, dates, relations and populations")
+	expect(report.distributions.active_factions.size() == 5, "Counts 4/5/6/7/8 actually generated")
+	expect(not generator.generate(42).configuration.has("target_factions"), "No exact count input exists")
+	for current in ["4", "5"]:
+		expect(report.unique_graphs_by_current_count[current] > 10, "Small-current histories have diverse graphs")
+	expect(report.unique_political_graphs >= 990, "Political graphs remain diverse after exact-target removal")
 	for family in report.unique_graphs_by_family:
 		expect(report.unique_graphs_by_family[family] > 10, "Variation within every family")
 	for axis in ["historical_factions", "ancestry_depth", "split_count", "merge_count", "migration_count", "newcomer_count", "extinction_count"]:
@@ -126,7 +131,7 @@ func _negative() -> void:
 	e = _event(r, examples.political_merge[1])
 	for effect in e.effects:
 		if effect.kind == "population":
-			effect.origin_ids = ["Composite"]
+			effect.profile.strata[0].origins = ["composite"]
 			break
 	_reject(r, "invented Composite Origin")
 	r = _case("population_migration")
@@ -143,7 +148,7 @@ func _negative() -> void:
 	e = _event(r, examples.political_reorganization[1])
 	for effect in e.effects:
 		if effect.kind == "population":
-			effect.origin_ids = ["Outerworld"]
+			effect.profile.strata[0].origins = ["outerworld"]
 	_reject(r, "unexplained inherited profile change")
 	r = _case("site_reuse")
 	e = _event(r, examples.site_reuse[1])
@@ -178,13 +183,15 @@ func _negative() -> void:
 	_reject(r, "missing precursor population before projection")
 
 func _semantics() -> void:
+	var populations := SocialPopulationCatalog.new(JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/social_population_templates.json")))
+	var fixture_generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3, populations)
 	var found_flip := false
 	var found_merge_donors := false
 	var found_subset := false
 	var found_join := false
 	var found_retained := false
 	for seed in range(1, 101):
-		var r := generator.generate(seed)
+		var r := fixture_generator.generate(seed)
 		for event in r.objective_timeline:
 			for effect in event.effects:
 				if effect.kind == "population":
@@ -207,32 +214,11 @@ func _semantics() -> void:
 	expect(found_flip, "Past dispute and cooperative current score coexist without narrative reversal")
 	expect(found_merge_donors, "Political merge does not automatically mix all parent populations")
 	expect(found_subset and found_join and found_retained, "Subset inheritance, arrivals joining residents and retained split parents occur")
-	# Vocabulary is valid independently of generation's restrained lore defaults.
-	expect(HistoryValidator.new()._profile_errors(HistoryMotifs.ORIGINS).is_empty(), "All six Origins supported as a multi-origin profile")
-	expect(not HistoryValidator.new()._profile_errors(["Planetary", "Planetary"]).is_empty(), "Duplicate Origins rejected")
 	var r := generator.generate(42)
 	var before := r.canonical_output()
 	var text := HistoryDebugFormatter.new().format(r)
 	expect("HISTORICAL POLITIES" in text and "POPULATION PROVENANCE" in text and "reference_scope=present" in text, "Readable renderer exposes canonical graph and scopes")
 	expect(before == r.canonical_output(), "Rendering is read-only")
-	# A synthetic allowed-vocabulary fixture exercises all six categories through
-	# effects, projection, diagnostic serialization and rendering. It is not a
-	# change to default lore generation or a living Observer civilization.
-	var enclave := r.entity("f_00")
-	enclave.population_origin_profile.assign(HistoryMotifs.ORIGINS)
-	for effect in _event(r, enclave.created_event_id).effects:
-		if effect.kind == "population":
-			effect.origin_ids = HistoryMotifs.ORIGINS.duplicate()
-			effect.source_ids = []
-			effect.mode = "seed"
-	r.present = HistoryProjector.new().project(r.entities, r.objective_timeline)
-	r.historical_claims = HistoryClaimBuilder.new().build(r)
-	r.validation_report = HistoryValidator.new().validate(r)
-	expect(r.validation_report.errors.is_empty(), "Six-Origin fixture remains valid canonical data")
-	var parsed: Dictionary = JSON.parse_string(r.canonical_output())
-	expect(_json_equivalent(parsed.present, r.present.to_dict()), "All six Origins survive serialized projection")
-	text = HistoryDebugFormatter.new().format(r)
-	expect(", ".join(HistoryMotifs.ORIGINS) in text, "Renderer preserves six-Origin set without Composite")
 
 func _boundaries() -> void:
 	var r := generator.generate(42)
