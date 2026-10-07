@@ -10,6 +10,8 @@ const INTERPRETATION_MODES := ["pragmatic", "skeptical", "technical", "ritual"]
 const MEMORY_FRAMES := ["continuity", "rupture", "grievance", "debt", "warning", "opportunity"]
 
 func resolve(result: HistoryResult, faction_id: String) -> Dictionary:
+	if result.generation_version == 4:
+		return resolve_v4(result,faction_id,HistoryV4Compatibility.legacy_view(result))
 	var entity := result.entity(faction_id)
 	assert(entity != null and entity.kind == "faction", "Identity requires a faction")
 	assert(result.generation_version == 3, "Identity layer is defined for history v3")
@@ -61,7 +63,17 @@ func resolve(result: HistoryResult, faction_id: String) -> Dictionary:
 		"source_facts": source_facts,
 	}
 
+# A per-query decoded view may be shared when reading several factions. No cache
+# of generated/resolved identity is retained across calls or worlds.
+func resolve_v4(result:HistoryResult,faction_id:String,view:HistoryResult)->Dictionary:
+	var profile:Dictionary=HistoryV4Compatibility.translate_ids(resolve(view,faction_id))
+	var modes := ["pragmatic","skeptical","technical","faith"]
+	profile.interpretation_mode=modes[HistoryV4Catalog.rng(result.seed,"identity/mode/"+faction_id).randi_range(0,3)]
+	return profile
+
 func errors(result: HistoryResult, faction_id: String, profile: Dictionary) -> Array[String]:
+	if result.generation_version == 4:
+		return errors(HistoryV4Compatibility.legacy_view(result), faction_id, HistoryV4Compatibility.translate_ids(profile, true))
 	var issues: Array[String] = []
 	var expected_keys := ["adaptive_stance", "continuity_stance", "interpretation_mode", "memory_frame", "social_anchor", "source_event_ids", "source_facts"]
 	var keys := profile.keys()

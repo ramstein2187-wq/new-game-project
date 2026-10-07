@@ -14,12 +14,36 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 	var profiles := {}
 	var events := {}
 	var social := {}
+	var projects := {}
+	var facilities := {}
 	for entity in entities:
 		definitions[entity.id] = entity
 	for event in timeline:
 		events[event.id] = event
 		for effect in event.effects:
 			match effect.kind:
+				"history_record":
+					var record := effect.duplicate(true)
+					record.erase("kind")
+					record.merge({"year": event.year, "source_event_ids": [event.id]})
+					state.history_records.append(record)
+					if effect.record_type == "project":
+						var project_key: String = effect.reference_id
+						if not projects.has(project_key):
+							projects[project_key] = {"id": project_key, "archetype": effect.record_id, "participant_id": effect.entity_id,
+								"status": "in_progress", "start_year": effect.data.start_year, "end_year": event.year, "phase_event_ids": [], "source_event_ids": []}
+						projects[project_key].status = effect.data.status
+						projects[project_key].end_year = event.year
+						projects[project_key].phase_event_ids.append(event.id)
+						projects[project_key].source_event_ids.append(event.id)
+					elif effect.record_type == "scar":
+						state.civilizational_scars.append(record)
+					elif effect.record_type == "site":
+						var facility_key: String = effect.reference_id
+						if not facilities.has(facility_key):
+							facilities[facility_key] = {"id": facility_key, "project_id": effect.project_id, "observations": [], "source_event_ids": []}
+						facilities[facility_key].observations.append({"record_id": effect.record_id, "year": event.year, "data": effect.data.duplicate(true)})
+						facilities[facility_key].source_event_ids.append(event.id)
 				"social_record":
 					var row := effect.duplicate(true)
 					row.erase("kind")
@@ -124,6 +148,10 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 		state.system_traces.append(traces[key])
 	for key: String in _keys(social):
 		state.social_facts.append(social[key])
+	for key: String in _keys(projects):
+		state.civilizational_projects.append(projects[key])
+	for key: String in _keys(facilities):
+		state.historical_facilities.append(facilities[key])
 	return state
 
 func _collect_ancestors(id: String, definitions: Dictionary, found: Array[String]) -> void:

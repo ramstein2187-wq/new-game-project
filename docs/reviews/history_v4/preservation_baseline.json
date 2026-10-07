@@ -1,0 +1,112 @@
+{
+  "source": "C:\\GameDev\\history-social-incidents-v1",
+  "main": "10f6f31cd39f165a7e04c658921056089eb794ef",
+  "base": "8cb6f3dfc3735e648f561bb5eaa37a52228ceaf2",
+  "files": [
+    {
+      "path": "content/culture/faction_culture_v1.json",
+      "sha256": "41F0EC960B9CFCBC0E8C37B08DF8AF8F8A59DA5279A3839FFF4C492B49D9BE13",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "content/history/social_incidents_v1.json",
+      "sha256": "2073883FACAE16BDEAB98AB0E91686398B89D86F4CA5B53AE23BD933A8428D4B",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "docs/lore/history_generation_contract.md",
+      "sha256": "BD7D78767964F9F5C3485DF3969752D672468B5A91DC4090BFC2FB8293329724",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "docs/lore/world_canon_v0_1.md",
+      "sha256": "138F230144CD05C2C320705BEB123521C8C5972465938877BC23BE842F36C3A8",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "docs/specs/faction_culture.md",
+      "sha256": "1ED726E73C129CF31E9DD3C1AA2FDE4FC341711DE915A2D126B0158F635C95B0",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "docs/specs/history_generator.md",
+      "sha256": "E93DCD5F5D40A9870FD20AAC282B5DDC8B13469BB530A162ABCE3C948D06AE69",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "docs/specs/social_historical_incidents.md",
+      "sha256": "491937D962C3DE61CA48A46CC22A173A2381B66224150CA0CE873A087888315D",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "game/history/canon_policy.gd",
+      "sha256": "09E03E98059A5B4959400D1557DF82716E647821EE23406B067D807DDBAC7865",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "game/history/history_motifs.gd",
+      "sha256": "458EFBF0C274D2F5B572C3AE433B732264C5655D497888DCBE58045BA141F8BC",
+      "category": "intentional_terminology"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal Alpha.png.import",
+      "sha256": "8FAD5B5CE26B45DA775D41FD744575CF44F2E961A2FBE2769FDCEB975033C9B5",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal.png.import",
+      "sha256": "00DCCC16598CC9C80E6660414AE43417978F8325DAFBF77E0CE16E1E377A7484",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed Alpha.png.import",
+      "sha256": "6C68881EDDB0A990E8ED5090C40BEF5AB988B0CAD642F6FD63D9CE3A1BC0C7B7",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed.png.import",
+      "sha256": "B904AB6E65AE1A5076AFC689D501E804C3FB982E940E533193F5C2CE92550B1A",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical Alpha.png.import",
+      "sha256": "1B10E89E5AE679120248EB9406F36AD19A6AD93F20ECB4D4F94383C1D7A1B357",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical.png.import",
+      "sha256": "BCB771AAA3694CF2016167F2130FBA52DDEF2BEC066BED7E8064A5B782C44F53",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal Alpha.png.import",
+      "sha256": "3569CA83A22E04B6F5F62BD09EFF54B58CBF5061789D4444559765D5C5F5C59A",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal.png.import",
+      "sha256": "903AA6EFFC086818D006A1F33C8C8AFA02D4B00AD9C8C78A537FE577DA5438B2",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed Alpha.png.import",
+      "sha256": "8F4025936A99FD4B7F4599C292A286845435AEEC35E71B6588DA19824EA95964",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed.png.import",
+      "sha256": "899CA27D08F8DC3B742F87CB261AA1EAF426047E1348891BAB8733A7EE04EFB1",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical Alpha.png.import",
+      "sha256": "5585B42B9A537CF7C21CC169A0F89CC806652BAA14F4E3B8082EC9FCCB8949CE",
+      "category": "excluded_sidecar"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical.png.import",
+      "sha256": "ADAD850888DC61FC73B1E10B57A1A6ED8DECBFAA7F14C50011645AF5AAD15B60",
+      "category": "excluded_sidecar"
+    }
+  ]
+}

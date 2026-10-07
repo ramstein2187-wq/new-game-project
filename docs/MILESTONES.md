@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M043: **Complete on task branch; main not merged** `codex/history-generator-v4`, base M042 `8cb6f3d`; 5,000 canonical replays, 48 raw reviews, 6,952 focused assertions and full38-script gate PASS; [milestone](milestones/M043_history_generator_v4.md).
+
 - M042: **Complete on task branch; not merged main** `codex/history-social-incidents-v1`, exact base `ef18814f34abfa7ab278c0914ae289806b22dc12`. Objective social incidents, dependent cloning, gated contacts and moderate/hardline/fanatic norms. 5000 histories, 29 raw-source reviews, focused24,725 assertions and full37-script gate PASS; [milestone](milestones/M042_social_cultural_incidents.md), [delivery report](reviews/social_incidents_v1/delivery.md).
 
 - M041: **Complete on task branch; not merged main** on `codex/faction-culture-doctrines-v1`, exact M040 base `ae03d6d`. 20 Society Traits/33 Doctrines, evidence gates/intensity/provenance and semantic Actor/future goal queries; no objective mutation. Focused54,081 assertions, full36-script gate and1000 shipping histories PASS;26 distinct-history cases plus synthetic example reviewed. [Society Traits & Doctrines](milestones/M041_faction_culture_doctrines.md).

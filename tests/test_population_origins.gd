@@ -89,7 +89,7 @@ func _inheritance() -> void:
 		expect(PopulationOrigins.errors(child).is_empty() and _effect(child, {"a": mixed}, "subset", ["a"]).is_empty(), "Subset keeps complete donor strata and valid prevalence")
 
 func _generation() -> void:
-	var shipping := HistoryGenerator.new()
+	var shipping := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 	var fixtures := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3, catalog)
 	var observed := {}
 	var mixed := false

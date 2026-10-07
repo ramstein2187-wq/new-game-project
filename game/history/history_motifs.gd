@@ -26,6 +26,7 @@ const FORMATION_C := ["religious_community", "facility_community", "breakaway_cl
 const MIDDLE := ["route_reopening", "settlement_competition", "archive_accord"]
 const RECENT := ["border_dispute", "trade_reopening", "household_relocation", "local_alliance", "maintenance_accord"]
 const DISCOVERIES := ["impact_machine", "mineral_object", "manufactured_fragment", "erosion_seal", "stratum_fragment", "surface_wreckage"]
+# Legacy serialized value "ritual" remains accepted in history-v3; player-facing terminology is Faith / 신앙.
 const BELIEFS := ["pragmatic", "skeptical", "technical", "ritual"]
 const ANCESTRY_MODES := ["central_remnants", "mixed_provincial", "provincial_refugees"]
 const PRESSURE_RUINS := {
@@ -54,6 +55,16 @@ const SYSTEMS := {
 	"core_shutdown": ["deep_core", "infrastructure_shutdown", "old_service_infrastructure"],
 	"core_slope_failure": ["deep_core", "induced_slope_failure", "existing_slope_stress_and_fluid_pressure"],
 	"core_fault_release": ["deep_core", "existing_fault_stress_release", "existing_fault_stress_and_fluid_pressure"],
+}
+# Canonical display/lore vocabulary. Legacy serialized IDs above remain frozen until a schema migration.
+const SYSTEM_DISPLAY_TERMINOLOGY := {
+	"core_intervention": "Preservator / Planetary Regulation Network activity",
+	"deep_core": "Planetary Regulation Network",
+	"environmental_infrastructure": "Environmental Regulation Module",
+	"ritual": "Faith",
+	"ritual_authority": "Faith Authority",
+	"ritual_schism": "Faith Schism",
+	"ritual_site": "Faith Site",
 }
 # [event type, narrative, objective domain]. No unbounded physical claims.
 const NARRATIVES := {

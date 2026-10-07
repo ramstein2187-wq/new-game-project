@@ -1,8 +1,8 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M041 foundation / M042 social incidents — task branch, main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-social-incidents-v1/docs/specs/faction_culture.md"
+milestones = "M041 foundation / M042 social incidents / M043 canonical v4 Project and Scar evidence — task branch, main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v4/docs/specs/faction_culture.md"
 icon = "🏘️"
 +++
 # 세력 사회 특성과 교리
@@ -55,3 +55,12 @@ target acquisition이나 실제 전쟁·이주·연구·경제·영토·quest·A
 [raw 사례](../reviews/social_incidents_v1/samples.md).
 branch는 main 미병합이며 player knowledge/실제 정책·simulation 통합,
 GUI/play/package/언어·balance/live Notion 검증은 별도 경계다.
+
+## M043: v4 문화 근거
+
+generation4는 canonical 신앙·종교·성소 용어와 Project/Scar의 실제 사건 근거를
+사용한다. 한 Failed Exodus를 떠나지 말아야 할 경고 또는 재도전 욕망으로 해석할
+수 있다. 그 해석은 왜 궤도 시설이 작동했는지나 의식이 살아남았는지를 결정하지
+않는다. 지역 기록 접근과 개인의 생물학적 경험·혈통도 구분한다.
+기존 conjunction gate는 유지하며, 허가된 종·lineage·회귀 population이 없으면
+관련 content는 계속 잠긴다. [인계 보고](../reviews/history_v4/delivery.md).

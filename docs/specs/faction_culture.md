@@ -57,7 +57,7 @@ read Claim prose, names, locale or anonymous artifact Origin guesses.
 Political merge does not imply lineage plurality. Different approved resident
 templates/lineage records can establish plurality; cloning does not. Actual Deep
 residence/loss establishes return eligibility without changing human Origin.
-Generic Core tunnel closure cannot establish residence, machine presence cannot
+Generic Preservator/Planetary Regulation Network tunnel closure cannot establish residence, machine presence cannot
 establish cooperation, Observer malfunction cannot establish machine war, modified
 human lifestyle cannot establish local biotech, and migration cannot establish a
 lost identifiable home. Ordinary reproduction cannot establish heredity design.
@@ -91,7 +91,7 @@ culture selection but cannot alter topology/names/objective history.
 Adaptive Customs is the renamed Society Trait for flexible everyday practices.
 Doctrine Practical Heresy retains its normative meaning. Truth Through Trial now
 requires research reuse or recorded testing; facility/technical lifestyle is only
-a preference. Ritual interpretation can still select it. Hazard Memory combines
+a preference. Faith-based interpretation (legacy serialized ID `ritual`) can still select it. Hazard Memory combines
 regional pressure with warning memory, relevant shelter/border role or actual
 local hazard response. Local Mandate combines owned settlement with locality
 anchor, village/commune organization or actual rotating offices.
@@ -181,3 +181,25 @@ are separate from structural tests. [Statistics](../reviews/social_incidents_v1/
 [samples](../reviews/social_incidents_v1/samples.md), [work log](../reviews/social_incidents_v1/WORK_LOG.md).
 Run full `bash tools/check_godot.sh`; GUI/play/package/balance/literary quality and
 live Notion acceptance remain outside automated validation.
+
+## M043 v4 evidence and canonical terminology
+
+Generation4/architecture2 is supported by the same read-only culture query.
+Historical generation3 retains its catalog and exact history output. v4 uses
+`faction_culture_v4.json`; abstract ritual axes become faith, ritual_authority
+becomes religious_authority, ritual_site becomes sacred_site and
+ritual_stewardship becomes sacred_stewardship. Actual rites remain rites.
+
+Project/Scar/capability/institution/population observations produce factual hooks
+with actual source events. Records outside a current faction's participation are
+labelled regional. Custody supports access to old records, not a claim of biological
+descent. Existing Closed Sky/Skyward Hunger-like, Ancestral Genome, Pure Flesh,
+Designed Kinship, Last Human Measure, Bounded Automation and Machine Revelation
+definitions gain appropriate support/preferences without a massive new catalog.
+Any existing conjunction gate is preserved; new preferences do not open it.
+
+The same Failed Exodus can support caution against departures or renewed desire
+to leave; Claims make these opposing normative interpretations explicit. Neither
+Claim chooses why orbital hardware acted. Cognitive execution can support conflicting
+personhood beliefs while consciousness survival stays unknown. Culture extraction
+reads records and canonical identity axes, never Claim prose or names.

@@ -3,7 +3,7 @@ extends SceneTree
 const Fixtures = preload("res://tests/fixtures/culture_fixtures.gd")
 var catalog := FactionCultureCatalog.new()
 var resolver := FactionCultureResolver.new(catalog)
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 var selected_samples: Array[Dictionary] = []
 var sample_seeds := {}
 var sample_categories := {}

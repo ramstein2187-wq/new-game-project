@@ -1,8 +1,8 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 derived culture / M042 objective social incidents — main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-social-incidents-v1/docs/specs/history_generator.md"
+milestones = "M036–M042 historical foundation / M043 civilizational Projects and Scars — task branch; main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v4/docs/specs/history_generator.md"
 icon = "📜"
 +++
 # 최근 역사: 정치 계보와 population의 기원
@@ -78,3 +78,19 @@ Cultures decide what it means. Simulation decides what happens next.
 
 [M042 사회사 계약](../specs/social_historical_incidents.md),
 [새 문화 계약](../specs/faction_culture.md), [5000 corpus](../reviews/social_incidents_v1/statistics.json).
+
+## M043: 문명 프로젝트와 상흔
+
+현재 task branch의 기본 생성기는 **generation4 / architecture2**다. 명시적
+v2/v3 재현 경로는 유지한다. 9종 장기 Project는 성공·부분 성공·중단·미상·재난
+결과를 갖고, 최대2개 major Scar와 구분된다. 정치사·생활사 사이에 발사 거부,
+마지막 심부 탐사, Far-Sky 신호, 생리·생식 실패, 기계/신체/정체성 사건이
+실제 사건·인구 기록·시설·후대 관리·문화 근거를 남긴다.
+
+v4 canonical vocabulary는 The Preservator / Planetary Regulation Network /
+Environmental Regulation Module과 Faith / Religious / Sacred다. 기존 Core와
+추상 ritual ID는 과거 직렬화 호환 경로에 남는다. unknown은 미해결 답으로
+유지하며 신호 기원·의식 생존·동일인·개입 의도를 코드가 확정하지 않는다.
+
+[M043 범위·검증·인계](../milestones/M043_history_generator_v4.md),
+[세계 단위 노출 통계](../reviews/history_v4/statistics.json). main에는 미병합이다.

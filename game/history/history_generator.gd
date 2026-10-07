@@ -1,12 +1,12 @@
 class_name HistoryGenerator
 extends RefCounted
 
-const VERSION := 3
+const VERSION := 4
 const ARCHITECTURE_VERSION_V2 := 1
 const ARCHITECTURE_VERSION_V3 := 2
 
 static func architecture_version_for_generation(version: int) -> int:
-	return ARCHITECTURE_VERSION_V2 if version == 2 else ARCHITECTURE_VERSION_V3 if version == 3 else -1
+	return ARCHITECTURE_VERSION_V2 if version == 2 else ARCHITECTURE_VERSION_V3 if version in [3, 4] else -1
 var _names: HistoryNameSource
 var _discovery_pool: Array
 var _version: int
@@ -21,6 +21,11 @@ func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotif
 	_incidents = incidents if incidents != null else SocialIncidentCatalog.new()
 
 func generate(seed: int) -> HistoryResult:
+	if _version == 4:
+		return HistoryV4Planner.new().generate(seed, self)
+	return _generate_scaffold(seed)
+
+func _generate_scaffold(seed: int) -> HistoryResult:
 	var result := HistoryResult.new()
 	result.seed = seed
 	result.generation_version = _version
@@ -36,6 +41,8 @@ func generate(seed: int) -> HistoryResult:
 		SocialIncidentPlanner.new(_incidents).build(result, self)
 		_later_history_v3(result)
 	result.objective_timeline.sort_custom(func(a: HistoricalEvent, b: HistoricalEvent) -> bool: return a.year < b.year or (a.year == b.year and a.id < b.id))
+	if _version == 4:
+		return result
 	var used := {}
 	var definitions := result.entities.duplicate()
 	definitions.sort_custom(func(a: HistoricalEntity, b: HistoricalEntity) -> bool:
@@ -73,7 +80,7 @@ func _configuration(seed: int) -> Dictionary:
 		config.extra_core = _pick(seed, "legacy/core/motif", HistoryMotifs.PRESSURES.core_intervention)
 	if domain != "observer_legacy" and _rng(seed, "legacy/orbital/budget").randi_range(0, 999) < 20:
 		config.extra_orbital = _pick(seed, "legacy/orbital/motif", HistoryMotifs.PRESSURES.observer_legacy)
-	if _version == 3:
+	if _version in [3, 4]:
 		for field in ["successor_a_form", "successor_b_form", "faction_c_formation", "ancestry_mode", "middle_motif", "recent_motif", "belief_profile"]:
 			config.erase(field)
 		config.content_revision = HistoryMotifs.CONTENT_REVISION_V3
@@ -81,6 +88,13 @@ func _configuration(seed: int) -> Dictionary:
 		config.population_catalog_id = _populations.id
 		config.social_content_id = _incidents.content_id
 		config.social_revision = _incidents.revision
+	if _version == 4:
+		# The conservative regional scaffold also uses compatibility, rather than
+		# retaining the independent v3 response/collapse draws in v4.
+		var safe_responses: Array = ["regional_autonomy", "maintenance_secession", "household_council"] if domain in ["natural", "core_intervention", "observer_legacy"] else HistoryMotifs.RESPONSES
+		config.response_motif = safe_responses[HistoryV4Catalog.rng(seed,"regional/response").randi_range(0,safe_responses.size()-1)]
+		var safe_collapses: Array = ["civil_war","office_fragmentation"] if config.response_motif == "ritual_schism" else ["evacuation","office_fragmentation"] if domain != "human" else HistoryMotifs.COLLAPSES
+		config.collapse_pattern = safe_collapses[HistoryV4Catalog.rng(seed,"regional/collapse").randi_range(0,safe_collapses.size()-1)]
 	return config
 
 func _local_collapse(result: HistoryResult) -> Dictionary:
@@ -90,7 +104,7 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 	precursor.political_form = c.precursor_form
 	var found_year := _year(result.seed, "found", -560, -480)
 	var founding: Array[Dictionary] = [_activate("region"), _activate("precursor")]
-	if _version == 3:
+	if _version in [3, 4]:
 		precursor.formation_origin = "founding"
 		precursor.ancestry_kind = "root"
 		precursor.political_continuity = true
@@ -125,7 +139,7 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 	if result.entity("pressure_group") != null:
 		effects.append(_retire("pressure_group"))
 	actors.append("province")
-	if _version == 3:
+	if _version in [3, 4]:
 		effects.append(_population_fate("precursor", [], ["human_baseline"]))
 	_emit(result, "h_collapse", collapse_year, "collapse", actors, ["h_failure", "h_pressure"], effects)
 	return {"collapse_year": collapse_year}
@@ -278,7 +292,7 @@ func _retire(id: String) -> Dictionary:
 
 func _ruin(id: String, kind: String) -> Dictionary:
 	var effect := {"kind": "ruin", "id": id, "ruin_kind": kind, "location_id": "region"}
-	if _version == 3:
+	if _version in [3, 4]:
 		effect.merge(HistorySites.description(kind))
 	return effect
 

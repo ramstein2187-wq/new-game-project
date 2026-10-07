@@ -19,7 +19,15 @@ func format(result: HistoryResult) -> String:
 		lines.append(("  actors: %s | causes: %s" % [", ".join(names), ", ".join(event.cause_event_ids)]).strip_edges(false, true))
 		lines.append("  effects: " + JSON.stringify(event.effects))
 	lines.append("=== PRESENT ===")
-	if result.generation_version == 3:
+	if result.generation_version == 4:
+		lines.append("=== CIVILIZATIONAL PROJECTS / SCARS ===")
+		for row in result.present.civilizational_projects:
+			lines.append("Project: " + JSON.stringify(row))
+		for row in result.present.civilizational_scars:
+			lines.append("Scar: " + JSON.stringify(row))
+		for row in result.present.historical_facilities:
+			lines.append("Facility: " + JSON.stringify(row))
+	if result.generation_version in [3,4]:
 		lines.append("=== HISTORICAL POLITIES (including extinct) ===")
 		for row in result.present.historical_factions:
 			lines.append("%s: %s | %s..%s | %s | parents=%s | formation=%s | ancestry=%s | institutional_heir=%s | founding_origins=%s | last_origins=%s" % [
@@ -44,7 +52,7 @@ func format(result: HistoryResult) -> String:
 	var identity_resolver := FactionIdentityResolver.new()
 	for faction in result.present.active_factions:
 		lines.append("Faction %s: %s | %s | knowledge=%s" % [faction.id, faction.name, faction.way_of_life, ", ".join(faction.knowledge_tags)])
-		if result.generation_version == 3:
+		if result.generation_version in [3,4]:
 			lines.append("  origins=%s | formation=%s | regional_roles=%s" % [PopulationOrigins.format(faction.population_origin_profile), faction.formation_origin, ", ".join(faction.regional_roles)])
 			var identity: Dictionary = identity_resolver.resolve(result, faction.id)
 			lines.append("  identity=%s/%s/%s | interpretation=%s/%s | sources=%s" % [
@@ -63,7 +71,7 @@ func format(result: HistoryResult) -> String:
 		lines.append("Settlement %s: %s | owner=%s | region=%s | sources=%s" % [site.id, site.name, site.owner_id, site.location_id, ", ".join(site.source_event_ids)])
 	for ruin in result.present.ruins:
 		lines.append("Ruin %s: %s | occupant=%s | region=%s | sources=%s" % [ruin.id, ruin.ruin_kind, ruin.occupant_id, ruin.location_id, ", ".join(ruin.source_event_ids)])
-		if result.generation_version == 3:
+		if result.generation_version in [3,4]:
 			lines.append("  site_type=%s | hazard=%s | recorded_use=%s" % [ruin.site_type, ruin.hazard, ruin.reuse_purpose])
 	for discovery in result.present.discoveries:
 		lines.append("Discovery %s: %s | origin=%s | sources=%s" % [discovery.id, discovery.observation, discovery.origin, ", ".join(discovery.source_event_ids)])
@@ -75,7 +83,7 @@ func format(result: HistoryResult) -> String:
 		for claim in result.historical_claims:
 			if claim.claimant_entity_id == faction.id:
 				lines.append("  [%s; confidence %.2f; %s] %s" % [claim.referenced_event_id if not claim.referenced_event_id.is_empty() else claim.topic, claim.confidence, claim.claim_type, claim.interpretation])
-				if result.generation_version == 3:
+				if result.generation_version in [3,4]:
 					lines.append("    reference_scope=%s | evidence=%s" % [claim.reference_scope, JSON.stringify(claim.evidence)])
 	lines.append("=== VALIDATION ===")
 	lines.append("Errors: " + JSON.stringify(result.validation_report.errors))

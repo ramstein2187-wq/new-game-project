@@ -343,9 +343,9 @@
     },
     {
       "id": "ritual_stewardship",
-      "display_name": "Ritual Stewardship",
+      "display_name": "Faith Stewardship",
       "category": "memory",
-      "explanation": "An actual religious/ritual livelihood or recorded ritual-site reuse supports communal stewardship of rites.",
+      "explanation": "An actual faith community, religious livelihood, or recorded sacred-site reuse supports communal stewardship of belief and religious practice.",
       "requires_all": [],
       "requires_any": [
         "life:ritual_authority",
@@ -1190,7 +1190,7 @@
       "id": "living_archive",
       "display_name": "Living Archive",
       "category": "art",
-      "explanation": "Actual ritual stewardship or archive responsibility can recognize performance and oral memory as historical authority alongside records. It does not assert a particular invented song.",
+      "explanation": "Actual faith stewardship or archive responsibility can recognize performance and oral memory as historical authority alongside records. It does not assert a particular invented song.",
       "requires_all": [],
       "requires_any": [
         "life:ritual_authority",
@@ -1332,7 +1332,7 @@
       "id": "machine_revelation",
       "display_name": "Machine Revelation",
       "category": "machine",
-      "explanation": "Recorded ancient infrastructure behavior may carry meaning or guidance. This is a normative interpretation, never a claim to know Core intention.",
+      "explanation": "Recorded behavior of surviving Preservator-era infrastructure may carry meaning or guidance. This is a normative interpretation, never a claim to know the Preservator's present intention or whether surviving modules share one coordinating will.",
       "requires_all": [],
       "requires_any": [
         "scar:core_quarantine",
@@ -1554,7 +1554,7 @@
       "id": "new_ecology",
       "display_name": "New Ecology",
       "category": "environment",
-      "explanation": "Recorded environmental infrastructure changes may be accepted as a new ecological condition; acceptance is a norm, not knowledge of Core purpose.",
+      "explanation": "Recorded Environmental Regulation Module changes may be accepted as a new ecological condition; acceptance is a norm, not knowledge of the Preservator's purpose.",
       "requires_all": [
         "scar:environmental_change"
       ],
@@ -1791,7 +1791,7 @@
       "id": "pure_flesh",
       "display_name": "Pure Flesh",
       "category": "machine",
-      "explanation": "Human life should distance itself from machine integration or autonomous dependence. Requires a real authored anti-machine scar; Core barriers, isolation and sky debris do not qualify.",
+      "explanation": "Human life should distance itself from machine integration or autonomous dependence. Requires a real authored anti-machine scar; Preservator-era barriers, isolation and sky debris do not qualify.",
       "requires_all": [],
       "requires_any": [
         "scar:machine_war",
@@ -2007,7 +2007,7 @@
       "id": "return_to_deep",
       "display_name": "Return to the Deep",
       "category": "deep",
-      "explanation": "Recover lost Innerworld heritage only with actual local ancestry and recorded loss; Core-associated tunnels do not establish ancestry.",
+      "explanation": "Recover a lost Deep homeland only with actual recorded Deep residence and loss; Preservator-era tunnels or regulation infrastructure alone do not establish ancestry or residence.",
       "requires_all": [
         "history:deep_residence",
         "site:lost_deep_settlement"
@@ -2327,7 +2327,7 @@
       "id": "truth_through_trial",
       "display_name": "Truth Through Trial",
       "category": "knowledge",
-      "explanation": "Recorded research reuse or technical service may support experiment as a normative path to truth; ritual interpretation is compatible.",
+      "explanation": "Recorded research reuse or technical service may support experiment as a normative path to truth; faith-based interpretation is compatible.",
       "requires_all": [],
       "requires_any": [
         "reuse:research",

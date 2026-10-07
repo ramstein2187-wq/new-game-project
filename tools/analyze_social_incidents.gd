@@ -1,6 +1,6 @@
 extends SceneTree
 
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 var resolver := FactionCultureResolver.new()
 var catalog := SocialIncidentCatalog.new()
 var cultures := FactionCultureCatalog.new()

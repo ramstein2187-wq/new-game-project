@@ -3,19 +3,19 @@ status = "구현 완료"
 areas = ["코어", "월드 생성"]
 type = "알고리즘 / 데이터 모델"
 systems = "HistoryGenerator / HistoryTopology / FactionIdentityResolver / HistoryProjector / HistoryValidator"
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 culture / M042 social incidents — codex/history-social-incidents-v1; main 미병합"
-code_paths = ["game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "game/history/social_incident_planner.gd", "tools/analyze_social_incidents.gd", "tools/analyze_history.gd"]
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 culture / M042 social incidents / M043 civilizational history — codex/history-generator-v4; main 미병합"
+code_paths = ["game/history/history_v4_catalog.gd", "game/history/history_v4_compatibility.gd", "game/history/history_v4_planner.gd", "game/history/history_v4_validator.gd", "game/history/history_v4_claims.gd", "tools/analyze_history_v4.gd", "game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "game/history/social_incident_planner.gd", "tools/analyze_social_incidents.gd", "tools/analyze_history.gd"]
 diagram = "docs/diagrams/history_generator.svg"
 +++
-# History Generator v0.3 — topology and population contracts
+# History Generator v4 — civilizational projects, scars and population contracts
 
 ![Canonical history and separate claims](../diagrams/history_generator.svg)
 
 ## Version and scope
 
-History revision is now `history-v3-authored-4`; frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
+Current civilizational revision is `history-v4-authored-1`; the preserved structural/social revision is `history-v3-authored-4`. Frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
 
-Default generation **3 uses architecture2**; explicit generation **2 uses architecture1**.
+Default generation **4 uses architecture2**; explicit historical **3 uses architecture2** and **2 uses architecture1**.
 M039 corrects M038's exact6..8 planning, flattened Origin sets and implicit social content.
 It preserves seven families, the political DAG, transformations, lifecycle, donors,
 optional compatible reuse, event/present Claim evidence, M035 naming and rare budgets.
@@ -144,9 +144,9 @@ M040 adds a deliberately thin read-only lens between projected history and Claim
 formation, political continuity, lifestyle, regional role and recorded scars:
 
 - continuity stance: `heir/reformer/breakaway/new_foundation/outsider`
-- social anchor: `kin/locality/institution/craft/ritual/exchange/refuge`
+- social anchor: `kin/locality/institution/craft/ritual/exchange/refuge` — `ritual` is a legacy serialized ID; canonical/player-facing term is **Faith / 신앙**.
 - adaptive stance: `preserve/adapt/rebuild/exploit/withdraw`
-- interpretation mode: `pragmatic/skeptical/technical/ritual`
+- interpretation mode: `pragmatic/skeptical/technical/ritual` — `ritual` is retained for replay compatibility; display/semantic term is **faith-based / 신앙적**.
 - memory frame: `continuity/rupture/grievance/debt/warning/opportunity`
 
 This is **not** another objective-history layer or culture simulator. The resolver is a pure
@@ -165,8 +165,8 @@ new lore facts.
 
 The Claim builder uses the profile only as a **wording lens**. The same objective pressure,
 discovery, relation or legacy event can be described pragmatically, skeptically, technically
-or ritually while retaining its event evidence and Canon limits. Positive/negative relation
-Claims still preserve the recorded delta; present Claims still use accumulated score. Core
+or through a faith-based interpretation while retaining its event evidence and Canon limits. Positive/negative relation
+Claims still preserve the recorded delta; present Claims still use accumulated score. Preservator-era
 purpose, Observer activation/target selection and discovery Origin remain unresolved.
 Identity means "how this faction frames itself"; interpretation means "how it habitually
 reads evidence"; an individual Claim remains the statement about one event/state.
@@ -213,7 +213,7 @@ the explicit mapping. No save migration or external snapshot ingestion is implem
 JSON diagnostic round-trip tests compare all values semantically (Godot decodes numeric
 values as floats). Runtime seed is64-bit; transport consumers must preserve integer precision.
 
-Rarity is unchanged: primary45% natural/45% human/8% Core/2% Observer; optional Core3%
+Rarity is unchanged: primary45% natural/45% human/8% Preservator/Planetary Regulation Network activity/2% Observer; optional Preservator-network3%
 and Observer2% if absent, maximum one event of each domain. Existing bounded physical
 mechanisms and unknown activation/intent/target reasons are preserved. No new civilization
 is introduced by a legacy machine consequence. Generic discovery remains optional60%.
@@ -250,3 +250,57 @@ names through a player-knowledge/world import boundary; claims must remain separ
 from truth. Actual nonhuman social content requires independent authored authorization
 before catalog registration. Headless evidence does not cover manual GUI/play/package
 acceptance or literary quality.
+
+## M043 — current default v4 / architecture2
+
+`HistoryGenerator.VERSION = 4`. Historical explicit2/1 and3/2 paths remain
+available. The preceding v3 paragraphs are historical specifications, not the
+current default. Canonical v4 vocabulary is defined at the migration boundary;
+the original user-authored Preservator lore changes are included.
+
+The common regional topology/population composer runs in generation4 namespaces.
+Its v4 response/collapse choices are constrained by domain compatibility. The
+canonical migration precedes new authored planning. No v2/v3 RNG namespace is
+modified. New project, outcome, cohort, pressure, response, collapse, discovery,
+identity interpretation and Claim choices use independent `history/v4` namespaces.
+Ordering a catalog differently does not change output. Discovery catalog changes
+do not alter topology, faction count, projects or naming.
+
+`content/history/history_v4.json` contains Project archetypes and ordered stages,
+alternative outcomes, prerequisite record IDs, bounded observations, capability
+gates and pressure→response→collapse compatibility. Planner code composes these
+rows rather than embedding each narrative as a giant conditional tree. Project
+dates span at least30 years before the regional collapse. Later custody connects
+surviving facilities/records to current institutions without inventing ancestry.
+
+The new objective effect is:
+
+```text
+history_record {record_type, record_id, entity_id, reference_id, project_id, data}
+```
+
+Data must exactly match the authored observation schema. Bounded substitutions
+are selection policy, actual liftoff, approved contact/target references and Ark
+remain subtype. Capabilities come from preceding authored research/construction
+events, not hypothetical flags. Every prerequisite cites an earlier event for the
+same participant. Facility/cohort groups are created by objective effects; they
+are not automatically political factions or new biological species.
+
+Replay produces `civilizational_projects`, `civilizational_scars`,
+`historical_facilities` and `history_records`, each with source events. Project
+status progresses through in_progress to an authored terminal outcome. Scar rows
+reference actual consequences and retain unresolved cause/identity fields.
+Construction and ongoing/abandoned/damaged facility states survive projection.
+
+World budgets are0/1/2 Projects and0–2 major Scars. Ordinary political history is
+still generated in every world. Rarity is measured at world exposure as well as
+event/faction exposure; the corpus report defines regional record exposure rather
+than presenting it as direct personal involvement. Imposed regression and distinct
+lineage persecution remain content/context-gated. No quest, construction gameplay,
+global-war simulation, player UI or metaphysical identity engine is introduced.
+
+Validation: `tests/test_history_v4.gd`; exact M042 fixture
+`tests/fixtures/history_m043_legacy.json`; final5000-world
+`tools/analyze_history_v4.gd`; [delivery and review](../reviews/history_v4/delivery.md).
+Readable CLI now defaults to v4; `--v2` and `--v3` retain historical previews.
+For reproducible corpus generation run the analysis tool with `-- 5000`.

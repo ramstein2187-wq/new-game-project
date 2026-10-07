@@ -30,7 +30,7 @@ func _shipping() -> void:
 	definitions.events.reverse()
 	definitions.families.reverse()
 	var reordered := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3, null, SocialIncidentCatalog.new(definitions))
-	var gen := HistoryGenerator.new()
+	var gen := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 	for seed in range(1, 501):
 		var result := gen.generate(seed)
 		expect(result.validation_report.errors.is_empty(), "Objective validity %d: %s" % [seed, result.validation_report.errors])
@@ -76,7 +76,7 @@ func _negative() -> void:
 	for key: String in ["clone_emancipation", "clone_integration", "clone_bottleneck", "clone_divergence", "clone_caste", "replacement_crisis", "emergency_reconstitution", "clone_settlement", "military_batch", "founder_replication", "bodily_adaptation_program", "lineage_preservation_program", "designed_descent_program", "deep_settlement_evacuation", "homeland_displacement", "machine_compact_renewal", "human_final_authority", "office_rotation_review"]:
 		if not examples.has(key):
 			continue
-		var result := HistoryGenerator.new().generate(int(examples[key]))
+		var result := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3).generate(int(examples[key]))
 		var victim: HistoricalEvent
 		for event in result.objective_timeline:
 			if event.narrative_key == key:
@@ -89,7 +89,7 @@ func _negative() -> void:
 	for key: String in ["autonomous_machine_conflict", "machine_aid_compact", "deep_residence_record", "homeland_displacement", "clone_settlement"]:
 		if not examples.has(key):
 			continue
-		var result := HistoryGenerator.new().generate(int(examples[key]))
+		var result := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3).generate(int(examples[key]))
 		for event in result.objective_timeline:
 			if event.narrative_key != key:
 				continue
@@ -97,7 +97,7 @@ func _negative() -> void:
 			if key == "machine_aid_compact":
 				event.effects[0].record_id = "invented_machine_society"
 			expect(not SocialIncidentValidator.new().errors(result).is_empty(), "Tags without real authored/physical consequences rejected: " + key)
-	var no_cohort := HistoryGenerator.new().generate(int(examples.clone_emancipation))
+	var no_cohort := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3).generate(int(examples.clone_emancipation))
 	for event in no_cohort.objective_timeline:
 		event.effects = event.effects.filter(func(effect: Dictionary) -> bool: return not (effect.kind == "social_record" and effect.record_type == "cohort"))
 	expect(SocialIncidentValidator.new().errors(no_cohort).any(func(error: String) -> bool: return "cohort:clone_born" in error), "No clone emancipation without prior clone cohort")
@@ -137,7 +137,7 @@ func _culture_boundaries() -> void:
 func _upstream() -> void:
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/history_m042_upstream.json"))
 	for row in data.samples:
-		var result := HistoryGenerator.new().generate(int(row.seed))
+		var result := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3).generate(int(row.seed))
 		var current := Baseline.upstream(result)
 		var previous: Dictionary = row.upstream.duplicate(true)
 		# Intentional homeland/Deep abandonment affects existing settlement lifetime.

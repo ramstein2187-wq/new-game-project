@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="868" viewBox="0 0 760 868">
 <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
 <rect width="100%" height="100%" fill="white"/>
-<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Faction Society Traits &amp; Doctrines — M042</text>
+<text x="380" y="36" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="700">Faction Society Traits &amp; Doctrines — M043</text>
 <rect x="70" y="70" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
-<text x="380" y="102.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Objective history v3 / architecture v2 → projected present</text>
+<text x="380" y="102.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">Objective history v4 / architecture v2 → projected present</text>
 <rect x="70" y="166" width="620" height="62" rx="10" fill="#f7f7f8" stroke="#555" stroke-width="1.5"/>
 <text x="380" y="198.0" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="15">M040 identity / interpretation (pure derived query)</text>
 <line x1="380" y1="132" x2="380" y2="162" stroke="#555" stroke-width="2" marker-end="url(#a)"/>

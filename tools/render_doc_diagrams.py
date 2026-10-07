@@ -9,13 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "diagrams"
 
 FLOWS = {
-    "history_generator": ("Canonical History v3 / architecture2 — M042", [
+    "history_generator": ("Canonical History v4 / architecture2 — M043", [
         "Canon: LOCKED facts / RESERVED mysteries / authored content gates",
         "Precursor → pressure → response → bounded local collapse",
         "Successor topology / faction formation / population donors",
-        "Social incidents: objective records + cohort / site consequences",
-        "Independent recent relations / existing rare-system budgets",
-        "Event / effect replay → present facts + historical provenance",
+        "Projects: authorization / decades of work / use / outcome; optional Scars",
+        "Compatible pressure / response / collapse; bounded discovery / mysteries",
+        "Event / effect replay → Project / Scar / facility / population provenance",
         "Identity / Culture interpret facts; Claims remain perceived",
         "Simulation decides what happens next (outside generation)"
     ]),
@@ -29,8 +29,8 @@ FLOWS = {
         "Eligibility → selection → moderate / hardline / fanatic",
         "Candidate goals / mixed Actor reasons → future consumer review"
     ]),
-    "faction_culture": ("Faction Society Traits & Doctrines — M042", [
-        "Objective history v3 / architecture v2 → projected present",
+    "faction_culture": ("Faction Society Traits & Doctrines — M043", [
+        "Objective history v4 / architecture v2 → projected present",
         "M040 identity / interpretation (pure derived query)",
         "Actual evidence records → all / any / preferences / forbids",
         "Society Traits: target 2–4; select only supported patterns",

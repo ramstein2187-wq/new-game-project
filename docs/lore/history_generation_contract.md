@@ -14,11 +14,13 @@ Cultures decide what it means. Simulation decides what happens next.
 - 개발 문서와 일부 현대 학술 분류에서는 이 문명을 **관찰자 / the Observers**라고 부른다.
 - Observer는 실제 자칭이 아니다. 정확한 자칭과 정치체제는 확인되지 않았다.
 - 관찰자 시대 항성계는 사실상 폐쇄되어 있었고, 관찰자 문명은 이후 사라졌다.
-- Deep Core와 일부 행성 관리 시스템이 남아 있으며 외부 차폐는 대부분 소실되었다.
+- 관찰자 시대 행성 보존 아키텍처 **The Preservator**와 **Planetary Regulation Network / 행성 조절망** 일부가 남아 있으며 외부 차폐는 대부분 소실되었다.
+- 기능 단위에는 **Environmental Regulation Module / 환경 조절 모듈** 등이 있고, 현장 시설은 Regional Control Station / Regulation Node / Control Node로 분류한다.
+- 관찰자 시대에는 Preservator와 조절망 시설의 실체가 인간 사회에 거의 감춰져 있었으며, 통제 소실 뒤 은폐·유지보수·접근 통제가 약화되면서 점진적으로 노출되었다.
 - 관찰자 시대의 일부 궤도 감시/요격/군사 시설과 대형 전투함급 자산이 잔존할 수 있다.
 - 일부 잔존 궤도 군사자산은 매우 드물게 무기체계를 재활성화할 수 있다.
-- Deep Core는 격리, 장기적 강수 조정, 접근로/지하시설 폐쇄, 기존 지질 응력을 이용한 국지적 지반 개입 같은 보존 행동을 수행할 수 있다.
-- Deep Core, 궤도 방어망, 잔존 함대, 환경조정 시설은 현재 하나의 통합 의지를 가진 단일 AI로 취급하지 않는다.
+- 살아남은 행성 조절망은 격리, 장기적 강수 조정, 접근로/지하시설 폐쇄, 기존 지질 응력을 이용한 국지적 지반 개입 같은 제한된 보존 행동을 수행할 수 있다.
+- The Preservator의 현재 의도와 살아남은 모듈들의 현행 지휘·조정 관계는 미정이며, 행성 조절망·궤도 방어망·잔존 함대 등은 현재 하나의 통합 의지를 가진 단일 AI로 취급하지 않는다.
 - 드문 Outerworld 유입 가능; Outerworld는 단일 종족/국가도 Observer도 아니다.
 - 과거 대규모 정치체, 현재 붕괴 후 파편화된 작은 세력의 시대.
 - 가까운 주요 정규위성 네 개와 복잡하지만 예측 가능한 강한 복합 조석.
@@ -29,12 +31,12 @@ Cultures decide what it means. Simulation decides what happens next.
 
 인간 도래의 정확한 경위, 최초 테라포머, 관찰자 문명의 실제 자칭,
 관찰자의 정확한 기원/소멸 원인/정확한 정치체제, 관찰자 이전 개입자,
-Deep Core의 현재 진짜 의도, 개별 Core 개입의 최종 목적,
-잔존 궤도 군사자산이 왜 다시 활성화되는지와 실제 표적선정 논리,
+The Preservator의 현재 진짜 의도, 개별 Preservator/Planetary Regulation Network 개입의 최종 목적,
+살아남은 모듈들의 현행 지휘·조정 관계, 잔존 궤도 군사자산이 왜 다시 활성화되는지와 실제 표적선정 논리,
 고대사 전체 연표, 현대 대기 정확한 조성, 인간 변형 계통 전체 역사,
 Outerworld 전체 정치/문명 구조, 대국들을 무너뜨린 최종 세계 Canon 원인은
 objective history에서 답을 만들지 않는다.
-고리와 코어의 조석 에너지 회수는 강한 후보이며 LOCKED로 승격하지 않는다.
+고리와 Preservator 계통 심부 인프라의 조석 에너지 회수는 강한 후보이며 LOCKED로 승격하지 않는다.
 
 ## GENERATABLE — seed별 지역 객관사
 
@@ -43,7 +45,7 @@ objective history에서 답을 만들지 않는다.
 유적 재점유, 난민집단과 후계 팩션, 지역 영토 변화, Innerworld/관찰자계 유적 발견,
 소규모 외부 유입물 발견과 지역 이상현상은 생성할 수 있다.
 
-관찰자 궤도 유산의 희귀한 국지적 작동, Deep Core-associated 격리/환경 개입도
+관찰자 궤도 유산의 희귀한 국지적 작동, Preservator/Planetary Regulation Network 계통의 격리·환경 개입도
 지역 objective history의 사건으로 생성할 수 있다. 이 경우 **무슨 현상이 실제로
 일어났는지와 어느 잔존 시스템 계통에서 비롯되었는지**는 objective fact가 될 수 있지만,
 왜 그 체계가 그렇게 행동했는지라는 최종 동기나 상위 명령은 RESERVED로 남긴다.
@@ -53,7 +55,7 @@ v0.1은 이 중 작은 subset만 구현한다. 붕괴의 지역적 기여 요인
 
 ## BELIEF-ONLY — 현재 세력이 주장하는 해석
 
-인간 기원, 관찰자의 성격, 최초 테라포머, 창조, 코어 목적, Outerworld 정체,
+인간 기원, 관찰자의 성격, 최초 테라포머, 창조, Preservator의 현재 목적, Outerworld 정체,
 궤도 포격의 이유, 대국 붕괴의 진짜 이유, 정당한 후계자라는 주장은 자유롭게 생성 가능하다.
 틀린 믿음과 상충하는 해석이 가능하다. belief는 objective truth를 수정하지 않는다.
 
@@ -113,3 +115,37 @@ Innerworld/Planetary/Observer/Outerworld/Unknown을 taxonomy만으로 독립 사
 새 사회 template은 명시적 authored content로 허가받아야 하며 테스트 fixture는 Canon이 아니다.
 Faction 소멸은 정치적 retirement이고 인구의 전멸을 뜻하지 않는다. 객관적 history는
 흡수 successor 또는 추적 중단을 명시한다. 이 정책은 LOCKED/RESERVED의 재정의가 아니다.
+
+## M043 v4: projects, scars and unresolved observations
+
+The default contract is generation4/architecture2; explicit historical2/1 and3/2
+remain exact-replay paths. Only v4 emits the canonical Preservator, Faith,
+Religious and Sacred IDs. `HistoryV4Compatibility` is the declared migration
+boundary; historical fixtures and random namespaces remain unchanged.
+
+Civilizational Project means a registered multi-decade concentration of labor,
+resources, specialists and public legitimacy. It is not synonymous with disaster.
+Success, partial success, abandonment, unknown outcome and catastrophe are
+independent outcome classifications. Civilizational Scar means a lasting major
+consequence with actual objective-event provenance, optionally linked to a Project.
+
+Unknown is a final permitted value. Last Descent killer/discovery, biological
+shutdown trigger, unexplained depopulation, morphogenic cause, signal origin,
+cognitive correspondence, personhood and consciousness continuity are not slots
+for an automatic Observer/Preservator/Outerworld explanation. Orbital reaction to
+Far-Sky observations records temporal correlation, never inferred causality.
+
+Actual launch/registered exodus attempts precede orbital interdiction; silent
+denial records no physical liftoff. Genome/clone/cognitive programs retain actual
+baseline-human or approved-content references. No program invents a new lineage,
+species or Origin. Mechanogenic assimilation is distinct from ordinary prostheses
+and from social, biological, cognitive or network assimilation.
+
+Imposed cognitive regression requires both an explicitly regression-authorized
+historical contact and an approved social population template. Distinct-lineage
+persecution additionally requires actual recorded lineage context; an open taxonomy
+or a suggestive lifestyle is insufficient. Complete machine factions remain gated.
+
+Claims and cultures interpret objective records without mutating them. Regional
+record access is labelled regional and does not imply personal biological loss or
+descent. Archival custody of old project remains is separate from genetic ancestry.

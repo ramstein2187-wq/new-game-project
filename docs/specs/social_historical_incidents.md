@@ -93,8 +93,8 @@ plural lineage or person identity. Divergence here is accumulated environmental
 variation, not an assertion of intentional genetic modification.
 
 Machine manufacture remains unclassified. These local machine episodes are not
-classified as Observer or Deep Core acts and do not enter their separate rarity
-budgets. Primary pressure remains45% natural/45% human/8% Core/2% Observer, with
+classified as Observer or Preservator/Planetary Regulation Network acts and do not enter their separate rarity
+budgets. Primary pressure remains45% natural/45% human/8% Preservator-network/2% Observer, with
 the existing optional3%/2% legacy policy. No RESERVED motive, command hierarchy,
 orbital targeting, collapse cause, civilization or species is resolved.
 
@@ -208,3 +208,24 @@ Reproduce: `tools/analyze_social_incidents.gd -- 5000 OUTPUT_DIRECTORY`, then
 `bash tools/check_godot.sh`. [Statistics and raw-source index](../reviews/social_incidents_v1/samples.md),
 [work log](../reviews/social_incidents_v1/WORK_LOG.md). Qualitative review and final
 frequency audit are required in addition to automated invariants.
+
+## M043 v4 integration
+
+M042 social incidents retain historical generation3 behavior and authored gates.
+Generation4 reuses their objective records through the explicit compatibility
+boundary, then adds long-duration projects and independent scars. Canonical
+`human_authority_reaffirmed` and `office_rotation_charter` replace the legacy
+social IDs only in v4 output. Clone remains an actual cohort of authorized humans,
+never a separate Origin.
+
+The v4 ledger distinguishes social assimilation of practices/institutions,
+biological trait convergence, mechanogenic tissue replacement, cognitive-pattern
+convergence and network integration. Each has distinct physical/contextual
+prerequisites. None automatically authorizes a species, political machine faction
+or philosophical account of who survives.
+
+Imposed regression needs explicit regression authorization plus an approved social
+template. Existing M042 approved-contact flags alone do not open it. Shipping has
+no such content. Targeted Extermination can concern an actual registered
+baseline-human resident group without inventing a distinct persecuted lineage;
+lineage_persecution specifically remains gated on recorded approved lineage context.

@@ -3,12 +3,14 @@ extends SceneTree
 func _init() -> void:
 	var seed := 42
 	var json := false
-	var version := 3
+	var version := 4
 	for arg in OS.get_cmdline_user_args():
 		if arg == "--json":
 			json = true
 		elif arg == "--v2":
 			version = 2
+		elif arg == "--v3":
+			version = 3
 		elif arg.is_valid_int():
 			seed = int(arg)
 		else:

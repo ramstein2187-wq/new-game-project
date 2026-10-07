@@ -25,6 +25,7 @@ Snapshot: 2026-10-02, M033 primary-attribute runtime is complete on main at `96d
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
+| Civilizational history | M043 canonical v4 terminology, Projects, Scars, contextual responses, mysteries and corpus | Complete on task branch; not merged main | [M043](milestones/M043_history_generator_v4.md), `codex/history-generator-v4`; exact M042 base `8cb6f3d`; 5000 replays,48 raw reviews,6952 focused assertions/full38-script gate PASS. |
 | Social history / culture | Objective social incidents, dependent clone cohorts, content gates, evidence-driven moderate/hardline/fanatic norms | Complete on task branch; not merged main | [M042](milestones/M042_social_cultural_incidents.md), `codex/history-social-incidents-v1`; exact base `ef18814`; 5000 histories/29 raw reviews, full37-script gate PASS; fanatic worlds29.86%. |
 | Regional history v3 | Variable political topology, 6–8 active factions, separate population origins | Complete on task branch; not merged main | [M038](milestones/M038_history_topology_population.md), codex/history-generator-v0.3; base9380df3; no main merge. |
 | Regional history v2 | Independent physical/human/legacy pressures, responses, successor forms, claims and canonical names | Complete on task branch; not merged main | [M037](milestones/M037_history_generation_v2.md), codex/history-generator-v0.2; exact base11127ef; no main merge or gameplay integration. |

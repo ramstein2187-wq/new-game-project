@@ -11,6 +11,8 @@ func _init(populations: SocialPopulationCatalog = null, incidents: SocialInciden
 
 # Optional replay supplied by caller: never recursively invokes generation.
 func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary:
+	if result != null and result.generation_version == 4:
+		return HistoryV4Validator.new(_populations, _incidents).validate(result, replay)
 	var report := {"errors": [], "warnings": [], "determinism": "not_checked", "scars": {}}
 	var errors: Array = report.errors
 	if result == null:

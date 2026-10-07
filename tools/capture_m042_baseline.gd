@@ -8,7 +8,7 @@ func _init() -> void:
 		return
 	var rows: Array = []
 	for seed in [1, 2, 13, 42, 101, 999, -1, 4294967296]:
-		var result := HistoryGenerator.new().generate(seed)
+		var result := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3).generate(seed)
 		rows.append({"seed": seed, "upstream": upstream(result)})
 	var file := FileAccess.open("res://tests/fixtures/history_m042_upstream.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"base": "ef18814f34abfa7ab278c0914ae289806b22dc12", "samples": rows}, "\t") + "\n")

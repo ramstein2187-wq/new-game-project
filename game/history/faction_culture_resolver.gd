@@ -8,6 +8,8 @@ func _init(catalog: FactionCultureCatalog = null) -> void:
 	_catalog = catalog if catalog != null else FactionCultureCatalog.new()
 
 func resolve(result: HistoryResult, faction_id: String) -> Dictionary:
+	if result.generation_version == 4 and _catalog.revision != "faction-culture-v4-authored-1":
+		return FactionCultureResolver.new(FactionCultureCatalog.new(JSON.parse_string(FileAccess.get_file_as_string("res://content/culture/faction_culture_v4.json")))).resolve(result, faction_id)
 	assert(result.present.active_factions.any(func(row: Dictionary) -> bool: return row.id == faction_id), "Culture requires a current faction")
 	var identity := FactionIdentityResolver.new().resolve(result, faction_id)
 	var evidence := CultureEvidence.new().build(result, faction_id, identity)
@@ -76,8 +78,10 @@ func _entry(selected: Dictionary, kind: String, evidence: Dictionary, target: in
 	return row
 
 func errors(result: HistoryResult, faction_id: String, profile: Dictionary) -> Array[String]:
+	if result.generation_version == 4 and _catalog.revision != "faction-culture-v4-authored-1":
+		return FactionCultureResolver.new(FactionCultureCatalog.new(JSON.parse_string(FileAccess.get_file_as_string("res://content/culture/faction_culture_v4.json")))).errors(result,faction_id,profile)
 	var issues: Array[String] = []
-	if result.generation_version != 3 or result.architecture_version != 2:
+	if result.generation_version not in [3,4] or result.architecture_version != 2:
 		return ["version: Culture requires generation3/architecture2"]
 	if profile.get("faction_id") != faction_id or profile.has("synthetic"):
 		issues.append("provenance: Wrong faction or synthetic profile in shipping query")

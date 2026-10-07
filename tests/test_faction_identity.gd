@@ -2,7 +2,7 @@ extends SceneTree
 
 var assertions := 0
 var failures := 0
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 var resolver := FactionIdentityResolver.new()
 
 func expect(condition: bool, message: String) -> void:
@@ -99,7 +99,7 @@ func _boundaries() -> void:
 	for row in parsed.present.active_factions:
 		expect(not row.has("identity_profile"), "Identity is not persisted into projected objective state")
 	var labels := HistoryNameSource.new(func(seed: int, id: String, kind: String) -> String: return "%d/%s/%s" % [seed, id, kind])
-	var renamed := HistoryGenerator.new(labels).generate(42)
+	var renamed := HistoryGenerator.new(labels, HistoryMotifs.DISCOVERIES, 3).generate(42)
 	for row in result.present.active_factions:
 		expect(resolver.resolve(result, row.id) == resolver.resolve(renamed, row.id), "Naming changes do not perturb identity derivation")
 	var debug := HistoryDebugFormatter.new().format(result)

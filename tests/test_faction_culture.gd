@@ -91,7 +91,7 @@ func _conflicts_and_intensity() -> void:
 	expect(rules.evaluate(trial, Fixtures.evidence(["history:recorded_testing", "interpretation:ritual"])).eligible, "Ritual interpretation can favor trials")
 
 func _shipping() -> void:
-	var generator := HistoryGenerator.new()
+	var generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 	var counts := {"0": 0, "1": 0, "2": 0}
 	for seed in range(1, 201):
 		var result := generator.generate(seed)
@@ -193,8 +193,8 @@ func _boundaries() -> void:
 		expect(result.structural_output().sha256_text() == sample.structural_sha256, "Exact-base v2 decisions preserved")
 	var labels := HistoryNameSource.new(func(seed: int, id: String, kind: String) -> String: return "%d/%s/%s" % [seed, id, kind])
 	for seed in [1, 13, 42, -1, 4294967296]:
-		var normal := HistoryGenerator.new().generate(seed)
-		var renamed := HistoryGenerator.new(labels).generate(seed)
+		var normal := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3).generate(seed)
+		var renamed := HistoryGenerator.new(labels, HistoryMotifs.DISCOVERIES, 3).generate(seed)
 		expect(normal.structural_output() == renamed.structural_output(), "Names do not change history decisions")
 		for faction in normal.present.active_factions:
 			var profile := resolver.resolve(normal, faction.id)

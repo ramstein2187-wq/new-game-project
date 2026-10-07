@@ -57,9 +57,11 @@ F7 V 항성, **약 13.5억 년의 젊은 항성계**가 Canon이다. 행성 기�
 
 관찰자 시대 항성계는 사실상 외부와 차단되었다. 외부 존재의 자유로운 진입과
 인류의 탈출이 불가능했다. 감시·요격·항법 방해·정보 차폐 등 정확한 기술은 미정이다.
-관찰자 문명은 사라졌지만 Deep Core와 일부 자동 시스템은 남았다.
+관찰자 문명은 사라졌지만 **The Preservator**와 그 하위 자동 시스템 일부는 남았다.
 항성계 규모 차폐·감시·요격 체계는 대부분 유지되지 못했다.
-**코어는 살아 있지만 감옥의 벽은 무너지고 있다.**
+관찰자 시대에 감춰져 있던 행성 관리 시설은 통제 소실 뒤 은폐·유지보수·접근 통제가
+점차 약화되면서 세계 곳곳에서 드러나기 시작했다. **보존 체계의 일부는 살아 있지만,
+감옥의 벽은 무너지고 있다.**
 
 ### 궤도 유산
 
@@ -71,21 +73,42 @@ F7 V 항성, **약 13.5억 년의 젊은 항성계**가 Canon이다. 행성 기�
 희귀한 재난에 가깝다. **왜 특정 자산이 작동하는지, 무엇을 위협으로 판단하는지,
 어떤 오래된 명령을 수행하는지는 의도적으로 미정**이다.
 
-### Deep Core와 잔존 시스템
+### The Preservator와 행성 조절망
 
-Deep Core는 관찰자 시대 행성 규모 관리·보존 체계의 잔존 핵심이다.
-지역 격리, 오래된 환경관리 설비를 통한 장기적 강수 패턴 조정,
+관찰자 시대의 행성 규모 관리·보존 아키텍처를 개발 문서에서는
+**The Preservator / 프리저베이터**라고 부른다. 그 아래에는
+**Planetary Regulation Network / 행성 조절망**이 있었고, 기능 단위로
+**Environmental Regulation Module / 환경 조절 모듈** 등이 존재했다.
+현장 시설은 기능과 규모에 따라 **Regional Control Station**, **Regulation Node**,
+**Control Node**로 분류한다.
+
+The Preservator는 단일한 지하 컴퓨터 한 대를 뜻하지 않는다. 행성 조절망은
+분산된 시설·모듈·노드의 체계이며, 지역 격리, 장기적 강수 패턴 조정,
 접근로·지하시설 폐쇄, 기존 지질 응력과 심부 인프라를 이용한 국지적
-지반 변화·산사태·단층 응력 방출 유도 같은 개입이 가능하다.
+지반 변화·산사태·단층 응력 방출 유도 같은 제한된 개입을 수행할 수 있다.
 
-이 능력은 전능한 지형 조작으로 취급하지 않는다. 코어가 대륙을 마음대로
+이 능력은 전능한 지형 조작으로 취급하지 않는다. 조절망이 대륙을 마음대로
 움직이거나 무에서 지진 에너지를 만드는 것이 아니라, 기존 단층·유체압·지열·굴착
 및 환경관리 인프라를 이용해 이미 존재하는 계의 경계조건을 바꾸는 쪽에 가깝다.
 
-현재 코어가 ‘문명 보존’을 어떤 방식으로 해석하는지와 개별 개입의 진짜 이유는
-미정이다. 단순 선/악으로 취급하지 않으며 인간과 코어의 보존 개념은 다를 수 있다.
+**관찰자 시대에는 이 체계와 시설의 실체가 인간 사회에 거의 감춰져 있었다.**
+인간은 강수 변화, 접근 차단, 지하시설 폐쇄 같은 결과를 경험할 수 있었지만
+그 배후에 행성 규모 조절망이 있다는 사실이나 시설의 위치·구조를 일반적으로 알지 못했다.
+관찰자 통제가 사라진 뒤 은폐, 유지보수, 봉쇄와 접근 통제가 점차 약화되면서
+매몰 시설·노드·제어소가 지역마다 서로 다른 속도로 노출되기 시작했다.
 
-또한 Deep Core, 궤도 방어·감시망, 잔존 함대, 환경조정 시설을
+현대의 지식 역시 파편적이다. 일반 주민은 고대 기계나 금지된 지하 시설 정도로
+이해할 수 있고, 기술자·탐험가는 반복되는 Regulation Node 규격을 알아볼 수 있으며,
+일부 학자는 이 시설들이 하나의 Planetary Regulation Network였다고 추론한다.
+The Preservator라는 상위 아키텍처까지 이해하는 경우는 더욱 드물다.
+따라서 Objective History는 실제 작동 계통을 기록할 수 있지만, 당시 사람들의
+Claim과 Interpretation이 같은 용어와 지식을 가졌다고 가정해서는 안 된다.
+
+현재 The Preservator가 ‘문명 보존’을 어떤 방식으로 해석하는지, 개별 개입의 진짜 이유,
+그리고 살아남은 모듈들이 지금도 하나의 상위 지능에 의해 조정되는지는 미정이다.
+단순 선/악으로 취급하지 않으며 인간과 Preservator의 보존 개념은 다를 수 있다.
+
+또한 Planetary Regulation Network, 궤도 방어·감시망, 잔존 함대와 기타 관찰자 유산을
 **현재 하나의 통합된 의지를 가진 단일 AI로 취급하지 않는다.**
 관찰자 시대에는 상위 체계 아래 조정되었을 수 있지만 지금은 서로 다른 오래된
 명령을 부분적으로 독립 수행할 수 있다. 한 체계가 인간을 보존하는 동안
@@ -96,7 +119,7 @@ Deep Core는 관찰자 시대 행성 규모 관리·보존 체계의 잔존 핵�
 가까운 주요 정규위성 네 개, 거의 원형의 위성계, 강한 복합 조석은 유지한다.
 원형의 정확한 궤도 간격은 절차 생성 흔적이므로 절대 Canon으로 고정하지 않는다.
 조석은 복잡하지만 예측 가능한 주기 현상이며 해안·항구·어업·항해·문화에 영향을 준다.
-조석에 의한 내부 열/응력을 코어가 회수한다는 설정은 **강한 Canon 후보**다.
+조석에 의한 내부 열/응력을 Preservator 계통의 심부 인프라가 회수한다는 설정은 **강한 Canon 후보**다.
 뚜렷한 고리와 네 달·밝은 F형 항성의 하늘 풍경도 **강한 Canon 후보**다.
 이 두 후보는 LOCKED truth가 아니며 generator가 확정하지 않는다.
 
@@ -138,3 +161,25 @@ Faction은 반드시 Ideology가 아니다. 종교집단, 부족, 도시국가, 
 social population content는 인간계 baseline이다. 비인간 Origin의 세력 구성은 별도 authored
 template의 허가를 필요로 한다. 기능 검증용 synthetic population은 테스트에만 존재한다.
 현재 세력4–8은 지역 역사 생성 범위이며 세계 전체의 국가 수나 새 Canon 연대기가 아니다.
+
+## M043 generatable civilizational histories
+
+Human societies may register efforts to leave the planet, explore unprecedented
+depths, listen to distant space, preserve cognitive/genetic records, inhabit orbit,
+reconstruct environments, coordinate machines or redesign bodies. A local Project
+can succeed and does not establish global Canon about escape, hidden inhabitants,
+alien civilizations or consciousness. The Far-Sky Array is an in-world name for
+the developer-classified Deep-Space Listening Array.
+
+Unknown signals, cognitive echoes, matching identity claims, nonlocal material,
+population disappearance and synchronized biological/developmental changes can
+remain unexplained even in developer Canon. Neural extraction, storage and
+behavioral execution are observable; consciousness survival, soul transfer and
+`A == executed(A)` remain unresolved. Machine coordination/refusal does not prove
+machine sapience, and no generated machine society is automatically approved.
+
+Targeted Extermination records an actual target group, responsible recorded
+authority where known, policy/killings/removal evidence and site/population loss.
+It does not automatically issue a legal or historiographic genocide judgment.
+Biological Shutdown affects existing individuals; Reproductive Silence records
+living survivors with failed next-generation continuity. These are distinct facts.

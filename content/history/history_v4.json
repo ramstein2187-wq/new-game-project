@@ -1,0 +1,5187 @@
+{
+  "revision": "history-v4-authored-1",
+  "projects": [
+    {
+      "id": "ark_project",
+      "display_name": "Ark Project",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "exodus_feasibility_study",
+        "ark_project",
+        "ark_selection",
+        "ark_construction",
+        "ark_launch"
+      ],
+      "outcomes": [
+        [
+          "orbital_interdiction_launch_destruction",
+          "failed_exodus"
+        ],
+        [
+          "orbital_interdiction_guidance_capture",
+          "failed_exodus"
+        ],
+        [
+          "orbital_interdiction_propulsion_suppression",
+          "failed_exodus"
+        ],
+        [
+          "orbital_interdiction_orbital_containment",
+          "failed_exodus"
+        ],
+        [
+          "orbital_interdiction_silent_denial",
+          "failed_exodus"
+        ],
+        [
+          "ark_departure_unresolved"
+        ]
+      ]
+    },
+    {
+      "id": "deep_descent_project",
+      "display_name": "Deep Descent Project",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "deep_survey",
+        "deep_descent_project",
+        "permanent_descent_infrastructure",
+        "successive_expeditions",
+        "unmapped_substructure_discovery",
+        "final_descent"
+      ],
+      "outcomes": [
+        [
+          "partial_evacuation_attempt",
+          "last_descent"
+        ],
+        [
+          "deep_survey_success"
+        ]
+      ]
+    },
+    {
+      "id": "deep_space_listening_array",
+      "display_name": "Deep-Space Listening Array / Far-Sky Array",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "astronomical_survey",
+        "signal_debate",
+        "deep_space_listening_project",
+        "array_construction",
+        "array_activation"
+      ],
+      "outcomes": [
+        [
+          "array_silence"
+        ],
+        [
+          "unclassified_signal"
+        ],
+        [
+          "orbital_reaction"
+        ],
+        [
+          "signal_fixation"
+        ],
+        [
+          "transmission_reversal"
+        ],
+        [
+          "array_continues"
+        ]
+      ]
+    },
+    {
+      "id": "continuity_vault",
+      "display_name": "Continuity Vault",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "continuity_vault_research",
+        "continuity_vault_charter",
+        "continuity_vault_construction",
+        "continuity_vault_activation"
+      ],
+      "outcomes": [
+        [
+          "continuity_vault_success"
+        ],
+        [
+          "continuity_vault_partial_success"
+        ],
+        [
+          "continuity_vault_abandonment"
+        ],
+        [
+          "continuity_transfer"
+        ]
+      ]
+    },
+    {
+      "id": "genome_ark",
+      "display_name": "Genome Ark",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "genome_ark_research",
+        "genome_ark_charter",
+        "genome_ark_construction",
+        "genome_ark_activation"
+      ],
+      "outcomes": [
+        [
+          "genome_ark_success"
+        ],
+        [
+          "genome_ark_partial_success"
+        ],
+        [
+          "genome_ark_abandonment"
+        ]
+      ]
+    },
+    {
+      "id": "orbital_habitat_project",
+      "display_name": "Orbital Habitat",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "orbital_habitat_project_research",
+        "orbital_habitat_project_charter",
+        "orbital_habitat_project_construction",
+        "orbital_habitat_project_activation"
+      ],
+      "outcomes": [
+        [
+          "orbital_habitat_project_success"
+        ],
+        [
+          "orbital_habitat_project_partial_success"
+        ],
+        [
+          "orbital_habitat_project_abandonment"
+        ]
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array",
+      "display_name": "Climate Reconstruction Array",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "climate_reconstruction_array_research",
+        "climate_reconstruction_array_charter",
+        "climate_reconstruction_array_construction",
+        "climate_reconstruction_array_activation"
+      ],
+      "outcomes": [
+        [
+          "climate_reconstruction_array_success"
+        ],
+        [
+          "climate_reconstruction_array_partial_success"
+        ],
+        [
+          "climate_reconstruction_array_abandonment"
+        ]
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus",
+      "display_name": "Machine Coordination Nexus",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "machine_coordination_nexus_research",
+        "machine_coordination_nexus_charter",
+        "machine_coordination_nexus_construction",
+        "machine_coordination_nexus_activation"
+      ],
+      "outcomes": [
+        [
+          "machine_coordination_nexus_success"
+        ],
+        [
+          "machine_coordination_nexus_partial_success"
+        ],
+        [
+          "machine_coordination_nexus_abandonment"
+        ],
+        [
+          "collective_mind_formation",
+          "collective_mind_fracture"
+        ],
+        [
+          "command_divergence",
+          "machine_insurrection"
+        ],
+        [
+          "network_assimilation",
+          "machine_coordination_nexus_success"
+        ]
+      ]
+    },
+    {
+      "id": "transmutation_complex",
+      "display_name": "Transmutation Complex",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "transmutation_complex_research",
+        "transmutation_complex_charter",
+        "transmutation_complex_construction",
+        "transmutation_complex_activation"
+      ],
+      "outcomes": [
+        [
+          "transmutation_complex_success"
+        ],
+        [
+          "transmutation_complex_partial_success"
+        ],
+        [
+          "transmutation_complex_abandonment"
+        ],
+        [
+          "population_redesign",
+          "mechanogenic_assimilation"
+        ],
+        [
+          "population_redesign",
+          "transmutation_complex_success"
+        ],
+        [
+          "population_redesign",
+          "biological_assimilation",
+          "transmutation_complex_success"
+        ]
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "project_authorization",
+      "narrative": "The recorded polity authorized a long-duration collective undertaking; offices committed labor and resources to its declared goal.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "project_authority",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "resource_concentration",
+      "narrative": "Decades of labor levies, workshop quotas and specialist appointments concentrated resources; dissent and displaced workplaces were entered in the public record.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "project_authority"
+      ],
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "labor_mobilization",
+          "target": "participant",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "specialist_office",
+          "target": "participant",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "workplace_relocation",
+          "target": "participant",
+          "facts": {
+            "scope": "recorded_workers",
+            "new_lineage": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "exodus_feasibility_study",
+      "narrative": "Engineers surveyed a physically attainable launch route and documented propulsion tests.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "exodus_feasibility_study",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "spaceflight_engineering",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "ark_project",
+      "narrative": "A long-duration Ark Project committed the polity to carrying registered people and records beyond the planet.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "ark_project",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "ark_selection",
+      "narrative": "Selection registers recorded the actual baseline-human candidate population. The selection rule was contested; no unrecorded hereditary lineage was inferred.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "ark_selection",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "ark_selection",
+          "target": "participant",
+          "facts": {
+            "policy": "variable",
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ark_construction",
+      "narrative": "A registered launch complex and vessel were constructed over decades.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "ark_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "launch_complex",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        },
+        {
+          "record_type": "capability",
+          "record_id": "exodus_vehicle",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "ark_launch",
+      "narrative": "A registered launch attempt proceeded. The observation records whether liftoff occurred, without asserting a successful departure.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "exodus_vehicle"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "ark_launch",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "launch_attempt",
+          "target": "facility",
+          "facts": {
+            "physical_launch": "variable",
+            "attempt_registered": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_interdiction_launch_destruction",
+      "narrative": "Identified Observer-era orbital hardware physically denied the registered exodus attempt through launch destruction. Activation, purpose and rule remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "launch_attempt"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_interdiction_launch_destruction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_interdiction",
+          "target": "facility",
+          "facts": {
+            "subtype": "launch_destruction",
+            "system_provenance": "orbital_defense",
+            "intent": "unknown",
+            "activation_reason": "unknown",
+            "target_selection_reason": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_interdiction_guidance_capture",
+      "narrative": "Identified Observer-era orbital hardware physically denied the registered exodus attempt through guidance capture. Activation, purpose and rule remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "launch_attempt"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_interdiction_guidance_capture",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_interdiction",
+          "target": "facility",
+          "facts": {
+            "subtype": "guidance_capture",
+            "system_provenance": "orbital_defense",
+            "intent": "unknown",
+            "activation_reason": "unknown",
+            "target_selection_reason": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_interdiction_propulsion_suppression",
+      "narrative": "Identified Observer-era orbital hardware physically denied the registered exodus attempt through propulsion suppression. Activation, purpose and rule remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "launch_attempt"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_interdiction_propulsion_suppression",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_interdiction",
+          "target": "facility",
+          "facts": {
+            "subtype": "propulsion_suppression",
+            "system_provenance": "orbital_defense",
+            "intent": "unknown",
+            "activation_reason": "unknown",
+            "target_selection_reason": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_interdiction_orbital_containment",
+      "narrative": "Identified Observer-era orbital hardware physically denied the registered exodus attempt through orbital containment. Activation, purpose and rule remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "launch_attempt"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_interdiction_orbital_containment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_interdiction",
+          "target": "facility",
+          "facts": {
+            "subtype": "orbital_containment",
+            "system_provenance": "orbital_defense",
+            "intent": "unknown",
+            "activation_reason": "unknown",
+            "target_selection_reason": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_interdiction_silent_denial",
+      "narrative": "Identified Observer-era orbital hardware physically denied the registered exodus attempt through silent denial. Activation, purpose and rule remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "launch_attempt"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_interdiction_silent_denial",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_interdiction",
+          "target": "facility",
+          "facts": {
+            "subtype": "silent_denial",
+            "system_provenance": "orbital_defense",
+            "intent": "unknown",
+            "activation_reason": "unknown",
+            "target_selection_reason": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "failed_exodus",
+      "narrative": "The attempted exodus failed; launch registers, a memorial and surviving vessel or wreck observations record the loss. Why orbital hardware denied it remains unknown.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "orbital_interdiction"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "failed_exodus",
+          "target": "facility",
+          "facts": {
+            "cause": "documented_orbital_interdiction",
+            "scope": "registered_exodus_population",
+            "intent": "unknown"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "ark_remains",
+          "target": "facility",
+          "facts": {
+            "state": "variable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ark_departure_unresolved",
+      "narrative": "Tracking lost the departing vessel beyond local coverage. Local departure succeeded; destination and survival are unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "launch_attempt"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "ark_departure_unresolved",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "exodus_departure",
+          "target": "facility",
+          "facts": {
+            "local_departure": true,
+            "destination": "unknown",
+            "survival": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deep_survey",
+      "narrative": "Survey teams mapped a new depth interval using registered drilling and support equipment.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "deep_survey",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "deep_engineering",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "deep_descent_project",
+      "narrative": "A Deep Descent Project committed successive generations of work to deeper exploration.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "deep_descent_project",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "permanent_descent_infrastructure",
+      "narrative": "Permanent shafts, ventilation and transit structures were completed.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "permanent_descent_infrastructure",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "descent_shaft",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "successive_expeditions",
+      "narrative": "Multiple registered expeditions used the shaft; roster and depth logs survive.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "deep_engineering"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "successive_expeditions",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "expedition_rosters",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "successive": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "unmapped_substructure_discovery",
+      "narrative": "Survey records show a substructure outside prior maps; its content and maker were not classified.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "unmapped_substructure_discovery",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "unmapped_substructure",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "final_descent",
+      "narrative": "The final registered expedition reached unprecedented depth before communications became irregular.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "expedition_rosters"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "final_descent",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "final_expedition",
+          "target": "facility",
+          "facts": {
+            "unprecedented_depth": true,
+            "communications": "irregular"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partial_evacuation_attempt",
+      "narrative": "Surface rosters document an attempted evacuation after communications failed; only a small fraction returned.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "final_expedition"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "partial_evacuation_attempt",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "partial_return",
+          "target": "facility",
+          "facts": {
+            "communications": "failed",
+            "returned_fraction": "small",
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "last_descent",
+      "narrative": "The Last Descent left missing expedition members and an inaccessible shaft. What they found, what killed them and whether any system acted intentionally remain unknown.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "partial_return"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "last_descent",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "killer": "unknown",
+            "discovery": "unknown",
+            "access": "sealed_or_unreachable"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "sealed_descent",
+          "target": "facility",
+          "facts": {
+            "state": "sealed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deep_survey_success",
+      "narrative": "The expedition returned with mapped strata and reusable engineering records; no catastrophe was recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "final_expedition"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "deep_survey_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "deep_mapping_return",
+          "target": "facility",
+          "facts": {
+            "returned": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "astronomical_survey",
+      "narrative": "Astronomical records identify a long-term receiving direction and measured equipment requirements.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "astronomical_survey",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "radio_astronomy",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "signal_debate",
+      "narrative": "Officials disputed the survey, cost and meaning of possible signals; these arguments did not establish any signal origin.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "signal_debate",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "signal_review",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "deep_space_listening_project",
+      "narrative": "The polity authorized the Far-Sky Array, a Deep-Space Listening Array built across decades.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "deep_space_listening_project",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "array_construction",
+      "narrative": "Specialist workshops completed a large receiving array and its records service.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "array_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "far_sky_array",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "array_activation",
+      "narrative": "The array began recorded observations of the selected sky region.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "radio_astronomy"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "array_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "array_active",
+          "target": "facility",
+          "facts": {
+            "mode": "receive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "array_silence",
+      "narrative": "Long observation found no meaningful signal. The spending inquiry removed the sponsoring offices and the facility was abandoned.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "array_active"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "array_silence",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "legitimacy_loss",
+          "target": "participant",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "array_abandonment",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        },
+        {
+          "record_type": "observation",
+          "record_id": "array_silence",
+          "target": "facility",
+          "facts": {
+            "meaningful_signal": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "unclassified_signal",
+      "narrative": "Repeated narrowband signals were measured. Their origin and meaning remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "array_active"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "unclassified_signal",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "unclassified_signal",
+          "target": "facility",
+          "facts": {
+            "repeating": true,
+            "origin": "unknown",
+            "meaning": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_reaction",
+      "narrative": "Array activation and an identified orbital-system state change were close in time. This is a recorded temporal correlation; causality remains unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "array_active"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_reaction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_reaction",
+          "target": "facility",
+          "facts": {
+            "relation": "temporal_correlation",
+            "causality": "unknown",
+            "system_provenance": "orbital_defense",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signal_fixation",
+      "narrative": "Operators repeatedly interpreted one measured pattern for decades. Records establish fixation, not a message or its mechanism.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "array_active"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "signal_fixation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "signal_school",
+          "target": "participant",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "signal_fixation",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmission_reversal",
+      "narrative": "Later instrumentation shows that the array transmitted. Who changed it and why remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "array_active"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmission_reversal",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "transmitting_array",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "observation",
+          "record_id": "transmission_reversal",
+          "target": "facility",
+          "facts": {
+            "modifier": "unknown",
+            "purpose": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "array_continues",
+      "narrative": "The array remains active, tracking the same recorded sky region; no purpose or signal origin has been established.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "array_active"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "array_continues",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "tracking_array",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "observation",
+          "record_id": "continued_tracking",
+          "target": "facility",
+          "facts": {
+            "purpose": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_research",
+      "narrative": "Continuity Vault began with tested equipment and registered specialists for neural and memory extraction, data storage and behavioral reconstruction.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_research",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "cognitive_pattern_storage",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_charter",
+      "narrative": "Continuity Vault received a public multi-decade charter; its goal and objections entered the records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_charter",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_construction",
+      "narrative": "Decades of construction completed the Continuity Vault facility.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "continuity_vault",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_activation",
+      "narrative": "The facility entered documented use for neural and memory extraction, data storage and behavioral reconstruction. This does not establish consciousness, an original identity or a new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "cognitive_pattern_storage"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "continuity_project",
+          "target": "facility",
+          "facts": {
+            "metaphysical_identity": "unknown",
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_success",
+      "narrative": "The recorded practical goal was attained and local use continued; its observations imply no metaphysical conclusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "continuity_project"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "continuity_vault_continued_use",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "practice",
+          "record_id": "continuity_vault_use",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_abandonment",
+      "narrative": "The polity abandoned the unfinished or partially useful undertaking; inventories and unused structures survived.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_abandonment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "continuity_vault_abandoned",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "continuity_vault_partial_success",
+      "narrative": "The undertaking delivered a bounded subset of its recorded goal; incomplete works remained.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "continuity_project"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "continuity_vault_partial_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "continuity_vault_partial",
+          "target": "facility",
+          "facts": {
+            "state": "partial"
+          }
+        }
+      ]
+    },
+    {
+      "id": "continuity_transfer",
+      "narrative": "Extracted neural and memory patterns were stored and behaviorally executed. Records cannot determine consciousness survival, soul transfer or whether an executed pattern was the same person.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "continuity_project"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "continuity_transfer",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "consciousness_survival": "unknown",
+            "same_person": "unknown",
+            "soul_transfer": "unknown"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "continuity_records",
+          "target": "facility",
+          "facts": {
+            "extraction": true,
+            "storage": true,
+            "behavioral_execution": true,
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_research",
+      "narrative": "Genome Ark began with tested equipment and registered specialists for registered baseline-human genomes and viable embryo records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_research",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "genome_preservation",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_charter",
+      "narrative": "Genome Ark received a public multi-decade charter; its goal and objections entered the records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_charter",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_construction",
+      "narrative": "Decades of construction completed the Genome Ark facility.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "genome_ark",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_activation",
+      "narrative": "The facility entered documented use for registered baseline-human genomes and viable embryo records. This does not establish consciousness, an original identity or a new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "genome_preservation"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "genome_archive",
+          "target": "facility",
+          "facts": {
+            "metaphysical_identity": "unknown",
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_success",
+      "narrative": "The recorded practical goal was attained and local use continued; its observations imply no metaphysical conclusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "genome_archive"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "genome_ark_continued_use",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "practice",
+          "record_id": "genome_ark_use",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_abandonment",
+      "narrative": "The polity abandoned the unfinished or partially useful undertaking; inventories and unused structures survived.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_abandonment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "genome_ark_abandoned",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "genome_ark_partial_success",
+      "narrative": "The undertaking delivered a bounded subset of its recorded goal; incomplete works remained.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "genome_archive"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "genome_ark_partial_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "genome_ark_partial",
+          "target": "facility",
+          "facts": {
+            "state": "partial"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_research",
+      "narrative": "Orbital Habitat began with tested equipment and registered specialists for a documented launch route and a bounded orbital habitation platform.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_research",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "orbital_habitation",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_charter",
+      "narrative": "Orbital Habitat received a public multi-decade charter; its goal and objections entered the records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_charter",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_construction",
+      "narrative": "Decades of construction completed the Orbital Habitat facility.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "orbital_habitat_project",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_activation",
+      "narrative": "The facility entered documented use for a documented launch route and a bounded orbital habitation platform. This does not establish consciousness, an original identity or a new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "orbital_habitation"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "orbital_habitat",
+          "target": "facility",
+          "facts": {
+            "consciousness": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_success",
+      "narrative": "The recorded practical goal was attained and local use continued; its observations imply no metaphysical conclusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "orbital_habitat"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "orbital_habitat_project_continued_use",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "practice",
+          "record_id": "orbital_habitat_project_use",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_abandonment",
+      "narrative": "The polity abandoned the unfinished or partially useful undertaking; inventories and unused structures survived.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_abandonment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "orbital_habitat_project_abandoned",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital_habitat_project_partial_success",
+      "narrative": "The undertaking delivered a bounded subset of its recorded goal; incomplete works remained.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "orbital_habitat"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "orbital_habitat_project_partial_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "orbital_habitat_project_partial",
+          "target": "facility",
+          "facts": {
+            "state": "partial"
+          }
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_research",
+      "narrative": "Climate Reconstruction Array began with tested equipment and registered specialists for human-built regional hydrological and climate equipment.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_research",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "environmental_engineering",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_charter",
+      "narrative": "Climate Reconstruction Array received a public multi-decade charter; its goal and objections entered the records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_charter",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_construction",
+      "narrative": "Decades of construction completed the Climate Reconstruction Array facility.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "climate_reconstruction_array",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_activation",
+      "narrative": "The facility entered documented use for human-built regional hydrological and climate equipment. This does not establish consciousness, an original identity or a new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "environmental_engineering"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "climate_engineering",
+          "target": "facility",
+          "facts": {
+            "consciousness": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_success",
+      "narrative": "The recorded practical goal was attained and local use continued; its observations imply no metaphysical conclusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "climate_engineering"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "climate_reconstruction_array_continued_use",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "practice",
+          "record_id": "climate_reconstruction_array_use",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_abandonment",
+      "narrative": "The polity abandoned the unfinished or partially useful undertaking; inventories and unused structures survived.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_abandonment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "climate_reconstruction_array_abandoned",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "climate_reconstruction_array_partial_success",
+      "narrative": "The undertaking delivered a bounded subset of its recorded goal; incomplete works remained.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "climate_engineering"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "climate_reconstruction_array_partial_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "climate_reconstruction_array_partial",
+          "target": "facility",
+          "facts": {
+            "state": "partial"
+          }
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_research",
+      "narrative": "Machine Coordination Nexus began with tested equipment and registered specialists for autonomous machines linked through a shared coordination substrate.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_research",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "machine_coordination",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_charter",
+      "narrative": "Machine Coordination Nexus received a public multi-decade charter; its goal and objections entered the records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_charter",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_construction",
+      "narrative": "Decades of construction completed the Machine Coordination Nexus facility.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "machine_coordination_nexus",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_activation",
+      "narrative": "The facility entered documented use for autonomous machines linked through a shared coordination substrate. This does not establish consciousness, an original identity or a new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "machine_coordination"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "coordination_network",
+          "target": "facility",
+          "facts": {
+            "consciousness": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_success",
+      "narrative": "The recorded practical goal was attained and local use continued; its observations imply no metaphysical conclusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "coordination_network"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "machine_coordination_nexus_continued_use",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "practice",
+          "record_id": "machine_coordination_nexus_use",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_abandonment",
+      "narrative": "The polity abandoned the unfinished or partially useful undertaking; inventories and unused structures survived.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_abandonment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "machine_coordination_nexus_abandoned",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "machine_coordination_nexus_partial_success",
+      "narrative": "The undertaking delivered a bounded subset of its recorded goal; incomplete works remained.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "coordination_network"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "machine_coordination_nexus_partial_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "machine_coordination_nexus_partial",
+          "target": "facility",
+          "facts": {
+            "state": "partial"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collective_mind_formation",
+      "narrative": "Multiple documented machine units joined a shared coordination substrate. Whether it was one consciousness remains unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "coordination_network"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "collective_mind_formation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "collective_coordination",
+          "target": "facility",
+          "facts": {
+            "shared_substrate": true,
+            "one_consciousness": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collective_mind_fracture",
+      "narrative": "The shared coordination network fragmented into independent command clusters. No new machine people or factions were authorized.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "collective_coordination"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "collective_mind_fracture",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "consciousness": "unknown",
+            "new_machine_faction": false
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "fragmented_nexus",
+          "target": "facility",
+          "facts": {
+            "state": "fragmented"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command_divergence",
+      "narrative": "Command logs document refusal and organized divergence by autonomous units from recorded human authority.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "coordination_network"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "command_divergence",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "organized_command_refusal",
+          "target": "facility",
+          "facts": {
+            "organized": true,
+            "human_authority_opposed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "machine_insurrection",
+      "narrative": "Recorded autonomous systems refused commands and fought human authority; damage to service facilities and territorial access survives. Consciousness is not established.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "organized_command_refusal"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "machine_insurrection",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "machine_consciousness": "unknown"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "insurrection_damage",
+          "target": "facility",
+          "facts": {
+            "state": "damaged"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "displaced_workers",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "forced_relocation": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "network_assimilation",
+      "narrative": "Registered residents connected individual identity records to the documented coordination network; records establish integration, not a shared consciousness or new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "coordination_network"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "network_assimilation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "network_assimilation",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "shared_consciousness": "unknown",
+            "new_species": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_research",
+      "narrative": "Transmutation Complex began with tested equipment and registered specialists for registered multi-generation bodily modification and synthetic integration workshops.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_research",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "biological_machine_integration",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_charter",
+      "narrative": "Transmutation Complex received a public multi-decade charter; its goal and objections entered the records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_charter",
+          "target": "facility",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_construction",
+      "narrative": "Decades of construction completed the Transmutation Complex facility.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_construction",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "transmutation_complex",
+          "target": "facility",
+          "facts": {
+            "state": "constructed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_activation",
+      "narrative": "The facility entered documented use for registered multi-generation bodily modification and synthetic integration workshops. This does not establish consciousness, an original identity or a new species.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "biological_machine_integration"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_activation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "population_modification",
+          "target": "facility",
+          "facts": {
+            "metaphysical_identity": "unknown",
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_success",
+      "narrative": "The recorded practical goal was attained and local use continued; its observations imply no metaphysical conclusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "population_modification"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "transmutation_complex_continued_use",
+          "target": "facility",
+          "facts": {
+            "state": "active"
+          }
+        },
+        {
+          "record_type": "practice",
+          "record_id": "transmutation_complex_use",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_abandonment",
+      "narrative": "The polity abandoned the unfinished or partially useful undertaking; inventories and unused structures survived.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_abandonment",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "transmutation_complex_abandoned",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmutation_complex_partial_success",
+      "narrative": "The undertaking delivered a bounded subset of its recorded goal; incomplete works remained.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "population_modification"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "transmutation_complex_partial_success",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "transmutation_complex_partial",
+          "target": "facility",
+          "facts": {
+            "state": "partial"
+          }
+        }
+      ]
+    },
+    {
+      "id": "population_redesign",
+      "narrative": "A documented multi-generation program changed baseline-human biological traits. Registry membership retained its authorized human-derived Origin; no new lineage was declared.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "population_modification"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "population_redesign",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "population_redesign",
+          "target": "facility",
+          "facts": {
+            "multiple_generations": true,
+            "population_template": "human_baseline",
+            "new_lineage": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "mechanogenic_assimilation",
+      "narrative": "Records show a high proportion of tissue replaced by synthetic structures with network linkage, beyond ordinary prostheses. Personhood and original-person death remain unresolved.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "population_redesign",
+        "biological_machine_integration"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "mechanogenic_assimilation",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "same_person": "unknown",
+            "original_person_dead": "unknown",
+            "new_species": false
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "mechanogenic_change",
+          "target": "facility",
+          "facts": {
+            "high_tissue_replacement": true,
+            "network_link": true,
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "biological_assimilation",
+      "narrative": "Program records document convergence of biological traits within the registered human-derived population. Cultural identity and biological traits remain distinct; no new species was authorized.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "population_redesign"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "biological_assimilation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "biological_assimilation",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "new_species": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "cohort_registry",
+      "narrative": "Census records identified an actual baseline-human resident cohort, retaining its existing population provenance.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "cohort_registry",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "registered_cohort",
+          "target": "cohort",
+          "facts": {
+            "population_template": "human_baseline",
+            "origin": "human_derived"
+          }
+        }
+      ]
+    },
+    {
+      "id": "biological_shutdown",
+      "narrative": "Members of the registered human-derived cohort suffered abrupt mortality with a shared physiological failure pattern and correlated markers. Designer, trigger, disease and perpetrator remain unknown.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "registered_cohort"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "biological_shutdown",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "physiological_pattern": "shared",
+            "marker_correlation": true,
+            "perpetrator": "unknown",
+            "trigger": "unknown"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "cohort_mortality",
+          "target": "cohort",
+          "facts": {
+            "population_template": "human_baseline",
+            "abrupt_mortality": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "cognitive_capacity_program",
+      "narrative": "Public program records document deliberate reduction of specified cognitive capacities in consenting registered residents. Its claimed benefits were not established.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "cognitive_capacity_program",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "cognitive_modification",
+          "target": "participant",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "registered_cognitive_program",
+          "target": "cohort",
+          "facts": {
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chosen_cognitive_regression",
+      "narrative": "The Retreat from Thought recorded a chosen cognitive-capacity reduction program and persistent test changes. It does not create a semi-sapient species or prove the community beliefs.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "registered_cognitive_program"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "chosen_cognitive_regression",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "agency": "chosen",
+            "belief_validity": "unknown",
+            "new_species": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "cognitive_assimilation",
+      "narrative": "Recorded modification and test series show convergence of memory, behavior and self-models among existing registered residents. Original-person identity remains unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "registered_cognitive_program"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "cognitive_assimilation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "cognitive_assimilation",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social_assimilation",
+      "narrative": "Recorded institutions, language instruction and shared customs absorbed local social practices among existing residents; this is social integration, not biological fusion.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "social_assimilation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "social_assimilation",
+          "target": "participant",
+          "facts": {
+            "biological_fusion": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "imposed_cognitive_regression",
+      "narrative": "An imposed program reduced measured cognitive capacity in a registered approved historical contact population; belief and personhood remain unresolved.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "regression_population",
+      "requires": [
+        "approved_contact"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "imposed_cognitive_regression",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "agency": "imposed",
+            "new_species": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "approved_contact_register",
+      "narrative": "An authored, approved regression population and actual resident group were entered in local records.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "regression_population",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "population",
+          "record_id": "approved_contact",
+          "target": "cohort",
+          "facts": {
+            "content_reference": "variable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "residence_census",
+      "narrative": "Repeated census and habitation records document an actual populated settlement.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "residence_census",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "site",
+          "record_id": "inhabited_settlement",
+          "target": "facility",
+          "facts": {
+            "state": "inhabited"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "resident_census",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "silent_depopulation",
+      "narrative": "Settlement habitation and resident records ended without battle, mass-grave, migration or evacuation evidence. Cause remains unknown.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "resident_census"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "silent_depopulation",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "battle_record": false,
+            "mass_grave": false,
+            "mass_migration": false,
+            "evacuation": false
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "empty_settlement",
+          "target": "facility",
+          "facts": {
+            "state": "empty"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "missing_residents",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "fate": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "population_registry",
+      "narrative": "A real baseline-human resident population and biological records were registered.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "population_registry",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "population",
+          "record_id": "registered_population",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mass_morphogenic_event",
+      "narrative": "Human, animal and plant records show a geographically clustered incidence spike with repeated developmental changes. Cause remains unknown; no new species was authorized.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "registered_population"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "mass_morphogenic_event",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "cause_resolution": "unknown",
+            "new_species": false,
+            "geographic_clustering": true,
+            "developmental_spike": true
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "morphogenic_records",
+          "target": "facility",
+          "facts": {
+            "human": true,
+            "animal": true,
+            "plant": true,
+            "biological_records": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "reproductive_shutdown",
+      "narrative": "Living residents persisted while viable births and germline continuity sharply declined. Existing-individual mortality is distinct from this next-generation failure; cause remains unknown.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "registered_population"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "reproductive_shutdown",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "living_survivors": true,
+            "birth_continuity": "failed"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "birth_failure",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exclusion_policy",
+      "narrative": "Recorded authorities imposed an exclusion policy on an existing registered resident group; signed orders identify the perpetrators.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "registered_population"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "exclusion_policy",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "extremist_exclusion",
+          "target": "participant",
+          "facts": {
+            "perpetrator": "participant",
+            "target": "registered_population"
+          }
+        }
+      ]
+    },
+    {
+      "id": "targeted_extermination",
+      "narrative": "Signed policy and removal records document organized killings and forced removal of the registered resident group; its settlement was abandoned. No legal or historiographic label is inferred.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "registered_population",
+        "extremist_exclusion"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "targeted_extermination",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_policy",
+            "perpetrator": "participant",
+            "killings": true,
+            "forced_removal": true
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "removed_population_site",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "targeted_loss",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "target_reference": "variable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identity_duplication_record",
+      "narrative": "Registered human-derived copies reported duplicated legal identity, with matched copied-memory records; no original person was identified.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "identity_duplication_record",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "capability",
+          "record_id": "memory_copying",
+          "target": "participant",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "actual_identity_duplication",
+          "target": "cohort",
+          "facts": {
+            "population_template": "human_baseline",
+            "original_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identity_registry",
+      "narrative": "Authorities created a registry for the recorded copies and contested legal identities.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "actual_identity_duplication"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "identity_registry",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "identity_registry",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "identity_collapse",
+      "narrative": "Duplicated identity cases overwhelmed recorded inheritance and personhood offices. This institutional collapse does not settle philosophical identity.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "actual_identity_duplication",
+        "identity_registry"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "identity_collapse",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown",
+            "same_person": "unknown"
+          }
+        },
+        {
+          "record_type": "institution",
+          "record_id": "inheritance_breakdown",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "memory_convergence",
+      "narrative": "Distinct registered residents reported matching memory fragments; records establish shared reports, not a source.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "registered_population"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "memory_convergence",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "memory_convergence",
+          "target": "facility",
+          "facts": {
+            "pattern_match": true,
+            "cause": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "distributed_identity_event",
+      "narrative": "Separated registered individuals claimed the same memories and self-narrative with documented record matches. Original identity and continuity remain unknown.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "actual_identity_duplication"
+      ],
+      "records": [
+        {
+          "record_type": "phase",
+          "record_id": "distributed_identity_event",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "observation",
+          "record_id": "distributed_identity",
+          "target": "facility",
+          "facts": {
+            "record_match": true,
+            "original_person": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_regulation_quarantine",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: district_barriers, access_isolation. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "regulation_quarantine",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "existing_barrier_infrastructure",
+            "observations": [
+              "district_barriers",
+              "access_isolation"
+            ],
+            "system_provenance": "planetary_regulation_network",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_network_severance",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: road_closure, tunnel_closure, service_link_loss. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "network_severance",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "old_access_control_infrastructure",
+            "observations": [
+              "road_closure",
+              "tunnel_closure",
+              "service_link_loss"
+            ],
+            "system_provenance": "planetary_regulation_network",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_sealed_horizon",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: successive_route_closures, regional_isolation. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "sealed_horizon",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "old_tunnel_infrastructure",
+            "observations": [
+              "successive_route_closures",
+              "regional_isolation"
+            ],
+            "system_provenance": "planetary_regulation_network",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_hydrological_reversal",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: groundwater_reversal, drainage_reorganization. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "hydrological_reversal",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "long_term_environmental_equipment",
+            "observations": [
+              "groundwater_reversal",
+              "drainage_reorganization"
+            ],
+            "system_provenance": "environmental_regulation_module",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_climate_desynchronization",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: rainfall_shift, season_cycle_drift. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "climate_desynchronization",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "long_term_environmental_equipment",
+            "observations": [
+              "rainfall_shift",
+              "season_cycle_drift"
+            ],
+            "system_provenance": "environmental_regulation_module",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_service_cascade",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: water_failure, ventilation_failure, transport_failure. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "service_cascade",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "old_service_infrastructure",
+            "observations": [
+              "water_failure",
+              "ventilation_failure",
+              "transport_failure"
+            ],
+            "system_provenance": "planetary_regulation_network",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_subsurface_pressure_bloom",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: fluid_pressure_rise, gas_venting, structural_damage. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "subsurface_pressure_bloom",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "existing_slope_stress_and_fluid_pressure",
+            "observations": [
+              "fluid_pressure_rise",
+              "gas_venting",
+              "structural_damage"
+            ],
+            "system_provenance": "planetary_regulation_network",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_regulation_spasm",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: rainfall_shift, pressure_change, service_interruption, access_sealing. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "preservator_intervention",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "regulation_spasm",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "existing_fault_stress_and_fluid_pressure",
+            "observations": [
+              "rainfall_shift",
+              "pressure_change",
+              "service_interruption",
+              "access_sealing"
+            ],
+            "system_provenance": "planetary_regulation_network",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_unclassified_intervention",
+      "narrative": "Multiple recorded regional infrastructure conditions changed: artificial_adjustment, unclassified_subsystem. The physical basis is bounded; purpose and command hierarchy remain unknown.",
+      "category": "pressure",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "unclassified_intervention",
+          "target": "facility",
+          "facts": {
+            "physical_basis": "unclassified_artificial_change",
+            "observations": [
+              "artificial_adjustment",
+              "unclassified_subsystem"
+            ],
+            "system_provenance": "unknown",
+            "cause": "unknown",
+            "intent": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "infrastructure_cascade",
+      "narrative": "Multiple documented life-support services failed successively, forcing resident relocation and leaving damaged service facilities.",
+      "category": "scar",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [
+        "service_cascade"
+      ],
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "infrastructure_cascade",
+          "target": "facility",
+          "facts": {
+            "cause": "unknown"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "cascade_damage",
+          "target": "facility",
+          "facts": {
+            "state": "damaged"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "service_displacement",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_crater_machine",
+      "narrative": "A machine was recovered in a coastal crater; impact context does not establish its origin.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "crater_machine",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_embedded_artifact",
+      "narrative": "An unfamiliar artifact was exposed inside a mineral layer.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "embedded_artifact",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_manufactured_fragment",
+      "narrative": "An unfamiliar manufactured fragment was recovered.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "manufactured_fragment",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_sealed_chamber",
+      "narrative": "Erosion exposed a sealed chamber containing unidentified equipment.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "sealed_chamber",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_stratum_fragment",
+      "narrative": "A fragment was recorded in an old stratum.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "stratum_fragment",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_surface_wreckage",
+      "narrative": "Unidentified surface wreckage was documented.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "surface_wreckage",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_memory_lattice",
+      "narrative": "A large data lattice structurally resembles recorded neural and memory patterns; souls are not established.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "memory_lattice",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_cognitive_echo",
+      "narrative": "A system corresponds closely to a historical person in memory and behavior; whether it is the same person remains unknown.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "cognitive_echo",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_identity_duplicate",
+      "narrative": "Several records identify matching self-narratives; an original person is not established.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "identity_duplicate",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_empty_settlement",
+      "narrative": "An abandoned habitation record shows no battle or documented evacuation evidence.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "empty_settlement",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_preserved_cohort",
+      "narrative": "Registered preserved baseline-human remains were found; no new lineage or living species was created.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "preserved_cohort",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_chronological_anomaly",
+      "narrative": "Repeated dating results conflict with surrounding context; cause remains unknown.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "chronological_anomaly",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_biological_archive",
+      "narrative": "An archive contains baseline-human biological records; it does not establish living descendants.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "biological_archive",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_unmapped_substructure",
+      "narrative": "An exposed substructure is outside prior maps; its content remains unclassified.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "unmapped_substructure",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_silent_regulation_node",
+      "narrative": "A matching ancient node shows no present activity; its provenance and purpose remain unknown.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "silent_regulation_node",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_active_regulation_node",
+      "narrative": "A matching ancient node remains active; observed function does not establish its full purpose or command hierarchy.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "active_regulation_node",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_nonlocal_material",
+      "narrative": "A material does not match known local geology or manufacture; Outerworld origin is not established.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "nonlocal_material",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_sealed_human_record",
+      "narrative": "Sealed records correspond to historical humans; no identity or lineage continuity is inferred.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "sealed_human_record",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery_cognitive_archive",
+      "narrative": "Stored records resemble human cognitive patterns; consciousness survival is not established.",
+      "category": "discovery",
+      "domain": "unknown",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "discovery",
+          "record_id": "cognitive_archive",
+          "target": "facility",
+          "facts": {
+            "origin": "unknown",
+            "purpose": "unknown",
+            "same_person": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_succession_dispute",
+      "narrative": "Records document succession dispute affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "succession_dispute",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_trade_failure",
+      "narrative": "Records document trade failure affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "trade_failure",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_military_overextension",
+      "narrative": "Records document military overextension affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "military_overextension",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_migration_pressure",
+      "narrative": "Records document migration pressure affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "migration_pressure",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_administrative_fragmentation",
+      "narrative": "Records document administrative fragmentation affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "administrative_fragmentation",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_adaptation_tension",
+      "narrative": "Records document adaptation tension affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "adaptation_tension",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_extreme_seasons",
+      "narrative": "Records document extreme seasons affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "natural",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "extreme_seasons",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_physical_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_geophysical_stress",
+      "narrative": "Records document geophysical stress affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "natural",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "geophysical_stress",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_physical_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_chemical_exposure",
+      "narrative": "Records document chemical exposure affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "natural",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "chemical_exposure",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_physical_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_radiative_haze",
+      "narrative": "Records document radiative haze affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "natural",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "radiative_haze",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_physical_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_identity_dispute",
+      "narrative": "Records document identity dispute affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "actual_identity_duplication"
+      ],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "identity_dispute",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_augmentation_conflict",
+      "narrative": "Records document augmentation conflict affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "population_modification"
+      ],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "augmentation_conflict",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_memory_ownership_dispute",
+      "narrative": "Records document memory ownership dispute affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "memory_copying"
+      ],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "memory_ownership_dispute",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_continuity_crisis",
+      "narrative": "Records document continuity crisis affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "continuity_project"
+      ],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "continuity_crisis",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v4_lineage_persecution",
+      "narrative": "Records document lineage persecution affecting the existing registered population and offices.",
+      "category": "pressure",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "approved_lineage"
+      ],
+      "records": [
+        {
+          "record_type": "pressure",
+          "record_id": "lineage_persecution",
+          "target": "facility",
+          "facts": {
+            "cause": "recorded_social_conditions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "response_regional_autonomy",
+      "narrative": "The recorded polity organized regional autonomy in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "regional_autonomy",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "regional_autonomy",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_religious_schism",
+      "narrative": "The recorded polity organized religious schism in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "religious_schism",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "religious_schism",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_maintainer_secession",
+      "narrative": "The recorded polity organized maintainer secession in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "maintainer_secession",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "maintainer_secession",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_household_council",
+      "narrative": "The recorded polity organized household council in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "household_council",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "household_council",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_quarantine_cordon",
+      "narrative": "The recorded polity organized quarantine cordon in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "quarantine_cordon",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "quarantine_cordon",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_population_dispersal",
+      "narrative": "The recorded polity organized population dispersal in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "population_dispersal",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "population_dispersal",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_archive_evacuation",
+      "narrative": "The recorded polity organized archive evacuation in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "archive_evacuation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "archive_evacuation",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_continuity_project",
+      "narrative": "The recorded polity organized continuity project in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "cognitive_pattern_storage"
+      ],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "continuity_project",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "continuity_project",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_sealed_districts",
+      "narrative": "The recorded polity organized sealed districts in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "sealed_districts",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "sealed_districts",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_gene_bank_refuge",
+      "narrative": "The recorded polity organized gene bank refuge in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "genome_preservation"
+      ],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "gene_bank_refuge",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "gene_bank_refuge",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_machine_delegation",
+      "narrative": "The recorded polity organized machine delegation in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "machine_coordination"
+      ],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "machine_delegation",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "machine_delegation",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_identity_registry",
+      "narrative": "The recorded polity organized identity registry in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "actual_identity_duplication"
+      ],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "identity_registry",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "identity_registry",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_memory_custody",
+      "narrative": "The recorded polity organized memory custody in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "memory_copying"
+      ],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "memory_custody",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "memory_custody",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "response_emergency_collective",
+      "narrative": "The recorded polity organized emergency collective in response to the preceding pressure; the institutional charter and responsible population are recorded.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "response",
+          "record_id": "emergency_collective",
+          "target": "facility",
+          "facts": {}
+        },
+        {
+          "record_type": "institution",
+          "record_id": "emergency_collective",
+          "target": "participant",
+          "facts": {}
+        }
+      ]
+    },
+    {
+      "id": "collapse_civil_war",
+      "narrative": "Recorded civil war followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "civil_war",
+          "target": "facility",
+          "facts": {
+            "organized_conflict": true
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "civil_war_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "civil_war_remains",
+          "target": "facility",
+          "facts": {
+            "state": "damaged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collapse_mass_exodus",
+      "narrative": "Recorded mass exodus followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "mass_exodus",
+          "target": "facility",
+          "facts": {
+            "documented_departure": true
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "mass_exodus_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "mass_exodus_remains",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collapse_administrative_breakdown",
+      "narrative": "Recorded administrative breakdown followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "administrative_breakdown",
+          "target": "facility",
+          "facts": {
+            "appointments_and_record_coordination": "failed"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "administrative_breakdown_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "administrative_breakdown_remains",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collapse_population_failure",
+      "narrative": "Recorded population failure followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "registered_population"
+      ],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "population_failure",
+          "target": "facility",
+          "facts": {
+            "living_survivors": true,
+            "birth_continuity": "failed",
+            "cause": "unknown"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "population_failure_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "population_failure_remains",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collapse_infrastructure_cascade",
+      "narrative": "Recorded infrastructure cascade followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "service_cascade"
+      ],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "infrastructure_cascade",
+          "target": "facility",
+          "facts": {
+            "failed_services": [
+              "water",
+              "heat",
+              "ventilation"
+            ]
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "infrastructure_cascade_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "infrastructure_cascade_remains",
+          "target": "facility",
+          "facts": {
+            "state": "damaged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collapse_automated_succession",
+      "narrative": "Recorded automated succession followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [
+        "machine_coordination"
+      ],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "automated_succession",
+          "target": "facility",
+          "facts": {
+            "human_administration": "ceased",
+            "automated_functions": "continued",
+            "machine_consciousness": "unknown"
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "automated_succession_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "automated_succession_remains",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "collapse_ecological_displacement",
+      "narrative": "Recorded ecological displacement followed the local response, changing service access, institutional continuity and the registered residents' disposition.",
+      "category": "phase",
+      "domain": "human",
+      "gate": "none",
+      "requires": [],
+      "records": [
+        {
+          "record_type": "collapse",
+          "record_id": "ecological_displacement",
+          "target": "facility",
+          "facts": {
+            "habitation_conditions": "incompatible",
+            "documented_relocation": true
+          }
+        },
+        {
+          "record_type": "population",
+          "record_id": "ecological_displacement_consequence",
+          "target": "facility",
+          "facts": {
+            "population_template": "human_baseline",
+            "scope": "recorded_local_residents"
+          }
+        },
+        {
+          "record_type": "site",
+          "record_id": "ecological_displacement_remains",
+          "target": "facility",
+          "facts": {
+            "state": "abandoned"
+          }
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "biological_shutdown",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "cohort_registry",
+        "biological_shutdown"
+      ]
+    },
+    {
+      "id": "chosen_cognitive_regression",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "cohort_registry",
+        "cognitive_capacity_program",
+        "chosen_cognitive_regression"
+      ]
+    },
+    {
+      "id": "cognitive_assimilation",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "cohort_registry",
+        "cognitive_capacity_program",
+        "cognitive_assimilation"
+      ]
+    },
+    {
+      "id": "social_assimilation",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "population_registry",
+        "social_assimilation"
+      ]
+    },
+    {
+      "id": "imposed_cognitive_regression",
+      "weight": 1,
+      "gate": "regression_population",
+      "stages": [
+        "approved_contact_register",
+        "imposed_cognitive_regression"
+      ]
+    },
+    {
+      "id": "silent_depopulation",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "residence_census",
+        "silent_depopulation"
+      ]
+    },
+    {
+      "id": "mass_morphogenic_event",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "population_registry",
+        "mass_morphogenic_event"
+      ]
+    },
+    {
+      "id": "reproductive_shutdown",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "population_registry",
+        "reproductive_shutdown"
+      ]
+    },
+    {
+      "id": "targeted_extermination",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "population_registry",
+        "exclusion_policy",
+        "targeted_extermination"
+      ]
+    },
+    {
+      "id": "identity_collapse",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "cohort_registry",
+        "identity_duplication_record",
+        "identity_registry",
+        "identity_collapse"
+      ]
+    },
+    {
+      "id": "memory_convergence",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "population_registry",
+        "memory_convergence"
+      ]
+    },
+    {
+      "id": "distributed_identity_event",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "cohort_registry",
+        "identity_duplication_record",
+        "distributed_identity_event"
+      ]
+    },
+    {
+      "id": "infrastructure_cascade",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "v4_service_cascade",
+        "infrastructure_cascade"
+      ]
+    },
+    {
+      "id": "unclassified_intervention",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "v4_unclassified_intervention"
+      ]
+    },
+    {
+      "id": "regulation_spasm",
+      "weight": 1,
+      "gate": "none",
+      "stages": [
+        "v4_regulation_spasm"
+      ]
+    }
+  ],
+  "discoveries": [
+    "crater_machine",
+    "embedded_artifact",
+    "manufactured_fragment",
+    "sealed_chamber",
+    "stratum_fragment",
+    "surface_wreckage",
+    "memory_lattice",
+    "cognitive_echo",
+    "identity_duplicate",
+    "empty_settlement",
+    "preserved_cohort",
+    "chronological_anomaly",
+    "biological_archive",
+    "unmapped_substructure",
+    "silent_regulation_node",
+    "active_regulation_node",
+    "nonlocal_material",
+    "sealed_human_record",
+    "cognitive_archive"
+  ],
+  "pressures": [
+    {
+      "id": "succession_dispute",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "trade_failure",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "military_overextension",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "migration_pressure",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "administrative_fragmentation",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "adaptation_tension",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "extreme_seasons",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "geophysical_stress",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "chemical_exposure",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "radiative_haze",
+      "requires": [],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "regulation_quarantine",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "network_severance",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "sealed_horizon",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "hydrological_reversal",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "climate_desynchronization",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "service_cascade",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "subsurface_pressure_bloom",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "regulation_spasm",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "unclassified_intervention",
+      "requires": [],
+      "responses": [
+        "emergency_collective",
+        "population_dispersal",
+        "sealed_districts",
+        "quarantine_cordon",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "identity_dispute",
+      "requires": [
+        "actual_identity_duplication"
+      ],
+      "responses": [
+        "identity_registry",
+        "memory_custody",
+        "continuity_project",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "augmentation_conflict",
+      "requires": [
+        "population_modification"
+      ],
+      "responses": [
+        "quarantine_cordon",
+        "population_dispersal",
+        "emergency_collective"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "memory_ownership_dispute",
+      "requires": [
+        "memory_copying"
+      ],
+      "responses": [
+        "identity_registry",
+        "memory_custody",
+        "continuity_project",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "continuity_crisis",
+      "requires": [
+        "continuity_project"
+      ],
+      "responses": [
+        "identity_registry",
+        "memory_custody",
+        "continuity_project",
+        "archive_evacuation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "lineage_persecution",
+      "requires": [
+        "approved_lineage"
+      ],
+      "responses": [
+        "regional_autonomy",
+        "religious_schism",
+        "maintainer_secession",
+        "household_council",
+        "population_dispersal",
+        "archive_evacuation",
+        "continuity_project",
+        "gene_bank_refuge",
+        "machine_delegation"
+      ],
+      "gate": "lineages"
+    }
+  ],
+  "responses": [
+    {
+      "id": "regional_autonomy",
+      "requires": [],
+      "collapses": [
+        "civil_war",
+        "mass_exodus",
+        "administrative_breakdown"
+      ]
+    },
+    {
+      "id": "religious_schism",
+      "requires": [],
+      "collapses": [
+        "civil_war",
+        "administrative_breakdown"
+      ]
+    },
+    {
+      "id": "maintainer_secession",
+      "requires": [],
+      "collapses": [
+        "infrastructure_cascade",
+        "mass_exodus"
+      ]
+    },
+    {
+      "id": "household_council",
+      "requires": [],
+      "collapses": [
+        "administrative_breakdown",
+        "mass_exodus"
+      ]
+    },
+    {
+      "id": "quarantine_cordon",
+      "requires": [],
+      "collapses": [
+        "silent_depopulation",
+        "mass_exodus",
+        "ecological_displacement"
+      ]
+    },
+    {
+      "id": "population_dispersal",
+      "requires": [],
+      "collapses": [
+        "mass_exodus",
+        "population_failure"
+      ]
+    },
+    {
+      "id": "archive_evacuation",
+      "requires": [],
+      "collapses": [
+        "administrative_breakdown",
+        "mass_exodus"
+      ]
+    },
+    {
+      "id": "continuity_project",
+      "requires": [
+        "cognitive_pattern_storage"
+      ],
+      "collapses": [
+        "continuity_transfer",
+        "administrative_breakdown"
+      ]
+    },
+    {
+      "id": "sealed_districts",
+      "requires": [],
+      "collapses": [
+        "infrastructure_cascade",
+        "mass_exodus"
+      ]
+    },
+    {
+      "id": "gene_bank_refuge",
+      "requires": [
+        "genome_preservation"
+      ],
+      "collapses": [
+        "population_failure",
+        "mass_exodus"
+      ]
+    },
+    {
+      "id": "machine_delegation",
+      "requires": [
+        "machine_coordination"
+      ],
+      "collapses": [
+        "automated_succession",
+        "infrastructure_cascade"
+      ]
+    },
+    {
+      "id": "identity_registry",
+      "requires": [
+        "actual_identity_duplication"
+      ],
+      "collapses": [
+        "identity_collapse",
+        "administrative_breakdown"
+      ]
+    },
+    {
+      "id": "memory_custody",
+      "requires": [
+        "memory_copying"
+      ],
+      "collapses": [
+        "identity_collapse",
+        "administrative_breakdown"
+      ]
+    },
+    {
+      "id": "emergency_collective",
+      "requires": [],
+      "collapses": [
+        "infrastructure_cascade",
+        "mass_exodus"
+      ]
+    }
+  ],
+  "collapses": [
+    "civil_war",
+    "mass_exodus",
+    "administrative_breakdown",
+    "targeted_extermination",
+    "silent_depopulation",
+    "continuity_transfer",
+    "population_failure",
+    "infrastructure_cascade",
+    "identity_collapse",
+    "automated_succession",
+    "ecological_displacement"
+  ]
+}

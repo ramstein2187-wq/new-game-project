@@ -152,7 +152,7 @@
       "family": "machine",
       "role": "primary",
       "weight": 30,
-      "narrative": "Local autonomous machines fought residents and damaged a service site. Their manufacture and relationship to ancient systems are unclassified; no Core or Observer motive is asserted.",
+      "narrative": "Local autonomous machines fought residents and damaged a service site. Their manufacture and relationship to ancient systems are unclassified; no Preservator, Planetary Regulation Network, or Observer motive is asserted.",
       "records": [
         {
           "record_type": "scar",
@@ -407,7 +407,7 @@
       "family": "deep",
       "role": "primary",
       "weight": 1,
-      "narrative": "A local settlement failure forced the recorded Deep residents to evacuate to their surface homes. The lost Deep settlement remains identifiable; no Deep Core motive is asserted.",
+      "narrative": "A local settlement failure forced the recorded Deep residents to evacuate to their surface homes. The lost Deep settlement remains identifiable; no Preservator or Planetary Regulation Network motive is asserted.",
       "records": [
         {
           "record_type": "scar",

@@ -3,7 +3,7 @@ extends SceneTree
 const Statistics = preload("res://tools/history_topology_statistics.gd")
 var assertions := 0
 var failures := 0
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null, HistoryMotifs.DISCOVERIES, 3)
 var examples := {}
 
 func expect(condition: bool, message: String) -> void:
@@ -223,16 +223,16 @@ func _semantics() -> void:
 func _boundaries() -> void:
 	var r := generator.generate(42)
 	var labels := HistoryNameSource.new(func(seed: int, id: String, kind: String) -> String: return "%d/%s/%s" % [seed, id, kind])
-	var custom := HistoryGenerator.new(labels).generate(42)
+	var custom := HistoryGenerator.new(labels, HistoryMotifs.DISCOVERIES, 3).generate(42)
 	expect(r.structural_output() == custom.structural_output(), "Naming replacement cannot change canonical simulation or claims")
 	var catalog := (load(NamingCatalog.CONTENT_PATH) as NamingContent).duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as NamingContent
 	for token in catalog.tokens:
 		for locale in ["en", "ko"]:
 			token.forms[locale] = str(token.forms[locale]) + ("x" if locale == "en" else "라")
-	var authored := HistoryGenerator.new(HistoryNameSource.new(Callable(), NamingCatalog.new(catalog))).generate(42)
+	var authored := HistoryGenerator.new(HistoryNameSource.new(Callable(), NamingCatalog.new(catalog)), HistoryMotifs.DISCOVERIES, 3).generate(42)
 	expect(authored.structural_output() == r.structural_output(), "Localized authored names do not perturb topology")
 	var pool := HistoryMotifs.DISCOVERIES.duplicate()
 	pool.reverse()
-	var changed := HistoryGenerator.new(null, pool)
+	var changed := HistoryGenerator.new(null, pool, 3)
 	for seed in range(1, 21):
 		expect(Statistics.political_signature(generator.generate(seed)) == Statistics.political_signature(changed.generate(seed)), "Discovery draw cannot perturb political graph")

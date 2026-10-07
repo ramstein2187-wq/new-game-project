@@ -1,6 +1,8 @@
 class_name CanonPolicy
 extends RefCounted
 
+# Runtime snapshot keys below are frozen by the history-v2 replay contract. The legacy
+# core_* vocabulary is serialization compatibility only; do not use it as current lore/display terminology.
 const LOCKED := {
 	"human_origin": "Earth Homo sapiens", "human_lineages": "multiple modified lineages",
 	"modern_origin_knowledge": "mostly lost", "system_age": "about 1.35 billion Earth years",
@@ -26,6 +28,18 @@ const GENERATABLE := ["regional_polities", "dynasties", "founding", "war", "civi
 const BELIEF_ONLY := ["human_origin", "observer_character", "first_terraformer", "world_creation",
 	"core_intent", "outerworld_identity", "global_collapse_cause", "legitimate_successor",
 	"orbital_activation_reason", "orbital_target_selection_reason"]
+
+# Canonical nomenclature for new lore, UI and future schema versions.
+const PRESERVATOR_TERMINOLOGY := {
+	"top_level": "The Preservator",
+	"planetary_network": "Planetary Regulation Network",
+	"environmental_module": "Environmental Regulation Module",
+	"regional_facility": "Regional Control Station",
+	"regulation_node": "Regulation Node",
+	"control_node": "Control Node",
+	"observer_era_visibility": "largely concealed from human societies",
+	"post_observer_visibility": "gradually exposed as concealment, maintenance and access control fail",
+}
 const ENTITY_KINDS := ["region", "precursor_state", "group", "faction", "settlement"]
 const WAYS_OF_LIFE := [""] + HistoryMotifs.SUCCESSOR_A + HistoryMotifs.SUCCESSOR_B + HistoryMotifs.FORMATION_C
 const KNOWLEDGE_TAGS := ["observer_scholarly_term"]
@@ -33,6 +47,8 @@ const RUIN_KINDS := ["abandoned_farmland", "damaged_route", "chemical_exposure_s
 	"abandoned_archive", "battlefield", "administrative_site", "watchtower", "legacy_damage_site"]
 const OBSERVATIONS := ["machine_in_coastal_crater", "object_in_mineral_layer", "unfamiliar_manufacturing",
 	"sealed_object_in_erosion", "fragment_in_old_stratum", "unidentified_surface_wreckage"]
+# NOTE: history-v3 still serializes the legacy domain id "core_intervention" for replay compatibility.
+# Player-facing and new lore/code prose must call this Preservator / Planetary Regulation Network activity.
 const DOMAINS := ["natural", "human", "observer_legacy", "core_intervention", "unknown"]
 const EFFECT_FIELDS := {
 	"activate": ["kind", "entity_id"], "retire": ["kind", "entity_id"],
@@ -53,8 +69,17 @@ static func snapshot() -> Dictionary:
 		"generatable": GENERATABLE.duplicate(), "belief_only": BELIEF_ONLY.duplicate()}
 
 static func narrative(event: HistoricalEvent) -> String:
+	if event.event_type == HistoricalEvent.Type.HISTORY_RECORD or event.narrative_key.begins_with("discovery_"):
+		if event.narrative_key == "history_custody":
+			return "A current polity registered custody of surviving records and access; archival inheritance does not imply biological descent."
+		return HistoryV4Catalog.new().definition(event.narrative_key).get("narrative", "INVALID V4 NARRATIVE")
+	var legacy_key: String = HistoryV4Compatibility.translate_ids(event.narrative_key, true)
+	if legacy_key != event.narrative_key and NARRATIVES.has(legacy_key):
+		return str(NARRATIVES[legacy_key][1]).replace("Core-associated", "Preservator-era").replace("Deep Core", "Planetary Regulation Network")
 	if event.event_type == HistoricalEvent.Type.SOCIAL_INCIDENT:
-		return str(SocialIncidentCatalog.new().definition(event.narrative_key).get("narrative", "INVALID SOCIAL NARRATIVE"))
+		return str(SocialIncidentCatalog.new().definition(HistoryV4Compatibility.translate_ids(event.narrative_key,true)).get("narrative", "INVALID SOCIAL NARRATIVE"))
+	if event.narrative_key == "mass_exodus":
+		return NARRATIVES.evacuation[1]
 	return NARRATIVES.get(event.narrative_key, ["", "INVALID NARRATIVE"])[1]
 
 static func effect_errors(effect: Dictionary, version: int = 2) -> Array[String]:
