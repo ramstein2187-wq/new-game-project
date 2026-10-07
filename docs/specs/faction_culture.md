@@ -200,6 +200,19 @@ Any existing conjunction gate is preserved; new preferences do not open it.
 
 The same Failed Exodus can support caution against departures or renewed desire
 to leave; Claims make these opposing normative interpretations explicit. Neither
-Claim chooses why orbital hardware acted. Cognitive execution can support conflicting
+Claim chooses why orbital hardware acted or invents hardware intervention where
+only engineering/tracking loss is recorded. Cognitive execution can support conflicting
 personhood beliefs while consciousness survival stays unknown. Culture extraction
 reads records and canonical identity axes, never Claim prose or names.
+
+
+## Current history revision2 evidence
+
+Current v4 hooks follow Genome Archive, Autonomous Systems Crisis, Habitable Zone
+Loss and Record Severance. Existing Doctrine breadth/intensity/eligibility remains.
+Recorded identity/citizenship/property conflicts do not grant neural memory-copying
+capability. Region-wide Scar exposure is regional record access, not personal bodily
+loss or genetic descent. Imposed Diminution is now actual human-on-human history,
+while unapproved lineage/contact/personhood Doctrine gates remain distinct.
+Claims can call autonomous damage a rebellion as belief; objective vocabulary
+records observed autonomous behavior without assuming political intent.

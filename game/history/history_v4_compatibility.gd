@@ -21,8 +21,13 @@ const IDS := {
 	"salvage_custom": "salvage_tradition", "human_final_authority": "human_authority_reaffirmed",
 	"rotating_office_compact": "office_rotation_charter", "maintenance_secession": "maintainer_secession",
 	"h_legacy_core": "h_legacy_preservator", "legacy_core": "legacy_preservator",
+	"genome_ark":"genome_archive_project", "machine_insurrection":"autonomous_systems_crisis",
 }
 static var _reverse_ids: Dictionary = {}
+
+# Revision1→2 is an explicit deterministic regeneration boundary. Only the two
+# true renames map; retired concepts are not silently reinterpreted as new ones.
+const REMOVED_V4_IDS := ["genome_ark","continuity_vault","orbital_habitat_project","climate_reconstruction_array","machine_coordination_nexus","transmutation_complex","biological_shutdown","identity_collapse","continuity_transfer","machine_insurrection"]
 
 static func translate_ids(value: Variant, reverse: bool = false) -> Variant:
 	var mapping := IDS
@@ -74,7 +79,8 @@ static func canon() -> Dictionary:
 	var policy: Dictionary = translate_ids(CanonPolicy.snapshot())
 	policy.locked.merge({"preservator_architecture": CanonPolicy.PRESERVATOR_TERMINOLOGY.duplicate(true),
 		"observer_era_facilities": "largely concealed; gradual post-control exposure",
-		"present_command_hierarchy": "unresolved; no assumed unified current will"})
+		"present_command_hierarchy": "unresolved; no assumed unified current will",
+		"civilizational_project_success":"bounded technical success only; no stable orbital or Deep civilization, confirmed escape or metaphysical conquest"})
 	policy.reserved.append_array(["consciousness_survival", "same_person_continuity", "far_sky_signal_origin", "last_descent_killer"])
 	return policy
 

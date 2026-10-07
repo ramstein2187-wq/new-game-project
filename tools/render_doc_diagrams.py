@@ -13,8 +13,8 @@ FLOWS = {
         "Canon: LOCKED facts / RESERVED mysteries / authored content gates",
         "Precursor → pressure → response → bounded local collapse",
         "Successor topology / faction formation / population donors",
-        "Projects: authorization / decades of work / use / outcome; optional Scars",
-        "Compatible pressure / response / collapse; bounded discovery / mysteries",
+        "Context-weighted Projects: authority / decades of work / bounded use",
+        "Independent Scars: actual population / causal chain / persistent aftermath",
         "Event / effect replay → Project / Scar / facility / population provenance",
         "Identity / Culture interpret facts; Claims remain perceived",
         "Simulation decides what happens next (outside generation)"

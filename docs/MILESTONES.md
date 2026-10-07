@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M043 follow-up: **Complete on isolated task branch; main not merged** codex/history-projects-scars-redesign;8 Projects/15 independent Scars; [contract](milestones/M043_history_projects_scars_redesign.md).
+
 - M043: **Complete on task branch; main not merged** `codex/history-generator-v4`, base M042 `8cb6f3d`; 5,000 canonical replays, 48 raw reviews, 6,952 focused assertions and full38-script gate PASS; [milestone](milestones/M043_history_generator_v4.md).
 
 - M042: **Complete on task branch; not merged main** `codex/history-social-incidents-v1`, exact base `ef18814f34abfa7ab278c0914ae289806b22dc12`. Objective social incidents, dependent cloning, gated contacts and moderate/hardline/fanatic norms. 5000 histories, 29 raw-source reviews, focused24,725 assertions and full37-script gate PASS; [milestone](milestones/M042_social_cultural_incidents.md), [delivery report](reviews/social_incidents_v1/delivery.md).

@@ -2,7 +2,7 @@
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
 milestones = "M041 foundation / M042 social incidents / M043 canonical v4 Project and Scar evidence — task branch, main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v4/docs/specs/faction_culture.md"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-projects-scars-redesign/docs/specs/faction_culture.md"
 icon = "🏘️"
 +++
 # 세력 사회 특성과 교리
@@ -62,5 +62,15 @@ generation4는 canonical 신앙·종교·성소 용어와 Project/Scar의 실제
 사용한다. 한 Failed Exodus를 떠나지 말아야 할 경고 또는 재도전 욕망으로 해석할
 수 있다. 그 해석은 왜 궤도 시설이 작동했는지나 의식이 살아남았는지를 결정하지
 않는다. 지역 기록 접근과 개인의 생물학적 경험·혈통도 구분한다.
-기존 conjunction gate는 유지하며, 허가된 종·lineage·회귀 population이 없으면
-관련 content는 계속 잠긴다. [인계 보고](../reviews/history_v4/delivery.md).
+기존 Doctrine conjunction gate는 유지하며, 종·lineage·personhood 접촉 허가를
+요구하는 교리는 해당 근거 없이 생성하지 않는다. 현재 인간 대상의 인지 회귀
+역사는 자체 생물학적 증거로 활성화된다. [현재 인계 보고](../reviews/history_v4_redesign/delivery.md).
+
+
+## 문명 상흔 재설계 후의 문화 근거
+
+현재 v4는15종 독립 상흔과8종 장기 사업의 실제 기록을 사용한다. 기록 단절은
+신분·소유권의 모순 근거이며 기억 복제 증거가 아니다. 강제 인지 축소는 생물학적
+개입과 여러 세대의 변화가 입증된 인간 집단 간 사건이다. 지역 상흔을 각 faction의
+개인적 피해나 생물학적 계승으로 읽지 않는다. 기존 Doctrine와 신앙·해석 축을
+유지하며 기계 반란·인격·의식 같은 평가는 객관적 원인을 추가하지 않는 Claim이다.

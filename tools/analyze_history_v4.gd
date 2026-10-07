@@ -10,6 +10,16 @@ var sample_seeds := {}
 var sample_topics := {}
 var samples: Array[Dictionary] = []
 
+const OUTPUT := "res://docs/reviews/history_v4_redesign/"
+var scar_without_project := {}
+var scar_without_link := {}
+var scar_domains := {}
+var scar_causes := {}
+var cooccurrence := {}
+var linked := {}
+var outcomes_by_project := {}
+var removed_exposure := {}
+
 func _init() -> void:
 	var count := 5000
 	for arg in OS.get_cmdline_user_args():
@@ -49,6 +59,7 @@ func _init() -> void:
 				_inc(statistics.collapses,result.configuration[key])
 				seen["collapse:"+result.configuration[key]]=true
 		for project in result.present.civilizational_projects:
+			_inc(outcomes_by_project,project.archetype+":"+project.status)
 			_inc(statistics.projects,project.archetype)
 			_inc(statistics.project_status,project.status)
 			seen["project:"+project.archetype]=true
@@ -56,6 +67,16 @@ func _init() -> void:
 			if project.status == "success":
 				_capture(seed,"project_success_without_catastrophe")
 		for scar in result.present.civilizational_scars:
+			if result.present.civilizational_projects.is_empty():
+				_inc(scar_without_project,scar.record_id)
+			if scar.project_id.is_empty():
+				_inc(scar_without_link,scar.record_id)
+			else:
+				_inc(linked,scar.project_id+":"+scar.record_id)
+			_inc(scar_domains,scar.record_id+":"+scar.data.causal_domain)
+			_inc(scar_causes,scar.record_id+":"+scar.data.cause)
+			for project in result.present.civilizational_projects:
+				_inc(cooccurrence,project.archetype+":"+scar.record_id)
 			_inc(statistics.scars,scar.record_id)
 			seen["scar:"+scar.record_id]=true
 			if scar.record_id in catalog.data.collapses:
@@ -93,6 +114,10 @@ func _init() -> void:
 			_inc(statistics.world_exposure,key)
 			_inc(statistics.faction_exposure,key,n)
 		var safety: Dictionary = statistics.safety
+		var output_text: String = result.canonical_output()
+		for removed:String in HistoryV4Catalog.REMOVED_IDS:
+			if ('"'+removed+'"') in output_text or ('"'+removed+'_') in output_text:
+				_inc(removed_exposure,removed)
 		for error: String in result.validation_report.errors:
 			var key := "other_validation_failures"
 			if error.begins_with("prerequisite:"):key="prerequisite_failures"
@@ -112,16 +137,26 @@ func _init() -> void:
 	statistics.topology_diversity=recipes.size()
 	statistics.elapsed_seconds=float(Time.get_ticks_msec()-start)/1000.0
 	statistics.faction_exposure_definition="Current factions sharing access to regional historical records, not personal biological involvement."
-	statistics.gated_content=["imposed_cognitive_regression: no authorized regression contact population", "lineage_persecution: no approved distinct lineages", "full_machine_factions: no approved machine-social population"]
+	statistics.gated_content=["lineage_persecution: no approved distinct lineages", "full_machine_civilization: no authorized population/personhood conclusion"]
+	statistics.scar_without_any_project=scar_without_project
+	statistics.scar_without_project_link=scar_without_link
+	statistics.scar_causal_domains=scar_domains
+	statistics.scar_causes=scar_causes
+	statistics.project_scar_world_cooccurrence=cooccurrence
+	statistics.project_linked_scars=linked
+	statistics.outcomes_by_project=outcomes_by_project
+	statistics.removed_content_exposure=removed_exposure
 	statistics.sample_topics=sample_topics
 	_write("statistics.json",statistics)
 	_write("samples.json",samples)
-	var file:=FileAccess.open("res://docs/reviews/history_v4/samples.md",FileAccess.WRITE)
+	var file:=FileAccess.open(OUTPUT+"samples.md",FileAccess.WRITE)
 	file.store_string("# M043 raw histories\n\nObjective events → Project/Scar → Projected Present → Faction Identity/Culture → Claims. Corpus samples are raw generated records, not rewritten stories.\n\n")
-	for sample in samples:
-		file.store_string("## Seed %d\n\n```text\n%s\n```\n\n" % [sample.seed,sample.formatted])
+	for i in range(samples.size()):
+		var sample: Dictionary = samples[i]
+		file.store_string("## Seed %d\n\n```text\n%s\n```\n" % [sample.seed,sample.formatted])
+		if i<samples.size()-1: file.store_string("\n")
 	print("v4 corpus complete worlds=%d topology=%d samples=%d safety=%s" % [count,recipes.size(),samples.size(),statistics.safety])
-	quit(0 if statistics.safety.values().all(func(value:Variant)->bool:return int(value)==0) else 1)
+	quit(0 if statistics.safety.values().all(func(value:Variant)->bool:return int(value)==0) and removed_exposure.is_empty() else 1)
 
 func _inc(target:Dictionary,key:String,amount:int=1)->void:
 	target[key]=int(target.get(key,0))+amount
@@ -151,5 +186,5 @@ func _legacy()->void:
 				_inc(statistics.safety,"v%d_compatibility_failures" % version)
 
 func _write(name:String,value:Variant)->void:
-	var file:=FileAccess.open("res://docs/reviews/history_v4/"+name,FileAccess.WRITE)
+	var file:=FileAccess.open(OUTPUT+name,FileAccess.WRITE)
 	file.store_string(JSON.stringify(value,"\t")+"\n")

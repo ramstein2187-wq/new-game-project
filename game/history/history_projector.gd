@@ -32,6 +32,10 @@ func project(entities: Array[HistoricalEntity], timeline: Array[HistoricalEvent]
 						if not projects.has(project_key):
 							projects[project_key] = {"id": project_key, "archetype": effect.record_id, "participant_id": effect.entity_id,
 								"status": "in_progress", "start_year": effect.data.start_year, "end_year": event.year, "phase_event_ids": [], "source_event_ids": []}
+							var authored_project := HistoryV4Catalog.new().project(effect.record_id)
+							projects[project_key].display_name=authored_project.display_name
+							projects[project_key].later_historical_name=authored_project.get("later_historical_name","")
+							projects[project_key].success_policy=authored_project.success_policy
 						projects[project_key].status = effect.data.status
 						projects[project_key].end_year = event.year
 						projects[project_key].phase_event_ids.append(event.id)

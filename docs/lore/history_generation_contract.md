@@ -130,7 +130,7 @@ independent outcome classifications. Civilizational Scar means a lasting major
 consequence with actual objective-event provenance, optionally linked to a Project.
 
 Unknown is a final permitted value. Last Descent killer/discovery, biological
-shutdown trigger, unexplained depopulation, morphogenic cause, signal origin,
+unexplained depopulation, morphogenic cause, signal origin,
 cognitive correspondence, personhood and consciousness continuity are not slots
 for an automatic Observer/Preservator/Outerworld explanation. Orbital reaction to
 Far-Sky observations records temporal correlation, never inferred causality.
@@ -141,11 +141,27 @@ baseline-human or approved-content references. No program invents a new lineage,
 species or Origin. Mechanogenic assimilation is distinct from ordinary prostheses
 and from social, biological, cognitive or network assimilation.
 
-Imposed cognitive regression requires both an explicitly regression-authorized
-historical contact and an approved social population template. Distinct-lineage
-persecution additionally requires actual recorded lineage context; an open taxonomy
-or a suggestive lifestyle is insufficient. Complete machine factions remain gated.
+Current imposed cognitive regression is a baseline-human-on-human policy history;
+actual target, responsible authority, biological intervention and generational
+effects are mandatory. A mere contact, education loss or Preservator correlation
+is insufficient. Distinct-lineage/personhood contact content remains separately
+authorized; complete machine civilization remains unconfirmed.
 
 Claims and cultures interpret objective records without mutating them. Regional
 record access is labelled regional and does not imply personal biological loss or
 descent. Archival custody of old project remains is separate from genetic ancestry.
+
+
+## Revision2 boundary and Scar independence
+
+Humans can build great things but cannot conquer this world's boundaries. Technical
+success is bounded; no stable orbital civilization, confirmed Outerworld colony,
+complete Deep conquest or solved machine/continuity metaphysics. Eight current
+Projects and fifteen current Scars are defined in the current generation spec.
+Scar chains stand without Projects and leave enduring material/population/record
+traces. Known policy/physical observations do not resolve unknown intention.
+Imposed Diminution is a shipping human atrocity with actual multigenerational
+biological evidence, not a taxonomy-derived semi-sapient population. Great
+Degeneration and Great Alteration remain human variation and later historical
+language. Autonomous Systems Crisis describes behavior/damage, not political intent.
+Orbital Fall is tracked descent plus multiple impacts; it is distinct from exodus.

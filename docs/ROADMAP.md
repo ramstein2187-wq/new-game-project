@@ -25,6 +25,7 @@ Snapshot: 2026-10-02, M033 primary-attribute runtime is complete on main at `96d
 
 | Area | Feature or next step | Status | Reference / note |
 | --- | --- | --- | --- |
+| Civilizational history redesign | Eight bounded-success Projects, fifteen independent Scars and shipping human-on-human diminution | Complete on isolated task branch; not merged main | [follow-up](milestones/M043_history_projects_scars_redesign.md), codex/history-projects-scars-redesign; base9f04f78. |
 | Civilizational history | M043 canonical v4 terminology, Projects, Scars, contextual responses, mysteries and corpus | Complete on task branch; not merged main | [M043](milestones/M043_history_generator_v4.md), `codex/history-generator-v4`; exact M042 base `8cb6f3d`; 5000 replays,48 raw reviews,6952 focused assertions/full38-script gate PASS. |
 | Social history / culture | Objective social incidents, dependent clone cohorts, content gates, evidence-driven moderate/hardline/fanatic norms | Complete on task branch; not merged main | [M042](milestones/M042_social_cultural_incidents.md), `codex/history-social-incidents-v1`; exact base `ef18814`; 5000 histories/29 raw reviews, full37-script gate PASS; fanatic worlds29.86%. |
 | Regional history v3 | Variable political topology, 6–8 active factions, separate population origins | Complete on task branch; not merged main | [M038](milestones/M038_history_topology_population.md), codex/history-generator-v0.3; base9380df3; no main merge. |

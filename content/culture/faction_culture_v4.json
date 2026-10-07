@@ -489,9 +489,9 @@
       ],
       "requires_any": [],
       "prefers": [
-        "scar:biological_shutdown",
+        "scar:habitable_zone_loss",
         "scar:reproductive_shutdown",
-        "project:genome_ark"
+        "project:genome_archive_project"
       ],
       "forbids": [],
       "values": [
@@ -1149,7 +1149,7 @@
       ],
       "requires_any": [],
       "prefers": [
-        "scar:biological_shutdown",
+        "scar:habitable_zone_loss",
         "scar:chosen_cognitive_regression"
       ],
       "forbids": [],
@@ -1813,12 +1813,12 @@
         "scar:autonomous_machine_catastrophe",
         "scar:augmentation_disaster",
         "scar:mechanogenic_assimilation",
-        "scar:machine_insurrection"
+        "scar:autonomous_systems_crisis"
       ],
       "prefers": [
         "role:isolation",
         "scar:mechanogenic_assimilation",
-        "scar:machine_insurrection"
+        "scar:autonomous_systems_crisis"
       ],
       "forbids": [],
       "values": [

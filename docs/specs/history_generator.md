@@ -3,7 +3,7 @@ status = "구현 완료"
 areas = ["코어", "월드 생성"]
 type = "알고리즘 / 데이터 모델"
 systems = "HistoryGenerator / HistoryTopology / FactionIdentityResolver / HistoryProjector / HistoryValidator"
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 culture / M042 social incidents / M043 civilizational history — codex/history-generator-v4; main 미병합"
+milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 culture / M042 social incidents / M043 civilizational history — codex/history-projects-scars-redesign; main 미병합"
 code_paths = ["game/history/history_v4_catalog.gd", "game/history/history_v4_compatibility.gd", "game/history/history_v4_planner.gd", "game/history/history_v4_validator.gd", "game/history/history_v4_claims.gd", "tools/analyze_history_v4.gd", "game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "game/history/social_incident_planner.gd", "tools/analyze_social_incidents.gd", "tools/analyze_history.gd"]
 diagram = "docs/diagrams/history_generator.svg"
 +++
@@ -13,7 +13,7 @@ diagram = "docs/diagrams/history_generator.svg"
 
 ## Version and scope
 
-Current civilizational revision is `history-v4-authored-1`; the preserved structural/social revision is `history-v3-authored-4`. Frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
+Current civilizational revision is `history-v4-authored-2`; the preserved structural/social revision is `history-v3-authored-4`. Frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
 
 Default generation **4 uses architecture2**; explicit historical **3 uses architecture2** and **2 uses architecture1**.
 M039 corrects M038's exact6..8 planning, flattened Origin sets and implicit social content.
@@ -251,7 +251,7 @@ from truth. Actual nonhuman social content requires independent authored authori
 before catalog registration. Headless evidence does not cover manual GUI/play/package
 acceptance or literary quality.
 
-## M043 — current default v4 / architecture2
+## M043 initial revision1 — historical v4 / architecture2
 
 `HistoryGenerator.VERSION = 4`. Historical explicit2/1 and3/2 paths remain
 available. The preceding v3 paragraphs are historical specifications, not the
@@ -292,7 +292,7 @@ status progresses through in_progress to an authored terminal outcome. Scar rows
 reference actual consequences and retain unresolved cause/identity fields.
 Construction and ongoing/abandoned/damaged facility states survive projection.
 
-World budgets are0/1/2 Projects and0–2 major Scars. Ordinary political history is
+Initial-revision1 world budgets were0/1/2 Projects and0–2 major Scars. Ordinary political history is
 still generated in every world. Rarity is measured at world exposure as well as
 event/faction exposure; the corpus report defines regional record exposure rather
 than presenting it as direct personal involvement. Imposed regression and distinct
@@ -304,3 +304,109 @@ Validation: `tests/test_history_v4.gd`; exact M042 fixture
 `tools/analyze_history_v4.gd`; [delivery and review](../reviews/history_v4/delivery.md).
 Readable CLI now defaults to v4; `--v2` and `--v3` retain historical previews.
 For reproducible corpus generation run the analysis tool with `-- 5000`.
+
+
+## Current v4 revision2 — independent Projects and Scars
+
+Revision `history-v4-authored-2` replaces the initial nine-project v4 catalog.
+Task branch `codex/history-projects-scars-redesign`; base
+`9f04f780c79b622e70532a926aefbc8477147817`; main remains unmerged.
+Historical revision1 reports and its author catalog under `content/history/compatibility/`
+are retained as historical evidence, never selected by the current generator.
+
+### Eight Projects
+
+- `ark_project` — Ark Project
+- `deep_descent_project` — Deep Descent Project
+- `deep_space_listening_array` — Far-Sky Array
+- `genome_archive_project` — Genome Archive
+- `cortical_array` — Cortical Array
+- `meridian_project` — Meridian Project
+- `second_mind_project` — Second Mind Project
+- `adaptive_simplification_program` — Adaptive Simplification Program
+
+`success` means bounded technical success. Ark unresolved departure is not success;
+Deep return means limited survey/engineering and partial survivor return, with an
+unresolved boundary. Stable orbital/Innerworld civilization, confirmed escape or
+Outerworld colony, Observer equivalence, machine personhood and metaphysical
+continuity are not authored outcomes. Future authored data is checked against
+these limits in addition to checking generated histories.
+
+Genome Archive preserves actual biological samples and records; it creates no
+species or lineage. Cortical Array links actual human brains and parallel biological
+computation. Meridian records surveys, reference frames, maps and discrepancies;
+discrepancy does not prove supernatural causation. Second Mind records constructed,
+autonomous, learning/self-repairing human-built machines, without proving consciousness,
+descendant identity or full machine civilization. Adaptive Simplification Program
+is the contemporary official name; The Great Degeneration is a later historical
+evaluation. Its consent/biological/developmental observations stay human variation.
+
+### Fifteen independent Scars
+
+- `failed_exodus` — Failed Exodus
+- `last_descent` — Last Descent
+- `reproductive_shutdown` — Reproductive Shutdown
+- `silent_depopulation` — Silent Depopulation
+- `collective_mind_fracture` — Collective Mind Fracture
+- `chosen_cognitive_regression` — Chosen Cognitive Regression
+- `imposed_cognitive_regression` — Imposed Diminution
+- `infrastructure_cascade` — Infrastructure Cascade
+- `targeted_extermination` — Targeted Extermination
+- `mass_morphogenic_event` — The Great Alteration
+- `autonomous_systems_crisis` — Autonomous Systems Crisis
+- `mechanogenic_assimilation` — Mechanogenic Assimilation
+- `habitable_zone_loss` — Habitable Zone Loss
+- `record_severance` — Record Severance
+- `orbital_fall` — Orbital Fall / 궤도낙하
+
+Every Scar has its own actual population/site registration, causal observation
+chain and persistent population/site/institution aftermath. None requires a Project
+ID. Project outcomes may explicitly reuse a Scar chain and supply project_id; that
+is a historical association, not a universal prerequisite. Eleven Scars have multiple
+authored causal backgrounds. Consent/coercion/targeted killing remain human-policy
+histories; Silent Depopulation remains unknown rather than inventing an explanation.
+
+Imposed Diminution is shipping-active human-on-human atrocity. Require actual human
+target and responsible authority, explicit biological cognitive-reduction policy,
+intervention, coercive enforcement and measured generational effect. Education,
+literacy/cultural/technology loss or a suggestive contact cannot substitute for that
+chain. Enforcement-to-stabilization spans at least54 years; chosen-program consent
+to measurement spans at least48. No contact-population gate is needed for baseline
+human victims; unrelated M042 contacts/lineage/personhood rights remain closed.
+
+Orbital Fall requires tracked artificial orbital objects, repeated descent/reentry
+and matched multiple impacts. Surface meteors, unrelated craters, building collapse
+or mere orbital observation cannot supply those prerequisites. Falling-object
+maker/operator/common origin and intent remain unknown unless the specific physical
+evidence identifies them. Failed Exodus concerns human attempts upward; Orbital Fall
+concerns objects descending. They may coexist independently.
+
+### Generation and validation
+
+Project and Scar choices use non-uniform authored weights plus evidenced regional
+context, independently seeded. Planning observations precede Project authorization.
+Scar actors/dates fit actual polity lifetimes and the required multi-decade chain;
+Scars can occur in earlier or later history. Previously established record sources
+are actor-scoped and chronological; no later capability enables an earlier pressure.
+Policy/selection types match actual Project goals. Variant lists are sorted by stable
+ID; stage order remains causal. Discovery/name namespaces retain isolation.
+
+Budgets remain0–2 Projects and at most2 major Scars. Main political/population/social
+events remain the conservative v4 scaffold; exact v2/v3 and all pre-existing fixtures
+are unchanged. Revision1→2 is a deterministic regeneration boundary, not an exact
+v4 save migration: same revision2 seed replays exactly, but old v4 seeds can differ.
+Only true renames map (`genome_ark`→`genome_archive_project`,
+`machine_insurrection`→`autonomous_systems_crisis`); retired concepts are never
+silently relabeled as different ones. New event/present fields contain no retired IDs.
+
+Objective effects and history_record replay remain authority. Site states are last
+documented conditions. Recorded regional archives do not establish personal loss or
+biological descent; Culture/Claims interpret evidence without adding a cause, Origin,
+species or consciousness. Record Severance supplies conflicting identity records,
+not neural memory-copying capability; only actual cortical measurements supply that.
+No quest/economy/facility or machine-ecosystem gameplay is added.
+
+See [follow-up milestone](../milestones/M043_history_projects_scars_redesign.md),
+[delivery and Notion Sync Summary](../reviews/history_v4_redesign/delivery.md),
+[statistics](../reviews/history_v4_redesign/statistics.json),
+and [continuation log](../reviews/history_v4_redesign/WORK_LOG.md).

@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+v4 corpus 250/5000 safety={ "prerequisite_failures": 0, "chronology_failures": 0, "fabricated_evidence": 0, "invalid_population_content": 0, "mystery_resolution_violations": 0, "deterministic_replay_failures": 0, "v2_compatibility_failures": 0, "v3_compatibility_failures": 0, "other_validation_failures": 0 } elapsed=48.2s
+v4 corpus 500/5000 safety={ "prerequisite_failures": 0, "chronology_failures": 0, "fabricated_evidence": 0, "invalid_population_content": 0, "mystery_resolution_violations": 0, "deterministic_replay_failures": 0, "v2_compatibility_failures": 0, "v3_compatibility_failures": 0, "other_validation_failures": 0 } elapsed=74.1s

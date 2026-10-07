@@ -2,7 +2,7 @@
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
 milestones = "M036–M042 historical foundation / M043 civilizational Projects and Scars — task branch; main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v4/docs/specs/history_generator.md"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-projects-scars-redesign/docs/specs/history_generator.md"
 icon = "📜"
 +++
 # 최근 역사: 정치 계보와 population의 기원
@@ -82,9 +82,9 @@ Cultures decide what it means. Simulation decides what happens next.
 ## M043: 문명 프로젝트와 상흔
 
 현재 task branch의 기본 생성기는 **generation4 / architecture2**다. 명시적
-v2/v3 재현 경로는 유지한다. 9종 장기 Project는 성공·부분 성공·중단·미상·재난
+v2/v3 재현 경로는 유지한다. 8종 장기 Project는 성공·부분 성공·중단·미상·재난
 결과를 갖고, 최대2개 major Scar와 구분된다. 정치사·생활사 사이에 발사 거부,
-마지막 심부 탐사, Far-Sky 신호, 생리·생식 실패, 기계/신체/정체성 사건이
+마지막 심부 탐사, Far-Sky 신호, 세대에 걸친 생식 실패, 기계/신체/기록 사건이
 실제 사건·인구 기록·시설·후대 관리·문화 근거를 남긴다.
 
 v4 canonical vocabulary는 The Preservator / Planetary Regulation Network /
@@ -93,4 +93,18 @@ Environmental Regulation Module과 Faith / Religious / Sacred다. 기존 Core와
 유지하며 신호 기원·의식 생존·동일인·개입 의도를 코드가 확정하지 않는다.
 
 [M043 범위·검증·인계](../milestones/M043_history_generator_v4.md),
-[세계 단위 노출 통계](../reviews/history_v4/statistics.json). main에는 미병합이다.
+[최신 세계 단위 노출 통계](../reviews/history_v4_redesign/statistics.json). main에는 미병합이다.
+
+
+## 현재 v4 revision2: 독립적인 프로젝트와 상흔
+
+Ark, Deep Descent, Far-Sky Array, Genome Archive, Cortical Array, Meridian,
+Second Mind, Adaptive Simplification의8종 사업을 생성한다. 성공은 제한된 기술
+목표 달성이다. 안정적인 궤도·심부 문명이나 확인된 행성 탈출을 뜻하지 않는다.
+15종 상흔은 자체 인구·정책·물리적 증거·장기 흔적을 갖고 사업 없이도 발생한다.
+강제 인지 축소(Imposed Diminution)는 인간 대상·책임 주체·생물학적 개입·세대
+측정이 있는 실제 역사다. 궤도낙하는 실제 궤도 물체·재진입·다중 충돌을 요구한다.
+기계 의식·지도 불일치의 초자연적 설명·미지의 책임 주체를 임의 확정하지 않는다.
+초기 v4 seed 출력과 달라질 수 있는 명시적 revision 경계이며 v2/v3는 그대로다.
+
+[현재 계약과 인계](../milestones/M043_history_projects_scars_redesign.md).

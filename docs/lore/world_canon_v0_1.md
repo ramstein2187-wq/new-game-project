@@ -165,8 +165,8 @@ template의 허가를 필요로 한다. 기능 검증용 synthetic population은
 ## M043 generatable civilizational histories
 
 Human societies may register efforts to leave the planet, explore unprecedented
-depths, listen to distant space, preserve cognitive/genetic records, inhabit orbit,
-reconstruct environments, coordinate machines or redesign bodies. A local Project
+depths, listen to distant space, preserve genetic records, connect human brains,
+survey coordinates, build autonomous machines or simplify human development. A local Project
 can succeed and does not establish global Canon about escape, hidden inhabitants,
 alien civilizations or consciousness. The Far-Sky Array is an in-world name for
 the developer-classified Deep-Space Listening Array.
@@ -181,5 +181,30 @@ machine sapience, and no generated machine society is automatically approved.
 Targeted Extermination records an actual target group, responsible recorded
 authority where known, policy/killings/removal evidence and site/population loss.
 It does not automatically issue a legal or historiographic genocide judgment.
-Biological Shutdown affects existing individuals; Reproductive Silence records
-living survivors with failed next-generation continuity. These are distinct facts.
+Reproductive Shutdown records living survivors with failed normal reproduction
+across generations; temporary infertility alone is insufficient. Biological
+Shutdown is a retired initial-v4 category and is absent from current generation.
+
+
+## Civilizational boundaries — current revision2
+
+Humans can successfully build great things, but they cannot successfully conquer
+the boundaries of this world. Orbital/Outerworld and Deep/Innerworld remain dangerous
+and incompletely understood. Limited staging sites, returning survivors, useful
+survey/engineering, persistent biological computation and autonomous machinery are
+possible; stable orbital/Deep civilization and proven successful escape are not.
+
+Contemporary Adaptive Simplification Program and later The Great Degeneration are
+different names for a consenting generation-scale human-variation history. Imposed
+Diminution requires another actual human cohort, responsible human authorities,
+coercive biological policy/intervention and persistent measured generational change.
+Neither creates a species, Origin or lineage. Genome Archive preserves information
+and samples; Cortical Array connects human brains; Second Mind imitates observed
+machine behavior without becoming canonically equivalent to Observer intelligence.
+Meridian maps and reference-frame discrepancies do not prove supernatural causes.
+
+Scars are long-term historical consequences independent of Projects. Habitability,
+regional identity/ownership archives and orbital impact belts can be lost through
+distinct evidenced histories. Preserve unknown maker/operator/purpose/personhood
+where evidence stops. New population rights or a full machine civilization are not
+inferred from those observations. Live gameplay/quests remain a later system.

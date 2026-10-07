@@ -3,155 +3,181 @@ extends SceneTree
 var assertions := 0
 var failures := 0
 var examples := {}
+var independent := {}
+var project_examples := {}
 var generator := HistoryGenerator.new()
+var catalog := HistoryV4Catalog.new()
 
-func expect(value: bool, message: String) -> void:
-	assertions += 1
+func expect(value:bool,message:String)->void:
+	assertions+=1
 	if not value:
-		failures += 1
+		failures+=1
 		push_error(message)
 
-func _init() -> void:
+func _init()->void:
 	_legacy_replays()
 	_shipping()
 	_negative()
-	_names_and_catalog_order()
-	_regression_gate()
-	print("%s: History v4 (%d assertions)" % ["PASS" if failures == 0 else "FAIL", assertions])
-	quit(0 if failures == 0 else 1)
+	_isolation()
+	_claim_evidence()
+	print("%s: History v4 redesign (%d assertions)" % ["PASS" if failures==0 else "FAIL",assertions])
+	quit(0 if failures==0 else 1)
 
-func _legacy_replays() -> void:
-	var baseline: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/history_m043_legacy.json"))
+func _legacy_replays()->void:
+	var baseline:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/history_m043_legacy.json"))
 	for version in [2,3]:
-		var legacy := HistoryGenerator.new(null,HistoryMotifs.DISCOVERIES,version)
-		for seed: String in baseline.versions[str(version)]:
-			var result := legacy.generate(int(seed))
-			expect(result.canonical_output().sha256_text() == baseline.versions[str(version)][seed], "Exact historical replay v%d seed%s" % [version,seed])
+		for seed:String in baseline.versions[str(version)]:
+			var result:=HistoryGenerator.new(null,HistoryMotifs.DISCOVERIES,version).generate(int(seed))
+			expect(result.canonical_output().sha256_text()==baseline.versions[str(version)][seed],"Exact frozen v%d seed%s" % [version,seed])
 
-func _shipping() -> void:
-	var culture := FactionCultureResolver.new()
-	for seed in range(1,351):
-		var result := generator.generate(seed)
-		expect(result.validation_report.errors.is_empty(), "Valid v4 seed%d: %s" % [seed,result.validation_report.errors])
-		expect(result.generation_version == 4 and result.architecture_version == 2, "Version contract")
-		expect(result.present.civilizational_scars.size() <= 2, "Bounded spectacular events")
-		expect(result.present.to_dict() == HistoryProjector.new().project(result.entities,result.objective_timeline).to_dict(), "Authoritative deterministic projection")
-		for event in result.objective_timeline:
-			if not examples.has(event.narrative_key):
-				examples[event.narrative_key] = seed
-			for effect in event.effects:
-				if effect.kind == "history_record" and effect.data.has("origin"):
-					expect(effect.data.origin in ["unknown","human_derived"], "No invented Origin")
+func _shipping()->void:
+	for seed in range(1,801):
+		var result:=generator.generate(seed)
+		expect(result.validation_report.errors.is_empty(),"Valid v4 seed%d %s" % [seed,result.validation_report.errors])
+		expect(result.generation_version==4 and result.architecture_version==2,"Version contract")
+		expect(result.present.civilizational_projects.size()<=2 and result.present.civilizational_scars.size()<=2,"Spectacle budget")
+		expect(result.present.to_dict()==HistoryProjector.new().project(result.entities,result.objective_timeline).to_dict(),"Authoritative replay")
+		for project in result.present.civilizational_projects:
+			project_examples[project.archetype]=seed
+			expect(project.success_policy=="bounded_technical_success","No boundary conquest")
+			if project.archetype=="ark_project":
+				expect(project.status!="success","Unresolved Ark departure is not success")
+			if project.archetype=="adaptive_simplification_program":
+				expect(project.display_name=="Adaptive Simplification Program" and project.later_historical_name=="The Great Degeneration","Official/later name distinction")
+		for scar in result.present.civilizational_scars:
+			if not examples.has(scar.record_id): examples[scar.record_id]=seed
+			if result.present.civilizational_projects.is_empty(): independent[scar.record_id]=seed
+			expect(scar.data.long_term and not scar.data.new_species and not scar.data.new_origin and not scar.data.new_lineage,"Persistent human-only Scar")
 		for polity in result.present.historical_factions:
-			for stratum: Dictionary in polity.population_origin_profile.strata:
-				expect(stratum.template_id == "human_baseline" and stratum.origins == ["human_derived"], "Authorized population survives SF incidents")
-		var before := result.canonical_output()
-		if seed <= 20:
+			for stratum:Dictionary in polity.population_origin_profile.strata:
+				expect(stratum.template_id=="human_baseline" and stratum.origins==["human_derived"],"No fabricated population rights")
+		if seed<=25:
+			var before:=result.canonical_output()
 			for faction in result.present.active_factions:
-				var identity := FactionIdentityResolver.new().resolve(result,faction.id)
-				expect(identity.social_anchor != "ritual" and identity.interpretation_mode != "ritual", "Faith axes")
-				var profile := culture.resolve(result,faction.id)
-				expect(culture.errors(result,faction.id,profile).is_empty(), "Evidence-gated v4 culture")
-			expect(before == result.canonical_output(), "Culture and Claims never mutate history")
-			var replay := generator.generate(seed)
-			expect(HistoryValidator.new().validate(result,replay).determinism == "pass", "v4 deterministic replay")
-	for key in ["ark_launch","last_descent","continuity_transfer","collective_mind_fracture","machine_insurrection","mechanogenic_assimilation","identity_collapse","targeted_extermination","silent_depopulation","mass_morphogenic_event","reproductive_shutdown","biological_shutdown"]:
-		expect(examples.has(key), "Shipping signature reachable: " + key)
-	var catalog := HistoryV4Catalog.new()
-	expect(catalog.project("ark_project").outcomes.size() > 1, "Projects may succeed without Scar")
-	expect(not examples.has("imposed_cognitive_regression"), "Unapproved semi-sapient content stays gated")
+				var profile:=FactionCultureResolver.new().resolve(result,faction.id)
+				expect(FactionCultureResolver.new().errors(result,faction.id,profile).is_empty(),"Culture uses actual canonical evidence")
+			expect(before==result.canonical_output(),"Subjective lenses do not mutate history")
+			expect(result.canonical_output()==generator.generate(seed).canonical_output(),"Canonical determinism")
+	for row:Dictionary in catalog.data.projects:
+		expect(project_examples.has(row.id),"Shipping Project reachable "+row.id)
+	for row:Dictionary in catalog.data.scars:
+		expect(examples.has(row.id),"Shipping Scar reachable "+row.id)
+		expect(independent.has(row.id),"Scar occurs without any Project "+row.id)
 
-func _negative() -> void:
-	for key in ["ark_launch","last_descent","continuity_transfer","collective_mind_fracture","machine_insurrection","mechanogenic_assimilation","identity_collapse","targeted_extermination"]:
-		if not examples.has(key):
-			continue
-		var result := generator.generate(int(examples[key]))
-		var event := _find(result,key)
-		event.cause_event_ids.clear()
-		expect(not HistoryValidator.new().validate(result).errors.is_empty(), "Missing prerequisite rejected: " + key)
-		result = generator.generate(int(examples[key]))
-		event = _find(result,key)
-		event.year = -550
-		result.objective_timeline.sort_custom(func(a: HistoricalEvent,b: HistoricalEvent)->bool:return a.year < b.year)
-		expect(not HistoryValidator.new().validate(result).errors.is_empty(), "Future prerequisites rejected: " + key)
-	for key in ["silent_depopulation","last_descent","continuity_transfer","mass_morphogenic_event","unclassified_signal","biological_shutdown"]:
-		if not examples.has(key):
-			continue
-		var result := generator.generate(int(examples[key]))
-		var event := _find(result,key)
-		var changed := false
-		for effect in event.effects:
-			if effect.kind != "history_record":
-				continue
-			for field in effect.data:
-				if effect.data[field] is String and effect.data[field] == "unknown":
-					effect.data[field] = "preservator_did_it"
-					changed = true
-					break
-			if changed:
-				break
-		expect(changed and not HistoryValidator.new().validate(result).errors.is_empty(), "Mystery resolution rejected: " + key)
-	var result := generator.generate(42)
-	result.entity("precursor").population_origin_profile.strata[0].template_id = "invented_lineage"
-	expect(not HistoryValidator.new().validate(result).errors.is_empty(), "Invented lineage rejected")
-	result = generator.generate(42)
-	result.present.history_records[0].data["fake_fact"] = true
-	expect(not HistoryValidator.new().validate(result).errors.is_empty(), "Projection cannot introduce fabricated evidence")
-	result = generator.generate(42)
-	result.configuration.extra_preservator = "core_shutdown"
-	expect(not HistoryValidator.new().validate(result).errors.is_empty(), "Legacy canonical ID rejected")
-	result = generator.generate(int(examples.targeted_extermination))
-	for effect in _find(result,"targeted_extermination").effects:
-		if effect.kind=="history_record" and effect.record_id=="targeted_loss":
-			effect.data.target_reference="regional_assembly"
-	expect(not HistoryValidator.new().validate(result).errors.is_empty(),"An existing unrelated group is not the actual registered target")
-	result = generator.generate(42)
+func _claim_evidence()->void:
+	for seed in [5,12,2,212]:
+		var result:=generator.generate(seed)
+		for scar in result.present.civilizational_scars:
+			for claim in result.historical_claims:
+				if claim.referenced_event_id!=scar.source_event_ids[0]: continue
+				if scar.record_id=="failed_exodus" and scar.data.cause!="interception":
+					expect(not "hardware" in claim.interpretation and not "denied" in claim.interpretation,"Physical loss cannot invent hardware intervention")
+					if scar.data.cause=="launch_failure": expect("engineering failure records" in claim.interpretation,"Claim retains known engineering evidence")
+				if scar.record_id=="mechanogenic_assimilation":
+					expect("irreversible" in claim.interpretation and not "replacement" in claim.interpretation,"Irreversible coupling does not invent tissue replacement")
+				if scar.record_id=="autonomous_systems_crisis" and scar.data.cause=="unknown":
+					expect(not "command failure" in claim.interpretation,"Unknown autonomous behavior cannot invent command failure")
+
+func _event(result:HistoryResult,key:String)->HistoricalEvent:
 	for event in result.objective_timeline:
-		for effect in event.effects:
-			if effect.kind=="history_record" and effect.record_type=="project":
-				effect.reference_id="precursor"
-	expect(not HistoryValidator.new().validate(result).errors.is_empty(),"An existing polity cannot substitute for a constructed facility")
-
-func _names_and_catalog_order() -> void:
-	var catalog := HistoryV4Catalog.new()
-	var reordered := catalog.data.duplicate(true)
-	for key in ["projects","events","scenarios","discoveries","pressures","responses"]:
-		reordered[key].reverse()
-	var builder := HistoryGenerator.new()
-	var normal := generator.generate(42)
-	var reversed := HistoryV4Planner.new(HistoryV4Catalog.new(reordered)).generate(42,builder)
-	expect(normal.canonical_output() == reversed.canonical_output(), "Catalog order does not perturb RNG selection")
-	var names := HistoryNameSource.new(func(_seed:int,id:String,_kind:String)->String:return "label_"+id)
-	var renamed := HistoryGenerator.new(names).generate(42)
-	expect(normal.structural_output() == renamed.structural_output(), "Names cannot create history facts")
-	var altered := catalog.data.duplicate(true)
-	altered.discoveries.erase("crater_machine")
-	var changed := HistoryV4Planner.new(HistoryV4Catalog.new(altered)).generate(42,builder)
-	expect(normal.present.civilizational_projects == changed.present.civilizational_projects and normal.present.active_factions == changed.present.active_factions, "Discovery pool cannot perturb topology or project/naming")
-
-func _find(result:HistoryResult,key:String)->HistoricalEvent:
-	for event in result.objective_timeline:
-		if event.narrative_key == key:
-			return event
+		if event.narrative_key==key: return event
+		for effect:Dictionary in event.effects:
+			if effect.kind=="history_record" and effect.record_type=="scar" and effect.record_id==key: return event
 	return null
 
-func _regression_gate()->void:
-	var data:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/social_incident_contacts.json"))
-	var contact_only:=SocialIncidentCatalog.new({},data)
-	expect(not HistoryV4Catalog.gate_open("regression_population",SocialPopulationCatalog.new(),contact_only),"Historical contact alone cannot authorize regression")
-	data.contacts[0].cognitive_regression_authorized=true
-	data.contacts[0].population_template_id="human_baseline"
-	var authorized:=SocialIncidentCatalog.new({},data)
-	expect(HistoryV4Catalog.gate_open("regression_population",SocialPopulationCatalog.new(),authorized),"Explicit synthetic regression content opens gate")
-	var catalog:=HistoryV4Catalog.new().data.duplicate(true)
-	catalog.scenarios=catalog.scenarios.filter(func(row:Dictionary)->bool:return row.id=="imposed_cognitive_regression")
-	var custom:=HistoryGenerator.new(null,HistoryMotifs.DISCOVERIES,4,null,authorized)
-	var found:=false
-	for seed in range(1,21):
-		var result:=HistoryV4Planner.new(HistoryV4Catalog.new(catalog)).generate(seed,custom)
-		expect(result.validation_report.errors.is_empty(),"Synthetic gated regression validates with actual contact/template")
-		if _find(result,"imposed_cognitive_regression")!=null:
-			found=true
-			expect(not HistoryValidator.new().validate(result).errors.is_empty(),"Shipping validator rejects injected contact/template identity")
-			break
-	expect(found,"Authorized gated regression has an exercised objective path")
+func _reject(result:HistoryResult,message:String)->void:
+	expect(not HistoryValidator.new().validate(result).errors.is_empty(),message)
+
+func _negative()->void:
+	for key:String in examples:
+		var result:=generator.generate(examples[key])
+		_event(result,key).cause_event_ids.clear()
+		_reject(result,"Scar cannot lose its own causal chain "+key)
+		result=generator.generate(examples[key])
+		_event(result,key).year=-590
+		result.objective_timeline.sort_custom(func(a:HistoricalEvent,b:HistoricalEvent)->bool:return a.year<b.year)
+		_reject(result,"Future prerequisites rejected "+key)
+	for key in ["imposed_cognitive_regression","chosen_cognitive_regression","orbital_fall"]:
+		var baseline:=generator.generate(independent[key])
+		var scar_event:=_event(baseline,key)
+		var variant:=catalog.definition(scar_event.narrative_key)
+		var chain:Array=[]
+		for row:Dictionary in catalog.scar(key).variants:
+			if row.stages[-1]==scar_event.narrative_key: chain=row.stages
+		for stage:String in chain.slice(0,chain.size()-1):
+			var result:=generator.generate(independent[key])
+			var missing:=_event(result,stage)
+			missing.effects=missing.effects.filter(func(effect:Dictionary)->bool:return effect.kind!="history_record")
+			_reject(result,"Actual chain evidence required "+stage)
+	var result:=generator.generate(independent.imposed_cognitive_regression)
+	for event in result.objective_timeline:
+		for effect:Dictionary in event.effects:
+			if effect.kind!="history_record": continue
+			if effect.record_id=="diminution_intervention": effect.data.biological_intervention=false
+	_reject(result,"Schooling/literacy/cultural/technology decline cannot substitute for biological intervention")
+	result=generator.generate(independent.imposed_cognitive_regression)
+	_event(result,"imposed_cognitive_regression").cause_domain="preservator_intervention"
+	_reject(result,"Preservator correlation cannot replace recorded human responsibility")
+	result=generator.generate(independent.imposed_cognitive_regression)
+	for event in result.objective_timeline:
+		for effect:Dictionary in event.effects:
+			if effect.kind=="history_record" and effect.data.has("target_reference"): effect.data.target_reference="regional_assembly"
+	_reject(result,"Unrelated existing group cannot replace actual human target")
+	for key in ["orbital_fall","last_descent","collective_mind_fracture","mechanogenic_assimilation","silent_depopulation"]:
+		result=generator.generate(examples[key])
+		for effect:Dictionary in _event(result,key).effects:
+			if effect.kind=="history_record" and effect.record_type=="scar":
+				for field:String in effect.data:
+					if effect.data[field] is String and effect.data[field]=="unknown": effect.data[field]="resolved_by_preservator"
+		_reject(result,"Unknown cannot gain perpetrator/intention/personhood "+key)
+	result=generator.generate(project_examples.meridian_project)
+	for event in result.objective_timeline:
+		for effect:Dictionary in event.effects:
+			if effect.kind=="history_record" and effect.record_id=="coordinate_discrepancy": effect.data.supernatural_cause="proven"
+	_reject(result,"Map discrepancy is not a supernatural answer")
+	for removed:String in HistoryV4Catalog.REMOVED_IDS:
+		result=generator.generate(42)
+		result.configuration["injected"]=removed
+		_reject(result,"Removed current ID rejected "+removed)
+	for forbidden in ["stable_orbital_civilization","outerworld_settlement","unrestricted_escape","deep_conquest","machine_consciousness","new_species","new_origin","new_lineage"]:
+		result=generator.generate(42)
+		result.present.history_records[0].data[forbidden]=true
+		_reject(result,"Unsupported lore/projection fact rejected "+forbidden)
+	result=generator.generate(project_examples.ark_project)
+	for event in result.objective_timeline:
+		for effect:Dictionary in event.effects:
+			if effect.kind=="history_record" and effect.record_type=="project" and effect.data.status!="in_progress": effect.data.status="success"
+	_reject(result,"Ark success status rejected even with intact physical chain")
+	for field in ["artificial_objects","tracked_reentry","orbital_material_match"]:
+		result=generator.generate(independent.orbital_fall)
+		for event in result.objective_timeline:
+			for effect:Dictionary in event.effects:
+				if effect.kind=="history_record" and effect.data.has(field): effect.data[field]=false
+		_reject(result,"Meteor/unrelated crater/building collapse/orbital observation lacks actual orbital chain "+field)
+	result=generator.generate(project_examples.deep_descent_project)
+	for event in result.objective_timeline:
+		for effect:Dictionary in event.effects:
+			if effect.kind=="history_record" and effect.data.has("deep_conquest"): effect.data.deep_conquest=true
+	_reject(result,"Deep engineering cannot become stable Innerworld conquest")
+	result=generator.generate(42)
+	result.entity("precursor").population_origin_profile.strata[0].template_id="invented_lineage"
+	_reject(result,"Invented lineage rejected")
+
+func _isolation()->void:
+	var reordered:=catalog.data.duplicate(true)
+	for key in ["projects","scars","events","pressures","responses","discoveries"]: reordered[key].reverse()
+	for row:Dictionary in reordered.scars: row.variants.reverse()
+	var normal:=generator.generate(42)
+	var changed:=HistoryV4Planner.new(HistoryV4Catalog.new(reordered)).generate(42,generator)
+	expect(normal.canonical_output()==changed.canonical_output(),"Catalog/variant reordering isolation")
+	for seed:int in independent.values():
+		normal=generator.generate(seed)
+		changed=HistoryV4Planner.new(HistoryV4Catalog.new(reordered)).generate(seed,generator)
+		expect(normal.canonical_output()==changed.canonical_output(),"Each independent Scar preserves variant reordering isolation")
+	normal=generator.generate(42)
+	var names:=HistoryNameSource.new(func(_seed:int,id:String,_kind:String)->String:return "label_"+id)
+	expect(normal.structural_output()==HistoryGenerator.new(names).generate(42).structural_output(),"Name/locale isolation")
+	var content:=catalog.data.duplicate(true)
+	content.discoveries.erase("crater_machine")
+	changed=HistoryV4Planner.new(HistoryV4Catalog.new(content)).generate(42,generator)
+	expect(normal.present.civilizational_projects==changed.present.civilizational_projects and normal.present.active_factions==changed.present.active_factions,"Discovery pool isolation")

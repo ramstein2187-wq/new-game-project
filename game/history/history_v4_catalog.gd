@@ -8,6 +8,8 @@ static var _shipping: Dictionary = {}
 var data: Dictionary
 var _definitions := {}
 
+const REMOVED_IDS := HistoryV4Compatibility.REMOVED_V4_IDS
+
 func _init(content: Dictionary = {}) -> void:
 	if _shipping.is_empty():
 		_shipping = JSON.parse_string(FileAccess.get_file_as_string(PATH))
@@ -22,6 +24,12 @@ func definition(id: String) -> Dictionary:
 func project(id: String) -> Dictionary:
 	for row: Dictionary in data.projects:
 		if row.id == id:
+			return row.duplicate(true)
+	return {}
+
+func scar(id:String)->Dictionary:
+	for row:Dictionary in data.scars:
+		if row.id==id:
 			return row.duplicate(true)
 	return {}
 
@@ -44,19 +52,29 @@ func errors() -> Array[String]:
 	var issues: Array[String] = []
 	var seen := {}
 	for row: Dictionary in data.events:
-		if seen.has(row.id) or row.narrative.is_empty() or row.domain not in ["human", "natural", "unknown", "preservator_intervention"] or row.category not in ["phase", "scar", "pressure", "discovery"]:
+		if seen.has(row.id) or row.narrative.is_empty() or row.domain not in ["human", "natural", "unknown", "preservator_intervention","observer_legacy"] or row.category not in ["phase", "scar", "pressure", "discovery"]:
 			issues.append("Invalid v4 authored event: " + row.id)
 		seen[row.id] = true
 		for record: Dictionary in row.records:
 			if record.target not in ["facility", "participant", "cohort"] or not record.facts is Dictionary:
 				issues.append("Invalid v4 authored observation: " + row.id)
+			for field:String in record.facts:
+				var value: Variant = record.facts[field]
+				if field in ["new_species","new_origin","new_lineage","confirmed_escape","deep_conquest","stable_deep_civilization","stable_orbital_civilization","outerworld_settlement","observer_equivalence","machine_civilization","boundary_conquest"] and value==true:
+					issues.append("Forbidden authored boundary conquest/population fact: "+row.id)
+				if field in ["machine_consciousness","one_consciousness","individual_survival","emergent_consciousness","same_person","supernatural_cause","external_intelligence"] and value!="unknown":
+					issues.append("Unresolved Canon field cannot be answered: "+row.id)
 	for row: Dictionary in data.projects:
-		if row.stages.size() < 4 or row.outcomes.is_empty():
+		if row.stages.size() < 4 or row.outcomes.is_empty() or row.get("success_policy")!="bounded_technical_success" or row.id in REMOVED_IDS:
 			issues.append("Project requires stages and outcomes")
 		for chain: Array in [row.stages] + row.outcomes:
 			for key: String in chain:
 				if not _definitions.has(key):
 					issues.append("Missing authored project stage: " + key)
+	for row:Dictionary in data.scars:
+		for variant:Dictionary in row.variants:
+			if variant.stages.size()<3 or not _definitions.has(variant.stages[-1]) or definition(variant.stages[-1]).category!="scar":
+				issues.append("Scar lacks its independent objective precursor/aftermath chain")
 	return issues
 
 # Runtime substitutions are bounded and independently validated. Names/prose

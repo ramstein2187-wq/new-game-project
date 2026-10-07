@@ -219,13 +219,14 @@ social IDs only in v4 output. Clone remains an actual cohort of authorized human
 never a separate Origin.
 
 The v4 ledger distinguishes social assimilation of practices/institutions,
-biological trait convergence, mechanogenic tissue replacement, cognitive-pattern
+biological trait convergence, irreversible mechanogenic coupling, cognitive-pattern
 convergence and network integration. Each has distinct physical/contextual
 prerequisites. None automatically authorizes a species, political machine faction
 or philosophical account of who survives.
 
-Imposed regression needs explicit regression authorization plus an approved social
-template. Existing M042 approved-contact flags alone do not open it. Shipping has
-no such content. Targeted Extermination can concern an actual registered
+Revision2 imposed regression uses an actual registered baseline-human target,
+responsible authority, explicit biological policy/intervention and measured
+generational change. It is shipping-active. M042 contact/lineage permissions remain
+unchanged and do not replace this causal chain. Targeted Extermination can concern an actual registered
 baseline-human resident group without inventing a distinct persecuted lineage;
 lineage_persecution specifically remains gated on recorded approved lineage context.

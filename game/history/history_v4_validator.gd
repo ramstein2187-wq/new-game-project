@@ -89,6 +89,8 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 					issues.append("provenance: project lacks its actual facility")
 				if effect.data.keys().size()!=4 or not ["stage","status","start_year","selection"].all(func(key:String)->bool:return effect.data.has(key)) or effect.data.get("selection") not in HistoryV4Catalog.SELECTIONS:
 					issues.append("evidence: unauthored project metadata")
+				if not project.is_empty() and effect.data.get("selection") not in project.selection_policies:
+					issues.append("population: selection policy is incompatible with the actual Project")
 				var project_key: String = effect.reference_id
 				if not project_stages.has(project_key):
 					project_stages[project_key] = []
@@ -106,6 +108,8 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			facts[effect.entity_id][effect.record_id].append(event.id)
 		if not definition.is_empty():
 			_authored_records(event, definition, observed, entities, issues)
+			if definition.category=="scar":
+				_scar_chain(event,definition,events,issues)
 		if event.id == "h_discovery":
 			if definition.is_empty() or definition.category != "discovery" or event.effects[0].get("origin") != "unknown" or event.effects[0].get("observation") != result.configuration.discovery_motif:
 				issues.append("mystery: generic discovery provenance/origin mismatch")
@@ -187,6 +191,8 @@ func _authored_records(event: HistoricalEvent, definition: Dictionary, observed:
 			issues.append("provenance: invalid participant evidence")
 		if authored.target == "cohort" and not effect.reference_id.ends_with("_cohort"):
 			issues.append("population: missing actual cohort")
+		if event.event_type==HistoricalEvent.Type.HISTORY_RECORD and authored.target=="facility" and effect.reference_id not in event.entity_ids:
+			issues.append("provenance: missing actual site reference")
 
 func _project_chain(stages: Array, events: Dictionary, issues: Array) -> void:
 	var first: Dictionary = stages[0]
@@ -204,12 +210,71 @@ func _project_chain(stages: Array, events: Dictionary, issues: Array) -> void:
 		valid = valid or keys == ["project_authorization", "resource_concentration"] + project.stages + ending
 	if not valid or last.year-first.year < 30 or last.data.get("status") not in HistoryV4Catalog.OUTCOMES or first.data.get("start_year") != first.year:
 		issues.append("project: missing long-duration phase/outcome chain")
+	var final_definition := _catalog.definition(last.key)
+	var expected_status := "unknown_outcome"
+	if str(last.key).ends_with("partial_success"):
+		expected_status="partial_success"
+	elif str(last.key).ends_with("bounded_success") or last.key in ["array_continues","deep_bounded_return"]:
+		expected_status="success"
+	elif str(last.key).ends_with("abandonment") or last.key=="array_silence":
+		expected_status="abandonment"
+	elif final_definition.get("category")=="scar":
+		expected_status="catastrophe"
+	if last.data.get("status")!=expected_status or project.get("success_policy")!="bounded_technical_success":
+		issues.append("lore: project terminal status exceeds authored bounded result")
 	for i in range(1,stages.size()):
 		if stages[i-1].event not in events[stages[i].event].cause_event_ids:
 			issues.append("prerequisite: disconnected project chain")
 	for i in range(stages.size()-1):
 		if stages[i].data.get("status")!="in_progress":
 			issues.append("project: terminal status before consequence")
+
+func _scar_chain(event:HistoricalEvent,definition:Dictionary,events:Dictionary,issues:Array)->void:
+	var scar := _catalog.scar(definition.records[0].record_id)
+	var variant: Dictionary = {}
+	for row:Dictionary in scar.get("variants",[]):
+		if row.stages[-1]==event.narrative_key:
+			variant=row
+	if variant.is_empty():
+		issues.append("lore: unauthored Scar cause")
+		return
+	var sources := {}
+	var pending: Array = event.cause_event_ids.duplicate()
+	while not pending.is_empty():
+		var id: String = pending.pop_back()
+		if sources.has(id) or not events.has(id):
+			continue
+		sources[id]=events[id]
+		pending.append_array(events[id].cause_event_ids)
+	var previous: HistoricalEvent = null
+	var cohort: String = ""
+	for effect:Dictionary in event.effects:
+		if effect.kind=="history_record" and effect.record_type=="population":
+			cohort=effect.reference_id
+	for key:String in variant.stages:
+		var found: HistoricalEvent = event if key==event.narrative_key else null
+		for source:HistoricalEvent in sources.values():
+			if source.narrative_key==key and source.actor_ids==event.actor_ids:
+				if key==variant.stages[0] and not source.effects.any(func(effect:Dictionary)->bool:return effect.kind=="history_record" and effect.reference_id==cohort):
+					continue
+				found=source
+		if found==null:
+			issues.append("prerequisite: Scar lacks actual independent source "+key)
+			continue
+		if previous!=null and previous.id not in found.cause_event_ids:
+			issues.append("prerequisite: Scar source chain disconnected")
+		if key==variant.stages[0] and event.year-found.year<int(scar.min_years):
+			issues.append("chronology: Scar lacks long-term or generational observations")
+		if str(key).ends_with("_stabilization") and previous!=null:
+			if found.year-previous.year<54:
+				issues.append("chronology: biological stabilization lacks generations after enforcement")
+		if scar.id=="chosen_cognitive_regression" and str(key).ends_with("_measurement") and previous!=null:
+			if found.year-previous.year<48:
+				issues.append("chronology: chosen reduction is not measured across generations")
+		for effect:Dictionary in found.effects:
+			if effect.kind=="history_record" and effect.data.has("target_reference") and effect.data.target_reference!=cohort:
+				issues.append("population: Scar policy/intervention targets a different cohort")
+		previous=found
 
 func _claims(result: HistoryResult, events: Dictionary, issues: Array) -> void:
 	var current: Array = result.present.active_factions.map(func(row: Dictionary) -> String: return row.id)
@@ -238,5 +303,5 @@ func _scan_ids(value: Variant, issues: Array) -> void:
 			_scan_ids(item,issues)
 	elif value is String:
 		for part in value.split(":"):
-			if HistoryV4Compatibility.IDS.has(part):
+			if HistoryV4Compatibility.IDS.has(part) or part in HistoryV4Catalog.REMOVED_IDS or HistoryV4Catalog.REMOVED_IDS.any(func(id:String)->bool:return part.begins_with(id+"_")):
 				issues.append("terminology: legacy canonical ID " + part)
