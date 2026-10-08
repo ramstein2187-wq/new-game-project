@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- **M046 History v6 Phase B:** complete and validated on `codex/history-generator-v6-phase-b` (task branch only), based exactly on M045 `c0f1f92`; dynamic civilization and independent World Manifest. 893 focused checks, full 41-test gate and 1,000 replay/Manifest worlds passed. Independent of the existing M046 cost-query milestone. [Scope and recovery log](milestones/M046_history_v6_phase_b.md).
+
 - **M045:** independent event-driven v6 Phase A complete on `codex/history-generator-v6-core`; 8,516 focused assertions, 1,000 matching replays, full40-script gate, existing v2–v5 preserved. Not merged to main. [M045](milestones/M045_history_v6_core.md).
 
 - **M036–M044 history pipeline:** Complete on `main` at `c64083b` via [PR #50](https://github.com/ramstein2187-wq/new-game-project/pull/50), integrating the cumulative v5 lineage with current M035/M046 and retired M010. Godot editor/startup, 38 split project tests, combat dataset, history determinism, layout/UID and Notion metadata checks passed. Monolithic check was time-limited, then all tests were completed in bounded groups. History/archaeology contracts are not wired into playable world/Actor actions. [M044](milestones/M044_history_v5_sparse_archaeology.md).

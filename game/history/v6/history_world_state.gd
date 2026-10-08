@@ -52,6 +52,7 @@ var source_totals: Dictionary[String, int] = {}
 var source_origins: Dictionary[String, String] = {}
 var fact_events: Dictionary[String, String] = {}
 var canon: Dictionary = CanonPolicy.snapshot()
+var civilization: HistoryCivilizationState
 
 static func pair(a: String, b: String) -> String:
 	return a + "|" + b if a < b else b + "|" + a
@@ -77,14 +78,16 @@ func groups(faction_id: String) -> Array[String]:
 
 func residents(site_id: String, faction_id: String = "") -> Array[String]:
 	var ids: Array[String] = []
+	var locality := site_id
+	if civilization != null and civilization.facilities.has(site_id): locality = civilization.facilities[site_id].locality_id
 	for id: String in populations:
 		var p := populations[id]
-		if p.site_id == site_id and (faction_id.is_empty() or p.faction_id == faction_id): ids.append(id)
+		if p.site_id == locality and (faction_id.is_empty() or p.faction_id == faction_id): ids.append(id)
 	ids.sort()
 	return ids
 
 func contains(id: String) -> bool:
-	return factions.has(id) or populations.has(id) or sites.has(id) or artifacts.has(id)
+	return factions.has(id) or populations.has(id) or sites.has(id) or artifacts.has(id) or (civilization != null and (civilization.localities.has(id) or civilization.projects.has(id) or civilization.scars.has(id)))
 
 func copy() -> HistoryWorldState:
 	var result := HistoryWorldState.new()
@@ -94,6 +97,7 @@ func copy() -> HistoryWorldState:
 	result.source_totals = source_totals.duplicate()
 	result.source_origins = source_origins.duplicate()
 	result.fact_events = fact_events.duplicate()
+	if civilization != null: result.civilization = civilization.copy()
 	for id: String in factions:
 		var old := factions[id]
 		var row := Faction.new()
@@ -130,6 +134,7 @@ func data() -> Dictionary:
 	for id: String in populations: result.populations[id] = populations[id].data()
 	for id: String in sites: result.sites[id] = sites[id].data()
 	for id: String in artifacts: result.artifacts[id] = artifacts[id].data()
+	if civilization != null: result["civilization"] = civilization.data()
 	return result
 
 func canonical() -> String:
@@ -162,8 +167,12 @@ func errors() -> Array[String]:
 		var p := populations[id]
 		if p.size <= 0 or not source_totals.has(p.source_id): out.append("Population source/size: " + id)
 		if not factions.has(p.faction_id) or not factions[p.faction_id].active: out.append("Population membership: " + id)
-		if not sites.has(p.site_id): out.append("Population location: " + id)
+		if civilization == null:
+			if not sites.has(p.site_id): out.append("Population location: " + id)
+		elif not civilization.localities.has(p.site_id): out.append("Population locality: " + id)
 		totals[p.source_id] = totals.get(p.source_id, 0) + p.size
+	if civilization != null:
+		for source: String in source_totals: totals[source] = totals.get(source, 0) + civilization.losses.get(source, 0)
 	if totals != source_totals: out.append("Population conservation violated")
 	if source_origins.size() != source_totals.size(): out.append("Origin ledger mismatch")
 	for id: String in source_totals:
@@ -187,4 +196,10 @@ func errors() -> Array[String]:
 		if a.status == "held":
 			if not factions.has(a.owner_id) or not factions[a.owner_id].active: out.append("Artifact owner: " + id)
 			elif residents(a.site_id, a.owner_id).is_empty(): out.append("Custodian absent: " + id)
+	if civilization != null:
+		for collection: Dictionary in [civilization.localities, civilization.projects, civilization.scars]:
+			for id: String in collection:
+				if id.is_empty() or ":" in id or "|" in id or all_ids.has(id) or collection[id].id != id: out.append("Invalid civilization ID: " + id)
+				all_ids[id] = true
+		out.append_array(civilization.errors(self))
 	return out

@@ -16,6 +16,11 @@ func apply(state: HistoryWorldState, event: HistoryV6Event, log: HistoricalEvent
 	if event.id.is_empty() or log.has_id(event.id): result.errors.append("Duplicate/empty event ID")
 	if event.rule_id.is_empty() or event.effects.is_empty(): result.errors.append("Empty rule/effects")
 	if event.year <= state.year: result.errors.append("Event time must advance")
+	if state.civilization == null and not event.reason.is_empty(): result.errors.append("Phase B metadata outside opt-in state")
+	for key in event.trigger_keys:
+		if not state.fact_events.has(key) or not log.has_id(state.fact_events.get(key, "")): result.errors.append("Unproven trigger: " + key)
+	for id in event.association_ids:
+		if state.civilization == null or not state.civilization.projects.has(id): result.errors.append("Unknown association: " + id)
 	for id in event.participants + event.targets:
 		if not state.contains(id): result.errors.append("Unknown event reference: " + id)
 	var causes: Array[String] = []
@@ -30,7 +35,7 @@ func apply(state: HistoryWorldState, event: HistoryV6Event, log: HistoricalEvent
 	var next := state.copy()
 	next.year = event.year
 	for effect in event.effects:
-		var error := _effect(next, effect, event.id)
+		var error := HistoryCivilizationTransition.apply(next, effect, event) if effect.operation >= Op.DIVIDE_POPULATION else _effect(next, effect, event.id)
 		if not error.is_empty():
 			result.errors.append(error)
 			return result
@@ -47,6 +52,7 @@ func apply(state: HistoryWorldState, event: HistoryV6Event, log: HistoricalEvent
 	return result
 
 func _evidence_used(s: HistoryWorldState, event: HistoryV6Event, key: String) -> bool:
+	if s.civilization != null and HistoryCivilizationTransition.evidence_used(s, event, key): return true
 	var parts := key.split(":")
 	if parts.size() != 2: return false
 	var id := parts[1]
@@ -85,6 +91,7 @@ func _active(s: HistoryWorldState, id: String) -> bool:
 	return s.factions.has(id) and s.factions[id].active
 
 func _effect(s: HistoryWorldState, e: HistoryV6Event.Effect, event_id: String) -> String:
+	if s.civilization != null and e.operation in [Op.MOVE_POPULATION, Op.SITE_OWNER, Op.SITE_CONDITION, Op.RELATIONSHIP]: return "Phase B requires its contextual population/facility/interaction operation"
 	# Reject surplus arguments too: no hidden Origin, intent or knowledge payload.
 	var allowed: Array[String] = []
 	match e.operation:
@@ -107,6 +114,7 @@ func _effect(s: HistoryWorldState, e: HistoryV6Event.Effect, event_id: String) -
 			var f := HistoryWorldState.Faction.new()
 			f.id = e.subject; f.parent_id = e.target; f.founded_year = s.year; f.split_capacity = e.value
 			s.factions[f.id] = f
+			if s.civilization != null: s.civilization.faction_predecessors[f.id] = [f.parent_id]
 			key = "faction:" + f.id
 		Op.RETIRE_FACTION:
 			if not _active(s, e.subject) or not s.groups(e.subject).is_empty(): return "Retirement requires distributed population"
@@ -150,6 +158,8 @@ func _effect(s: HistoryWorldState, e: HistoryV6Event.Effect, event_id: String) -
 		Op.MOVE_ARTIFACT:
 			if not s.artifacts.has(e.subject) or not s.sites.has(e.location): return "Artifact move reference"
 			var a := s.artifacts[e.subject]
+			if s.civilization != null and a.status == "held" and e.detail == "held" and a.owner_id != e.target:
+				if not _active(s, e.target) or (s.factions[e.target].parent_id != a.owner_id and s.sites[e.location].owner_id != e.target): return "Custody transfer lacks succession or actual facility ownership"
 			if e.detail == "lost":
 				if a.status != "held" or not e.target.is_empty() or a.site_id != e.location: return "Invalid loss"
 			elif e.detail == "held":

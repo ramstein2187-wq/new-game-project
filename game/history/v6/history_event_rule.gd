@@ -8,6 +8,7 @@ class Candidate extends RefCounted:
 	var target: String
 	var location: String
 	var variant: String
+	var urgency: float = 1.0
 	func _init(a: String = "", t: String = "", l: String = "", v: String = "") -> void:
 		actor = a; target = t; location = l; variant = v
 		key = JSON.stringify([a, t, l, v])
@@ -20,6 +21,9 @@ func candidates(_state: HistoryWorldState) -> Array[Candidate]:
 
 func propose(_state: HistoryWorldState, _candidate: Candidate, _rng: RandomNumberGenerator) -> HistoryV6Event:
 	return null
+
+func effective_weight(_state: HistoryWorldState, _pool: Array[Candidate]) -> float:
+	return weight
 
 func event(actor: String, targets: Array[String]) -> HistoryV6Event:
 	var result := HistoryV6Event.new()

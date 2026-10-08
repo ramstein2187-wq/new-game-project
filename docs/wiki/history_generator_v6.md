@@ -1,11 +1,11 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M045 — History Generator v6 Phase A; 작업 브랜치 프로토타입"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v6-core/docs/specs/history_generator_v6.md"
+milestones = "M045 Phase A; M046 History v6 Phase B; 작업 브랜치 프로토타입"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v6-phase-b/docs/specs/history_generator_v6.md"
 icon = "📜"
 +++
-# 사건 기반 역사 생성 코어 v6 Phase A
+# 사건 기반 역사 생성 v6 — 문명사와 현재 세계 명세
 
 `codex/history-generator-v6-core`의 독립 실험이다. 기본 `HistoryGenerator`는
 여전히 v5이며 기존 v2–v5 출력과 Canon 규칙은 변경하지 않았다.
@@ -28,6 +28,35 @@ icon = "📜"
 
 플레이어에게 제공할 수 있는 차이는 지역의 접근성·소유권·주민·물건 위치지만,
 이번 작업은 이를 실제 월드맵, Actor 행동, 아이템, UI에 연결하지 않는다.
+
+## Phase B: 별도 opt-in 문명사
+
+`HistoryEngine.generate_civilization(seed)`는 같은 엔진·선택기·리듀서·로그를
+통해 약 600년의 지역사를 생성한다. 지리적 지역과 시설을 분리하고, 인구
+부분 분리·통합·이동·명시적 손실, 상황적 세력 분열·흡수·후계 조직,
+공동 시설 유지와 점유권 분쟁을 지원한다. 생물학적 Origin은 바꾸지 않는다.
+
+Genome Archive, Deep Descent, Ark는 시설·실제 자원·관리 주체·차단 조건을
+가진 지속 상태다. 공통 투자·중단·재개·인계·물리적 시도 규칙을 사용한다.
+기록 보존과 제한적 탐사는 가능하지만, 부활 인격·심층 정복·확인된 행성
+탈출은 생성하지 않는다. 탐사 기록과 유전체 기록도 서로 다른 자산이다.
+
+관측된 궤도낙하, 실제 시설 의존 관계의 연쇄 장애, 물리 발사 실패는
+장기 위험·잔존물·접근 제약을 남긴다. 후대의 회수·구조 복구·피난처 전환이
+가능하며, 시설 손상만으로 지역 주민을 삭제하지 않는다. 구조 복구는
+파괴된 장비나 기록을 되살리지 않고 고대 장치 작동도 증명하지 않는다.
+
+World Manifest는 현재 지역·시설·점유·관계·위험·실제 자산·기능·세력 필요와
+역사 출처를 담는 순수 출력이다. 역사상 존재, 생존 가능성, 실제 현재 존재,
+현재 사용 가능성을 구별하며 독립 JSON 소비자가 참조와 상태를 검사한다.
+건물 출입과 원래 기능 사용도 분리한다. 닫힌 심층 입구의 탐사 기능이나
+장비 없는 발사 시설은 이용 가능으로 표시하지 않는다.
+
+Phase B 검증·20개 무작위 세계·장기 실험·남은 한계는
+[통합 검토](../reviews/history_v6_phase_b/report.md), 데이터·전이 계약은
+[설계](../specs/history_generator_v6.md#phase-b-dynamic-civilization-explicit-opt-in)에
+기록한다. 기본 생성기는 여전히 v5이며 두 실험 모두 main에 병합하지 않았다.
+월드맵·Actor·아이템·UI 연결과 실제 플레이 재미 검증은 후속 작업이다.
 다음 단계에서는 작은 지역에서 이러한 차이가 탐험·위험·선택에 어떻게
 작용하는지 별도 검토해야 한다.
 

@@ -1,0 +1,1671 @@
+{
+  "canon": {
+    "belief_only": [
+      "human_origin",
+      "observer_character",
+      "first_terraformer",
+      "world_creation",
+      "core_intent",
+      "outerworld_identity",
+      "global_collapse_cause",
+      "legitimate_successor",
+      "orbital_activation_reason",
+      "orbital_target_selection_reason"
+    ],
+    "generatable": [
+      "regional_polities",
+      "dynasties",
+      "founding",
+      "war",
+      "civil_war",
+      "famine",
+      "migration",
+      "schism",
+      "alliance",
+      "betrayal",
+      "settlement",
+      "local_disaster",
+      "ruin_reoccupation",
+      "refugees",
+      "successors",
+      "local_territory",
+      "buried_facility_discovery",
+      "small_anomalous_discovery",
+      "rare_orbital_legacy",
+      "bounded_core_intervention"
+    ],
+    "locked": {
+      "core_and_some_management_systems": "remain",
+      "core_capabilities": "bounded existing infrastructure and local boundary conditions",
+      "external_shield": "mostly lost",
+      "faction_knows_all_truth": false,
+      "human_lineages": "multiple modified lineages",
+      "human_origin": "Earth Homo sapiens",
+      "major_regular_moons": 4,
+      "modern_origin_knowledge": "mostly lost",
+      "observer_civilization": "gone",
+      "observer_role": "observe preserve constrain civilization",
+      "observer_system": "closed",
+      "observer_term": "developer and modern scholarly classification, not self-name",
+      "observers_existed": true,
+      "original_habitability": "unsuitable for humans",
+      "outerworld": "origin category, not a single polity or Observer",
+      "outerworld_arrivals": "rare possible",
+      "past_great_states": true,
+      "planetary_environment_modification": true,
+      "present_politics": "fragmented after collapse",
+      "remaining_systems": "not one unified current AI",
+      "residual_orbital_assets": "may remain and act rarely",
+      "system_age": "about 1.35 billion Earth years",
+      "tides": "strong complex predictable cycles"
+    },
+    "reserved": [
+      "human_arrival",
+      "first_terraformer",
+      "observer_self_name",
+      "observer_political_system",
+      "observer_origin",
+      "observer_disappearance",
+      "pre_observer_intervention",
+      "core_intent",
+      "core_intervention_purpose",
+      "orbital_activation_reason",
+      "orbital_target_selection_reason",
+      "original_command_hierarchy",
+      "complete_ancient_chronology",
+      "modern_atmosphere_composition",
+      "complete_human_lineage_history",
+      "outerworld_civilizations",
+      "global_collapse_cause",
+      "rings",
+      "core_tidal_energy"
+    ]
+  },
+  "content_version": "phase_b_1",
+  "events": [
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0000",
+      "reason": "facility_prepare",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 6
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0001",
+      "reason": "political_split",
+      "rule_id": "civil_politics",
+      "trigger_keys": [],
+      "year": 83
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0000"
+      ],
+      "id": "event_0002",
+      "reason": "facility_build",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 85
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0002"
+      ],
+      "id": "event_0003",
+      "reason": "project_start",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 88
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0004",
+      "reason": "scar_damage",
+      "rule_id": "civil_scar",
+      "trigger_keys": [],
+      "year": 157
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0004"
+      ],
+      "id": "event_0005",
+      "reason": "facility_repair",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 175
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0002",
+        "event_0003"
+      ],
+      "id": "event_0006",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 179
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0007",
+      "reason": "facility_prepare",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 201
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0006"
+      ],
+      "id": "event_0008",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 215
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0002"
+      ],
+      "id": "event_0009",
+      "reason": "facility_gather",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 285
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0008"
+      ],
+      "id": "event_0010",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 305
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0011",
+      "reason": "facility_build",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 314
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0012",
+      "reason": "project_start",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 326
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0010"
+      ],
+      "id": "event_0013",
+      "reason": "facility_salvage",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 335
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0001",
+        "event_0012"
+      ],
+      "id": "event_0014",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 345
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0011"
+      ],
+      "id": "event_0015",
+      "reason": "facility_gather",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 365
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0010",
+        "event_0013"
+      ],
+      "id": "event_0016",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 382
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0017",
+      "reason": "facility_occupy",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 394
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0001",
+        "event_0014"
+      ],
+      "id": "event_0018",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 407
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0016"
+      ],
+      "id": "event_0019",
+      "reason": "facility_salvage",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 417
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0016",
+        "event_0019"
+      ],
+      "id": "event_0020",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 434
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0007"
+      ],
+      "id": "event_0021",
+      "reason": "facility_build",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 453
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0001",
+        "event_0018"
+      ],
+      "id": "event_0022",
+      "reason": "project_invest",
+      "rule_id": "civil_project",
+      "trigger_keys": [],
+      "year": 475
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [],
+      "id": "event_0023",
+      "reason": "scar_exodus",
+      "rule_id": "civil_scar",
+      "trigger_keys": [],
+      "year": 565
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0023"
+      ],
+      "id": "event_0024",
+      "reason": "facility_gather",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 573
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0023"
+      ],
+      "id": "event_0025",
+      "reason": "survival_pressure",
+      "rule_id": "civil_population",
+      "trigger_keys": [],
+      "year": 577
+    },
+    {
+      "association_ids": [],
+      "cause_ids": [
+        "event_0020"
+      ],
+      "id": "event_0026",
+      "reason": "facility_records",
+      "rule_id": "civil_facility",
+      "trigger_keys": [],
+      "year": 594
+    }
+  ],
+  "facilities": [
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "equipment",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 1,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "genomic_records",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "inert_salvage",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "built_0",
+      "kind": "shelter",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "shelter"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_0",
+      "owner_id": "faction_0",
+      "possible_survival": true,
+      "provenance": [
+        "event_0026"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "equipment",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "inert_salvage",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "built_1",
+      "kind": "shelter",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "shelter"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_1",
+      "owner_id": "faction_1",
+      "possible_survival": true,
+      "provenance": [
+        "event_0015"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "materials",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "equipment",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "inert_salvage",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": false,
+      "hazard": 1,
+      "historically_existed": true,
+      "id": "built_2",
+      "kind": "shelter",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "shelter"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_3",
+      "owner_id": "faction_3",
+      "possible_survival": true,
+      "provenance": [
+        "event_0021"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 1,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "entry_camp",
+      "kind": "entry_camp",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "survey"
+      ],
+      "local_function": "survey",
+      "locality_id": "locality_8",
+      "owner_id": "polity_0",
+      "possible_survival": true,
+      "provenance": [
+        "event_0022",
+        "event_0001"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "genomic_records",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 1,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "samples",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_0",
+      "kind": "shelter",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "launch"
+      ],
+      "local_function": "launch",
+      "locality_id": "locality_0",
+      "owner_id": "faction_0",
+      "possible_survival": true,
+      "provenance": [
+        "event_0026"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 6,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 2,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 6,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_1",
+      "kind": "local_generator",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "power"
+      ],
+      "local_function": "power",
+      "locality_id": "locality_1",
+      "owner_id": "faction_1",
+      "possible_survival": true,
+      "provenance": [
+        "event_0011"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 6,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 8,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "site_1",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_2",
+      "kind": "shelter",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "shelter"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_2",
+      "owner_id": "faction_2",
+      "possible_survival": true,
+      "provenance": [
+        "event_0005"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 4,
+          "currently_usable": false,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 1,
+          "currently_usable": false,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 7,
+          "currently_usable": false,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "damaged",
+      "dependency": "",
+      "function_usable": false,
+      "hazard": 1,
+      "historically_existed": true,
+      "id": "site_3",
+      "kind": "shelter",
+      "known_techniques": [
+        "local_construction",
+        "structural_repair",
+        "launch"
+      ],
+      "local_function": "launch",
+      "locality_id": "locality_3",
+      "owner_id": "faction_3",
+      "possible_survival": true,
+      "provenance": [
+        "event_0024",
+        "event_0023"
+      ],
+      "structure_present": true,
+      "technology_observed": "unknown"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 8,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 2,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 7,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "damaged",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_4",
+      "kind": "unknown_remains",
+      "known_techniques": [
+        "structural_repair"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_4",
+      "owner_id": "",
+      "possible_survival": true,
+      "provenance": [],
+      "structure_present": true,
+      "technology_observed": "inert_remains"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 7,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 2,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 5,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_5",
+      "kind": "unknown_remains",
+      "known_techniques": [
+        "structural_repair"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_5",
+      "owner_id": "",
+      "possible_survival": true,
+      "provenance": [],
+      "structure_present": true,
+      "technology_observed": "inert_remains"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 11,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 2,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 5,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "damaged",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_6",
+      "kind": "unknown_remains",
+      "known_techniques": [
+        "structural_repair"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_6",
+      "owner_id": "",
+      "possible_survival": true,
+      "provenance": [],
+      "structure_present": true,
+      "technology_observed": "inert_remains"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 12,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 3,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 9,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_7",
+      "kind": "unknown_remains",
+      "known_techniques": [
+        "structural_repair"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_7",
+      "owner_id": "",
+      "possible_survival": true,
+      "provenance": [],
+      "structure_present": true,
+      "technology_observed": "inert_remains"
+    },
+    {
+      "accessible": true,
+      "ancient_mechanism_operable": false,
+      "ancient_mechanism_understood": false,
+      "assets": [
+        {
+          "actual_quantity": 9,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "materials",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 2,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "equipment",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "genomic_records",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "samples",
+          "possible_survival": false
+        },
+        {
+          "actual_quantity": 5,
+          "currently_usable": true,
+          "historically_existed": true,
+          "kind": "inert_salvage",
+          "possible_survival": true
+        },
+        {
+          "actual_quantity": 0,
+          "currently_usable": false,
+          "historically_existed": false,
+          "kind": "survey_records",
+          "possible_survival": false
+        }
+      ],
+      "condition": "intact",
+      "dependency": "",
+      "function_usable": true,
+      "hazard": 0,
+      "historically_existed": true,
+      "id": "site_8",
+      "kind": "unknown_remains",
+      "known_techniques": [
+        "structural_repair"
+      ],
+      "local_function": "shelter",
+      "locality_id": "locality_8",
+      "owner_id": "polity_0",
+      "possible_survival": true,
+      "provenance": [
+        "event_0017"
+      ],
+      "structure_present": true,
+      "technology_observed": "inert_remains"
+    }
+  ],
+  "factions": [
+    {
+      "absorbed_contributors": [],
+      "active": false,
+      "current_need": "retired",
+      "founded_year": -120,
+      "id": "collapsed_regional_polity",
+      "parent_id": "",
+      "predecessors": []
+    },
+    {
+      "absorbed_contributors": [],
+      "active": true,
+      "current_need": "project_maintenance",
+      "founded_year": -15,
+      "id": "faction_0",
+      "parent_id": "collapsed_regional_polity",
+      "predecessors": [
+        "collapsed_regional_polity"
+      ]
+    },
+    {
+      "absorbed_contributors": [],
+      "active": true,
+      "current_need": "asset_protection",
+      "founded_year": -16,
+      "id": "faction_1",
+      "parent_id": "collapsed_regional_polity",
+      "predecessors": [
+        "collapsed_regional_polity"
+      ]
+    },
+    {
+      "absorbed_contributors": [],
+      "active": true,
+      "current_need": "survival",
+      "founded_year": -28,
+      "id": "faction_2",
+      "parent_id": "collapsed_regional_polity",
+      "predecessors": [
+        "collapsed_regional_polity"
+      ]
+    },
+    {
+      "absorbed_contributors": [],
+      "active": true,
+      "current_need": "survival",
+      "founded_year": -28,
+      "id": "faction_3",
+      "parent_id": "collapsed_regional_polity",
+      "predecessors": [
+        "collapsed_regional_polity"
+      ]
+    },
+    {
+      "absorbed_contributors": [],
+      "active": true,
+      "current_need": "project_maintenance",
+      "founded_year": 83,
+      "id": "polity_0",
+      "parent_id": "faction_3",
+      "predecessors": [
+        "faction_3"
+      ]
+    }
+  ],
+  "localities": [
+    {
+      "capacity": 74,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_0",
+      "neighbors": [
+        "locality_1"
+      ],
+      "passage_open": true,
+      "population": 68,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 100,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_1",
+      "neighbors": [
+        "locality_0",
+        "locality_2"
+      ],
+      "passage_open": true,
+      "population": 55,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 70,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_2",
+      "neighbors": [
+        "locality_1",
+        "locality_3"
+      ],
+      "passage_open": true,
+      "population": 77,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 102,
+      "gatherable_materials": 5,
+      "hazard": 1,
+      "id": "locality_3",
+      "neighbors": [
+        "locality_2",
+        "locality_4",
+        "locality_5"
+      ],
+      "passage_open": true,
+      "population": 18,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 114,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_4",
+      "neighbors": [
+        "locality_3",
+        "locality_5",
+        "locality_6"
+      ],
+      "passage_open": true,
+      "population": 0,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 97,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_5",
+      "neighbors": [
+        "locality_4",
+        "locality_6",
+        "locality_3",
+        "locality_7"
+      ],
+      "passage_open": true,
+      "population": 0,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 73,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_6",
+      "neighbors": [
+        "locality_5",
+        "locality_7",
+        "locality_4",
+        "locality_8"
+      ],
+      "passage_open": true,
+      "population": 0,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 111,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_7",
+      "neighbors": [
+        "locality_6",
+        "locality_8",
+        "locality_5"
+      ],
+      "passage_open": true,
+      "population": 0,
+      "terrain": "surface"
+    },
+    {
+      "capacity": 107,
+      "gatherable_materials": 8,
+      "hazard": 0,
+      "id": "locality_8",
+      "neighbors": [
+        "locality_7",
+        "locality_6"
+      ],
+      "passage_open": true,
+      "population": 36,
+      "terrain": "innerworld_entry"
+    }
+  ],
+  "losses": {
+    "source_0": 0,
+    "source_1": 0,
+    "source_2": 0,
+    "source_3": 2
+  },
+  "objects": [
+    {
+      "actually_present": true,
+      "currently_usable": false,
+      "historically_existed": true,
+      "id": "artifact_0",
+      "origin": "unknown",
+      "owner_id": "faction_0",
+      "possible_survival": true,
+      "site_id": "site_0",
+      "status": "held"
+    },
+    {
+      "actually_present": true,
+      "currently_usable": false,
+      "historically_existed": true,
+      "id": "artifact_1",
+      "origin": "unknown",
+      "owner_id": "faction_1",
+      "possible_survival": true,
+      "site_id": "site_1",
+      "status": "held"
+    }
+  ],
+  "populations": [
+    {
+      "faction_id": "faction_3",
+      "id": "group_0",
+      "lineage": [
+        "population_3_0",
+        "population_3_0"
+      ],
+      "locality_id": "locality_2",
+      "origin": "human_derived",
+      "size": 12,
+      "source_id": "source_3"
+    },
+    {
+      "faction_id": "faction_0",
+      "id": "population_0_0",
+      "lineage": [
+        "population_0_0"
+      ],
+      "locality_id": "locality_0",
+      "origin": "human_derived",
+      "size": 30,
+      "source_id": "source_0"
+    },
+    {
+      "faction_id": "faction_0",
+      "id": "population_0_1",
+      "lineage": [
+        "population_0_1"
+      ],
+      "locality_id": "locality_0",
+      "origin": "human_derived",
+      "size": 38,
+      "source_id": "source_0"
+    },
+    {
+      "faction_id": "faction_1",
+      "id": "population_1_0",
+      "lineage": [
+        "population_1_0"
+      ],
+      "locality_id": "locality_1",
+      "origin": "human_derived",
+      "size": 22,
+      "source_id": "source_1"
+    },
+    {
+      "faction_id": "faction_1",
+      "id": "population_1_1",
+      "lineage": [
+        "population_1_1"
+      ],
+      "locality_id": "locality_1",
+      "origin": "human_derived",
+      "size": 33,
+      "source_id": "source_1"
+    },
+    {
+      "faction_id": "faction_2",
+      "id": "population_2_0",
+      "lineage": [
+        "population_2_0"
+      ],
+      "locality_id": "locality_2",
+      "origin": "human_derived",
+      "size": 26,
+      "source_id": "source_2"
+    },
+    {
+      "faction_id": "faction_2",
+      "id": "population_2_1",
+      "lineage": [
+        "population_2_1"
+      ],
+      "locality_id": "locality_2",
+      "origin": "human_derived",
+      "size": 39,
+      "source_id": "source_2"
+    },
+    {
+      "faction_id": "faction_3",
+      "id": "population_3_0",
+      "lineage": [
+        "population_3_0"
+      ],
+      "locality_id": "locality_3",
+      "origin": "human_derived",
+      "size": 18,
+      "source_id": "source_3"
+    },
+    {
+      "faction_id": "polity_0",
+      "id": "population_3_1",
+      "lineage": [
+        "population_3_1"
+      ],
+      "locality_id": "locality_8",
+      "origin": "human_derived",
+      "size": 36,
+      "source_id": "source_3"
+    }
+  ],
+  "projects": [
+    {
+      "actor": "faction_0",
+      "blockers": [],
+      "changed": 434,
+      "goal": "construct_and_attempt_launch",
+      "id": "project_0",
+      "initiator": "faction_0",
+      "invested_materials": 5,
+      "kind": "ark",
+      "outcome": "unresolved",
+      "physical_attempt": false,
+      "provenance": [
+        "event_0003",
+        "event_0006",
+        "event_0008",
+        "event_0010",
+        "event_0016",
+        "event_0020"
+      ],
+      "site_id": "site_0",
+      "started": 88,
+      "status": "active"
+    },
+    {
+      "actor": "polity_0",
+      "blockers": [],
+      "changed": 475,
+      "goal": "limited_entry_and_return",
+      "id": "project_1",
+      "initiator": "polity_0",
+      "invested_materials": 3,
+      "kind": "deep_descent",
+      "outcome": "unresolved",
+      "physical_attempt": false,
+      "provenance": [
+        "event_0012",
+        "event_0014",
+        "event_0018",
+        "event_0022"
+      ],
+      "site_id": "entry_camp",
+      "started": 326,
+      "status": "active"
+    }
+  ],
+  "relationships": {},
+  "scars": [
+    {
+      "actual_residue": 2,
+      "event_id": "event_0023",
+      "hazard": 1,
+      "id": "failed_launch_0",
+      "kind": "failed_exodus",
+      "later_events": [],
+      "locality_id": "locality_3",
+      "project_id": "",
+      "recovered": false,
+      "sites": [
+        "site_3"
+      ]
+    }
+  ],
+  "schema": "history_world_manifest/1",
+  "seed": 1839602582,
+  "source_origins": {
+    "source_0": "human_derived",
+    "source_1": "human_derived",
+    "source_2": "human_derived",
+    "source_3": "human_derived"
+  },
+  "source_totals": {
+    "source_0": 68,
+    "source_1": 55,
+    "source_2": 65,
+    "source_3": 68
+  },
+  "year": 594
+}

@@ -1,6 +1,6 @@
-# History Generator v6 — Phase A contract
+# History Generator v6 — Phase A and Phase B contracts
 
-Branch prototype `codex/history-generator-v6-core`, content `phase_a_3`.
+Phase A branch prototype `codex/history-generator-v6-core`, content `phase_a_3`.
 The production default remains `HistoryGenerator.VERSION == 5`.
 
 ```mermaid
@@ -168,3 +168,164 @@ readable histories in `samples.md`, and corpus statistics. Raw sample JSON is a
 reproducible local artifact, excluded from Git; the ten readable histories and
 the compact statistics are tracked. `HistoryReducer.replay(initial, log)` is the
 independent reconstruction API. Both extension experiments remain test-only.
+
+## Phase B: dynamic civilization (explicit opt-in)
+
+`HistoryEngine.generate_civilization(seed, horizon=600, safety_limit=256)` uses
+content `phase_b_1` on `codex/history-generator-v6-phase-b`, exactly based on M045
+`c0f1f92`. `generate()` still defaults to the original Phase A experiment. Neither
+path changes the production v5 default or calls v5 planners/topology/scaffolds.
+
+```mermaid
+flowchart TD
+    I[Authored bounded initial geography and fragment societies] --> S[HistoryWorldState with optional typed civilization]
+    S --> T[Sample future year or skip to known time threshold]
+    T --> C[Contextual candidates and need weights]
+    C --> E[Common typed event and effect proposal]
+    E --> R[HistoryReducer validates a copied transaction]
+    R --> L[HistoricalEventLog]
+    R --> S
+    S --> M[Pure World Manifest projection]
+    L --> M
+    M --> J[Independent validated JSON consumer]
+```
+
+### State and ownership
+
+`HistoryCivilizationState` is a state record, not an additional generator. Its
+nested typed rows and ID indexes are copied deeply by `HistoryWorldState.copy()`.
+All writes run through the same `HistoryReducer`; the bounded civilization
+operation helper implements domain validation, not scheduling or patches.
+
+| Record | Meaning and invariants |
+| --- | --- |
+| Locality | Geographic population location, symmetric edges, capacity, debris hazard and entry/passages. Facility destruction does not erase a locality or its residents. |
+| Site + Facility | Existing Site owns physical condition/access/owner and reserved technology flags. A matching typed Facility owns locality, authored kind, current local function, a real power dependency and finite inventory. |
+| Population | Existing source/size/membership fields; `site_id` is a locality in Phase B. Partial division retains source and lineage; merging requires identical source, membership and locality. |
+| Political provenance | Immutable creation parent plus formation predecessors; later absorbed contributors are separate, avoiding a false ancestry cycle when a parent reabsorbs a breakaway. |
+| Project | Kind, initiator, current actor, site, goal, status, invested materials, actual attempt/outcome, dates and event references. Blockers are derived from the current physical/resource/crew state. |
+| Scar | Actual source event, affected sites/locality, optional physically linked Project, current residue/hazard, recovery flag and later event references. |
+
+Source accounting is `initial source mass = current groups + explicit losses`.
+No membership, migration, split, absorption or repair changes biological Origin.
+Retired population IDs cannot be recycled; their ancestry records remain archived.
+The population quantities are a closed cohort abstraction, without birth rates,
+aging or individual simulation; the millennial experiment is a stability stress
+test, not a demographic forecast.
+
+Initial conditions are 3–5 local fragments of a retired regional polity, 6–9
+connected geographic localities, ordinary human facilities and observed inert
+remains. A human-built Deep entry camp is present in some seeds; its crew comes
+from an existing group. No initial Project or final faction-count target exists.
+This bounded regional prototype does not model the whole planet's political map.
+
+### Common effect families
+
+The event format retains the fixed six-field Effect tuple and strict legacy
+eight-field event schema. Phase B events have exactly eleven fields, adding
+`reason`, `trigger_keys`, `association_ids`; the JSON decoder rejects surplus or
+malformed fields. There is no dictionary patch, executable prose or DSL.
+
+| Family | Operations and important gates |
+| --- | --- |
+| Population | Divide, compatible join, relocate/membership transfer, explicit loss. Moves require a real open edge; faction transfer requires succession or recorded cooperation. Migration candidates require improved safety/space and establishment time. |
+| Politics | Existing create/spend/retire effects plus absorption and contextual custody. Splitting requires distributed communities and finite institutional capacity. Absorption requires shared geography and recorded cooperation; all groups/assets/sites redistribute. |
+| Facilities | Build, acquire/abandon, damage, repair, repurpose, finite salvage, bounded outdoor gathering, actual record/sample transfer. Repair requires resources/local crew/custody and safe locality; ancient repairs are structural only. |
+| Interaction | Shared maintenance performs an actual material-consuming repair. Disputes require a concrete owner, co-resident parties and crowding; takeover additionally requires the claimant's larger local population. No random relationship flip. |
+| Project | Start, invest, pause/resume/abandon, change actor, physical attempt, resolve. Shared rules evaluate authored definitions, crew, function, access, stock, time and blockers. No mandatory project/stage sequence. |
+| Scar | Observed impact, real dependency cascade, independent failed physical launch, recovery. Failed Ark attempts use the same persistent Scar record. No chronology-only cause or invented interceptor/operator intent. |
+
+Local gathering represents bounded regional raw construction supplies, not ancient
+technology or equipment. Storage is capped at six; the local labor/supply reserve
+caps at eight and becomes available at one unit per forty years. Higher hazard
+permits only one-unit collection. This prevents a zero-material recovery deadlock
+without rebuilding the world after generation. Salvage and Scar residue are finite.
+Structural repair never recreates destroyed equipment, genome samples or records.
+
+Physical entry and functional use are separate queries. A standing entry building
+does not reopen a closed descent; a standing launch/power facility without actual
+equipment cannot operate. A dependent process needs its actual power supply.
+Repurposing a former process as shelter releases its power dependency. Recoverable
+inventory may remain physically accessible even when the old function is disabled.
+
+The six new contextual rule families are population, facility, politics, Project,
+Scar/incident and custody; the original six Phase A rules remain intact. Their
+weights and weighted participant selection reflect actual needs. A one-event
+cooldown is an additional scheduling aid, not the substantive reason for action.
+
+### Authored Projects and Scars
+
+| Project | Shared conditions | Bounded outcomes |
+| --- | --- | --- |
+| Genome Archive | Ordinary archive facility, actual genomic records/samples, crew, three invested material units, minimum 25 years | Preservation, partial records after sample loss, sustained obstruction/abandonment; no person resurrection/identity claims. |
+| Deep Descent | Actual Innerworld entry, human survey camp/equipment, open passage, crew, four units, minimum 35 years | Limited field observations and crew return/loss; failure may close the passage. Survey records never become genomic records or a Deep conquest claim. |
+| Ark | Local launch function, physical equipment/crew, six units, minimum 55 years | Actual attempt with failure or unknown external result; never stable orbit, confirmed escape or settlement. A failed physical attempt may damage the site and create Failed Exodus. |
+
+Projects can outlive their initiator's custody, pause on loss, transfer to actual
+new custodians, resume after obstruction changes, fail, complete locally or be
+abandoned. Completed/failed/abandoned infrastructure can later become shelter;
+the original Project retains its historical goal and outcome. Actual genomic
+material can be distributed to other accessible, resident-controlled facilities.
+
+Orbital Fall is independently observed descent/impact with unknown operator and
+purpose. Infrastructure Cascade needs the authored local generator's actual
+failure and a dependent facility; its effect includes physical damage and a route
+closure. Failed Exodus needs an equipped launch facility, consumed resources and
+actual failed attempt/loss, whether an Ark exists or not. Recovery removes actual
+hazard, may gather residue and restore a cascade passage; it never erases history.
+
+### Scheduling, reasons and provenance
+
+The single engine samples a proposed event year on a defensive state view: 2–22
+years ordinarily, with occasional 45–90-year gaps. Rules see that year's actual
+time conditions; the reducer applies the event to the prior committed state at
+the same year. When no candidate exists, it can skip to a known resource, Project,
+maintenance or establishment threshold, with a bounded idle scan. It never logs
+invented filler events. The final year is the last actual event, not automatically
+the horizon. Horizon, quiescence and safety-cap exits are explicit and deterministic.
+
+`cause_ids` remain relevant, earlier enabling facts checked against effects and
+the log. `trigger_keys` record observed conditions without asserting a motive.
+`association_ids` identify existing Projects without asserting causality. The
+contextual `reason` is a rule's bounded decision explanation; it is neither a Claim
+nor a Canon fact. Chronologically adjacent events are never automatically causes.
+
+### World Manifest / independent consumer
+
+`HistoryWorldManifest.build(result)` reads state/log only. It mutates neither and
+creates no playable object, loot, map, Actor, UI or reward. The self-contained
+JSON schema is `history_world_manifest/1` with exactly seventeen envelope fields:
+schema/content_version/seed/year/canon; localities/facilities/factions/populations/
+objects/projects/scars/events; relationships/source_totals/source_origins/losses.
+Rows are named fixed-field records with exact shapes. Unknown schemas, bad types,
+references, nonintegral numbers, impossible functions/assets, changed Canon,
+future causes and conservation errors are rejected by the JSON reader.
+
+The six ordered inventory kinds are materials, equipment, genomic_records,
+samples, inert_salvage and survey_records. Historical existence is a monotone
+ledger; known consumption/loss can leave actual quantity zero. Possible survival,
+actual presence/quantity and current usable access remain separate fields. Lost
+unknown objects are possible survivors, not confirmed current loot, and custody
+never grants unknown-device operability. Historical provenance lists point to
+the included event index; initial authored state is the explicit snapshot boundary.
+
+`tools/consume_world_manifest.gd` demonstrates an independent JSON-only consumer:
+it lists usable facilities and geographic regions without generating or replaying
+history. Future gameplay must interpret access, custody and affordances itself.
+
+### Phase B reproduction and evidence
+
+```bash
+godot --headless --path . --script tests/test_history_v6_civilization.gd
+godot --headless --path . --script tools/analyze_history_v6_civilization.gd -- --count=1000 --samples
+godot --headless --path . --script tools/analyze_history_v6_civilization.gd -- --count=100 --horizon=6000 --limit=1500
+godot --headless --path . --script tools/consume_world_manifest.gd -- <world_sample.json>
+bash tools/check_godot.sh
+```
+
+Use `--sample-seeds=<comma-separated sample_seeds.json values>` to reproduce the
+same twenty random worlds. Seeds were drawn once with a nondeterministic review
+RNG, recorded before sample export and retained through common-rule corrections.
+Corpus generation, proposal RNG, timing, projection and replay remain deterministic.
+See [Phase B review](../reviews/history_v6_phase_b/report.md) for measured results,
+the twenty readable histories, architecture comparison and remaining limits.
