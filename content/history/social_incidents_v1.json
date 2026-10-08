@@ -1,0 +1,983 @@
+{
+  "revision": "social-incidents-v1-authored-1",
+  "families": [
+    {
+      "id": "machine",
+      "weight": 26,
+      "gate": "none"
+    },
+    {
+      "id": "biotechnology",
+      "weight": 18,
+      "gate": "none"
+    },
+    {
+      "id": "cloning",
+      "weight": 22,
+      "gate": "none"
+    },
+    {
+      "id": "homeland",
+      "weight": 12,
+      "gate": "none"
+    },
+    {
+      "id": "deep",
+      "weight": 12,
+      "gate": "none"
+    },
+    {
+      "id": "stewardship",
+      "weight": 10,
+      "gate": "none"
+    },
+    {
+      "id": "lineage",
+      "weight": 12,
+      "gate": "lineages"
+    },
+    {
+      "id": "personhood",
+      "weight": 10,
+      "gate": "contacts"
+    }
+  ],
+  "events": [
+    {
+      "id": "adapted_lineage_registration",
+      "family": "biotechnology",
+      "role": "support",
+      "weight": 0,
+      "narrative": "Following the local bodily adaptation program, an explicitly approved adapted human-derived lineage was recorded among the residents. The authored identity carries no invented phenotype.",
+      "records": [
+        {
+          "record_type": "lineage_contact",
+          "record_id": "adapted_resident",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "bodily_change:environmental_adaptation"
+      ],
+      "gate": "adapted_lineages"
+    },
+    {
+      "id": "ancestral_site_loss",
+      "family": "homeland",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Residents lost their recorded home site in a conflict and moved to a surviving local settlement. The association is recorded before the loss, rather than inferred from migration.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "lost_homeland",
+          "operation": "observe"
+        },
+        {
+          "record_type": "site_history",
+          "record_id": "homeland_loss",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "site:owned_home"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "anti_entrenchment_reform",
+      "family": "stewardship",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Residents reformed entrenched local offices into a recorded rotating stewardship institution without founding or retiring a polity.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "rotating_office",
+          "operation": "establish"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "automation_oversight_compact",
+      "family": "machine",
+      "role": "primary",
+      "weight": 25,
+      "narrative": "Residents put functioning local automation under a human review and final-authority institution. Automation capability and authority are recorded separately from machine social membership.",
+      "records": [
+        {
+          "record_type": "capability",
+          "record_id": "automation",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "human_oversight",
+          "operation": "establish"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "autonomous_authority_dispute",
+      "family": "machine",
+      "role": "primary",
+      "weight": 20,
+      "narrative": "Residents disputed a local automated decision service and established human final authority while retaining limited automation.",
+      "records": [
+        {
+          "record_type": "capability",
+          "record_id": "automation",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "human_oversight",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "authority_dispute",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "autonomous_machine_conflict",
+      "family": "machine",
+      "role": "primary",
+      "weight": 30,
+      "narrative": "Local autonomous machines fought residents and damaged a service site. Their manufacture and relationship to ancient systems are unclassified; no Preservator, Planetary Regulation Network, or Observer motive is asserted.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "machine_war",
+          "operation": "observe"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "machine_hostility",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "biotech_workshop_recovery",
+      "family": "biotechnology",
+      "role": "support",
+      "weight": 0,
+      "narrative": "Residents restored a local biological workshop and documented usable biotechnology equipment and testing practice. Modified residents alone did not establish this capability.",
+      "records": [
+        {
+          "record_type": "capability",
+          "record_id": "biotechnology",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "recorded_testing",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "bodily_adaptation_program",
+      "family": "biotechnology",
+      "role": "primary",
+      "weight": 40,
+      "narrative": "Using the restored workshop, residents carried out a documented bodily modification program in response to local environmental exposure. No detailed physiology or new lineage identity is invented.",
+      "records": [
+        {
+          "record_type": "bodily_change",
+          "record_id": "environmental_adaptation",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "bodily_modification",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "ecological_adaptation",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "capability:biotechnology"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "clone_bottleneck",
+      "family": "cloning",
+      "role": "followup",
+      "weight": 20,
+      "narrative": "The existing clone-born cohort suffered documented vulnerability from too few genome templates; the genetic bottleneck left an enduring health scar.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "clone_bottleneck",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "cohort:clone_born"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "clone_caste",
+      "family": "cloning",
+      "role": "followup",
+      "weight": 10,
+      "narrative": "An institution fixed roles by the existing cohort batch provenance, turning its documented dependent status into a caste arrangement.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "clone_caste",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "cohort:clone_born",
+        "institution:clone_dependency"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "clone_divergence",
+      "family": "cloning",
+      "role": "followup",
+      "weight": 20,
+      "narrative": "Later members of the recorded cohort diverged from its stored template through accumulated environmental changes and variation. This record does not assert genetic engineering or a new lineage.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "clone_divergence",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "cohort:clone_born"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "clone_emancipation",
+      "family": "cloning",
+      "role": "followup",
+      "weight": 20,
+      "narrative": "An assembly abolished the recorded dependent legal status of the existing clone-born cohort and recognized equal citizenship.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "clone_dependency",
+          "operation": "abolish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "clone_caste",
+          "operation": "abolish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "clone_emancipation",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "cohort:clone_born",
+        "institution:clone_dependency"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "clone_integration",
+      "family": "cloning",
+      "role": "followup",
+      "weight": 25,
+      "narrative": "The existing clone-born and natural-born residents received an institutional charter integrating citizenship, work and family relations.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "clone_integration",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "cohort:clone_born"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "clone_settlement",
+      "family": "cloning",
+      "role": "primary",
+      "weight": 35,
+      "narrative": "A human-derived clone-born cohort settled as a social subgroup with recorded initial dependent legal status. It formed no new political faction and no new Origin or lineage.",
+      "records": [
+        {
+          "record_type": "cohort",
+          "record_id": "clone_born",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "clone_dependency",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "clone_settlement",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "capability:cloning"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "cloning_archive_recovery",
+      "family": "cloning",
+      "role": "support",
+      "weight": 0,
+      "narrative": "Residents recovered stored human-derived genomes and functioning cloning equipment; the equipment recovery is recorded before any clone-born cohort is produced.",
+      "records": [
+        {
+          "record_type": "capability",
+          "record_id": "cloning",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "stored_genomes",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "deep_memory_register",
+      "family": "deep",
+      "role": "support",
+      "weight": 0,
+      "narrative": "The displaced Deep residents retained their residence and evacuation records in a communal register. The record prescribes neither return nor avoidance.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "deep_memory",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "scar:deep_exile"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "deep_residence_record",
+      "family": "deep",
+      "role": "support",
+      "weight": 0,
+      "narrative": "Human-derived residents of two current communities occupied a shared Deep settlement, recording actual residence and a local home site. Residence does not change their Origin.",
+      "records": [
+        {
+          "record_type": "site_history",
+          "record_id": "deep_residence",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "deep_settlement_evacuation",
+      "family": "deep",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "A local settlement failure forced the recorded Deep residents to evacuate to their surface homes. The lost Deep settlement remains identifiable; no Preservator or Planetary Regulation Network motive is asserted.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "deep_exile",
+          "operation": "observe"
+        },
+        {
+          "record_type": "site_history",
+          "record_id": "deep_settlement_loss",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "site_history:deep_residence"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "defense_network_hostility",
+      "family": "machine",
+      "role": "primary",
+      "weight": 20,
+      "narrative": "A local automated defense network attacked community workplaces, closing access and leaving damaged infrastructure. Its operators and command provenance remain unclassified.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "machine_war",
+          "operation": "observe"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "machine_hostility",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "designed_descent_program",
+      "family": "biotechnology",
+      "role": "primary",
+      "weight": 25,
+      "narrative": "With documented biotechnology equipment, residents established intentional hereditary design for descendants. This is distinct from ordinary reproduction or copying a stored genome.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "heredity_design",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "intentional_heredity_design",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "capability:biotechnology"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "emergency_reconstitution",
+      "family": "cloning",
+      "role": "primary",
+      "weight": 35,
+      "narrative": "After documented population decline, residents used the recovered cloning equipment and stored genomes to reconstitute a human-derived cohort. Initial dependent legal status is recorded, not presumed from cloning.",
+      "records": [
+        {
+          "record_type": "cohort",
+          "record_id": "clone_born",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "clone_dependency",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "clone_repopulation",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "capability:cloning",
+        "practice:stored_genomes",
+        "scar:population_decline"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "exploitation_conflict",
+      "family": "personhood",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Following the authorized contact, residents disputed exploitation and recorded a protection compact and personhood conflict.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "personhood_conflict",
+          "operation": "observe"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "protection_compact",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "personhood_contact:semi_sapient"
+      ],
+      "gate": "contacts"
+    },
+    {
+      "id": "forced_evacuation",
+      "family": "homeland",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "A hazardous local emergency forced evacuation of the community's recorded home. Survivors resettled and retained the identifiable abandoned site record.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "lost_homeland",
+          "operation": "observe"
+        },
+        {
+          "record_type": "site_history",
+          "record_id": "homeland_loss",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "site:owned_home"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "founder_replication",
+      "family": "cloning",
+      "role": "primary",
+      "weight": 15,
+      "narrative": "Residents repeatedly copied a stored founder or specialist genome into a human-derived cohort. The copies are separate people, with recorded initial dependent status and founder-template provenance.",
+      "records": [
+        {
+          "record_type": "cohort",
+          "record_id": "clone_born",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "clone_dependency",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "founder_template",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "capability:cloning",
+        "practice:stored_genomes"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "founder_template_death_record",
+      "family": "cloning",
+      "role": "support",
+      "weight": 0,
+      "narrative": "The death of the founder-template person was recorded before a separate clone-born person raised an inheritance or replacement claim. Shared genome does not preserve personal identity.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "founder_template_death",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "practice:founder_template"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "homeland_displacement",
+      "family": "homeland",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "A disaster forced residents to abandon their recorded owned home and relocate locally. The lost home remains an identifiable historical site.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "lost_homeland",
+          "operation": "observe"
+        },
+        {
+          "record_type": "site_history",
+          "record_id": "homeland_loss",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "site:owned_home"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "homeland_memory_charter",
+      "family": "homeland",
+      "role": "support",
+      "weight": 0,
+      "narrative": "Residents established a register preserving the association with their previously recorded lost homeland site; it executes no reclamation or territorial claim.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "homeland_memory",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "scar:lost_homeland"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "human_final_authority",
+      "family": "machine",
+      "role": "support",
+      "weight": 0,
+      "narrative": "A later review upheld the previously recorded human oversight compact and tested its automation limits.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "oversight_review",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "capability:automation",
+        "institution:human_oversight"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "lineage_coexistence_compact",
+      "family": "lineage",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Two explicitly authored human-derived lineages became resident in the same society and recorded an integration compact. Political merger alone cannot establish this plurality.",
+      "records": [
+        {
+          "record_type": "lineage_contact",
+          "record_id": "co_residence",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "lineage_integration",
+          "operation": "establish"
+        }
+      ],
+      "requires": [],
+      "gate": "lineages"
+    },
+    {
+      "id": "lineage_exclusion_dispute",
+      "family": "lineage",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Two explicitly authored resident human-derived lineages disputed a locally instituted human-form benchmark and documented exclusion. No new biology is invented.",
+      "records": [
+        {
+          "record_type": "lineage_contact",
+          "record_id": "co_residence",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "human_form_benchmark",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "lineage_exclusion",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "lineages"
+    },
+    {
+      "id": "lineage_preservation_program",
+      "family": "biotechnology",
+      "role": "primary",
+      "weight": 35,
+      "narrative": "A documented loss and bottleneck of local human-derived family stocks led to a genome preservation program. The loss concerns this local stock, not extinction of all humans.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "lineage_loss",
+          "operation": "observe"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "genetic_preservation",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "capability:biotechnology"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "local_population_decline",
+      "family": "cloning",
+      "role": "support",
+      "weight": 0,
+      "narrative": "A local disaster reduced the community population and left an abandoned workplace; surviving family stocks remained human-derived.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "population_decline",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "machine_aid_compact",
+      "family": "machine",
+      "role": "primary",
+      "weight": 35,
+      "narrative": "Residents and autonomous service machines maintained a long-running mutual aid compact, with recorded repair duties and accommodation. Mere machine presence was insufficient.",
+      "records": [
+        {
+          "record_type": "machine_contact",
+          "record_id": "cooperation",
+          "operation": "observe"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "machine_accommodation",
+          "operation": "establish"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "machine_compact_renewal",
+      "family": "machine",
+      "role": "support",
+      "weight": 0,
+      "narrative": "A later assembly renewed the recorded machine aid compact and reviewed the shared maintenance duties.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "machine_aid_renewal",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "machine_contact:cooperation"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "machine_control_failure",
+      "family": "machine",
+      "role": "primary",
+      "weight": 15,
+      "narrative": "An autonomous local control unit lost safe control and destroyed a workplace. This recorded harm is a control failure, not a machine war or an identified ancient-system intervention.",
+      "records": [
+        {
+          "record_type": "scar",
+          "record_id": "autonomous_machine_catastrophe",
+          "operation": "observe"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "autonomous_machine_harm",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "machine_maintenance_cooperation",
+      "family": "machine",
+      "role": "primary",
+      "weight": 25,
+      "narrative": "A human community and autonomous machines jointly maintained local infrastructure over years; their working compact recorded mutual duties rather than a discovery alone.",
+      "records": [
+        {
+          "record_type": "machine_contact",
+          "record_id": "cooperation",
+          "operation": "observe"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "machine_accommodation",
+          "operation": "establish"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "machine_safety_reform",
+      "family": "machine",
+      "role": "support",
+      "weight": 0,
+      "narrative": "After the recorded machine harm, residents installed human oversight and kept a public incident record; it did not establish cooperation with those machines.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "human_oversight",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "machine_harm_memory",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "military_batch",
+      "family": "cloning",
+      "role": "primary",
+      "weight": 15,
+      "narrative": "Residents used recovered cloning equipment to produce a human-derived military cohort with a documented dependent service status. Military role is not an Origin or species.",
+      "records": [
+        {
+          "record_type": "cohort",
+          "record_id": "clone_born",
+          "operation": "establish"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "clone_dependency",
+          "operation": "establish"
+        },
+        {
+          "record_type": "practice",
+          "record_id": "military_batch",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "capability:cloning"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "office_rotation_review",
+      "family": "stewardship",
+      "role": "support",
+      "weight": 0,
+      "narrative": "A later assembly carried out and reviewed the previously recorded rotation of officeholders.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "office_rotation",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "institution:rotating_office"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "personhood_dispute",
+      "family": "personhood",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Following the authorized contact, residents recorded a personhood dispute and a threshold institution.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "personhood_conflict",
+          "operation": "observe"
+        },
+        {
+          "record_type": "institution",
+          "record_id": "personhood_threshold",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "personhood_contact:semi_sapient"
+      ],
+      "gate": "contacts"
+    },
+    {
+      "id": "protection_compact",
+      "family": "personhood",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Following the authorized contact, residents instituted protection obligations toward that population.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "protection_compact",
+          "operation": "establish"
+        }
+      ],
+      "requires": [
+        "personhood_contact:semi_sapient"
+      ],
+      "gate": "contacts"
+    },
+    {
+      "id": "replacement_crisis",
+      "family": "cloning",
+      "role": "followup",
+      "weight": 35,
+      "narrative": "After the founder-template person died, a separate clone-born person claimed that name, office or property. The recorded dispute concerns legitimacy and inheritance, not personal identity equivalence.",
+      "records": [
+        {
+          "record_type": "practice",
+          "record_id": "replacement_dispute",
+          "operation": "observe"
+        }
+      ],
+      "requires": [
+        "cohort:clone_born",
+        "practice:founder_template",
+        "practice:founder_template_death"
+      ],
+      "gate": "none"
+    },
+    {
+      "id": "rotating_office_compact",
+      "family": "stewardship",
+      "role": "primary",
+      "weight": 1,
+      "narrative": "Residents adopted a rotating office compact with documented terms and succession duties; council lifestyle alone did not imply this institution.",
+      "records": [
+        {
+          "record_type": "institution",
+          "record_id": "rotating_office",
+          "operation": "establish"
+        }
+      ],
+      "requires": [],
+      "gate": "none"
+    },
+    {
+      "id": "semi_sapient_contact",
+      "family": "personhood",
+      "role": "support",
+      "weight": 0,
+      "narrative": "Residents encountered an explicitly authorized historical semi-sapient contact population. This contact comes from authored content, not invented creatures.",
+      "records": [
+        {
+          "record_type": "personhood_contact",
+          "record_id": "semi_sapient",
+          "operation": "observe"
+        }
+      ],
+      "requires": [],
+      "gate": "contacts"
+    }
+  ]
+}

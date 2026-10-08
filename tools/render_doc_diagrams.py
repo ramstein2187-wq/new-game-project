@@ -9,6 +9,45 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "diagrams"
 
 FLOWS = {
+    "history_generator": ("Canonical History v4 / architecture2 — M043", [
+        "Canon: LOCKED facts / RESERVED mysteries / authored content gates",
+        "Precursor → pressure → response → bounded local collapse",
+        "Successor topology / faction formation / population donors",
+        "Context-weighted Projects: authority / decades of work / bounded use",
+        "Independent Scars: actual population / causal chain / persistent aftermath",
+        "Event / effect replay → Project / Scar / facility / population provenance",
+        "Identity / Culture interpret facts; Claims remain perceived",
+        "Simulation decides what happens next (outside generation)"
+    ]),
+    "social_historical_incidents": ("Social History → Culture — M042", [
+        "Existing topology / current factions (political count unchanged)",
+        "Independent social budget → weighted family / subtype",
+        "Prior capabilities / cohorts / residence / approved contacts",
+        "Objective event → physical effects + authored social records",
+        "Projector: historical ledger / established current facts",
+        "CultureEvidence: actual source events / reference IDs",
+        "Eligibility → selection → moderate / hardline / fanatic",
+        "Candidate goals / mixed Actor reasons → future consumer review"
+    ]),
+    "faction_culture": ("Faction Society Traits & Doctrines — M043", [
+        "Objective history v4 / architecture v2 → projected present",
+        "M040 identity / interpretation (pure derived query)",
+        "Actual evidence records → all / any / preferences / forbids",
+        "Society Traits: target 2–4; select only supported patterns",
+        "Doctrines 0–2: normative values / taboos / desires / fears",
+        "moderate / hardline / fanatic + conditional conflicts",
+        "Derived profile / provenance → future goal candidates",
+        "No objective mutation · no fabricated content · no simulation"
+    ]),
+    "society_actor_interaction": ("Actor semantic interaction — M042", [
+        "Actor semantic expressions (no real Actor Trait dependency)",
+        "Selected Society Trait values / tensions + Doctrine values / taboos",
+        "Simultaneous positive / negative / mixed reasons + provenance",
+        "Standing != final decision; useful and suspect aspects coexist",
+        "Role / dialogue / event / access hook candidates",
+        "Future authored policy and special cases at application boundary",
+        "No reputation number · no automatic access grant"
+    ]),
     "primary_attribute_check": ("Primary Attribute 판정 — M033", [
         "authored primary + optional explicit alternate",
         "Actor.primary_attribute_check",

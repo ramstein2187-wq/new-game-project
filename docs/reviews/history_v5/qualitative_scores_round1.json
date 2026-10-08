@@ -1,0 +1,254 @@
+{
+  "metrics": [
+    "Lore Fit",
+    "Historical Plausibility",
+    "Interest",
+    "Political Diversity",
+    "Imaginative Space",
+    "Non-Repetition",
+    "Temporal Depth",
+    "Gameplay Potential"
+  ],
+  "means": [
+    8.975,
+    7.135,
+    8.3,
+    8.495000000000001,
+    8.265,
+    5.695,
+    8.555,
+    6.44
+  ],
+  "scores": {
+    "474": [
+      9.1,
+      7.6,
+      7.8,
+      8.2,
+      8.0,
+      6.0,
+      8.2,
+      6.5
+    ],
+    "4772": [
+      9.0,
+      7.2,
+      7.1,
+      8.5,
+      7.8,
+      5.5,
+      7.8,
+      6.1
+    ],
+    "1815": [
+      9.2,
+      7.3,
+      8.7,
+      8.4,
+      8.5,
+      6.2,
+      8.8,
+      6.8
+    ],
+    "1139": [
+      8.9,
+      7.0,
+      8.1,
+      8.0,
+      8.1,
+      5.9,
+      8.3,
+      6.5
+    ],
+    "1890": [
+      8.9,
+      7.1,
+      8.6,
+      8.3,
+      8.6,
+      5.8,
+      8.9,
+      6.4
+    ],
+    "1791": [
+      9.0,
+      7.2,
+      8.0,
+      8.5,
+      8.3,
+      6.0,
+      8.6,
+      6.4
+    ],
+    "3097": [
+      8.9,
+      7.0,
+      8.2,
+      8.5,
+      8.0,
+      5.3,
+      8.5,
+      6.3
+    ],
+    "327": [
+      9.0,
+      7.1,
+      7.9,
+      8.7,
+      8.1,
+      5.9,
+      8.6,
+      6.4
+    ],
+    "1910": [
+      9.1,
+      7.5,
+      8.7,
+      8.8,
+      8.6,
+      5.8,
+      8.8,
+      6.8
+    ],
+    "4078": [
+      9.1,
+      7.2,
+      8.2,
+      8.5,
+      8.2,
+      5.9,
+      8.4,
+      6.6
+    ],
+    "2319": [
+      9.0,
+      7.3,
+      8.5,
+      8.6,
+      8.3,
+      5.8,
+      8.5,
+      6.6
+    ],
+    "4255": [
+      9.1,
+      7.6,
+      7.5,
+      8.8,
+      8.2,
+      5.2,
+      8.3,
+      5.8
+    ],
+    "2700": [
+      9.1,
+      7.2,
+      8.5,
+      8.4,
+      8.3,
+      5.7,
+      8.6,
+      6.5
+    ],
+    "2720": [
+      9.0,
+      6.9,
+      8.6,
+      8.4,
+      8.4,
+      5.7,
+      8.7,
+      6.4
+    ],
+    "2920": [
+      8.9,
+      6.8,
+      8.4,
+      8.8,
+      8.2,
+      5.4,
+      8.6,
+      6.3
+    ],
+    "2440": [
+      8.9,
+      7.1,
+      8.2,
+      8.0,
+      8.1,
+      5.2,
+      8.9,
+      6.2
+    ],
+    "1896": [
+      9.1,
+      7.4,
+      8.9,
+      8.7,
+      8.6,
+      5.8,
+      8.8,
+      7.0
+    ],
+    "2239": [
+      8.4,
+      6.3,
+      8.6,
+      8.6,
+      8.2,
+      5.4,
+      8.3,
+      6.0
+    ],
+    "3211": [
+      8.9,
+      7.1,
+      8.7,
+      8.4,
+      8.3,
+      5.8,
+      8.7,
+      6.8
+    ],
+    "806": [
+      8.9,
+      6.8,
+      8.8,
+      8.8,
+      8.5,
+      5.6,
+      8.8,
+      6.4
+    ]
+  },
+  "defects": {
+    "generic contexts": 20,
+    "mismatched hook variants": 20,
+    "repeated claims": 20,
+    "weak current stakes": 20,
+    "unsupported question presupposition": 15,
+    "duplicate cause IDs": 2,
+    "premature material staging": 18,
+    "shared information content": 20,
+    "unrelated evidence bundled under one subject": 7,
+    "salient history omitted from major questions": 10,
+    "temporal prose leakage": 8,
+    "unsupported capability inference": 2,
+    "lore-only action menu": 2,
+    "selected evidence precedes the subject it purports to investigate": 2,
+    "ordinary discovery has no Trace contract": 9,
+    "redundant major questions": 1,
+    "unsupported technical-procedure proposal": 1,
+    "unsupported cooperative machine evidence": 2
+  },
+  "best": [
+    1896,
+    1910,
+    1815
+  ],
+  "worst": [
+    4772,
+    2239,
+    4255
+  ]
+}

@@ -36,8 +36,13 @@ func _run() -> void:
 			check(ResourceUID.has_id(id) and ResourceUID.get_id_path(id) == path, "UID does not resolve to moved script: " + path)
 			uid_count += 1
 		# Existing screenshot tool writes a new output file; it is not a load dependency.
-		for match_result in paths.search_all(FileAccess.get_file_as_string(path)):
+		var source_text := FileAccess.get_file_as_string(path)
+		for match_result in paths.search_all(source_text):
 			var reference := match_result.get_string()
+			# A quoted res:// prefix immediately concatenated with a variable is not a static resource path.
+			var line_suffix := source_text.substr(match_result.get_end()).get_slice("\n", 0).strip_edges()
+			if line_suffix.begins_with('"+') or line_suffix.begins_with('" +'):
+				continue
 			if reference in ["res://", "res://docs/reviews/2026-09-22-m019-scene.png", "res://.godot/character-overview-captures"]:
 				continue
 			check(FileAccess.file_exists(reference) or DirAccess.dir_exists_absolute(reference), "Missing resource reference in " + path + ": " + reference)

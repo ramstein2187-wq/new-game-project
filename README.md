@@ -17,6 +17,7 @@ Caves of Qud, Dwarf Fortress, RimWorld 등에서 시스템 설계 아이디어�
 - 공통 Actor 구조와 다중 NPC
 - 결정론적 지역 절차 생성 및 생성 맵 전투
 - production 전투 규칙을 재사용하는 headless 배치 시뮬레이션
+- 지역 역사·세력 문화·사회사 사건·문명 프로젝트·흔적·고고학 단서를 생성하는 v5 파이프라인 (월드/Actor 실행 연결은 향후 과제)
 
 상세한 완료 상태와 앞으로의 작업은 다음 문서를 기준으로 확인합니다.
 
@@ -28,6 +29,7 @@ Caves of Qud, Dwarf Fortress, RimWorld 등에서 시스템 설계 아이디어�
 - [Monster and skill data catalogs](docs/datasets/)
 - [External references](docs/REFERENCES.md)
 - [Third-party notices](THIRD_PARTY.md)
+- [History review-artifact retention audit](docs/reviews/2026-10-08-repository-hygiene-audit.md)
 
 사람이 읽기 위한 시스템 위키와 일일 개발일지는 별도의 Notion 프로젝트 위키에도 동기화하고 있으며,
 Git 저장소의 코드와 `docs/` 문서를 구현 상태의 기준으로 사용합니다.
@@ -60,6 +62,7 @@ game/                   # Shared gameplay runtime
   simulation/           # Headless production-combat adapters
   time_cost_game.gd      # Gameplay state/action/turn orchestration
   generated_map_combat_game.gd
+content/                # Authored combat, population, culture and history catalogs
 worldgen/               # Map algorithms, generation settings and seed derivation
 scenes/debug/           # Combat rooms, generated-map playground and map viewers
 scenes/ui/              # Reusable Character Screen scene
@@ -81,8 +84,7 @@ for quick explanations, then click or Tab+Enter for Inspector sources. Gameplay
 inputs are blocked while the screen is open. See [M032](docs/milestones/M032_character_overview.md).
 
 This folder change preserves class names, APIs, algorithms and content values.
-Future authored gameplay resources belong under `content/`; that directory is not
-created empty and this branch does not implement the separate single-source work.
+Authored combat resources and history/culture catalogs live under `content/`.
 See [M030](docs/milestones/M030_project_folder_structure.md) and the
 [exact move map](docs/reviews/2026-09-29-folder-moves.json).
 

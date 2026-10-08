@@ -1,0 +1,185 @@
+{
+	"architecture_version": 1,
+	"definitions": {
+		"graph": "polity adjacency, formation type and active/extinct flags; excludes names, prose, dates, seed, population and relations",
+		"heir": "surviving direct institutional continuity, not biological descent",
+		"historical_factions": "includes the extinct precursor; excludes transient groups",
+		"origins": "co-resident categories, no genetics or Composite"
+	},
+	"deterministic_mismatches": [],
+	"distributions": {
+		"active_factions": {
+			"6": 340,
+			"7": 333,
+			"8": 327
+		},
+		"ancestry_depth": {
+			"1": 18,
+			"10": 1,
+			"11": 1,
+			"2": 136,
+			"3": 194,
+			"4": 224,
+			"5": 210,
+			"6": 144,
+			"7": 48,
+			"8": 18,
+			"9": 6
+		},
+		"current_relations": {
+			"3": 227,
+			"4": 332,
+			"5": 252,
+			"6": 135,
+			"7": 44,
+			"8": 10
+		},
+		"extinction_count": {
+			"0": 322,
+			"1": 327,
+			"2": 186,
+			"3": 93,
+			"4": 50,
+			"5": 16,
+			"6": 6
+		},
+		"historical_factions": {
+			"10": 15,
+			"11": 39,
+			"12": 69,
+			"13": 87,
+			"14": 97,
+			"15": 113,
+			"16": 111,
+			"17": 104,
+			"18": 102,
+			"19": 88,
+			"20": 57,
+			"21": 51,
+			"22": 39,
+			"23": 18,
+			"24": 5,
+			"9": 5
+		},
+		"merge_count": {
+			"0": 509,
+			"1": 205,
+			"2": 162,
+			"3": 86,
+			"4": 31,
+			"5": 7
+		},
+		"migration_count": {
+			"0": 462,
+			"1": 262,
+			"2": 177,
+			"3": 74,
+			"4": 20,
+			"5": 4,
+			"6": 1
+		},
+		"multi_origin_factions": {
+			"0": 666,
+			"1": 95,
+			"10": 5,
+			"11": 1,
+			"12": 1,
+			"2": 87,
+			"3": 47,
+			"4": 33,
+			"5": 23,
+			"6": 18,
+			"7": 13,
+			"8": 5,
+			"9": 6
+		},
+		"newcomer_count": {
+			"0": 634,
+			"1": 144,
+			"2": 105,
+			"3": 81,
+			"4": 31,
+			"5": 4,
+			"7": 1
+		},
+		"reorganization_count": {
+			"0": 124,
+			"1": 270,
+			"2": 262,
+			"3": 183,
+			"4": 92,
+			"5": 37,
+			"6": 21,
+			"7": 9,
+			"8": 2
+		},
+		"split_count": {
+			"0": 15,
+			"1": 111,
+			"2": 231,
+			"3": 295,
+			"4": 244,
+			"5": 93,
+			"6": 11
+		},
+		"topology_family": {
+			"consolidation_resplit": 131,
+			"enclave_continuity": 162,
+			"late_fragmentation": 138,
+			"layered_migration": 150,
+			"no_direct_heir": 121,
+			"polycentric_succession": 143,
+			"remnant_mosaic": 155
+		}
+	},
+	"errors": {},
+	"frequencies": {
+		"core_intervention": 103,
+		"current_direct_heir": 630,
+		"multi_origin_history": 334,
+		"multi_parent_history": 899,
+		"no_current_direct_heir": 370,
+		"no_observer_or_core": 861,
+		"observer_legacy": 38,
+		"orbital_bombardment": 11,
+		"ruin_reuse": 414
+	},
+	"generation_version": 3,
+	"invalid_seeds": [],
+	"representatives": {
+		"compatible_site_reuse": 5,
+		"consolidation_resplit": 1,
+		"enclave_continuity": 12,
+		"late_fragmentation": 4,
+		"layered_migration": 3,
+		"multi_origin": 7,
+		"no_direct_heir": 9,
+		"polycentric_succession": 17,
+		"rare_bombardment": 13,
+		"remnant_mosaic": 2
+	},
+	"sample_count": 1000,
+	"seed_range": [
+		1,
+		1000
+	],
+	"unique_graphs_by_family": {
+		"consolidation_resplit": 131,
+		"enclave_continuity": 162,
+		"late_fragmentation": 138,
+		"layered_migration": 150,
+		"no_direct_heir": 121,
+		"polycentric_succession": 143,
+		"remnant_mosaic": 155
+	},
+	"unique_political_graphs": 1000,
+	"validation_counts": {
+		"active_count_violation": 0,
+		"chronology_violation": 0,
+		"deterministic_mismatch": 0,
+		"generation_error": 0,
+		"invalid_origin": 0,
+		"invalid_reference": 0,
+		"invariant_violation": 0
+	}
+}

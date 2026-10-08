@@ -1,0 +1,12 @@
+[
+  {
+    "Algorithm": "SHA256",
+    "Hash": "DA3969E4294143AF4C36FFD7820D92DAB26E5FAB8D7650CC1734C50B34912868",
+    "Path": "C:\\GameDev\\history-generator-v5\\content\\history\\history_v5.json"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "859DA5FDFBD6A4FCE429C41385CF2E7D04C0961661E6638EC994AA38AE1B20E6",
+    "Path": "C:\\GameDev\\history-generator-v5\\content\\history\\history_v5_archaeology.json"
+  }
+]

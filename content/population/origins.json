@@ -1,0 +1,8 @@
+[
+  {"id":"planetary","en":"Planetary","ko":"행성계 토착"},
+  {"id":"human_derived","en":"Human-derived","ko":"인간계"},
+  {"id":"observer","en":"Observer","ko":"관찰자계"},
+  {"id":"innerworld","en":"Innerworld","ko":"심층계"},
+  {"id":"outerworld","en":"Outerworld","ko":"외우주계"},
+  {"id":"unknown","en":"Unknown","ko":"불명"}
+]

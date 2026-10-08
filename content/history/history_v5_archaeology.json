@@ -1,0 +1,5420 @@
+{
+  "revision": "history-v5-archaeology-2",
+  "traces": [
+    {
+      "id": "launch_memorial",
+      "display_name": "Departure undertaking and remembrance register",
+      "category": "institutional",
+      "theme": "ark",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "ark"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "selection_register",
+      "display_name": "Departure selection register",
+      "category": "documentary",
+      "theme": "ark",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "ark"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "launch_cradle",
+      "display_name": "Recorded launch staging works",
+      "category": "physical",
+      "theme": "ark",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "ark"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "guidance_log",
+      "display_name": "Departure engineering and guidance records",
+      "category": "documentary",
+      "theme": "ark",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "ark"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "vessel_fragment",
+      "display_name": "Recovered vessel fragment",
+      "category": "physical",
+      "theme": "ark",
+      "interaction_families": [
+        "artifact_comparison",
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "ark"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "departure_tracking",
+      "display_name": "Interrupted departure tracking",
+      "category": "documentary",
+      "theme": "ark",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "ark"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "descent_staging",
+      "display_name": "Limited descent staging works",
+      "category": "physical",
+      "theme": "deep",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "environmental_manipulation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "deep"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "shaft_gate",
+      "display_name": "Recorded expedition shaft access structure",
+      "category": "physical",
+      "theme": "deep",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "deep"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "expedition_register",
+      "display_name": "Final expedition register",
+      "category": "documentary",
+      "theme": "deep",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "deep"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "depth_measurements",
+      "display_name": "Recorded bounded depth measurements",
+      "category": "documentary",
+      "theme": "deep",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "deep"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "expedition_taboo",
+      "display_name": "Recorded expedition access register",
+      "category": "institutional",
+      "theme": "deep",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "deep"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "survivor_station",
+      "display_name": "Recorded expedition staging remains",
+      "category": "physical",
+      "theme": "deep",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "deep"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "sky_receiver",
+      "display_name": "Far-Sky receiver tower",
+      "category": "physical",
+      "theme": "sky",
+      "interaction_families": [
+        "combat",
+        "controlled_activation",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "machine_interaction",
+        "repair_reactivation",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "sky"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "signal_log",
+      "display_name": "Signal and silence log",
+      "category": "documentary",
+      "theme": "sky",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "repair_reactivation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "sky"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "array_alignment",
+      "display_name": "Array alignment instruments",
+      "category": "physical",
+      "theme": "sky",
+      "interaction_families": [
+        "combat",
+        "controlled_activation",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "sky"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "listening_calendar",
+      "display_name": "Observation calendar",
+      "category": "documentary",
+      "theme": "sky",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "sky"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "array_access",
+      "display_name": "Recorded array deliberation/access",
+      "category": "institutional",
+      "theme": "sky",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "sky"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "genome_registry",
+      "display_name": "Genetic sample registry",
+      "category": "documentary",
+      "theme": "genome",
+      "interaction_families": [
+        "biological_inspection",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "repair_reactivation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "genome"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "preservation_chamber",
+      "display_name": "Sample preservation chamber",
+      "category": "physical",
+      "theme": "genome",
+      "interaction_families": [
+        "biological_inspection",
+        "combat",
+        "destruction_preservation",
+        "environmental_manipulation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "genome"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "viability_log",
+      "display_name": "Preservation viability measurements",
+      "category": "documentary",
+      "theme": "genome",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "genome"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "sample_custody",
+      "display_name": "Recorded genetic sample custody",
+      "category": "institutional",
+      "theme": "genome",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "genome"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "archive_cooling",
+      "display_name": "Archive cooling junction",
+      "category": "physical",
+      "theme": "genome",
+      "interaction_families": [
+        "combat",
+        "controlled_activation",
+        "destruction_preservation",
+        "environmental_manipulation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "stealth",
+        "technical_inspection"
+      ],
+      "tags": [
+        "physical",
+        "genome"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "neural_interface",
+      "display_name": "Human neural interface",
+      "category": "physical",
+      "theme": "cortical",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth",
+        "technical_inspection"
+      ],
+      "tags": [
+        "physical",
+        "cortical"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "linked_cohort_register",
+      "display_name": "Linked human cohort registry",
+      "category": "documentary",
+      "theme": "cortical",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "cortical"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "computation_lattice",
+      "display_name": "Parallel cortical network",
+      "category": "physical",
+      "theme": "cortical",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth",
+        "technical_inspection"
+      ],
+      "tags": [
+        "physical",
+        "cortical"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "computation_log",
+      "display_name": "Computation measurements",
+      "category": "documentary",
+      "theme": "cortical",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "repair_reactivation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "cortical"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "network_consent",
+      "display_name": "Neural network consent record",
+      "category": "institutional",
+      "theme": "cortical",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "cortical"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "reference_stone",
+      "display_name": "Survey reference stone",
+      "category": "physical",
+      "theme": "meridian",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "map_comparison",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "meridian"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "survey_tower",
+      "display_name": "Geodetic survey tower",
+      "category": "physical",
+      "theme": "meridian",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "map_comparison",
+        "repair_reactivation",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "meridian"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "conflicting_maps",
+      "display_name": "Conflicting reference-frame maps",
+      "category": "documentary",
+      "theme": "meridian",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "map_comparison",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "meridian"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "survey_standard",
+      "display_name": "Survey standard charter",
+      "category": "institutional",
+      "theme": "meridian",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "meridian"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "survey_measurements",
+      "display_name": "Triangulation measurements",
+      "category": "documentary",
+      "theme": "meridian",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "map_comparison",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "meridian"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "emulation_bench",
+      "display_name": "Simple machine emulation bench",
+      "category": "physical",
+      "theme": "mind",
+      "interaction_families": [
+        "combat",
+        "controlled_activation",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "mind"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "prototype_telemetry",
+      "display_name": "Machine study and prototype telemetry",
+      "category": "documentary",
+      "theme": "mind",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "repair_reactivation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "mind"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "repair_unit",
+      "display_name": "Constructed self-repair prototype evidence",
+      "category": "living",
+      "theme": "mind",
+      "interaction_families": [
+        "controlled_activation",
+        "escort_recovery",
+        "machine_interaction",
+        "negotiation"
+      ],
+      "tags": [
+        "living",
+        "mind"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "learning_log",
+      "display_name": "Distributed learning observations",
+      "category": "documentary",
+      "theme": "mind",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "mind"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "prototype_access",
+      "display_name": "Prototype isolation agreement",
+      "category": "institutional",
+      "theme": "mind",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "mind"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "resource_hypothesis",
+      "display_name": "Resource requirement study",
+      "category": "documentary",
+      "theme": "simplification",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "simplification"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "consent_registry",
+      "display_name": "Developmental program consent registry",
+      "category": "institutional",
+      "theme": "simplification",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "simplification"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "developmental_lab",
+      "display_name": "Developmental trial equipment",
+      "category": "physical",
+      "theme": "simplification",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "simplification"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "generation_measurements",
+      "display_name": "Multi-generation capacity measurements",
+      "category": "documentary",
+      "theme": "simplification",
+      "interaction_families": [
+        "biological_inspection",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "simplification"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "cohort_institution",
+      "display_name": "Human cohort support institution",
+      "category": "living",
+      "theme": "simplification",
+      "interaction_families": [
+        "escort_recovery",
+        "negotiation"
+      ],
+      "tags": [
+        "living",
+        "simplification"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "aging_district",
+      "display_name": "Aging settlement care district",
+      "category": "physical",
+      "theme": "reproduction",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "reproduction"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "birth_registry",
+      "display_name": "Longitudinal reproduction measurements",
+      "category": "documentary",
+      "theme": "reproduction",
+      "interaction_families": [
+        "biological_inspection",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "reproduction"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "care_compact",
+      "display_name": "Surviving-household care compact",
+      "category": "institutional",
+      "theme": "reproduction",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "reproduction"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "empty_habitation",
+      "display_name": "Empty previously inhabited quarter",
+      "category": "physical",
+      "theme": "disappearance",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "disappearance"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "missing_census",
+      "display_name": "Interrupted resident census",
+      "category": "documentary",
+      "theme": "disappearance",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "disappearance"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "missing_residents_memorial",
+      "display_name": "Missing residents record institution",
+      "category": "institutional",
+      "theme": "disappearance",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "disappearance"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "disconnected_network",
+      "display_name": "Disconnected neural works",
+      "category": "physical",
+      "theme": "fracture",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "fracture"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "fragmented_shared_records",
+      "display_name": "Incompatible shared records",
+      "category": "documentary",
+      "theme": "fracture",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "fracture"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "fragmented_council",
+      "display_name": "Fractured cohort institutions",
+      "category": "institutional",
+      "theme": "fracture",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "fracture"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "retreat_clinic",
+      "display_name": "Cognitive redesign clinic",
+      "category": "physical",
+      "theme": "chosen",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "chosen"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "retreat_measurements",
+      "display_name": "Consenting cohort measurements",
+      "category": "documentary",
+      "theme": "chosen",
+      "interaction_families": [
+        "biological_inspection",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "chosen"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "consent_compact",
+      "display_name": "Recorded voluntary redesign compact",
+      "category": "institutional",
+      "theme": "chosen",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "chosen"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "coercion_facility",
+      "display_name": "Forced developmental intervention facility",
+      "category": "physical",
+      "theme": "imposed",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "imposed"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "treatment_order",
+      "display_name": "Signed biological intervention order",
+      "category": "documentary",
+      "theme": "imposed",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "imposed"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "target_register",
+      "display_name": "Registered targeted human cohort",
+      "category": "documentary",
+      "theme": "imposed",
+      "interaction_families": [
+        "biological_inspection",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "imposed"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "coercion_enforcement",
+      "display_name": "Coercive cohort institution",
+      "category": "institutional",
+      "theme": "imposed",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "imposed"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "service_junction",
+      "display_name": "Recorded service junction",
+      "category": "physical",
+      "theme": "infrastructure",
+      "interaction_families": [
+        "combat",
+        "controlled_activation",
+        "destruction_preservation",
+        "environmental_manipulation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "repair_reactivation",
+        "stealth",
+        "technical_inspection"
+      ],
+      "tags": [
+        "physical",
+        "infrastructure"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "cascade_log",
+      "display_name": "Recorded dependent service failures",
+      "category": "documentary",
+      "theme": "infrastructure",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "infrastructure"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "service_workers",
+      "display_name": "Recorded service-loss and displaced-household institutions",
+      "category": "institutional",
+      "theme": "infrastructure",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "infrastructure"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "destroyed_district",
+      "display_name": "Destroyed targeted dwellings",
+      "category": "physical",
+      "theme": "extermination",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "extermination"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "killing_order",
+      "display_name": "Recorded removal and killing order",
+      "category": "documentary",
+      "theme": "extermination",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "extermination"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "survivor_registry",
+      "display_name": "Targeted survivors registry",
+      "category": "institutional",
+      "theme": "extermination",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "extermination"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "altered_workplace",
+      "display_name": "Workplace adapted to changed human morphology",
+      "category": "physical",
+      "theme": "alteration",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "alteration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "regional_biology",
+      "display_name": "Regional morphology observations",
+      "category": "documentary",
+      "theme": "alteration",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "alteration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "adapted_community",
+      "display_name": "Authorized human variation community",
+      "category": "living",
+      "theme": "alteration",
+      "interaction_families": [
+        "escort_recovery",
+        "negotiation"
+      ],
+      "tags": [
+        "living",
+        "alteration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "occupied_machine_works",
+      "display_name": "Occupied autonomous works",
+      "category": "physical",
+      "theme": "autonomy",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "machine_interaction",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "autonomy"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "command_telemetry",
+      "display_name": "Autonomous behavior telemetry",
+      "category": "documentary",
+      "theme": "autonomy",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "machine_interaction",
+        "negotiation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "autonomy"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "machine_safety_compact",
+      "display_name": "Human machine-safety compact",
+      "category": "institutional",
+      "theme": "autonomy",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "autonomy"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "integration_machinery",
+      "display_name": "Irreversible body-network linkage machinery",
+      "category": "physical",
+      "theme": "assimilation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth",
+        "technical_inspection"
+      ],
+      "tags": [
+        "physical",
+        "assimilation"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "linkage_measurements",
+      "display_name": "Bodily and behavioral linkage observations",
+      "category": "documentary",
+      "theme": "assimilation",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "assimilation"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "network_households",
+      "display_name": "Network-dependent human households",
+      "category": "living",
+      "theme": "assimilation",
+      "interaction_families": [
+        "escort_recovery",
+        "negotiation"
+      ],
+      "tags": [
+        "living",
+        "assimilation"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "abandoned_habitat",
+      "display_name": "Enduring hazardous former habitat",
+      "category": "physical",
+      "theme": "habitat",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "habitat"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "hazard_survey",
+      "display_name": "Regional habitability survey",
+      "category": "documentary",
+      "theme": "habitat",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "habitat"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "evacuation_register",
+      "display_name": "Displaced residents registry",
+      "category": "institutional",
+      "theme": "habitat",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "habitat"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "credential_gate",
+      "display_name": "Credential-locked former civic facility",
+      "category": "physical",
+      "theme": "severance",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "severance"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "broken_civic_archive",
+      "display_name": "Interrupted or conflicting civic records",
+      "category": "documentary",
+      "theme": "severance",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "severance"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "succession_petition",
+      "display_name": "Recorded succession or boundary dispute",
+      "category": "institutional",
+      "theme": "severance",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "severance"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "impact_belt",
+      "display_name": "Matched orbital impact belt",
+      "category": "physical",
+      "theme": "orbit",
+      "interaction_families": [
+        "artifact_comparison",
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "orbit"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "reentry_log",
+      "display_name": "Tracked artificial-object descent log",
+      "category": "documentary",
+      "theme": "orbit",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "orbit"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "wreckage_site",
+      "display_name": "Surviving orbital wreckage remains",
+      "category": "institutional",
+      "theme": "orbit",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "orbit"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "abandoned_office",
+      "display_name": "Abandoned political offices",
+      "category": "physical",
+      "theme": "politics",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "politics"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "civic_charter",
+      "display_name": "Recorded civic founding charter",
+      "category": "documentary",
+      "theme": "politics",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "politics"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "border_works",
+      "display_name": "Old political boundary works",
+      "category": "physical",
+      "theme": "politics",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "map_comparison",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "politics"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "merged_archives",
+      "display_name": "Merged civic archives",
+      "category": "documentary",
+      "theme": "politics",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "politics"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "migration_register",
+      "display_name": "Recorded population movement",
+      "category": "documentary",
+      "theme": "migration",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "migration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "arrival_compact",
+      "display_name": "Recorded newcomer settlement formation",
+      "category": "institutional",
+      "theme": "migration",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "migration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "ancestral_site",
+      "display_name": "Recorded former homeland site",
+      "category": "physical",
+      "theme": "homeland",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "homeland"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "homeland_register",
+      "display_name": "Evacuation and homeland register",
+      "category": "documentary",
+      "theme": "homeland",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "map_comparison",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "homeland"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "clone_register",
+      "display_name": "Authorized clone cohort registry",
+      "category": "documentary",
+      "theme": "clone",
+      "interaction_families": [
+        "biological_inspection",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "clone"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "clone_status_law",
+      "display_name": "Clone civic status institution",
+      "category": "institutional",
+      "theme": "clone",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "clone"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "maintenance_site",
+      "display_name": "Machine maintenance worksite",
+      "category": "physical",
+      "theme": "machine",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "machine_interaction",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "machine"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "maintenance_compact",
+      "display_name": "Recorded human-machine cooperation compact",
+      "category": "institutional",
+      "theme": "machine",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "machine"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "lost_deep_home",
+      "display_name": "Evacuated human Deep residence",
+      "category": "physical",
+      "theme": "residence",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "residence"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "deep_home_register",
+      "display_name": "Former Deep residence records",
+      "category": "documentary",
+      "theme": "residence",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "residence"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "reuse_layers",
+      "display_name": "Inhabited repurposed ruin layers",
+      "category": "physical",
+      "theme": "reuse",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "reuse"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "reuse_custody",
+      "display_name": "Ruin reuse access rights",
+      "category": "institutional",
+      "theme": "reuse",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ],
+      "tags": [
+        "institutional",
+        "reuse"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "trade_receipt",
+      "display_name": "Recorded exchange and route receipts",
+      "category": "documentary",
+      "theme": "trade",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ],
+      "tags": [
+        "documentary",
+        "trade"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "old_route",
+      "display_name": "Surviving trade route markers",
+      "category": "physical",
+      "theme": "trade",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "map_comparison",
+        "stealth"
+      ],
+      "tags": [
+        "physical",
+        "trade"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation"
+    },
+    {
+      "id": "cohort_register",
+      "display_name": "Registered historical human cohort",
+      "category": "documentary",
+      "theme": "population",
+      "tags": [
+        "documentary",
+        "population"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ]
+    },
+    {
+      "id": "prior_dwellings",
+      "display_name": "Previously occupied community sites",
+      "category": "physical",
+      "theme": "population",
+      "tags": [
+        "physical",
+        "population"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ]
+    },
+    {
+      "id": "basis_record",
+      "display_name": "Recorded physical basis and its limits",
+      "category": "documentary",
+      "theme": "basis",
+      "tags": [
+        "documentary",
+        "basis"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ]
+    },
+    {
+      "id": "custody_register",
+      "display_name": "Custody of surviving records and access",
+      "category": "institutional",
+      "theme": "custody",
+      "tags": [
+        "institutional",
+        "custody"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ]
+    },
+    {
+      "id": "maintenance_roster",
+      "display_name": "Human service-duty agreement",
+      "category": "institutional",
+      "theme": "politics",
+      "tags": [
+        "institutional",
+        "politics"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ]
+    },
+    {
+      "id": "inspection_log",
+      "display_name": "Bounded local inspection measurements",
+      "category": "documentary",
+      "theme": "infrastructure",
+      "tags": [
+        "documentary",
+        "infrastructure"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "technical_inspection",
+        "theft",
+        "trade"
+      ]
+    },
+    {
+      "id": "arrival_register",
+      "display_name": "Population entry and receiving-community register",
+      "category": "documentary",
+      "theme": "migration",
+      "tags": [
+        "documentary",
+        "migration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "stealth",
+        "theft",
+        "trade"
+      ]
+    },
+    {
+      "id": "arrival_houses",
+      "display_name": "Recorded receiving-community dwellings",
+      "category": "physical",
+      "theme": "migration",
+      "tags": [
+        "physical",
+        "migration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ]
+    },
+    {
+      "id": "human_oversight",
+      "display_name": "Human oversight of recorded machine risks",
+      "category": "institutional",
+      "theme": "autonomy",
+      "tags": [
+        "institutional",
+        "autonomy"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ]
+    },
+    {
+      "id": "clone_equipment",
+      "display_name": "Recovered cloning equipment",
+      "category": "physical",
+      "theme": "genome",
+      "tags": [
+        "physical",
+        "genome"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ]
+    },
+    {
+      "id": "biotech_equipment",
+      "display_name": "Recovered local biological testing equipment",
+      "category": "physical",
+      "theme": "alteration",
+      "tags": [
+        "physical",
+        "alteration"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "escort_recovery",
+        "exploration",
+        "stealth"
+      ]
+    },
+    {
+      "id": "occupied_deep_home",
+      "display_name": "Documented inhabited Deep residence",
+      "category": "physical",
+      "theme": "residence",
+      "tags": [
+        "physical",
+        "residence"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "environmental_manipulation",
+        "escort_recovery",
+        "exploration",
+        "hazardous_traversal",
+        "stealth"
+      ]
+    },
+    {
+      "id": "discovery_object",
+      "display_name": "Observed unresolved object or structure",
+      "category": "physical",
+      "theme": "discovery",
+      "tags": [
+        "physical",
+        "discovery"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "combat",
+        "destruction_preservation",
+        "environmental_manipulation",
+        "escort_recovery",
+        "exploration",
+        "machine_interaction",
+        "stealth"
+      ]
+    },
+    {
+      "id": "discovery_record",
+      "display_name": "Recorded discovery observations and limits",
+      "category": "documentary",
+      "theme": "discovery",
+      "tags": [
+        "documentary",
+        "discovery"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "artifact_comparison",
+        "custody_choice",
+        "destruction_preservation",
+        "escort_recovery",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation",
+        "repair_reactivation",
+        "stealth",
+        "theft",
+        "trade"
+      ]
+    },
+    {
+      "id": "discovery_access",
+      "display_name": "Custodian of an unresolved discovery record",
+      "category": "institutional",
+      "theme": "discovery",
+      "tags": [
+        "institutional",
+        "discovery"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ]
+    },
+    {
+      "id": "linkage_institution",
+      "display_name": "Recorded irreversible human-network institution",
+      "category": "institutional",
+      "theme": "assimilation",
+      "tags": [
+        "institutional",
+        "assimilation"
+      ],
+      "current_state": "surviving_evidence",
+      "source_semantics": "actual_authored_material_observation",
+      "interaction_families": [
+        "custody_choice",
+        "evidence_disclosure",
+        "faction_access",
+        "negotiation"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "departure_loss",
+      "text": "Which physical failure or tracking loss does the departure record actually establish?",
+      "theme": "ark",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "failed_exodus",
+        "ark_launch"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "departure_selection",
+      "text": "Who was registered in the departure undertaking?",
+      "theme": "ark",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "ark_selection",
+        "registered_cohort"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "deep_final_expedition",
+      "text": "What happened to the final Deep expedition?",
+      "theme": "deep",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "last_descent"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "deep_access",
+      "text": "Which staging works and recorded access limits survive for a current safety survey?",
+      "theme": "deep",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "independent_descent",
+        "descent_staging_construction"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "sky_signal",
+      "text": "What do the preserved Far-Sky observations establish?",
+      "theme": "sky",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "array_activation",
+        "unclassified_signal",
+        "signal_fixation",
+        "deep_space_listening_array_outcome"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "genome_custody",
+      "text": "Who should receive or gain access to the surviving genetic samples?",
+      "theme": "genome",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "genome_archive_project_sample_registry",
+        "genetic_preservation"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "genome_viability",
+      "text": "Which preservation procedure was actually tested?",
+      "theme": "genome",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "genome_archive_project_preservation_trials"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "linked_identity",
+      "text": "Were the linked participants still individual people?",
+      "theme": "cortical",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "linked_cohort_register",
+        "cortical_array_linked_cohort",
+        "memory_convergence",
+        "distributed_identity"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "computation_scope",
+      "text": "What computation did the human network perform?",
+      "theme": "cortical",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "cortical_array_persistent_computation"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "maps_disagree",
+      "text": "Why do the reference-frame maps disagree?",
+      "theme": "meridian",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "coordinate_discrepancy"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "survey_route",
+      "text": "Which reference markers support a safer survey route?",
+      "theme": "meridian",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "survey_reference_network",
+        "meridian_project_reference_network"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "constructed_machine",
+      "text": "What behavior did humans actually construct and measure?",
+      "theme": "mind",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "autonomous_prototype_behavior"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "machine_personhood",
+      "text": "Does the prototype have consciousness or continuity?",
+      "theme": "mind",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "autonomous_prototype_behavior"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "program_consent",
+      "text": "What consent did the developmental registry record?",
+      "theme": "simplification",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "adaptive_simplification_program_consenting_registry"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "degeneration_evaluation",
+      "text": "How should the measured human changes be judged?",
+      "theme": "simplification",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "simplification_longitudinal_records"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "reproduction_loss",
+      "text": "What establishes the generation-scale loss of reproduction?",
+      "theme": "reproduction",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "reproductive_shutdown"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "resident_disappearance",
+      "text": "Did these residents leave, die or disappear?",
+      "theme": "disappearance",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "silent_depopulation"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "fractured_cognition",
+      "text": "What persisted after the shared network fragmented?",
+      "theme": "fracture",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "collective_mind_fracture"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "chosen_limits",
+      "text": "What biological choice was actually consented to?",
+      "theme": "chosen",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "chosen_cognitive_regression"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "coercive_responsibility",
+      "text": "Who authorized this coercive biological program?",
+      "theme": "imposed",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "diminution_authorization",
+        "imposed_cognitive_regression"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "coercive_custody",
+      "text": "Who should receive the surviving coercion records?",
+      "theme": "imposed",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "imposed_cognitive_regression"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "service_dependency",
+      "text": "Which recorded failures affected dependent services?",
+      "theme": "infrastructure",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "infrastructure_cascade",
+        "episode_acute_breakdown_1"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "targeted_policy",
+      "text": "Which authorities ordered the recorded removal and killings?",
+      "theme": "extermination",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "targeted_extermination"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "altered_humans",
+      "text": "What human morphological changes were observed?",
+      "theme": "alteration",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "mass_morphogenic_event",
+        "environmental_adaptation"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "autonomous_damage",
+      "text": "Did machinery act under command or autonomously?",
+      "theme": "autonomy",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "autonomous_systems_crisis",
+        "machine_hostility",
+        "autonomous_machine_harm"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "irreversible_linkage",
+      "text": "Which bodily and social links became irreversible?",
+      "theme": "assimilation",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "mechanogenic_assimilation"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "lost_habitat",
+      "text": "Which hazards made the former habitat unusable?",
+      "theme": "habitat",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "habitable_zone_loss"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "civic_identity",
+      "text": "Can the conflicting civic credentials establish an original title?",
+      "theme": "severance",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "record_severance"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "orbital_objects",
+      "text": "Was the falling wreckage part of actual artificial orbital objects?",
+      "theme": "orbit",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "orbital_impacts",
+        "orbital_fall"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "orbital_operator",
+      "text": "Who caused these objects to descend?",
+      "theme": "orbit",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "orbital_fall"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "legal_successor",
+      "text": "Which recorded succession should present authorities recognize as legitimate?",
+      "theme": "politics",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "@topology"
+      ],
+      "scope": "regional_comparison",
+      "support_themes": []
+    },
+    {
+      "id": "fragmented_archive",
+      "text": "Which competing civic records should govern present ownership claims?",
+      "theme": "politics",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "@topology"
+      ],
+      "scope": "regional_comparison",
+      "support_themes": []
+    },
+    {
+      "id": "old_boundary",
+      "text": "Which surviving works attest to recorded political boundaries?",
+      "theme": "politics",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "@topology"
+      ],
+      "scope": "regional_comparison",
+      "support_themes": []
+    },
+    {
+      "id": "arrival_membership",
+      "text": "Which population entries and receiving communities are actually recorded?",
+      "theme": "migration",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "@arrival"
+      ],
+      "scope": "regional_comparison",
+      "support_themes": []
+    },
+    {
+      "id": "former_homeland",
+      "text": "Where did displaced households formerly reside?",
+      "theme": "homeland",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "homeland_loss"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "clone_status",
+      "text": "How should recorded dependency, caste or emancipation inform present clone-born rights?",
+      "theme": "clone",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "clone_caste",
+        "clone_emancipation",
+        "clone_integration",
+        "clone_dependency"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "maintenance_rights",
+      "text": "Which recorded human-machine cooperation arrangements can inform present access?",
+      "theme": "machine",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "cooperation",
+        "machine_aid_renewal"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "failed_deep_home",
+      "text": "What is known about the evacuated Deep residence?",
+      "theme": "residence",
+      "classification": "open_mystery",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "deep_settlement_loss"
+      ],
+      "scope": "actual_subject",
+      "support_themes": []
+    },
+    {
+      "id": "reuse_rights",
+      "text": "Who should control present access to the recorded repurposed site?",
+      "theme": "reuse",
+      "classification": "contested_interpretation",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "@reuse"
+      ],
+      "scope": "actual_subject",
+      "support_themes": [
+        "politics"
+      ]
+    },
+    {
+      "id": "old_trade_route",
+      "text": "Which route evidence could support reopening travel?",
+      "theme": "trade",
+      "classification": "recoverable_fact",
+      "min_evidence": 3,
+      "max_evidence": 5,
+      "conclusion_policy": "source_facts_only",
+      "remaining_uncertainty": "Evidence does not settle unrecorded motives, missing originals or reserved Canon.",
+      "required_anchor_records": [
+        "@trade"
+      ],
+      "scope": "regional_comparison",
+      "support_themes": []
+    }
+  ],
+  "interactions": [
+    {
+      "id": "survey_ruin",
+      "interaction_type": "exploration",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "survey ruin",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "find_sealed_entrance",
+      "interaction_type": "exploration",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid",
+        "verified_sealed_access"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "find sealed entrance",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "shaft_gate",
+        "credential_gate",
+        "discovery_object"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "follow_old_border",
+      "interaction_type": "exploration",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "follow old border",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "border_works"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "scout_abandoned_quarter",
+      "interaction_type": "exploration",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "scout abandoned quarter",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "empty_habitation",
+        "abandoned_office",
+        "abandoned_habitat",
+        "prior_dwellings"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "traverse_shaft",
+      "interaction_type": "hazardous_traversal",
+      "required_runtime_tags": [
+        "traversal_equipment",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "traverse shaft",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "shaft_gate",
+        "descent_staging",
+        "lost_deep_home",
+        "occupied_deep_home"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "cross_impact_belt",
+      "interaction_type": "hazardous_traversal",
+      "required_runtime_tags": [
+        "traversal_equipment",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "cross impact belt",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "impact_belt"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "isolate_damaged_junction",
+      "interaction_type": "hazardous_traversal",
+      "required_runtime_tags": [
+        "traversal_equipment",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "isolate damaged junction",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "service_junction",
+        "archive_cooling"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "secure_defense_position",
+      "interaction_type": "combat",
+      "required_runtime_tags": [
+        "hostile_occupants",
+        "combat_ready",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "secure defense position",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "protect_recovery_party",
+      "interaction_type": "combat",
+      "required_runtime_tags": [
+        "hostile_occupants",
+        "combat_ready",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "protect recovery party",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "cross_contested_site",
+      "interaction_type": "combat",
+      "required_runtime_tags": [
+        "hostile_occupants",
+        "combat_ready",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "cross contested site",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "enter_restricted_archive",
+      "interaction_type": "stealth",
+      "required_runtime_tags": [
+        "restricted_access",
+        "stealth_ready",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_current_patrol"
+      ],
+      "possible_access_modes": [
+        "covert"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "enter restricted archive",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "evade_site_patrol",
+      "interaction_type": "stealth",
+      "required_runtime_tags": [
+        "restricted_access",
+        "stealth_ready",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_current_patrol"
+      ],
+      "possible_access_modes": [
+        "covert"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "evade site patrol",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "duplicate_record_unnoticed",
+      "interaction_type": "stealth",
+      "required_runtime_tags": [
+        "restricted_access",
+        "stealth_ready",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_current_patrol"
+      ],
+      "possible_access_modes": [
+        "covert"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "duplicate record unnoticed",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "restore_reader_power",
+      "interaction_type": "repair_reactivation",
+      "required_runtime_tags": [
+        "repair_tools",
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "restore reader power",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "discovery_record",
+        "prototype_telemetry",
+        "signal_log",
+        "computation_log"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "repair_reading_head",
+      "interaction_type": "repair_reactivation",
+      "required_runtime_tags": [
+        "repair_tools",
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "repair reading head",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "discovery_record",
+        "genome_registry"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "patch_local_sensor",
+      "interaction_type": "repair_reactivation",
+      "required_runtime_tags": [
+        "repair_tools",
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "patch local sensor",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "sky_receiver",
+        "survey_tower",
+        "service_junction"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "read_telemetry",
+      "interaction_type": "technical_inspection",
+      "required_runtime_tags": [
+        "technical_tools",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "read telemetry",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "prototype_telemetry",
+        "command_telemetry",
+        "signal_log",
+        "computation_log"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "inspect_service_dependency",
+      "interaction_type": "technical_inspection",
+      "required_runtime_tags": [
+        "technical_tools",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "inspect service dependency",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "service_junction",
+        "cascade_log",
+        "inspection_log",
+        "archive_cooling"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "verify_interface",
+      "interaction_type": "technical_inspection",
+      "required_runtime_tags": [
+        "technical_tools",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "verify interface",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "neural_interface",
+        "computation_lattice",
+        "integration_machinery"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "read_guidance_log",
+      "interaction_type": "technical_inspection",
+      "required_runtime_tags": [
+        "technical_tools",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "read guidance log",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "guidance_log",
+        "departure_tracking",
+        "reentry_log"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "compare_generational_measures",
+      "interaction_type": "biological_inspection",
+      "required_runtime_tags": [
+        "biological_tools",
+        "consent_or_record_access",
+        "current_context_bound",
+        "current_access_valid",
+        "approved_noninvasive_protocol",
+        "approved_noninvasive_protocol",
+        "approved_noninvasive_protocol"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "compare generational measures",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "generation_measurements",
+        "birth_registry",
+        "retreat_measurements",
+        "target_register"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "analyze_preserved_sample",
+      "interaction_type": "biological_inspection",
+      "required_runtime_tags": [
+        "biological_tools",
+        "consent_or_record_access",
+        "current_context_bound",
+        "current_access_valid",
+        "approved_noninvasive_protocol",
+        "approved_noninvasive_protocol",
+        "approved_noninvasive_protocol"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "analyze preserved sample",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "genome_registry",
+        "preservation_chamber"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "verify_genetic_registry",
+      "interaction_type": "biological_inspection",
+      "required_runtime_tags": [
+        "biological_tools",
+        "consent_or_record_access",
+        "current_context_bound",
+        "current_access_valid",
+        "approved_noninvasive_protocol",
+        "approved_noninvasive_protocol",
+        "approved_noninvasive_protocol"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "verify genetic registry",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "genome_registry",
+        "clone_register"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "triangulate_reference_frames",
+      "interaction_type": "map_comparison",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "triangulate reference frames",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "survey_tower",
+        "reference_stone",
+        "survey_measurements"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "compare_conflicting_charts",
+      "interaction_type": "map_comparison",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "compare conflicting charts",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "conflicting_maps"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "trace_historical_boundary",
+      "interaction_type": "map_comparison",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "trace historical boundary",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "border_works",
+        "old_route",
+        "homeland_register"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "match_wreck_fragments",
+      "interaction_type": "artifact_comparison",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid",
+        "current_material_comparison_samples"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "match wreck fragments",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [
+        "vessel_fragment",
+        "impact_belt",
+        "wreckage_site"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "compare_civic_seals",
+      "interaction_type": "artifact_comparison",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid",
+        "observed_authenticity_marks"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "compare civic seals",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [
+        "civic_charter",
+        "merged_archives",
+        "broken_civic_archive",
+        "custody_register"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "align_archive_fragments",
+      "interaction_type": "artifact_comparison",
+      "required_runtime_tags": [
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "align archive fragments",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [
+        "merged_archives",
+        "broken_civic_archive",
+        "fragmented_shared_records",
+        "discovery_record"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "petition_archive_custodian",
+      "interaction_type": "negotiation",
+      "required_runtime_tags": [
+        "dialogue_access",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "petition archive custodian",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional",
+        "living"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "negotiate_cohort_consent",
+      "interaction_type": "negotiation",
+      "required_runtime_tags": [
+        "dialogue_access",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "negotiate cohort consent",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "consent_registry",
+        "consent_compact",
+        "network_consent",
+        "clone_status_law",
+        "cohort_institution",
+        "network_households"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "arbitrate_access_dispute",
+      "interaction_type": "negotiation",
+      "required_runtime_tags": [
+        "dialogue_access",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "arbitrate access dispute",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional",
+        "living"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "barter_archive_fragment",
+      "interaction_type": "trade",
+      "required_runtime_tags": [
+        "trade_access",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "barter archive fragment",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "buy_route_records",
+      "interaction_type": "trade",
+      "required_runtime_tags": [
+        "trade_access",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "buy route records",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "trade_receipt",
+        "migration_register",
+        "old_route",
+        "conflicting_maps"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "exchange_protected_copies",
+      "interaction_type": "trade",
+      "required_runtime_tags": [
+        "trade_access",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "exchange protected copies",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "steal_restricted_register",
+      "interaction_type": "theft",
+      "required_runtime_tags": [
+        "restricted_access",
+        "theft_ready",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "covert"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "steal restricted register",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "extract_guarded_telemetry",
+      "interaction_type": "theft",
+      "required_runtime_tags": [
+        "restricted_access",
+        "theft_ready",
+        "current_context_bound",
+        "current_access_valid"
+      ],
+      "possible_access_modes": [
+        "covert"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "extract guarded telemetry",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [
+        "prototype_telemetry",
+        "command_telemetry",
+        "signal_log",
+        "computation_log",
+        "guidance_log",
+        "departure_tracking",
+        "reentry_log"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "earn_archive_permit",
+      "interaction_type": "faction_access",
+      "required_runtime_tags": [
+        "faction_contact",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "earn archive permit",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "return_ancestral_object",
+      "interaction_type": "faction_access",
+      "required_runtime_tags": [
+        "faction_contact",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "return ancestral object",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [
+        "ancestral_site",
+        "homeland_register"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "escort_record_specialist",
+      "interaction_type": "escort_recovery",
+      "required_runtime_tags": [
+        "recovery_equipment",
+        "current_context_bound",
+        "current_access_valid",
+        "approved_recovery_plan",
+        "current_escort_actor_bound",
+        "approved_recovery_plan",
+        "approved_recovery_plan",
+        "verified_exposed_record"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "escort record specialist",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "living"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "carry_fragile_sample",
+      "interaction_type": "escort_recovery",
+      "required_runtime_tags": [
+        "recovery_equipment",
+        "current_context_bound",
+        "current_access_valid",
+        "approved_recovery_plan",
+        "current_escort_actor_bound",
+        "approved_recovery_plan",
+        "approved_recovery_plan",
+        "verified_exposed_record"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "carry fragile sample",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "preservation_chamber",
+        "genome_registry"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "recover_exposed_register",
+      "interaction_type": "escort_recovery",
+      "required_runtime_tags": [
+        "recovery_equipment",
+        "current_context_bound",
+        "current_access_valid",
+        "approved_recovery_plan",
+        "current_escort_actor_bound",
+        "approved_recovery_plan",
+        "approved_recovery_plan",
+        "verified_exposed_record"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "recover exposed register",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "drain_document_chamber",
+      "interaction_type": "environmental_manipulation",
+      "required_runtime_tags": [
+        "environmental_tools",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_local_environment_control",
+        "documented_water_intrusion",
+        "verified_local_environment_control",
+        "verified_local_environment_control"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "drain document chamber",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "preservation_chamber",
+        "discovery_object"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "stabilize_ventilation",
+      "interaction_type": "environmental_manipulation",
+      "required_runtime_tags": [
+        "environmental_tools",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_local_environment_control",
+        "documented_water_intrusion",
+        "verified_local_environment_control",
+        "verified_local_environment_control"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "stabilize ventilation",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "service_junction",
+        "descent_staging",
+        "occupied_deep_home",
+        "preservation_chamber"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "redirect_local_service",
+      "interaction_type": "environmental_manipulation",
+      "required_runtime_tags": [
+        "environmental_tools",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_local_environment_control",
+        "documented_water_intrusion",
+        "verified_local_environment_control",
+        "verified_local_environment_control"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "redirect local service",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical"
+      ],
+      "eligible_archetypes": [
+        "service_junction",
+        "archive_cooling"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "challenge_machine_handshake",
+      "interaction_type": "machine_interaction",
+      "required_runtime_tags": [
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "verified_current_signal",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "challenge machine handshake",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "repair_unit",
+        "occupied_machine_works",
+        "maintenance_site"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "listen_to_machine_passively",
+      "interaction_type": "machine_interaction",
+      "required_runtime_tags": [
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "verified_current_signal",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "listen to machine passively",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "repair_unit",
+        "occupied_machine_works",
+        "sky_receiver",
+        "discovery_object"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "isolate_command_interface",
+      "interaction_type": "machine_interaction",
+      "required_runtime_tags": [
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "verified_current_signal",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "isolate command interface",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "occupied_machine_works",
+        "repair_unit",
+        "command_telemetry"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "register_exclusive_custody",
+      "interaction_type": "custody_choice",
+      "required_runtime_tags": [
+        "custody_authority",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "register exclusive custody",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "institutional",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "share_archive_custody",
+      "interaction_type": "custody_choice",
+      "required_runtime_tags": [
+        "custody_authority",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "share archive custody",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "institutional",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "contest_custody_rights",
+      "interaction_type": "custody_choice",
+      "required_runtime_tags": [
+        "custody_authority",
+        "current_context_bound",
+        "current_access_valid",
+        "current_contact_bound",
+        "current_contact_bound",
+        "current_contact_bound"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "contest custody rights",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "institutional",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "stabilize_fragile_evidence",
+      "interaction_type": "destruction_preservation",
+      "required_runtime_tags": [
+        "evidence_handling_tools",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_current_evidence_hazard"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "stabilize fragile evidence",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "seal_evidence_in_place",
+      "interaction_type": "destruction_preservation",
+      "required_runtime_tags": [
+        "evidence_handling_tools",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_current_evidence_hazard"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "seal evidence in place",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "dismantle_evidence_hazard",
+      "interaction_type": "destruction_preservation",
+      "required_runtime_tags": [
+        "evidence_handling_tools",
+        "current_context_bound",
+        "current_access_valid",
+        "verified_current_evidence_hazard"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "dismantle evidence hazard",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "documentary"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "run_limited_array_test",
+      "interaction_type": "controlled_activation",
+      "required_runtime_tags": [
+        "technical_tools",
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "run limited array test",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "sky_receiver",
+        "array_alignment"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "test_bounded_emulation",
+      "interaction_type": "controlled_activation",
+      "required_runtime_tags": [
+        "technical_tools",
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "test bounded emulation",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "emulation_bench",
+        "repair_unit"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "cycle_isolated_junction",
+      "interaction_type": "controlled_activation",
+      "required_runtime_tags": [
+        "technical_tools",
+        "safe_isolation",
+        "current_context_bound",
+        "current_access_valid",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure",
+        "compatible_live_interface",
+        "approved_local_procedure"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "cycle isolated junction",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "physical",
+        "living"
+      ],
+      "eligible_archetypes": [
+        "service_junction",
+        "archive_cooling"
+      ],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "publish_policy_evidence",
+      "interaction_type": "evidence_disclosure",
+      "required_runtime_tags": [
+        "disclosure_channel",
+        "current_context_bound",
+        "current_access_valid",
+        "disclosure_authority",
+        "disclosure_authority",
+        "disclosure_authority"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "publish policy evidence",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "redact_personal_identifiers",
+      "interaction_type": "evidence_disclosure",
+      "required_runtime_tags": [
+        "disclosure_channel",
+        "current_context_bound",
+        "current_access_valid",
+        "disclosure_authority",
+        "disclosure_authority",
+        "disclosure_authority"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "redact personal identifiers",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    },
+    {
+      "id": "share_corroborated_dossier",
+      "interaction_type": "evidence_disclosure",
+      "required_runtime_tags": [
+        "disclosure_channel",
+        "current_context_bound",
+        "current_access_valid",
+        "disclosure_authority",
+        "disclosure_authority",
+        "disclosure_authority"
+      ],
+      "possible_access_modes": [
+        "authorized",
+        "negotiated",
+        "contested"
+      ],
+      "information_gain": "source_assertions_only",
+      "world_action_hooks": [
+        "record_evidence",
+        "propose_permission"
+      ],
+      "description": "share corroborated dossier",
+      "ethical_answer": null,
+      "eligible_categories": [
+        "documentary",
+        "institutional"
+      ],
+      "eligible_archetypes": [],
+      "historical_condition_asserted": false
+    }
+  ],
+  "actions": [
+    {
+      "id": "new_location_access",
+      "description": "Access another recorded context",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "safer_route",
+      "description": "Plan a route from corroborated measurements",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "hazard_prediction",
+      "description": "Use the observed hazard to plan traversal",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "machine_bypass",
+      "description": "Request bypass of a local machine interface",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "facility_activation",
+      "description": "Propose a bounded local activation",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "facility_shutdown",
+      "description": "Propose isolation of a local facility",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "dialogue_evidence",
+      "description": "Present corroborated evidence in faction dialogue",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "challenge_claim",
+      "description": "Challenge a current interpretation with source facts",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "support_claim",
+      "description": "Support a current claim within recorded limits",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "reveal_custody",
+      "description": "Reveal an actual custody record",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "transfer_archive",
+      "description": "Choose an archive recipient",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "destroy_evidence",
+      "description": "Choose to destroy a recovered evidence object",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "preserve_evidence",
+      "description": "Choose to preserve a recovered evidence object",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "technical_procedure",
+      "description": "Use a procedure that is actually recorded",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "usable_machinery",
+      "description": "Identify machinery for current inspection",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "material_recipient",
+      "description": "Choose who receives recovered material",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "alter_access_rights",
+      "description": "Propose changing current access rights",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "expose_responsibility",
+      "description": "Disclose recorded historical responsibility",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "keep_information_secret",
+      "description": "Keep learned evidence private",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "reopen_site",
+      "description": "Propose reopening a recorded site",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    },
+    {
+      "id": "seal_site",
+      "description": "Propose sealing a recorded site",
+      "requires_corroboration": true,
+      "world_mutation": "consumer_proposal_only",
+      "historical_truth_mutation": false
+    }
+  ],
+  "ordinary_sources": {
+    "local_successor": [
+      "civic_charter",
+      "abandoned_office",
+      "border_works"
+    ],
+    "enclave_survives": [
+      "civic_charter",
+      "border_works"
+    ],
+    "political_split": [
+      "border_works",
+      "civic_charter",
+      "succession_petition"
+    ],
+    "political_merge": [
+      "merged_archives",
+      "civic_charter",
+      "abandoned_office"
+    ],
+    "political_reorganization": [
+      "abandoned_office",
+      "merged_archives",
+      "civic_charter"
+    ],
+    "newcomer_entry": [
+      "arrival_register",
+      "arrival_compact",
+      "arrival_houses"
+    ],
+    "population_migration": [
+      "migration_register",
+      "arrival_houses",
+      "old_route"
+    ],
+    "population_join": [
+      "arrival_register",
+      "arrival_houses",
+      "merged_archives"
+    ],
+    "political_extinction": [
+      "abandoned_office",
+      "broken_civic_archive",
+      "border_works"
+    ],
+    "collapse": [
+      "abandoned_office",
+      "broken_civic_archive",
+      "civic_charter"
+    ],
+    "site_reuse": [
+      "reuse_layers",
+      "reuse_custody",
+      "abandoned_office"
+    ],
+    "border_dispute": [
+      "border_works",
+      "succession_petition"
+    ],
+    "trade_reopening": [
+      "trade_receipt",
+      "old_route"
+    ],
+    "local_alliance": [
+      "civic_charter",
+      "trade_receipt"
+    ],
+    "maintenance_accord": [
+      "maintenance_roster"
+    ],
+    "recent_rivalry": [
+      "border_works",
+      "succession_petition"
+    ],
+    "history_custody": [
+      "custody_register"
+    ]
+  },
+  "social_sources": {
+    "cloning_archive_recovery": [
+      "genome_registry",
+      "clone_equipment"
+    ],
+    "local_population_decline": [
+      "prior_dwellings"
+    ],
+    "clone_settlement": [
+      "clone_register",
+      "clone_status_law"
+    ],
+    "emergency_reconstitution": [
+      "clone_register",
+      "clone_status_law"
+    ],
+    "founder_replication": [
+      "clone_register",
+      "clone_status_law"
+    ],
+    "military_batch": [
+      "clone_register",
+      "clone_status_law"
+    ],
+    "clone_caste": [
+      "clone_status_law"
+    ],
+    "clone_bottleneck": [
+      "clone_register"
+    ],
+    "clone_divergence": [
+      "clone_register"
+    ],
+    "clone_integration": [
+      "clone_status_law"
+    ],
+    "clone_emancipation": [
+      "clone_status_law"
+    ],
+    "founder_template_death_record": [
+      "genome_registry"
+    ],
+    "replacement_crisis": [
+      "clone_register"
+    ],
+    "deep_residence_record": [
+      "occupied_deep_home",
+      "deep_home_register"
+    ],
+    "deep_settlement_evacuation": [
+      "lost_deep_home",
+      "deep_home_register"
+    ],
+    "deep_memory_register": [
+      "deep_home_register"
+    ],
+    "ancestral_site_loss": [
+      "ancestral_site",
+      "homeland_register"
+    ],
+    "forced_evacuation": [
+      "ancestral_site",
+      "homeland_register"
+    ],
+    "homeland_displacement": [
+      "ancestral_site",
+      "homeland_register"
+    ],
+    "homeland_memory_charter": [
+      "homeland_register",
+      "evacuation_register"
+    ],
+    "machine_aid_compact": [
+      "maintenance_site",
+      "maintenance_compact"
+    ],
+    "machine_maintenance_cooperation": [
+      "maintenance_site",
+      "maintenance_compact"
+    ],
+    "machine_compact_renewal": [
+      "maintenance_compact"
+    ],
+    "automation_oversight_compact": [
+      "command_telemetry",
+      "human_oversight"
+    ],
+    "autonomous_authority_dispute": [
+      "command_telemetry",
+      "human_oversight"
+    ],
+    "human_final_authority": [
+      "human_oversight"
+    ],
+    "autonomous_machine_conflict": [
+      "command_telemetry",
+      "occupied_machine_works"
+    ],
+    "defense_network_hostility": [
+      "command_telemetry",
+      "occupied_machine_works"
+    ],
+    "machine_control_failure": [
+      "command_telemetry"
+    ],
+    "machine_safety_reform": [
+      "human_oversight"
+    ],
+    "biotech_workshop_recovery": [
+      "biotech_equipment"
+    ],
+    "bodily_adaptation_program": [
+      "regional_biology",
+      "altered_workplace"
+    ],
+    "designed_descent_program": [
+      "regional_biology"
+    ],
+    "lineage_preservation_program": [
+      "genome_registry",
+      "sample_custody"
+    ],
+    "rotating_office_compact": [
+      "civic_charter"
+    ],
+    "office_rotation_review": [
+      "civic_charter"
+    ],
+    "anti_entrenchment_reform": [
+      "civic_charter"
+    ]
+  },
+  "renderer_phase_variants": {
+    "exodus_feasibility_study": [
+      "Feasibility studies compared propulsion limits and candidate departure paths.",
+      "Engineers compared prospective departure paths with measured propulsion limits."
+    ],
+    "ark_project": [
+      "The authority commissioned an Ark and named its limited departure goal.",
+      "The limited departure undertaking received its recorded commission."
+    ],
+    "ark_selection": [
+      "Selection officers registered candidates under the recorded policy.",
+      "Candidates entered the departure registry under the specified selection policy."
+    ],
+    "ark_construction": [
+      "A launch vessel and its staging cradle were assembled.",
+      "Construction joined the launch vessel to its local staging works."
+    ],
+    "ark_launch": [
+      "Launch instruments recorded the actual liftoff or its physical absence.",
+      "The launch record distinguishes actual liftoff from an attempt that stayed on the ground."
+    ],
+    "deep_survey": [
+      "Survey teams measured shallow access and identified the limits of existing shafts.",
+      "Measurements established how far the existing shallow shafts could be approached."
+    ],
+    "deep_descent_project": [
+      "The authority commissioned a bounded descent campaign.",
+      "A descent campaign was commissioned within recorded limits."
+    ],
+    "descent_staging_construction": [
+      "Engineers assembled limited staging works and expedition access controls.",
+      "Staging construction provided local access works for the planned expeditions."
+    ],
+    "successive_expeditions": [
+      "Successive expeditions carried instruments below the known staging boundary.",
+      "Instruments were carried below the established staging boundary in successive expeditions."
+    ],
+    "astronomical_survey": [
+      "Astronomical instruments measured candidate sky directions.",
+      "The first survey measured candidate directions in the sky."
+    ],
+    "signal_debate": [
+      "Recorded councils disputed which observations justified construction.",
+      "Council records preserve disagreement over the case for a listening array."
+    ],
+    "array_construction": [
+      "Receivers and alignment instruments were assembled into the Far-Sky Array.",
+      "Construction assembled the receivers and the instruments that aligned them."
+    ],
+    "array_activation": [
+      "Operators activated the completed array and logged its first observation interval.",
+      "The completed array began operation with a recorded first observation interval."
+    ],
+    "genome_archive_project_sample_registry": [
+      "Named samples received stable registry identifiers and storage custody.",
+      "Registry workers identified the named samples and recorded who held them."
+    ],
+    "genome_archive_project_preservation_trials": [
+      "Preservation trials measured viability losses under defined storage conditions.",
+      "Defined storage trials measured the samples that remained viable and those lost."
+    ],
+    "genome_archive_project_archive_construction": [
+      "Insulated sample chambers and their cooling junctions were assembled.",
+      "Archive construction installed insulated chambers and cooling connections."
+    ],
+    "genome_archive_project_archive_operation": [
+      "Operators recorded recurring viability checks and replacement of failed seals.",
+      "Recurring tests and seal replacements became the archive’s recorded operation."
+    ],
+    "cortical_array_neural_interface": [
+      "Interface experiments recorded signal transfer between human neural tissue and instruments.",
+      "Interface trials measured transfers between human neural tissue and instruments."
+    ],
+    "cortical_array_linked_cohort": [
+      "Registered human participants were connected under recorded consent arrangements.",
+      "The registered human cohort entered the links under documented consent."
+    ],
+    "cortical_array_parallel_cortical_network": [
+      "Parallel cortical links were assembled and tested for signal routing.",
+      "Construction and routing tests established parallel cortical connections."
+    ],
+    "cortical_array_persistent_computation": [
+      "The linked human network performed repeated measured computation; individual survival and one consciousness remain unknown.",
+      "Repeated computation was measured across the linked human network; personal continuity remains unresolved."
+    ],
+    "meridian_project_survey_authority": [
+      "Surveyors issued initial measurement standards and jurisdiction for the survey.",
+      "The survey began with measurement standards and a recorded jurisdiction."
+    ],
+    "meridian_project_reference_network": [
+      "Reference stones were laid out as a measured coordinate network.",
+      "Reference stones established the measured coordinate network."
+    ],
+    "meridian_project_geodetic_construction": [
+      "Survey towers and geodetic observation instruments were erected.",
+      "Builders erected the survey towers and geodetic instruments."
+    ],
+    "meridian_project_map_comparison": [
+      "Measured coordinates were compared with historical maps; discrepancies retain error, reference-frame and geological possibilities.",
+      "Survey coordinates conflicted with old maps; error, reference changes and geology remain possible."
+    ],
+    "second_mind_project_ancient_behavior_study": [
+      "Technicians logged recovered machine behavior without identifying its intention.",
+      "Ancient machine responses were logged while their intentions remained unknown."
+    ],
+    "second_mind_project_simple_emulation": [
+      "Simple emulations reproduced a limited subset of those observed responses.",
+      "Simple emulation reproduced only a bounded part of the recorded behavior."
+    ],
+    "second_mind_project_autonomous_prototype": [
+      "A constructed prototype performed unsupervised actions in recorded trials.",
+      "Unsupervised actions appeared in trials of the constructed prototype."
+    ],
+    "second_mind_project_self_repair_trials": [
+      "The prototype repaired measured local damage and changed part of its structure.",
+      "Trials measured local repair and changes to the prototype’s own structure."
+    ],
+    "second_mind_project_distributed_learning": [
+      "Distributed trials recorded newly learned behavior and persistence without supervision; consciousness remains unknown.",
+      "Distributed trials recorded learned behavior and continued unsupervised operation; consciousness was not established."
+    ],
+    "adaptive_simplification_program_resource_hypothesis": [
+      "Resource studies proposed reduced developmental demands as a human adaptation.",
+      "Resource studies advanced a developmental adaptation hypothesis for humans."
+    ],
+    "adaptive_simplification_program_consenting_registry": [
+      "A human participant registry recorded explicit consent to developmental trials.",
+      "The human registry explicitly recorded consent to developmental trials."
+    ],
+    "adaptive_simplification_program_developmental_trials": [
+      "Biological trials recorded bounded changes in development and cognitive tasks.",
+      "Trials measured limited developmental and cognitive-task changes."
+    ],
+    "adaptive_simplification_program_generational_program": [
+      "Longitudinal human cohort measurements recorded changes across multiple generations.",
+      "Longitudinal records measured the human cohort over multiple generations."
+    ]
+  }
+}

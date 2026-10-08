@@ -1,0 +1,28 @@
+{
+  "round": "round1",
+  "method": "Python SystemRandom using OS entropy, independent of generator RNG; drawn before raw review; no rerolls",
+  "selected_at": "2026-10-07T15:33:18.552146+00:00",
+  "seeds": [
+    474,
+    4772,
+    1815,
+    1139,
+    1890,
+    1791,
+    3097,
+    327,
+    1910,
+    4078,
+    2319,
+    4255,
+    2700,
+    2720,
+    2920,
+    2440,
+    1896,
+    2239,
+    3211,
+    806
+  ],
+  "excluded_seeds": []
+}

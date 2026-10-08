@@ -1,0 +1,18 @@
+[
+  {
+    "round": 1,
+    "observations": 53,
+    "phase_keys": 25,
+    "distinct_sentences": 25,
+    "reuse_fraction": 0.5283018867924528,
+    "keys_with_multiple_alternatives": 0
+  },
+  {
+    "round": 2,
+    "observations": 44,
+    "phase_keys": 20,
+    "distinct_sentences": 27,
+    "reuse_fraction": 0.38636363636363635,
+    "keys_with_multiple_alternatives": 7
+  }
+]

@@ -1,2 +1,7 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+# These preserved design-request transcripts use Markdown's intentional two-space hard breaks.
+# Exempt only the immutable text snapshots from end-of-line whitespace warnings.
+docs/reviews/history_v4_redesign/request.md -whitespace
+docs/reviews/history_v5/request.md -whitespace
