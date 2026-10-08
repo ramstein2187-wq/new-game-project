@@ -1,6 +1,6 @@
 # M043 qualitative review — 48 raw histories
 
-Reviewed seeds 1–40 and 41, 44, 45, 48, 53, 79, 84, 362. These are generated histories; no raw facts were rewritten to create showcase stories. [Full canonical ledgers and derived culture](samples.json), [readable raw output](samples.md), [compact review packet](review_packet.md). The packet preserves Objective History → Project/Scar → Projected Present → Faction Identity/Culture → Claims; complete populations and provenance remain in the raw ledgers.
+Reviewed seeds 1–40 and 41, 44, 45, 48, 53, 79, 84, 362. These are generated histories; no raw facts were rewritten to create showcase stories. [Preserved compact raw-history review packet](review_packet.md). The larger complete generated ledgers and readable export are retained in Git history at the original M043 delivery commit, not in the current working tree. The packet preserves Objective History → Project/Scar → Projected Present → Faction Identity/Culture → Claims; complete populations and provenance remain in the raw ledgers.
 
 This is the implementing agent's textual/lore review. The sources are human-readable, but independent human author approval, Korean language polish, GUI/play, package and balance review have not occurred.
 

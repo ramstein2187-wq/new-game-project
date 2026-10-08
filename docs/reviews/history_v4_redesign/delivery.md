@@ -122,7 +122,7 @@ Project worlds59.76%, Scar worlds
 
 [Complete frequency/outcome/co-occurrence/independence/cause tables](corpus_statistics.md),
 [statistics JSON](statistics.json), [45 raw-history reviews](qualitative_review.md),
-[readable packet](review_packet.md), [full histories](samples.md).
+[preserved representative raw-history packet](review_packet.md). The full generated readable export was retired from the working tree in the repository hygiene pass and is recoverable from the original redesign commit.
 Focused15457 assertions and full38-script Godot/import/startup/dataset gate
 PASS. Each Scar without a Project, each required Project, imposed/chosen regression,
 Orbital Fall and every removed ID were checked. Claim/knowledge/Origin/population
