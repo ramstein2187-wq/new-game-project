@@ -1,11 +1,46 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M036–M042 historical foundation / M043 civilizational Projects and Scars — task branch; main 미병합"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-projects-scars-redesign/docs/specs/history_generator.md"
+milestones = "M036–M043 historical foundation / M044 History v5 Sparse History and Playable Archaeology — 작업 브랜치 구현·검증 완료; main 미병합"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v5/docs/specs/history_generator.md"
 icon = "📜"
 +++
 # 최근 역사: 정치 계보와 population의 기원
+
+## M044 v5 — sparse history와 playable archaeology
+
+현재 작업 브랜치의 기본 generation은 **5 / architecture3**이다. 명시적2/3/4
+경로는 각각 동결 출력으로 보호한다. 아래의 v0.3/v4 설명은 해당 버전의 계약이다.
+v5는 독립 지역 episode 사이의 빈 공간을 허용한다. 사실의 시간 순서나 인구 계보가
+현재 생활 방식의 동기를 설명한다는 뜻은 아니다. Project/Scar 내부의 관측·선행 조건은
+인과 사슬로 유지하고, 후대 보관권 등은 별도 historical association으로 기록한다.
+
+Topology는 operation을 먼저 family 가중치로 추첨하고 그 안의 parameter를 별도로
+추첨한다. split parameter 조합을 늘려도 split 확률이 증가하지 않는다. 기존 일곱
+family의 구조적 anchor와4–8세력 band는 유지한다.
+
+실제 authored material observation을 Historical Trace로 투영한다. 물리·문서·제도·
+생존 집단의 evidence와3–5개 Trace를 요구하는 주요 Question을 분리한다.
+`HistoryInvestigation`은 context/runtime requirement 검사, 증거 수집, 복수 출처·맥락
+대조 후 현재 행동의 permission proposal을 제공한다. Question의 ethical answer나
+숨겨진 Canon 정답을 생성하지 않으며, 조사가 과거 사실을 수정하지 않는다.
+
+2차 일반 수정은 `history-v5-authored-2 / history-v5-archaeology-2`를 사용한다.
+단계별 실제 관측에서만 흔적을 만들고, Question은 실제 대상과 핵심 기록을 요구한다.
+복제 이전 법적 지위나 자연적 변화의 생물공학 능력을 만들어내지 않는다.
+현재 보관자의 별도 접촉 맥락, 역할에 따른 Issue 후보, 실제 관계를 행동 제안에
+담되 현재 입장은 대화 확인 전 후보이며 과거 동기의 설명이 아니다. 상호작용은
+자료의 종류와 구체적 대상에 맞아야 하고, 핵심 증거와 복수 출처를 모아야 열린다.
+
+전투·은신·수리·협상 등의 정의는 **consumer hook**이다. 지도 배치, 실제 Actor 대화,
+전투와 시설의 실행은 통합 전이다. living Trace도 현재 가동·접근 상태를 보장하지 않는다.
+전체39-script Godot gate와 최종5000 replay가 통과했고, 일반 수정 전/후 각각
+무작위20개 원문을 끝까지 검토했다. Trace116/Question40/variant60은 전부 도달했다.
+비반복성6.990·플레이 잠재력7.725는 목표8 미달이며, 일반 메뉴·맥락·약한 현재
+stakes와 정치 질문 중복은 남아 있다. 실제 게임 실행·지도/Actor 통합은 후속 작업이다.
+[최종 결과와 한계](../reviews/history_v5/delivery.md).
+[v5 구조·계약](../reviews/history_v5/architecture.md),
+[작업 재개 기록](../reviews/history_v5/WORK_LOG.md).
 
 History Generator v0.3은 일곱 family의 구조적 제약과 공통 transformation으로
 정치 계보를 바꾼다. M039 후속 수정에서 **현재4–8세력**으로 계약을 정렬했다.

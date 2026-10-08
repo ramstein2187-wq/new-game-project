@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- M044 sparse history / playable archaeology:implementation and validation complete on codex/history-generator-v5;main not merged. Full39-script gate, two5000 replay corpora/two disjoint20 full reviews; non-repetition/gameplay targets missed; map/Actor execution follow-up. [Milestone](milestones/M044_history_v5_sparse_archaeology.md).
+
 - M043 follow-up: **Complete on isolated task branch; main not merged** codex/history-projects-scars-redesign;8 Projects/15 independent Scars; [contract](milestones/M043_history_projects_scars_redesign.md).
 
 - M043: **Complete on task branch; main not merged** `codex/history-generator-v4`, base M042 `8cb6f3d`; 5,000 canonical replays, 48 raw reviews, 6,952 focused assertions and full38-script gate PASS; [milestone](milestones/M043_history_generator_v4.md).

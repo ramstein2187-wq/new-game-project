@@ -4,7 +4,7 @@ extends RefCounted
 # Tags point at actual records. No Claim text, names, taxonomy guesses or injected
 # future-content flags participate in the shipping extractor.
 func build(result: HistoryResult, faction_id: String, identity: Dictionary) -> Dictionary:
-	if result.generation_version == 4:
+	if result.generation_version in [4,5]:
 		var view := HistoryV4Compatibility.legacy_view(result)
 		var evidence: Dictionary = HistoryV4Compatibility.translate_ids(build(view, faction_id, HistoryV4Compatibility.translate_ids(identity,true)))
 		for record in result.present.history_records:

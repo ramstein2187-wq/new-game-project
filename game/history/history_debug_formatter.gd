@@ -2,6 +2,8 @@ class_name HistoryDebugFormatter
 extends RefCounted
 
 func format(result: HistoryResult) -> String:
+	if result.generation_version==5:
+		return HistoryV5Renderer.new().format(result)
 	var lines: Array[String] = ["History architecture v%d | generation algorithm v%d | seed %d | play start 0" % [result.architecture_version, result.generation_version, result.seed],
 		"Configuration: " + JSON.stringify(result.configuration), "=== CANON ===", "Locked facts:"]
 	var keys: Array = result.canon.locked.keys()

@@ -5,7 +5,7 @@ var failures := 0
 var examples := {}
 var independent := {}
 var project_examples := {}
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null,HistoryMotifs.DISCOVERIES,4)
 var catalog := HistoryV4Catalog.new()
 
 func expect(value:bool,message:String)->void:
@@ -176,7 +176,7 @@ func _isolation()->void:
 		expect(normal.canonical_output()==changed.canonical_output(),"Each independent Scar preserves variant reordering isolation")
 	normal=generator.generate(42)
 	var names:=HistoryNameSource.new(func(_seed:int,id:String,_kind:String)->String:return "label_"+id)
-	expect(normal.structural_output()==HistoryGenerator.new(names).generate(42).structural_output(),"Name/locale isolation")
+	expect(normal.structural_output()==HistoryGenerator.new(names,HistoryMotifs.DISCOVERIES,4).generate(42).structural_output(),"Name/locale isolation")
 	var content:=catalog.data.duplicate(true)
 	content.discoveries.erase("crater_machine")
 	changed=HistoryV4Planner.new(HistoryV4Catalog.new(content)).generate(42,generator)

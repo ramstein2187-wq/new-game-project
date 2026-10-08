@@ -1,0 +1,178 @@
+[
+  {
+    "path": "content/history/history_v5.json",
+    "sha256": "da3969e4294143af4c36ffd7820d92dab26e5fab8d7650cc1734c50b34912868"
+  },
+  {
+    "path": "content/history/history_v5_archaeology.json",
+    "sha256": "859da5fdfbd6a4fce429c41385cf2e7d04c0961661e6638ec994aa38ae1b20e6"
+  },
+  {
+    "path": "game/history/canon_policy.gd",
+    "sha256": "21a3a4b478ea31268eefa85724dab7d8ded04727a66569f5cd1c5017396dc803"
+  },
+  {
+    "path": "game/history/culture_evidence.gd",
+    "sha256": "9e47310f26b2196563d97050f81434d5913b2361469801665df3581b75a5fd92"
+  },
+  {
+    "path": "game/history/culture_goal_query.gd",
+    "sha256": "aa4c12fd6af830993e467090a0d3e41d55780571aefe64c80e41c10c4f8c7454"
+  },
+  {
+    "path": "game/history/culture_rules.gd",
+    "sha256": "23f674723fc8047118ba57a3e585d22a75f9340e68beb6b2f763a4179fb67578"
+  },
+  {
+    "path": "game/history/faction_culture_catalog.gd",
+    "sha256": "caa65bba24cf8aba82998f2060a7118785c152ee7b377a80484453775b1884e5"
+  },
+  {
+    "path": "game/history/faction_culture_resolver.gd",
+    "sha256": "2c57a76453923ed7e313cbffa8f64bdde0a34d4a37bf5a8d6013bb987ca7f1c4"
+  },
+  {
+    "path": "game/history/faction_identity_resolver.gd",
+    "sha256": "a86f8136555e30751a7896c61ea2803d559f28b873c2e2cbe14ba57fec772e41"
+  },
+  {
+    "path": "game/history/historical_claim.gd",
+    "sha256": "3564f054b5e4ac8112c315ec87808a226825658f9ddf337b1a1a6c2c5b4af374"
+  },
+  {
+    "path": "game/history/historical_entity.gd",
+    "sha256": "28e428664ede761f88dc3b2878bf95249d60f78b52dc2d7ec12c4acbce42c9fb"
+  },
+  {
+    "path": "game/history/historical_event.gd",
+    "sha256": "6f28ba492541d00c563c5453fa16314c18c7f1a59d2404eed1362139a4c2d003"
+  },
+  {
+    "path": "game/history/history_archaeology.gd",
+    "sha256": "92d45c003ce49d48802a8d320c0d9989516be03b9a13ff2df4e86d262e9caf6f"
+  },
+  {
+    "path": "game/history/history_claim_builder.gd",
+    "sha256": "2e066da8c27cfe17eccf84a3544cbb4cb27d6800c4624f863b40b7cb8a8531ab"
+  },
+  {
+    "path": "game/history/history_debug_formatter.gd",
+    "sha256": "ec0e7489be47ae70a5095abced290f803b935b15816650459fe2c145ffad6045"
+  },
+  {
+    "path": "game/history/history_generator.gd",
+    "sha256": "f0e4dba6057d94380f908a1afdf56818190dbf65923a65ed67429b49503fe0e9"
+  },
+  {
+    "path": "game/history/history_investigation.gd",
+    "sha256": "2d2d6a78cd738d1a744b7bf489c44279c8aad7f3dfbba8eb81b4d995b78a2cfd"
+  },
+  {
+    "path": "game/history/history_motifs.gd",
+    "sha256": "458efbf0c274d2f5b572c3ae433b732264c5655d497888dcbe58045ba141f8bc"
+  },
+  {
+    "path": "game/history/history_name_source.gd",
+    "sha256": "6e43377fa78c2ce894e5011fb1c75ec8ad7a7d60ffe83f1d249b7e02fa2faa8e"
+  },
+  {
+    "path": "game/history/history_projector.gd",
+    "sha256": "c727d172e1df30af9e3463b9efec4367f294d05ec3b0e52e029baf344b99ecae"
+  },
+  {
+    "path": "game/history/history_result.gd",
+    "sha256": "4ab0159cb07dd36393e9de85fe3b28d52b6d2f13de832325cd7b84ea2caf1939"
+  },
+  {
+    "path": "game/history/history_sites.gd",
+    "sha256": "a9298a66a6317aa7f6c12ce2dbff04770509d75e5b426825e7f62923779289f7"
+  },
+  {
+    "path": "game/history/history_state.gd",
+    "sha256": "fc5b4340cf2a60f6df27c677f794c7f867e6ac772a56957bebb36bee1453a3a0"
+  },
+  {
+    "path": "game/history/history_topology.gd",
+    "sha256": "2be95adcf24ed35769f9bb0f3e6faea0b1b0833f6a888c61efcade0c175f9906"
+  },
+  {
+    "path": "game/history/history_v4_catalog.gd",
+    "sha256": "0833bbeae6d5ae96193ae26ddb40c782e824d2efecb2bd32710a89d595dd9323"
+  },
+  {
+    "path": "game/history/history_v4_claims.gd",
+    "sha256": "27d87ff9f79426d321b5ce48608e58e38425372fde8ac838d32031fa2c9754fd"
+  },
+  {
+    "path": "game/history/history_v4_compatibility.gd",
+    "sha256": "90b5379cd7c89e797b69f5f3d61d36200cf92f557a3091b7ed77371519594b96"
+  },
+  {
+    "path": "game/history/history_v4_planner.gd",
+    "sha256": "a656f8933e08ca498d8dd29a03716bad10b6222d10d214b1f407ff13e9812e4b"
+  },
+  {
+    "path": "game/history/history_v4_validator.gd",
+    "sha256": "35d22762f86719db64c21dca99ae0ad07765decf370e9e183b8dac2d384039c7"
+  },
+  {
+    "path": "game/history/history_v5_catalog.gd",
+    "sha256": "19e2e5dc271f9087465c92f6532da43c67fbeeb2d310c06e044ea9005a9ad61d"
+  },
+  {
+    "path": "game/history/history_v5_materials.gd",
+    "sha256": "54211f73b3e55f39d9be4c26d2583d82bd631d67a6113ddbb7d3ddbda0a94d2e"
+  },
+  {
+    "path": "game/history/history_v5_planner.gd",
+    "sha256": "5908b1fd33d267c6ad483e6760d9f807ff2ceb7664af706a6757c6e7c4e0b4be"
+  },
+  {
+    "path": "game/history/history_v5_renderer.gd",
+    "sha256": "e86083eebf5e3689cc37242b991798e0c99bce1e1b97862ff1b299eac1b45dc1"
+  },
+  {
+    "path": "game/history/history_v5_scaffold.gd",
+    "sha256": "6c285bfd55f5545aa522ebfac82b4cae05c240b2fe02163d472b32f52f083d4a"
+  },
+  {
+    "path": "game/history/history_v5_topology.gd",
+    "sha256": "5b40bb6739f8e87f20adb5ee75b6b5623d25ed2f6d0265c29b266653275c42a0"
+  },
+  {
+    "path": "game/history/history_v5_validator.gd",
+    "sha256": "bb51ee56b905e9d22b1808650d53b7f2dc0d98b519742e45c943b266d408e962"
+  },
+  {
+    "path": "game/history/history_validator.gd",
+    "sha256": "a524709205480a506e49d52161af929cb3c3556a3cfe341842daf20524157e95"
+  },
+  {
+    "path": "game/history/origin_catalog.gd",
+    "sha256": "69e1152e8851f92082d124f97e369a9ecc5531a5d4ab04fc0ec809c2482c7d44"
+  },
+  {
+    "path": "game/history/population_origins.gd",
+    "sha256": "d7a33243fcd1a8a1fbd60115bdaa1b1b175dafd4635c0d10e76b04ae99c24642"
+  },
+  {
+    "path": "game/history/social_incident_catalog.gd",
+    "sha256": "5010a4a2ba4ae7a5cb18920994066705f38d0bcb7d48bd1dcd826639b38aad1b"
+  },
+  {
+    "path": "game/history/social_incident_planner.gd",
+    "sha256": "776846ced3fa95a4d536d657907be8b87101e016fa76eb277bf467e495bff4bb"
+  },
+  {
+    "path": "game/history/social_incident_validator.gd",
+    "sha256": "cf50856b1b631e8c335104b9b8ceefeac1499cd6c16f94e89e4c3c23ca80e235"
+  },
+  {
+    "path": "game/history/social_population_catalog.gd",
+    "sha256": "05e8ea1919d5b5ec47542cc59c80c4187003c7f9a1bb3e7e61d3713dff583d85"
+  },
+  {
+    "path": "game/history/society_actor_interaction.gd",
+    "sha256": "2f77018e2f1e62af5920d3400aa816a302c54197925a751e5ff0f6e948244608"
+  }
+]

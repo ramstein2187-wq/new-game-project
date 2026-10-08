@@ -10,7 +10,7 @@ const INTERPRETATION_MODES := ["pragmatic", "skeptical", "technical", "ritual"]
 const MEMORY_FRAMES := ["continuity", "rupture", "grievance", "debt", "warning", "opportunity"]
 
 func resolve(result: HistoryResult, faction_id: String) -> Dictionary:
-	if result.generation_version == 4:
+	if result.generation_version in [4,5]:
 		return resolve_v4(result,faction_id,HistoryV4Compatibility.legacy_view(result))
 	var entity := result.entity(faction_id)
 	assert(entity != null and entity.kind == "faction", "Identity requires a faction")
@@ -72,7 +72,7 @@ func resolve_v4(result:HistoryResult,faction_id:String,view:HistoryResult)->Dict
 	return profile
 
 func errors(result: HistoryResult, faction_id: String, profile: Dictionary) -> Array[String]:
-	if result.generation_version == 4:
+	if result.generation_version in [4,5]:
 		return errors(HistoryV4Compatibility.legacy_view(result), faction_id, HistoryV4Compatibility.translate_ids(profile, true))
 	var issues: Array[String] = []
 	var expected_keys := ["adaptive_stance", "continuity_stance", "interpretation_mode", "memory_frame", "social_anchor", "source_event_ids", "source_facts"]

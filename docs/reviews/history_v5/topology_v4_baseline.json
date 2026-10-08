@@ -1,0 +1,299 @@
+{
+	"faction_count_distribution": {
+		"4": 659,
+		"5": 996,
+		"6": 1163,
+		"7": 1235,
+		"8": 947
+	},
+	"families": {
+		"consolidation_resplit": {
+			"active_factions": 3477,
+			"direct_heirs": 2793,
+			"faction_count_distribution": {
+				"4": 304,
+				"5": 283,
+				"6": 141
+			},
+			"formation_distribution": {
+				"direct_successor": 162,
+				"fragmentation": 2142,
+				"merger": 584,
+				"migration_settlement": 197,
+				"reorganization": 392
+			},
+			"lineage_depth_distribution": {
+				"1": 162,
+				"10": 7,
+				"2": 543,
+				"3": 926,
+				"4": 807,
+				"5": 525,
+				"6": 278,
+				"7": 146,
+				"8": 72,
+				"9": 11
+			},
+			"newcomers": 0,
+			"operations": {
+				"EXTINCTION": 294,
+				"FOUNDING": 2903,
+				"MERGE": 1732,
+				"MIGRATION": 357,
+				"REORGANIZATION": 711,
+				"SPLIT": 1808
+			},
+			"worlds": 728
+		},
+		"enclave_continuity": {
+			"active_factions": 4833,
+			"direct_heirs": 802,
+			"faction_count_distribution": {
+				"4": 57,
+				"5": 70,
+				"6": 123,
+				"7": 235,
+				"8": 234
+			},
+			"formation_distribution": {
+				"direct_successor": 286,
+				"enclave_continuity": 719,
+				"fragmentation": 1924,
+				"migration_settlement": 275,
+				"newcomer_formation": 316,
+				"reorganization": 1313
+			},
+			"lineage_depth_distribution": {
+				"0": 1580,
+				"1": 1199,
+				"2": 1069,
+				"3": 646,
+				"4": 257,
+				"5": 63,
+				"6": 10,
+				"7": 3,
+				"8": 3,
+				"9": 3
+			},
+			"newcomers": 316,
+			"operations": {
+				"EXTINCTION": 522,
+				"FOUNDING": 2875,
+				"MIGRATION": 956,
+				"NEWCOMER": 455,
+				"REORGANIZATION": 1145,
+				"SPLIT": 1196
+			},
+			"worlds": 719
+		},
+		"late_fragmentation": {
+			"active_factions": 4624,
+			"direct_heirs": 4022,
+			"faction_count_distribution": {
+				"4": 56,
+				"5": 121,
+				"6": 156,
+				"7": 229,
+				"8": 157
+			},
+			"formation_distribution": {
+				"direct_successor": 300,
+				"fragmentation": 3624,
+				"merger": 316,
+				"reorganization": 384
+			},
+			"lineage_depth_distribution": {
+				"1": 300,
+				"2": 1211,
+				"3": 1595,
+				"4": 1029,
+				"5": 364,
+				"6": 92,
+				"7": 28,
+				"8": 5
+			},
+			"newcomers": 0,
+			"operations": {
+				"EXTINCTION": 213,
+				"FOUNDING": 1071,
+				"MERGE": 407,
+				"REORGANIZATION": 480,
+				"SPLIT": 2398
+			},
+			"worlds": 719
+		},
+		"layered_migration": {
+			"active_factions": 4877,
+			"direct_heirs": 703,
+			"faction_count_distribution": {
+				"5": 103,
+				"6": 147,
+				"7": 216,
+				"8": 246
+			},
+			"formation_distribution": {
+				"direct_successor": 374,
+				"fragmentation": 1481,
+				"migration_settlement": 379,
+				"newcomer_formation": 1326,
+				"reorganization": 1317
+			},
+			"lineage_depth_distribution": {
+				"0": 2095,
+				"1": 1771,
+				"2": 735,
+				"3": 214,
+				"4": 48,
+				"5": 9,
+				"6": 5
+			},
+			"newcomers": 1326,
+			"operations": {
+				"EXTINCTION": 295,
+				"FOUNDING": 1796,
+				"MIGRATION": 783,
+				"NEWCOMER": 1877,
+				"REORGANIZATION": 674,
+				"SPLIT": 737
+			},
+			"worlds": 712
+		},
+		"no_direct_heir": {
+			"active_factions": 4307,
+			"direct_heirs": 0,
+			"faction_count_distribution": {
+				"4": 95,
+				"5": 171,
+				"6": 253,
+				"7": 222
+			},
+			"formation_distribution": {
+				"fragmentation": 1716,
+				"migration_settlement": 267,
+				"newcomer_formation": 220,
+				"reorganization": 2104
+			},
+			"lineage_depth_distribution": {
+				"0": 1066,
+				"1": 1421,
+				"2": 1057,
+				"3": 468,
+				"4": 190,
+				"5": 67,
+				"6": 31,
+				"7": 6,
+				"8": 1
+			},
+			"newcomers": 220,
+			"operations": {
+				"EXTINCTION": 2341,
+				"FOUNDING": 4848,
+				"MIGRATION": 421,
+				"NEWCOMER": 360,
+				"REORGANIZATION": 2059,
+				"SPLIT": 1137
+			},
+			"worlds": 741
+		},
+		"polycentric_succession": {
+			"active_factions": 4529,
+			"direct_heirs": 3685,
+			"faction_count_distribution": {
+				"5": 86,
+				"6": 171,
+				"7": 191,
+				"8": 217
+			},
+			"formation_distribution": {
+				"direct_successor": 753,
+				"fragmentation": 2638,
+				"merger": 478,
+				"migration_settlement": 146,
+				"reorganization": 514
+			},
+			"lineage_depth_distribution": {
+				"1": 753,
+				"2": 1385,
+				"3": 1251,
+				"4": 691,
+				"5": 321,
+				"6": 99,
+				"7": 27,
+				"8": 2
+			},
+			"newcomers": 0,
+			"operations": {
+				"EXTINCTION": 376,
+				"FOUNDING": 2685,
+				"MERGE": 718,
+				"MIGRATION": 219,
+				"REORGANIZATION": 772,
+				"SPLIT": 1915
+			},
+			"worlds": 665
+		},
+		"remnant_mosaic": {
+			"active_factions": 4168,
+			"direct_heirs": 958,
+			"faction_count_distribution": {
+				"4": 147,
+				"5": 162,
+				"6": 172,
+				"7": 142,
+				"8": 93
+			},
+			"formation_distribution": {
+				"direct_successor": 199,
+				"enclave_continuity": 341,
+				"fragmentation": 2143,
+				"merger": 383,
+				"newcomer_formation": 227,
+				"reorganization": 875
+			},
+			"lineage_depth_distribution": {
+				"0": 941,
+				"1": 980,
+				"2": 891,
+				"3": 578,
+				"4": 395,
+				"5": 214,
+				"6": 105,
+				"7": 32,
+				"8": 24,
+				"9": 8
+			},
+			"newcomers": 227,
+			"operations": {
+				"EXTINCTION": 406,
+				"FOUNDING": 2841,
+				"MERGE": 761,
+				"MIGRATION": 492,
+				"NEWCOMER": 422,
+				"REORGANIZATION": 937,
+				"SPLIT": 1521
+			},
+			"worlds": 716
+		}
+	},
+	"formation_distribution": {
+		"direct_successor": 2074,
+		"enclave_continuity": 1060,
+		"fragmentation": 15668,
+		"merger": 1761,
+		"migration_settlement": 1264,
+		"newcomer_formation": 2089,
+		"reorganization": 6899
+	},
+	"generation_version": 4,
+	"operations": {
+		"EXTINCTION": 4447,
+		"FOUNDING": 19019,
+		"MERGE": 3618,
+		"MIGRATION": 3228,
+		"NEWCOMER": 3114,
+		"REORGANIZATION": 6778,
+		"SPLIT": 10712
+	},
+	"scope": "Exact v4 scaffold political effects; Project/Scar/name layers do not change political formation",
+	"worlds": 5000
+}

@@ -19,7 +19,7 @@ func generate(seed: int, generator: HistoryGenerator) -> HistoryResult:
 	_result.configuration.content_revision = _catalog.data.revision
 	var context: String = _result.configuration.pressure_domain
 	_event("v4_planning_context",_year_of("h_found")+2,"planning_context_"+context,"precursor","region","region","",["h_found"],{})
-	var roll := HistoryV4Catalog.rng(seed, "project/budget").randi_range(0, 99)
+	var roll := _rng(seed, "project/budget").randi_range(0, 99)
 	var budget := 0 if roll < 40 else 1 if roll < 90 else 2
 	_result.configuration.project_budget = budget
 	_result.configuration.scar_budget = 2
@@ -28,7 +28,7 @@ func generate(seed: int, generator: HistoryGenerator) -> HistoryResult:
 		var selected: Dictionary = _context_pick(pool,"project/choice/%d" % slot)
 		pool.erase(selected)
 		_project(selected, slot)
-	if _scar_count < 2 and HistoryV4Catalog.rng(seed, "scar/budget").randi_range(0, 99) < 65:
+	if _scar_count < 2 and _rng(seed, "scar/budget").randi_range(0, 99) < 65:
 		var existing: Array[String] = []
 		for event in _result.objective_timeline:
 			for effect in event.effects:
@@ -55,10 +55,10 @@ func _project(definition: Dictionary, slot: int) -> void:
 	var cohort := prefix + "_cohort"
 	_group(facility)
 	_group(cohort)
-	var start := -472 + slot * 6 + HistoryV4Catalog.rng(_result.seed, "project/dates/%d" % slot).randi_range(0, 5)
+	var start := -472 + slot * 6 + _rng(_result.seed, "project/dates/%d" % slot).randi_range(0, 5)
 	var lifetime: int = _year_of(_result.entity("precursor").retired_event_id)-_year_of("h_found")
 	var alternatives: Array = definition.outcomes.filter(func(ending:Array)->bool:return _chain_dates(["project_authorization","resource_concentration"]+definition.stages+ending,0)[-1] < lifetime-16)
-	var outcome_index := HistoryV4Catalog.rng(_result.seed, "project/outcome/" + definition.id).randi_range(0, alternatives.size() - 1)
+	var outcome_index := _rng(_result.seed, "project/outcome/" + definition.id).randi_range(0, alternatives.size() - 1)
 	var ending: Array = alternatives[outcome_index]
 	var chain: Array = ["project_authorization", "resource_concentration"] + definition.stages + ending
 	var duration: int = _chain_dates(chain,0)[-1]
@@ -80,7 +80,7 @@ func _project(definition: Dictionary, slot: int) -> void:
 		var year: int = dates[i]
 		var key: String = chain[i]
 		var id := prefix + "_%02d" % i
-		var data := {"policy": definition.selection_policies[HistoryV4Catalog.rng(_result.seed, "project/selection/" + definition.id).randi_range(0, definition.selection_policies.size()-1)],
+		var data := {"policy": definition.selection_policies[_rng(_result.seed, "project/selection/" + definition.id).randi_range(0, definition.selection_policies.size()-1)],
 			"target_reference": cohort,
 			"physical_launch": "ark_silent_denial" not in ending}
 		var extras: Array[Dictionary] = []
@@ -118,10 +118,10 @@ func _scar(definition: Dictionary) -> void:
 	# The actor is selected only from an actual polity with enough recorded life
 	# for the full generational chain. A Scar may occur in early or later history.
 	candidates.sort_custom(func(a:HistoricalEntity,b:HistoricalEntity)->bool:return a.id<b.id)
-	var actor: HistoricalEntity = candidates[HistoryV4Catalog.rng(_result.seed,"scar/actor").randi_range(0,candidates.size()-1)]
+	var actor: HistoricalEntity = candidates[_rng(_result.seed,"scar/actor").randi_range(0,candidates.size()-1)]
 	var earliest: int = _year_of(actor.created_event_id)+3
 	var latest: int = (_year_of(actor.retired_event_id) if not actor.retired_event_id.is_empty() else -20)-duration-3
-	var start: int = HistoryV4Catalog.rng(_result.seed,"scar/date").randi_range(earliest,latest)
+	var start: int = _rng(_result.seed,"scar/date").randi_range(earliest,latest)
 	var dates := _chain_dates(chain,start)
 	var previous: String = actor.created_event_id
 	for i in range(chain.size()):
@@ -138,20 +138,20 @@ func _scar(definition: Dictionary) -> void:
 func _pressure_response() -> void:
 	var possible := _catalog.sorted_rows("pressures").filter(func(row: Dictionary) -> bool: return _generator._incidents.gate_open(row.gate) and _satisfied(row.requires))
 	var specialized: Array = possible.filter(func(row: Dictionary) -> bool: return not row.requires.is_empty())
-	if not specialized.is_empty() and HistoryV4Catalog.rng(_result.seed, "pressure/context").randi_range(0,99) < 65:
+	if not specialized.is_empty() and _rng(_result.seed, "pressure/context").randi_range(0,99) < 65:
 		possible = specialized
-	var pressure: Dictionary = possible[HistoryV4Catalog.rng(_result.seed, "pressure").randi_range(0, possible.size()-1)]
+	var pressure: Dictionary = possible[_rng(_result.seed, "pressure").randi_range(0, possible.size()-1)]
 	var responses := _catalog.sorted_rows("responses").filter(func(row: Dictionary) -> bool: return row.id in pressure.responses and _satisfied(row.requires))
 	var specialized_responses: Array = responses.filter(func(row: Dictionary) -> bool: return not row.requires.is_empty())
-	if not specialized_responses.is_empty() and HistoryV4Catalog.rng(_result.seed, "response/context").randi_range(0,99) < 65:
+	if not specialized_responses.is_empty() and _rng(_result.seed, "response/context").randi_range(0,99) < 65:
 		responses = specialized_responses
 	if responses.is_empty():
 		return
-	var response: Dictionary = responses[HistoryV4Catalog.rng(_result.seed, "response").randi_range(0, responses.size()-1)]
+	var response: Dictionary = responses[_rng(_result.seed, "response").randi_range(0, responses.size()-1)]
 	var outcomes: Array = response.collapses.filter(func(key: String) -> bool: return not _catalog.definition("collapse_" + key).is_empty() and _satisfied(_catalog.definition("collapse_" + key).requires))
 	if outcomes.is_empty():
 		outcomes = ["administrative_breakdown"]
-	var collapse: String = outcomes[HistoryV4Catalog.rng(_result.seed, "collapse").randi_range(0, outcomes.size()-1)]
+	var collapse: String = outcomes[_rng(_result.seed, "collapse").randi_range(0, outcomes.size()-1)]
 	_result.configuration.signature_pressure = pressure.id
 	_result.configuration.signature_response = response.id
 	_result.configuration.signature_collapse = collapse
@@ -178,7 +178,7 @@ func _regional_pressure() -> void:
 func _discovery() -> void:
 	var items: Array = _catalog.data.discoveries.duplicate()
 	items.sort()
-	var key: String = items[HistoryV4Catalog.rng(_result.seed, "discovery").randi_range(0, items.size()-1)]
+	var key: String = items[_rng(_result.seed, "discovery").randi_range(0, items.size()-1)]
 	_result.configuration.discovery_motif = key
 	if not _result.objective_timeline.any(func(row: HistoricalEvent) -> bool: return row.id == "h_discovery"):
 		var event := HistoricalEvent.new()
@@ -243,7 +243,7 @@ func _context_pick(rows:Array,namespace_id:String)->Dictionary:
 					weight+=int(variant.weight)
 		weights.append(weight)
 		total+=weight
-	var draw := HistoryV4Catalog.rng(_result.seed,namespace_id).randi_range(1,total)
+	var draw := _rng(_result.seed,namespace_id).randi_range(1,total)
 	for i in range(rows.size()):
 		draw-=weights[i]
 		if draw<=0:
@@ -333,3 +333,6 @@ func _current_ids() -> Array[String]:
 			ids.append(entity.id)
 	ids.sort()
 	return ids
+
+func _rng(seed:int,namespace_id:String)->RandomNumberGenerator:
+	return HistoryV4Catalog.rng(seed,namespace_id)

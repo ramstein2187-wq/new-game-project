@@ -1,0 +1,379 @@
+[
+	{
+		"bytes": 57715,
+		"canonical_sha256": "d1797ab45bfdfa88a1aae1752a884b7acb85d292ca9ef82f33cb84d3fe9db1d8",
+		"family": "remnant_mosaic",
+		"file": "seed_0474.md",
+		"projects": [
+			"genome_archive_project"
+		],
+		"questions": [
+			"old_boundary",
+			"arrival_membership",
+			"maintenance_rights",
+			"genome_viability",
+			"former_homeland"
+		],
+		"raw_sha256": "8ed26ce4935cfc2947447f318b0a266496d0813323167f670329f266cae1943e",
+		"scars": [],
+		"seed": 474
+	},
+	{
+		"bytes": 49807,
+		"canonical_sha256": "3454f15b790a8df218c855b47c6acce69b43d0c21ef9f69d33505965ba8c2316",
+		"family": "no_direct_heir",
+		"file": "seed_4772.md",
+		"projects": [],
+		"questions": [
+			"civic_identity",
+			"fragmented_archive",
+			"arrival_membership",
+			"old_trade_route",
+			"service_dependency",
+			"maintenance_rights"
+		],
+		"raw_sha256": "eee15f11022afa597899af2ff0642869fb58afc8b16a57ede3e90b7d988d12bd",
+		"scars": [],
+		"seed": 4772
+	},
+	{
+		"bytes": 65352,
+		"canonical_sha256": "80dad9dab8d0ad804a55b79e7d02114f9908ccb3ed2c139e207f528e4af8ba1b",
+		"family": "no_direct_heir",
+		"file": "seed_1815.md",
+		"projects": [
+			"second_mind_project"
+		],
+		"questions": [
+			"old_trade_route",
+			"machine_personhood",
+			"reuse_rights"
+		],
+		"raw_sha256": "f0996e359f33000c1f6dd48cd8584d3d449435dca9a550402861d53f1bb44277",
+		"scars": [
+			"imposed_cognitive_regression"
+		],
+		"seed": 1815
+	},
+	{
+		"bytes": 53151,
+		"canonical_sha256": "01d9c917c3a10303ae6051fae67ceba9aa49710300f1ffbe4f926c9581def472",
+		"family": "polycentric_succession",
+		"file": "seed_1139.md",
+		"projects": [],
+		"questions": [
+			"altered_humans",
+			"civic_identity",
+			"old_boundary",
+			"service_dependency",
+			"failed_deep_home",
+			"maintenance_rights"
+		],
+		"raw_sha256": "2fe6f0cf41a20900abe2e7322111e691ee6be1e375c9213129d688b35bf6419a",
+		"scars": [
+			"mass_morphogenic_event"
+		],
+		"seed": 1139
+	},
+	{
+		"bytes": 71729,
+		"canonical_sha256": "005a59a7708c8bacaa95c7aeb1bbb90f5e418c3c856f9817fd05e129cbcf9322",
+		"family": "no_direct_heir",
+		"file": "seed_1890.md",
+		"projects": [
+			"deep_descent_project"
+		],
+		"questions": [
+			"old_boundary",
+			"maintenance_rights",
+			"failed_deep_home"
+		],
+		"raw_sha256": "c780d2fbacf359f2ea64d345cdb03c691c7f6f238f1b6e09a3ae479b62f4de12",
+		"scars": [
+			"last_descent",
+			"record_severance"
+		],
+		"seed": 1890
+	},
+	{
+		"bytes": 40576,
+		"canonical_sha256": "f9e37b98ccd1a9085930b53fdf4ede8041e43a5684edd7f444b7c7ef21c32340",
+		"family": "enclave_continuity",
+		"file": "seed_1791.md",
+		"projects": [],
+		"questions": [
+			"orbital_operator",
+			"old_trade_route",
+			"arrival_membership",
+			"service_dependency",
+			"fragmented_archive"
+		],
+		"raw_sha256": "da0ad20bdacbf78220dfabef5b0e9165900a53c8af4963fc74d8acf0be1f2cb4",
+		"scars": [
+			"orbital_fall"
+		],
+		"seed": 1791
+	},
+	{
+		"bytes": 60707,
+		"canonical_sha256": "9aa5441de96baf3fa8753f7f177ed8208e4437953171e7331350fdb711945f76",
+		"family": "no_direct_heir",
+		"file": "seed_3097.md",
+		"projects": [
+			"adaptive_simplification_program"
+		],
+		"questions": [
+			"fragmented_archive",
+			"program_consent",
+			"arrival_membership",
+			"maintenance_rights",
+			"civic_identity",
+			"old_trade_route"
+		],
+		"raw_sha256": "c19ef0bf9cde63226e632a2b25fa0fc26893728d6a88a571ca05775fe6f292ad",
+		"scars": [],
+		"seed": 3097
+	},
+	{
+		"bytes": 41662,
+		"canonical_sha256": "59b641bd9355c519848b3ea07bfd7577ae3b6b5836f01110a1cbb3bbc58ee6b9",
+		"family": "enclave_continuity",
+		"file": "seed_0327.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"arrival_membership",
+			"reuse_rights",
+			"old_trade_route"
+		],
+		"raw_sha256": "e7ac9b1c11146cce15b1d0d2344f843d579a3ec499059a438ef61ecb699a23ab",
+		"scars": [
+			"autonomous_systems_crisis"
+		],
+		"seed": 327
+	},
+	{
+		"bytes": 63494,
+		"canonical_sha256": "3225d6bbe161eea375580ac9bd09efe9af0b6ff9ebf6d159278fbf16f034d734",
+		"family": "enclave_continuity",
+		"file": "seed_1910.md",
+		"projects": [
+			"meridian_project",
+			"deep_descent_project"
+		],
+		"questions": [
+			"civic_identity",
+			"deep_final_expedition",
+			"arrival_membership"
+		],
+		"raw_sha256": "45d2ce73696f0c0e727483de85d5384003b645bb9cd91f5e0824abb487647212",
+		"scars": [
+			"last_descent"
+		],
+		"seed": 1910
+	},
+	{
+		"bytes": 44337,
+		"canonical_sha256": "30cd8014a3bbe36f2d6efec1278fc25b66d0d6e145aeea63e6b666e63690e5ad",
+		"family": "enclave_continuity",
+		"file": "seed_4078.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"maintenance_rights",
+			"old_trade_route",
+			"civic_identity",
+			"service_dependency"
+		],
+		"raw_sha256": "29e84a84e62677c75257dc6407b579c313884269880d9b092c2babb227fd8713",
+		"scars": [
+			"record_severance"
+		],
+		"seed": 4078
+	},
+	{
+		"bytes": 43172,
+		"canonical_sha256": "84e60273b469d37b87d7db088e39340a6012c900a2e1000850da6024559150d7",
+		"family": "layered_migration",
+		"file": "seed_2319.md",
+		"projects": [],
+		"questions": [
+			"civic_identity",
+			"old_boundary",
+			"former_homeland",
+			"maintenance_rights"
+		],
+		"raw_sha256": "d88da5f889f4e499042a099f3e6f5e9373144221ea18206e724396fa046ebf1a",
+		"scars": [
+			"mass_morphogenic_event"
+		],
+		"seed": 2319
+	},
+	{
+		"bytes": 35813,
+		"canonical_sha256": "8247616cebfc78421b474e36fe13d6c5868fa0afed912a4b8f5e5a7e211ee73b",
+		"family": "enclave_continuity",
+		"file": "seed_4255.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"arrival_membership",
+			"civic_identity",
+			"old_trade_route",
+			"fragmented_archive"
+		],
+		"raw_sha256": "28575b77d910cf423cc46dc30c0fb406da08f7b74b442dd593e4d59021574fc0",
+		"scars": [],
+		"seed": 4255
+	},
+	{
+		"bytes": 60248,
+		"canonical_sha256": "124134d680ce1e2d0c33678afdf1e1251df7d1d58549d292153f71766128887e",
+		"family": "consolidation_resplit",
+		"file": "seed_2700.md",
+		"projects": [
+			"adaptive_simplification_program"
+		],
+		"questions": [
+			"legal_successor",
+			"orbital_objects",
+			"civic_identity",
+			"program_consent"
+		],
+		"raw_sha256": "9e1eba9bb428e33912aceb1a0d4ed24504b495f911fc46875900368d8183e51f",
+		"scars": [
+			"orbital_fall"
+		],
+		"seed": 2700
+	},
+	{
+		"bytes": 61615,
+		"canonical_sha256": "0622d38f5261c1cfa9ad79aae3df955e3230ac20ecd9fb0c694011a23aa5ae43",
+		"family": "consolidation_resplit",
+		"file": "seed_2720.md",
+		"projects": [
+			"meridian_project"
+		],
+		"questions": [
+			"service_dependency",
+			"program_consent",
+			"maps_disagree",
+			"civic_identity"
+		],
+		"raw_sha256": "8bbffa5de17a90c73464f72f776fc4187510fced5dfafe1c219d679eb5b77901",
+		"scars": [
+			"mass_morphogenic_event"
+		],
+		"seed": 2720
+	},
+	{
+		"bytes": 61021,
+		"canonical_sha256": "c84c77963af6f2e1c4aead83b496f25ab974bbf32dc68d65316e0dbc7a8076f0",
+		"family": "layered_migration",
+		"file": "seed_2920.md",
+		"projects": [
+			"meridian_project"
+		],
+		"questions": [
+			"maintenance_rights",
+			"maps_disagree",
+			"fragmented_archive",
+			"arrival_membership",
+			"genome_custody",
+			"old_trade_route"
+		],
+		"raw_sha256": "680bb4cee54f9a9e0da2f2a134389d66711b8a8d77a2a7495e3c93debe4eafb6",
+		"scars": [],
+		"seed": 2920
+	},
+	{
+		"bytes": 65991,
+		"canonical_sha256": "1c77c5f0a55ba589e46f57733017ea156273a252f5a1d0fa618f44030fe0e93a",
+		"family": "consolidation_resplit",
+		"file": "seed_2440.md",
+		"projects": [
+			"adaptive_simplification_program"
+		],
+		"questions": [
+			"genome_custody",
+			"fragmented_archive",
+			"civic_identity"
+		],
+		"raw_sha256": "f76d5d4a098cb24e3100c4f46b269bd0efecd5352e1213a7686c38e77f14a22f",
+		"scars": [],
+		"seed": 2440
+	},
+	{
+		"bytes": 64511,
+		"canonical_sha256": "9befa65c19aa34cac3364f7b3214b5c5fc43ea2d03a86f77fd8d32b6cba75d52",
+		"family": "polycentric_succession",
+		"file": "seed_1896.md",
+		"projects": [
+			"genome_archive_project"
+		],
+		"questions": [
+			"reproduction_loss",
+			"genome_custody",
+			"civic_identity"
+		],
+		"raw_sha256": "202cc18d5d2e24af07953a977f65ca25cbbc7b36f41e33bf39c440af1aebad71",
+		"scars": [
+			"reproductive_shutdown"
+		],
+		"seed": 1896
+	},
+	{
+		"bytes": 41153,
+		"canonical_sha256": "d8db3bdab355356c1d3fac8a3d3f5742ad3b1bf2ecc8023844e80d3696708ba6",
+		"family": "layered_migration",
+		"file": "seed_2239.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"clone_status",
+			"genome_viability"
+		],
+		"raw_sha256": "4cf506e2a5429a8074af5997d2769dd8ee0e8c414d01378df86bda2b3d71c499",
+		"scars": [
+			"mass_morphogenic_event"
+		],
+		"seed": 2239
+	},
+	{
+		"bytes": 63031,
+		"canonical_sha256": "2d16d76da7f7aa31f3de9418aefcd2d86c6de87e123eda0d0dfe74ae017ddf0e",
+		"family": "consolidation_resplit",
+		"file": "seed_3211.md",
+		"projects": [
+			"adaptive_simplification_program"
+		],
+		"questions": [
+			"civic_identity",
+			"degeneration_evaluation",
+			"arrival_membership",
+			"clone_status"
+		],
+		"raw_sha256": "7699504d53b6cd7805cb0688b066a27554254728fbd16f34817ab5b320aecc8f",
+		"scars": [],
+		"seed": 3211
+	},
+	{
+		"bytes": 66402,
+		"canonical_sha256": "387e04250574a7a4bd8baddc67b9cdfe85d13b130e8ea730b11688c21f421385",
+		"family": "layered_migration",
+		"file": "seed_0806.md",
+		"projects": [
+			"deep_space_listening_array"
+		],
+		"questions": [
+			"genome_viability",
+			"old_trade_route",
+			"fragmented_archive"
+		],
+		"raw_sha256": "02f8e034849be5791269f3a3e0c22bb8f547de7469fa643345fe9d5722562eae",
+		"scars": [
+			"imposed_cognitive_regression"
+		],
+		"seed": 806
+	}
+]

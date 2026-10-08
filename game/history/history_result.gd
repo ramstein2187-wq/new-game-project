@@ -11,6 +11,8 @@ var objective_timeline: Array[HistoricalEvent] = []
 var present: HistoryState = HistoryState.new()
 var historical_claims: Array[HistoricalClaim] = []
 var validation_report: Dictionary = {}
+var archaeology: Dictionary = {}
+var historical_associations: Array[Dictionary] = []
 
 func to_dict() -> Dictionary:
 	var entity_rows: Array[Dictionary] = []
@@ -22,10 +24,14 @@ func to_dict() -> Dictionary:
 		event_rows.append(item.to_dict())
 	for item in historical_claims:
 		claim_rows.append(item.to_dict())
-	return {"seed": seed, "generation_version": generation_version, "architecture_version": architecture_version,
+	var output := {"seed": seed, "generation_version": generation_version, "architecture_version": architecture_version,
 		"configuration": configuration.duplicate(true), "canon": canon.duplicate(true),
 		"entities": entity_rows, "objective_timeline": event_rows, "present": present.to_dict(),
 		"historical_claims": claim_rows, "validation_report": validation_report.duplicate(true)}
+	if generation_version==5:
+		output.archaeology=archaeology.duplicate(true)
+		output.historical_associations=historical_associations.duplicate(true)
+	return output
 
 # Godot JSON.stringify sorts dictionary keys by default. Arrays are explicitly ordered.
 func canonical_output(include_validation: bool = false) -> String:

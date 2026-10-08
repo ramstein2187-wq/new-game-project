@@ -1,6 +1,6 @@
 extends SceneTree
 
-var generator := HistoryGenerator.new()
+var generator := HistoryGenerator.new(null,HistoryMotifs.DISCOVERIES,4)
 var catalog := HistoryV4Catalog.new()
 var statistics := {"worlds":0,"factions":0,"faction_count":{},"event_count":{},"scar_count":{},"project_count":{},"project_status":{},
 	"pressure_domains":{},"pressures":{},"responses":{},"collapses":{},"projects":{},"scars":{},"discoveries":{},"signatures":{},"event_motifs":{},

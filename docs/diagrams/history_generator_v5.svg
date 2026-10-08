@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#8295b1"/></marker></defs>
+<rect width="1120" height="470" rx="16" fill="#0e1729"/>
+<g font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#e7edf9">
+<text x="32" y="38" font-size="23" font-weight="bold">History v5 · sparse objective facts and playable archaeology</text>
+<g fill="#1c2b43" stroke="#526b92"><rect x="30" y="85" width="210" height="75" rx="10"/><rect x="285" y="85" width="240" height="75" rx="10"/><rect x="590" y="85" width="200" height="75" rx="10"/><rect x="835" y="85" width="250" height="75" rx="10"/><rect x="285" y="220" width="240" height="85" rx="10"/><rect x="590" y="220" width="200" height="85" rx="10"/><rect x="835" y="220" width="250" height="85" rx="10"/><rect x="590" y="355" width="200" height="75" rx="10"/></g>
+<text x="48" y="113">Canon / approved content</text><text x="48" y="140">Origin and mystery locks</text>
+<text x="303" y="113">Objective sparse history</text><text x="303" y="140">Typed effects / explicit causes</text>
+<text x="608" y="113">Present replay</text><text x="608" y="140">No parallel state formula</text>
+<text x="853" y="113">Culture / Claims</text><text x="853" y="140">Interpretation, not past truth</text>
+<text x="303" y="248">Observed material manifests</text><text x="303" y="278">Project / Scar / ordinary history</text>
+<text x="608" y="248">Traces / questions</text><text x="608" y="278">3–5 Traces / 2+ sources</text>
+<text x="853" y="248">Investigation session</text><text x="853" y="278">Corroboration → proposals</text>
+<text x="608" y="383">Independent renderer</text><text x="608" y="411">Presentation RNG only</text>
+<g fill="none" stroke="#8295b1" stroke-width="2" marker-end="url(#arrow)"><path d="M240 122H285"/><path d="M525 122H590"/><path d="M790 122H835"/><path d="M405 160V220"/><path d="M525 262H590"/><path d="M790 262H835"/><path d="M690 305V355"/><path d="M525 135H560V392H590"/><path d="M1085 122H1100V332H815V392H790"/></g>
+<text x="30" y="350" font-size="14" fill="#b7c7e0">Historical association ≠ causation.</text><text x="30" y="375" font-size="14" fill="#b7c7e0">Coexistence and missing explanations are legal.</text><text x="30" y="400" font-size="14" fill="#b7c7e0">Proposals require consumers; they never rewrite history.</text><text x="30" y="425" font-size="14" fill="#b7c7e0">Explicit v2 / v3 / v4 remain frozen.</text>
+</g></svg>

@@ -3,19 +3,102 @@ status = "구현 완료"
 areas = ["코어", "월드 생성"]
 type = "알고리즘 / 데이터 모델"
 systems = "HistoryGenerator / HistoryTopology / FactionIdentityResolver / HistoryProjector / HistoryValidator"
-milestones = "M036 architecture / M037 v2 / M038 initial v3 / M039 contract fixup / M040 identity / M041 culture / M042 social incidents / M043 civilizational history — codex/history-projects-scars-redesign; main 미병합"
+milestones = "M036–M043 foundation / M044 generation5 architecture3 sparse archaeology — branch implementation and validation complete; codex/history-generator-v5; main 미병합"
 code_paths = ["game/history/history_v4_catalog.gd", "game/history/history_v4_compatibility.gd", "game/history/history_v4_planner.gd", "game/history/history_v4_validator.gd", "game/history/history_v4_claims.gd", "tools/analyze_history_v4.gd", "game/history/history_generator.gd", "game/history/history_topology.gd", "game/history/faction_identity_resolver.gd", "game/history/history_sites.gd", "game/history/history_projector.gd", "game/history/history_validator.gd", "game/history/history_claim_builder.gd", "game/history/population_origins.gd", "game/history/social_population_catalog.gd", "game/history/origin_catalog.gd", "game/history/social_incident_planner.gd", "tools/analyze_social_incidents.gd", "tools/analyze_history.gd"]
-diagram = "docs/diagrams/history_generator.svg"
+diagram = "docs/diagrams/history_generator_v5.svg"
 +++
-# History Generator v4 — civilizational projects, scars and population contracts
+# History Generator — sparse archaeology and preserved historical algorithms
 
-![Canonical history and separate claims](../diagrams/history_generator.svg)
+![Sparse objective history and separate investigation](../diagrams/history_generator_v5.svg)
 
 ## Version and scope
 
-Current civilizational revision is `history-v4-authored-2`; the preserved structural/social revision is `history-v3-authored-4`. Frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
+The task branch now defaults to generation5 / architecture3. Generation4 below is
+an explicit preserved algorithm, protected with128 exact-output hashes in addition
+to its original fixtures. Generation2 and3 each have128 corresponding hashes.
 
-Default generation **4 uses architecture2**; explicit historical **3 uses architecture2** and **2 uses architecture1**.
+V5 uses `HistoryV5Scaffold → HistoryV5Topology → SocialIncidentPlanner →
+HistoryV5Planner` for canonical facts, `HistoryProjector` for the present and
+`HistoryArchaeology` for derived evidence contracts. It uses the v4 compatibility
+query lens for existing identity/culture only. This lens is not v5's objective
+history, validator or renderer. No save migration or main merge is implied.
+
+### V5 operation probability
+
+Let O be the set of legal operations after anchor/band feasibility checks. Draw
+`P(op)=weight_family(op)/sum(weight_family(o), o in O)` once. Then draw uniformly
+from that operation's legal parameter rows with a separate stream. Duplicating
+split parameter rows cannot change the operation draw. Feasibility and mandatory
+anchors may alter O; this is a structural condition, not combinatorial weighting.
+
+### V5 causal and evidence contracts
+
+- `cause_event_ids`: explicit documented causation/prerequisite evidence. Project
+  and Scar internals retain chronological typed capability/population sources.
+- `historical_associations`: referenced observations/custody without asserting a
+  global cause. Coexistence without either relation is legal.
+- Lifecycle/population parent and donor references remain authoritative, distinct
+  from lifestyle, motives and current interpretation.
+- Material manifests are authored objective `history_record` effects. Traces
+  derive only from these manifests, with exact source assertions and references.
+- Questions use3–5 distinct Trace IDs, at least two sources and two access
+  contexts. Questions are questions, never extra objective facts or ethical truth.
+- Hooks name target Trace, context, required runtime tags, access modes and source
+  evidence gain. Requirements are consumer obligations, not proof that a hostile
+  Actor, gate, machine or map has been instantiated.
+- Investigation knowledge is session state; corroboration unlocks consumer action
+  proposals. Executing proposals requires integration. Historical truth remains
+  unchanged. Current operation of a historical living/machine Trace is unverified.
+- Renderer RNG uses `history-renderer/5`; content changes cannot write canonical
+  facts, objectives, culture, Claims or investigation state.
+
+Revision2 (`history-v5-authored-2 / history-v5-archaeology-2`) adds typed stage
+manifests and exact social-event gates. Trace assertion paths retain source-effect
+indices and record IDs. Questions require an actually asserted anchor record,
+same-subject evidence (or an explicit plural regional comparison) and3–5 Traces
+across two events/contexts. Investigation permissions additionally require learning
+an anchor. Specific hook variants filter by category and material archetype.
+Consequences preserve subject/current custodians, role-based issue candidates,
+existing relationship evidence and current execution prerequisites. Current need
+candidates do not establish historical motives or automatically select policy.
+
+The archaeology catalog has116 Trace definitions,40 Questions,60 interaction
+variants in20 families and21 consequence types. Actual corpus reachability is
+reported separately.34 Project phase keys have two renderer-only complete factual
+alternatives; political/custody/relation prose also varies. Grouped identical
+Claims retain every claimant/confidence and their original event reference.
+
+Six independently chosen regional episode patterns coexist with gaps: acute
+breakdown, managed retreat, political bifurcation, slow erosion, partial
+stabilization and displacement. No episode is required to explain the polity's
+documented retirement. Density/scar-coverage rules from older algorithms do not
+require every v5 event to explain another event.
+
+```mermaid
+flowchart LR
+    A[Canon and approved catalogs] --> B[V5 objective sparse history]
+    B --> C[Present replay]
+    B --> D[Observed material manifests]
+    D --> E[Derived Traces and questions]
+    E --> F[Investigation knowledge]
+    F --> G[Consumer permission proposals]
+    C --> H[Culture and Claims]
+    B --> I[Independent renderer]
+    E --> I
+    H --> I
+```
+
+Final branch validation:39-script full Godot gate,9068 v5 checks/0 failures,
+5000 matching canonical replays,384 frozen2/3/4 hashes. Two disjoint OS20 full
+raw reviews surround the general revision. Non-Repetition6.990 and Gameplay
+Potential7.725 miss8.0 targets. Generic contexts/menus, weak present stakes and
+duplicate political dossiers remain; engine-bound Questions/world actions0.
+Detailed results are under `docs/reviews/history_v5/delivery.md`. The original
+v4 pipeline below remains version-scoped. No main integration is claimed.
+
+The preserved v4 civilizational revision is `history-v4-authored-2`; its structural/social revision is `history-v3-authored-4`. Frozen M039/M040 corpus paragraphs below describe their older structural validation, which remains protected by component regressions.
+
+Explicit historical **4 and3 use architecture2**; **2 uses architecture1**.
 M039 corrects M038's exact6..8 planning, flattened Origin sets and implicit social content.
 It preserves seven families, the political DAG, transformations, lifecycle, donors,
 optional compatible reuse, event/present Claim evidence, M035 naming and rare budgets.

@@ -1,0 +1,217 @@
+== Godot version ==
+4.7.2.stable.mono.official.ed1daf0bf
+== Editor parse/import check ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 프로젝트 초기화 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 파일 구조 스캔 중...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 전역 클래스 이름을 불러오는 중...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | GDExtensions 검증 중...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 오토로드 스크립트를 만드는 중...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 플러그인을 초기화 중...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 파일 스캔 시작 중...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 전역 클래스를 등록하는 중... (10 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | HistoryArchaeology[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | HistoryInvestigation[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | HistoryV5Materials[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | HistoryV5Planner[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | HistoryV5Renderer[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | HistoryV5Validator[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 애셋 (다시) 가져오는 중 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 다시 가져올 파일을 준비 중...[39m[0m
+[   0% ] [90m[1mreimport[22m | 다시 가져오기 전 작업을 수행 중...[39m[0m
+[   0% ] [90m[1mreimport[22m | history_generator_v5.svg[39m[0m
+[  50% ] [90m[1mreimport[22m | 애셋 가져오기 마무리 중...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 애셋 (다시) 가져오는 중 (1 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 다시 가져오기 후 작업을 수행 중...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 편집기를 불러오는 중 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 편집기 레이아웃을 불러오는 중...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 독을 불러오는 중...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+== Main scene startup smoke test ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+== Project tests ==
+-- tests/test_attributes_effects.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: M031 attributes/effects, movement and paired golden (422 assertions)
+-- tests/test_basic_interaction.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+상자를 조사했다.
+PASS: basic interaction
+-- tests/test_character_modifier_tones.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Character Inspector semantic modifier tones (53 assertions)
+-- tests/test_character_overview.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Character Overview queries (281 assertions)
+-- tests/test_character_screen.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Character Screen input, Inspector and layouts (284 assertions)
+-- tests/test_combat_batch_runner.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: deterministic production-combat batch runner, paired matchup metrics and termination
+-- tests/test_combat_body.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: combat/body rules, RNG, Action/AI, allocation UI and reset
+-- tests/test_combat_content_source.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: single-source content, references, coverage, isolation and tuning
+-- tests/test_combat_data_foundation.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: M024 combat data foundation, prototype content and production simulation
+-- tests/test_combat_log.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: structured combat log
+-- tests/test_common_action_system.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: common action system
+-- tests/test_common_actor.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: common Actor ownership, isolation, registry and lifecycle
+-- tests/test_con_hp_scaling.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: CON/Endurance derived HP (121 assertions)
+-- tests/test_eight_way_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: eight-way movement, 1400/1050 diagonal costs, injury scaling, diagonal melee and corner collision
+-- tests/test_extensible_melee_ai.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: M028 extensible melee AI (64 assertions)
+-- tests/test_faction_culture.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Faction culture (45063 assertions)
+-- tests/test_faction_identity.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Faction identity / cultural interpretation (12983 assertions)
+-- tests/test_generated_map_combat.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generated-map action-cost combat
+-- tests/test_generation_settings.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: generation settings
+-- tests/test_history_generator.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Diversity / 1000 seeds: {"architecture_version":1,"definitions":{"frequency":"fraction of histories containing >=1 event, not number of events","human_only":"human primary pressure and responses; no Observer/Core events","natural_and_human_only":"natural primary pressure; no Observer/Core events; human responses","structural_signature":"configuration + semantic event IDs/types/motifs/effects; excludes names/dates/claims"},"distributions":{"ancestry_mode":{"central_remnants":338,"mixed_provincial":349,"provincial_refugees":313},"belief_profile":{"pragmatic":242,"ritual":270,"skeptical":248,"technical":240},"collapse_pattern":{"civil_war":350,"evacuation":340,"office_fragmentation":310},"discovery_motif":{"erosion_seal":170,"impact_machine":169,"manufactured_fragment":177,"mineral_object":173,"stratum_fragment":155,"surface_wreckage":156},"event_count":{"19":957,"20":43},"faction_c_formation":{"breakaway_clan":241,"facility_community":262,"religious_community":245,"resource_or_trade_commune":252},"middle_motif":{"archive_accord":354,"route_reopening":314,"settlement_competition":332},"precursor_form":{"administrative_federation":202,"city_confederation":205,"dynastic_crown":208,"provincial_compact":198,"trade_league":187},"pressure_domain":{"core_intervention":78,"human":448,"natural":448,"observer_legacy":26},"pressure_motif":{"adaptation_tension":81,"administrative_fragmentation":74,"chemical_exposure":121,"core_boundary_adjustment":14,"core_fault_release":6,"core_quarantine":7,"core_rainfall_shift":9,"core_route_isolation":12,"core_shutdown":4,"core_slope_failure":8,"core_underground_closure":18,"extreme_seasons":102,"geophysical_stress":113,"migration_pressure":70,"military_overextension":69,"orbital_bombardment":4,"orbital_fragment":9,"orbital_reentry":5,"radiative_haze":112,"succession_dispute":83,"surveillance_failure":8,"trade_failure":71},"recent_motif":{"border_dispute":187,"household_relocation":179,"local_alliance":205,"maintenance_accord":208,"trade_reopening":221},"response_motif":{"household_council":243,"maintenance_secession":248,"regional_autonomy":265,"ritual_schism":244},"ruin_count":{"3":813,"4":187},"successor_a_form":{"infrastructure_guild":174,"kinship_clan":174,"military_remnant":178,"provincial_council":146,"ritual_authority":175,"trading_house":153},"successor_b_form":{"frontier_settlement_league":158,"migrant_confederation":178,"modified_human_community":168,"refugee_community":175,"regional_commune":167,"village_union":154}},"frequencies":{"core_intervention":{"count":102,"percent":10.2},"human_only":{"count":433,"percent":43.3},"natural_and_human_only":{"count":424,"percent":42.4},"no_observer_or_core":{"count":857,"percent":85.7},"observer_legacy":{"count":45,"percent":4.5},"orbital_bombardment":{"count":7,"percent":0.7}},"generation_version":2,"invalid_seeds":[],"minimum_causal_scar_ratio":1.0,"minimum_recent_events":5,"representatives":{"core_intervention":10,"extreme_seasons":17,"facility_successor":22,"human_collapse":4,"natural_and_human":1,"observer_orbital_legacy":27,"orbital_bombardment":97,"recent_alliance":30,"terraforming_chemical_legacy":5,"unusual_successors":93},"sample_count":1000,"seed_range":[1,1000],"unique_configuration_recipes":1000,"unique_event_type_topologies":344,"unique_structural_signatures":1000}
+PASS: History Generator v0.2 (48463 assertions)
+-- tests/test_history_topology.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Topology corpus: 999/1000 unique political graphs; counts {"4":134,"5":179,"6":213,"7":255,"8":219}
+PASS: History topology v0.3 (100458 assertions)
+-- tests/test_history_v4.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: History v4 redesign (15457 assertions)
+-- tests/test_history_v5.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+History v5 checks: 5429; failures: 0
+-- tests/test_m017_m018_integration.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: M017/M018 corner routing, honest reach feedback, generated terrain, injured diagonal scheduling and both scene inputs
+-- tests/test_micro_ap_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: micro AP test room
+-- tests/test_multiple_npcs.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: multiple NPC scheduling, occupancy, combat, AI, generated reset/replay and playable UI
+-- tests/test_physical_combat_weapon_actions.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: M027 physical profiles, weapon actions, hands, RNG and playground controls
+-- tests/test_population_origins.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Population strata/content gate (7539 assertions)
+-- tests/test_procedural_map_preview.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural map preview
+-- tests/test_procedural_naming.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Variation person: 556/1000 unique English displays
+Variation settlement: 582/1000 unique English displays
+Variation semantic_location: 20/1000 unique English displays
+Variation mixed_location: 549/1000 unique English displays
+Variation mixed_possessive: 539/1000 unique English displays
+Variation facility: 987/1000 unique English displays
+PASS: Procedural Naming v1 (30266 assertions)
+-- tests/test_procedural_playground.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: procedural playground
+-- tests/test_seed_deriver.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: seed deriver
+-- tests/test_simple_map_generator.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: simple procedural map generator
+-- tests/test_single_actor_replay.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: original CON/HP replay, M027 and normalized M024 compatibility (3 seeds each)
+-- tests/test_social_incidents.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: Social historical incidents (24725 assertions)
+-- tests/test_tactical_ai.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: tactical AI decision and explainability
+-- tests/test_time_cost_game.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scheduler test room
+-- tests/test_time_cost_input.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: time-cost scene input, defeat and reset
+-- tests/test_time_scheduler.gd
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+PASS: independent time scheduler
+== Generated combat dataset check ==
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Combat datasets checked
+All Godot checks passed.

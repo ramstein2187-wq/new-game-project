@@ -1,12 +1,12 @@
 class_name HistoryGenerator
 extends RefCounted
 
-const VERSION := 4
+const VERSION := 5
 const ARCHITECTURE_VERSION_V2 := 1
 const ARCHITECTURE_VERSION_V3 := 2
 
 static func architecture_version_for_generation(version: int) -> int:
-	return ARCHITECTURE_VERSION_V2 if version == 2 else ARCHITECTURE_VERSION_V3 if version in [3, 4] else -1
+	return ARCHITECTURE_VERSION_V2 if version == 2 else ARCHITECTURE_VERSION_V3 if version in [3, 4] else 3 if version==5 else -1
 var _names: HistoryNameSource
 var _discovery_pool: Array
 var _version: int
@@ -21,6 +21,8 @@ func _init(names: HistoryNameSource = null, discovery_pool: Array = HistoryMotif
 	_incidents = incidents if incidents != null else SocialIncidentCatalog.new()
 
 func generate(seed: int) -> HistoryResult:
+	if _version==5:
+		return HistoryV5Planner.new().generate(seed,self)
 	if _version == 4:
 		return HistoryV4Planner.new().generate(seed, self)
 	return _generate_scaffold(seed)
@@ -80,7 +82,7 @@ func _configuration(seed: int) -> Dictionary:
 		config.extra_core = _pick(seed, "legacy/core/motif", HistoryMotifs.PRESSURES.core_intervention)
 	if domain != "observer_legacy" and _rng(seed, "legacy/orbital/budget").randi_range(0, 999) < 20:
 		config.extra_orbital = _pick(seed, "legacy/orbital/motif", HistoryMotifs.PRESSURES.observer_legacy)
-	if _version in [3, 4]:
+	if _version in [3, 4, 5]:
 		for field in ["successor_a_form", "successor_b_form", "faction_c_formation", "ancestry_mode", "middle_motif", "recent_motif", "belief_profile"]:
 			config.erase(field)
 		config.content_revision = HistoryMotifs.CONTENT_REVISION_V3
@@ -104,7 +106,7 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 	precursor.political_form = c.precursor_form
 	var found_year := _year(result.seed, "found", -560, -480)
 	var founding: Array[Dictionary] = [_activate("region"), _activate("precursor")]
-	if _version in [3, 4]:
+	if _version in [3, 4, 5]:
 		precursor.formation_origin = "founding"
 		precursor.ancestry_kind = "root"
 		precursor.political_continuity = true
@@ -139,7 +141,7 @@ func _local_collapse(result: HistoryResult) -> Dictionary:
 	if result.entity("pressure_group") != null:
 		effects.append(_retire("pressure_group"))
 	actors.append("province")
-	if _version in [3, 4]:
+	if _version in [3, 4, 5]:
 		effects.append(_population_fate("precursor", [], ["human_baseline"]))
 	_emit(result, "h_collapse", collapse_year, "collapse", actors, ["h_failure", "h_pressure"], effects)
 	return {"collapse_year": collapse_year}
@@ -292,7 +294,7 @@ func _retire(id: String) -> Dictionary:
 
 func _ruin(id: String, kind: String) -> Dictionary:
 	var effect := {"kind": "ruin", "id": id, "ruin_kind": kind, "location_id": "region"}
-	if _version in [3, 4]:
+	if _version in [3, 4, 5]:
 		effect.merge(HistorySites.description(kind))
 	return effect
 

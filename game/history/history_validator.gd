@@ -11,6 +11,8 @@ func _init(populations: SocialPopulationCatalog = null, incidents: SocialInciden
 
 # Optional replay supplied by caller: never recursively invokes generation.
 func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary:
+	if result!=null and result.generation_version==5:
+		return HistoryV5Validator.new(_populations,_incidents).validate(result,replay)
 	if result != null and result.generation_version == 4:
 		return HistoryV4Validator.new(_populations, _incidents).validate(result, replay)
 	var report := {"errors": [], "warnings": [], "determinism": "not_checked", "scars": {}}
@@ -193,7 +195,7 @@ func validate(result: HistoryResult, replay: HistoryResult = null) -> Dictionary
 			errors.append("Same-seed/version/content replay differs")
 	return report
 
-func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> void:
+func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array, allow_sparse: bool = false) -> void:
 	var born := {}
 	var active := {}
 	var ended := {}
@@ -314,7 +316,7 @@ func _lifecycle(result: HistoryResult, entities: Dictionary, errors: Array) -> v
 			var precursor_retired := false
 			for id in retired:
 				precursor_retired = precursor_retired or entities[id].kind == "precursor_state"
-			if event.cause_event_ids.is_empty() or not precursor_retired:
+			if (event.cause_event_ids.is_empty() and not allow_sparse) or not precursor_retired:
 				errors.append("Collapse must have causes and retire a polity")
 		if event.effects.is_empty():
 			errors.append("Event has no objective effects: " + event.id)

@@ -1,0 +1,396 @@
+[
+	{
+		"bytes": 64531,
+		"canonical_sha256": "d4e206b3861d9bab8f551f52d95404056d442874892043ad72dc2c01ebbd10be",
+		"family": "consolidation_resplit",
+		"file": "seed_1781.md",
+		"projects": [],
+		"questions": [
+			"maintenance_rights",
+			"old_boundary",
+			"legal_successor",
+			"fragmented_archive"
+		],
+		"raw_sha256": "94ac0389921d33c8c1737ddeb318833d48280d269a02a51873fc71eab6c41519",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 1781
+	},
+	{
+		"bytes": 63927,
+		"canonical_sha256": "4addf50cb67aa53cf59c7c4c384c543f4fd2c4e3d1081985362f97618b158cc1",
+		"family": "polycentric_succession",
+		"file": "seed_2710.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"old_trade_route",
+			"reuse_rights",
+			"arrival_membership"
+		],
+		"raw_sha256": "98e69a9d506e7caee1e579d05c8226d7d0e91308ac6b4ce4887c853689052e89",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 2710
+	},
+	{
+		"bytes": 71526,
+		"canonical_sha256": "ff029e338dc10e927293b760fcb0532d136bce3ad8e695bf37d33c3951cb1e97",
+		"family": "enclave_continuity",
+		"file": "seed_1515.md",
+		"projects": [],
+		"questions": [
+			"chosen_limits",
+			"maintenance_rights",
+			"fragmented_archive",
+			"arrival_membership",
+			"old_boundary",
+			"legal_successor"
+		],
+		"raw_sha256": "9538fb16d927aacaa25a75ba1109c38d1fced60a4b0e438216a114c731848a8c",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"chosen_cognitive_regression"
+		],
+		"seed": 1515
+	},
+	{
+		"bytes": 58781,
+		"canonical_sha256": "11f80d4fe1355c9709e16706d94b46a9e4181da5b3e5b5d5f4f4709c3240a2d6",
+		"family": "polycentric_succession",
+		"file": "seed_2792.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"reuse_rights",
+			"old_trade_route",
+			"arrival_membership"
+		],
+		"raw_sha256": "627f16f93bb3a3bd571def874da7d1929c42b3a5730ca6df0f8b025331169e91",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 2792
+	},
+	{
+		"bytes": 62136,
+		"canonical_sha256": "d3d6d5c32a9f0e8598aad27db8e12f7ab10c3e99a1f878ffd6e35236d756715e",
+		"family": "late_fragmentation",
+		"file": "seed_0639.md",
+		"projects": [],
+		"questions": [
+			"failed_deep_home",
+			"clone_status",
+			"old_boundary",
+			"fragmented_archive",
+			"legal_successor"
+		],
+		"raw_sha256": "7d3a0eead0f92370bce493a4b6a28480aa35ad3639861e39a6e37654be7d2e7b",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 639
+	},
+	{
+		"bytes": 78128,
+		"canonical_sha256": "d65349d70da47456127eab19a27371ceb909bb6e4951961ae4536d873bb3bc70",
+		"family": "layered_migration",
+		"file": "seed_1454.md",
+		"projects": [
+			"genome_archive_project"
+		],
+		"questions": [
+			"departure_selection",
+			"genome_viability",
+			"failed_deep_home",
+			"fragmented_archive",
+			"arrival_membership"
+		],
+		"raw_sha256": "37eb90459a7d5054b7c92d3b1323218f272cdf939d40a882ca886e30c8d304b6",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"failed_exodus"
+		],
+		"seed": 1454
+	},
+	{
+		"bytes": 76082,
+		"canonical_sha256": "23a2a8a293673b8280ee5a34ecb1937cfc9f316541d8b3c6ef56dd83d7b678a4",
+		"family": "late_fragmentation",
+		"file": "seed_4691.md",
+		"projects": [],
+		"questions": [
+			"coercive_responsibility",
+			"clone_status",
+			"old_trade_route",
+			"legal_successor",
+			"coercive_custody",
+			"old_boundary"
+		],
+		"raw_sha256": "1f8d0f0cf4db99ec26f0e049c612ae721e655f8239cf7ac3a70cd7630511302e",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"imposed_cognitive_regression"
+		],
+		"seed": 4691
+	},
+	{
+		"bytes": 66879,
+		"canonical_sha256": "0e295f8ec2e73de29333887c4df76f5b38b8321ab37f5fc502c3c4bbf6f284b0",
+		"family": "consolidation_resplit",
+		"file": "seed_2771.md",
+		"projects": [],
+		"questions": [
+			"orbital_objects",
+			"arrival_membership",
+			"legal_successor",
+			"old_trade_route"
+		],
+		"raw_sha256": "a2ab2dedf67958bba0b109064bc87e0bff5c6057b481b7130d9be85a542273f0",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"orbital_fall"
+		],
+		"seed": 2771
+	},
+	{
+		"bytes": 95444,
+		"canonical_sha256": "dd6dc5edb61e585f25bae7dad9d600dab15df25a2581ff95bf66616044a620be",
+		"family": "no_direct_heir",
+		"file": "seed_3277.md",
+		"projects": [
+			"genome_archive_project"
+		],
+		"questions": [
+			"lost_habitat",
+			"genome_custody",
+			"failed_deep_home",
+			"altered_humans",
+			"autonomous_damage"
+		],
+		"raw_sha256": "4a337d7cdfe294daac78de9bf13a0996577f6a547b725d15507c6d45983f8889",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"habitable_zone_loss"
+		],
+		"seed": 3277
+	},
+	{
+		"bytes": 86478,
+		"canonical_sha256": "e606c257a71bf91c1f9ade5ec9bd9a94b8e52746b96347f1a7e049f85cb84bac",
+		"family": "polycentric_succession",
+		"file": "seed_3563.md",
+		"projects": [
+			"genome_archive_project",
+			"deep_space_listening_array"
+		],
+		"questions": [
+			"autonomous_damage",
+			"genome_viability",
+			"sky_signal"
+		],
+		"raw_sha256": "c79560578d5d3f50f2c703a4d712519c672d41c7bd2756a180c62a13790ced23",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"autonomous_systems_crisis"
+		],
+		"seed": 3563
+	},
+	{
+		"bytes": 83159,
+		"canonical_sha256": "c70c6123ae274456d3d3111275972bea9f7ae6fe723d79d35c847aa4c930cff4",
+		"family": "no_direct_heir",
+		"file": "seed_4418.md",
+		"projects": [
+			"meridian_project"
+		],
+		"questions": [
+			"lost_habitat",
+			"maps_disagree",
+			"maintenance_rights",
+			"legal_successor",
+			"arrival_membership"
+		],
+		"raw_sha256": "38a0defa327921afa3c763a4faf18fca449161dd1e3dcfdc82d81bcb453669ad",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"habitable_zone_loss"
+		],
+		"seed": 4418
+	},
+	{
+		"bytes": 59246,
+		"canonical_sha256": "3f4b521c175db544b1dce4426abd0767954f70f13460f7d289912f426922b3d1",
+		"family": "enclave_continuity",
+		"file": "seed_4679.md",
+		"projects": [
+			"genome_archive_project"
+		],
+		"questions": [
+			"genome_viability",
+			"legal_successor",
+			"old_trade_route"
+		],
+		"raw_sha256": "87eaf1accc211f7fedc3caf0bab01fa1c26573b806604bf920a7976ffd1ff95d",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 4679
+	},
+	{
+		"bytes": 92104,
+		"canonical_sha256": "4d6c20a8353be52e2000bb8a4552ad9e94a5f4e209da7dd43632974d10d3dc09",
+		"family": "enclave_continuity",
+		"file": "seed_0228.md",
+		"projects": [
+			"adaptive_simplification_program",
+			"genome_archive_project"
+		],
+		"questions": [
+			"reproduction_loss",
+			"program_consent",
+			"genome_custody",
+			"autonomous_damage",
+			"fragmented_archive"
+		],
+		"raw_sha256": "751d0dc924f1e40ddc66871a229240a7fbea7d306fcf5b3ec405d0efd4da96a5",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"reproductive_shutdown"
+		],
+		"seed": 228
+	},
+	{
+		"bytes": 77362,
+		"canonical_sha256": "1b1f4d166851d2429e8e574c3b612a60e72c0dc826d974be264a5a4f9a610326",
+		"family": "consolidation_resplit",
+		"file": "seed_3330.md",
+		"projects": [
+			"deep_space_listening_array"
+		],
+		"questions": [
+			"civic_identity",
+			"sky_signal",
+			"former_homeland",
+			"fragmented_archive",
+			"reuse_rights"
+		],
+		"raw_sha256": "c6aa504639bf56661e025d388d90d74e84f9de5f8569852274065f23dcb5eb9d",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"record_severance"
+		],
+		"seed": 3330
+	},
+	{
+		"bytes": 64417,
+		"canonical_sha256": "fbdc295effcf5c9897bab848713992c1cdd262d19f8e1cb9226cd9e362d2fd5a",
+		"family": "layered_migration",
+		"file": "seed_2580.md",
+		"projects": [
+			"deep_descent_project"
+		],
+		"questions": [
+			"deep_access",
+			"maintenance_rights",
+			"altered_humans"
+		],
+		"raw_sha256": "dea1ca1109a549fa40180acde2ddcf75c772d423a4f00ff76c7086d7dea2ddbc",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"last_descent"
+		],
+		"seed": 2580
+	},
+	{
+		"bytes": 102540,
+		"canonical_sha256": "2e9c0e8b3f44d83def70361a0c11efc53fc273607477a8ef462de2dfe218a1b6",
+		"family": "no_direct_heir",
+		"file": "seed_4062.md",
+		"projects": [
+			"deep_descent_project"
+		],
+		"questions": [
+			"departure_loss",
+			"deep_final_expedition",
+			"clone_status",
+			"old_boundary",
+			"old_trade_route",
+			"arrival_membership"
+		],
+		"raw_sha256": "36d8fd9e8b3334a020edbf523aa7f09645ac0e879e24734b2307f86b6d618e6e",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"last_descent",
+			"failed_exodus"
+		],
+		"seed": 4062
+	},
+	{
+		"bytes": 51985,
+		"canonical_sha256": "0e23bda82fae022455ee03a2128e4be9a35e94d4aff41ca2f6621c6ed9b982f2",
+		"family": "late_fragmentation",
+		"file": "seed_2188.md",
+		"projects": [],
+		"questions": [
+			"legal_successor",
+			"reuse_rights",
+			"fragmented_archive",
+			"old_boundary"
+		],
+		"raw_sha256": "116caf9390f7aa02883141def9331e1a3db406e9963d5daeeb9d2ece11ed02b8",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 2188
+	},
+	{
+		"bytes": 70263,
+		"canonical_sha256": "7f45b9e73c4befb1c34e8c6a5232befd566f3a8365aca71b55013ad213caaa15",
+		"family": "enclave_continuity",
+		"file": "seed_0543.md",
+		"projects": [],
+		"questions": [
+			"irreversible_linkage",
+			"fragmented_archive",
+			"arrival_membership",
+			"legal_successor",
+			"old_boundary"
+		],
+		"raw_sha256": "ff23b5d899c23e968bb6939dfe108912faad5bc08f4e8b6e82b20022b9990ee3",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [
+			"mechanogenic_assimilation"
+		],
+		"seed": 543
+	},
+	{
+		"bytes": 64050,
+		"canonical_sha256": "6a8f69ef6d171e48030d994c7c09ac1c484e2eb009ddd66b5dccaaa679fb576b",
+		"family": "no_direct_heir",
+		"file": "seed_1270.md",
+		"projects": [],
+		"questions": [
+			"failed_deep_home",
+			"clone_status",
+			"arrival_membership"
+		],
+		"raw_sha256": "438b2e2599d374d981a77577dee48f6a8b06785f025619707a967c011c14aa3f",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 1270
+	},
+	{
+		"bytes": 62688,
+		"canonical_sha256": "ceb0f8441983acd35b877fa1964ff83998fc0050c0b999f830a9b62397c1d60e",
+		"family": "remnant_mosaic",
+		"file": "seed_0085.md",
+		"projects": [],
+		"questions": [
+			"clone_status",
+			"maintenance_rights",
+			"fragmented_archive",
+			"arrival_membership"
+		],
+		"raw_sha256": "d7e91c9f82875f907378079424a03453be38e0f4281c97a170dc2a7766cc8ed1",
+		"raw_sha256_includes_final_lf": true,
+		"scars": [],
+		"seed": 85
+	}
+]
