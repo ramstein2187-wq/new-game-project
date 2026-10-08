@@ -38,7 +38,7 @@ func _run() -> void:
 		# Existing screenshot tool writes a new output file; it is not a load dependency.
 		for match_result in paths.search_all(FileAccess.get_file_as_string(path)):
 			var reference := match_result.get_string()
-			if reference == "res://" or reference == "res://docs/reviews/2026-09-22-m019-scene.png":
+			if reference in ["res://", "res://docs/reviews/2026-09-22-m019-scene.png", "res://.godot/character-overview-captures"]:
 				continue
 			check(FileAccess.file_exists(reference) or DirAccess.dir_exists_absolute(reference), "Missing resource reference in " + path + ": " + reference)
 		if path.ends_with(".tscn"):

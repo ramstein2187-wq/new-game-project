@@ -70,12 +70,13 @@ Keep all M011 action-cost, M012 logging, character, world-generation and combat 
 
 - Pre-change **main full Godot gate** executed: editor import, startup smoke, all test scripts, and combat dataset check passed.
 - Static consumer audit found no external gameplay consumer of Micro-AP after deleting its dedicated test/scene.
-- **Post-deletion Godot test has not yet been run on the proposed GitHub branch**. This source-retirement PR should be merged only after an exact checkout of the proposed branch passes the full `bash tools/check_godot.sh` gate and an import/scene reference check.
-- The branch proposal is documentation + removal of one unused self-contained prototype; no gameplay algorithm or chosen scheduler is changed.
+- **Post-deletion validation completed 2026-10-08** on an isolated exact PR #46 checkout of `1621a875c26e2b0b5d6d5696a8c0255fec47db22` using Godot `4.7.2.stable.mono.official.ed1daf0bf` (Windows binary invoked from WSL). `bash tools/check_godot.sh` passed: editor import/parse, startup smoke, all **30 remaining** test scripts, and the combat dataset check. The deleted Micro-AP class/resource/test references have zero hits in runtime, scenes, and tests.
+- Supplemental `tools/check_project_layout.gd` initially flagged `res://.godot/character-overview-captures` as a missing input resource. The same false positive was reproduced independently on unmodified `main`: this is a dynamically generated **output directory** of `capture_character_overview.gd`, not a missing game asset. The check now narrowly exempts that exact output path, without relaxing checks on actual loaded resources. The rerun passed: **162 scanned resources, 115 script UIDs, 6 instantiated scenes**.
+- After this narrow audit-tool correction, **the full Godot gate was rerun and passed again**, as did `git diff --check`; wiki/knowledge metadata checks also passed (17 wiki pages, 14 specs). No gameplay algorithm or chosen scheduler was changed. This satisfies the former PR #46 post-deletion automated validation gate; manual interactive play is still separate.
 
 ## Next steps
 
-1. Review and validate the M010 retirement PR in an actual post-change checkout; merge only after tests pass.
+1. Automated checks for the M010 retirement have passed; review PR #46 and merge only after the normal review decision (no main merge is performed by this task).
 2. Run a controlled, independent worktree-retirement operation for clean candidates with the safeguards above.
 3. Repeat the inventory and record actual reclaimed disk space.
 4. Revisit remaining legacy diagnostics only when their test coverage and reproduction purpose have been replaced.
