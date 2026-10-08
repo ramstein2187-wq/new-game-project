@@ -10,6 +10,11 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 - **Candidate**: discussed idea whose scope, priority, or implementation is undecided.
 - **Needs verification**: discussed or attempted work whose current code/branch/validation status has not been checked.
 
+## Governing design decision
+
+- **Accepted, project-wide (design, not an implemented feature):** Player Experience First — **History creates the world. Systems create possibilities. The player creates the story.** Survival, exploration, risk, capability, meaningful choices and self-directed forward momentum outrank lore completeness and procedural counts. Historical investigation enriches play but is not its compulsory core. [Durable decision](decisions/player_experience_first.md) · [Notion wiki source](wiki/player_experience_principles.md).
+- **Candidate follow-up experiments, not completed gameplay:** ensure one generated region is rewarding to explore without required lore reading; compare the same region with historical context enabled; validate genuinely different playable outcomes and current-world binding of generated artifacts. Scope these only when a concrete implementation task is started.
+
 ## Verified baseline
 
 - **Complete** — M001: basic player movement, collision, camera and interaction; see `docs/milestones/M001_foundation.md`.
