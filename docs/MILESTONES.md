@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- **M045:** independent event-driven v6 Phase A complete on `codex/history-generator-v6-core`; 8,516 focused assertions, 1,000 matching replays, full40-script gate, existing v2–v5 preserved. Not merged to main. [M045](milestones/M045_history_v6_core.md).
+
 - **M036–M044 history pipeline:** Complete on `main` at `c64083b` via [PR #50](https://github.com/ramstein2187-wq/new-game-project/pull/50), integrating the cumulative v5 lineage with current M035/M046 and retired M010. Godot editor/startup, 38 split project tests, combat dataset, history determinism, layout/UID and Notion metadata checks passed. Monolithic check was time-limited, then all tests were completed in bounded groups. History/archaeology contracts are not wired into playable world/Actor actions. [M044](milestones/M044_history_v5_sparse_archaeology.md).
 - **M043 projects/scars redesign:** Eight bounded-outcome Projects and fifteen independent Scars from the v5 lineage are included. [Follow-up](milestones/M043_history_projects_scars_redesign.md).
 
@@ -49,6 +51,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M045 | Complete on task branch; main not merged | Independent event-driven v6 Phase A, atomic state transitions and log replay | `docs/milestones/M045_history_v6_core.md` |
 | M044 | Complete on main via PR #50 | Sparse history v5 / evidence-based archaeology and trace contracts | `docs/milestones/M044_history_v5_sparse_archaeology.md` |
 | M043 | Complete on main via PR #50 | History v4 + eight Projects and fifteen independent Scars | `docs/milestones/M043_history_generator_v4.md` |
 | M042 | Complete on main via PR #50 | Objective social incidents and differentiated faction culture | `docs/milestones/M042_social_cultural_incidents.md` |

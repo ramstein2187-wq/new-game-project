@@ -18,5 +18,10 @@ docs/reviews/*.import
 /docs/reviews/social_incidents_v1/samples.json
 /docs/reviews/faction_culture_v1/samples.json
 
+# M045 reproducible machine-readable histories; readable review packet stays tracked.
+/docs/reviews/history_v6/samples.json
+/docs/reviews/history_v6/pilot/samples.json
+/docs/reviews/history_v6/pilot/samples.md
+
 # Documentation diagram imports
 docs/diagrams/*.import

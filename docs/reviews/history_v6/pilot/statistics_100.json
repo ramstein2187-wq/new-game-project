@@ -1,0 +1,116 @@
+{
+	"active_faction_counts": {
+		"3": 2,
+		"4": 3,
+		"5": 5,
+		"6": 90
+	},
+	"adjacent_same_rule": 286,
+	"artifact_changes": 830,
+	"chain_examples": {
+		"incident_to_reoccupation": {
+			"events": [
+				"event_0003",
+				"event_0004"
+			],
+			"seed": 1
+		},
+		"loss_to_recovery": {
+			"events": [
+				"event_0005",
+				"event_0008"
+			],
+			"seed": 1
+		},
+		"migration_occupation_then_contact_relation": {
+			"events": [
+				"event_0019",
+				"event_0020",
+				"event_0023"
+			],
+			"seed": 3
+		},
+		"migration_to_reoccupation": {
+			"events": [
+				"event_0021",
+				"event_0022"
+			],
+			"seed": 1
+		},
+		"split_contact_to_hostile_takeover": {
+			"events": [
+				"event_0014",
+				"event_0034"
+			],
+			"seed": 3
+		}
+	},
+	"chains": {
+		"incident_to_reoccupation": 177,
+		"loss_to_recovery": 178,
+		"migration_occupation_then_contact_relation": 272,
+		"migration_to_reoccupation": 336,
+		"split_contact_to_hostile_takeover": 120
+	},
+	"content_version": "phase_a_1",
+	"count": 100,
+	"effect_sequences": 100,
+	"event_counts": {
+		"36": 100
+	},
+	"event_limit": 36,
+	"event_types": {
+		"artifact_transfer_loss": 485,
+		"faction_split": 383,
+		"migration": 1085,
+		"relationship_change": 626,
+		"site_incident": 527,
+		"site_reoccupation": 494
+	},
+	"explicit_enabling_edges": 1695,
+	"failures": [],
+	"final_ruined_sites": {
+		"0": 2,
+		"1": 7,
+		"2": 22,
+		"3": 15,
+		"4": 24,
+		"5": 30
+	},
+	"final_structures": 100,
+	"formations": 584,
+	"generation_matches": 100,
+	"initial_and_final_invariant_failures": 0,
+	"max_same_rule_run": 10,
+	"migration_events": 1085,
+	"population_moves": 1768,
+	"random_sample_seeds": [
+		1807263119,
+		1521980171,
+		1665175286,
+		958857423,
+		1977506391
+	],
+	"retirements": 201,
+	"sample_seeds": [
+		1,
+		2,
+		42,
+		1001,
+		10492,
+		1807263119,
+		1521980171,
+		1665175286,
+		958857423,
+		1977506391
+	],
+	"seeds": [
+		1,
+		100
+	],
+	"serialized_replay_matches": 100,
+	"site_ownership_changes": 1505,
+	"stop_reasons": {
+		"event_limit": 100
+	}
+}

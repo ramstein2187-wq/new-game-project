@@ -1,0 +1,61 @@
+# M045 changed files
+
+56 intended files, including this inventory. All paths are repository-relative.
+Existing gameplay/history v2-v5 code, content and prior fixtures remain unchanged.
+
+- `.gitignore`
+- `docs/MILESTONES.md`
+- `docs/ROADMAP.md`
+- `docs/milestones/M045_history_v6_core.md`
+- `docs/reviews/history_v6/WORK_LOG.md`
+- `docs/reviews/history_v6/changed_files.md`
+- `docs/reviews/history_v6/delivery.md`
+- `docs/reviews/history_v6/iterations/phase_a_2.json`
+- `docs/reviews/history_v6/pilot/statistics_100.json`
+- `docs/reviews/history_v6/preservation_before.json`
+- `docs/reviews/history_v6/report.md`
+- `docs/reviews/history_v6/request.md`
+- `docs/reviews/history_v6/samples.md`
+- `docs/reviews/history_v6/statistics_100.json`
+- `docs/reviews/history_v6/statistics_1000.json`
+- `docs/reviews/history_v6/validation.md`
+- `docs/specs/history_generator_v6.md`
+- `docs/wiki/history_generator_v6.md`
+- `game/history/v6/historical_event_log.gd`
+- `game/history/v6/historical_event_log.gd.uid`
+- `game/history/v6/history_engine.gd`
+- `game/history/v6/history_engine.gd.uid`
+- `game/history/v6/history_event.gd`
+- `game/history/v6/history_event.gd.uid`
+- `game/history/v6/history_event_rule.gd`
+- `game/history/v6/history_event_rule.gd.uid`
+- `game/history/v6/history_event_selector.gd`
+- `game/history/v6/history_event_selector.gd.uid`
+- `game/history/v6/history_initial_world.gd`
+- `game/history/v6/history_initial_world.gd.uid`
+- `game/history/v6/history_reducer.gd`
+- `game/history/v6/history_reducer.gd.uid`
+- `game/history/v6/history_world_state.gd`
+- `game/history/v6/history_world_state.gd.uid`
+- `game/history/v6/rules/artifact_transfer.gd`
+- `game/history/v6/rules/artifact_transfer.gd.uid`
+- `game/history/v6/rules/faction_split.gd`
+- `game/history/v6/rules/faction_split.gd.uid`
+- `game/history/v6/rules/migration.gd`
+- `game/history/v6/rules/migration.gd.uid`
+- `game/history/v6/rules/relationship_change.gd`
+- `game/history/v6/rules/relationship_change.gd.uid`
+- `game/history/v6/rules/site_incident.gd`
+- `game/history/v6/rules/site_incident.gd.uid`
+- `game/history/v6/rules/site_reoccupation.gd`
+- `game/history/v6/rules/site_reoccupation.gd.uid`
+- `tests/fixtures/history_v6_legacy.json`
+- `tests/test_history_v6.gd`
+- `tests/test_history_v6.gd.uid`
+- `tests/test_history_v6_legacy.gd`
+- `tests/test_history_v6_legacy.gd.uid`
+- `tools/analyze_history_v6.gd`
+- `tools/analyze_history_v6.gd.uid`
+- `tools/audit_history_v6_preservation.ps1`
+- `tools/verify_history_v6_legacy.gd`
+- `tools/verify_history_v6_legacy.gd.uid`

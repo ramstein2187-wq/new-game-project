@@ -1,0 +1,63 @@
+{
+  "head": "005c7a637695595680d7225c58011a2c0d3f1aa2",
+  "main": "10f6f31cd39f165a7e04c658921056089eb794ef",
+  "branch": "codex/con-hp-scaling",
+  "files": [
+    {
+      "path": "docs/datasets/body_templates.json",
+      "sha256": "6F1FD2C928E8EE17330442A1B7CDAEB986545AE9C2E27A0A9836AA41122F525F"
+    },
+    {
+      "path": "project.godot",
+      "sha256": "E3ED04AF32145EB7071553F92295276C5F53A0CF6ECFBB1C9C091DC9DC83730F"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal Alpha.png.import",
+      "sha256": "C4B1711CCBC750F26ECCC169A97977AFAF908BBD54ABAA61D4016528BBB9FF5F"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Horizontal.png.import",
+      "sha256": "83EA21CB5A700800B91204CACA479E7AC71718BD6CD13768DA056D91B71298DE"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed Alpha.png.import",
+      "sha256": "5E413666C5F9050D7029AA936FE0A9C17300B125C0BA09DEB6838749A6F50304"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Packed.png.import",
+      "sha256": "B1C1E5FF8ABE47886695808C7D1E120CB7C4A21FA811B0607C826961322FB69D"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical Alpha.png.import",
+      "sha256": "4099254E417CF0EEFEEE9DC27AC2D45C47B52FF5824F9978F471AD17855337AF"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 1.0/EverRogueTileset 1.0 Vertical.png.import",
+      "sha256": "A7F3C992DDEB58CB1636D00EBD1800FB90EC8B34FF8AC0E9CB83552FD8C692ED"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal Alpha.png.import",
+      "sha256": "1AE0FA6764D3D03A5741F36CEF40AFD026EE7E18DAE060EC5F2EF4101EFABC18"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Horizontal.png.import",
+      "sha256": "3154B3E109C1E75303C14C17ED32ADF865A7482C14C6BAF16435C9DEA624D6BB"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed Alpha.png.import",
+      "sha256": "C0D565D3BA1E18FE62BAD4EE41F2E42C208196847CC6DDF140ACBE9A2287F2D7"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Packed.png.import",
+      "sha256": "1C2B20C15BC5F7F291185595D5F39D072C1989479051362E5424532F01B9229B"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical Alpha.png.import",
+      "sha256": "B676B50704D4CCAD79CC512885A1A2943D7498B4DBC0ABF1B4140624C6094E26"
+    },
+    {
+      "path": "assets/tilesets/ever_rogue/EverRogueTileset 2.0/EverRogueTileset 2.0 Vertical.png.import",
+      "sha256": "80422168B916BFBECB6036D1EEA4F03EDE45D07CE90B0C7C0F6661E4FDE1C981"
+    }
+  ]
+}

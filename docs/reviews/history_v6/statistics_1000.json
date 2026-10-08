@@ -1,0 +1,123 @@
+{
+	"active_faction_counts": {
+		"2": 10,
+		"3": 72,
+		"4": 199,
+		"5": 246,
+		"6": 473
+	},
+	"adjacent_same_rule": 0,
+	"artifact_changes": 9454,
+	"chain_examples": {
+		"incident_to_reoccupation": {
+			"events": [
+				"event_0007",
+				"event_0009"
+			],
+			"seed": 2
+		},
+		"loss_to_recovery": {
+			"events": [
+				"event_0006",
+				"event_0014"
+			],
+			"seed": 1
+		},
+		"migration_occupation_then_contact_relation": {
+			"events": [
+				"event_0007",
+				"event_0012",
+				"event_0016"
+			],
+			"seed": 4
+		},
+		"migration_to_reoccupation": {
+			"events": [
+				"event_0002",
+				"event_0007"
+			],
+			"seed": 1
+		},
+		"split_contact_to_hostile_takeover": {
+			"events": [
+				"event_0001",
+				"event_0003"
+			],
+			"seed": 1
+		}
+	},
+	"chains": {
+		"incident_to_reoccupation": 1373,
+		"loss_to_recovery": 1981,
+		"migration_occupation_then_contact_relation": 2544,
+		"migration_to_reoccupation": 3455,
+		"split_contact_to_hostile_takeover": 1309
+	},
+	"content_version": "phase_a_3",
+	"count": 1000,
+	"effect_sequences": 1000,
+	"event_counts": {
+		"31": 2,
+		"32": 1,
+		"33": 2,
+		"34": 5,
+		"35": 1,
+		"36": 989
+	},
+	"event_limit": 36,
+	"event_types": {
+		"artifact_transfer_loss": 6482,
+		"faction_split": 3100,
+		"migration": 11942,
+		"relationship_change": 6260,
+		"site_incident": 3567,
+		"site_reoccupation": 4618
+	},
+	"explicit_enabling_edges": 10059,
+	"failures": [],
+	"final_ruined_sites": {
+		"0": 83,
+		"1": 245,
+		"2": 315,
+		"3": 229,
+		"4": 91,
+		"5": 37
+	},
+	"final_structures": 1000,
+	"formations": 4621,
+	"generation_matches": 1000,
+	"initial_and_final_invariant_failures": 0,
+	"max_same_rule_run": 1,
+	"migration_events": 11942,
+	"population_moves": 17459,
+	"random_sample_seeds": [
+		1807263119,
+		1521980171,
+		1665175286,
+		958857423,
+		1977506391
+	],
+	"retirements": 1521,
+	"sample_seeds": [
+		1,
+		2,
+		42,
+		1001,
+		10492,
+		1807263119,
+		1521980171,
+		1665175286,
+		958857423,
+		1977506391
+	],
+	"seeds": [
+		1,
+		1000
+	],
+	"serialized_replay_matches": 1000,
+	"site_ownership_changes": 13406,
+	"stop_reasons": {
+		"cooldown_exhausted": 11,
+		"event_limit": 989
+	}
+}

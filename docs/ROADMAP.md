@@ -26,6 +26,9 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
+- **Complete, task branch only** — M045 independent event-driven history v6 Phase A on `codex/history-generator-v6-core`; six rules, atomic state/replay, 8,516 focused checks, 1,000 matching generation/log replays, full40-script gate and v2–v5 preservation. Default remains v5. [M045](milestones/M045_history_v6_core.md).
+- **Candidate, not implemented** — v6 Phase B: assess group granularity/merging, local physical recovery distinct from technical knowledge, persistent relationship/custody conditions and a small playable-region binding. Address measured saturation/cycles before expanding content. [Findings and recommendations](reviews/history_v6/report.md).
+
 M036–M044 history/culture generation is complete on main at `c64083b` via [PR #50](https://github.com/ramstein2187-wq/new-game-project/pull/50), while the generator remains unconnected to playable world and Actor action execution. M035 naming, M010 retirement and M046 performance contracts were retained.
 
 Snapshot: 2026-10-08. M034 CON-derived Max HP is complete on main at `5c527e2` via PR #42; M035 Procedural Naming v1 is complete on main at `b60d2b9` via PR #43; the Player Experience First decision is on main via PR #44; M010 Micro-AP cleanup is complete on main at `bc2b49f` via PR #46. M033 is complete at `96da962`, M032 at `8245bfa`, M031 at `0b859aa`, M029 at `2216d5b`, M030 at `15e309e`, M028 at `c90bdbd`, M027 at `7c49499`, M024 at `e79ddb1`, M023 at `8d71504`, M022 at `542f534`, and M019 at `b109ffd`. M046 cost-query/effect-order optimization is complete on main at `572cb33` via PR #47. Manual visual/gameplay feel evaluation remains a separate follow-up where applicable.
