@@ -1,8 +1,10 @@
 # Qualitative review — final raw histories
 
 Implementing-agent textual review of generated raw histories, not independent
-human lore/language approval. [Readable five-layer packet](review_packet.md),
-[complete raw ledgers/culture](samples.json), [full readable output](samples.md).
+human lore/language approval. The [readable five-layer packet](review_packet.md)
+and individual review notes remain here. The original complete generated ledgers
+and full readable exports are preserved in Git history at the redesign delivery
+commit rather than duplicated in the current tree.
 No fact was rewritten to manufacture a showcase history. Read Objective History
 → Project/Scar → Projected Present → Faction Identity/Culture → Claims separately.
 

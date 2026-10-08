@@ -28,6 +28,7 @@ Caves of Qud, Dwarf Fortress, RimWorld 등에서 시스템 설계 아이디어�
 - [Monster and skill data catalogs](docs/datasets/)
 - [External references](docs/REFERENCES.md)
 - [Third-party notices](THIRD_PARTY.md)
+- [Repository cleanup and review-artifact retention policy](docs/reviews/2026-10-08-repository-hygiene-audit.md) (v5-derived review branch; not an implemented gameplay change)
 
 사람이 읽기 위한 시스템 위키와 일일 개발일지는 별도의 Notion 프로젝트 위키에도 동기화하고 있으며,
 Git 저장소의 코드와 `docs/` 문서를 구현 상태의 기준으로 사용합니다.

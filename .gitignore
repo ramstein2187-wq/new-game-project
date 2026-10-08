@@ -6,5 +6,17 @@
 __pycache__/
 *.pyc
 
+# Godot generates import sidecars for review screenshots; they are not game assets.
+docs/reviews/*.import
+
+# Generated, reproducible full history/culture sample dumps.
+# Keep curated review packets, evaluations, small statistics, and test fixtures tracked.
+/docs/reviews/history_v4/samples.json
+/docs/reviews/history_v4/samples.md
+/docs/reviews/history_v4_redesign/samples.json
+/docs/reviews/history_v4_redesign/samples.md
+/docs/reviews/social_incidents_v1/samples.json
+/docs/reviews/faction_culture_v1/samples.json
+
 # Documentation diagram imports
 docs/diagrams/*.import

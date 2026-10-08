@@ -45,7 +45,7 @@ biological ancestry. Project and Scar remain different data categories.
 
 See [work log](../reviews/history_v4/WORK_LOG.md),
 [corpus statistics](../reviews/history_v4/statistics.json),
-[raw histories](../reviews/history_v4/samples.md),
+[preserved representative raw-history packet](../reviews/history_v4/review_packet.md),
 [qualitative review](../reviews/history_v4/qualitative_review.md), and
 [delivery](../reviews/history_v4/delivery.md).
 Final: 6,952 focused assertions; all 38 Godot test scripts, import/startup/dataset gate PASS.
