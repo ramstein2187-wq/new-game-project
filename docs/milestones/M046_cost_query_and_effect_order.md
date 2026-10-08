@@ -1,8 +1,8 @@
 # M046 — Cost queries and effect ID order
 
-Status: **Complete on integration branch; main merge pending**.
+Status: **Complete on main** at `572cb33` via PR #47.
 Integration base: `origin/main` `bc2b49f` (PR #46), 2026-10-08 KST.
-Source implementation: `codex/cost-query-and-effect-order` commit `48da660`.
+Source implementation: `codex/cost-query-and-effect-order` commit `48da660`; reintegrated as `chat/m046-cost-query-integration` commit `e9c1616`.
 
 ## Scope and completion criteria
 

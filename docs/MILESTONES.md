@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M046: **Complete on integration branch; main merge pending**. Numeric action-cost queries skip explanation construction while detailed breakdowns retain the shared arithmetic path; EffectStore reuses deterministic read-only sorted effect IDs between mutations. Reintegrated on current main `bc2b49f`; full Godot gate passes all 30 tests and the expanded attributes/effects suite passes 748 assertions. [Cost queries and effect ID order](milestones/M046_cost_query_and_effect_order.md).
+- M046: **Complete on main** at `572cb33` via [PR #47](https://github.com/ramstein2187-wq/new-game-project/pull/47). Numeric action-cost queries skip explanation construction while detailed breakdowns retain the shared arithmetic path; EffectStore reuses deterministic read-only sorted effect IDs between mutations. Latest-main validation passed the full 30-test Godot gate and 748 attributes/effects assertions. [Cost queries and effect ID order](milestones/M046_cost_query_and_effect_order.md).
 
 - M035: **Complete on main** at `b60d2b9` via [PR #43](https://github.com/ramstein2187-wq/new-game-project/pull/43). Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar are integrated; focused 30,266 assertions / 6,000 fixed-seed samples and the full task-branch Godot check passed. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
 
@@ -46,7 +46,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M046 | Complete on integration branch; main merge pending | Numeric cost queries omit explanation work; deterministic effect-ID order is cached between mutations; latest-main 30-test gate and 748 focused assertions pass | `docs/milestones/M046_cost_query_and_effect_order.md` |
+| M046 | Complete on main | Numeric cost queries omit explanation work; deterministic effect-ID order is cached between mutations; PR #47 merged at `572cb33` | `docs/milestones/M046_cost_query_and_effect_order.md` |
 | M035 | Complete on main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; PR #43 merged at `b60d2b9` | `docs/milestones/M035_procedural_naming_v1.md` |
 | M034 | Complete on main | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; PR #42 merged at `5c527e2` | `docs/milestones/M034_con_max_hp.md` |
 | M033 | Complete on main | Semantic domains; one resolved primary modifier per check; explicit alternate only; movement_speed independent; PR #40 merged at `96da962` | `docs/milestones/M033_primary_attribute_runtime.md` |
