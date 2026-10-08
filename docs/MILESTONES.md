@@ -4,9 +4,11 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- M035: **Complete on task branch; not merged main** on `codex/procedural-naming-v1`, base latest fetched `origin/main` `5c527e2`. Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar. Focused 30,266 assertions / 6,000 fixed-seed samples; full 31-test Godot check, offline wiki/spec and layout audits pass. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
+- M046: **Complete on integration branch; main merge pending**. Numeric action-cost queries skip explanation construction while detailed breakdowns retain the shared arithmetic path; EffectStore reuses deterministic read-only sorted effect IDs between mutations. Reintegrated on current main `bc2b49f`; full Godot gate passes all 30 tests and the expanded attributes/effects suite passes 748 assertions. [Cost queries and effect ID order](milestones/M046_cost_query_and_effect_order.md).
 
-- M034: **Complete on task branch; main integration pending** `codex/con-hp-scaling-integration` over main `78ab715`; selectively reintegrates completed `005c7a6` through resolved CON, damage-preserving HP lifecycle and authoritative Overview/export queries. Full Godot check passes all 30 tests/import/startup/export; focused CON/HP 121 and M033 422 assertions pass. Manual visual/play/balance acceptance is separate. [CON derived Max HP](milestones/M034_con_max_hp.md).
+- M035: **Complete on main** at `b60d2b9` via [PR #43](https://github.com/ramstein2187-wq/new-game-project/pull/43). Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar are integrated; focused 30,266 assertions / 6,000 fixed-seed samples and the full task-branch Godot check passed. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
+
+- M034: **Complete on main** at `5c527e2` via [PR #42](https://github.com/ramstein2187-wq/new-game-project/pull/42). Resolved CON derives Max HP with damage-preserving lifecycle and authoritative Overview/export queries; the integration passed the full 30-test Godot gate plus 121 focused CON/HP assertions. Manual visual/play/balance acceptance remains separate. [CON derived Max HP](milestones/M034_con_max_hp.md).
 
 - M033: **Complete on main** at `96da962` via [PR #40](https://github.com/ramstein2187-wq/new-game-project/pull/40). Defines the six semantic domains, a one-primary resolved runtime check with explicit alternates only, and keeps movement_speed independent. Godot 4.7.2 editor parse/startup, all 29 project tests, replay regressions and generated dataset checks passed both before and after integration. [Primary Attribute Runtime Contract](milestones/M033_primary_attribute_runtime.md).
 
@@ -34,7 +36,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 - Baseline before this integration: M016 on `main`; PR #3 merged at `9b92d80` on 2026-09-21.
 - Still planned on `main`: `M002` — Interactive objects and simple state.
-- M010 is a historical 3-AP comparison baseline; its standalone test-room code is retired on the separate cleanup branch, with the experiment preserved in the milestone and Git history. M011 action-cost time is the selected model. M011–M016 code, tests and design documents are on `main`.
+- M010 is an archived historical 3-AP comparison baseline. Its standalone room/test code was retired on `main` at `bc2b49f` via PR #46, while the experiment remains preserved in the milestone and Git history. M011 action-cost time is the selected model. M011–M016 code, tests and design documents are on `main`.
 - M011–M015: automated validation passed; user confirmed manual validation on 2026-09-21 (PR #2, `19ce6d1`). The agent did not perform that manual playthrough.
 - M016: 14 combined automated test scripts passed on the integration branch; user confirmed all M016 manual play checks passed on 2026-09-21. PR #3 was merged into `main` at `9b92d80`. The agent did not perform the manual playthrough; see `docs/milestones/M016_generated_map_combat.md`.
 - World persistence is design only; M002 remains planned. Prototype doors do not complete reusable stateful interaction objects.
@@ -44,8 +46,9 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
-| M035 | Complete on task branch; not merged main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; 30,266 focused assertions and full 31-test check pass | `docs/milestones/M035_procedural_naming_v1.md` |
-| M034 | Complete on task branch; main integration pending | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; full 30-test Godot check passes | `docs/milestones/M034_con_max_hp.md` |
+| M046 | Complete on integration branch; main merge pending | Numeric cost queries omit explanation work; deterministic effect-ID order is cached between mutations; latest-main 30-test gate and 748 focused assertions pass | `docs/milestones/M046_cost_query_and_effect_order.md` |
+| M035 | Complete on main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; PR #43 merged at `b60d2b9` | `docs/milestones/M035_procedural_naming_v1.md` |
+| M034 | Complete on main | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; PR #42 merged at `5c527e2` | `docs/milestones/M034_con_max_hp.md` |
 | M033 | Complete on main | Semantic domains; one resolved primary modifier per check; explicit alternate only; movement_speed independent; PR #40 merged at `96da962` | `docs/milestones/M033_primary_attribute_runtime.md` |
 | M032 | Complete on main; manual acceptance pending | Read-only Character Overview with adaptive Inspector and shared Label/Hint/Final rows; PR #36 merged at `8245bfa` | `docs/milestones/M032_character_overview.md` |
 | M031 | Complete on main | Six attributes, movement speed, minimal Effects/Modifiers and common stat/action-cost breakdown; PR #34 merged at `0b859aa` | `docs/milestones/M031_attributes_effects_foundation.md` |
@@ -68,7 +71,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | M007 | Complete | Namespaced deterministic sub-seeds from one world seed | `docs/milestones/M007_seed_deriver.md` |
 | M008 | Complete | Data-driven procedural generation tuning settings | `docs/milestones/M008_generation_settings.md` |
 | M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
-| M010 | Archived experimental baseline (cleanup branch) | 3-AP turn-model experiment remains documented; standalone room and dedicated test retired | `docs/milestones/M010_micro_ap_test_room.md` |
+| M010 | Archived experimental baseline; cleanup complete on main | 3-AP turn-model experiment remains documented; standalone room and dedicated test retired via PR #46 | `docs/milestones/M010_micro_ap_test_room.md` |
 | M011 | Complete / Selected Model | Action-cost time with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
 | M012 | Complete | Structured combat log for M011 | `docs/milestones/M012_structured_combat_log.md` |
 | M013 | Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
