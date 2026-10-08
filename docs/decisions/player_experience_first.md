@@ -14,6 +14,18 @@ The game's central concern remains:
 
 History, simulation, lore, and procedural complexity are instruments for that player experience, not ends in themselves.
 
+## 월드·맵 설계 철학 — 다섯 가지 지향점
+
+1. **살아 있는 세계:** 세계는 고유한 지리·역사·생태와 질서를 가진다. 존재들은 서로 영향을 주고, 변화는 축적되어 다음 변화의 조건이 된다.
+2. **시스템의 상호작용과 창발:** 이해할 수 있는 공통 규칙들이 풍부하게 결합하도록 한다. 그 결과 미리 작성하지 않은 상황과 이야기가 생겨난다.
+3. **저작과 절차 생성의 조화:** 직접 설계한 특별한 장소·인물·이야기·로어를 절차 생성된 지리와 역사 속에 녹여낸다. 저작의 깊이와 절차적 다양성은 서로를 풍부하게 한다.
+4. **발견과 선택의 즐거움:** 탐험은 장소뿐 아니라 지식·관계·가능성과 해결 방법을 발견하는 과정이다. 플레이어의 능력과 선택이 같은 공간의 의미를 바꾼다.
+5. **플레이어와 세계의 상호 변화:** 플레이어의 행동은 세계에 흔적을 남기고, 세계에서의 경험은 플레이어의 생존 방식과 정체성을 변화시킨다.
+
+**지향하는 경험:** 우리가 들려주고 싶은 이야기, 시스템이 만들어내는 예상 밖의 이야기, 플레이어가 스스로 만들어가는 이야기가 하나의 살아 있는 세계 안에서 만난다.
+
+이 원칙들은 설계 방향이다. 월드·Sector·Zone의 크기와 구조, 역사 생성기와 실제 맵의 연동 및 시뮬레이션 구현은 별도 설계·검증 대상이다.
+
 ## 1. The player is not required to be an archaeologist
 
 The world may be ancient, layered, mysterious, and richly documented. The player character is first a being trying to **survive, explore, act, grow, negotiate, choose, and continue** in that world.
