@@ -1,6 +1,6 @@
 # M010 — Micro-AP Test Room
 
-Status: Paused / Comparison Baseline — implementation complete, retained for comparison with M011
+Status: Historical / Archived Comparison Baseline — experiment was completed in M010; standalone source/scene/test retirement is proposed on the isolated 2026-10-08 cleanup branch. The following sections document the original implementation and historical validation, not current shipped files.
 
 ## Goal
 

@@ -2,7 +2,7 @@
 
 ## Decision
 
-Use the M011 action-cost / next-ready-time model as the game's baseline turn system instead of M010's alternating 3-AP activations. Preserve M010 as a comparison prototype.
+Use the M011 action-cost / next-ready-time model as the game's baseline turn system instead of M010's alternating 3-AP activations. Preserve M010's original experiment, rationale and results as historical documentation in its milestone and Git history; its standalone comparison code has been retired on the cleanup branch.
 
 - Player experience: one intentional action per input, then process world responses until the player's next decision.
 - Simulation: one clock; every scheduled actor has a next-ready time.
