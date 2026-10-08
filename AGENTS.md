@@ -23,17 +23,25 @@ Read task-specific documents only when their information is needed.
 ## Context: Read Only What the Task Needs
 
 1. Follow this file; inspect the Git branch/status and relevant source before editing.
-2. When planning work or checking unfinished scope, consult the **relevant entries**
+2. **Always read `docs/lore/world_canon_v0_1.md` in full before substantive
+   project work. This is mandatory, not subject to selective context loading.**
+   For history, world generation, factions, lore, or content involving world facts,
+   also read `docs/lore/history_generation_contract.md` and relevant contracts.
+3. When planning work or checking unfinished scope, consult the **relevant entries**
    in `docs/ROADMAP.md`, not the entire project history.
-3. Consult `docs/MILESTONES.md` and the specific `docs/milestones/` document
+4. Consult `docs/MILESTONES.md` and the specific `docs/milestones/` document
    when implementing, validating, or integrating milestone work.
-4. Read the relevant `docs/decisions/`, `docs/specs/`, `docs/wiki/`, or
+5. Read the relevant `docs/decisions/`, `docs/specs/`, `docs/wiki/`, or
    `docs/datasets/` files only when the task depends on their contracts.
-5. For a small, well-scoped fix or documentation edit, do not load unrelated
-   roadmaps, milestones, reviews, or historical samples by default.
+6. For a small, well-scoped fix or documentation edit, do not load unrelated
+   roadmaps, milestones, reviews, or historical samples by default. The world
+   canon requirement above still applies.
 
 Verify the actual code, branch, and tests before claiming something is on
 `main` or implemented. A discussion, document, or unmerged branch is not proof.
+Preserve the canon's LOCKED facts, RESERVED unknowns, and distinction between
+objective history and in-world beliefs. Do not invent answers to unresolved lore
+or promote generated/local events into global canon; flag conflicts for review.
 
 ## Documentation: One Source of Truth
 
@@ -41,6 +49,8 @@ Verify the actual code, branch, and tests before claiming something is on
 - `docs/MILESTONES.md` + `docs/milestones/`: milestone index, scope,
   completion evidence, and handoff; completed milestone records stay mostly frozen.
 - `docs/decisions/`: durable choices and design principles.
+- `docs/lore/world_canon_v0_1.md`: mandatory worldbuilding authority; the
+  history generation contract defines allowed facts, mysteries, and beliefs.
 - `docs/specs/`: detailed algorithms, processing order, and data/state contracts.
 - `docs/wiki/`: current, concise system explanations; Git is authoritative
   and the Notion system wiki is derived from these files.
