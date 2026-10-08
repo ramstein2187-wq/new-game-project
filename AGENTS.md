@@ -21,6 +21,11 @@ The project is exploratory and aims toward a CRPG/systemic-roguelike direction. 
 
 Current prototypes are not automatically final architecture.
 
+## Governing Priority — Player Experience First
+
+**History creates the world. Systems create possibilities. The player creates the story.**
+The game is about surviving and acting in a strange world, and choosing what kind of being to become—not obligatorily investigating its past. Treat history, simulation and generated content as means to enjoyable exploration, risk, action, choices, progression and emergent player stories. Before expanding a system, identify what the player can actually do, why they would continue, and what meaningfully changes. Lore should enrich play without being a routine progression gate; generated record counts and abstract hook menus are not substitutes for playable differences. Keep pure atmosphere and unresolved mysteries possible, but prioritize a compelling forward-moving experience over simulation or lore completeness. See `docs/decisions/player_experience_first.md` (project-wide binding decision).
+
 For character and content design, prefer a small shared action grammar with meaningful differentiation through body, origin, traits, equipment, learned abilities, and accumulated change. Progression should emphasize new capabilities and identity as well as numerical growth. See `docs/decisions/player_identity_and_action_design.md`.
 
 ## Engine and Language
