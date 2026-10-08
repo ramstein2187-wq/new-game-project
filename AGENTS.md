@@ -2,196 +2,127 @@
 
 ## Purpose
 
-This file contains only stable project-wide rules for AI-assisted development.
+Stable, repository-wide instructions for AI-assisted development. Keep changing
+implementation status, milestone history, and detailed designs in `docs/`, not here.
+Read task-specific documents only when their information is needed.
 
-Do not turn `AGENTS.md` into a development log, feature specification, or milestone history. Keep changing project context in `docs/` instead.
+## Product Direction
 
-## Project Direction
+- Godot 4.x (currently 4.7), GDScript-first, exploratory solo-developed
+  CRPG/systemic roguelike. Prototypes are not automatically final architecture.
+- **History creates the world. Systems create possibilities. The player creates
+  the story.** Prioritize enjoyable survival, exploration, meaningful action,
+  discovery, growth, and player agency over simulation or lore completeness.
+- Pursue a living world, systemic emergence, authored lore/content alongside
+  procedural variation, discovery and choice, and mutual player/world change.
+- Prefer a small shared action grammar; let body, origin, traits, equipment,
+  abilities, and experience create distinct ways of acting and becoming.
+- Governing decisions: `docs/decisions/player_experience_first.md` and
+  `docs/decisions/player_identity_and_action_design.md`.
 
-This is a Godot 4.x game project, currently using Godot 4.7.
+## Context: Read Only What the Task Needs
 
-The project is exploratory and aims toward a CRPG/systemic-roguelike direction. Favor:
+1. Follow this file; inspect the Git branch/status and relevant source before editing.
+2. **Always read `docs/lore/world_canon_v0_1.md` in full before substantive
+   project work. This is mandatory, not subject to selective context loading.**
+   For history, world generation, factions, lore, or content involving world facts,
+   also read `docs/lore/history_generation_contract.md` and relevant contracts.
+3. When planning work or checking unfinished scope, consult the **relevant entries**
+   in `docs/ROADMAP.md`, not the entire project history.
+4. Consult `docs/MILESTONES.md` and the specific `docs/milestones/` document
+   when implementing, validating, or integrating milestone work.
+5. Read the relevant `docs/decisions/`, `docs/specs/`, `docs/wiki/`, or
+   `docs/datasets/` files only when the task depends on their contracts.
+6. For a small, well-scoped fix or documentation edit, do not load unrelated
+   roadmaps, milestones, reviews, or historical samples by default. The world
+   canon requirement above still applies.
 
-- systemic interactions
-- emergent gameplay
-- simulation-driven mechanics
-- modular systems
-- data-driven content
-- extensibility without premature abstraction
+Verify the actual code, branch, and tests before claiming something is on
+`main` or implemented. A discussion, document, or unmerged branch is not proof.
+Preserve the canon's LOCKED facts, RESERVED unknowns, and distinction between
+objective history and in-world beliefs. Do not invent answers to unresolved lore
+or promote generated/local events into global canon; flag conflicts for review.
 
-Current prototypes are not automatically final architecture.
+## Documentation: One Source of Truth
 
-## Governing Priority — Player Experience First
+- `docs/ROADMAP.md`: planned/candidate work and unfinished follow-ups.
+- `docs/MILESTONES.md` + `docs/milestones/`: milestone index, scope,
+  completion evidence, and handoff; completed milestone records stay mostly frozen.
+- `docs/decisions/`: durable choices and design principles.
+- `docs/lore/world_canon_v0_1.md`: mandatory worldbuilding authority; the
+  history generation contract defines allowed facts, mysteries, and beliefs.
+- `docs/specs/`: detailed algorithms, processing order, and data/state contracts.
+- `docs/wiki/`: current, concise system explanations; Git is authoritative
+  and the Notion system wiki is derived from these files.
+- `docs/datasets/`: documented content values; runtime code/Resources remain
+  authoritative unless a migration explicitly changes that.
+- `docs/reviews/`: version-scoped evidence, not current requirements.
+- Notion development journal: chronological summaries of verified work.
 
-**History creates the world. Systems create possibilities. The player creates the story.**
-The game is about surviving and acting in a strange world, and choosing what kind of being to become—not obligatorily investigating its past. Treat history, simulation and generated content as means to enjoyable exploration, risk, action, choices, progression and emergent player stories. Before expanding a system, identify what the player can actually do, why they would continue, and what meaningfully changes. Lore should enrich play without being a routine progression gate; generated record counts and abstract hook menus are not substitutes for playable differences. Keep pure atmosphere and unresolved mysteries possible, but prioritize a compelling forward-moving experience over simulation or lore completeness. See `docs/decisions/player_experience_first.md` (project-wide binding decision).
+Update only the sources materially affected by the task:
 
-For character and content design, prefer a small shared action grammar with meaningful differentiation through body, origin, traits, equipment, learned abilities, and accumulated change. Progression should emphasize new capabilities and identity as well as numerical growth. See `docs/decisions/player_identity_and_action_design.md`.
+- Record agreed future work in the roadmap (candidate vs. planned). When a
+  substantial implementation starts, create/link a narrow milestone and branch;
+  update its status and the roadmap when validated. Track follow-ups there.
+- Update an existing decision when a durable rule changes; prefer revising an
+  appropriate document over creating a duplicate Markdown file.
+- Update the relevant wiki page when implemented player-visible behavior,
+  architecture, core rules, status, or a meaningful limitation changes.
+- Update the relevant spec for changed algorithms/order/invariants, and the
+  relevant dataset for changed documented content values. Do not invent
+  unmeasured Threat Ratings to fill a catalog.
+- Incidental refactors, small fixes, and documentation-only edits do not
+  automatically require changes across every documentation layer.
+- For a genuinely new wiki system, follow `docs/wiki/README.md` and its TOML
+  front matter. Wiki/Notion synchronization follows Git changes on `main`;
+  do not treat manual Notion body edits as authoritative.
 
-## Engine and Language
+Keep each document focused and link to its authoritative detail instead of
+repeating long explanations in multiple places.
 
-- Prefer GDScript.
-- Use Godot 4.x APIs compatible with the current project version.
-- Prefer Godot-native systems where practical.
-- Do not introduce C# or external dependencies without a concrete technical reason.
+## Safe Changes and Git
 
-## Context and Documentation Workflow
+- Inspect relevant dependencies, current branch, and uncommitted work first.
+  Preserve existing behavior unless the requested work calls for change.
+- Prefer small, reversible edits. Explain significant architectural changes,
+  affected systems, and risks before implementing.
+- Without explicit permission, do not delete existing files, overwrite unrelated
+  work, change files outside this project, or perform broad renames/moves.
+- Never discard work with `git reset --hard`, `git clean -fd`, forced pushes,
+  history rewriting, or destructive worktree operations. Unfamiliar changes and
+  untracked files may be someone's active work.
+- Use dedicated branches/worktrees for substantial implementation:
+  `chat/<topic>`, `codex/<topic>`, or `feature/<topic>`.
+  Avoid overlapping edits by agents in the same checkout.
+- Inspect diff, validate, stage only intended files, commit coherently, and push
+  the task branch for substantial work; report the branch, commit, and limits.
+  Never commit or push directly to `main`, or merge without explicit instruction.
 
-Before substantial work:
+## Engineering and Gameplay
 
-1. Read this file.
-2. Read `docs/ROADMAP.md` for relevant unfinished work and its status.
-3. Read `docs/MILESTONES.md`.
-4. Read only the current/relevant milestone document under `docs/milestones/`.
-5. Read additional architecture or decision documents only when directly relevant.
+- Prefer Godot-native APIs compatible with the project version and GDScript.
+  Add C# or external dependencies only with a concrete technical justification.
+- Favor modular responsibilities, composition, reusable scenes/Resources,
+  data-driven content, and separation of simulation, presentation, input, and UI.
+  Avoid oversized managers, unnecessary autoloads, premature frameworks, and
+  gameplay exceptions where reusable capabilities/effects suffice.
+- Preserve causal reasons for significant AI/system behavior. Let players perceive
+  and sometimes act on those reasons through behavior, logs, inspection, dialogue,
+  or environmental evidence. See
+  `docs/decisions/explainable_systemic_behavior.md`.
+- Prototype to validate an idea before polishing it; keep experiments legible,
+  removable, and separate from decisions about final architecture.
+- Verify original sources and licenses before adding outside code or assets.
+  Record incorporated material in `THIRD_PARTY.md` and research-only references
+  in `docs/REFERENCES.md`; retain required attribution and notices.
 
-Do not load every historical milestone by default.
+## Validation and Handoff
 
-Documentation roles:
-
-- `AGENTS.md`: stable working rules only.
-- `docs/ROADMAP.md`: concise inventory of unfinished features, planned work, exploratory ideas, and links to active work.
-- `docs/MILESTONES.md`: short milestone index and current status.
-- `docs/milestones/`: goal, scope, progress, validation, and handoff notes for each milestone.
-- `docs/decisions/`: long-lived architectural decisions when a milestone decision must survive beyond that milestone.
-- Notion `CRPG 개발 위키 / 개발일지`: chronological daily development summaries generated from verified Git/DevSpace evidence; this is the current daily journal location.
-- `docs/wiki/`: concise current-system documentation mirrored automatically to the Notion CRPG development wiki. Git remains the editable source; Notion is a derived reading surface.
-- `docs/specs/`: algorithm, pipeline, state-model and data-model details with diagrams; mirrored to Notion `상세 설계`.
-- `docs/datasets/`: structured documented monster, skill, body-template, equipment, status/trait, and Threat-measurement values; mirrored to Notion catalog databases. Runtime code/Resources remain authoritative until explicitly migrated to data-driven content.
-- `THIRD_PARTY.md`: license/provenance notices for external code, assets, or other material actually included or redistributed with the repository.
-- `docs/REFERENCES.md`: external repositories and technical material consulted for design/research when their code is not vendored.
-
-Record agreed future features in the roadmap before starting implementation. Mark tentative ideas as candidates rather than committed work. When a feature starts, create or link a narrowly scoped milestone and task branch. On validated completion, update both the roadmap and milestone status; record newly discovered follow-ups in the roadmap rather than expanding completed milestones. Never claim a discussed or branch-specific feature is implemented on `main` without checking its actual code, branch, and validation.
-
-When a milestone is completed, treat its document as mostly frozen. Prefer recording new work in the next milestone instead of continually expanding old documents.
-
-When implementation materially changes a documented system's player-visible behavior, durable architecture, core numeric rules, implementation status, or important limitations, update the relevant `docs/wiki/*.md` page in the same task. If the change alters an algorithm, processing order, state transition, formula, or non-obvious invariant, update the matching `docs/specs/*.md` and diagram in the same task. If it changes or adds documented monster, skill, body-template, equipment, status/trait, or Threat-measurement values, update the appropriate `docs/datasets/*.json` record in the same task. Never invent a Threat Rating merely to fill the catalog; unvalidated derived scores remain null until the documented model and measurement protocol justify them. Do not mark planned or discussed behavior as implemented. Incidental refactors that do not change the system description do not require a wiki edit. New durable systems should get a new wiki Markdown file using the TOML front matter documented in `docs/wiki/README.md`; after the file reaches `main`, the Notion page is discovered or created automatically from its Git source path. The Notion mirror is synchronized from `docs/wiki/` after changes reach `main`; do not treat manual Notion body edits as authoritative.
-
-Keep milestone documents concise enough to serve as efficient context for future sessions.
-
-## General Working Rules
-
-Before modifying the project:
-
-- inspect relevant existing files and dependencies
-- inspect Git status and current branch
-- preserve existing working behavior unless the task requires changing it
-- prefer the smallest reversible change that solves the problem
-- avoid unrelated cleanup or speculative refactors
-
-For large architectural changes, explain the reason, affected systems, and risks before proceeding.
-
-When using external code or assets, verify the upstream source and license before adding them. Record copied, ported, substantially adapted, or redistributed material in `THIRD_PARTY.md`, including the upstream URL, revision/date when practical, license, local files, and modifications. Preserve copyright/license notices required by the upstream license. For research-only repositories whose code is not copied, record material references in `docs/REFERENCES.md` instead. Never assume an asset's or snippet's license from a search result or third-party mirror when an authoritative upstream source is available.
-
-## File Safety
-
-Do not without explicit permission:
-
-- delete existing files
-- overwrite unrelated work
-- modify files outside this project
-- perform broad renames or folder moves
-
-Never assume unfamiliar changes are disposable; they may belong to the user or another agent.
-
-## Git Safety and Workflow
-
-Git is the recovery boundary between user work and AI work.
-
-Never use destructive history/worktree operations such as:
-
-- `git reset --hard`
-- `git clean -fd`
-- force push
-- history rewriting
-- commands that discard unrelated uncommitted work
-
-For substantial implementation work:
-
-1. inspect status and branch
-2. preserve unrelated changes
-3. use a dedicated task branch
-4. implement the requested change
-5. validate it
-6. inspect the final diff
-7. stage only intended files
-8. make a coherent descriptive commit
-9. push the task branch
-10. report branch, commit, validation, and limitations
-
-Branch naming:
-
-- `chat/<topic>` for ChatGPT-owned work
-- `codex/<topic>` for Codex-owned work
-- `feature/<topic>` for tool-agnostic work
-
-Do not automatically commit or push directly to `main`, and do not merge into `main` unless explicitly requested.
-
-Avoid overlapping edits by multiple agents in the same checkout. Use separate branches/worktrees or clear subsystem ownership for parallel work.
-
-## Architecture and Godot Guidelines
-
-Prefer:
-
-- modular systems with clear responsibilities
-- composition over deep inheritance
-- scenes for reusable compositions
-- Resources/data objects for reusable content data
-- signals where loose coupling is useful
-- separation of simulation, presentation, input, and UI
-
-Avoid:
-
-- giant manager classes
-- excessive global state or unnecessary autoloads
-- hard-coded content that should reasonably be data
-- abstractions created only for hypothetical future needs
-
-For gameplay systems, prefer reusable properties, components, tags, effects, or data definitions over isolated scripted exceptions when the added structure is justified by current needs.
-
-## Explainable Systemic Behavior
-
-Systemic depth should be legible to the player, not only present internally.
-
-- Preserve meaningful reasons for important AI decisions and state changes as data instead of discarding them once an action is chosen.
-- Surface those reasons through appropriate player-facing channels such as behavior, animation, dialogue/barks, logs, inspection, or other contextual feedback.
-- Do not require exact internal numbers to be exposed; the player should be able to form a useful explanation from information their character could reasonably observe or learn.
-- Prefer systems where understanding a reason can create a gameplay response: faction hostility, fear, loyalty, revenge, orders, hazards, and similar causes should be manipulable when appropriate.
-- Treat complex simulation that produces no perceivable or meaningful difference for the player as low-value complexity.
-- Keep player-facing explainability and developer-facing decision traces compatible so AI behavior can be debugged from the same underlying reasons.
-
-See `docs/decisions/explainable_systemic_behavior.md` for the durable design rationale.
-
-## Prototyping
-
-The project is still exploratory.
-
-For prototypes:
-
-- validate the idea before polishing it
-- keep code understandable and removable
-- distinguish temporary solutions from intended architecture
-- prefer reversible choices
-- avoid building large generalized frameworks prematurely
-
-## Testing and Validation
-
-After code or scene changes:
-
-- check syntax/parse errors and obvious references
-- run `bash tools/check_godot.sh` when the local Godot installation is available
-- add or update focused automated tests when practical
-- clearly state what was and was not tested
-- explain any remaining manual in-editor or visual checks
-
-Do not claim a change works unless it was actually validated or the limitation is explicitly stated.
-
-## Communication
-
-For non-trivial changes, briefly report:
-
-- what changed and why
-- files/systems affected
-- validation performed
-- important limitations or follow-up work
-- roadmap and milestone documentation updated, when relevant
+- After code/scene changes, check parsing/references and run
+  `bash tools/check_godot.sh` when the local engine is available. Add focused
+  regression tests when practical; disclose manual/in-editor checks not performed.
+- For documentation-only changes, use focused link/metadata checks and
+  `git diff --check`; full gameplay tests are not mandatory without code impact.
+- Never report unexecuted tests as passing. For meaningful work, summarize
+  what changed, why, what was validated, remaining limits, and any relevant
+  documentation/status updates.
