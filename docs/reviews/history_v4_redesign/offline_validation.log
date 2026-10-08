@@ -1,0 +1,5 @@
+OK: 17 specs; body_templates=7, equipment=10, statuses_traits=4, monsters=11, skills=1, threat_ratings=11
+OK: 19 wiki page(s) discovered and metadata validated
+PASS preservation: 12 sidecars, 12 fixtures, revision1 catalog, original HEAD/tracked state and main.
+warning: in the working copy of 'tests/test_history_v4.gd', CRLF will be replaced by LF the next time Git touches it
+PASS staged whitespace for authored files; verbatim request.md excluded because its original two-space Markdown line breaks are intentional.

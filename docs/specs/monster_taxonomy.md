@@ -17,14 +17,22 @@ diagram = "docs/diagrams/monster_taxonomy.svg"
 
 ## 1. 기원 · Origin
 
-- **토착 / Native** — 행성 자연계에서 기원.
-- **관리자 유산 / Imperial Legacy** — 관리자 제국이 직접 남긴 생명체·기계·관련 존재.
-- **심층 / Innerworld** — 일정 심도 이하의 미지 지저권에서 기원했거나 그곳에서 올라온 것으로 분류되는 존재.
-- **인간 제작 / Human-made** — 현 행성 인류가 제작하거나 본질적으로 개조한 존재.
-- **외우주 / Outerworld** — 행성 바깥에서 유입된 존재. 관리자 유산과 별도 분류.
-- **복합 / Composite** — 서로 다른 기원이 본질적으로 결합.
+- **행성 / Planetary** — 행성 자체에 기원을 둔 존재.
+- **인간 계통 / Human-derived** — 인간 원형에서 유래한 계통과 그 제작·개조 계열.
+- **관찰자 / Observer** — 관찰자 문명에서 유래한 유산. 현재 살아 있는 관찰자 문명을 뜻하지 않는다.
+- **심층 / Innerworld** — 미지 지저권에서 기원한 존재.
+- **외우주 / Outerworld** — 행성 밖에서 유입된 존재. Observer와 별도 기원.
 - **불명 / Unknown** — 기원을 특정할 수 없음.
 
+M039 canonical IDs는 `planetary`, `human_derived`, `observer`, `innerworld`, `outerworld`, `unknown`이다.
+영어/한국어 display mapping은 `content/population/origins.json`에서 관리하고 History와
+offline taxonomy checker가 같은 vocabulary를 읽는다. Composite는 독립 Origin이 아니다.
+몬스터의 현재 미분류 Origin은 null로 유지하며 문서 변경으로 설정을 채우지 않는다.
+Mixed society는 다른 single-Origin strata의 공존, multi-Origin lineage는 한 stratum 내부의
+복수 Origin이다. 정치 merge는 strata를 합할 뿐 lineage를 융합하지 않는다.
+Taxonomy에 Origin이 있다고 sapient/social faction membership이 허가되는 것은 아니다.
+명시적 SocialPopulationTemplate이 그 허가를 제공하며 기본 shipping은 human_derived만 사용한다.
+Unknown은 authored 분류 불능 population에만 허용하고 같은 stratum의 known Origin과 결합하지 않는다.
 파생은 Origin에서 제외한다. 장기간 자생화, 자기개조, 계통 분화처럼 원형에서 멀어진 정도는 향후 Trait로 표현한다.
 
 ## 2. 구성 · Composition
@@ -82,6 +90,7 @@ diagram = "docs/diagrams/monster_taxonomy.svg"
 - **심층 / Innerworld** — 일정 심도 이하의 미지 지저권을 가리키는 공식/설정 용어.
 - **the Deep** — 일반인·광부·탐험가 등이 심층을 부르는 현장 용어.
 - **외우주 / Outerworld** — 행성 바깥의 외우주 영역.
+- **관찰자 / the Observers** — 고대 성간 문명을 가리키는 개발상 편의명이며 일부 학자의 현대 분류명. 실제 자칭은 미정이고 일반 주민의 보편어가 아니다.
 - 지저/외우주 존재 전체를 가리키는 별도 현장 속칭은 아직 미정이다.
 
 ## Notion 데이터 구조

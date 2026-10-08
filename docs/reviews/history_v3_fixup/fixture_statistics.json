@@ -1,0 +1,32 @@
+{
+	"catalog_id": "test_synthetic_only",
+	"frequencies": {
+		"joins": 3,
+		"mixed_origin_society_count": 2,
+		"multi_origin_lineage_count": 2,
+		"nonhuman_strata": 19,
+		"subsets": 4
+	},
+	"origin_occurrence": {
+		"human_derived": 28,
+		"innerworld": 12,
+		"observer": 1,
+		"planetary": 4,
+		"unknown": 2
+	},
+	"representative_seeds": [
+		2,
+		3,
+		10
+	],
+	"sample_count": 3,
+	"synthetic_only": true,
+	"template_occurrence": {
+		"fixture_hybrid": 11,
+		"fixture_innerworld": 1,
+		"fixture_local_only": 4,
+		"fixture_observer": 1,
+		"fixture_unknown": 2,
+		"human_baseline": 17
+	}
+}

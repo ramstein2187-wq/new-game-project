@@ -4,6 +4,9 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- **M036–M044 history pipeline:** Implemented and branch-validated in cumulative v5 lineage, reconciled with latest main on this integration branch. Main merge awaits integration PR acceptance and fresh regression checks. History/archaeology contracts are not wired into playable world/Actor actions. [M044](milestones/M044_history_v5_sparse_archaeology.md).
+- **M043 projects/scars redesign:** Eight bounded-outcome Projects and fifteen independent Scars from the v5 lineage are included. [Follow-up](milestones/M043_history_projects_scars_redesign.md).
+
 - M046: **Complete on main** at `572cb33` via [PR #47](https://github.com/ramstein2187-wq/new-game-project/pull/47). Numeric action-cost queries skip explanation construction while detailed breakdowns retain the shared arithmetic path; EffectStore reuses deterministic read-only sorted effect IDs between mutations. Latest-main validation passed the full 30-test Godot gate and 748 attributes/effects assertions. [Cost queries and effect ID order](milestones/M046_cost_query_and_effect_order.md).
 
 - M035: **Complete on main** at `b60d2b9` via [PR #43](https://github.com/ramstein2187-wq/new-game-project/pull/43). Canonical procedural names, native synthetic content, independent SeedDeriver namespaces and en/ko grammar are integrated; focused 30,266 assertions / 6,000 fixed-seed samples and the full task-branch Godot check passed. [Procedural Naming v1](milestones/M035_procedural_naming_v1.md).
@@ -46,6 +49,15 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M044 | Complete on history integration branch; main PR pending | Sparse history v5 / evidence-based archaeology and trace contracts | `docs/milestones/M044_history_v5_sparse_archaeology.md` |
+| M043 | Complete on history integration branch; main PR pending | History v4 + eight Projects and fifteen independent Scars | `docs/milestones/M043_history_generator_v4.md` |
+| M042 | Complete on history integration branch; main PR pending | Objective social incidents and differentiated faction culture | `docs/milestones/M042_social_cultural_incidents.md` |
+| M041 | Complete on history integration branch; main PR pending | History-derived Society Traits, Doctrines and semantic queries | `docs/milestones/M041_faction_culture_doctrines.md` |
+| M040 | Complete on history integration branch; main PR pending | Faction identity, interpretation and evidence-backed Claims | `docs/milestones/M040_faction_identity_interpretation.md` |
+| M039 | Complete on history integration branch; main PR pending | History v3 contract alignment, population strata and social gates | `docs/milestones/M039_history_contract_alignment.md` |
+| M038 | Complete on history integration branch; main PR pending | Variable history topology and population origins | `docs/milestones/M038_history_topology_population.md` |
+| M037 | Complete on history integration branch; main PR pending | Independent historical pressure/response generation v2 | `docs/milestones/M037_history_generation_v2.md` |
+| M036 | Complete on history integration branch; main PR pending | Canon-constrained history prototype | `docs/milestones/M036_history_generator_v0_1.md` |
 | M046 | Complete on main | Numeric cost queries omit explanation work; deterministic effect-ID order is cached between mutations; PR #47 merged at `572cb33` | `docs/milestones/M046_cost_query_and_effect_order.md` |
 | M035 | Complete on main | Canonical proper/semantic/mixed names, locale grammar and numbered administrator facilities; PR #43 merged at `b60d2b9` | `docs/milestones/M035_procedural_naming_v1.md` |
 | M034 | Complete on main | CON/Endurance derived Max HP, preserved damage lifecycle and authoritative Overview/export; PR #42 merged at `5c527e2` | `docs/milestones/M034_con_max_hp.md` |

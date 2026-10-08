@@ -1,0 +1,451 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+# History v5 — seed 42
+Generation5 / architecture3 / play start0
+Topology: no_direct_heir
+
+## Canon boundaries
+Human populations retain authored Origin provenance. Preservator and Observer purposes, consciousness, personhood and boundary outcomes remain unresolved.
+
+## Objective history
+-496 · h_found · A provincial compact pooled local obligations.
+Actors: . Explicit causes: none recorded.
+Fact: {"entity_id":"region","kind":"activate"}
+Fact: {"entity_id":"precursor","kind":"activate"}
+Fact: {"entity_id":"precursor","kind":"population","mode":"seed","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":[]}
+-494 · v4_planning_context · Early field measurements documented terrain, habitation pressure and environmental variation before the undertaking.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"historical_context":"natural","physical_basis":"Early field measurements documented terrain, habitation pressure and environmental variation before the undertaking."},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"project_context","record_type":"capability","reference_id":"precursor"}
+-471 · h_body · A local assembly formed under the regional polity.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"entity_id":"regional_assembly","kind":"activate"}
+-456 · v4_episode_0_0 · Rival administrations began issuing overlapping civic decisions.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"episode_kind":"political_bifurcation","observation":"Rival administrations began issuing overlapping civic decisions.","regional_collapse":false},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"episode_political_bifurcation_0","record_type":"episode","reference_id":"precursor"}
+Observed materials: merged_archives, civic_charter
+-447 · v4_episode_0_1 · Competing offices coexisted; their later political fate is not explained by this episode.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"episode_kind":"political_bifurcation","observation":"Competing offices coexisted; their later political fate is not explained by this episode.","regional_collapse":false},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"episode_political_bifurcation_1","record_type":"episode","reference_id":"precursor"}
+Observed materials: merged_archives, civic_charter
+-381 · v4_episode_1_0 · Maintenance intervals lengthened and access to peripheral districts declined.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"episode_kind":"slow_erosion","observation":"Maintenance intervals lengthened and access to peripheral districts declined.","regional_collapse":false},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"episode_slow_erosion_0","record_type":"episode","reference_id":"precursor"}
+Observed materials: service_junction, cascade_log
+-365 · h_pressure · Persistent high-altitude haze and an unusual radiative season disrupted regional activity. The long-term atmospheric mechanism remains unresolved.
+Actors: precursor, regional_assembly. Explicit causes: none recorded.
+Fact: {"hazard":"none","id":"pressure_site","kind":"ruin","location_id":"region","ruin_kind":"abandoned_hamlet","site_type":"residential"}
+-345 · v4_episode_1_1 · Repeated inspections recorded gradual loss of service reach while central institutions persisted.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"episode_kind":"slow_erosion","observation":"Repeated inspections recorded gradual loss of service reach while central institutions persisted.","regional_collapse":false},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"episode_slow_erosion_1","record_type":"episode","reference_id":"precursor"}
+Observed materials: service_junction, cascade_log
+-323 · v4_episode_2_0 · Repair crews restored a bounded set of affected services.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"episode_kind":"partial_stabilization","observation":"Repair crews restored a bounded set of affected services.","regional_collapse":false},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"episode_partial_stabilization_0","record_type":"episode","reference_id":"precursor"}
+Observed materials: service_junction, cascade_log
+-312 · v4_episode_2_1 · Recorded measurements confirmed partial stabilization without explaining later political changes.
+Actors: precursor. Explicit causes: none recorded.
+Fact: {"data":{"episode_kind":"partial_stabilization","observation":"Recorded measurements confirmed partial stabilization without explaining later political changes.","regional_collapse":false},"entity_id":"precursor","kind":"history_record","project_id":"","record_id":"episode_partial_stabilization_1","record_type":"episode","reference_id":"precursor"}
+Observed materials: service_junction, cascade_log
+-239 · h_collapse · The regional polity ceased to function. Surviving records identify its retirement and abandoned offices; an explanation linking this end to earlier episodes is absent.
+Actors: precursor, regional_assembly. Explicit causes: none recorded.
+Fact: {"entity_id":"precursor","kind":"retire"}
+Fact: {"entity_id":"regional_assembly","kind":"retire"}
+Fact: {"hazard":"none","id":"old_administration","kind":"ruin","location_id":"region","ruin_kind":"administrative_site","site_type":"records"}
+Fact: {"disposition":"untracked","entity_id":"precursor","kind":"population_fate","successor_ids":[],"untracked_template_ids":["human_baseline"]}
+Observed materials: abandoned_office, broken_civic_archive, civic_charter
+-227 · t_root_f_00 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: h_collapse.
+Fact: {"entity_id":"f_00","kind":"activate"}
+Fact: {"entity_id":"f_00","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_00","kind":"activate"}
+Fact: {"entity_id":"home_f_00","kind":"settlement","location_id":"region","owner_id":"f_00"}
+Observed materials: abandoned_office, border_works, civic_charter
+-226 · t_root_f_01 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: h_collapse.
+Fact: {"entity_id":"f_01","kind":"activate"}
+Fact: {"entity_id":"f_01","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_01","kind":"activate"}
+Fact: {"entity_id":"home_f_01","kind":"settlement","location_id":"region","owner_id":"f_01"}
+Observed materials: abandoned_office, border_works, civic_charter
+-225 · t_root_f_02 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: h_collapse.
+Fact: {"entity_id":"f_02","kind":"activate"}
+Fact: {"entity_id":"f_02","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_02","kind":"activate"}
+Fact: {"entity_id":"home_f_02","kind":"settlement","location_id":"region","owner_id":"f_02"}
+Observed materials: abandoned_office, border_works, civic_charter
+-221 · t_failed_0 · A political community ceased to exist, leaving institutional records and an abandoned site; its population origins were not erased from the world.
+Actors: f_00. Explicit causes: t_root_f_00.
+Fact: {"entity_id":"f_00","kind":"retire"}
+Fact: {"disposition":"untracked","entity_id":"f_00","kind":"population_fate","successor_ids":[],"untracked_template_ids":["human_baseline"]}
+Fact: {"entity_id":"home_f_00","kind":"retire"}
+Fact: {"hazard":"none","id":"abandoned_f_00","kind":"ruin","location_id":"region","ruin_kind":"administrative_site","site_type":"records"}
+Observed materials: abandoned_office, border_works, broken_civic_archive
+-220 · t_failed_1 · A political community ceased to exist, leaving institutional records and an abandoned site; its population origins were not erased from the world.
+Actors: f_01. Explicit causes: t_root_f_01.
+Fact: {"entity_id":"f_01","kind":"retire"}
+Fact: {"disposition":"untracked","entity_id":"f_01","kind":"population_fate","successor_ids":[],"untracked_template_ids":["human_baseline"]}
+Fact: {"entity_id":"home_f_01","kind":"retire"}
+Fact: {"hazard":"none","id":"abandoned_f_01","kind":"ruin","location_id":"region","ruin_kind":"administrative_site","site_type":"records"}
+Observed materials: abandoned_office, border_works, broken_civic_archive
+-219 · t_failed_2 · A political community ceased to exist, leaving institutional records and an abandoned site; its population origins were not erased from the world.
+Actors: f_02. Explicit causes: t_root_f_02.
+Fact: {"entity_id":"f_02","kind":"retire"}
+Fact: {"disposition":"untracked","entity_id":"f_02","kind":"population_fate","successor_ids":[],"untracked_template_ids":["human_baseline"]}
+Fact: {"entity_id":"home_f_02","kind":"retire"}
+Fact: {"hazard":"none","id":"abandoned_f_02","kind":"ruin","location_id":"region","ruin_kind":"administrative_site","site_type":"records"}
+Observed materials: abandoned_office, border_works, broken_civic_archive
+-209 · t_root_f_03 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"f_03","kind":"activate"}
+Fact: {"entity_id":"f_03","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_03","kind":"activate"}
+Fact: {"entity_id":"home_f_03","kind":"settlement","location_id":"region","owner_id":"f_03"}
+Observed materials: abandoned_office, border_works, civic_charter
+-208 · t_root_f_04 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"f_04","kind":"activate"}
+Fact: {"entity_id":"f_04","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_04","kind":"activate"}
+Fact: {"entity_id":"home_f_04","kind":"settlement","location_id":"region","owner_id":"f_04"}
+Observed materials: abandoned_office, border_works, civic_charter
+-207 · t_root_f_05 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"f_05","kind":"activate"}
+Fact: {"entity_id":"f_05","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_05","kind":"activate"}
+Fact: {"entity_id":"home_f_05","kind":"settlement","location_id":"region","owner_id":"f_05"}
+Observed materials: abandoned_office, border_works, civic_charter
+-206 · t_root_f_06 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"f_06","kind":"activate"}
+Fact: {"entity_id":"f_06","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_06","kind":"activate"}
+Fact: {"entity_id":"home_f_06","kind":"settlement","location_id":"region","owner_id":"f_06"}
+Observed materials: abandoned_office, border_works, civic_charter
+-205 · t_root_f_07 · A local political community formed from the surviving population; its recorded formation identifies whether it claimed an old office.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"f_07","kind":"activate"}
+Fact: {"entity_id":"f_07","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["precursor"]}
+Fact: {"entity_id":"home_f_07","kind":"activate"}
+Fact: {"entity_id":"home_f_07","kind":"settlement","location_id":"region","owner_id":"f_07"}
+Observed materials: abandoned_office, border_works, civic_charter
+-197 · t_step_00 · Residents reorganized political institutions, recording predecessor offices separately from contributing populations.
+Actors: f_03. Explicit causes: t_root_f_03.
+Fact: {"entity_id":"f_08","kind":"activate"}
+Fact: {"entity_id":"f_08","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["f_03"]}
+Fact: {"entity_id":"home_f_08","kind":"activate"}
+Fact: {"entity_id":"home_f_08","kind":"settlement","location_id":"region","owner_id":"f_08"}
+Fact: {"entity_id":"home_f_03","kind":"site_owner","owner_id":"f_08"}
+Fact: {"entity_id":"f_03","kind":"retire"}
+Fact: {"disposition":"absorbed","entity_id":"f_03","kind":"population_fate","successor_ids":["f_08"],"untracked_template_ids":[]}
+Observed materials: abandoned_office, civic_charter, merged_archives
+-187 · t_step_01 · A population from outside the local political lineage entered the region and established independent institutions.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"cohort_00","kind":"activate"}
+Fact: {"entity_id":"cohort_00","kind":"population","mode":"arrival","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":[]}
+Fact: {"entity_id":"f_09","kind":"activate"}
+Fact: {"entity_id":"f_09","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["cohort_00"]}
+Fact: {"entity_id":"home_f_09","kind":"activate"}
+Fact: {"entity_id":"home_f_09","kind":"settlement","location_id":"region","owner_id":"f_09"}
+Observed materials: arrival_compact, migration_register, old_route
+-176 · t_step_02 · Part of an existing population moved to a new political settlement while its source community continued.
+Actors: f_09. Explicit causes: t_step_01.
+Fact: {"entity_id":"f_10","kind":"activate"}
+Fact: {"entity_id":"f_10","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["f_09"]}
+Fact: {"entity_id":"home_f_10","kind":"activate"}
+Fact: {"entity_id":"home_f_10","kind":"settlement","location_id":"region","owner_id":"f_10"}
+Fact: {"a":"f_09","b":"f_10","delta":15,"kind":"relationship"}
+Observed materials: arrival_compact, migration_register, old_route
+-165 · t_step_03 · A political community ceased to exist, leaving institutional records and an abandoned site; its population origins were not erased from the world.
+Actors: f_06. Explicit causes: t_root_f_06.
+Fact: {"entity_id":"f_06","kind":"retire"}
+Fact: {"disposition":"untracked","entity_id":"f_06","kind":"population_fate","successor_ids":[],"untracked_template_ids":["human_baseline"]}
+Fact: {"entity_id":"home_f_06","kind":"retire"}
+Fact: {"hazard":"none","id":"abandoned_f_06","kind":"ruin","location_id":"region","ruin_kind":"administrative_site","site_type":"records"}
+Observed materials: abandoned_office, border_works, broken_civic_archive
+-155 · t_step_04 · A population from outside the local political lineage entered the region and established independent institutions.
+Actors: region. Explicit causes: none recorded.
+Fact: {"entity_id":"cohort_01","kind":"activate"}
+Fact: {"entity_id":"cohort_01","kind":"population","mode":"arrival","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":[]}
+Fact: {"entity_id":"f_11","kind":"activate"}
+Fact: {"entity_id":"f_11","kind":"population","mode":"inherit","profile":{"strata":[{"origins":["human_derived"],"prevalence":"majority","template_id":"human_baseline"}]},"source_ids":["cohort_01"]}
+Fact: {"entity_id":"home_f_11","kind":"activate"}
+Fact: {"entity_id":"home_f_11","kind":"settlement","location_id":"region","owner_id":"f_11"}
+Observed materials: arrival_compact, migration_register, old_route
+-144 · t_step_05 · A political community ceased to exist, leaving institutional records and an abandoned site; its population origins were not erased from the world.
+Actors: f_04. Explicit causes: t_root_f_04.
+Fact: {"entity_id":"f_04","kind":"retire"}
+Fact: {"disposition":"untracked","entity_id":"f_04","kind":"population_fate","successor_ids":[],"untracked_template_ids":["human_baseline"]}
+Fact: {"entity_id":"home_f_04","kind":"retire"}
+Fact: {"hazard":"none","id":"abandoned_f_04","kind":"ruin","location_id":"region","ruin_kind":"administrative_site","site_type":"records"}
+Observed materials: abandoned_office, border_works, broken_civic_archive
+-134 · h_legacy_preservator · Preservator-era tunnel systems sealed underground access. The underlying purpose is unknown.
+Actors: region. Explicit causes: none recorded.
+Fact: {"activation_reason":"unknown","id":"legacy_preservator","intent":"unknown","kind":"system_trace","operation":"sealed_horizon","physical_basis":"old_tunnel_infrastructure","system_id":"planetary_regulation_network","target_selection_reason":"unknown"}
+Fact: {"data":{"cause":"unknown","intent":"unknown","observations":["successive_route_closures","regional_isolation"],"physical_basis":"old_tunnel_infrastructure","system_provenance":"planetary_regulation_network"},"entity_id":"region","kind":"history_record","project_id":"","record_id":"sealed_horizon","record_type":"pressure","reference_id":"region"}
+-47 · s_00_00_autonomous_machine_conflict · Local autonomous machines fought residents and damaged a service site. Their manufacture and relationship to ancient systems are unclassified; no Preservator, Planetary Regulation Network, or Observer motive is asserted.
+Actors: f_05. Explicit causes: t_root_f_05.
+Fact: {"hazard":"restricted","id":"s_damage_0","kind":"ruin","location_id":"region","ruin_kind":"legacy_damage_site","site_type":"legacy"}
+Fact: {"content_id":"","entity_id":"f_05","kind":"social_record","operation":"observe","record_id":"machine_war","record_type":"scar","reference_id":"f_05"}
+Fact: {"content_id":"","entity_id":"f_05","kind":"social_record","operation":"observe","record_id":"machine_hostility","record_type":"practice","reference_id":"f_05"}
+Observed materials: command_telemetry, maintenance_compact, maintenance_site
+-46 · s_00_01_machine_safety_reform · After the recorded machine harm, residents installed human oversight and kept a public incident record; it did not establish cooperation with those machines.
+Actors: f_05. Explicit causes: t_root_f_05, s_00_00_autonomous_machine_conflict.
+Fact: {"content_id":"","entity_id":"f_05","kind":"social_record","operation":"establish","record_id":"human_oversight","record_type":"institution","reference_id":"f_05"}
+Fact: {"content_id":"","entity_id":"f_05","kind":"social_record","operation":"observe","record_id":"machine_harm_memory","record_type":"practice","reference_id":"f_05"}
+Observed materials: command_telemetry, maintenance_compact, maintenance_site
+-28 · h_relation_0 · Maintainers agreed to share service duties across community boundaries.
+Actors: f_07, f_10. Explicit causes: none recorded.
+Fact: {"a":"f_07","b":"f_10","delta":22,"kind":"relationship"}
+Observed materials: maintenance_compact, maintenance_site
+-26 · h_relation_1 · Communities reopened regional trade and negotiated access obligations.
+Actors: f_09, f_10. Explicit causes: none recorded.
+Fact: {"a":"f_09","b":"f_10","delta":13,"kind":"relationship"}
+Observed materials: old_route, trade_receipt
+-24 · h_relation_2 · Communities negotiated a local alliance without restoring a large central state.
+Actors: f_07, f_08. Explicit causes: none recorded.
+Fact: {"a":"f_07","b":"f_08","delta":22,"kind":"relationship"}
+Observed materials: civic_charter, trade_receipt
+-12 · h_discovery · A fragment was recorded in an old stratum.
+Actors: f_10. Explicit causes: none recorded.
+Fact: {"id":"unknown_object","kind":"discovery","location_id":"region","observation":"stratum_fragment","origin":"unknown"}
+Fact: {"data":{"origin":"unknown","purpose":"unknown","same_person":"unknown"},"entity_id":"f_10","kind":"history_record","project_id":"","record_id":"stratum_fragment","record_type":"discovery","reference_id":"f_10"}
+-5 · h_last · A recent disagreement over local representation renewed a rivalry.
+Actors: f_07, f_10. Explicit causes: none recorded.
+Fact: {"a":"f_07","b":"f_10","delta":-27,"kind":"relationship"}
+Observed materials: border_works, succession_petition
+
+## Historical associations
+v4_episode_0_0 ↔ v4_episode_0_1: same_recorded_episode; this records association only.
+v4_episode_1_0 ↔ v4_episode_1_1: same_recorded_episode; this records association only.
+v4_episode_2_0 ↔ v4_episode_2_1: same_recorded_episode; this records association only.
+
+## Present factions and population
+Davak Reach (f_00), -227..-221; retired; formation=direct_successor; parents=precursor; institutional heir=true; lifestyle=kinship_clan; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Zovak Reach (f_01), -226..-220; retired; formation=direct_successor; parents=precursor; institutional heir=true; lifestyle=religious_authority; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Havak Gate (f_02), -225..-219; retired; formation=direct_successor; parents=precursor; institutional heir=true; lifestyle=refugee_community; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Narin Reach (f_03), -209..-197; retired; formation=reorganization; parents=; institutional heir=false; lifestyle=breakaway_clan; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Ludor Well (f_04), -208..-144; retired; formation=reorganization; parents=; institutional heir=false; lifestyle=village_union; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Bodor Marsh (f_05), -207..present; active; formation=reorganization; parents=; institutional heir=false; lifestyle=religious_authority; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Narin Gate (f_06), -206..-165; retired; formation=reorganization; parents=; institutional heir=false; lifestyle=frontier_settlement_league; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Towen Reach (f_07), -205..present; active; formation=reorganization; parents=; institutional heir=false; lifestyle=regional_commune; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Midor Reach (f_08), -197..present; active; formation=reorganization; parents=f_03; institutional heir=false; lifestyle=village_union; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Fuvak Ruin (f_09), -187..present; active; formation=newcomer_formation; parents=; institutional heir=false; lifestyle=provincial_council; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Navak Reach (f_10), -176..present; active; formation=migration_settlement; parents=f_09; institutional heir=false; lifestyle=kinship_clan; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Zosen Reach (f_11), -155..present; active; formation=newcomer_formation; parents=; institutional heir=false; lifestyle=village_union; population=human_baseline:Human-derived [majority; single-Origin lineage]
+Dasil Ruin (precursor), -496..-239; retired; formation=founding; parents=; institutional heir=true; lifestyle=; population=human_baseline:Human-derived [majority; single-Origin lineage]
+
+## Projects, Scars and current sites
+Ruin: {"hazard":"none","id":"abandoned_f_00","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"administrative_site","site_type":"records","source_event_ids":["t_failed_0"]}
+Ruin: {"hazard":"none","id":"abandoned_f_01","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"administrative_site","site_type":"records","source_event_ids":["t_failed_1"]}
+Ruin: {"hazard":"none","id":"abandoned_f_02","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"administrative_site","site_type":"records","source_event_ids":["t_failed_2"]}
+Ruin: {"hazard":"none","id":"abandoned_f_04","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"administrative_site","site_type":"records","source_event_ids":["t_step_05"]}
+Ruin: {"hazard":"none","id":"abandoned_f_06","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"administrative_site","site_type":"records","source_event_ids":["t_step_03"]}
+Ruin: {"hazard":"none","id":"old_administration","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"administrative_site","site_type":"records","source_event_ids":["h_collapse"]}
+Ruin: {"hazard":"none","id":"pressure_site","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"abandoned_hamlet","site_type":"residential","source_event_ids":["h_pressure"]}
+Ruin: {"hazard":"restricted","id":"s_damage_0","location_id":"region","occupant_id":"","reuse_purpose":"","ruin_kind":"legacy_damage_site","site_type":"legacy","source_event_ids":["s_00_00_autonomous_machine_conflict"]}
+
+## Historical Traces
+trace/h_collapse/abandoned_office: Abandoned political offices [physical] Historical record; source=h_collapse; context=region/physical; current operation unverified.
+trace/h_collapse/broken_civic_archive: Conflicting identity and ownership archives [documentary] Surviving observation; source=h_collapse; context=region/documentary; current operation unverified.
+trace/h_collapse/civic_charter: Recorded civic founding charter [documentary] Surviving observation; source=h_collapse; context=region/documentary; current operation unverified.
+trace/h_last/border_works: Old political boundary works [physical] Historical record; source=h_last; context=region/physical; current operation unverified.
+trace/h_last/succession_petition: Unresolved civic succession petition [institutional] Historical record; source=h_last; context=region/institutional; current operation unverified.
+trace/h_relation_0/maintenance_compact: Current machine maintenance compact [institutional] Historical record; source=h_relation_0; context=region/institutional; current operation unverified.
+trace/h_relation_0/maintenance_site: Machine maintenance worksite [physical] Historical record; source=h_relation_0; context=region/physical; current operation unverified.
+trace/h_relation_1/old_route: Surviving trade route markers [physical] Historical record; source=h_relation_1; context=region/physical; current operation unverified.
+trace/h_relation_1/trade_receipt: Recorded exchange and route receipts [documentary] Surviving observation; source=h_relation_1; context=region/documentary; current operation unverified.
+trace/h_relation_2/civic_charter: Recorded civic founding charter [documentary] Recorded evidence; source=h_relation_2; context=region/documentary; current operation unverified.
+trace/h_relation_2/trade_receipt: Recorded exchange and route receipts [documentary] Historical record; source=h_relation_2; context=region/documentary; current operation unverified.
+trace/s_00_00_autonomous_machine_conflict/command_telemetry: Autonomous behavior telemetry [documentary] Surviving observation; source=s_00_00_autonomous_machine_conflict; context=region/documentary; current operation unverified.
+trace/s_00_00_autonomous_machine_conflict/maintenance_compact: Current machine maintenance compact [institutional] Recorded evidence; source=s_00_00_autonomous_machine_conflict; context=region/institutional; current operation unverified.
+trace/s_00_00_autonomous_machine_conflict/maintenance_site: Machine maintenance worksite [physical] Historical record; source=s_00_00_autonomous_machine_conflict; context=region/physical; current operation unverified.
+trace/s_00_01_machine_safety_reform/command_telemetry: Autonomous behavior telemetry [documentary] Historical record; source=s_00_01_machine_safety_reform; context=region/documentary; current operation unverified.
+trace/s_00_01_machine_safety_reform/maintenance_compact: Current machine maintenance compact [institutional] Surviving observation; source=s_00_01_machine_safety_reform; context=region/institutional; current operation unverified.
+trace/s_00_01_machine_safety_reform/maintenance_site: Machine maintenance worksite [physical] Recorded evidence; source=s_00_01_machine_safety_reform; context=region/physical; current operation unverified.
+trace/t_failed_0/abandoned_office: Abandoned political offices [physical] Recorded evidence; source=t_failed_0; context=region/physical; current operation unverified.
+trace/t_failed_0/border_works: Old political boundary works [physical] Recorded evidence; source=t_failed_0; context=region/physical; current operation unverified.
+trace/t_failed_0/broken_civic_archive: Conflicting identity and ownership archives [documentary] Historical record; source=t_failed_0; context=region/documentary; current operation unverified.
+trace/t_failed_1/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_failed_1; context=region/physical; current operation unverified.
+trace/t_failed_1/border_works: Old political boundary works [physical] Surviving observation; source=t_failed_1; context=region/physical; current operation unverified.
+trace/t_failed_1/broken_civic_archive: Conflicting identity and ownership archives [documentary] Surviving observation; source=t_failed_1; context=region/documentary; current operation unverified.
+trace/t_failed_2/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_failed_2; context=region/physical; current operation unverified.
+trace/t_failed_2/border_works: Old political boundary works [physical] Historical record; source=t_failed_2; context=region/physical; current operation unverified.
+trace/t_failed_2/broken_civic_archive: Conflicting identity and ownership archives [documentary] Historical record; source=t_failed_2; context=region/documentary; current operation unverified.
+trace/t_root_f_00/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_root_f_00; context=region/physical; current operation unverified.
+trace/t_root_f_00/border_works: Old political boundary works [physical] Historical record; source=t_root_f_00; context=region/physical; current operation unverified.
+trace/t_root_f_00/civic_charter: Recorded civic founding charter [documentary] Surviving observation; source=t_root_f_00; context=region/documentary; current operation unverified.
+trace/t_root_f_01/abandoned_office: Abandoned political offices [physical] Recorded evidence; source=t_root_f_01; context=region/physical; current operation unverified.
+trace/t_root_f_01/border_works: Old political boundary works [physical] Surviving observation; source=t_root_f_01; context=region/physical; current operation unverified.
+trace/t_root_f_01/civic_charter: Recorded civic founding charter [documentary] Recorded evidence; source=t_root_f_01; context=region/documentary; current operation unverified.
+trace/t_root_f_02/abandoned_office: Abandoned political offices [physical] Historical record; source=t_root_f_02; context=region/physical; current operation unverified.
+trace/t_root_f_02/border_works: Old political boundary works [physical] Recorded evidence; source=t_root_f_02; context=region/physical; current operation unverified.
+trace/t_root_f_02/civic_charter: Recorded civic founding charter [documentary] Historical record; source=t_root_f_02; context=region/documentary; current operation unverified.
+trace/t_root_f_03/abandoned_office: Abandoned political offices [physical] Historical record; source=t_root_f_03; context=region/physical; current operation unverified.
+trace/t_root_f_03/border_works: Old political boundary works [physical] Recorded evidence; source=t_root_f_03; context=region/physical; current operation unverified.
+trace/t_root_f_03/civic_charter: Recorded civic founding charter [documentary] Surviving observation; source=t_root_f_03; context=region/documentary; current operation unverified.
+trace/t_root_f_04/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_root_f_04; context=region/physical; current operation unverified.
+trace/t_root_f_04/border_works: Old political boundary works [physical] Historical record; source=t_root_f_04; context=region/physical; current operation unverified.
+trace/t_root_f_04/civic_charter: Recorded civic founding charter [documentary] Surviving observation; source=t_root_f_04; context=region/documentary; current operation unverified.
+trace/t_root_f_05/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_root_f_05; context=region/physical; current operation unverified.
+trace/t_root_f_05/border_works: Old political boundary works [physical] Surviving observation; source=t_root_f_05; context=region/physical; current operation unverified.
+trace/t_root_f_05/civic_charter: Recorded civic founding charter [documentary] Recorded evidence; source=t_root_f_05; context=region/documentary; current operation unverified.
+trace/t_root_f_06/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_root_f_06; context=region/physical; current operation unverified.
+trace/t_root_f_06/border_works: Old political boundary works [physical] Recorded evidence; source=t_root_f_06; context=region/physical; current operation unverified.
+trace/t_root_f_06/civic_charter: Recorded civic founding charter [documentary] Historical record; source=t_root_f_06; context=region/documentary; current operation unverified.
+trace/t_root_f_07/abandoned_office: Abandoned political offices [physical] Historical record; source=t_root_f_07; context=region/physical; current operation unverified.
+trace/t_root_f_07/border_works: Old political boundary works [physical] Surviving observation; source=t_root_f_07; context=region/physical; current operation unverified.
+trace/t_root_f_07/civic_charter: Recorded civic founding charter [documentary] Recorded evidence; source=t_root_f_07; context=region/documentary; current operation unverified.
+trace/t_step_00/abandoned_office: Abandoned political offices [physical] Historical record; source=t_step_00; context=region/physical; current operation unverified.
+trace/t_step_00/civic_charter: Recorded civic founding charter [documentary] Historical record; source=t_step_00; context=region/documentary; current operation unverified.
+trace/t_step_00/merged_archives: Merged civic archives [documentary] Recorded evidence; source=t_step_00; context=region/documentary; current operation unverified.
+trace/t_step_01/arrival_compact: Newcomer settlement compact [institutional] Recorded evidence; source=t_step_01; context=region/institutional; current operation unverified.
+trace/t_step_01/migration_register: Registered population arrival [documentary] Surviving observation; source=t_step_01; context=region/documentary; current operation unverified.
+trace/t_step_01/old_route: Surviving trade route markers [physical] Recorded evidence; source=t_step_01; context=region/physical; current operation unverified.
+trace/t_step_02/arrival_compact: Newcomer settlement compact [institutional] Surviving observation; source=t_step_02; context=region/institutional; current operation unverified.
+trace/t_step_02/migration_register: Registered population arrival [documentary] Recorded evidence; source=t_step_02; context=region/documentary; current operation unverified.
+trace/t_step_02/old_route: Surviving trade route markers [physical] Historical record; source=t_step_02; context=region/physical; current operation unverified.
+trace/t_step_03/abandoned_office: Abandoned political offices [physical] Recorded evidence; source=t_step_03; context=region/physical; current operation unverified.
+trace/t_step_03/border_works: Old political boundary works [physical] Historical record; source=t_step_03; context=region/physical; current operation unverified.
+trace/t_step_03/broken_civic_archive: Conflicting identity and ownership archives [documentary] Recorded evidence; source=t_step_03; context=region/documentary; current operation unverified.
+trace/t_step_04/arrival_compact: Newcomer settlement compact [institutional] Surviving observation; source=t_step_04; context=region/institutional; current operation unverified.
+trace/t_step_04/migration_register: Registered population arrival [documentary] Surviving observation; source=t_step_04; context=region/documentary; current operation unverified.
+trace/t_step_04/old_route: Surviving trade route markers [physical] Surviving observation; source=t_step_04; context=region/physical; current operation unverified.
+trace/t_step_05/abandoned_office: Abandoned political offices [physical] Surviving observation; source=t_step_05; context=region/physical; current operation unverified.
+trace/t_step_05/border_works: Old political boundary works [physical] Historical record; source=t_step_05; context=region/physical; current operation unverified.
+trace/t_step_05/broken_civic_archive: Conflicting identity and ownership archives [documentary] Historical record; source=t_step_05; context=region/documentary; current operation unverified.
+trace/v4_episode_0_0/civic_charter: Recorded civic founding charter [documentary] Surviving observation; source=v4_episode_0_0; context=region/documentary; current operation unverified.
+trace/v4_episode_0_0/merged_archives: Merged civic archives [documentary] Surviving observation; source=v4_episode_0_0; context=region/documentary; current operation unverified.
+trace/v4_episode_0_1/civic_charter: Recorded civic founding charter [documentary] Recorded evidence; source=v4_episode_0_1; context=region/documentary; current operation unverified.
+trace/v4_episode_0_1/merged_archives: Merged civic archives [documentary] Historical record; source=v4_episode_0_1; context=region/documentary; current operation unverified.
+trace/v4_episode_1_0/cascade_log: Dependent service failure log [documentary] Historical record; source=v4_episode_1_0; context=region/documentary; current operation unverified.
+trace/v4_episode_1_0/service_junction: Damaged service dependency junction [physical] Recorded evidence; source=v4_episode_1_0; context=region/physical; current operation unverified.
+trace/v4_episode_1_1/cascade_log: Dependent service failure log [documentary] Recorded evidence; source=v4_episode_1_1; context=region/documentary; current operation unverified.
+trace/v4_episode_1_1/service_junction: Damaged service dependency junction [physical] Historical record; source=v4_episode_1_1; context=region/physical; current operation unverified.
+trace/v4_episode_2_0/cascade_log: Dependent service failure log [documentary] Recorded evidence; source=v4_episode_2_0; context=region/documentary; current operation unverified.
+trace/v4_episode_2_0/service_junction: Damaged service dependency junction [physical] Recorded evidence; source=v4_episode_2_0; context=region/physical; current operation unverified.
+trace/v4_episode_2_1/cascade_log: Dependent service failure log [documentary] Historical record; source=v4_episode_2_1; context=region/documentary; current operation unverified.
+trace/v4_episode_2_1/service_junction: Damaged service dependency junction [physical] Recorded evidence; source=v4_episode_2_1; context=region/physical; current operation unverified.
+
+## Major playable questions
+question/old_boundary [recoverable_fact] Which surviving works mark the recorded older boundary?
+Evidence (need3, two sources and contexts): trace/h_collapse/abandoned_office, trace/h_relation_2/civic_charter, trace/h_last/border_works
+Remaining: Evidence does not settle unrecorded motives, missing originals or reserved Canon.
+Interaction: align_archive_fragments [artifact_comparison] target=trace/h_collapse/abandoned_office; context=region/physical; runtime requirements=; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: compare_civic_seals [artifact_comparison] target=trace/h_collapse/abandoned_office; context=region/physical; runtime requirements=; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: inspect_service_dependency [technical_inspection] target=trace/h_last/border_works; context=region/physical; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: match_wreck_fragments [artifact_comparison] target=trace/h_last/border_works; context=region/physical; runtime requirements=; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: cross_contested_site [combat] target=trace/h_last/border_works; context=region/physical; runtime requirements=hostile_occupants, combat_ready; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: dismantle_evidence_hazard [destruction_preservation] target=trace/h_last/border_works; context=region/physical; runtime requirements=evidence_handling_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: barter_archive_fragment [trade] target=trace/h_relation_2/civic_charter; context=region/documentary; runtime requirements=trade_access; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: inspect_service_dependency [technical_inspection] target=trace/h_relation_2/civic_charter; context=region/documentary; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: read_telemetry [technical_inspection] target=trace/h_relation_2/civic_charter; context=region/documentary; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+After corroboration: new_location_access (consumer proposal; history unchanged).
+After corroboration: preserve_evidence (consumer proposal; history unchanged).
+After corroboration: keep_information_secret (consumer proposal; history unchanged).
+After corroboration: challenge_claim (consumer proposal; history unchanged).
+After corroboration: support_claim (consumer proposal; history unchanged).
+After corroboration: reveal_custody (consumer proposal; history unchanged).
+After corroboration: transfer_archive (consumer proposal; history unchanged).
+After corroboration: alter_access_rights (consumer proposal; history unchanged).
+question/service_dependency [recoverable_fact] Which failed junction controlled access to other services?
+Evidence (need3, two sources and contexts): trace/v4_episode_1_0/cascade_log, trace/v4_episode_1_1/service_junction, trace/v4_episode_2_0/cascade_log, trace/v4_episode_2_1/cascade_log, trace/v4_episode_1_0/service_junction
+Remaining: Evidence does not settle unrecorded motives, missing originals or reserved Canon.
+Interaction: extract_guarded_telemetry [theft] target=trace/v4_episode_1_0/cascade_log; context=region/documentary; runtime requirements=restricted_access, theft_ready; access=covert; engine status=consumer_hook
+Interaction: arbitrate_access_dispute [negotiation] target=trace/v4_episode_1_0/cascade_log; context=region/documentary; runtime requirements=dialogue_access; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: steal_restricted_register [theft] target=trace/v4_episode_1_0/cascade_log; context=region/documentary; runtime requirements=restricted_access, theft_ready; access=covert; engine status=consumer_hook
+Interaction: challenge_machine_handshake [machine_interaction] target=trace/v4_episode_1_0/service_junction; context=region/physical; runtime requirements=safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: drain_document_chamber [environmental_manipulation] target=trace/v4_episode_1_0/service_junction; context=region/physical; runtime requirements=environmental_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: patch_local_sensor [repair_reactivation] target=trace/v4_episode_1_0/service_junction; context=region/physical; runtime requirements=repair_tools, safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: repair_reading_head [repair_reactivation] target=trace/v4_episode_1_0/service_junction; context=region/physical; runtime requirements=repair_tools, safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: verify_interface [technical_inspection] target=trace/v4_episode_1_1/service_junction; context=region/physical; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: align_archive_fragments [artifact_comparison] target=trace/v4_episode_1_1/service_junction; context=region/physical; runtime requirements=; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: seal_evidence_in_place [destruction_preservation] target=trace/v4_episode_1_1/service_junction; context=region/physical; runtime requirements=evidence_handling_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: earn_archive_permit [faction_access] target=trace/v4_episode_2_0/cascade_log; context=region/documentary; runtime requirements=faction_contact; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: redact_personal_identifiers [evidence_disclosure] target=trace/v4_episode_2_0/cascade_log; context=region/documentary; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: return_ancestral_object [faction_access] target=trace/v4_episode_2_0/cascade_log; context=region/documentary; runtime requirements=faction_contact; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: verify_interface [technical_inspection] target=trace/v4_episode_2_0/cascade_log; context=region/documentary; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: arbitrate_access_dispute [negotiation] target=trace/v4_episode_2_1/cascade_log; context=region/documentary; runtime requirements=dialogue_access; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: steal_restricted_register [theft] target=trace/v4_episode_2_1/cascade_log; context=region/documentary; runtime requirements=restricted_access, theft_ready; access=covert; engine status=consumer_hook
+After corroboration: new_location_access (consumer proposal; history unchanged).
+After corroboration: preserve_evidence (consumer proposal; history unchanged).
+After corroboration: keep_information_secret (consumer proposal; history unchanged).
+After corroboration: machine_bypass (consumer proposal; history unchanged).
+After corroboration: facility_activation (consumer proposal; history unchanged).
+After corroboration: facility_shutdown (consumer proposal; history unchanged).
+After corroboration: dialogue_evidence (consumer proposal; history unchanged).
+After corroboration: usable_machinery (consumer proposal; history unchanged).
+question/maintenance_rights [contested_interpretation] Who may inspect or maintain the recorded machinery?
+Evidence (need3, two sources and contexts): trace/h_relation_0/maintenance_compact, trace/s_00_00_autonomous_machine_conflict/maintenance_site, trace/s_00_01_machine_safety_reform/maintenance_compact, trace/h_relation_0/maintenance_site, trace/s_00_00_autonomous_machine_conflict/maintenance_compact
+Remaining: Evidence does not settle unrecorded motives, missing originals or reserved Canon.
+Interaction: challenge_machine_handshake [machine_interaction] target=trace/h_relation_0/maintenance_compact; context=region/institutional; runtime requirements=safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: share_corroborated_dossier [evidence_disclosure] target=trace/h_relation_0/maintenance_compact; context=region/institutional; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: duplicate_record_unnoticed [stealth] target=trace/h_relation_0/maintenance_site; context=region/physical; runtime requirements=restricted_access, stealth_ready; access=covert; engine status=consumer_hook
+Interaction: follow_old_border [exploration] target=trace/h_relation_0/maintenance_site; context=region/physical; runtime requirements=; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: patch_local_sensor [repair_reactivation] target=trace/s_00_00_autonomous_machine_conflict/maintenance_compact; context=region/institutional; runtime requirements=repair_tools, safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: run_limited_array_test [controlled_activation] target=trace/s_00_00_autonomous_machine_conflict/maintenance_compact; context=region/institutional; runtime requirements=technical_tools, safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: share_archive_custody [custody_choice] target=trace/s_00_00_autonomous_machine_conflict/maintenance_compact; context=region/institutional; runtime requirements=custody_authority; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: return_ancestral_object [faction_access] target=trace/s_00_00_autonomous_machine_conflict/maintenance_compact; context=region/institutional; runtime requirements=faction_contact; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: seal_evidence_in_place [destruction_preservation] target=trace/s_00_00_autonomous_machine_conflict/maintenance_site; context=region/physical; runtime requirements=evidence_handling_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: match_wreck_fragments [artifact_comparison] target=trace/s_00_00_autonomous_machine_conflict/maintenance_site; context=region/physical; runtime requirements=; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: read_telemetry [technical_inspection] target=trace/s_00_00_autonomous_machine_conflict/maintenance_site; context=region/physical; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: challenge_machine_handshake [machine_interaction] target=trace/s_00_01_machine_safety_reform/maintenance_compact; context=region/institutional; runtime requirements=safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: contest_custody_rights [custody_choice] target=trace/s_00_01_machine_safety_reform/maintenance_compact; context=region/institutional; runtime requirements=custody_authority; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: publish_policy_evidence [evidence_disclosure] target=trace/s_00_01_machine_safety_reform/maintenance_compact; context=region/institutional; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: run_limited_array_test [controlled_activation] target=trace/s_00_01_machine_safety_reform/maintenance_compact; context=region/institutional; runtime requirements=technical_tools, safe_isolation; access=authorized, negotiated, contested; engine status=consumer_hook
+After corroboration: new_location_access (consumer proposal; history unchanged).
+After corroboration: preserve_evidence (consumer proposal; history unchanged).
+After corroboration: keep_information_secret (consumer proposal; history unchanged).
+After corroboration: machine_bypass (consumer proposal; history unchanged).
+After corroboration: facility_activation (consumer proposal; history unchanged).
+After corroboration: facility_shutdown (consumer proposal; history unchanged).
+After corroboration: dialogue_evidence (consumer proposal; history unchanged).
+After corroboration: usable_machinery (consumer proposal; history unchanged).
+question/civic_identity [contested_interpretation] Can the conflicting civic credentials establish an original title?
+Evidence (need3, two sources and contexts): trace/h_collapse/broken_civic_archive, trace/h_last/succession_petition, trace/t_failed_0/broken_civic_archive, trace/t_failed_1/broken_civic_archive, trace/t_failed_2/broken_civic_archive
+Remaining: Evidence does not settle unrecorded motives, missing originals or reserved Canon.
+Interaction: petition_archive_custodian [negotiation] target=trace/h_collapse/broken_civic_archive; context=region/documentary; runtime requirements=dialogue_access; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: earn_archive_permit [faction_access] target=trace/h_collapse/broken_civic_archive; context=region/documentary; runtime requirements=faction_contact; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: read_telemetry [technical_inspection] target=trace/h_collapse/broken_civic_archive; context=region/documentary; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: arbitrate_access_dispute [negotiation] target=trace/h_collapse/broken_civic_archive; context=region/documentary; runtime requirements=dialogue_access; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: share_archive_custody [custody_choice] target=trace/h_last/succession_petition; context=region/institutional; runtime requirements=custody_authority; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: redact_personal_identifiers [evidence_disclosure] target=trace/h_last/succession_petition; context=region/institutional; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: share_corroborated_dossier [evidence_disclosure] target=trace/h_last/succession_petition; context=region/institutional; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: publish_policy_evidence [evidence_disclosure] target=trace/t_failed_0/broken_civic_archive; context=region/documentary; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: inspect_service_dependency [technical_inspection] target=trace/t_failed_0/broken_civic_archive; context=region/documentary; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: verify_interface [technical_inspection] target=trace/t_failed_1/broken_civic_archive; context=region/documentary; runtime requirements=technical_tools; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: arbitrate_access_dispute [negotiation] target=trace/t_failed_1/broken_civic_archive; context=region/documentary; runtime requirements=dialogue_access; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: redact_personal_identifiers [evidence_disclosure] target=trace/t_failed_2/broken_civic_archive; context=region/documentary; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+Interaction: publish_policy_evidence [evidence_disclosure] target=trace/t_failed_2/broken_civic_archive; context=region/documentary; runtime requirements=disclosure_channel; access=authorized, negotiated, contested; engine status=consumer_hook
+After corroboration: new_location_access (consumer proposal; history unchanged).
+After corroboration: preserve_evidence (consumer proposal; history unchanged).
+After corroboration: keep_information_secret (consumer proposal; history unchanged).
+After corroboration: challenge_claim (consumer proposal; history unchanged).
+After corroboration: support_claim (consumer proposal; history unchanged).
+After corroboration: reveal_custody (consumer proposal; history unchanged).
+After corroboration: transfer_archive (consumer proposal; history unchanged).
+After corroboration: alter_access_rights (consumer proposal; history unchanged).
+Minor discoveries without major question: 62
+
+## Current interpretations (Claims)
+f_05 about t_root_f_05: Our recorded institutions bind shared obligations; our interpretation does not determine the world's hidden causes.
+f_05 about h_pressure: Regional losses remain a warning to our households.
+f_05 about h_discovery: Similarities invite competing explanations; no record identifies an original person or proves an external origin.
+f_07 about t_root_f_07: Our recorded institutions bind shared obligations; our interpretation does not determine the world's hidden causes.
+f_07 about h_pressure: The same regional losses are remembered as a reason to rebuild and venture again.
+f_07 about h_discovery: Some call the recovered patterns sacred signs; that belief does not establish their origin.
+f_08 about t_step_00: Our recorded institutions bind shared obligations; our interpretation does not determine the world's hidden causes.
+f_08 about h_pressure: Regional losses remain a warning to our households.
+f_08 about h_discovery: Similarities invite competing explanations; no record identifies an original person or proves an external origin.
+f_09 about t_step_01: Our recorded institutions bind shared obligations; our interpretation does not determine the world's hidden causes.
+f_09 about h_pressure: Regional losses remain a warning to our households.
+f_09 about h_discovery: Similarities invite competing explanations; no record identifies an original person or proves an external origin.
+f_10 about t_step_02: Our recorded institutions bind shared obligations; our interpretation does not determine the world's hidden causes.
+f_10 about h_pressure: The same regional losses are remembered as a reason to rebuild and venture again.
+f_10 about h_discovery: We debate safe access and possible uses of the recorded object; usefulness does not identify its maker or settle personhood.
+f_11 about t_step_04: Our recorded institutions bind shared obligations; our interpretation does not determine the world's hidden causes.
+f_11 about h_pressure: The same regional losses are remembered as a reason to rebuild and venture again.
+f_11 about h_discovery: We debate safe access and possible uses of the recorded object; usefulness does not identify its maker or settle personhood.
+
+Validation: {"determinism":"pass","errors":[],"scars":{"causal_ratio":0.972222222222222,"direct_count":35,"important_events":36},"warnings":[]}

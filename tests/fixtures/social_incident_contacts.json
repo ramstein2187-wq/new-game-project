@@ -1,0 +1,11 @@
+{
+  "id": "social-contacts-m042-test-only",
+  "test_synthetic_only": true,
+  "lineages": [
+    {"id": "fixture_human_a", "origin": "human_derived", "author_approved": true, "adaptation_authorized": true},
+    {"id": "fixture_human_b", "origin": "human_derived", "author_approved": true, "adaptation_authorized": false}
+  ],
+  "contacts": [
+    {"id": "fixture_semi_sapient_contact", "author_approved": true, "historical_contact": true}
+  ]
+}

@@ -1,0 +1,136 @@
+class_name CanonPolicy
+extends RefCounted
+
+# Runtime snapshot keys below are frozen by the history-v2 replay contract. The legacy
+# core_* vocabulary is serialization compatibility only; do not use it as current lore/display terminology.
+const LOCKED := {
+	"human_origin": "Earth Homo sapiens", "human_lineages": "multiple modified lineages",
+	"modern_origin_knowledge": "mostly lost", "system_age": "about 1.35 billion Earth years",
+	"original_habitability": "unsuitable for humans", "planetary_environment_modification": true,
+	"observers_existed": true, "observer_role": "observe preserve constrain civilization",
+	"observer_system": "closed", "observer_civilization": "gone", "observer_term": "developer and modern scholarly classification, not self-name",
+	"core_and_some_management_systems": "remain", "external_shield": "mostly lost",
+	"residual_orbital_assets": "may remain and act rarely", "remaining_systems": "not one unified current AI",
+	"core_capabilities": "bounded existing infrastructure and local boundary conditions",
+	"outerworld_arrivals": "rare possible", "outerworld": "origin category, not a single polity or Observer",
+	"past_great_states": true, "present_politics": "fragmented after collapse",
+	"faction_knows_all_truth": false, "major_regular_moons": 4, "tides": "strong complex predictable cycles",
+}
+const RESERVED := ["human_arrival", "first_terraformer", "observer_self_name", "observer_political_system",
+	"observer_origin", "observer_disappearance", "pre_observer_intervention", "core_intent", "core_intervention_purpose",
+	"orbital_activation_reason", "orbital_target_selection_reason", "original_command_hierarchy",
+	"complete_ancient_chronology", "modern_atmosphere_composition", "complete_human_lineage_history",
+	"outerworld_civilizations", "global_collapse_cause", "rings", "core_tidal_energy"]
+const GENERATABLE := ["regional_polities", "dynasties", "founding", "war", "civil_war", "famine", "migration",
+	"schism", "alliance", "betrayal", "settlement", "local_disaster", "ruin_reoccupation", "refugees",
+	"successors", "local_territory", "buried_facility_discovery", "small_anomalous_discovery",
+	"rare_orbital_legacy", "bounded_core_intervention"]
+const BELIEF_ONLY := ["human_origin", "observer_character", "first_terraformer", "world_creation",
+	"core_intent", "outerworld_identity", "global_collapse_cause", "legitimate_successor",
+	"orbital_activation_reason", "orbital_target_selection_reason"]
+
+# Canonical nomenclature for new lore, UI and future schema versions.
+const PRESERVATOR_TERMINOLOGY := {
+	"top_level": "The Preservator",
+	"planetary_network": "Planetary Regulation Network",
+	"environmental_module": "Environmental Regulation Module",
+	"regional_facility": "Regional Control Station",
+	"regulation_node": "Regulation Node",
+	"control_node": "Control Node",
+	"observer_era_visibility": "largely concealed from human societies",
+	"post_observer_visibility": "gradually exposed as concealment, maintenance and access control fail",
+}
+const ENTITY_KINDS := ["region", "precursor_state", "group", "faction", "settlement"]
+const WAYS_OF_LIFE := [""] + HistoryMotifs.SUCCESSOR_A + HistoryMotifs.SUCCESSOR_B + HistoryMotifs.FORMATION_C
+const KNOWLEDGE_TAGS := ["observer_scholarly_term"]
+const RUIN_KINDS := ["abandoned_farmland", "damaged_route", "chemical_exposure_site", "abandoned_hamlet",
+	"abandoned_archive", "battlefield", "administrative_site", "watchtower", "legacy_damage_site"]
+const OBSERVATIONS := ["machine_in_coastal_crater", "object_in_mineral_layer", "unfamiliar_manufacturing",
+	"sealed_object_in_erosion", "fragment_in_old_stratum", "unidentified_surface_wreckage"]
+# NOTE: history-v3 still serializes the legacy domain id "core_intervention" for replay compatibility.
+# Player-facing and new lore/code prose must call this Preservator / Planetary Regulation Network activity.
+const DOMAINS := ["natural", "human", "observer_legacy", "core_intervention", "unknown"]
+const EFFECT_FIELDS := {
+	"activate": ["kind", "entity_id"], "retire": ["kind", "entity_id"],
+	"settlement": ["kind", "entity_id", "owner_id", "location_id"],
+	"ruin": ["kind", "id", "ruin_kind", "location_id"],
+	"relationship": ["kind", "a", "b", "delta"],
+	"reoccupy": ["kind", "ruin_id", "owner_id", "settlement_id"],
+	"discovery": ["kind", "id", "location_id", "observation", "origin"],
+	"system_trace": ["kind", "id", "system_id", "operation", "physical_basis", "intent", "activation_reason", "target_selection_reason"],
+	"population": ["kind", "entity_id", "profile", "source_ids", "mode"],
+	"population_fate": ["kind", "entity_id", "disposition", "successor_ids", "untracked_template_ids"],
+	"site_owner": ["kind", "entity_id", "owner_id"],
+}
+const NARRATIVES := HistoryMotifs.NARRATIVES
+
+static func snapshot() -> Dictionary:
+	return {"locked": LOCKED.duplicate(true), "reserved": RESERVED.duplicate(),
+		"generatable": GENERATABLE.duplicate(), "belief_only": BELIEF_ONLY.duplicate()}
+
+static func narrative(event: HistoricalEvent) -> String:
+	if event.event_type == HistoricalEvent.Type.HISTORY_RECORD or event.narrative_key.begins_with("discovery_"):
+		if event.narrative_key == "history_custody":
+			return "A current polity registered custody of surviving records and access; archival inheritance does not imply biological descent."
+		return HistoryV4Catalog.new().definition(event.narrative_key).get("narrative", "INVALID V4 NARRATIVE")
+	var legacy_key: String = HistoryV4Compatibility.translate_ids(event.narrative_key, true)
+	if legacy_key != event.narrative_key and NARRATIVES.has(legacy_key):
+		return str(NARRATIVES[legacy_key][1]).replace("Core-associated", "Preservator-era").replace("Deep Core", "Planetary Regulation Network")
+	if event.event_type == HistoricalEvent.Type.SOCIAL_INCIDENT:
+		return str(SocialIncidentCatalog.new().definition(HistoryV4Compatibility.translate_ids(event.narrative_key,true)).get("narrative", "INVALID SOCIAL NARRATIVE"))
+	if event.narrative_key == "mass_exodus":
+		return NARRATIVES.evacuation[1]
+	return NARRATIVES.get(event.narrative_key, ["", "INVALID NARRATIVE"])[1]
+
+static func effect_errors(effect: Dictionary, version: int = 2) -> Array[String]:
+	var errors: Array[String] = []
+	var kind: String = str(effect.get("kind", ""))
+	if kind == "social_record":
+		return SocialIncidentCatalog.record_errors(effect) if version == 3 else ["Unknown v2 objective effect: social_record"]
+	if not EFFECT_FIELDS.has(kind):
+		return ["Unknown objective effect: " + kind]
+	var fields: Array = EFFECT_FIELDS[kind].duplicate()
+	if version == 2 and kind in ["population", "population_fate", "site_owner"]:
+		return ["Unknown v2 objective effect: " + kind]
+	if version == 3 and kind == "ruin":
+		fields.append_array(["site_type", "hazard"])
+	if version == 3 and kind == "reoccupy":
+		fields.append("purpose")
+	for field in fields:
+		if not effect.has(field):
+			errors.append("Missing objective effect field: " + field)
+	for field in effect:
+		if field not in fields:
+			errors.append("Forbidden objective fact field: " + str(field))
+	for field in fields:
+		if field in ["delta", "profile", "source_ids", "successor_ids", "untracked_template_ids"] or not effect.has(field):
+			continue
+		if not effect[field] is String or effect[field].is_empty():
+			errors.append("Effect field must be a nonempty String: " + field)
+	if kind == "relationship" and (not effect.get("delta") is int or absi(int(effect.get("delta", 0))) > 100):
+		errors.append("Relationship delta must be an integer in -100..100")
+	if kind == "ruin" and effect.get("ruin_kind") not in RUIN_KINDS:
+		errors.append("Unknown ruin kind")
+	if kind == "discovery":
+		if effect.get("origin") != "unknown":
+			errors.append("Generic discovery cannot resolve origin or a RESERVED mystery")
+		if effect.get("observation") not in OBSERVATIONS:
+			errors.append("Unknown objective observation")
+	if kind == "system_trace":
+		for field: String in ["intent", "activation_reason", "target_selection_reason"]:
+			if effect.get(field) != "unknown":
+				errors.append("RESERVED system reason resolved: " + field)
+	if kind == "population":
+		if not effect.get("profile") is Dictionary:
+			errors.append("Population profile must be a dictionary")
+		for field in ["source_ids"]:
+			if not effect.get(field) is Array or not effect[field].all(func(value: Variant) -> bool: return value is String and not value.is_empty()):
+				errors.append("Population field must be a String array: " + field)
+		if effect.get("mode") not in ["seed", "arrival", "inherit", "subset", "co_residence", "join"]:
+			errors.append("Unknown population operation")
+	if kind == "population_fate":
+		if effect.get("disposition") not in ["absorbed", "untracked"] or not effect.get("successor_ids") is Array or not effect.successor_ids.all(func(value: Variant) -> bool: return value is String and not value.is_empty()):
+			errors.append("Invalid population retirement disposition")
+		if not effect.get("untracked_template_ids") is Array or not effect.untracked_template_ids.all(func(value: Variant) -> bool: return value is String and not value.is_empty()):
+			errors.append("Population untracked templates must be a String array")
+	return errors

@@ -1,0 +1,1300 @@
+{
+	"categories": {
+		"art": 2740,
+		"biotech": 300,
+		"deep": 565,
+		"environment": 713,
+		"ethics": 479,
+		"knowledge": 2168,
+		"machine": 784,
+		"philosophy": 4916,
+		"sky": 187
+	},
+	"count_definition": "A memorable incident is one selected family episode. Preparation/reinforcement/dependent consequences are separate objective events, also counted explicitly. No event is hidden from subtype exposure.",
+	"culture_revision": "faction-culture-v1-authored-2",
+	"dead_content": [
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "adapted_lineage_registration",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "exploitation_conflict",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "lineage_coexistence_compact",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "lineage_exclusion_dispute",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "personhood_dispute",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "protection_compact",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"conditional_family_percentage": 0.0,
+			"id": "semi_sapient_contact",
+			"kind": "incident",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"id": "ecological_communion",
+			"kind": "doctrine",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"id": "kin_beyond_thought",
+			"kind": "doctrine",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"id": "last_human_measure",
+			"kind": "doctrine",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"id": "many_bodies_one_people",
+			"kind": "doctrine",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		},
+		{
+			"id": "thinking_threshold",
+			"kind": "doctrine",
+			"reason": "authored content gate",
+			"world_percentage": 0.0
+		}
+	],
+	"doctrine_counts": {
+		"0": 6204,
+		"1": 20278,
+		"2": 4366
+	},
+	"doctrines": {
+		"ancestral_genome": {
+			"category": "biotech",
+			"eligible": 490,
+			"eligible_worlds": 490,
+			"selected": 117,
+			"selected_world_percentage": 2.34,
+			"selected_worlds": 117
+		},
+		"beauty_against_ruin": {
+			"category": "art",
+			"eligible": 3011,
+			"eligible_worlds": 2336,
+			"selected": 484,
+			"selected_world_percentage": 9.14,
+			"selected_worlds": 457
+		},
+		"bounded_automation": {
+			"category": "machine",
+			"eligible": 439,
+			"eligible_worlds": 439,
+			"selected": 122,
+			"selected_world_percentage": 2.44,
+			"selected_worlds": 122
+		},
+		"closed_sky": {
+			"category": "sky",
+			"eligible": 1360,
+			"eligible_worlds": 221,
+			"selected": 219,
+			"selected_world_percentage": 2.76,
+			"selected_worlds": 138
+		},
+		"continuity": {
+			"category": "philosophy",
+			"eligible": 13966,
+			"eligible_worlds": 3757,
+			"selected": 3686,
+			"selected_world_percentage": 46.9,
+			"selected_worlds": 2345
+		},
+		"debt_of_shelter": {
+			"category": "ethics",
+			"eligible": 2412,
+			"eligible_worlds": 1963,
+			"selected": 500,
+			"selected_world_percentage": 9.58,
+			"selected_worlds": 479
+		},
+		"depth_taboo": {
+			"category": "deep",
+			"eligible": 2144,
+			"eligible_worlds": 920,
+			"selected": 319,
+			"selected_world_percentage": 5.62,
+			"selected_worlds": 281
+		},
+		"designed_kinship": {
+			"category": "biotech",
+			"eligible": 291,
+			"eligible_worlds": 291,
+			"selected": 64,
+			"selected_world_percentage": 1.28,
+			"selected_worlds": 64
+		},
+		"ecological_communion": {
+			"category": "biotech",
+			"eligible": 0,
+			"eligible_worlds": 0,
+			"selected": 0,
+			"selected_world_percentage": 0.0,
+			"selected_worlds": 0
+		},
+		"kin_beyond_thought": {
+			"category": "sapience",
+			"eligible": 0,
+			"eligible_worlds": 0,
+			"selected": 0,
+			"selected_world_percentage": 0.0,
+			"selected_worlds": 0
+		},
+		"last_human_measure": {
+			"category": "biotech",
+			"eligible": 0,
+			"eligible_worlds": 0,
+			"selected": 0,
+			"selected_world_percentage": 0.0,
+			"selected_worlds": 0
+		},
+		"living_archive": {
+			"category": "art",
+			"eligible": 8328,
+			"eligible_worlds": 4180,
+			"selected": 1601,
+			"selected_world_percentage": 27.68,
+			"selected_worlds": 1384
+		},
+		"machine_kinship": {
+			"category": "machine",
+			"eligible": 593,
+			"eligible_worlds": 593,
+			"selected": 173,
+			"selected_world_percentage": 3.46,
+			"selected_worlds": 173
+		},
+		"machine_revelation": {
+			"category": "machine",
+			"eligible": 2160,
+			"eligible_worlds": 352,
+			"selected": 420,
+			"selected_world_percentage": 5.32,
+			"selected_worlds": 266
+		},
+		"many_bodies_one_people": {
+			"category": "biotech",
+			"eligible": 0,
+			"eligible_worlds": 0,
+			"selected": 0,
+			"selected_world_percentage": 0.0,
+			"selected_worlds": 0
+		},
+		"measured_doubt": {
+			"category": "knowledge",
+			"eligible": 11810,
+			"eligible_worlds": 4772,
+			"selected": 2511,
+			"selected_world_percentage": 40.88,
+			"selected_worlds": 2044
+		},
+		"mutable_human": {
+			"category": "biotech",
+			"eligible": 515,
+			"eligible_worlds": 515,
+			"selected": 119,
+			"selected_world_percentage": 2.38,
+			"selected_worlds": 119
+		},
+		"new_ecology": {
+			"category": "environment",
+			"eligible": 1000,
+			"eligible_worlds": 161,
+			"selected": 169,
+			"selected_world_percentage": 2.22,
+			"selected_worlds": 111
+		},
+		"no_more_masters": {
+			"category": "philosophy",
+			"eligible": 18699,
+			"eligible_worlds": 4938,
+			"selected": 4207,
+			"selected_world_percentage": 57.78,
+			"selected_worlds": 2889
+		},
+		"order_above_survival": {
+			"category": "philosophy",
+			"eligible": 3839,
+			"eligible_worlds": 2721,
+			"selected": 856,
+			"selected_world_percentage": 15.5,
+			"selected_worlds": 775
+		},
+		"practical_heresy": {
+			"category": "philosophy",
+			"eligible": 7207,
+			"eligible_worlds": 3651,
+			"selected": 1566,
+			"selected_world_percentage": 25.68,
+			"selected_worlds": 1284
+		},
+		"pure_flesh": {
+			"category": "machine",
+			"eligible": 643,
+			"eligible_worlds": 643,
+			"selected": 132,
+			"selected_world_percentage": 2.64,
+			"selected_worlds": 132
+		},
+		"radical_impermanence": {
+			"category": "philosophy",
+			"eligible": 22464,
+			"eligible_worlds": 4982,
+			"selected": 5239,
+			"selected_world_percentage": 66.18,
+			"selected_worlds": 3309
+		},
+		"reclamation": {
+			"category": "environment",
+			"eligible": 847,
+			"eligible_worlds": 847,
+			"selected": 237,
+			"selected_world_percentage": 4.74,
+			"selected_worlds": 237
+		},
+		"return_to_deep": {
+			"category": "deep",
+			"eligible": 1716,
+			"eligible_worlds": 858,
+			"selected": 382,
+			"selected_world_percentage": 6.84,
+			"selected_worlds": 342
+		},
+		"sacred_craft": {
+			"category": "art",
+			"eligible": 8349,
+			"eligible_worlds": 4227,
+			"selected": 1416,
+			"selected_world_percentage": 25.0,
+			"selected_worlds": 1250
+		},
+		"silent_circuit": {
+			"category": "machine",
+			"eligible": 643,
+			"eligible_worlds": 643,
+			"selected": 135,
+			"selected_world_percentage": 2.7,
+			"selected_worlds": 135
+		},
+		"skyward_hunger": {
+			"category": "sky",
+			"eligible": 1360,
+			"eligible_worlds": 221,
+			"selected": 202,
+			"selected_world_percentage": 2.88,
+			"selected_worlds": 144
+		},
+		"thinking_threshold": {
+			"category": "sapience",
+			"eligible": 0,
+			"eligible_worlds": 0,
+			"selected": 0,
+			"selected_world_percentage": 0.0,
+			"selected_worlds": 0
+		},
+		"truth_through_trial": {
+			"category": "knowledge",
+			"eligible": 1444,
+			"eligible_worlds": 1419,
+			"selected": 201,
+			"selected_world_percentage": 4.02,
+			"selected_worlds": 201
+		},
+		"unfinished_form": {
+			"category": "art",
+			"eligible": 2080,
+			"eligible_worlds": 1676,
+			"selected": 373,
+			"selected_world_percentage": 7.32,
+			"selected_worlds": 366
+		},
+		"unspoiled_ground": {
+			"category": "environment",
+			"eligible": 3340,
+			"eligible_worlds": 543,
+			"selected": 654,
+			"selected_world_percentage": 7.66,
+			"selected_worlds": 383
+		},
+		"world_must_be_mended": {
+			"category": "philosophy",
+			"eligible": 14983,
+			"eligible_worlds": 4777,
+			"selected": 2906,
+			"selected_world_percentage": 44.44,
+			"selected_worlds": 2222
+		}
+	},
+	"dormant_doctrines": [
+		"ecological_communion",
+		"kin_beyond_thought",
+		"last_human_measure",
+		"many_bodies_one_people",
+		"thinking_threshold"
+	],
+	"duplicate_profiles": {
+		"definition": "Exact: trait IDs + doctrine IDs/intensities. Near: same IDs, ignoring intensity only. Identity-inclusive: five identity axes added; names/IDs/provenance excluded.",
+		"exact_repeat_occurrences": 18907,
+		"exact_unique": 11941,
+		"identity_inclusive_repeat_occurrences": 388,
+		"identity_inclusive_unique": 30460,
+		"near_repeat_occurrences": 19697,
+		"near_unique_ignoring_intensity": 11151
+	},
+	"errors": [],
+	"faction_count": 30848,
+	"faction_counts": {
+		"4": 699,
+		"5": 982,
+		"6": 1111,
+		"7": 1188,
+		"8": 1020
+	},
+	"faction_intensity_profiles": {
+		"{\"fanatic\":0,\"hardline\":0,\"moderate\":0}": 6204,
+		"{\"fanatic\":0,\"hardline\":0,\"moderate\":1}": 17163,
+		"{\"fanatic\":0,\"hardline\":0,\"moderate\":2}": 3149,
+		"{\"fanatic\":0,\"hardline\":1,\"moderate\":0}": 1811,
+		"{\"fanatic\":0,\"hardline\":1,\"moderate\":1}": 707,
+		"{\"fanatic\":0,\"hardline\":2,\"moderate\":0}": 41,
+		"{\"fanatic\":1,\"hardline\":0,\"moderate\":0}": 1304,
+		"{\"fanatic\":1,\"hardline\":0,\"moderate\":1}": 408,
+		"{\"fanatic\":1,\"hardline\":1,\"moderate\":0}": 41,
+		"{\"fanatic\":2,\"hardline\":0,\"moderate\":0}": 20
+	},
+	"families": {
+		"biotechnology": {
+			"gate": "none",
+			"world_percentage": 25.92,
+			"worlds": 1296
+		},
+		"cloning": {
+			"gate": "none",
+			"world_percentage": 28.94,
+			"worlds": 1447
+		},
+		"deep": {
+			"gate": "none",
+			"world_percentage": 17.16,
+			"worlds": 858
+		},
+		"homeland": {
+			"gate": "none",
+			"world_percentage": 16.94,
+			"worlds": 847
+		},
+		"lineage": {
+			"gate": "lineages",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"machine": {
+			"gate": "none",
+			"world_percentage": 33.5,
+			"worlds": 1675
+		},
+		"personhood": {
+			"gate": "contacts",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"stewardship": {
+			"gate": "none",
+			"world_percentage": 14.18,
+			"worlds": 709
+		}
+	},
+	"fanatic_world_percentage": 29.86,
+	"hardline_world_percentage": 41.5,
+	"history_count": 5000,
+	"history_revision": "history-v3-authored-4",
+	"incident_counts": {
+		"0": 723,
+		"1": 2232,
+		"2": 1535,
+		"3+": 510
+	},
+	"intensities": {
+		"fanatic": 1793,
+		"hardline": 2641,
+		"moderate": 24576
+	},
+	"objective_social_event_counts": {
+		"0": 723,
+		"10": 66,
+		"11": 6,
+		"2": 1462,
+		"3": 288,
+		"4": 821,
+		"5": 510,
+		"6": 405,
+		"7": 392,
+		"8": 171,
+		"9": 156
+	},
+	"pressure_domains": {
+		"core_intervention": 429,
+		"human": 2231,
+		"natural": 2227,
+		"observer_legacy": 113
+	},
+	"raw_representatives": [
+		{
+			"categories": [
+				"incident_forced_evacuation",
+				"incident_defense_network_hostility",
+				"incident_count_2",
+				"intensity_moderate",
+				"intensity_fanatic",
+				"doctrine_silent_circuit",
+				"intensity_moderate",
+				"intensity_moderate",
+				"intensity_moderate"
+			],
+			"faction_id": "f_06",
+			"seed": 1
+		},
+		{
+			"categories": [
+				"incident_emergency_reconstitution",
+				"clone_followup_clone_bottleneck",
+				"clone_followup_clone_emancipation",
+				"incident_count_1",
+				"clone_dependency_chain"
+			],
+			"faction_id": "f_09",
+			"seed": 2
+		},
+		{
+			"categories": [
+				"incident_founder_replication",
+				"clone_followup_clone_divergence",
+				"intensity_hardline",
+				"intensity_hardline"
+			],
+			"faction_id": "f_05",
+			"seed": 3
+		},
+		{
+			"categories": [
+				"incident_autonomous_machine_conflict"
+			],
+			"faction_id": "f_02",
+			"seed": 4
+		},
+		{
+			"categories": [
+				"incident_automation_oversight_compact"
+			],
+			"faction_id": "f_04",
+			"seed": 5
+		},
+		{
+			"categories": [
+				"incident_machine_maintenance_cooperation"
+			],
+			"faction_id": "f_06",
+			"seed": 6
+		},
+		{
+			"categories": [
+				"incident_ancestral_site_loss",
+				"clone_followup_clone_caste"
+			],
+			"faction_id": "f_09",
+			"seed": 7
+		},
+		{
+			"categories": [
+				"incident_machine_control_failure"
+			],
+			"faction_id": "f_05",
+			"seed": 8
+		},
+		{
+			"categories": [
+				"incident_count_0"
+			],
+			"faction_id": "f_08",
+			"seed": 9
+		},
+		{
+			"categories": [
+				"incident_deep_settlement_evacuation",
+				"incident_count_3+",
+				"doctrine_pure_flesh"
+			],
+			"faction_id": "f_06",
+			"seed": 10
+		},
+		{
+			"categories": [
+				"clone_followup_clone_integration",
+				"incident_designed_descent_program"
+			],
+			"faction_id": "f_06",
+			"seed": 11
+		},
+		{
+			"categories": [
+				"incident_anti_entrenchment_reform"
+			],
+			"faction_id": "f_12",
+			"seed": 12
+		},
+		{
+			"categories": [
+				"additional_distinct_history"
+			],
+			"faction_id": "f_11",
+			"seed": 13
+		},
+		{
+			"categories": [
+				"additional_distinct_history"
+			],
+			"faction_id": "f_06",
+			"seed": 14
+		},
+		{
+			"categories": [
+				"incident_rotating_office_compact"
+			],
+			"faction_id": "f_10",
+			"seed": 15
+		},
+		{
+			"categories": [
+				"incident_autonomous_authority_dispute"
+			],
+			"faction_id": "f_12",
+			"seed": 16
+		},
+		{
+			"categories": [
+				"incident_lineage_preservation_program"
+			],
+			"faction_id": "f_02",
+			"seed": 17
+		},
+		{
+			"categories": [
+				"doctrine_machine_kinship"
+			],
+			"faction_id": "f_10",
+			"seed": 18
+		},
+		{
+			"categories": [
+				"additional_distinct_history"
+			],
+			"faction_id": "f_07",
+			"seed": 19
+		},
+		{
+			"categories": [
+				"incident_bodily_adaptation_program"
+			],
+			"faction_id": "f_04",
+			"seed": 20
+		},
+		{
+			"categories": [
+				"additional_distinct_history"
+			],
+			"faction_id": "f_12",
+			"seed": 21
+		},
+		{
+			"categories": [
+				"incident_machine_aid_compact"
+			],
+			"faction_id": "f_06",
+			"seed": 22
+		},
+		{
+			"categories": [
+				"additional_distinct_history"
+			],
+			"faction_id": "f_05",
+			"seed": 23
+		},
+		{
+			"categories": [
+				"incident_military_batch",
+				"doctrine_return_to_deep"
+			],
+			"faction_id": "f_00",
+			"seed": 24
+		},
+		{
+			"categories": [
+				"doctrine_reclamation"
+			],
+			"faction_id": "f_09",
+			"seed": 26
+		},
+		{
+			"categories": [
+				"doctrine_bounded_automation"
+			],
+			"faction_id": "f_06",
+			"seed": 27
+		},
+		{
+			"categories": [
+				"clone_followup_replacement_crisis"
+			],
+			"faction_id": "f_05",
+			"seed": 31
+		},
+		{
+			"categories": [
+				"doctrine_designed_kinship"
+			],
+			"faction_id": "f_00",
+			"seed": 35
+		},
+		{
+			"categories": [
+				"incident_homeland_displacement"
+			],
+			"faction_id": "f_06",
+			"seed": 37
+		},
+		{
+			"categories": [
+				"incident_clone_settlement"
+			],
+			"faction_id": "f_09",
+			"seed": 38
+		},
+		{
+			"categories": [
+				"doctrine_ancestral_genome"
+			],
+			"faction_id": "f_03",
+			"seed": 66
+		},
+		{
+			"categories": [
+				"unusual_ritual_trial"
+			],
+			"faction_id": "f_08",
+			"seed": 72
+		},
+		{
+			"categories": [
+				"same_deep_history_opposite_doctrines"
+			],
+			"faction_id": "f_04",
+			"seed": 100
+		},
+		{
+			"categories": [
+				"doctrine_mutable_human"
+			],
+			"faction_id": "f_09",
+			"seed": 128
+		}
+	],
+	"safety": {
+		"candidate_boundary_errors": 0,
+		"chronology_errors": 0,
+		"culture_replay_mismatches": 0,
+		"deterministic_replay_mismatches": 0,
+		"exact_conflicts": 0,
+		"invalid_intensity": 0,
+		"invalid_provenance": 0,
+		"objective_mutations": 0,
+		"objective_validation_errors": 0,
+		"other_culture_errors": 0,
+		"prerequisite_failures": 0,
+		"unsupported_or_fabricated_evidence": 0,
+		"unsupported_selections": 0
+	},
+	"sample_coverage": [
+		"incident_forced_evacuation",
+		"incident_defense_network_hostility",
+		"incident_count_2",
+		"intensity_moderate",
+		"intensity_fanatic",
+		"doctrine_silent_circuit",
+		"incident_emergency_reconstitution",
+		"clone_followup_clone_bottleneck",
+		"clone_followup_clone_emancipation",
+		"incident_count_1",
+		"clone_dependency_chain",
+		"incident_founder_replication",
+		"clone_followup_clone_divergence",
+		"intensity_hardline",
+		"incident_autonomous_machine_conflict",
+		"incident_automation_oversight_compact",
+		"incident_machine_maintenance_cooperation",
+		"incident_ancestral_site_loss",
+		"clone_followup_clone_caste",
+		"incident_machine_control_failure",
+		"incident_count_0",
+		"incident_deep_settlement_evacuation",
+		"incident_count_3+",
+		"doctrine_pure_flesh",
+		"clone_followup_clone_integration",
+		"incident_designed_descent_program",
+		"incident_anti_entrenchment_reform",
+		"incident_rotating_office_compact",
+		"incident_autonomous_authority_dispute",
+		"incident_lineage_preservation_program",
+		"doctrine_machine_kinship",
+		"incident_bodily_adaptation_program",
+		"incident_machine_aid_compact",
+		"incident_military_batch",
+		"doctrine_return_to_deep",
+		"doctrine_reclamation",
+		"doctrine_bounded_automation",
+		"clone_followup_replacement_crisis",
+		"doctrine_designed_kinship",
+		"incident_homeland_displacement",
+		"incident_clone_settlement",
+		"doctrine_ancestral_genome",
+		"unusual_ritual_trial",
+		"same_deep_history_opposite_doctrines",
+		"doctrine_mutable_human"
+	],
+	"seed_range": [
+		1,
+		5000
+	],
+	"social_revision": "social-incidents-v1-authored-1",
+	"society_trait_counts": {
+		"1": 339,
+		"2": 11770,
+		"3": 11525,
+		"4": 7214
+	},
+	"society_traits": {
+		"adaptive_customs": {
+			"eligible": 2555,
+			"eligible_worlds": 1951,
+			"selected": 1696,
+			"selected_worlds": 1409
+		},
+		"archive_legitimacy": {
+			"eligible": 5174,
+			"eligible_worlds": 3334,
+			"selected": 4043,
+			"selected_worlds": 2851
+		},
+		"borrowed_offices": {
+			"eligible": 12867,
+			"eligible_worlds": 3158,
+			"selected": 9270,
+			"selected_worlds": 2943
+		},
+		"boundary_watch": {
+			"eligible": 10989,
+			"eligible_worlds": 4237,
+			"selected": 7494,
+			"selected_worlds": 3779
+		},
+		"closed_roads": {
+			"eligible": 5633,
+			"eligible_worlds": 3323,
+			"selected": 4260,
+			"selected_worlds": 2854
+		},
+		"deep_boundary_keepers": {
+			"eligible": 452,
+			"eligible_worlds": 74,
+			"selected": 284,
+			"selected_worlds": 74
+		},
+		"hazard_memory": {
+			"eligible": 16071,
+			"eligible_worlds": 4905,
+			"selected": 9059,
+			"selected_worlds": 4340
+		},
+		"household_sovereignty": {
+			"eligible": 3894,
+			"eligible_worlds": 2797,
+			"selected": 2717,
+			"selected_worlds": 2141
+		},
+		"local_mandate": {
+			"eligible": 8098,
+			"eligible_worlds": 4206,
+			"selected": 4400,
+			"selected_worlds": 3010
+		},
+		"maintenance_covenant": {
+			"eligible": 8349,
+			"eligible_worlds": 4227,
+			"selected": 6356,
+			"selected_worlds": 3712
+		},
+		"many_forms_one_hearth": {
+			"eligible": 0,
+			"eligible_worlds": 0,
+			"selected": 0,
+			"selected_worlds": 0
+		},
+		"mutual_obligation": {
+			"eligible": 21617,
+			"eligible_worlds": 5000,
+			"selected": 15021,
+			"selected_worlds": 4923
+		},
+		"newcomer_charter": {
+			"eligible": 2955,
+			"eligible_worlds": 1704,
+			"selected": 2096,
+			"selected_worlds": 1383
+		},
+		"rebuilt_from_fragments": {
+			"eligible": 3775,
+			"eligible_worlds": 3018,
+			"selected": 2501,
+			"selected_worlds": 2161
+		},
+		"ritual_stewardship": {
+			"eligible": 3802,
+			"eligible_worlds": 2733,
+			"selected": 2723,
+			"selected_worlds": 2150
+		},
+		"rotating_stewardship": {
+			"eligible": 709,
+			"eligible_worlds": 709,
+			"selected": 395,
+			"selected_worlds": 395
+		},
+		"route_commonwealth": {
+			"eligible": 13446,
+			"eligible_worlds": 4636,
+			"selected": 9407,
+			"selected_worlds": 4294
+		},
+		"salvage_custom": {
+			"eligible": 239,
+			"eligible_worlds": 239,
+			"selected": 165,
+			"selected_worlds": 165
+		},
+		"scarred_by_the_sky": {
+			"eligible": 1033,
+			"eligible_worlds": 167,
+			"selected": 656,
+			"selected_worlds": 166
+		},
+		"shelter_compact": {
+			"eligible": 6786,
+			"eligible_worlds": 3835,
+			"selected": 4767,
+			"selected_worlds": 3158
+		}
+	},
+	"subtypes": {
+		"adapted_lineage_registration": {
+			"conditional_family_percentage": 0.0,
+			"family": "biotechnology",
+			"gate": "adapted_lineages",
+			"role": "support",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"ancestral_site_loss": {
+			"conditional_family_percentage": 31.9952774498229,
+			"family": "homeland",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 5.42,
+			"worlds": 271
+		},
+		"anti_entrenchment_reform": {
+			"conditional_family_percentage": 50.4936530324401,
+			"family": "stewardship",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 7.16,
+			"worlds": 358
+		},
+		"automation_oversight_compact": {
+			"conditional_family_percentage": 15.044776119403,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 5.04,
+			"worlds": 252
+		},
+		"autonomous_authority_dispute": {
+			"conditional_family_percentage": 11.1641791044776,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 3.74,
+			"worlds": 187
+		},
+		"autonomous_machine_conflict": {
+			"conditional_family_percentage": 17.6716417910448,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 5.92,
+			"worlds": 296
+		},
+		"biotech_workshop_recovery": {
+			"conditional_family_percentage": 100.0,
+			"family": "biotechnology",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 25.92,
+			"worlds": 1296
+		},
+		"bodily_adaptation_program": {
+			"conditional_family_percentage": 39.7376543209877,
+			"family": "biotechnology",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 10.3,
+			"worlds": 515
+		},
+		"clone_bottleneck": {
+			"conditional_family_percentage": 30.960608154803,
+			"family": "cloning",
+			"gate": "none",
+			"role": "followup",
+			"world_percentage": 8.96,
+			"worlds": 448
+		},
+		"clone_caste": {
+			"conditional_family_percentage": 14.5127850725639,
+			"family": "cloning",
+			"gate": "none",
+			"role": "followup",
+			"world_percentage": 4.2,
+			"worlds": 210
+		},
+		"clone_divergence": {
+			"conditional_family_percentage": 28.1271596406358,
+			"family": "cloning",
+			"gate": "none",
+			"role": "followup",
+			"world_percentage": 8.14,
+			"worlds": 407
+		},
+		"clone_emancipation": {
+			"conditional_family_percentage": 28.7491361437457,
+			"family": "cloning",
+			"gate": "none",
+			"role": "followup",
+			"world_percentage": 8.32,
+			"worlds": 416
+		},
+		"clone_integration": {
+			"conditional_family_percentage": 37.1112646855563,
+			"family": "cloning",
+			"gate": "none",
+			"role": "followup",
+			"world_percentage": 10.74,
+			"worlds": 537
+		},
+		"clone_settlement": {
+			"conditional_family_percentage": 36.0746371803732,
+			"family": "cloning",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 10.44,
+			"worlds": 522
+		},
+		"cloning_archive_recovery": {
+			"conditional_family_percentage": 100.0,
+			"family": "cloning",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 28.94,
+			"worlds": 1447
+		},
+		"deep_memory_register": {
+			"conditional_family_percentage": 100.0,
+			"family": "deep",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 17.16,
+			"worlds": 858
+		},
+		"deep_residence_record": {
+			"conditional_family_percentage": 100.0,
+			"family": "deep",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 17.16,
+			"worlds": 858
+		},
+		"deep_settlement_evacuation": {
+			"conditional_family_percentage": 100.0,
+			"family": "deep",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 17.16,
+			"worlds": 858
+		},
+		"defense_network_hostility": {
+			"conditional_family_percentage": 11.6417910447761,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 3.9,
+			"worlds": 195
+		},
+		"designed_descent_program": {
+			"conditional_family_percentage": 22.4537037037037,
+			"family": "biotechnology",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 5.82,
+			"worlds": 291
+		},
+		"emergency_reconstitution": {
+			"conditional_family_percentage": 34.4851416724257,
+			"family": "cloning",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 9.98,
+			"worlds": 499
+		},
+		"exploitation_conflict": {
+			"conditional_family_percentage": 0.0,
+			"family": "personhood",
+			"gate": "contacts",
+			"role": "primary",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"forced_evacuation": {
+			"conditional_family_percentage": 34.4746162927981,
+			"family": "homeland",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 5.84,
+			"worlds": 292
+		},
+		"founder_replication": {
+			"conditional_family_percentage": 15.5494125777471,
+			"family": "cloning",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 4.5,
+			"worlds": 225
+		},
+		"founder_template_death_record": {
+			"conditional_family_percentage": 15.5494125777471,
+			"family": "cloning",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 4.5,
+			"worlds": 225
+		},
+		"homeland_displacement": {
+			"conditional_family_percentage": 33.530106257379,
+			"family": "homeland",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 5.68,
+			"worlds": 284
+		},
+		"homeland_memory_charter": {
+			"conditional_family_percentage": 100.0,
+			"family": "homeland",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 16.94,
+			"worlds": 847
+		},
+		"human_final_authority": {
+			"conditional_family_percentage": 26.2089552238806,
+			"family": "machine",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 8.78,
+			"worlds": 439
+		},
+		"lineage_coexistence_compact": {
+			"conditional_family_percentage": 0.0,
+			"family": "lineage",
+			"gate": "lineages",
+			"role": "primary",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"lineage_exclusion_dispute": {
+			"conditional_family_percentage": 0.0,
+			"family": "lineage",
+			"gate": "lineages",
+			"role": "primary",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"lineage_preservation_program": {
+			"conditional_family_percentage": 37.8086419753086,
+			"family": "biotechnology",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 9.8,
+			"worlds": 490
+		},
+		"local_population_decline": {
+			"conditional_family_percentage": 100.0,
+			"family": "cloning",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 28.94,
+			"worlds": 1447
+		},
+		"machine_aid_compact": {
+			"conditional_family_percentage": 20.7164179104478,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 6.94,
+			"worlds": 347
+		},
+		"machine_compact_renewal": {
+			"conditional_family_percentage": 35.4029850746269,
+			"family": "machine",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 11.86,
+			"worlds": 593
+		},
+		"machine_control_failure": {
+			"conditional_family_percentage": 9.07462686567164,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 3.04,
+			"worlds": 152
+		},
+		"machine_maintenance_cooperation": {
+			"conditional_family_percentage": 14.6865671641791,
+			"family": "machine",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 4.92,
+			"worlds": 246
+		},
+		"machine_safety_reform": {
+			"conditional_family_percentage": 38.3880597014925,
+			"family": "machine",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 12.86,
+			"worlds": 643
+		},
+		"military_batch": {
+			"conditional_family_percentage": 13.890808569454,
+			"family": "cloning",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 4.02,
+			"worlds": 201
+		},
+		"office_rotation_review": {
+			"conditional_family_percentage": 100.0,
+			"family": "stewardship",
+			"gate": "none",
+			"role": "support",
+			"world_percentage": 14.18,
+			"worlds": 709
+		},
+		"personhood_dispute": {
+			"conditional_family_percentage": 0.0,
+			"family": "personhood",
+			"gate": "contacts",
+			"role": "primary",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"protection_compact": {
+			"conditional_family_percentage": 0.0,
+			"family": "personhood",
+			"gate": "contacts",
+			"role": "primary",
+			"world_percentage": 0.0,
+			"worlds": 0
+		},
+		"replacement_crisis": {
+			"conditional_family_percentage": 5.66689702833449,
+			"family": "cloning",
+			"gate": "none",
+			"role": "followup",
+			"world_percentage": 1.64,
+			"worlds": 82
+		},
+		"rotating_office_compact": {
+			"conditional_family_percentage": 49.5063469675599,
+			"family": "stewardship",
+			"gate": "none",
+			"role": "primary",
+			"world_percentage": 7.02,
+			"worlds": 351
+		},
+		"semi_sapient_contact": {
+			"conditional_family_percentage": 0.0,
+			"family": "personhood",
+			"gate": "contacts",
+			"role": "support",
+			"world_percentage": 0.0,
+			"worlds": 0
+		}
+	},
+	"topology_families": {
+		"consolidation_resplit": 717,
+		"enclave_continuity": 749,
+		"late_fragmentation": 714,
+		"layered_migration": 716,
+		"no_direct_heir": 719,
+		"polycentric_succession": 663,
+		"remnant_mosaic": 722
+	},
+	"worlds_with_fanatic": 1493,
+	"worlds_with_hardline": 2075
+}

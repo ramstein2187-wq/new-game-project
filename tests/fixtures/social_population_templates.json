@@ -1,0 +1,14 @@
+{
+  "id": "test_synthetic_only",
+  "templates": [
+    {"id":"human_baseline","origins":["human_derived"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":20},
+    {"id":"fixture_planetary","origins":["planetary"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":10},
+    {"id":"fixture_innerworld","origins":["innerworld"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":20},
+    {"id":"fixture_hybrid","origins":["human_derived","innerworld"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":20},
+    {"id":"fixture_observer","origins":["observer"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":10},
+    {"id":"fixture_outerworld","origins":["outerworld"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":10},
+    {"id":"fixture_unknown","origins":["unknown"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":true,"weight":10},
+    {"id":"fixture_denied","origins":["innerworld"],"random_generation_allowed":false,"faction_membership_allowed":false,"newcomer_allowed":false,"weight":5000},
+    {"id":"fixture_local_only","origins":["planetary"],"random_generation_allowed":true,"faction_membership_allowed":true,"newcomer_allowed":false,"weight":10}
+  ]
+}
