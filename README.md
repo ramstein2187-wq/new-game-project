@@ -65,7 +65,6 @@ scenes/debug/           # Combat rooms, generated-map playground and map viewers
 scenes/ui/              # Reusable Character Screen scene
 prototypes/
   exploration/          # Original movement/interaction scene; viewer reuses Player
-  micro_ap/             # Preserved AP comparison prototype
 tests/                  # All existing automated tests and fixtures
 tools/                  # Validation, batch and documentation tools
 assets/
@@ -75,7 +74,7 @@ docs/
 F5 still starts the generated-map combat playground. For F6, open
 `scenes/debug/time_cost_test_room.tscn`. The original root `main.tscn` remains
 available at `prototypes/exploration/main.tscn`; it is not the configured main scene.
-The preserved AP comparison room is `prototypes/micro_ap/micro_ap_test_room.tscn`.
+The old M010 3-AP comparison room is retired from active source; the original experiment remains documented in `docs/milestones/M010_micro_ap_test_room.md` and Git history.
 
 In the combat scenes, C opens the Character Overview; C/Esc closes it. Hover values
 for quick explanations, then click or Tab+Enter for Inspector sources. Gameplay

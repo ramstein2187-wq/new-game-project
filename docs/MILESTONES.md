@@ -34,7 +34,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 - Baseline before this integration: M016 on `main`; PR #3 merged at `9b92d80` on 2026-09-21.
 - Still planned on `main`: `M002` — Interactive objects and simple state.
-- M010 remains the paused comparison prototype; M011 action-cost time is the selected model. M011–M016 code, tests and design documents are on `main`.
+- M010 is a historical 3-AP comparison baseline; its standalone test-room code is retired on the separate cleanup branch, with the experiment preserved in the milestone and Git history. M011 action-cost time is the selected model. M011–M016 code, tests and design documents are on `main`.
 - M011–M015: automated validation passed; user confirmed manual validation on 2026-09-21 (PR #2, `19ce6d1`). The agent did not perform that manual playthrough.
 - M016: 14 combined automated test scripts passed on the integration branch; user confirmed all M016 manual play checks passed on 2026-09-21. PR #3 was merged into `main` at `9b92d80`. The agent did not perform the manual playthrough; see `docs/milestones/M016_generated_map_combat.md`.
 - World persistence is design only; M002 remains planned. Prototype doors do not complete reusable stateful interaction objects.
@@ -68,7 +68,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 | M007 | Complete | Namespaced deterministic sub-seeds from one world seed | `docs/milestones/M007_seed_deriver.md` |
 | M008 | Complete | Data-driven procedural generation tuning settings | `docs/milestones/M008_generation_settings.md` |
 | M009 | Complete | Playable generated map with collision derived from map data | `docs/milestones/M009_playable_procedural_map.md` |
-| M010 | Paused / Baseline | 3-AP grid-turn test room retained for comparison | `docs/milestones/M010_micro_ap_test_room.md` |
+| M010 | Archived experimental baseline (cleanup branch) | 3-AP turn-model experiment remains documented; standalone room and dedicated test retired | `docs/milestones/M010_micro_ap_test_room.md` |
 | M011 | Complete / Selected Model | Action-cost time with player-priority ready-time turns | `docs/milestones/M011_time_cost_scheduler.md` |
 | M012 | Complete | Structured combat log for M011 | `docs/milestones/M012_structured_combat_log.md` |
 | M013 | Complete | Independent clock/scheduler for multiple actor IDs | `docs/milestones/M013_independent_time_scheduler.md` |
