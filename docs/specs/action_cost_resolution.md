@@ -3,7 +3,7 @@ status = "구현 완료"
 areas = ["시간/액션", "코어"]
 type = "알고리즘"
 systems = "ActionCostResolver / StatResolver"
-milestones = "M031 (task branch)"
+milestones = "M031 / M046"
 code_paths = ["game/actions/action_cost_resolver.gd", "game/effects/", "game/actors/actor.gd"]
 diagram = "docs/diagrams/action_cost_resolution.svg"
 +++
@@ -11,10 +11,25 @@ diagram = "docs/diagrams/action_cost_resolution.svg"
 
 ![비용 해석](../diagrams/action_cost_resolution.svg)
 
-M031 task branch의 query API다. main 통합은 별도다.
+M031의 main query API이며 M046 최적화는 최신 main 통합 브랜치에서 재검증했다.
 `actor.stat_breakdown(stat)`은 base와 effect FLAT/PERCENT를 해석한다.
 `action.cost_breakdown(game, actor_id)`는 `get_cost`와 같은 경로다.
 결과는 저장/cache하지 않는다. 조회는 RNG, event, 시간을 소비하지 않는다.
+
+M046에서는 `ActionCostResolver.resolve(..., include_steps=true)` 하나가 두 조회를
+계산한다. `get_cost()`는 false, 기존 `cost_breakdown()`은 기본 true로 호출한다.
+false는 설명용 step Dictionary/배열을 만들지 않고 steps=null을 반환한다.
+Move의 `Actor.stat_breakdown` → `StatResolver` → `EffectStore.resolve_stat` 및
+외부 `apply_action_cost_modifiers`까지 같은 flag를 전달한다. 중간값·수식·modifier
+순회는 공유하며 숫자 전용 수식이나 resolved stat/최종 비용 캐시는 없다.
+true의 기존 필드, step 순서, provenance와 실패 reason은 유지한다.
+CharacterOverviewQuery/Inspector는 계속 기본 true 상세 경로를 사용한다.
+기존 호출 인수는 그대로 유효하다. 저장소에는 cost_breakdown override가 없으며,
+테스트의 custom get_cost override는 그대로 동작한다. 새 subclass의 비용 규칙은
+기존 base_cost/get_tags/intrinsic_cost 경계에 정의한다.
+
+기존 Move Body 효율 조회는 `movement_efficiency` → `is_alive` → HP/CON 조회도 한다.
+이 부수적인 HP 설명 생성은 이번 최적화 범위에 포함하지 않는다.
 
 Ownership은 Actor → EffectStore → ActiveEffect → GameplayEffectDefinition이다.
 StatResolver는 Store 계산에 delegate하고, ActionCostResolver는 Actor를 통해 값만 받는다.
@@ -22,6 +37,14 @@ Store 내부에서 live Definition/modifier를 읽으며 외부로 raw 참조를
 삽입 시 격리 복사, 공개 조회 시 깊은 snapshot, 계산 시 Resource 복사 없음.
 같은 Definition ID는 source가 달라도 한 instance만 허용한다. add/remove/clear 직후
 다음 query는 새 상태를 계산한다. StatCatalog의 정확히 7개 ID만 modifier 대상이다.
+
+Store는 정렬된 scalar ID 배열만 재사용한다. 초기 dirty=true이며 성공한 add/remove와
+clear가 dirty로 표시한다. 실패한 add/remove는 무효화하지 않는다. 다음 내부 stat/cost/
+snapshot 조회에서 String(id) 사전순으로 한 번 재구축하고 dirty=false로 바꾼다.
+여러 변경 뒤 조회가 없으면 재구축도 한 번뿐이다. 새 배열은 make_read_only()로
+잠그므로 helper를 호출해도 내부 캐시를 변경할 수 없다. 이전 배열은 새 배열과
+분리된다. 캐시는 live Resource 참조를 포함하지 않으며 공개 snapshot의 깊은 복사와
+Actor별 ownership은 그대로다. modifier authored 순서와 두 arithmetic phase도 유지한다.
 
 ## 비용 순서
 

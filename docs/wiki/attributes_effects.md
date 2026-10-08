@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["코어", "시간/액션", "전투"]
-milestones = "M031 / M033 / M034"
+milestones = "M031 / M033 / M034 / M046"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/m031-attributes-effects-foundation/docs/milestones/M031_attributes_effects_foundation.md"
 icon = "🧩"
 +++
@@ -23,6 +23,9 @@ source가 달라도 중복 삽입을 거부한다. 삽입 시 Definition을 격�
 active_effects()는 기존 Definition snapshot, active_effect_instances()는 provenance를
 포함한 안전한 instance snapshot을 제공한다. live Resource 반환 helper는 없다.
 질의는 Store 내부 참조를 읽어 계산하며 Resource deep-copy나 resolved cache가 없다.
+M046은 문자열 사전순 scalar ID 배열만 캐시한다.
+성공한 add/remove와 clear 후 다음 조회에서 재구축하며 실패한 변경은 무효화하지 않는다.
+내부 배열은 read-only이고 공개 snapshot은 계속 깊은 복사다. modifier 선언 순서는 유지한다.
 StatCatalog는 여섯 primary와 MOVEMENT_SPEED ID만 정의하고 modifier validation을 담당한다.
 AbilityScores는 여전히 primary 값/배분을 담당한다.
 M031에서는 실제 gameplay 연결이 movement_speed뿐이었고 primary stat 질의는 확장 API였다.
@@ -51,6 +54,12 @@ unrounded/rounded/final cost까지 보여준다. 기존 Weapon Action은 old val
 Action-time 조절은 rare/legible/strong 기믹을 위한 기반이며 일반 성장 보너스로 전제하지 않는다.
 
 Body 부상, AI, Scheduler tie 규칙은 기존 구현을 유지한다.
+M046의 get_cost는 동일한 authoritative 계산의 설명 생성만 끈다. Move stat 및 외부
+Action Cost Modifier까지 flag를 전달해 비용 설명용 step/배열/nested stat trace를 생략한다.
+cost_breakdown은 기존 상세 필드·중간값·provenance·실패 reason을 유지하며 Overview/
+Inspector는 이 상세 경로를 계속 사용한다. 기존 Body 효율의 생존 확인에서 발생하는
+HP/CON 설명 조회는 유지한다. 결과값 캐시나 별도 숫자 수식은 추가하지 않는다.
+[M046 내부 경로와 무효화 규칙](../specs/action_cost_resolution.md).
 공격/방어의 수식과 RNG 순서는 유지하되 primary modifier 입력만 resolved 공통 경로로
 통일한다. Global Quickness, DEX 전체 속도, duration/stacking,
 Skill/Trait/Thought 시스템은 없다.

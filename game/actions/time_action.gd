@@ -19,7 +19,7 @@ func can_execute(_game: RefCounted, _actor_id: StringName) -> bool:
 
 
 func get_cost(game: RefCounted, actor_id: StringName) -> int:
-	return int(cost_breakdown(game, actor_id).cost)
+	return int(ActionCostResolver.resolve(self, game, actor_id, false).cost)
 
 func cost_breakdown(game: RefCounted, actor_id: StringName) -> Dictionary:
 	return ActionCostResolver.resolve(self, game, actor_id)
