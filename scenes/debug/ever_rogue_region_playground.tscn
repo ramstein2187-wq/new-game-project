@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/debug/ever_rogue_region_playground.gd" id="1_region"]
+
+[node name="EverRogueRegionPlayground" type="Node2D"]
+script = ExtResource("1_region")
+texture_filter = 1
+
+[node name="Objects" type="TileMapLayer" parent="."]
+
+[node name="Details" type="TileMapLayer" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1536
+limit_bottom = 1536
+position_smoothing_enabled = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TopBackdrop" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 92.0
+color = Color(0.055, 0.073, 0.066, 0.86)
+mouse_filter = 2
+
+[node name="Status" type="Label" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 1136.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 18
+text = "Forest Ruins"
+
+[node name="Message" type="Label" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 46.0
+offset_right = 1136.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 14
+text = "Exploration"
+
+[node name="BottomBackdrop" type="ColorRect" parent="CanvasLayer"]
+offset_top = 554.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.055, 0.073, 0.066, 0.86)
+mouse_filter = 2
+
+[node name="CombatLog" type="Label" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 561.0
+offset_right = 1136.0
+offset_bottom = 602.0
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 3
+text = "Combat log"
+
+[node name="Help" type="Label" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 609.0
+offset_right = 1136.0
+offset_bottom = 643.0
+theme_override_font_sizes/font_size = 13
+text = "WASD / Arrows / Numpad / R / L"

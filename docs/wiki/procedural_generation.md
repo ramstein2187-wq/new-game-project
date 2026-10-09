@@ -25,6 +25,10 @@ icon = "🌲"
 
 ground/path는 통과 가능하고 tree/ruin은 blocking collision으로 변환된다. 플레이어는 생성된 경로 위에 배치되며 R로 다음 seed를 생성할 수 있다.
 
+## M049: 대형 지역의 시각적 기준 (task branch)
+
+`chat/ever-rogue-region-slice`의 별도 Godot 씬은 96×96 숲속 폐허 지역을 실제 Ever Rogue 1.0 타일 이미지로 표시한다. 장소·도로·폐허·연못은 개발자가 지정하고, 숲 밀도만 seed에 따라 달라진다. `M`으로 전체 지도를 확인하고 `R`로 시드를 변경한다. 전투와 이동 판정은 기존 `GeneratedMapCombatGame`을 재사용하며, 물은 기존 충돌 규약상 T로 저장한다. 본 브랜치의 시각적 수용 및 main 병합은 아직 완료되지 않았다. [M049](../milestones/M049_ever_rogue_region_slice.md).
+
 ## 중요 경계
 
 이 시스템은 완성된 광역 월드 생성기가 아니라 현재 지역 맵 프로토타입이다. 광역 world/region 구조와 persistence는 별도 설계다.
