@@ -29,6 +29,15 @@ func register_actor(actor_id: StringName, ready_time: int = 0) -> bool:
 	return true
 
 
+# Restore a validated world at a completed player turn, before activating NPCs.
+func restore_player_boundary(time: int) -> bool:
+	if time < 0 or _ready_times.size() != 1 or not _ready_times.has(player_id):
+		return false
+	world_time = time
+	_ready_times[player_id] = time
+	return true
+
+
 func unregister_actor(actor_id: StringName) -> bool:
 	if actor_id == player_id or not _ready_times.has(actor_id):
 		return false

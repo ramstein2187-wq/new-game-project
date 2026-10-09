@@ -2,6 +2,12 @@
 
 Status: **design decision / not implemented**. Date: 2026-09-21. This document records decisions from the CRPG design discussion, not a claim about Caves of Qud or RimWorld internals.
 
+Implementation update (2026-10-09): M048 realizes a bounded three-locality prototype
+on `codex/history-v6-phase-c-playable-world`: active/frozen Actors, one existing
+Scheduler clock, object/ownership overrides and versioned save/restore. Broader
+background/lazy simulation and final world sizing remain design. This is not a
+claim of main integration. [Implementation contract](../specs/history_playable_world.md).
+
 ## Goals and boundaries
 
 - Make meaningful consequences of exploration persist without simulating the entire world at tile/action granularity.

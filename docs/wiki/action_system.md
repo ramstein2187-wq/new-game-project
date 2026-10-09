@@ -22,6 +22,11 @@ icon = "🎬"
 
 현재 구체 Action은 `MoveAction`, `AttackAction`, `InteractAction`, `WaitAction`이다.
 
+M048 전용 브랜치에서는 `InteractAction(cell, operation)`을 공통 대상 가용성/
+실행 계약으로 확장했다. TimeCostGame의 기본 문 동작은 유지하고, opt-in 역사
+월드가 회수·제거·수리·조사·시설 이용·지역 이동을 같은 resolver와 Scheduler로
+실행한다. [실제 월드 계약](../specs/history_playable_world.md).
+
 ## 실행 경로
 
 `TimeCostGame.perform_action(actor_id, action)`이 공통 진입점이다. 유효하지 않은 행동, 죽은 Actor, 등록되지 않은 Actor, 차례가 아닌 Actor, 비정상 비용은 거부하며 시간과 이벤트를 소비하지 않는다.

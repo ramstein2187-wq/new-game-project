@@ -1,15 +1,17 @@
 +++
-status = "설계"
+status = "부분 구현"
 areas = ["월드/영속성", "코어"]
-milestones = "미배정 — ROADMAP Planned"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/main/docs/decisions/world_persistence.md"
+milestones = "M048 Phase C prototype; broader world persistence remains design"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-v6-phase-c-playable-world/docs/specs/history_playable_world.md"
 icon = "💾"
 +++
 # 월드 영속성 · 비활성 지역 시뮬레이션
 
 ## 상태
 
-설계만 완료되었으며 아직 구현되지 않았다.
+M048 전용 브랜치에서 세 지역의 문·자산·수리·고유 보관권·Actor 상태와
+단일 게임 시간의 재방문·Save/Load를 구현했다. 큰 월드의 배경 사건·재생·
+광역 NPC 이동은 아직 설계다. main에 구현됐다고 주장하지 않는다.
 
 ## 핵심 방향
 
@@ -29,6 +31,9 @@ icon = "💾"
 - FROZEN: 퇴장 시 상태 저장 후 세부 AI 정지
 - BACKGROUND WORLD EVENTS: 중요한 교차 지역 사건만 시간순 처리
 - LAZY EFFECTS: 재생/만료 같은 효과는 재진입 시 시간차로 계산
+
+M048에서는 ACTIVE/FROZEN과 단일 기존 Scheduler 시간만 구현했다.
+BACKGROUND/LAZY 항목은 후속 설계이며 자산을 자동 재생성하지 않는다.
 
 ## 구현 전에 남은 결정
 

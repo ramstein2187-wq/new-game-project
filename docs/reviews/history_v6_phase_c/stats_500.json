@@ -1,0 +1,66 @@
+{
+	"blocked_locality_passages": 16,
+	"conditions": {
+		"damaged": 429,
+		"intact": 2105,
+		"ruined": 90
+	},
+	"confirmed_unique_objects": 829,
+	"count": 500,
+	"edges": 2386,
+	"facilities": 2624,
+	"failures": [],
+	"generation_us": {
+		"max": 129428,
+		"mean": 58109.596,
+		"p95": 86264,
+		"samples": 500
+	},
+	"generation_version": "history_zone/1",
+	"geometry_signatures": 1500,
+	"hazard_cells": 575,
+	"history_version": "phase_b_1",
+	"intentional_sealed_objects": 0,
+	"objects": 16033,
+	"reachable_objects": 16033,
+	"realization_us": {
+		"max": 4826,
+		"mean": 3022.244,
+		"p95": 3365,
+		"samples": 500
+	},
+	"resource_units": 22763,
+	"resources": 6036,
+	"restore_us": {
+		"max": 7737,
+		"mean": 6439.84,
+		"p95": 7032,
+		"samples": 50
+	},
+	"save_us": {
+		"max": 3198,
+		"mean": 2117.8,
+		"p95": 2380,
+		"samples": 50
+	},
+	"scar_effects": 366,
+	"scar_instances": {
+		"failed_exodus": 55,
+		"infrastructure_cascade": 17,
+		"orbital_fall": 424
+	},
+	"travel_us": {
+		"max": 31721,
+		"mean": 4293.02,
+		"p95": 23301,
+		"samples": 50
+	},
+	"unintended_unreachable": 0,
+	"valid_spawns": 1500,
+	"worksites": {
+		"active": 377,
+		"paused": 60
+	},
+	"worlds": 500,
+	"zones": 1500
+}

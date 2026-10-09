@@ -26,8 +26,9 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
+- **Complete and validated, task branch only** — M048 History v6 Phase C: three connected playable zones, existing actions/combat, runtime ownership and persistence on `codex/history-v6-phase-c-playable-world`. [Work record](milestones/M048_history_v6_phase_c.md). Human self-directed play, navigation/reward/access feedback and broader zone mapping are follow-up candidates; no main integration yet.
 - **Complete, task branch only** — M045 independent event-driven history v6 Phase A on `codex/history-generator-v6-core`; six rules, atomic state/replay, 8,516 focused checks, 1,000 matching generation/log replays, full40-script gate and v2–v5 preservation. Default remains v5. [M045](milestones/M045_history_v6_core.md).
-- **Complete and validated, task branch only** — M047 History v6 Phase B on `codex/history-generator-v6-phase-b`: dynamic population/politics, localities/facilities, contextual needs, shared Projects/Scars and independent World Manifest. [Work record](milestones/M047_history_v6_phase_b.md). Next candidates are M048 Phase C (history-to-playable-world integration; design only, not implemented) and evaluation of long-history maintenance cost/local political convergence.
+- **Complete and validated, task branch only** — M047 History v6 Phase B on `codex/history-generator-v6-phase-b`: dynamic population/politics, localities/facilities, contextual needs, shared Projects/Scars and independent World Manifest. [Work record](milestones/M047_history_v6_phase_b.md). A remaining candidate is evaluation of long-history maintenance cost/local political convergence; M048 is tracked separately below.
 
 M036–M044 history/culture generation is complete on main at `c64083b` via [PR #50](https://github.com/ramstein2187-wq/new-game-project/pull/50), while the generator remains unconnected to playable world and Actor action execution. M035 naming, M010 retirement and M046 performance contracts were retained.
 

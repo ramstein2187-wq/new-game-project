@@ -49,7 +49,7 @@
     "content/weapons/warhammer.tres": "b986e20bddbc9a8249c970a9a373bb7ce5749dfbb9029276ec925d3742a3cdf4",
     "game/actions/action_cost_resolver.gd": "c8756a06f996d83e92a308c97356615a59e07840967ad398df35e9ddb90ffe7c",
     "game/actions/attack_action.gd": "0e5503a675606691168384b9bdd18ab63ed774882d91c6dfc5859845a5ac8df4",
-    "game/actions/interact_action.gd": "399388516eed0344a7b3e4aac5c31807c54fdc3131e9c3ed2a7314e5301a366c",
+    "game/actions/interact_action.gd": "847c7af48500afa0d90aa8a644cb5cc40b7fe12ddb3b599046f4870cc6836adf",
     "game/actions/move_action.gd": "9412efe142daaeaf46e008a777acf9088f48b998c36ab4ffdff50a46a14c5953",
     "game/actions/time_action.gd": "183109e35eba160c11fda99b4b426273a29837977ba04259fe519251daacac08",
     "game/actions/wait_action.gd": "3aa92d36605ac404c6da7b40aa0afc089a09aaf006d780ccd78e708c240e81ba",
@@ -73,7 +73,7 @@
     "game/effects/stat_catalog.gd": "edafeb403c3527e2168c4711dfc1ca594a73415c11e86fcfde2d637aa73aeab5",
     "game/effects/stat_modifier.gd": "ca7f326041e01c012eb4b3bd36e08c0e9f0e9242ea5e836df5d9fd5f8a1a6cfb",
     "game/effects/stat_resolver.gd": "cce57117543146928e80d8d3f34325468cac5b6c4599b5577db65aff54875048",
-    "game/time_cost_game.gd": "79604eb6a8ecadecf62b23b25da7a13e048a09e7ab537334243fcf0780947278",
+    "game/time_cost_game.gd": "55c47add5a034a1317b3a267b0e6abfc2d00ea33a6cf9b41f66d985c822a0f03",
     "tools/combat_dataset_sources.json": "743dc0734b523663d750bca8be03c16cba434ab4745a6fe5e04650070c0d85f5",
     "tools/export_combat_datasets.gd": "6bcec7116afb3defb1a33291f926f19e3c635c83b63a97110b636dfeacde08df"
   }

@@ -44,6 +44,14 @@ func generate(seed_value: int) -> PackedStringArray:
 	return _cells_to_rows(cells)
 
 
+# Playable history supplies its own evidenced facilities, never the default R stamp.
+# Existing generate() and its seed streams remain unchanged.
+func generate_environment(seed_value: int) -> PackedStringArray:
+	var cells := _generate_base_terrain(seed_value)
+	_carve_north_south_path(cells, seed_value)
+	return _cells_to_rows(cells)
+
+
 func to_text(rows: PackedStringArray) -> String:
 	return "\n".join(rows)
 

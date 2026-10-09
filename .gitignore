@@ -29,3 +29,6 @@ docs/diagrams/*.import
 # M046 reproducible raw history/Manifest samples stay local; readable packets and statistics are tracked.
 /docs/reviews/history_v6_phase_b/world_*.json
 /docs/reviews/history_v6_phase_b/stats_0_*.json
+
+# M048 curated rendered evidence does not need generated Godot import sidecars.
+/docs/reviews/history_v6_phase_c/*.png.import

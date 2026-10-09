@@ -1,0 +1,101 @@
+{
+	"base": "12f48bae75636782005a05a08742a0bd6412fee8",
+	"seeds": [
+		{
+			"manifest": "fe8d60c68dcdc3081b01f3ebfe493b88b90e7bde3bc3f21c103460295862acb2",
+			"phase_a": "4fbe1515cca965afd85e4dbfa219096ea0fd2deda8c85e0dd3897e11586afc93",
+			"phase_b": "b8ef4cd9d45e7373ca3d01eaf8a310cb1f4ea01dbe85a7127e1480c69b1b9d30",
+			"seed": 1
+		},
+		{
+			"manifest": "e2e116d7f59db4552e9d39cf0b2ddae8a28c977e8382c559371132670e237792",
+			"phase_a": "b3cc16f2276342cdb08395a035ea782cc3082c5c60e6288f83f005f2325e174d",
+			"phase_b": "729f9feae986d3660c8f54614cdf428ee647a7c4ecc596b0b8d8d57df2efc1f5",
+			"seed": 2
+		},
+		{
+			"manifest": "7ac74cc97cd39d44cf2c74b73a58304261291d442c338e015e2cdba0df3ba1cc",
+			"phase_a": "7a97559474cf8b84d8ac355e053eb5229ac606dc28c0b1dac5e4ea5960e9f815",
+			"phase_b": "6d55f5f876efed99dbeff1d7a6fe9dfac8e7b8cb7a4bfe2eece2db56d3af275a",
+			"seed": 3
+		},
+		{
+			"manifest": "1be6b2f9e06df5311094d2db565d247257164eaa942aa23105444980e6865ec8",
+			"phase_a": "f881362ab38b469b47042fd5d16695a816dfd812e164911968f0204738ee3af0",
+			"phase_b": "4d99312db3730aa5dc19e8d37496b9e62fed0eb0e93ee5ee43ea2e21a1a426b7",
+			"seed": 4
+		},
+		{
+			"manifest": "42870bec628dc01c9bffbcd24eaf6db2d83f6c869c4f21e9f9d16216354f1194",
+			"phase_a": "4395dac087d2220cd237cc9b20e794b986aec3150b9237e01efd5fc5d345185d",
+			"phase_b": "7eaddc03902346c65621c7820ece39d115290edae95976734c87b5f1ebdc1ff2",
+			"seed": 5
+		},
+		{
+			"manifest": "1ee1b4bcbf92e3b83de070d9f4ed3b61621c4a0e2343dcd071a23a7fffc7bbb2",
+			"phase_a": "5892aa60dbf874091c7a24a37db8bedba3187fe267adb30c6d729126ad01a918",
+			"phase_b": "fa4cd0e222c898cc416b768b7f125db0dd907534b8521c6d446b54dfecae07db",
+			"seed": 6
+		},
+		{
+			"manifest": "d20110b4e17cdcc31b6e57ad5f71c499fc3684df6e17a7529f5ac8bedff4afa4",
+			"phase_a": "bcf28358199038fd2eb2c217cd5b2127108e4dd55e3fdefe1c119aaa24e7ab6b",
+			"phase_b": "b9b274eb23ffabc887d5d4ee6fdd14217662ef8dcf883f8291a99f1febb0c774",
+			"seed": 7
+		},
+		{
+			"manifest": "5703a332d9e22451e1ccf440b71a240d24166c35d2c9373a5f7cee78129edbaa",
+			"phase_a": "e10443a893bbbb17b30f360902e2a245887552ed4f93724620b388fa1439cfa4",
+			"phase_b": "3dbf2e615091ea30fbc0041e3da27750aaaddbd367127e20da007224d6cfac1b",
+			"seed": 8
+		},
+		{
+			"manifest": "1ed56d555b889b25ba48ce39dda7fd3ee613314d13ba94bad452a3bf0d7df959",
+			"phase_a": "6e40960c11dc2e26f6ebbd74285fe5f05426f12f909274f5472a6a041b83aef3",
+			"phase_b": "3c12a3ba398d6666aac832c1d8cd9330833b9fcbfea41e857f9a9843757ee9db",
+			"seed": 9
+		},
+		{
+			"manifest": "60b057c28c6039ecf6e384e6f524237dadb17db99459aa13ec86fd363b2d1d67",
+			"phase_a": "52372a0112525d3a0d88981cd03d63c4c62bd65b8c5171e2f0ebb34f213eafe2",
+			"phase_b": "0952b95ebc1095067b518876fb2a9d345dd82d614474042cd16a087613fc9673",
+			"seed": 10
+		},
+		{
+			"manifest": "bae030576e7a69a2d9fdb85a6a67a9be3681f97b2e720c959a8ec9c1dafe6036",
+			"phase_a": "f6a280e225b59ec527adcc7235ec495cdc8f7422cbad7c9a6155fb05a856cd4e",
+			"phase_b": "713f60861844eb3e43703fb4dadbe34475df06574a277a2d2d72da89c9793b0d",
+			"seed": 11
+		},
+		{
+			"manifest": "4d7767e4716ecbcf8a1ca1e4ccb6c50cd11fc2136d2ed58713960f6349d7716e",
+			"phase_a": "19a25b29e14b2b398712bc27be2bc584a08e862ff3d6f500a01b1801d0a850a4",
+			"phase_b": "508a46564c9a4310c20ee7a1049439a269c6a48b778dc9a5a2fefc786d0b57c1",
+			"seed": 12
+		},
+		{
+			"manifest": "b95ab38582ee3d45ecaec6234ef8b9feb93a57df068a604264b0ca6b856dffce",
+			"phase_a": "0bcc5e0e71f4cccb74f4531d072b98f616716550cc0a1950431b20faa5673d33",
+			"phase_b": "bb8e3fe9d7b7f4c80a81252c3c0a5af1fae6525406ec24be7f43aee53a3c7ca5",
+			"seed": 13
+		},
+		{
+			"manifest": "727c37e7d61b92f5abd67c7c60c73b7f917de625a9e2f47b2d0076add0a3e42a",
+			"phase_a": "c263fa9deb28788b834cf523685aef8ae17a4f95c651ec04d7d482b1163899dd",
+			"phase_b": "0b129b75f353fcf29df9e6fd3623e8f9e5b37c809c71df91a3549a5fd30563b0",
+			"seed": 14
+		},
+		{
+			"manifest": "31c6214b0a1b4f2a057f7b00f73995f83227b5fe9c37ccd5235dbaecd1c936ef",
+			"phase_a": "d112a191fc86642ffbb9d8d0c02bbddab9bb39d6c1e3d3e28cb380da0f7bf304",
+			"phase_b": "e04c13ac84078093e9bdcfd0a1d5d98341238772729799b2610ff4b0bda40227",
+			"seed": 15
+		},
+		{
+			"manifest": "27aaac1c619264693cd7b82523f5749bdabda76a880ec8b9bb568c8acc210dda",
+			"phase_a": "f10243a7127a6fc586745dfc51012afa659fb10db461d6bf430545dd4689c988",
+			"phase_b": "c45aa7fddec54130d28cfb20e7fdcc8028943b322ccfb76a51b57f987de1fc7f",
+			"seed": 16
+		}
+	]
+}

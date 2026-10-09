@@ -4,26 +4,20 @@ extends TimeAction
 const BASE_COST := 500
 
 var target_cell: Vector2i
+var operation: StringName = &"interact"
 
 
-func _init(cell: Vector2i = Vector2i.ZERO) -> void:
+func _init(cell: Vector2i = Vector2i.ZERO, verb: StringName = &"interact") -> void:
 	target_cell = cell
+	operation = verb
 
 
 func can_execute(game: RefCounted, actor_id: StringName) -> bool:
-	return (
-		game.actor_is_alive(actor_id)
-		and target_cell == game.door_position
-		and (game.get_actor_position(actor_id) - target_cell).length_squared() == 1
-		and (
-			not game.door_open
-			or game.actors.occupant_at(target_cell) == null
-		)
-	)
+	return game.interaction_unavailable_reason(actor_id, target_cell, operation).is_empty()
 
 
 func base_cost() -> float:
-	return BASE_COST
+	return {&"clear": 1500, &"repair": 2000, &"stabilize": 1500, &"travel": 2000}.get(operation, BASE_COST)
 
 func cost_source() -> StringName:
 	return &"interact"
@@ -33,7 +27,4 @@ func get_tags() -> Array[StringName]:
 
 
 func execute(game: RefCounted, actor_id: StringName, cost: int) -> CombatEvent:
-	game.door_open = not game.door_open
-	var event: CombatEvent = game.make_action_event(&"interact", actor_id, &"door", cost)
-	event.data = {"open": game.door_open, "position": target_cell}
-	return event
+	return game.execute_interaction(actor_id, target_cell, operation, cost)

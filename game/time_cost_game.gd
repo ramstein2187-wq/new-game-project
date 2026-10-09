@@ -154,6 +154,24 @@ func player_wait() -> bool:
 	return perform_action(&"player", WaitAction.new())
 
 
+# Common contract; the original fixed-room door remains the default implementation.
+func interaction_unavailable_reason(actor_id: StringName, cell: Vector2i, operation: StringName) -> String:
+	if operation != &"interact" or not actor_is_alive(actor_id) or cell != door_position:
+		return "No usable interaction target."
+	if (get_actor_position(actor_id) - cell).length_squared() != 1:
+		return "Stand beside the door."
+	if door_open and actors.occupant_at(cell) != null:
+		return "The doorway is occupied."
+	return ""
+
+
+func execute_interaction(actor_id: StringName, cell: Vector2i, _operation: StringName, cost: int) -> CombatEvent:
+	door_open = not door_open
+	var event := make_action_event(&"interact", actor_id, &"door", cost)
+	event.data = {"open": door_open, "position": cell}
+	return event
+
+
 # The same action path is used by player input and every NPC. Invalid actions
 # neither consume time nor add events. The scheduler never imports an Action.
 func perform_action(actor_id: StringName, action: TimeAction) -> bool:

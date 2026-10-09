@@ -7,6 +7,10 @@ icon = "📜"
 +++
 # 사건 기반 역사 생성 v6 — 문명사와 현재 세계 명세
 
+M048 전용 브랜치에서는 기존 Manifest를 실제 세 지역으로 실현하는
+[플레이 가능한 월드](history_playable_world.md)를 추가했다. 아래 Phase A/B의
+생성 계약과 출력은 유지하며, 플레이 이후 변화는 별도 Runtime State에 기록한다.
+
 `codex/history-generator-v6-core`의 독립 실험이다. 기본 `HistoryGenerator`는
 여전히 v5이며 기존 v2–v5 출력과 Canon 규칙은 변경하지 않았다.
 
