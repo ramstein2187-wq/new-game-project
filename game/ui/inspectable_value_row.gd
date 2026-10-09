@@ -63,7 +63,7 @@ func present(key: StringName, label: String, value: String, hint: String, hint_t
 	hint_label.text = hint
 	hint_label.add_theme_color_override("font_color", InspectorNumberStyle.color_for(hint_tone))
 	value_label.text = value
-	tooltip_text = explanation + "\nClick or press Enter to inspect."
+	tooltip_text = explanation + "\n" + tr("Click or press Enter to inspect.")
 	_fit_height()
 
 func set_selected(selected: bool) -> void:

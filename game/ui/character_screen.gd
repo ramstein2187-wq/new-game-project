@@ -15,6 +15,7 @@ var margin: MarginContainer
 var _selected_key: StringName = &""
 var _close_button: Button
 var _compact_attribute_names := false
+var _scroll: ScrollContainer
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -46,9 +47,10 @@ func _ready() -> void:
 		tab.text = tab_name
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		tab.disabled = tab_name != "Overview"
-		tab.tooltip_text = "Future tab" if tab.disabled else "Current tab"
+		tab.tooltip_text = tr("Future tab") if tab.disabled else tr("Current tab")
 		tabs.add_child(tab)
 	var scroll := ScrollContainer.new()
+	_scroll = scroll
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	root_box.add_child(scroll)
@@ -128,38 +130,43 @@ func refresh() -> void:
 	if model.is_empty():
 		close()
 		return
-	identity_name.text = model.name
-	identity_type.text = model.type if model.type != model.name else ""
+	identity_name.text = LocalizedCharacterText.label(model.name)
+	identity_type.text = LocalizedCharacterText.label(model.type) if model.type != model.name else ""
 	for attribute: Dictionary in model.attributes:
 		var hint := "%+d" % int(attribute.modifier)
 		rows[attribute.id].present(attribute.id, _attribute_label(attribute.id),
 			CharacterOverviewText.number(attribute.value), hint,
 			InspectorNumberStyle.modifier_tone(float(attribute.modifier)),
-			"Current resolved attribute and its D20 ability modifier. Click for sources.")
-	rows.health.present(&"health", "HP", "%d / %d" % [model.hp, model.max_hp], "", InspectorNumberStyle.Tone.NEUTRAL,
-		"Current and maximum health.")
+			tr("Current resolved attribute and its D20 ability modifier. Click for sources."))
+	rows.health.present(&"health", tr("HP"), "%d / %d" % [model.hp, model.max_hp], "", InspectorNumberStyle.Tone.NEUTRAL,
+		tr("Current and maximum health."))
 	var attack: Dictionary = model.attack
-	var hover := CharacterOverviewText.attack_hover(attack)
-	rows.attack.present(&"attack", "Main Attack", attack.name if attack.get("valid", false) else "Unavailable", "", InspectorNumberStyle.Tone.NEUTRAL, hover)
-	rows.damage.present(&"damage", "Damage", CharacterOverviewText.damage(attack), "", InspectorNumberStyle.Tone.NEUTRAL, hover)
-	rows.penetration.present(&"penetration", "Penetration", CharacterOverviewText.number(attack.penetration) if attack.get("valid", false) else "—", "", InspectorNumberStyle.Tone.NEUTRAL, hover)
-	rows.armor.present(&"armor", "Average Armor", "%.1f" % model.armor.value, "", InspectorNumberStyle.Tone.NEUTRAL,
-		"Raw armor weighted by part hit probability.\n" + CharacterOverviewText.armor_lines(model.armor, false))
-	rows.move.present(&"move", "Move Time", "%d μt" % model.move.cost if model.move.valid else "Unavailable", "", InspectorNumberStyle.Tone.NEUTRAL,
-		"Time for a standard cardinal move. Includes movement speed, body efficiency and Effects.")
-	var state_summary := "Healthy" if model.states.is_empty() else "%d condition%s" % [model.states.size(), "" if model.states.size() == 1 else "s"]
-	rows.state.present(&"state", "Status", state_summary, "", InspectorNumberStyle.Tone.NEUTRAL,
-		"Current body integrity and active Effects. Select for details.")
+	var hover := LocalizedCharacterText.attack_hover(attack)
+	rows.attack.present(&"attack", tr("Main Attack"), LocalizedCharacterText.label(attack.name) if attack.get("valid", false) else tr("Unavailable"), "", InspectorNumberStyle.Tone.NEUTRAL, hover)
+	rows.damage.present(&"damage", tr("Damage"), CharacterOverviewText.damage(attack) if attack.get("valid", false) else tr("Unavailable"), "", InspectorNumberStyle.Tone.NEUTRAL, hover)
+	rows.penetration.present(&"penetration", tr("Penetration"), CharacterOverviewText.number(attack.penetration) if attack.get("valid", false) else "—", "", InspectorNumberStyle.Tone.NEUTRAL, hover)
+	rows.armor.present(&"armor", tr("Average Armor"), "%.1f" % model.armor.value, "", InspectorNumberStyle.Tone.NEUTRAL,
+		tr("Raw armor weighted by part hit probability.\n") + (GameText.text("Select for per-part details.") if LocalizedCharacterText.korean() else CharacterOverviewText.armor_lines(model.armor, false)))
+	rows.move.present(&"move", tr("Move Time"), "%d μt" % model.move.cost if model.move.valid else tr("Unavailable"), "", InspectorNumberStyle.Tone.NEUTRAL,
+		tr("Time for a standard cardinal move. Includes movement speed, body efficiency and Effects."))
+	var state_summary := tr("Healthy") if model.states.is_empty() else GameText.text("Conditions: {count}", {"count": model.states.size()})
+	rows.state.present(&"state", tr("Status"), state_summary, "", InspectorNumberStyle.Tone.NEUTRAL,
+		tr("Current body integrity and active Effects. Select for details."))
 	for key: StringName in rows:
 		rows[key].set_selected(inspector_panel.visible and key == _selected_key)
 	if inspector_panel.visible and _selected_key != &"":
-		inspector.show_inspection(CharacterOverviewText.inspection(model, _selected_key))
+		inspector.show_inspection(LocalizedCharacterText.inspection(model, _selected_key))
 
 func inspect(key: StringName) -> void:
 	_selected_key = key
 	inspector_panel.show()
 	refresh()
 	_responsive_layout()
+	if LocalizedCharacterText.korean() and content.vertical: _reveal_inspector()
+
+func _reveal_inspector() -> void:
+	await get_tree().process_frame
+	if inspector_panel.visible and content.vertical: _scroll.ensure_control_visible(inspector_panel)
 
 func close_inspector() -> void:
 	var previous_key := _selected_key
@@ -197,7 +204,7 @@ func _row(parent: Node, key: StringName, dense: bool = false) -> void:
 	row.inspect_requested.connect(inspect)
 
 func _attribute_label(stat: StringName) -> String:
-	return String(stat) if _compact_attribute_names else CharacterOverviewText.ATTRIBUTE_NAMES[stat]
+	return GameText.term(stat) if LocalizedCharacterText.korean() else (String(stat) if _compact_attribute_names else CharacterOverviewText.ATTRIBUTE_NAMES[stat])
 
 func _label(value: String) -> Label:
 	var label := Label.new()
@@ -219,7 +226,7 @@ func _responsive_layout() -> void:
 		return
 	var scale_factor := clampf(size.y / 1080.0, 0.8, 2.0)
 	theme.default_font_size = roundi(18 * scale_factor)
-	var narrow := size.x < 940 * scale_factor
+	var narrow := size.x < (1000.0 if LocalizedCharacterText.korean() else 940 * scale_factor)
 	_compact_attribute_names = size.x < 1280 * scale_factor
 	content.vertical = narrow
 	overview_region.vertical = narrow
@@ -239,7 +246,7 @@ func _responsive_layout() -> void:
 func _build_theme() -> void:
 	# Existing combat prototypes use fallback font and these muted game colors.
 	theme = Theme.new()
-	theme.default_font = ThemeDB.fallback_font
+	theme.default_font = GameText.FONT
 	theme.set_color("font_color", "Label", Color("#d7e7f5"))
 	theme.set_color("font_color", "Button", Color("#d7e7f5"))
 	theme.set_stylebox("panel", "Panel", _style("#171d24", "#59636f", 0))

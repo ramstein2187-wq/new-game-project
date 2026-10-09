@@ -1,0 +1,1034 @@
+msgid ""
+msgstr ""
+"Language: ko\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "\nLegend: blue = you; red = fauna; orange = hazard\nD = door, X = rubble, M = material, ? = unknown object\nF = facility, i = record, > = exit, s = Scar, W = worksite"
+msgstr "\n표시: 파랑 = 탐험가 · 빨강 = 동물 · 주황 = 위험 지형\nD 문 · X 장애물 · M 물자 · ? 정체불명의 물건\nF 시설 · i 기록 · > 출구 · s 흔적 · W 사업 현장"
+
+msgid " (dead)"
+msgstr " (사망)"
+
+msgid "A functional hand is required."
+msgstr "사용할 수 있는 손이 필요하다."
+
+msgid "ATTRIBUTES"
+msgstr "능력치"
+
+msgid "AVERAGE ARMOR"
+msgstr "평균 방어력"
+
+msgid "Abilities"
+msgstr "능력"
+
+msgid "Action completed. NPC responses: {count}."
+msgstr "행동을 마쳤다. 주변 생물의 대응 행동: {count}회."
+
+msgid "Action time {cost}; world time {time}."
+msgstr "행동 시간 {cost} · 세계 시간 {time}."
+
+msgid "Action unavailable. Check the target, path and body function."
+msgstr "행동할 수 없다. 대상과 경로, 필요한 신체 기능을 확인해야 한다."
+
+msgid "Active effect: {effect}; origin: {origin}.\n"
+msgstr "활성 효과: {effect} · 발생원: {origin}.\n"
+
+msgid "An Actor occupies the destination entrance."
+msgstr "도착할 입구에 다른 생물이 있다."
+
+msgid "An optional on-site record can identify a safer structural intervention."
+msgstr "먼저 이 시설의 현장 기록을 I로 조사해야 안전하게 안정화할 수 있다."
+
+msgid "Armor softened the blow."
+msgstr "방어구가 충격을 줄였다."
+
+msgid "At least {amount}"
+msgstr "최소 {amount}"
+
+msgid "Attack unavailable: health or required functional limbs."
+msgstr "체력이나 필요한 신체 기능이 부족해 공격할 수 없다."
+
+msgid "Average Armor"
+msgstr "평균 방어력"
+
+msgid "Base"
+msgstr "기본값"
+
+msgid "Innate base"
+msgstr "타고난 기본값"
+
+msgid "Base × (1 + percent total) + flat total.\nResolved value: {value}; ability modifier: {modifier}.\nThe modifier uses the whole score. Checks use one resolved primary attribute; alternates require an authored rule."
+msgstr "기본값 × (1 + 비율 합계) + 고정값 합계.\n최종 능력치 {value} · 능력치 수정치 {modifier}.\n수정치는 정수 부분을 사용한다. 판정은 최종 주 능력치 하나를 사용하며, 대체 능력치는 명시된 규칙이 있어야 한다."
+
+msgid "Basic attack ready."
+msgstr "기본 공격을 사용할 수 있다."
+
+msgid "Body"
+msgstr "신체"
+
+msgid "Body condition: {state}."
+msgstr "신체 상태: {state}."
+
+msgid "Body efficiency"
+msgstr "신체 효율"
+
+msgid "CHARACTER"
+msgstr "캐릭터"
+
+msgid "COMBAT"
+msgstr "전투"
+
+msgid "CURRENT STATE"
+msgstr "현재 상태"
+
+msgid "Cannot open the save. Save a world first."
+msgstr "저장 파일을 열 수 없다. 먼저 세계를 저장해야 한다."
+
+msgid "Cannot restore this save. Its format or world state is invalid."
+msgstr "저장 파일을 불러올 수 없다. 파일 형식이나 세계 상태가 올바르지 않다."
+
+msgid "Cannot write or replace the save. Check the save location."
+msgstr "세계를 저장할 수 없다. 저장 위치를 확인해야 한다."
+
+msgid "Cardinal movement time before destination checks. Movement speed, body efficiency and active effects apply. Adjusted base × (1 + percent total) + flat total, then round up; minimum 1."
+msgstr "목적지 확인 전의 상하좌우 이동 시간이다. 이동 속도·신체 효율·활성 효과를 적용한다. 조정된 기본값 × (1 + 비율 합계) + 고정값 합계 후 올림하며, 최소 1이다."
+
+msgid "Carried: {inventory}"
+msgstr "소지 물자: {inventory}"
+
+msgid "Character [C]"
+msgstr "캐릭터 [C]"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Click or press Enter to inspect."
+msgstr "클릭하거나 Enter를 누르면 상세 정보를 볼 수 있다."
+
+msgid "Close Inspector"
+msgstr "상세 정보 닫기"
+
+msgid "Community custody was violated: managed doors and shelter use are now restricted."
+msgstr "공동체가 관리하는 물자를 무단 회수했다. 관리 시설의 문과 피난처 이용이 제한된다."
+
+msgid "Community {number}"
+msgstr "공동체 {number}"
+
+msgid "Conditions: {count}"
+msgstr "상태 이상 {count}개"
+
+msgid "Connected destination: {region}. Travel with T."
+msgstr "연결된 목적지: {region}. T로 이동할 수 있다."
+
+msgid "Constitution"
+msgstr "체질"
+
+msgid "Contributed recovered material to the community; one custody violation was settled."
+msgstr "공동체에 자재를 기여해 무단 회수에 따른 분쟁 한 건을 해결했다."
+
+msgid "Current HP {hp}; maximum {maximum}.\nBase HP {base}; resolved CON {con}.\nEach CON point above or below 10 changes base HP by 5%. Round once, minimum 1. Maximum changes preserve damage; decreases can kill, increases never revive."
+msgstr "현재 체력 {hp} · 최대 체력 {maximum}.\n기본 체력 {base} · 최종 체질 {con}.\n체질이 10에서 1 차이 날 때마다 기본 체력이 5% 변한다. 한 번 반올림하며 최소 1이다. 최대 체력 변화 시 받은 피해는 유지된다. 감소로 사망할 수 있으며, 증가해도 부활하지 않는다."
+
+msgid "Current and maximum health."
+msgstr "현재 체력과 최대 체력이다."
+
+msgid "Current body integrity and active Effects. Select for details."
+msgstr "현재 신체 상태와 활성 효과다. 선택하면 자세히 확인할 수 있다."
+
+msgid "Current expedition"
+msgstr "현재 탐험"
+
+msgid "Current project: {kind} · {status}. Active works reserve space and shelter use."
+msgstr "현재 사업: {kind} · {status}. 진행 중인 작업은 공간과 피난처 이용을 제한한다."
+
+msgid "Current resolved attribute and its D20 ability modifier. Click for sources."
+msgstr "현재 최종 능력치와 D20 능력치 수정치다. 선택하면 계산 근거를 확인할 수 있다."
+
+msgid "Current tab"
+msgstr "현재 탭"
+
+msgid "DEFENSE"
+msgstr "방어"
+
+msgid "Damage"
+msgstr "피해"
+
+msgid "Dexterity"
+msgstr "민첩"
+
+msgid "Door closed."
+msgstr "문을 닫았다."
+
+msgid "Door is closed. Open with E."
+msgstr "닫힌 문이다. E로 열 수 있다."
+
+msgid "Door is open."
+msgstr "열린 문이다."
+
+msgid "Door opened."
+msgstr "문을 열었다."
+
+msgid "Effect source: {effect}; origin: {origin}.\n"
+msgstr "효과 근거: {effect} · 발생원: {origin}.\n"
+
+msgid "Enter an integer world seed."
+msgstr "세계 시드는 정수로 입력해야 한다."
+
+msgid "Entered a connected locality."
+msgstr "연결된 지역으로 이동했다."
+
+msgid "Equipment"
+msgstr "장비"
+
+msgid "Explore the connected paths, recover supplies or seek shelter. Records are optional."
+msgstr "연결된 길을 탐험하며 물자를 회수하거나 피난처를 찾아보자. 기록 조사는 선택 사항이다."
+
+msgid "Facing target:"
+msgstr "현재 바라보는 대상:"
+
+msgid "Future tab"
+msgstr "추후 지원 예정"
+
+msgid "Generate"
+msgstr "세계 생성"
+
+msgid "HEALTH"
+msgstr "체력"
+
+msgid "HP"
+msgstr "체력"
+
+msgid "Healthy"
+msgstr "양호"
+
+msgid "IDENTITY"
+msgstr "정체성"
+
+msgid "INSPECTOR"
+msgstr "상세 정보"
+
+msgid "Inert object. Origin and function remain unconfirmed."
+msgstr "비활성 물건이다. 기원과 용도는 미확정이다."
+
+msgid "Inspected an object and learned its observable details."
+msgstr "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다."
+
+msgid "Intelligence"
+msgstr "지능"
+
+msgid "Invalid destination."
+msgstr "이동할 수 없는 목적지다."
+
+msgid "Learned on site (not an omniscient history dossier):"
+msgstr "현장에서 발견한 기록과 관찰 (전체 역사는 알 수 없음):"
+
+msgid "Learned records [H]"
+msgstr "발견한 기록 [H]"
+
+msgid "Load [F9]"
+msgstr "불러오기 [F9]"
+
+msgid "MAIN ATTACK"
+msgstr "주 공격"
+
+msgid "MOVE TIME"
+msgstr "이동 시간"
+
+msgid "MOVEMENT"
+msgstr "이동"
+
+msgid "Main Attack"
+msgstr "주 공격"
+
+msgid "Managed by {owner}. Present need: {need}."
+msgstr "관리 세력: {owner}. 현재 필요한 것: {need}."
+
+msgid "Materials are insufficient. Required: {required}; carried: {available}."
+msgstr "자재가 부족하다. {required}개가 필요하지만 {available}개만 보유하고 있다."
+
+msgid "Minimum cost"
+msgstr "최소 시간"
+
+msgid "Move Time"
+msgstr "이동 시간"
+
+msgid "Movement blocked. Face a door and press E, or clear a barrier with X."
+msgstr "이동할 수 없다. 문은 E로 열고, 장애물은 X로 제거할 수 있다."
+
+msgid "Movement speed"
+msgstr "이동 속도"
+
+msgid "No"
+msgstr "불가"
+
+msgid "No attack definition."
+msgstr "사용할 수 있는 공격이 없다."
+
+msgid "No injured parts or active Effects."
+msgstr "부상이나 활성 효과가 없다."
+
+msgid "No nearby object."
+msgstr "주변에 대상이 없다."
+
+msgid "No notable events yet."
+msgstr "아직 눈에 띄는 사건이 없다."
+
+msgid "No on-site records learned here yet. Face a physical record and inspect with I."
+msgstr "이 지역에서 얻은 기록이 없다. 현장 기록을 바라보고 I로 조사할 수 있다."
+
+msgid "No outstanding custody dispute."
+msgstr "해결할 소유권 분쟁이 없다."
+
+msgid "No safe entrance is available."
+msgstr "안전하게 들어갈 입구가 없다."
+
+msgid "No target for this action."
+msgstr "해당 행동을 수행할 대상이 없다."
+
+msgid "No valid body part to strike."
+msgstr "공격할 수 있는 신체 부위가 없다."
+
+msgid "None"
+msgstr "없음"
+
+msgid "None — face an object to act."
+msgstr "대상 없음 — 물건을 바라보고 행동할 수 있다."
+
+msgid "Observed structure: {condition}. Local use: {function}. Usable now: {usable}."
+msgstr "구조물 상태: {condition}. 현지 용도: {function}. 현재 이용 가능: {usable}."
+
+msgid "Observed trace: {kind}. Cause and operator intent remain unconfirmed."
+msgstr "관찰된 흔적: {kind}. 원인과 작동 주체의 의도는 미확정이다."
+
+msgid "On-site record: structural safety notes allow stabilization. Ancient machinery remains unconfirmed."
+msgstr "현장 기록: 구조 안전에 관한 메모를 통해 안정화 방법을 알 수 있다. 고대 기계의 정체와 작동 원리는 미확정이다."
+
+msgid "Only the living explorer can operate these objects."
+msgstr "살아 있는 탐험가만 이 대상을 조작할 수 있다."
+
+msgid "Other source"
+msgstr "기타 효과"
+
+msgid "Overview"
+msgstr "개요"
+
+msgid "Penetration"
+msgstr "관통력"
+
+msgid "Perception"
+msgstr "지각"
+
+msgid "Primary attribute: {ability} ({domain}); modifier {modifier}.\nProficiency {proficiency}; body injury modifier {situation}.\nd20 + attack bonus is checked against defender difficulty. No target selected here. Damage is floored at zero. DEX does not change movement speed."
+msgstr "주 능력치: {ability} ({domain}) · 수정치 {modifier}.\n숙련 보너스 {proficiency} · 신체 부상 수정치 {situation}.\nd20 + 명중 보너스를 방어자의 난이도와 비교한다. 이 화면에서는 대상을 선택하지 않는다. 피해는 최소 0이다. 민첩은 이동 속도를 바꾸지 않는다."
+
+msgid "Raw armor weighted by part hit probability.\n"
+msgstr "부위별 피격 확률로 가중한 방어력이다.\n"
+
+msgid "Raw armor weighted by part hit probability. Disabled parts remain hittable. Unarmored parts count as zero. No penetration or attacker is included."
+msgstr "부위별 피격 확률로 가중한 방어력이다. 기능을 잃은 부위도 피격될 수 있다. 방어구가 없는 부위는 0으로 계산한다. 관통력이나 공격자는 포함하지 않는다."
+
+msgid "Recorded change in year {year}: {kind}. Its full cause and operator intent are not established by this record."
+msgstr "{year}년의 기록: {kind}. 이 기록만으로 전체 원인이나 작동 주체의 의도를 확정할 수 없다."
+
+msgid "Recorded project: {kind} · {status} · {outcome}."
+msgstr "기록된 사업: {kind} · {status} · {outcome}."
+
+msgid "Records are optional. Inspect [I] a physical record to learn about this site."
+msgstr "기록 조사는 선택 사항이다. 현장 기록을 I로 조사하면 이 장소에 관한 정보를 얻을 수 있다."
+
+msgid "Recover supplies, find a safe shelter, or follow an exit."
+msgstr "물자를 회수하고 안전한 피난처를 찾거나 출구를 따라 이동해 보자."
+
+msgid "Recovered an inert unknown object; its function remains unknown."
+msgstr "정체불명의 비활성 물건을 회수했다. 용도는 아직 알 수 없다."
+
+msgid "Recovered {count} units of {item}."
+msgstr "{item} {count}개를 회수했다."
+
+msgid "Region {number}"
+msgstr "지역 {number}"
+
+msgid "Removed the obstruction; passage is open."
+msgstr "장애물을 제거해 통로를 열었다."
+
+msgid "Repaired ordinary structure. Missing equipment and unknown machinery remain unavailable."
+msgstr "일반 구조물을 수리했다. 소실된 장비나 정체불명의 기계까지 복구된 것은 아니다."
+
+msgid "Rested in a functioning shelter; recovered up to four HP."
+msgstr "안전한 피난처에서 휴식했다. 체력을 최대 4 회복했다."
+
+msgid "Round up"
+msgstr "올림"
+
+msgid "Save [F5]"
+msgstr "저장 [F5]"
+
+msgid "Save requires a completed player turn."
+msgstr "현재 행동이 끝난 뒤 저장할 수 있다."
+
+msgid "Saved world restored."
+msgstr "저장된 세계를 불러왔다."
+
+msgid "Saved world."
+msgstr "세계를 저장했다."
+
+msgid "Select a value to see its sources."
+msgstr "항목을 선택하면 계산 근거를 확인할 수 있다."
+
+msgid "Select for per-part details."
+msgstr "선택하면 부위별 방어력을 확인할 수 있다."
+
+msgid "Stand beside the object."
+msgstr "대상 바로 옆으로 이동해야 한다."
+
+msgid "Standard move"
+msgstr "기본 이동"
+
+msgid "Status"
+msgstr "상태"
+
+msgid "Strength"
+msgstr "근력"
+
+msgid "The community denies facility access after unauthorized recovery."
+msgstr "무단 회수로 시설 출입이 제한되었다. O로 자재를 기여해 소유권 분쟁을 해결할 수 있다."
+
+msgid "The community denies facility use after unauthorized recovery."
+msgstr "무단 회수로 시설 이용이 제한되었다. O로 자재를 기여해 소유권 분쟁을 해결할 수 있다."
+
+msgid "The doorway is occupied."
+msgstr "문 앞에 다른 생물이 있어 닫을 수 없다."
+
+msgid "The facility lacks safe structure, supplies or a functioning dependency; unknown machinery cannot be operated."
+msgstr "시설을 사용할 수 없다. 안전한 구조와 필요한 물자·연결 시설이 확보되지 않았다. 정체불명의 기계는 조작할 수 없다."
+
+msgid "The locality's passage is blocked; clear its route barrier first."
+msgstr "지역 통로가 막혀 있다. 먼저 통로 장애물을 X로 제거해야 한다."
+
+msgid "The structure is already intact."
+msgstr "시설이 이미 온전한 상태다."
+
+msgid "This expedition's shelter rest has already been used."
+msgstr "이번 탐험에서 이 피난처의 휴식을 이미 이용했다."
+
+msgid "This facility is reserved for an ongoing community project."
+msgstr "공동체의 진행 중인 사업이 이 시설을 사용하고 있다."
+
+msgid "This prototype only operates safe shelters."
+msgstr "현재는 안전한 피난처만 이용할 수 있다."
+
+msgid "This structure is already stabilized."
+msgstr "이미 안정화된 시설이다."
+
+msgid "Time for a standard cardinal move. Includes movement speed, body efficiency and Effects."
+msgstr "상하좌우 기본 이동 시간이다. 이동 속도·신체 효율·효과를 포함한다."
+
+msgid "Traits"
+msgstr "특성"
+
+msgid "Unavailable"
+msgstr "사용 불가"
+
+msgid "Unknown objects carried: {count}"
+msgstr "소지한 정체불명의 물건: {count}개"
+
+msgid "Unstable ground causes {damage} damage; investigate or stabilize the structure."
+msgstr "불안정한 지반 때문에 피해 {damage}을 입었다. 시설을 조사하거나 안정화하면 위험을 줄일 수 있다."
+
+msgid "Used the on-site structural record to make this facility's footing safe."
+msgstr "현장 구조 기록을 참고해 시설의 불안정한 지반을 안정화했다."
+
+msgid "WASD/arrows + numpad: move / bump attack   Space: wait   E: door   G: recover   X: clear   T: travel\nI: inspect   P: repair   U: shelter   V: stabilize (optional record)   O: restitution   F3: developer view"
+msgstr "WASD/방향키/숫자패드: 이동·접촉 공격   Space: 대기   E: 문 개폐   G: 회수   X: 장애물 제거   T: 지역 이동\nI: 조사   P: 수리   U: 피난처   V: 안정화 (현장 기록 필요)   O: 자재 기여   F5: 저장   F9: 불러오기   F3: 개발자 정보"
+
+msgid "Willpower"
+msgstr "의지"
+
+msgid "World generation failed. Try another seed."
+msgstr "세계 생성에 실패했다. 다른 시드를 입력해 보자."
+
+msgid "World seed"
+msgstr "세계 시드"
+
+msgid "Yes"
+msgstr "가능"
+
+msgid "You do not need shelter recovery."
+msgstr "체력이 충분해 피난처에서 회복할 필요가 없다."
+
+msgid "You have fallen. Load a save or generate a new world."
+msgstr "탐험가가 쓰러졌다. 저장된 세계를 불러오거나 새 세계를 생성할 수 있다."
+
+msgid "[Esc] Close"
+msgstr "[Esc] 닫기"
+
+msgid "[T] Travel to {region}"
+msgstr "[T] {region} 이동"
+
+msgid "{actor} attacks {target} ({part}), dealing {damage} {type} damage."
+msgstr "{actor} → {target} ({part}): {type} 피해 {damage}."
+
+msgid "{actor} moves."
+msgstr "{actor}: 이동했다."
+
+msgid "{actor} recoils and retreats."
+msgstr "{actor}: 움츠러들며 물러났다."
+
+msgid "{actor} waits."
+msgstr "{actor}: 대기했다."
+
+msgid "{actor}: attack missed {target}."
+msgstr "{actor} → {target}: 공격이 빗나갔다."
+
+msgid "{name}\nDamage {damage} · Attack bonus {bonus}\nPenetration {penetration} · Type {type}\n{availability}"
+msgstr "{name}\n피해 {damage} · 명중 보너스 {bonus}\n관통력 {penetration} · 피해 유형 {type}\n{availability}"
+
+msgid "{name} HP {hp}/{maximum}{state}"
+msgstr "{name} 체력 {hp}/{maximum}{state}"
+
+msgid "{part}: hit chance {chance}%, armor {armor}, contribution {contribution}."
+msgstr "{part}: 피격 확률 {chance}% · 방어력 {armor} · 가중값 {contribution}."
+
+msgid "{part}: {current}/{maximum} ({state}).\n"
+msgstr "{part}: {current}/{maximum} (상태: {state}).\n"
+
+msgid "{region} · seed {seed} · world time {time}\n{status}"
+msgstr "{region} · 시드 {seed} · 세계 시간 {time}\n{status}"
+
+msgid "{target} falls."
+msgstr "{target}: 쓰러졌다."
+
+msgid "{target}'s armor blocked the attack."
+msgstr "{target}: 방어구가 공격을 막았다."
+
+msgid "›  Hover for a quick explanation · Select for sources · C / Esc to close"
+msgstr "›  마우스를 올리면 설명 · 선택하면 계산 근거 · C / Esc로 닫기"
+
+msgctxt "term"
+msgid "Abandoned"
+msgstr "포기"
+
+msgctxt "term"
+msgid "Archival material lost"
+msgstr "보존 자료 소실"
+
+msgctxt "term"
+msgid "Archive"
+msgstr "보관소"
+
+msgctxt "term"
+msgid "Ark project"
+msgstr "방주 사업"
+
+msgctxt "term"
+msgid "Asset protection"
+msgstr "물자 보호"
+
+msgctxt "term"
+msgid "Bite"
+msgstr "물기"
+
+msgctxt "term"
+msgid "Body"
+msgstr "신체"
+
+msgctxt "term"
+msgid "Completed"
+msgstr "완료"
+
+msgctxt "term"
+msgid "Constitution"
+msgstr "체질"
+
+msgctxt "term"
+msgid "Crippled"
+msgstr "심각한 부상"
+
+msgctxt "term"
+msgid "Crushing blow"
+msgstr "분쇄 공격"
+
+msgctxt "term"
+msgid "Cut"
+msgstr "절단"
+
+msgctxt "term"
+msgid "Damaged"
+msgstr "파손"
+
+msgctxt "term"
+msgid "Deep Descent"
+msgstr "심층 진입"
+
+msgctxt "term"
+msgid "Destroyed"
+msgstr "기능 상실"
+
+msgctxt "term"
+msgid "Dexterity"
+msgstr "민첩"
+
+msgctxt "term"
+msgid "Disabled"
+msgstr "기능 상실"
+
+msgctxt "term"
+msgid "Door"
+msgstr "문"
+
+msgctxt "term"
+msgid "Endurance"
+msgstr "지구력"
+
+msgctxt "term"
+msgid "Equipment"
+msgstr "장비"
+
+msgctxt "term"
+msgid "Execution"
+msgstr "수행"
+
+msgctxt "term"
+msgid "Exit"
+msgstr "출구"
+
+msgctxt "term"
+msgid "Expansion"
+msgstr "확장"
+
+msgctxt "term"
+msgid "Facility"
+msgstr "시설"
+
+msgctxt "term"
+msgid "Failed"
+msgstr "실패"
+
+msgctxt "term"
+msgid "Failed Exodus"
+msgstr "실패한 탈출"
+
+msgctxt "term"
+msgid "Fist"
+msgstr "주먹"
+
+msgctxt "term"
+msgid "Fist strike"
+msgstr "주먹 공격"
+
+msgctxt "term"
+msgid "Force"
+msgstr "힘"
+
+msgctxt "term"
+msgid "Genome Archive"
+msgstr "유전체 보존 사업"
+
+msgctxt "term"
+msgid "Genomic records"
+msgstr "유전체 기록"
+
+msgctxt "term"
+msgid "Handaxe"
+msgstr "손도끼"
+
+msgctxt "term"
+msgid "Handaxe strike"
+msgstr "손도끼 공격"
+
+msgctxt "term"
+msgid "Head"
+msgstr "머리"
+
+msgctxt "term"
+msgid "Healthy"
+msgstr "양호"
+
+msgctxt "term"
+msgid "Historical trace"
+msgstr "역사적 흔적"
+
+msgctxt "term"
+msgid "Human"
+msgstr "인간"
+
+msgctxt "term"
+msgid "Hunting knife"
+msgstr "사냥용 칼"
+
+msgctxt "term"
+msgid "Impact"
+msgstr "충격"
+
+msgctxt "term"
+msgid "In progress"
+msgstr "진행 중"
+
+msgctxt "term"
+msgid "Inert salvage"
+msgstr "비활성 잔해"
+
+msgctxt "term"
+msgid "Infrastructure Cascade"
+msgstr "기반시설 연쇄 붕괴"
+
+msgctxt "term"
+msgid "Injured"
+msgstr "부상"
+
+msgctxt "term"
+msgid "Innerworld"
+msgstr "심층"
+
+msgctxt "term"
+msgid "Intact"
+msgstr "온전함"
+
+msgctxt "term"
+msgid "Intelligence"
+msgstr "지능"
+
+msgctxt "term"
+msgid "Judgment"
+msgstr "판단"
+
+msgctxt "term"
+msgid "Knife slash"
+msgstr "칼 베기"
+
+msgctxt "term"
+msgid "Launch"
+msgstr "발사"
+
+msgctxt "term"
+msgid "Launch failed"
+msgstr "발사 실패"
+
+msgctxt "term"
+msgid "Launch result unconfirmed"
+msgstr "발사 결과 미확정"
+
+msgctxt "term"
+msgid "Left arm"
+msgstr "왼팔"
+
+msgctxt "term"
+msgid "Left foreleg"
+msgstr "왼쪽 앞다리"
+
+msgctxt "term"
+msgid "Left hindleg"
+msgstr "왼쪽 뒷다리"
+
+msgctxt "term"
+msgid "Left leg"
+msgstr "왼다리"
+
+msgctxt "term"
+msgid "Limited survey and return"
+msgstr "제한적 탐사 후 귀환"
+
+msgctxt "term"
+msgid "Local rat"
+msgstr "들쥐"
+
+msgctxt "term"
+msgid "Longsword"
+msgstr "장검"
+
+msgctxt "term"
+msgid "Longsword strike"
+msgstr "장검 공격"
+
+msgctxt "term"
+msgid "Loss during entry"
+msgstr "진입 중 손실"
+
+msgctxt "term"
+msgid "Maintenance"
+msgstr "시설 보수"
+
+msgctxt "term"
+msgid "Materials"
+msgstr "자재"
+
+msgctxt "term"
+msgid "Maul"
+msgstr "대형 망치"
+
+msgctxt "term"
+msgid "Maul strike"
+msgstr "대형 망치 공격"
+
+msgctxt "term"
+msgid "None"
+msgstr "없음"
+
+msgctxt "term"
+msgid "Orbital Fall"
+msgstr "궤도낙하"
+
+msgctxt "term"
+msgid "Outerworld"
+msgstr "외우주"
+
+msgctxt "term"
+msgid "Overhead smash"
+msgstr "내려치기"
+
+msgctxt "term"
+msgid "Partial records"
+msgstr "일부 기록 잔존"
+
+msgctxt "term"
+msgid "Paused"
+msgstr "중단 중"
+
+msgctxt "term"
+msgid "Perception"
+msgstr "지각"
+
+msgctxt "term"
+msgid "Physical record"
+msgstr "현장 기록"
+
+msgctxt "term"
+msgid "Power"
+msgstr "동력 공급"
+
+msgctxt "term"
+msgid "Project maintenance"
+msgstr "사업 유지"
+
+msgctxt "term"
+msgid "Punch"
+msgstr "주먹 공격"
+
+msgctxt "term"
+msgid "Puncture"
+msgstr "관통"
+
+msgctxt "term"
+msgid "Quick stab"
+msgstr "빠른 찌르기"
+
+msgctxt "term"
+msgid "Rat"
+msgstr "쥐"
+
+msgctxt "term"
+msgid "Records preserved"
+msgstr "기록 보존"
+
+msgctxt "term"
+msgid "Recovery"
+msgstr "복구"
+
+msgctxt "term"
+msgid "Resolve"
+msgstr "결의"
+
+msgctxt "term"
+msgid "Retired"
+msgstr "활동 중단"
+
+msgctxt "term"
+msgid "Right arm"
+msgstr "오른팔"
+
+msgctxt "term"
+msgid "Right foreleg"
+msgstr "오른쪽 앞다리"
+
+msgctxt "term"
+msgid "Right hindleg"
+msgstr "오른쪽 뒷다리"
+
+msgctxt "term"
+msgid "Right leg"
+msgstr "오른다리"
+
+msgctxt "term"
+msgid "Route barrier"
+msgstr "통로 장애물"
+
+msgctxt "term"
+msgid "Rubble"
+msgstr "잔해 장애물"
+
+msgctxt "term"
+msgid "Ruined"
+msgstr "폐허"
+
+msgctxt "term"
+msgid "Salvage"
+msgstr "잔해 회수"
+
+msgctxt "term"
+msgid "Samples"
+msgstr "표본"
+
+msgctxt "term"
+msgid "Samples and records preserved"
+msgstr "표본과 기록 보존"
+
+msgctxt "term"
+msgid "Samples preserved"
+msgstr "표본 보존"
+
+msgctxt "term"
+msgid "Sealed entrance"
+msgstr "봉쇄된 입구"
+
+msgctxt "term"
+msgid "Shelter"
+msgstr "피난처"
+
+msgctxt "term"
+msgid "Stability"
+msgstr "안정"
+
+msgctxt "term"
+msgid "Strength"
+msgstr "근력"
+
+msgctxt "term"
+msgid "Succeeded"
+msgstr "성공"
+
+msgctxt "term"
+msgid "Supplies"
+msgstr "물자"
+
+msgctxt "term"
+msgid "Survey"
+msgstr "탐사"
+
+msgctxt "term"
+msgid "Survey records"
+msgstr "탐사 기록"
+
+msgctxt "term"
+msgid "Survival"
+msgstr "생존"
+
+msgctxt "term"
+msgid "Tail"
+msgstr "꼬리"
+
+msgctxt "term"
+msgid "Thrust"
+msgstr "찌르기"
+
+msgctxt "term"
+msgid "Torso"
+msgstr "몸통"
+
+msgctxt "term"
+msgid "Unarmed"
+msgstr "맨손"
+
+msgctxt "term"
+msgid "Unarmed strike"
+msgstr "맨손 공격"
+
+msgctxt "term"
+msgid "Unconfirmed"
+msgstr "미확정"
+
+msgctxt "term"
+msgid "Understanding"
+msgstr "이해"
+
+msgctxt "term"
+msgid "Unknown object"
+msgstr "정체불명의 물건"
+
+msgctxt "term"
+msgid "Unresolved"
+msgstr "결과 미확정"
+
+msgctxt "term"
+msgid "Warhammer"
+msgstr "전투망치"
+
+msgctxt "term"
+msgid "Warhammer strike"
+msgstr "전투망치 공격"
+
+msgctxt "term"
+msgid "Willpower"
+msgstr "의지"
+
+msgctxt "term"
+msgid "Worksite"
+msgstr "사업 현장"
+
+msgctxt "term"
+msgid "You"
+msgstr "탐험가"
+
+msgid "{item}: {count} unit"
+msgid_plural "{item}: {count} units"
+msgstr[0] "{item}: {count}개"
+
+msgctxt "term"
+msgid "Blunt"
+msgstr "타격"
+
+msgctxt "term"
+msgid "Awareness"
+msgstr "인식"
+
+msgctxt "term"
+msgid "Control"
+msgstr "제어"
+
+msgctxt "term"
+msgid "Facility change"
+msgstr "시설 변화"
+
+msgctxt "term"
+msgid "Custody change"
+msgstr "보관권 변화"
+
+msgctxt "term"
+msgid "Political change"
+msgstr "정치적 변화"
+
+msgctxt "term"
+msgid "Historical trace change"
+msgstr "역사적 흔적의 변화"
+
+msgctxt "term"
+msgid "Project change"
+msgstr "사업의 변화"
+
+msgctxt "term"
+msgid "Population change"
+msgstr "인구의 변화"
+
+msgctxt "term"
+msgid "Site reoccupation"
+msgstr "장소 재점유"
+
+msgctxt "term"
+msgid "Object custody or loss"
+msgstr "물건의 이전·소실"
+
+msgctxt "term"
+msgid "Site incident"
+msgstr "현장 사건"
+
+msgctxt "term"
+msgid "Community relationship change"
+msgstr "공동체 관계 변화"
+
+msgctxt "term"
+msgid "Migration"
+msgstr "이주"
+
+msgctxt "term"
+msgid "Community split"
+msgstr "공동체 분열"

@@ -42,3 +42,9 @@ C는 기존 Character Overview, H는 습득 정보, F3는 개발자 정보다.
 자동 행동·저장·Seed·그래픽 렌더 검증과 인간의 플레이 재미 평가는 구분한다.
 [상세 계약](../specs/history_playable_world.md),
 [검증·통계·수동 체크리스트](../reviews/history_v6_phase_c/report.md)를 따른다.
+
+## M048 한국어 후속 구현
+
+`codex/m048-korean-playtest-localization`에서 UI·조작 안내·행동 결과·시설/자원·현장 기록·전투 로그·Character Overview를 한국어로 표시한다. native PO와 번들 한글 폰트를 사용하며 raw ID/Dictionary는 지역·공동체 표시명과 문장으로 정리했다. H는 습득 정보, F3는 개발 진단이다. 작은 화면은 줄바꿈·스크롤을 사용한다.
+
+표시 언어는 `user://presentation.cfg`에 별도로 둔다. 언어 전환·이전 save 복원은 역사·Manifest·행동·RNG·Actor·소유권을 바꾸지 않는다. 현 엔티티에는 M035 canonical name이 아직 연결되지 않았다. [현지화 기준](localization_strategy.md) · [검증과 수동 과제](../reviews/m048_korean_localization/report.md). main 미통합.

@@ -32,3 +32,5 @@ docs/diagrams/*.import
 
 # M048 curated rendered evidence does not need generated Godot import sidecars.
 /docs/reviews/history_v6_phase_c/*.png.import
+
+/docs/reviews/m048_korean_localization/*.png.import

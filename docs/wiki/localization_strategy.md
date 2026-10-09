@@ -1,22 +1,21 @@
 +++
-status = "설계"
+status = "구현 완료 — M048 후속 작업 브랜치"
 areas = ["UI/로그"]
-milestones = "미배정 — ROADMAP Planned"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/chat/localization-strategy/docs/decisions/localization_and_text_authoring.md"
+milestones = "M048 한국어 현지화 기반"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/m048-korean-playtest-localization/docs/decisions/localization_and_text_authoring.md"
 icon = "🌐"
 +++
-# 한국어 우선 현지화 — 장기 설계 원칙
+# 한국어 우선 현지화
 
-현재 결정: **한국어를 기본 플레이 표시 언어**로 사용하고, 향후 영어 현지화까지 지원할 수 있도록 내부 상태와 문구를 분리한다. 이것은 **설계 방향**이며, M048 UI 한글화가 구현 완료되었다는 뜻이 아니다.
+M048 전용 씬은 `codex/m048-korean-playtest-localization`에서 한국어를 기본으로 표시한다. main 미통합.
 
-- **게임의 실체는 언어 독립적이다.** 역사·Project/Scar·Actor·아이템·행동·소유권·Save의 ID, 규칙, Seed, JSON 계약은 번역하지 않는다.
-- **플레이어에게 보이는 문자열만 번역한다.** 메시지·도움말·상호작용 실패 이유·캐릭터 상태·기록·시설 설명은 한국어로 자연스럽게 표현한다. 개발자 F3 정보는 원시 ID를 유지할 수 있다.
-- **기존 M035 이름 생성기를 재사용한다.** 같은 정체성의 이름을 `NameRenderer`가 `ko` 또는 `en`으로 렌더링한다. 영어 표기를 한글로 기계적으로 음역해 저장하지 않는다.
-- **Godot 기본 현지화 도구를 우선한다.** 번역 리소스·PO·`TranslationServer` 등은 실제 도입 시 엔진 버전 기준으로 검증한다. 임시 번역 Dictionary를 또 다른 영구 권위로 만들지 않는다.
-- **로어 지식의 경계를 지킨다.** 번역이 미확정 사실을 확정하거나, 세계 내 인물이 알지 못할 전문 용어를 갑자기 사용하게 만들어서는 안 된다.
-- **한글 폰트·UI를 테스트한다.** 프로젝트에 포함하는 폰트는 라이선스를 확인하고, 줄바꿈·긴 고유명사·작은 해상도·혼합 문자 렌더링을 실제 화면으로 검증한다.
-- **언어 설정은 플레이 저장과 분리한다.** 미래에 언어를 바꾸더라도 같은 역사, 세계 상태, 플레이어 행동 결과가 유지되어야 한다.
+- 번역 권위는 `locale/ko.po`의 전체 문장과 term 문맥 용어다. 영어 원문은 코드와 messages.pot에 보존한다. Godot 4.7.2의 native PO, TranslationServer, Control 자동 번역, 문맥·복수형 API를 검증했다.
+- GameText는 자원·수량·시설·소유 세력·현재 필요·사업·흔적·현장 기록·결과·전투 로그를 표시한다. Character Overview는 기존 query의 최종값과 계산 단계만 렌더링한다. F3는 원시 진단을 유지한다.
+- 번역 결과를 역사·Manifest·판정·시간·RNG·보관권·Actor·저장 schema에 쓰지 않는다. 기존 CombatEvent의 영어 result는 유지하고 semantic 코드/인수를 추가한다.
+- 실제 GeneratedName이 주어지면 M035 NameRenderer에 위임한다. 현 엔티티에는 해당 필드가 없어 지역/공동체 번호 및 알려진 prototype 표시명을 사용한다. 새 이름 생성·음역·저장 변경은 없다.
+- 기원·의도·고대 기계 원리는 근거가 없으면 미확정이다. 기록은 실제 조사·회수한 현장 정보만 표시한다.
+- 번들 Noto Sans KR 2.004 (SIL OFL 1.1), 줄바꿈·스크롤, 기존 물리 단축키를 사용한다. 언어 선호는 세계 저장과 별도인 `user://presentation.cfg`에 둔다. 언어 메뉴는 없으며 영어는 개발용 원문 fallback이다.
 
-진행 순서는 M048 한국어 플레이 UI → 공통 표시 계약 → 절차적 이름·로어 텍스트 연동 → 영어 완성도·설정·패키지 검증이다. 각 단계는 별도 구현 범위를 확정한 후 진행한다.
+GPU 렌더 여섯 화면을 1152×648, 1920×1080, 800×600에서 확인했다. OS 한글 IME 입력·사람의 최종 문체 검토·export package는 별도 수동 검증이다.
 
-[상세 설계 결정](../decisions/localization_and_text_authoring.md) · [절차적 이름 생성 원칙](../decisions/procedural_naming.md)
+[설계 결정](../decisions/localization_and_text_authoring.md) · [후속 기록](../milestones/M048_korean_localization_followup.md) · [검증 보고서](../reviews/m048_korean_localization/report.md)

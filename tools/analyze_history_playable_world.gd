@@ -2,8 +2,10 @@ extends SceneTree
 ## Logical placement/path corpus; no GUI or full tactical simulation per seed.
 func _init() -> void:
 	var count := 500
+	var output_path := ""
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--count="): count = int(arg.trim_prefix("--count="))
+		if arg.begins_with("--output="): output_path = arg.trim_prefix("--output=")
 	var stats := {"count": count, "generation_version": HistoryWorldRealization.VERSION, "history_version": HistoryCivilizationContent.VERSION,
 		"worlds": 0, "zones": 0, "facilities": 0, "edges": 0, "valid_spawns": 0, "objects": 0,
 		"reachable_objects": 0, "intentional_sealed_objects": 0, "unintended_unreachable": 0,
@@ -72,7 +74,7 @@ func _init() -> void:
 		for t in times: total += t
 		stats[field] = {"samples": times.size(), "mean": total / maxi(1, times.size()), "p95": times[floori((times.size() - 1) * 0.95)] if not times.is_empty() else 0, "max": times.back() if not times.is_empty() else 0}
 	DirAccess.make_dir_recursive_absolute("res://docs/reviews/history_v6_phase_c")
-	var output_path := "res://" + "docs/reviews/history_v6_phase_c/stats_%d.json" % count
+	if output_path.is_empty(): output_path = "res://" + "docs/reviews/history_v6_phase_c/stats_%d.json" % count
 	var file := FileAccess.open(output_path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(stats, "\t", true) + "\n")
 	print("Playable corpus complete: %d worlds, %d zones, %d failures, %d unreachable" % [stats.worlds, stats.zones, stats.failures.size(), stats.unintended_unreachable])

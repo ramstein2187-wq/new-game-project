@@ -18,7 +18,7 @@ func _init() -> void:
 	header.add_child(title_label)
 	close_button = Button.new()
 	close_button.text = "Close"
-	close_button.tooltip_text = "Close Inspector"
+	close_button.tooltip_text = tr("Close Inspector")
 	close_button.pressed.connect(func(): close_requested.emit())
 	header.add_child(close_button)
 	value_label = _label("")
@@ -35,7 +35,7 @@ func _init() -> void:
 	body_label.bbcode_enabled = false
 	body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body_label.add_theme_color_override("default_color", InspectorNumberStyle.NEUTRAL)
-	body_label.add_text("Select a value to see its sources.")
+	body_label.add_text(tr("Select a value to see its sources."))
 	body_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(body_label)
 

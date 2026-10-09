@@ -6,10 +6,58 @@ var initial_world: HistoryWorldRealization
 var pending_zone := ""
 var action_feedback := ""
 var load_error := ""
+const NOTICES := {
+	"living_explorer": "Only the living explorer can operate these objects.",
+	"adjacent": "Stand beside the object.",
+	"no_target": "No target for this action.",
+	"hand": "A functional hand is required.",
+	"occupied": "The doorway is occupied.",
+	"access_denied": "The community denies facility access after unauthorized recovery.",
+	"blocked_route": "The locality's passage is blocked; clear its route barrier first.",
+	"destination": "Invalid destination.",
+	"arrival_occupied": "An Actor occupies the destination entrance.",
+	"materials": "Materials are insufficient. Required: {required}; carried: {available}.",
+	"intact": "The structure is already intact.",
+	"stabilized": "This structure is already stabilized.",
+	"record_required": "An optional on-site record can identify a safer structural intervention.",
+	"use_denied": "The community denies facility use after unauthorized recovery.",
+	"unsafe": "The facility lacks safe structure, supplies or a functioning dependency; unknown machinery cannot be operated.",
+	"rest_used": "This expedition's shelter rest has already been used.",
+	"project_reserved": "This facility is reserved for an ongoing community project.",
+	"shelter_only": "This prototype only operates safe shelters.",
+	"healthy": "You do not need shelter recovery.",
+	"no_dispute": "No outstanding custody dispute.",
+	"open": "Door opened.",
+	"close": "Door closed.",
+	"unknown_recovered": "Recovered an inert unknown object; its function remains unknown.",
+	"recovered": "Recovered {count} units of {item}.",
+	"custody": "Community custody was violated: managed doors and shelter use are now restricted.",
+	"cleared": "Removed the obstruction; passage is open.",
+	"repaired": "Repaired ordinary structure. Missing equipment and unknown machinery remain unavailable.",
+	"stabilized_ok": "Used the on-site structural record to make this facility's footing safe.",
+	"rested": "Rested in a functioning shelter; recovered up to four HP.",
+	"offered": "Contributed recovered material to the community; one custody violation was settled.",
+	"travelled": "Entered a connected locality.",
+	"hazard": "Unstable ground causes {damage} damage; investigate or stabilize the structure.",
+	"started": "Explore the connected paths, recover supplies or seek shelter. Records are optional.",
+	"saved": "Saved world.",
+	"loaded": "Saved world restored.",
+	"save_turn": "Save requires a completed player turn.",
+	"save_failed": "Cannot write or replace the save. Check the save location.",
+	"load_failed": "Cannot open the save. Save a world first.",
+	"invalid_save": "Cannot restore this save. Its format or world state is invalid.",
+	"action_failed": "Action unavailable. Check the target, path and body function.",
+	"blocked": "Movement blocked. Face a door and press E, or clear a barrier with X.",
+	"acted": "Action completed. NPC responses: {count}.",
+	"ended": "You have fallen. Load a save or generate a new world.",
+	"generation_failed": "World generation failed. Try another seed."
+}
+var notice: Dictionary = {}
+
 
 func start(manifest: HistoryWorldManifest) -> bool:
 	var w := HistoryWorldRealization.build(manifest)
-	if not w.errors.is_empty(): message = str(w.errors); return false
+	if not w.errors.is_empty(): message = str(w.errors); _notify("generation_failed"); return false
 	initial_world = w; runtime = HistoryRuntimeState.new(w)
 	scheduler.reset(&"player"); actors = ActorRegistry.new()
 	var player := Actor.new(&"player", ActorDefinition.human_default(), HistoryWorldRealization.vector(w.zones[runtime.current_zone].spawn), "You")
@@ -17,6 +65,7 @@ func start(manifest: HistoryWorldManifest) -> bool:
 	game_over = false; simulation_error = ""; combat_log.clear(); pending_zone = ""
 	_activate(runtime.current_zone, player.position)
 	message = "Explore the connected paths, recover supplies or seek shelter. Records are optional."
+	_notify("started")
 	return true
 
 func _activate(zone_id: String, spawn: Vector2i) -> void:
@@ -56,9 +105,11 @@ func _capture_zone() -> void:
 func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 	if runtime == null: return super.perform_action(actor_id, action)
 	if action is InteractAction:
-		var reason := interaction_unavailable_reason(actor_id, action.target_cell, action.operation)
-		if not reason.is_empty(): message = reason + " No time spent."; return false
-	if actor_id == &"player": action_feedback = ""
+		var failure := interaction_failure(actor_id, action.target_cell, action.operation)
+		if not failure.is_empty():
+			message = interaction_unavailable_reason(actor_id, action.target_cell, action.operation) + " No time spent."
+			notice = failure; return false
+	if actor_id == &"player": action_feedback = ""; notice = {}
 	var success := super.perform_action(actor_id, action)
 	if success and actor_id == &"player":
 		if game_over: pending_zone = ""
@@ -68,6 +119,9 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 			var entry := runtime.object(destination, "exit:" + previous)
 			_activate(destination, HistoryWorldRealization.vector(entry.cell))
 		if not action_feedback.is_empty(): message = action_feedback + " (cost %d, t=%d)" % [last_action_cost, world_time]
+	if actor_id == &"player":
+		if notice.is_empty(): _notify("acted" if success else "action_failed", {"count": last_response_count})
+		notice["spent"] = success
 	return success
 
 func is_wall(cell: Vector2i) -> bool:
@@ -84,7 +138,9 @@ func set_actor_position(actor_id: StringName, cell: Vector2i) -> void:
 		var hazard := hazard_at(cell)
 		if hazard > 0:
 			damage_actor(actor_id, hazard)
-			if actor_id == &"player": action_feedback = "Unstable ground causes %d damage; investigate or stabilize the structure." % hazard
+			if actor_id == &"player":
+				action_feedback = "Unstable ground causes %d damage; investigate or stabilize the structure." % hazard
+				_notify("hazard", {"damage": hazard})
 
 func hazard_at(cell: Vector2i) -> int:
 	var hazard: Dictionary = initial_world.zones[runtime.current_zone].hazards.get(HistoryWorldRealization.key(cell), {})
@@ -120,42 +176,47 @@ func target(operation: StringName, cell: Vector2i) -> Dictionary:
 
 func interaction_unavailable_reason(actor_id: StringName, cell: Vector2i, operation: StringName) -> String:
 	if runtime == null: return super.interaction_unavailable_reason(actor_id, cell, operation)
-	if actor_id != &"player" or not actor_is_alive(actor_id): return "Only the living explorer can operate these objects."
+	var failure := interaction_failure(actor_id, cell, operation)
+	return "" if failure.is_empty() else String(NOTICES[failure.code]).format(failure.args)
+
+func interaction_failure(actor_id: StringName, cell: Vector2i, operation: StringName) -> Dictionary:
+	if runtime == null: return {}
+	if actor_id != &"player" or not actor_is_alive(actor_id): return {"code": "living_explorer", "args": {}}
 	var position := get_actor_position(actor_id)
-	if (cell - position).length_squared() > 1: return "Stand beside the object."
+	if (cell - position).length_squared() > 1: return {"code": "adjacent", "args": {}}
 	var o := target(operation, cell)
-	if o.is_empty(): return "No target for this action."
-	if operation == &"inspect": return ""
-	if get_actor(actor_id).body.functional_count(&"weapon_manipulation") < 1: return "A functional hand is required."
+	if o.is_empty(): return {"code": "no_target", "args": {}}
+	if operation == &"inspect": return {}
+	if get_actor(actor_id).body.functional_count(&"weapon_manipulation") < 1: return {"code": "hand", "args": {}}
 	if operation == &"interact":
-		if o.open and actors.occupant_at(cell) != null: return "The doorway is occupied."
-		if not runtime.has_permission(o.owner_id): return "The community denies facility access after unauthorized recovery."
+		if o.open and actors.occupant_at(cell) != null: return {"code": "occupied", "args": {}}
+		if not runtime.has_permission(o.owner_id): return {"code": "access_denied", "args": {}}
 	elif operation == &"travel":
 		var route_id := "route:" + runtime.current_zone
-		if initial_world.zones[runtime.current_zone].objects.has(route_id) and not runtime.object(runtime.current_zone, route_id).removed: return "The locality's passage is blocked; clear its route barrier first."
+		if initial_world.zones[runtime.current_zone].objects.has(route_id) and not runtime.object(runtime.current_zone, route_id).removed: return {"code": "blocked_route", "args": {}}
 		var destination: String = o.destination
-		if not initial_world.zones[destination].objects.has("exit:" + runtime.current_zone): return "Invalid destination."
+		if not initial_world.zones[destination].objects.has("exit:" + runtime.current_zone): return {"code": "destination", "args": {}}
 		var arrival: Vector2i = HistoryWorldRealization.vector(runtime.object(destination, "exit:" + runtime.current_zone).cell)
 		for raw in runtime.actors[destination]:
-			if not raw.dead and HistoryWorldRealization.vector(raw.position) == arrival: return "An Actor occupies the destination entrance."
+			if not raw.dead and HistoryWorldRealization.vector(raw.position) == arrival: return {"code": "arrival_occupied", "args": {}}
 	elif operation in [&"clear", &"repair", &"stabilize"]:
-		if (operation != &"clear" or o.kind == "route") and runtime.bag("materials") < 1: return "One recovered material unit is required."
-		if operation == &"repair" and o.condition == "intact": return "The structure is already intact."
+		if (operation != &"clear" or o.kind == "route") and runtime.bag("materials") < 1: return {"code": "materials", "args": {"required": 1, "available": runtime.bag("materials")}}
+		if operation == &"repair" and o.condition == "intact": return {"code": "intact", "args": {}}
 		if operation == &"stabilize":
-			if o.get("stabilized", false): return "This structure is already stabilized."
-			if not runtime.knowledge.has("record:" + o.facility_id): return "An optional on-site record can identify a safer structural intervention."
+			if o.get("stabilized", false): return {"code": "stabilized", "args": {}}
+			if not runtime.knowledge.has("record:" + o.facility_id): return {"code": "record_required", "args": {}}
 	elif operation == &"use":
-		if not runtime.has_permission(o.owner_id): return "The community denies facility use after unauthorized recovery."
-		if not function_usable(o.facility_id): return "The facility lacks safe structure, supplies or a functioning dependency; unknown machinery cannot be operated."
-		if o.used: return "This expedition's shelter rest has already been used."
+		if not runtime.has_permission(o.owner_id): return {"code": "use_denied", "args": {}}
+		if not function_usable(o.facility_id): return {"code": "unsafe", "args": {}}
+		if o.used: return {"code": "rest_used", "args": {}}
 		for p in initial_world.manifest.projects:
-			if p.site_id == o.facility_id and p.status == "active": return "This facility is reserved for an ongoing community project."
-		if initial_world.zones[runtime.current_zone].facilities[o.facility_id].local_function != "shelter": return "This prototype only operates safe shelters."
-		if player_hp >= PLAYER_MAX_HP: return "You do not need shelter recovery."
+			if p.site_id == o.facility_id and p.status == "active": return {"code": "project_reserved", "args": {}}
+		if initial_world.zones[runtime.current_zone].facilities[o.facility_id].local_function != "shelter": return {"code": "shelter_only", "args": {}}
+		if player_hp >= PLAYER_MAX_HP: return {"code": "healthy", "args": {}}
 	elif operation == &"offer":
-		if o.owner_id.is_empty() or runtime.has_permission(o.owner_id): return "No outstanding custody dispute."
-		if runtime.bag("materials") < restitution_cost(o.owner_id): return "%d material units are needed for this community's present needs." % restitution_cost(o.owner_id)
-	return ""
+		if o.owner_id.is_empty() or runtime.has_permission(o.owner_id): return {"code": "no_dispute", "args": {}}
+		if runtime.bag("materials") < restitution_cost(o.owner_id): return {"code": "materials", "args": {"required": restitution_cost(o.owner_id), "available": runtime.bag("materials")}}
+	return {}
 
 func restitution_cost(owner: String) -> int:
 	for f in initial_world.manifest.factions:
@@ -189,43 +250,47 @@ func execute_interaction(actor_id: StringName, cell: Vector2i, operation: String
 	event.data = {"object_id": o.id, "facility_id": o.facility_id, "operation": String(operation), "position": cell}
 	match operation:
 		&"interact":
-			runtime.change(o.id, {"open": not o.open}); action_feedback = "Door opened." if not o.open else "Door closed."
+			runtime.change(o.id, {"open": not o.open}); action_feedback = "Door opened." if not o.open else "Door closed."; _notify("open" if not o.open else "close")
 		&"recover":
 			runtime.change(o.id, {"taken": true})
-			if o.kind == "unique": runtime.unique_owners[o.entity_id] = "player"; action_feedback = "Recovered an inert unknown object; its function remains unknown."
+			if o.kind == "unique": runtime.unique_owners[o.entity_id] = "player"; action_feedback = "Recovered an inert unknown object; its function remains unknown."; _notify("unknown_recovered")
 			else:
-				runtime.gather(o.asset_kind, int(o.quantity)); action_feedback = "Recovered %d %s." % [o.quantity, o.asset_kind]
+				runtime.gather(o.asset_kind, int(o.quantity)); action_feedback = "Recovered %d %s." % [o.quantity, o.asset_kind]; _notify("recovered", {"count": o.quantity, "item": o.asset_kind})
 				if o.asset_kind in ["genomic_records", "survey_records"] and "record:" + o.facility_id not in runtime.knowledge:
 					runtime.knowledge.append("record:" + o.facility_id)
 			if not o.owner_id.is_empty():
 				runtime.offenses[o.owner_id] = int(runtime.offenses.get(o.owner_id, 0)) + 1
 				action_feedback += " Community custody was violated: managed doors and shelter use are now restricted."
+				notice["custody"] = true
 		&"clear":
 			if o.kind == "route": runtime.inventory["materials"] = runtime.bag("materials") - 1
-			runtime.change(o.id, {"removed": true}); action_feedback = "Removed the obstruction; passage is open."
+			runtime.change(o.id, {"removed": true}); action_feedback = "Removed the obstruction; passage is open."; _notify("cleared")
 		&"repair":
 			runtime.inventory["materials"] = runtime.bag("materials") - 1
 			runtime.change(o.id, {"condition": "damaged" if o.condition == "ruined" else "intact"})
-			action_feedback = "Repaired ordinary structure. Missing equipment and unknown machinery remain unavailable."
+			action_feedback = "Repaired ordinary structure. Missing equipment and unknown machinery remain unavailable."; _notify("repaired")
 		&"stabilize":
 			runtime.inventory["materials"] = runtime.bag("materials") - 1
-			runtime.change(o.id, {"stabilized": true}); action_feedback = "Used the on-site structural record to make this facility's footing safe."
+			runtime.change(o.id, {"stabilized": true}); action_feedback = "Used the on-site structural record to make this facility's footing safe."; _notify("stabilized_ok")
 		&"inspect":
 			if o.id not in runtime.knowledge: runtime.knowledge.append(o.id)
-			action_feedback = describe(o, true)
+			action_feedback = describe(o, true); _notify("inspect", {"object_id": o.id})
 		&"use":
 			runtime.change(o.id, {"used": true}); get_actor(actor_id).hp = mini(PLAYER_MAX_HP, player_hp + 4)
-			action_feedback = "Rested in a functioning shelter; recovered up to four HP."
+			action_feedback = "Rested in a functioning shelter; recovered up to four HP."; _notify("rested")
 		&"offer":
 			runtime.inventory["materials"] = runtime.bag("materials") - restitution_cost(o.owner_id)
 			runtime.offenses[o.owner_id] = maxi(0, int(runtime.offenses.get(o.owner_id, 0)) - 1)
-			action_feedback = "Contributed recovered material to the community; one custody violation was settled."
-		&"travel": pending_zone = o.destination; action_feedback = "Entered a connected locality."
+			action_feedback = "Contributed recovered material to the community; one custody violation was settled."; _notify("offered")
+		&"travel": pending_zone = o.destination; action_feedback = "Entered a connected locality."; _notify("travelled")
 	event.data["result"] = action_feedback
+	event.data["result_code"] = notice.code
+	event.data["result_args"] = notice.args.duplicate(true)
+	event.data["custody_violation"] = notice.get("custody", false)
 	return event
 
 func player_operation(operation: StringName) -> bool:
-	if not _can_player_act(): return false
+	if not _can_player_act(): _notify("ended" if game_over else "action_failed"); return false
 	var cell := player_position + facing
 	if operation == &"travel" and not target(operation, player_position).is_empty(): cell = player_position
 	return perform_action(&"player", InteractAction.new(cell, operation))
@@ -269,7 +334,7 @@ func save_json() -> String:
 func load_json(json: String) -> bool:
 	var decoded := HistoryRuntimeState.decode(json)
 	load_error = decoded.error
-	if not load_error.is_empty(): message = load_error; return false
+	if not load_error.is_empty(): message = load_error; _notify("invalid_save"); return false
 	runtime = decoded.runtime; initial_world = runtime.realization
 	scheduler.reset(&"player"); scheduler.restore_player_boundary(decoded.world_time)
 	if decoded.player_delay > 0: scheduler.advance_actor(&"player", decoded.player_delay)
@@ -277,22 +342,37 @@ func load_json(json: String) -> bool:
 	game_over = not decoded.player.is_alive(); simulation_error = ""; pending_zone = ""; combat_log.clear()
 	_activate(runtime.current_zone, decoded.player.position)
 	message = "Saved world restored."
+	_notify("loaded")
 	return true
 
 func save_file(path: String) -> bool:
 	var text := save_json()
-	if text.is_empty(): message = "Save requires a completed player turn."; return false
+	if text.is_empty(): message = "Save requires a completed player turn."; _notify("save_turn"); return false
 	var temporary := path + ".tmp"
 	var file := FileAccess.open(temporary, FileAccess.WRITE)
-	if file == null: message = "Cannot write save: " + str(FileAccess.get_open_error()); return false
+	if file == null: message = "Cannot write save: " + str(FileAccess.get_open_error()); _notify("save_failed"); return false
 	file.store_string(text); file.flush()
 	var error := file.get_error(); file.close()
-	if error != OK: message = "Save write failed."; return false
+	if error != OK: message = "Save write failed."; _notify("save_failed"); return false
 	error = DirAccess.rename_absolute(temporary, path)
 	message = "Saved world." if error == OK else "Save replacement failed: " + str(error)
+	_notify("saved" if error == OK else "save_failed")
 	return error == OK
 
 func load_file(path: String) -> bool:
 	var file := FileAccess.open(path, FileAccess.READ)
-	if file == null: message = "Cannot open save."; return false
+	if file == null: message = "Cannot open save."; _notify("load_failed"); return false
 	return load_json(file.get_as_text())
+
+func _notify(code: String, args: Dictionary = {}) -> void:
+	notice = {"code": code, "args": args.duplicate(true)}
+
+func player_move(direction: Vector2i) -> bool:
+	var success := super.player_move(direction)
+	if not success: _notify("ended" if game_over else "blocked")
+	return success
+
+func player_wait() -> bool:
+	var success := super.player_wait()
+	if not success: _notify("ended" if game_over else "action_failed")
+	return success

@@ -1,0 +1,1033 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "\nLegend: blue = you; red = fauna; orange = hazard\nD = door, X = rubble, M = material, ? = unknown object\nF = facility, i = record, > = exit, s = Scar, W = worksite"
+msgstr ""
+
+msgid " (dead)"
+msgstr ""
+
+msgid "A functional hand is required."
+msgstr ""
+
+msgid "ATTRIBUTES"
+msgstr ""
+
+msgid "AVERAGE ARMOR"
+msgstr ""
+
+msgid "Abilities"
+msgstr ""
+
+msgid "Action completed. NPC responses: {count}."
+msgstr ""
+
+msgid "Action time {cost}; world time {time}."
+msgstr ""
+
+msgid "Action unavailable. Check the target, path and body function."
+msgstr ""
+
+msgid "Active effect: {effect}; origin: {origin}.\n"
+msgstr ""
+
+msgid "An Actor occupies the destination entrance."
+msgstr ""
+
+msgid "An optional on-site record can identify a safer structural intervention."
+msgstr ""
+
+msgid "Armor softened the blow."
+msgstr ""
+
+msgid "At least {amount}"
+msgstr ""
+
+msgid "Attack unavailable: health or required functional limbs."
+msgstr ""
+
+msgid "Average Armor"
+msgstr ""
+
+msgid "Base"
+msgstr ""
+
+msgid "Innate base"
+msgstr ""
+
+msgid "Base × (1 + percent total) + flat total.\nResolved value: {value}; ability modifier: {modifier}.\nThe modifier uses the whole score. Checks use one resolved primary attribute; alternates require an authored rule."
+msgstr ""
+
+msgid "Basic attack ready."
+msgstr ""
+
+msgid "Body"
+msgstr ""
+
+msgid "Body condition: {state}."
+msgstr ""
+
+msgid "Body efficiency"
+msgstr ""
+
+msgid "CHARACTER"
+msgstr ""
+
+msgid "COMBAT"
+msgstr ""
+
+msgid "CURRENT STATE"
+msgstr ""
+
+msgid "Cannot open the save. Save a world first."
+msgstr ""
+
+msgid "Cannot restore this save. Its format or world state is invalid."
+msgstr ""
+
+msgid "Cannot write or replace the save. Check the save location."
+msgstr ""
+
+msgid "Cardinal movement time before destination checks. Movement speed, body efficiency and active effects apply. Adjusted base × (1 + percent total) + flat total, then round up; minimum 1."
+msgstr ""
+
+msgid "Carried: {inventory}"
+msgstr ""
+
+msgid "Character [C]"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Click or press Enter to inspect."
+msgstr ""
+
+msgid "Close Inspector"
+msgstr ""
+
+msgid "Community custody was violated: managed doors and shelter use are now restricted."
+msgstr ""
+
+msgid "Community {number}"
+msgstr ""
+
+msgid "Conditions: {count}"
+msgstr ""
+
+msgid "Connected destination: {region}. Travel with T."
+msgstr ""
+
+msgid "Constitution"
+msgstr ""
+
+msgid "Contributed recovered material to the community; one custody violation was settled."
+msgstr ""
+
+msgid "Current HP {hp}; maximum {maximum}.\nBase HP {base}; resolved CON {con}.\nEach CON point above or below 10 changes base HP by 5%. Round once, minimum 1. Maximum changes preserve damage; decreases can kill, increases never revive."
+msgstr ""
+
+msgid "Current and maximum health."
+msgstr ""
+
+msgid "Current body integrity and active Effects. Select for details."
+msgstr ""
+
+msgid "Current expedition"
+msgstr ""
+
+msgid "Current project: {kind} · {status}. Active works reserve space and shelter use."
+msgstr ""
+
+msgid "Current resolved attribute and its D20 ability modifier. Click for sources."
+msgstr ""
+
+msgid "Current tab"
+msgstr ""
+
+msgid "DEFENSE"
+msgstr ""
+
+msgid "Damage"
+msgstr ""
+
+msgid "Dexterity"
+msgstr ""
+
+msgid "Door closed."
+msgstr ""
+
+msgid "Door is closed. Open with E."
+msgstr ""
+
+msgid "Door is open."
+msgstr ""
+
+msgid "Door opened."
+msgstr ""
+
+msgid "Effect source: {effect}; origin: {origin}.\n"
+msgstr ""
+
+msgid "Enter an integer world seed."
+msgstr ""
+
+msgid "Entered a connected locality."
+msgstr ""
+
+msgid "Equipment"
+msgstr ""
+
+msgid "Explore the connected paths, recover supplies or seek shelter. Records are optional."
+msgstr ""
+
+msgid "Facing target:"
+msgstr ""
+
+msgid "Future tab"
+msgstr ""
+
+msgid "Generate"
+msgstr ""
+
+msgid "HEALTH"
+msgstr ""
+
+msgid "HP"
+msgstr ""
+
+msgid "Healthy"
+msgstr ""
+
+msgid "IDENTITY"
+msgstr ""
+
+msgid "INSPECTOR"
+msgstr ""
+
+msgid "Inert object. Origin and function remain unconfirmed."
+msgstr ""
+
+msgid "Inspected an object and learned its observable details."
+msgstr ""
+
+msgid "Intelligence"
+msgstr ""
+
+msgid "Invalid destination."
+msgstr ""
+
+msgid "Learned on site (not an omniscient history dossier):"
+msgstr ""
+
+msgid "Learned records [H]"
+msgstr ""
+
+msgid "Load [F9]"
+msgstr ""
+
+msgid "MAIN ATTACK"
+msgstr ""
+
+msgid "MOVE TIME"
+msgstr ""
+
+msgid "MOVEMENT"
+msgstr ""
+
+msgid "Main Attack"
+msgstr ""
+
+msgid "Managed by {owner}. Present need: {need}."
+msgstr ""
+
+msgid "Materials are insufficient. Required: {required}; carried: {available}."
+msgstr ""
+
+msgid "Minimum cost"
+msgstr ""
+
+msgid "Move Time"
+msgstr ""
+
+msgid "Movement blocked. Face a door and press E, or clear a barrier with X."
+msgstr ""
+
+msgid "Movement speed"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "No attack definition."
+msgstr ""
+
+msgid "No injured parts or active Effects."
+msgstr ""
+
+msgid "No nearby object."
+msgstr ""
+
+msgid "No notable events yet."
+msgstr ""
+
+msgid "No on-site records learned here yet. Face a physical record and inspect with I."
+msgstr ""
+
+msgid "No outstanding custody dispute."
+msgstr ""
+
+msgid "No safe entrance is available."
+msgstr ""
+
+msgid "No target for this action."
+msgstr ""
+
+msgid "No valid body part to strike."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "None — face an object to act."
+msgstr ""
+
+msgid "Observed structure: {condition}. Local use: {function}. Usable now: {usable}."
+msgstr ""
+
+msgid "Observed trace: {kind}. Cause and operator intent remain unconfirmed."
+msgstr ""
+
+msgid "On-site record: structural safety notes allow stabilization. Ancient machinery remains unconfirmed."
+msgstr ""
+
+msgid "Only the living explorer can operate these objects."
+msgstr ""
+
+msgid "Other source"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Penetration"
+msgstr ""
+
+msgid "Perception"
+msgstr ""
+
+msgid "Primary attribute: {ability} ({domain}); modifier {modifier}.\nProficiency {proficiency}; body injury modifier {situation}.\nd20 + attack bonus is checked against defender difficulty. No target selected here. Damage is floored at zero. DEX does not change movement speed."
+msgstr ""
+
+msgid "Raw armor weighted by part hit probability.\n"
+msgstr ""
+
+msgid "Raw armor weighted by part hit probability. Disabled parts remain hittable. Unarmored parts count as zero. No penetration or attacker is included."
+msgstr ""
+
+msgid "Recorded change in year {year}: {kind}. Its full cause and operator intent are not established by this record."
+msgstr ""
+
+msgid "Recorded project: {kind} · {status} · {outcome}."
+msgstr ""
+
+msgid "Records are optional. Inspect [I] a physical record to learn about this site."
+msgstr ""
+
+msgid "Recover supplies, find a safe shelter, or follow an exit."
+msgstr ""
+
+msgid "Recovered an inert unknown object; its function remains unknown."
+msgstr ""
+
+msgid "Recovered {count} units of {item}."
+msgstr ""
+
+msgid "Region {number}"
+msgstr ""
+
+msgid "Removed the obstruction; passage is open."
+msgstr ""
+
+msgid "Repaired ordinary structure. Missing equipment and unknown machinery remain unavailable."
+msgstr ""
+
+msgid "Rested in a functioning shelter; recovered up to four HP."
+msgstr ""
+
+msgid "Round up"
+msgstr ""
+
+msgid "Save [F5]"
+msgstr ""
+
+msgid "Save requires a completed player turn."
+msgstr ""
+
+msgid "Saved world restored."
+msgstr ""
+
+msgid "Saved world."
+msgstr ""
+
+msgid "Select a value to see its sources."
+msgstr ""
+
+msgid "Select for per-part details."
+msgstr ""
+
+msgid "Stand beside the object."
+msgstr ""
+
+msgid "Standard move"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Strength"
+msgstr ""
+
+msgid "The community denies facility access after unauthorized recovery."
+msgstr ""
+
+msgid "The community denies facility use after unauthorized recovery."
+msgstr ""
+
+msgid "The doorway is occupied."
+msgstr ""
+
+msgid "The facility lacks safe structure, supplies or a functioning dependency; unknown machinery cannot be operated."
+msgstr ""
+
+msgid "The locality's passage is blocked; clear its route barrier first."
+msgstr ""
+
+msgid "The structure is already intact."
+msgstr ""
+
+msgid "This expedition's shelter rest has already been used."
+msgstr ""
+
+msgid "This facility is reserved for an ongoing community project."
+msgstr ""
+
+msgid "This prototype only operates safe shelters."
+msgstr ""
+
+msgid "This structure is already stabilized."
+msgstr ""
+
+msgid "Time for a standard cardinal move. Includes movement speed, body efficiency and Effects."
+msgstr ""
+
+msgid "Traits"
+msgstr ""
+
+msgid "Unavailable"
+msgstr ""
+
+msgid "Unknown objects carried: {count}"
+msgstr ""
+
+msgid "Unstable ground causes {damage} damage; investigate or stabilize the structure."
+msgstr ""
+
+msgid "Used the on-site structural record to make this facility's footing safe."
+msgstr ""
+
+msgid "WASD/arrows + numpad: move / bump attack   Space: wait   E: door   G: recover   X: clear   T: travel\nI: inspect   P: repair   U: shelter   V: stabilize (optional record)   O: restitution   F3: developer view"
+msgstr ""
+
+msgid "Willpower"
+msgstr ""
+
+msgid "World generation failed. Try another seed."
+msgstr ""
+
+msgid "World seed"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "You do not need shelter recovery."
+msgstr ""
+
+msgid "You have fallen. Load a save or generate a new world."
+msgstr ""
+
+msgid "[Esc] Close"
+msgstr ""
+
+msgid "[T] Travel to {region}"
+msgstr ""
+
+msgid "{actor} attacks {target} ({part}), dealing {damage} {type} damage."
+msgstr ""
+
+msgid "{actor} moves."
+msgstr ""
+
+msgid "{actor} recoils and retreats."
+msgstr ""
+
+msgid "{actor} waits."
+msgstr ""
+
+msgid "{actor}: attack missed {target}."
+msgstr ""
+
+msgid "{name}\nDamage {damage} · Attack bonus {bonus}\nPenetration {penetration} · Type {type}\n{availability}"
+msgstr ""
+
+msgid "{name} HP {hp}/{maximum}{state}"
+msgstr ""
+
+msgid "{part}: hit chance {chance}%, armor {armor}, contribution {contribution}."
+msgstr ""
+
+msgid "{part}: {current}/{maximum} ({state}).\n"
+msgstr ""
+
+msgid "{region} · seed {seed} · world time {time}\n{status}"
+msgstr ""
+
+msgid "{target} falls."
+msgstr ""
+
+msgid "{target}'s armor blocked the attack."
+msgstr ""
+
+msgid "›  Hover for a quick explanation · Select for sources · C / Esc to close"
+msgstr ""
+
+msgctxt "term"
+msgid "Abandoned"
+msgstr ""
+
+msgctxt "term"
+msgid "Archival material lost"
+msgstr ""
+
+msgctxt "term"
+msgid "Archive"
+msgstr ""
+
+msgctxt "term"
+msgid "Ark project"
+msgstr ""
+
+msgctxt "term"
+msgid "Asset protection"
+msgstr ""
+
+msgctxt "term"
+msgid "Bite"
+msgstr ""
+
+msgctxt "term"
+msgid "Body"
+msgstr ""
+
+msgctxt "term"
+msgid "Completed"
+msgstr ""
+
+msgctxt "term"
+msgid "Constitution"
+msgstr ""
+
+msgctxt "term"
+msgid "Crippled"
+msgstr ""
+
+msgctxt "term"
+msgid "Crushing blow"
+msgstr ""
+
+msgctxt "term"
+msgid "Cut"
+msgstr ""
+
+msgctxt "term"
+msgid "Damaged"
+msgstr ""
+
+msgctxt "term"
+msgid "Deep Descent"
+msgstr ""
+
+msgctxt "term"
+msgid "Destroyed"
+msgstr ""
+
+msgctxt "term"
+msgid "Dexterity"
+msgstr ""
+
+msgctxt "term"
+msgid "Disabled"
+msgstr ""
+
+msgctxt "term"
+msgid "Door"
+msgstr ""
+
+msgctxt "term"
+msgid "Endurance"
+msgstr ""
+
+msgctxt "term"
+msgid "Equipment"
+msgstr ""
+
+msgctxt "term"
+msgid "Execution"
+msgstr ""
+
+msgctxt "term"
+msgid "Exit"
+msgstr ""
+
+msgctxt "term"
+msgid "Expansion"
+msgstr ""
+
+msgctxt "term"
+msgid "Facility"
+msgstr ""
+
+msgctxt "term"
+msgid "Failed"
+msgstr ""
+
+msgctxt "term"
+msgid "Failed Exodus"
+msgstr ""
+
+msgctxt "term"
+msgid "Fist"
+msgstr ""
+
+msgctxt "term"
+msgid "Fist strike"
+msgstr ""
+
+msgctxt "term"
+msgid "Force"
+msgstr ""
+
+msgctxt "term"
+msgid "Genome Archive"
+msgstr ""
+
+msgctxt "term"
+msgid "Genomic records"
+msgstr ""
+
+msgctxt "term"
+msgid "Handaxe"
+msgstr ""
+
+msgctxt "term"
+msgid "Handaxe strike"
+msgstr ""
+
+msgctxt "term"
+msgid "Head"
+msgstr ""
+
+msgctxt "term"
+msgid "Healthy"
+msgstr ""
+
+msgctxt "term"
+msgid "Historical trace"
+msgstr ""
+
+msgctxt "term"
+msgid "Human"
+msgstr ""
+
+msgctxt "term"
+msgid "Hunting knife"
+msgstr ""
+
+msgctxt "term"
+msgid "Impact"
+msgstr ""
+
+msgctxt "term"
+msgid "In progress"
+msgstr ""
+
+msgctxt "term"
+msgid "Inert salvage"
+msgstr ""
+
+msgctxt "term"
+msgid "Infrastructure Cascade"
+msgstr ""
+
+msgctxt "term"
+msgid "Injured"
+msgstr ""
+
+msgctxt "term"
+msgid "Innerworld"
+msgstr ""
+
+msgctxt "term"
+msgid "Intact"
+msgstr ""
+
+msgctxt "term"
+msgid "Intelligence"
+msgstr ""
+
+msgctxt "term"
+msgid "Judgment"
+msgstr ""
+
+msgctxt "term"
+msgid "Knife slash"
+msgstr ""
+
+msgctxt "term"
+msgid "Launch"
+msgstr ""
+
+msgctxt "term"
+msgid "Launch failed"
+msgstr ""
+
+msgctxt "term"
+msgid "Launch result unconfirmed"
+msgstr ""
+
+msgctxt "term"
+msgid "Left arm"
+msgstr ""
+
+msgctxt "term"
+msgid "Left foreleg"
+msgstr ""
+
+msgctxt "term"
+msgid "Left hindleg"
+msgstr ""
+
+msgctxt "term"
+msgid "Left leg"
+msgstr ""
+
+msgctxt "term"
+msgid "Limited survey and return"
+msgstr ""
+
+msgctxt "term"
+msgid "Local rat"
+msgstr ""
+
+msgctxt "term"
+msgid "Longsword"
+msgstr ""
+
+msgctxt "term"
+msgid "Longsword strike"
+msgstr ""
+
+msgctxt "term"
+msgid "Loss during entry"
+msgstr ""
+
+msgctxt "term"
+msgid "Maintenance"
+msgstr ""
+
+msgctxt "term"
+msgid "Materials"
+msgstr ""
+
+msgctxt "term"
+msgid "Maul"
+msgstr ""
+
+msgctxt "term"
+msgid "Maul strike"
+msgstr ""
+
+msgctxt "term"
+msgid "None"
+msgstr ""
+
+msgctxt "term"
+msgid "Orbital Fall"
+msgstr ""
+
+msgctxt "term"
+msgid "Outerworld"
+msgstr ""
+
+msgctxt "term"
+msgid "Overhead smash"
+msgstr ""
+
+msgctxt "term"
+msgid "Partial records"
+msgstr ""
+
+msgctxt "term"
+msgid "Paused"
+msgstr ""
+
+msgctxt "term"
+msgid "Perception"
+msgstr ""
+
+msgctxt "term"
+msgid "Physical record"
+msgstr ""
+
+msgctxt "term"
+msgid "Power"
+msgstr ""
+
+msgctxt "term"
+msgid "Project maintenance"
+msgstr ""
+
+msgctxt "term"
+msgid "Punch"
+msgstr ""
+
+msgctxt "term"
+msgid "Puncture"
+msgstr ""
+
+msgctxt "term"
+msgid "Quick stab"
+msgstr ""
+
+msgctxt "term"
+msgid "Rat"
+msgstr ""
+
+msgctxt "term"
+msgid "Records preserved"
+msgstr ""
+
+msgctxt "term"
+msgid "Recovery"
+msgstr ""
+
+msgctxt "term"
+msgid "Resolve"
+msgstr ""
+
+msgctxt "term"
+msgid "Retired"
+msgstr ""
+
+msgctxt "term"
+msgid "Right arm"
+msgstr ""
+
+msgctxt "term"
+msgid "Right foreleg"
+msgstr ""
+
+msgctxt "term"
+msgid "Right hindleg"
+msgstr ""
+
+msgctxt "term"
+msgid "Right leg"
+msgstr ""
+
+msgctxt "term"
+msgid "Route barrier"
+msgstr ""
+
+msgctxt "term"
+msgid "Rubble"
+msgstr ""
+
+msgctxt "term"
+msgid "Ruined"
+msgstr ""
+
+msgctxt "term"
+msgid "Salvage"
+msgstr ""
+
+msgctxt "term"
+msgid "Samples"
+msgstr ""
+
+msgctxt "term"
+msgid "Samples and records preserved"
+msgstr ""
+
+msgctxt "term"
+msgid "Samples preserved"
+msgstr ""
+
+msgctxt "term"
+msgid "Sealed entrance"
+msgstr ""
+
+msgctxt "term"
+msgid "Shelter"
+msgstr ""
+
+msgctxt "term"
+msgid "Stability"
+msgstr ""
+
+msgctxt "term"
+msgid "Strength"
+msgstr ""
+
+msgctxt "term"
+msgid "Succeeded"
+msgstr ""
+
+msgctxt "term"
+msgid "Supplies"
+msgstr ""
+
+msgctxt "term"
+msgid "Survey"
+msgstr ""
+
+msgctxt "term"
+msgid "Survey records"
+msgstr ""
+
+msgctxt "term"
+msgid "Survival"
+msgstr ""
+
+msgctxt "term"
+msgid "Tail"
+msgstr ""
+
+msgctxt "term"
+msgid "Thrust"
+msgstr ""
+
+msgctxt "term"
+msgid "Torso"
+msgstr ""
+
+msgctxt "term"
+msgid "Unarmed"
+msgstr ""
+
+msgctxt "term"
+msgid "Unarmed strike"
+msgstr ""
+
+msgctxt "term"
+msgid "Unconfirmed"
+msgstr ""
+
+msgctxt "term"
+msgid "Understanding"
+msgstr ""
+
+msgctxt "term"
+msgid "Unknown object"
+msgstr ""
+
+msgctxt "term"
+msgid "Unresolved"
+msgstr ""
+
+msgctxt "term"
+msgid "Warhammer"
+msgstr ""
+
+msgctxt "term"
+msgid "Warhammer strike"
+msgstr ""
+
+msgctxt "term"
+msgid "Willpower"
+msgstr ""
+
+msgctxt "term"
+msgid "Worksite"
+msgstr ""
+
+msgctxt "term"
+msgid "You"
+msgstr ""
+
+msgid "{item}: {count} unit"
+msgid_plural "{item}: {count} units"
+msgstr[0] ""
+msgstr[1] ""
+
+msgctxt "term"
+msgid "Blunt"
+msgstr ""
+
+msgctxt "term"
+msgid "Awareness"
+msgstr ""
+
+msgctxt "term"
+msgid "Control"
+msgstr ""
+
+msgctxt "term"
+msgid "Facility change"
+msgstr ""
+
+msgctxt "term"
+msgid "Custody change"
+msgstr ""
+
+msgctxt "term"
+msgid "Political change"
+msgstr ""
+
+msgctxt "term"
+msgid "Historical trace change"
+msgstr ""
+
+msgctxt "term"
+msgid "Project change"
+msgstr ""
+
+msgctxt "term"
+msgid "Population change"
+msgstr ""
+
+msgctxt "term"
+msgid "Site reoccupation"
+msgstr ""
+
+msgctxt "term"
+msgid "Object custody or loss"
+msgstr ""
+
+msgctxt "term"
+msgid "Site incident"
+msgstr ""
+
+msgctxt "term"
+msgid "Community relationship change"
+msgstr ""
+
+msgctxt "term"
+msgid "Migration"
+msgstr ""
+
+msgctxt "term"
+msgid "Community split"
+msgstr ""

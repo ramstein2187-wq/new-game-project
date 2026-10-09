@@ -50,6 +50,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 - World persistence is design only; M002 remains planned. Prototype doors do not complete reusable stateful interaction objects.
 - Other future and unfinished work, including items on separate branches: `docs/ROADMAP.md`.
 
+M048 한국어 현지화 후속 작업은 새 번호 없이 [별도 기록](milestones/M048_korean_localization_followup.md)으로 관리한다. `codex/m048-korean-playtest-localization`에서 구현·검증했으며 main 미통합이다.
+
 ## Milestone Index
 
 | ID | Status | Focus | Document |

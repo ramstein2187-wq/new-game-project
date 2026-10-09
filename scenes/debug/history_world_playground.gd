@@ -16,34 +16,49 @@ var records_visible := false
 var developer_visible := false
 
 func _ready() -> void:
+	GameText.apply_preference()
 	var layer := CanvasLayer.new(); add_child(layer)
-	var top := VBoxContainer.new(); top.position = Vector2(16, 10); top.size = Vector2(1100, 160); layer.add_child(top)
-	header = Label.new(); top.add_child(header)
-	var buttons := HBoxContainer.new(); top.add_child(buttons)
-	seed_input = LineEdit.new(); seed_input.text = str(world_seed); seed_input.custom_minimum_size.x = 180; buttons.add_child(seed_input)
+	var margin := MarginContainer.new(); layer.add_child(margin)
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for edge in ["left", "right", "top", "bottom"]: margin.add_theme_constant_override("margin_" + edge, 12)
+	margin.theme = Theme.new(); margin.theme.default_font = GameText.FONT; margin.theme.default_font_size = 15
+	var root_box := VBoxContainer.new(); root_box.add_theme_constant_override("separation", 8); margin.add_child(root_box)
+	var top := VBoxContainer.new(); root_box.add_child(top)
+	header = Label.new(); header.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; top.add_child(header)
+	var buttons := HFlowContainer.new(); top.add_child(buttons)
+	seed_input = LineEdit.new(); seed_input.text = str(world_seed); seed_input.custom_minimum_size.x = 145; seed_input.tooltip_text = tr("World seed"); buttons.add_child(seed_input)
 	_button(buttons, "Generate", _generate)
 	_button(buttons, "Save [F5]", func() -> void: game.save_file(save_path); _refresh())
 	_button(buttons, "Load [F9]", func() -> void: game.load_file(save_path); _refresh())
 	_button(buttons, "Character [C]", func() -> void: character.open())
 	_button(buttons, "Learned records [H]", _toggle_records)
-	var help := Label.new(); help.text = "WASD/arrows + numpad: move / bump attack   Space: wait   E: door   G: recover   X: clear   T: travel\nI: inspect   P: repair   U: shelter   V: stabilize (optional record)   O: restitution   F3: developer view"; top.add_child(help)
-	feedback = Label.new(); feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; feedback.custom_minimum_size = Vector2(1100, 54); top.add_child(feedback)
-	map_clip = Control.new(); map_clip.position = Vector2(16, 180); map_clip.size = Vector2(640, 432); map_clip.clip_contents = true; layer.add_child(map_clip)
+	var help := Label.new(); help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	help.text = "WASD/arrows + numpad: move / bump attack   Space: wait   E: door   G: recover   X: clear   T: travel\nI: inspect   P: repair   U: shelter   V: stabilize (optional record)   O: restitution   F3: developer view"
+	top.add_child(help)
+	feedback = Label.new(); feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; top.add_child(feedback)
+	feedback.add_theme_color_override("font_color", Color("69b7ff"))
+	var lower := HBoxContainer.new(); lower.size_flags_vertical = Control.SIZE_EXPAND_FILL; root_box.add_child(lower)
+	lower.add_theme_constant_override("separation", 12)
+	map_clip = Control.new(); map_clip.size_flags_horizontal = Control.SIZE_EXPAND_FILL; map_clip.size_flags_stretch_ratio = 1.5
+	map_clip.clip_contents = true; lower.add_child(map_clip)
 	map_canvas = Node2D.new(); map_clip.add_child(map_canvas); map_canvas.draw.connect(_draw_map)
-	var side := VBoxContainer.new(); side.position = Vector2(676, 180); side.size = Vector2(444, 432); layer.add_child(side)
-	nearby = RichTextLabel.new(); nearby.custom_minimum_size = Vector2(440, 245); side.add_child(nearby)
-	records = RichTextLabel.new(); records.custom_minimum_size = Vector2(440, 165); side.add_child(records)
+	var side := VBoxContainer.new(); side.size_flags_horizontal = Control.SIZE_EXPAND_FILL; side.size_flags_stretch_ratio = 1.0; lower.add_child(side)
+	nearby = RichTextLabel.new(); nearby.size_flags_vertical = Control.SIZE_EXPAND_FILL; nearby.size_flags_stretch_ratio = 1.4; side.add_child(nearby)
+	records = RichTextLabel.new(); records.size_flags_vertical = Control.SIZE_EXPAND_FILL; side.add_child(records)
+	for pane in [nearby, records]:
+		pane.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; pane.scroll_active = true; pane.bbcode_enabled = false
 	character = preload("res://scenes/ui/character_screen.tscn").instantiate(); layer.add_child(character); character.game = game
+	map_clip.resized.connect(_position_map)
 	_generate()
 
 func _button(parent: Node, text: String, action: Callable) -> void:
 	var b := Button.new(); b.text = text; b.pressed.connect(action); parent.add_child(b)
 
 func _generate() -> void:
-	if not seed_input.text.is_valid_int(): feedback.text = "Enter an integer world seed."; return
+	if not seed_input.text.is_valid_int(): feedback.text = tr("Enter an integer world seed."); return
 	world_seed = int(seed_input.text)
 	var result := HistoryEngine.new().generate_civilization(world_seed)
-	if not result.errors.is_empty(): feedback.text = str(result.errors); return
+	if not result.errors.is_empty(): feedback.text = tr("World generation failed. Try another seed."); return
 	game.start(HistoryWorldManifest.build(result)); _refresh()
 
 func _toggle_records() -> void:
@@ -57,40 +72,53 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_A: Vector2i.LEFT, KEY_LEFT: Vector2i.LEFT, KEY_D: Vector2i.RIGHT, KEY_RIGHT: Vector2i.RIGHT}
 	var operations := {KEY_E: &"interact", KEY_G: &"recover", KEY_X: &"clear", KEY_T: &"travel", KEY_I: &"inspect",
 		KEY_P: &"repair", KEY_U: &"use", KEY_V: &"stabilize", KEY_O: &"offer"}
-	if directions.has(event.keycode): game.player_move(directions[event.keycode])
-	elif operations.has(event.keycode): game.player_operation(operations[event.keycode])
-	elif event.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_5]: game.player_wait()
-	elif event.keycode == KEY_F5: game.save_file(save_path)
-	elif event.keycode == KEY_F9: game.load_file(save_path)
-	elif event.keycode == KEY_H: records_visible = not records_visible
-	elif event.keycode == KEY_F3: developer_visible = not developer_visible
+	var code: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
+	if directions.has(code): game.player_move(directions[code])
+	elif operations.has(code): game.player_operation(operations[code])
+	elif code in [KEY_SPACE, KEY_ENTER, KEY_KP_5]: game.player_wait()
+	elif code == KEY_F5: game.save_file(save_path)
+	elif code == KEY_F9: game.load_file(save_path)
+	elif code == KEY_H: records_visible = not records_visible
+	elif code == KEY_F3: developer_visible = not developer_visible
 	else: return
 	get_viewport().set_input_as_handled(); _refresh()
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		_refresh()
+		if character.visible:
+			character.refresh(); character._responsive_layout()
+
 func _refresh() -> void:
-	if game.runtime == null: feedback.text = game.message; return
+	if game.runtime == null: feedback.text = GameText.notice(game); return
 	character.game = game
-	header.text = "Locality %s | seed %d | world time %d | %s" % [game.runtime.current_zone, game.initial_world.manifest.seed, game.world_time, game.get_actor_status_text()]
-	feedback.text = game.message
-	var lines: Array[String] = ["Current expedition", "Recover supplies, find a safe shelter, or follow an exit.",
-		"Carried: " + str(game.runtime.inventory), "Unknown objects carried: " + str(game.runtime.unique_owners.values().count("player")),
-		"Facing target:"]
+	header.text = GameText.text("{region} · seed {seed} · world time {time}\n{status}", {"region": GameText.locality(game, game.runtime.current_zone), "seed": int(game.initial_world.manifest.seed), "time": game.world_time, "status": GameText.actor_status(game)})
+	feedback.text = GameText.notice(game)
+	var lines: Array[String] = [tr("Current expedition"), tr("Recover supplies, find a safe shelter, or follow an exit."),
+		GameText.text("Carried: {inventory}", {"inventory": GameText.inventory(game)}),
+		GameText.text("Unknown objects carried: {count}", {"count": game.runtime.unique_owners.values().count("player")}), tr("Facing target:")]
 	var targets := game.objects_at(game.player_position + game.facing)
-	for o in targets: lines.append(game.describe(o))
-	if targets.is_empty(): lines.append("None — face an object to act.")
+	for o in targets: lines.append(GameText.describe(game, o))
+	if targets.is_empty(): lines.append(tr("None — face an object to act."))
 	for o in game.objects_at(game.player_position):
-		if o.kind == "exit": lines.append("[T] Travel to " + o.destination)
-	lines.append("\nLegend: blue = you; red = fauna; orange = hazard\nD = door, X = rubble, M = material, ? = unknown object\nF = facility, i = record, > = exit, s = Scar")
+		if o.kind == "exit": lines.append(GameText.text("[T] Travel to {region}", {"region": GameText.locality(game, o.destination)}))
+	lines.append(tr("\nLegend: blue = you; red = fauna; orange = hazard\nD = door, X = rubble, M = material, ? = unknown object\nF = facility, i = record, > = exit, s = Scar, W = worksite"))
 	nearby.text = "\n".join(lines)
-	if developer_visible: records.text = "DEVELOPER: " + str(game.initial_world.selected) + "\n" + game.get_recent_debug_text()
+	if developer_visible: records.text = "DEVELOPER: " + str(game.initial_world.selected) + "\n" + game.message + "\n" + game.get_recent_debug_text()
 	elif records_visible:
-		var learned: Array[String] = ["Learned on site (not an omniscient history dossier):"]
+		var learned: Array[String] = [tr("Learned on site (not an omniscient history dossier):")]
 		for id in game.runtime.knowledge:
-			if game.initial_world.zones[game.runtime.current_zone].objects.has(id): learned.append(game.describe(game.runtime.object(game.runtime.current_zone, id), true))
-		records.text = "\n".join(learned)
-	else: records.text = "Records are optional. Inspect [I] a physical record to learn about this site.\n\n" + game.get_recent_event_text()
-	map_canvas.position.y = -maxf(0, game.player_position.y * CELL - 320) if game.map_height * CELL > map_clip.size.y else 0
-	map_canvas.queue_redraw()
+			if game.initial_world.zones[game.runtime.current_zone].objects.has(id): learned.append(GameText.describe(game, game.runtime.object(game.runtime.current_zone, id), true))
+		if learned.size() == 1: learned.append(tr("No on-site records learned here yet. Face a physical record and inspect with I."))
+		records.text = "\n\n".join(learned)
+	else: records.text = tr("Records are optional. Inspect [I] a physical record to learn about this site.") + "\n\n" + GameText.recent_events(game)
+	_position_map(); map_canvas.queue_redraw()
+
+func _position_map() -> void:
+	if map_canvas == null or game.runtime == null: return
+	var scale_factor := clampf(map_clip.size.x / (game.map_width * CELL), 0.5, 1.8)
+	map_canvas.scale = Vector2.ONE * scale_factor
+	map_canvas.position.y = -maxf(0, game.player_position.y * CELL * scale_factor - map_clip.size.y * 0.6) if game.map_height * CELL * scale_factor > map_clip.size.y else 0
 
 func _draw_map() -> void:
 	if game.runtime == null: return

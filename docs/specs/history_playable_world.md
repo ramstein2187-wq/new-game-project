@@ -22,6 +22,12 @@ flowchart TD
     Game --> Freeze[Freeze old zone at player-ready boundary]
     Freeze --> Activate[Restore destination Actors and RNG]
     Activate --> Game
+    Game --> Notice[Locale-free result codes and args]
+    Runtime --> Display[Pure GameText presentation]
+    Notice --> Display
+    PO[Native Korean PO and bundled font] --> Display
+    Preferences[Separate presentation config] --> Display
+    Display --> UI[Korean UI and observed combat log]
 ```
 
 ## Responsibilities and immutable boundary
@@ -179,3 +185,11 @@ the previous Phase B checkout, whose code tree matches `12f48ba`, using
 hide regressions. Corpus reports distinguish structural BFS (doors/rubble may be
 opened/cleared) from scheduled scenario play and actual rendered input dispatch.
 Measured results, controls and manual checklist: [report](../reviews/history_v6_phase_c/report.md).
+
+## M048 localization follow-up
+
+Task branch `codex/m048-korean-playtest-localization`, base 4856655: the same ordered predicates return structured interaction_failure. The legacy wrapper renders English diagnostics; no condition reads translated text. Transient notice is not saved. Interaction events retain result and add locale-free result_code, result_args, custody flags.
+
+GameText consumes current objects and learned-only evidence; LocalizedCharacterText consumes existing queries. WorldActorState and RuntimeSave schemas are unchanged. Locale switching, real body combat, effects and complete saves/raw events are compared across en/ko. Invalid-save user text is localized while original decoder diagnostics remain in F3.
+
+ConfigFile preferences are outside the world save. Native locale notifications refresh UI. No language menu. Current entities have no GeneratedName; stable ordinal labels are display placeholders. Actual canonical names delegate to M035 only when supplied.

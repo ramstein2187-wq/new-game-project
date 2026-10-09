@@ -1,0 +1,169 @@
+{
+	"captures": [
+		{
+			"feedback": "연결된 길을 탐험하며 물자를 회수하거나 피난처를 찾아보자. 기록 조사는 선택 사항이다.",
+			"file": "res://.godot/korean-playtest-captures/1152x648_basic.png",
+			"resolution": [
+				1152,
+				648
+			],
+			"view": "basic"
+		},
+		{
+			"feedback": "자재 8개를 회수했다. 공동체가 관리하는 물자를 무단 회수했다. 관리 시설의 문과 피난처 이용이 제한된다.\n행동 시간 500 · 세계 시간 22000.",
+			"file": "res://.godot/korean-playtest-captures/1152x648_action.png",
+			"resolution": [
+				1152,
+				648
+			],
+			"view": "action"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/1152x648_long_description.png",
+			"resolution": [
+				1152,
+				648
+			],
+			"view": "long_description"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/1152x648_records.png",
+			"resolution": [
+				1152,
+				648
+			],
+			"view": "records"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/1152x648_character.png",
+			"resolution": [
+				1152,
+				648
+			],
+			"view": "character"
+		},
+		{
+			"feedback": "저장된 세계를 불러왔다.",
+			"file": "res://.godot/korean-playtest-captures/1152x648_save_load.png",
+			"resolution": [
+				1152,
+				648
+			],
+			"view": "save_load"
+		},
+		{
+			"feedback": "연결된 길을 탐험하며 물자를 회수하거나 피난처를 찾아보자. 기록 조사는 선택 사항이다.",
+			"file": "res://.godot/korean-playtest-captures/1920x1080_basic.png",
+			"resolution": [
+				1920,
+				1080
+			],
+			"view": "basic"
+		},
+		{
+			"feedback": "자재 8개를 회수했다. 공동체가 관리하는 물자를 무단 회수했다. 관리 시설의 문과 피난처 이용이 제한된다.\n행동 시간 500 · 세계 시간 22000.",
+			"file": "res://.godot/korean-playtest-captures/1920x1080_action.png",
+			"resolution": [
+				1920,
+				1080
+			],
+			"view": "action"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/1920x1080_long_description.png",
+			"resolution": [
+				1920,
+				1080
+			],
+			"view": "long_description"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/1920x1080_records.png",
+			"resolution": [
+				1920,
+				1080
+			],
+			"view": "records"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/1920x1080_character.png",
+			"resolution": [
+				1920,
+				1080
+			],
+			"view": "character"
+		},
+		{
+			"feedback": "저장된 세계를 불러왔다.",
+			"file": "res://.godot/korean-playtest-captures/1920x1080_save_load.png",
+			"resolution": [
+				1920,
+				1080
+			],
+			"view": "save_load"
+		},
+		{
+			"feedback": "연결된 길을 탐험하며 물자를 회수하거나 피난처를 찾아보자. 기록 조사는 선택 사항이다.",
+			"file": "res://.godot/korean-playtest-captures/800x600_basic.png",
+			"resolution": [
+				800,
+				600
+			],
+			"view": "basic"
+		},
+		{
+			"feedback": "자재 8개를 회수했다. 공동체가 관리하는 물자를 무단 회수했다. 관리 시설의 문과 피난처 이용이 제한된다.\n행동 시간 500 · 세계 시간 22000.",
+			"file": "res://.godot/korean-playtest-captures/800x600_action.png",
+			"resolution": [
+				800,
+				600
+			],
+			"view": "action"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/800x600_long_description.png",
+			"resolution": [
+				800,
+				600
+			],
+			"view": "long_description"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/800x600_records.png",
+			"resolution": [
+				800,
+				600
+			],
+			"view": "records"
+		},
+		{
+			"feedback": "대상을 조사해 현장에서 확인할 수 있는 정보를 얻었다.\n행동 시간 500 · 세계 시간 19000.",
+			"file": "res://.godot/korean-playtest-captures/800x600_character.png",
+			"resolution": [
+				800,
+				600
+			],
+			"view": "character"
+		},
+		{
+			"feedback": "저장된 세계를 불러왔다.",
+			"file": "res://.godot/korean-playtest-captures/800x600_save_load.png",
+			"resolution": [
+				800,
+				600
+			],
+			"view": "save_load"
+		}
+	],
+	"failures": [],
+	"native_ime": "not performed",
+	"renderer": "NVIDIA GeForce RTX 5070 Ti"
+}

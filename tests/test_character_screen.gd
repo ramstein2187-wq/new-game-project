@@ -10,6 +10,8 @@ func expect(condition: bool, label: String) -> void:
 		push_error(label)
 
 func _init() -> void:
+	# Existing exact English-layout contract; Korean has its own coverage suite.
+	TranslationServer.set_locale("en")
 	call_deferred("_run")
 
 func _run() -> void:

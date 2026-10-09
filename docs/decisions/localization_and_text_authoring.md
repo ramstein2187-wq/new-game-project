@@ -1,6 +1,6 @@
 # Localization and Text Authoring — Korean-first, multilingual-ready
 
-Status: **accepted design direction; implementation pending**. Date: 2026-10-09.
+Status: **accepted direction; M048 Korean foundation implemented on codex/m048-korean-playtest-localization; validated on task branch; main not merged**. Date: 2026-10-09.
 Applies to the Godot CRPG's player-facing UI, logs, interaction messages, authored lore, dynamic descriptions, procedural naming and future content. This decision **does not claim a shipped localization system** or assign a milestone number.
 
 ## 1. Goal and priorities
@@ -79,7 +79,7 @@ Long-form lore and historical claims should retain source, speaker, certainty an
 - Maintain one consistent per-language fallback policy and test missing translations. Korean launch/playtest coverage is a release gate for Korean-facing surfaces; English should only be exposed as a finished language once coverage is adequate.
 - Use project-distributed, **license-verified Hangul-capable fonts** and Godot font fallbacks. Test missing glyphs, mixed Korean/Latin/numerals, UI scaling, clipping and line wrapping at the smallest supported windows and common desktop resolutions.
 - A wider text string, variable proper name and accessible sizing must not require fixed-width labels. Use containers, wrapping, scrolling, truncation with inspectable full text where justified.
-- Track any redistributed font's author, source, license and requirements in `THIRD_PARTY.md`; do not add fonts in this design-only change.
+- Track redistributed fonts in THIRD_PARTY.md. M048 bundles Noto Sans KR 2.004 under SIL OFL 1.1.
 - Keep keyboard action bindings and input identifiers independent from the language of the displayed action name.
 
 ## 6. Testable acceptance gates
@@ -105,13 +105,24 @@ Manual native-speaker review is required for terminology, tone and lore consiste
 
 **Step 4 — Release-ready multilingual UX:** in-game language preference, complete English coverage, runtime language switching, text expansion/overflow review, content workflow, translator notes, accessibility and packaging audit.
 
-Implement steps only when a concrete milestone warrants them. Do not treat this decision as proof that M048 Korean UI, font integration or English localization already exists.
+Step 1 and the M048 portion of step 2 are implemented as specified in section 9. Remaining steps require concrete tasks; this does not complete whole-game multilingual support.
 
 ## 8. Ownership and follow-up
 
 - `docs/decisions/localization_and_text_authoring.md`: durable design decision (this document).
 - `docs/wiki/localization_strategy.md`: short human-facing wiki overview; mirrored to Notion when its source reaches main.
-- `docs/ROADMAP.md`: future work state; a Korean-playtest implementation milestone may be assigned later.
+- `docs/ROADMAP.md`: future work state; the implementation is an M048 follow-up with no new milestone number.
 - Existing `docs/decisions/procedural_naming.md` and the latest Canon remain authoritative within their domains.
 
-This document changes **documentation only**. No locale resource, font, UI code, test expectation, generator, save schema or default project locale is changed by recording it.
+## 9. M048 implemented foundation (2026-10-09, task branch only)
+
+- Korean authority: `locale/ko.po`; English source templates: `locale/messages.pot`. Installed Godot 4.7.2 loads PO natively. Controls use automatic translation / tr(); GameText uses TranslationServer.translate / translate_plural, term context and named String.format after translation.
+- GameText is a pure display adapter, not an autoload. LocalizedCharacterText consumes existing CharacterOverviewQuery values and ordered resolver steps without recalculating stats, HP, costs, damage or armor. The original English Overview presentation is retained.
+- Interactions expose locale-free transient notice (code/args). CombatEvent data adds result_code, result_args, custody_violation; old English result, diagnostics and debug formatter remain. Translations never enter events. Raw decoder/Actor-codec errors remain diagnostic; ordinary UI displays an invalid-save reason and F3 retains raw data.
+- Default locale is ko. GameText.apply_preference / save_preference use only `user://presentation.cfg`. No language menu. Native locale notifications refresh UI without generating/reloading a world. English source fallback is a development view, not completed whole-game localization.
+- Manifest, RuntimeSave schema, WorldActorState, histories, naming content/algorithms, predicates/order, costs, AI and RNG are unchanged. Integer casts for loaded JSON numbers occur only during display.
+- Current M048 Actor/Locality/Site/Faction schemas contain no GeneratedName. GameText.name delegates actual canonical names to M035 (tested with its fixture); live entities remain unconnected. Regions/communities use stable Manifest ordinal display labels. Known prototype labels are translated without inventing/storing identities.
+- Bundled Noto Sans KR Regular 2.004 supplies Hangul without system fonts. Containers, wrapping, independent scrolling, stacked small Character modal, physical shortcut precedence and logical fallback retain the existing UI/input contract.
+
+[Implementation record](../milestones/M048_korean_localization_followup.md). Deferred: actual OS IME/human language acceptance, package QA, whole-game coverage, richer authored effect/source labels, actual canonical-name binding and complete language selector.
+Native APIs were checked against [Godot gettext documentation](https://docs.godotengine.org/en/stable/tutorials/i18n/localization_using_gettext.html) and verified on the installed engine.
