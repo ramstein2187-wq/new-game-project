@@ -1,8 +1,8 @@
-# M046 History v6 Phase B — Dynamic Civilization
+# M047 History v6 Phase B — Dynamic Civilization
 
 Status: complete and validated on `codex/history-generator-v6-phase-b` (task branch only).
 Base: M045 `c0f1f920904342db37e29b585b697b6df560e6cc`.
-The unrelated M046 cost-query milestone is retained unchanged.
+M046 remains assigned to cost-query/effect-order optimization on main.
 
 ## Scope and recovery log
 

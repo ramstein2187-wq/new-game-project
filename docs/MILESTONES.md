@@ -4,7 +4,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
-- **M046 History v6 Phase B:** complete and validated on `codex/history-generator-v6-phase-b` (task branch only), based exactly on M045 `c0f1f92`; dynamic civilization and independent World Manifest. 893 focused checks, full 41-test gate and 1,000 replay/Manifest worlds passed. Independent of the existing M046 cost-query milestone. [Scope and recovery log](milestones/M046_history_v6_phase_b.md).
+- **M047 History v6 Phase B:** complete and validated on `codex/history-generator-v6-phase-b` (task branch only), based exactly on M045 `c0f1f92`; dynamic civilization and independent World Manifest. 893 focused checks, full 41-test gate and 1,000 replay/Manifest worlds passed. M046 remains assigned to cost-query optimization on main. [Scope and recovery log](milestones/M047_history_v6_phase_b.md).
 
 - **M045:** independent event-driven v6 Phase A complete on `codex/history-generator-v6-core`; 8,516 focused assertions, 1,000 matching replays, full40-script gate, existing v2–v5 preserved. Not merged to main. [M045](milestones/M045_history_v6_core.md).
 
@@ -53,6 +53,7 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 | ID | Status | Focus | Document |
 | --- | --- | --- | --- |
+| M047 | Complete on task branch; main not merged | Dynamic civilization history v6 Phase B, Projects/Scars and independent World Manifest | `docs/milestones/M047_history_v6_phase_b.md` |
 | M045 | Complete on task branch; main not merged | Independent event-driven v6 Phase A, atomic state transitions and log replay | `docs/milestones/M045_history_v6_core.md` |
 | M044 | Complete on main via PR #50 | Sparse history v5 / evidence-based archaeology and trace contracts | `docs/milestones/M044_history_v5_sparse_archaeology.md` |
 | M043 | Complete on main via PR #50 | History v4 + eight Projects and fifteen independent Scars | `docs/milestones/M043_history_generator_v4.md` |

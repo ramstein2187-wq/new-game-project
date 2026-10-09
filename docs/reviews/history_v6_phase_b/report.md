@@ -1,8 +1,8 @@
-# M046 History v6 Phase B — 통합 검토
+# M047 History v6 Phase B — 통합 검토
 
 기준: M045 `c0f1f920904342db37e29b585b697b6df560e6cc`에서 만든
 `codex/history-generator-v6-phase-b`, Godot 4.7.2, 콘텐츠 `phase_b_1`.
-이번 M046은 기존 M046 비용 질의 최적화와 다른 작업이다. 기본 생성기는
+이번 M047은 기존 M046 비용 질의 최적화와 별개인 작업이다. 기본 생성기는
 여전히 v5이며 main 병합과 실제 플레이 시스템 연결은 수행하지 않았다.
 
 ## 구현과 판정
@@ -17,7 +17,7 @@
 
 설계와 재현 명령의 권위 있는 문서는
 [v6 계약](../../specs/history_generator_v6.md#phase-b-dynamic-civilization-explicit-opt-in),
-작업 재개 기록은 [마일스톤](../../milestones/M046_history_v6_phase_b.md)이다.
+작업 재개 기록은 [마일스톤](../../milestones/M047_history_v6_phase_b.md)이다.
 
 ## 정성 검토: 고정한 무작위 20개 세계
 

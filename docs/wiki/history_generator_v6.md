@@ -1,7 +1,7 @@
 +++
 status = "구현 완료"
 areas = ["코어", "월드 생성"]
-milestones = "M045 Phase A; M046 History v6 Phase B; 작업 브랜치 프로토타입"
+milestones = "M045 Phase A; M047 History v6 Phase B; 작업 브랜치 프로토타입"
 source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-generator-v6-phase-b/docs/specs/history_generator_v6.md"
 icon = "📜"
 +++
