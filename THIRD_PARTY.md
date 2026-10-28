@@ -14,6 +14,17 @@ actually stored in or redistributed with the repository.
 - Modifications: none intentionally recorded; filenames/folder placement may differ from the download archive
 - Attribution: not required by CC0, but the creator and source are credited here for provenance
 
+### M049 derivative atlas (2026-10-28)
+
+`assets/tilesets/exploration/exploration.png` includes six cropped, three-tone-recolored
+EverRogue 1.0 Packed Alpha silhouettes (control, record, resource, lookout, scar,
+player). The original sheets remain unchanged. `atlas.json` records each crop,
+source SHA-256, output SHA-256 and the 18-color palette. Other terrain, props and
+fauna tiles are original pixel geometry in `tools/build_exploration_atlas.py`.
+The upstream [Efilheim page](https://efilheim.itch.io/ever-rogue) identifies the set
+as CC0; the existing license notice is retained. Pillow is an offline tool only.
+See the [atlas provenance](assets/tilesets/exploration/README.md).
+
 No source code from the external reference repositories listed in
 `docs/REFERENCES.md` is intentionally vendored in `main` at the time this notice
 was last reviewed. If source code is copied or substantially adapted in the future,

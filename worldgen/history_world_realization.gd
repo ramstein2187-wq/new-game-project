@@ -2,6 +2,8 @@ class_name HistoryWorldRealization
 extends RefCounted
 ## Deterministic initial play space. All historical rows are defensive snapshots.
 const VERSION := "history_zone/1"
+const EXPLORATION_VERSION := "history_zone/2"
+var generation_version := VERSION
 const WIDTH := 40
 var manifest: Dictionary = {}
 var manifest_hash := ""
@@ -9,8 +11,9 @@ var zones: Dictionary = {}
 var selected: Array[String] = []
 var errors: Array[String] = []
 
-static func build(input: HistoryWorldManifest, terrain_seed: int = -1) -> HistoryWorldRealization:
+static func build(input: HistoryWorldManifest, terrain_seed: int = -1, exploration: bool = false) -> HistoryWorldRealization:
 	var w := HistoryWorldRealization.new()
+	w.generation_version = EXPLORATION_VERSION if exploration else VERSION
 	if input == null:
 		w.errors = ["Missing Manifest"]; return w
 	w.errors = HistoryWorldManifest.validate(input.payload)
@@ -40,6 +43,9 @@ static func build(input: HistoryWorldManifest, terrain_seed: int = -1) -> Histor
 		w.errors = ["Manifest has fewer than three connected localities"]; return w
 	for id in w.selected:
 		w.zones[id] = w._zone(graph[id], int(w.manifest.seed) if terrain_seed < 0 else terrain_seed)
+	if exploration:
+		for id in w.selected:
+			w.zones[id] = ExplorationZoneBuilder.build(w, w.zones[id], int(w.manifest.seed) if terrain_seed < 0 else terrain_seed)
 	for id in w.selected:
 		for exit in w.zones[id].objects.values():
 			if exit.kind == "exit":
@@ -137,4 +143,4 @@ static func vector(cell: Array) -> Vector2i: return Vector2i(int(cell[0]), int(c
 static func key(cell: Vector2i) -> String: return "%d,%d" % [cell.x, cell.y]
 
 func canonical() -> String:
-	return JSON.stringify({"version": VERSION, "hash": manifest_hash, "selected": selected, "zones": zones}, "", true)
+	return JSON.stringify({"version": generation_version, "hash": manifest_hash, "selected": selected, "zones": zones}, "", true)

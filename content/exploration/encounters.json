@@ -1,0 +1,10 @@
+{
+  "rat": {"industrial": 3, "woodland": 1, "observatory": 2},
+  "feral_dog": {"industrial": 2, "woodland": 1},
+  "wolf": {"woodland": 2},
+  "boar": {"woodland": 2, "impact": 1},
+  "giant_beetle": {"impact": 3, "industrial": 1},
+  "cave_lizard": {"impact": 2, "observatory": 1, "hazard": 1},
+  "giant_spider": {"observatory": 2, "woodland": 1},
+  "giant_crab": {"impact": 1, "hazard": 1}
+}

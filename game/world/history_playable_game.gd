@@ -1,12 +1,19 @@
 class_name HistoryPlayableGame
 extends GeneratedMapCombatGame
 ## Existing movement, body combat, AI and Scheduler own all action execution.
+var exploration_enabled := false
 var runtime: HistoryRuntimeState
 var initial_world: HistoryWorldRealization
 var pending_zone := ""
 var action_feedback := ""
 var load_error := ""
 const NOTICES := {
+	"environment_used": "This opportunity has already been used on this expedition.",
+	"environment_gathered": "Gathered {count} materials from the current environment. No custody violation.",
+	"bridge_ready": "Braced the crossing. The short route is now safe; two materials spent.",
+	"surveyed": "Surveyed the dry bypass to the south. Movement costs 10% less; surveys do not stack.",
+	"field_recovery": "Used finite field supplies to recover health.",
+	"tool_swapped": "Exchanged the equipped weapon with the tool rack. The previous weapon remains on the rack.",
 	"living_explorer": "Only the living explorer can operate these objects.",
 	"adjacent": "Stand beside the object.",
 	"no_target": "No target for this action.",
@@ -56,7 +63,7 @@ var notice: Dictionary = {}
 
 
 func start(manifest: HistoryWorldManifest) -> bool:
-	var w := HistoryWorldRealization.build(manifest)
+	var w := HistoryWorldRealization.build(manifest, -1, exploration_enabled)
 	if not w.errors.is_empty(): message = str(w.errors); _notify("generation_failed"); return false
 	initial_world = w; runtime = HistoryRuntimeState.new(w)
 	scheduler.reset(&"player"); actors = ActorRegistry.new()
@@ -66,6 +73,7 @@ func start(manifest: HistoryWorldManifest) -> bool:
 	_activate(runtime.current_zone, player.position)
 	message = "Explore the connected paths, recover supplies or seek shelter. Records are optional."
 	_notify("started")
+	_mark_exploration()
 	return true
 
 func _activate(zone_id: String, spawn: Vector2i) -> void:
@@ -79,11 +87,13 @@ func _activate(zone_id: String, spawn: Vector2i) -> void:
 	terrain_rows = z.rows.duplicate(); map_width = terrain_rows[0].length(); map_height = terrain_rows.size()
 	door_position = Vector2i(-1, -1); door_open = true
 	get_actor(&"player").position = spawn
-	combat_rng.seed = SeedDeriver.derive(int(initial_world.manifest.seed), [HistoryWorldRealization.VERSION, zone_id, "combat"])
+	combat_rng.seed = SeedDeriver.derive(int(initial_world.manifest.seed), [initial_world.generation_version, zone_id, "combat"])
 	if not runtime.rng_states[zone_id].is_empty(): combat_rng.state = int(runtime.rng_states[zone_id])
 	if runtime.actors[zone_id].is_empty():
 		for index in range(z.npc_spawns.size()):
-			var a := Actor.new(StringName("fauna:" + zone_id + ":" + str(index)), ActorDefinition.rat_common(), HistoryWorldRealization.vector(z.npc_spawns[index]), "Local rat")
+			var type: String = z.npc_types[index] if z.has("npc_types") else "rat"
+			var definition := CombatContentCatalog.actor(StringName(type))
+			var a := Actor.new(StringName("fauna:" + zone_id + ":" + str(index)), definition, HistoryWorldRealization.vector(z.npc_spawns[index]), definition.display_name if z.has("npc_types") else "Local rat")
 			register_actor(a)
 	else:
 		for raw in runtime.actors[zone_id]:
@@ -120,6 +130,7 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 			_activate(destination, HistoryWorldRealization.vector(entry.cell))
 		if not action_feedback.is_empty(): message = action_feedback + " (cost %d, t=%d)" % [last_action_cost, world_time]
 	if actor_id == &"player":
+		if success: _mark_exploration()
 		if notice.is_empty(): _notify("acted" if success else "action_failed", {"count": last_response_count})
 		notice["spent"] = success
 	return success
@@ -127,6 +138,7 @@ func perform_action(actor_id: StringName, action: TimeAction) -> bool:
 func is_wall(cell: Vector2i) -> bool:
 	if runtime == null: return super.is_wall(cell)
 	if super.is_wall(cell): return true
+	if is_inside(cell) and terrain_rows[cell.y][cell.x] == "~": return true
 	for o in objects_at(cell):
 		if o.blocks and not o.get("open", false) and not o.get("removed", false): return true
 	return false
@@ -145,14 +157,15 @@ func set_actor_position(actor_id: StringName, cell: Vector2i) -> void:
 func hazard_at(cell: Vector2i) -> int:
 	var hazard: Dictionary = initial_world.zones[runtime.current_zone].hazards.get(HistoryWorldRealization.key(cell), {})
 	if hazard.is_empty(): return 0
-	var control_id := "control:" + str(hazard.facility_id)
-	if runtime.object(runtime.current_zone, control_id).get("stabilized", false): return 0
+	var control_id: String = hazard.get("control_id", "control:" + str(hazard.facility_id))
+	var control := runtime.object(runtime.current_zone, control_id)
+	if control.get("stabilized", false) or control.kind == "bridge" and control.used: return 0
 	return int(hazard.damage)
 
 func objects_at(cell: Vector2i) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	if runtime == null: return out
-	for id in initial_world.zones[runtime.current_zone].objects:
+	for id in runtime.cell_objects[runtime.current_zone].get(cell, []):
 		var o := runtime.object(runtime.current_zone, id)
 		if o.kind == "record" and not record_present(o): continue
 		if HistoryWorldRealization.vector(o.cell) == cell and not o.get("taken", false) and not o.get("removed", false): out.append(o)
@@ -167,8 +180,10 @@ func record_present(o: Dictionary) -> bool:
 func target(operation: StringName, cell: Vector2i) -> Dictionary:
 	for o in objects_at(cell):
 		if operation == &"inspect": return o
-		if operation == &"recover" and o.kind in ["resource", "unique"]: return o
-		if operation == &"clear" and o.kind in ["rubble", "route"]: return o
+		if operation == &"recover" and o.kind in ["resource", "unique", "branches", "stone_cache", "supply_cache"]: return o
+		if operation == &"clear" and o.kind in ["rubble", "route", "stump", "cart", "scrap", "fence", "crate", "boulder"]: return o
+		if operation == &"repair" and o.kind == "bridge": return o
+		if operation == &"use" and o.kind in ["camp", "shelter", "lookout", "workbench", "tool_rack"]: return o
 		if operation in [&"repair", &"use", &"stabilize", &"offer"] and o.kind == "control": return o
 		if operation == &"travel" and o.kind == "exit": return o
 		if operation == &"interact" and o.kind == "door": return o
@@ -188,6 +203,8 @@ func interaction_failure(actor_id: StringName, cell: Vector2i, operation: String
 	if o.is_empty(): return {"code": "no_target", "args": {}}
 	if operation == &"inspect": return {}
 	if get_actor(actor_id).body.functional_count(&"weapon_manipulation") < 1: return {"code": "hand", "args": {}}
+	if o.get("provenance", "") == "present_environment/1" and o.kind != "route":
+		return ExplorationInteractions.failure(self, o, operation)
 	if operation == &"interact":
 		if o.open and actors.occupant_at(cell) != null: return {"code": "occupied", "args": {}}
 		if not runtime.has_permission(o.owner_id): return {"code": "access_denied", "args": {}}
@@ -248,6 +265,10 @@ func execute_interaction(actor_id: StringName, cell: Vector2i, operation: String
 	if o.is_empty(): return null
 	var event := make_action_event(&"interact", actor_id, operation, cost)
 	event.data = {"object_id": o.id, "facility_id": o.facility_id, "operation": String(operation), "position": cell}
+	if o.get("provenance", "") == "present_environment/1" and o.kind != "route":
+		ExplorationInteractions.execute(self, o, operation)
+		event.data.merge({"result": action_feedback, "result_code": notice.code, "result_args": notice.args.duplicate(true), "custody_violation": false})
+		return event
 	match operation:
 		&"interact":
 			runtime.change(o.id, {"open": not o.open}); action_feedback = "Door opened." if not o.open else "Door closed."; _notify("open" if not o.open else "close")
@@ -336,6 +357,7 @@ func load_json(json: String) -> bool:
 	load_error = decoded.error
 	if not load_error.is_empty(): message = load_error; _notify("invalid_save"); return false
 	runtime = decoded.runtime; initial_world = runtime.realization
+	exploration_enabled = not runtime.exploration.is_empty()
 	scheduler.reset(&"player"); scheduler.restore_player_boundary(decoded.world_time)
 	if decoded.player_delay > 0: scheduler.advance_actor(&"player", decoded.player_delay)
 	actors = ActorRegistry.new(); actors.register(decoded.player); _observe_max_hp_depletion(decoded.player)
@@ -376,3 +398,29 @@ func player_wait() -> bool:
 	var success := super.player_wait()
 	if not success: _notify("ended" if game_over else "action_failed")
 	return success
+
+# Perception is a world adapter gate; engaged Actors use the unmodified catalog AI.
+# No spawning from populations, scaling, alternative hit rules or tactical planner.
+func choose_ai_action(actor_id: StringName) -> TimeAction:
+	if runtime != null and not runtime.exploration.is_empty() and actor_id != &"player":
+		var a := get_actor(actor_id)
+		if a.position.distance_to(player_position) > 7 or not line_visible(a.position, player_position): return WaitAction.new()
+	return super.choose_ai_action(actor_id)
+
+func line_visible(from: Vector2i, to: Vector2i) -> bool:
+	var delta := to - from
+	var steps := maxi(absi(delta.x), absi(delta.y))
+	for i in range(1, steps):
+		var cell := Vector2i(Vector2(from).lerp(Vector2(to), float(i) / steps).round())
+		if is_wall(cell): return false
+	return true
+
+func _mark_exploration() -> void:
+	if runtime == null or runtime.exploration.is_empty(): return
+	var e: Dictionary = runtime.exploration[runtime.current_zone]
+	var key := HistoryWorldRealization.key(player_position)
+	if key not in e.visited: e.visited.append(key)
+	e.actions += 1
+	for l in initial_world.zones[runtime.current_zone].landmarks:
+		var cell := HistoryWorldRealization.vector(l.cell)
+		if cell.distance_to(player_position) <= 7 and line_visible(player_position, cell) and l.id not in e.sites: e.sites.append(l.id)

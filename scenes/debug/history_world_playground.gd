@@ -1,7 +1,14 @@
 extends Node2D
 ## Explicit F6/scene opt-in. F5 and the fixed/generated combat rooms stay intact.
 @export var world_seed := 1839602582
-@export var save_path := "user://history_world_slice.json"
+@export var save_path := "user://m049_exploration_v2.json"
+@export var exploration_enabled := true
+var art := ExplorationArt.new()
+var zoom := 2
+var overview := false
+var side: VBoxContainer
+var help: Label
+var last_repeat := 0
 const CELL := 16.0
 var game := HistoryPlayableGame.new()
 var character: CharacterScreen
@@ -17,6 +24,8 @@ var developer_visible := false
 
 func _ready() -> void:
 	GameText.apply_preference()
+	game.exploration_enabled = exploration_enabled
+	RenderingServer.set_default_clear_color(Color("15252d"))
 	var layer := CanvasLayer.new(); add_child(layer)
 	var margin := MarginContainer.new(); layer.add_child(margin)
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -32,8 +41,11 @@ func _ready() -> void:
 	_button(buttons, "Load [F9]", func() -> void: game.load_file(save_path); _refresh())
 	_button(buttons, "Character [C]", func() -> void: character.open())
 	_button(buttons, "Learned records [H]", _toggle_records)
-	var help := Label.new(); help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	help.text = "WASD/arrows + numpad: move / bump attack   Space: wait   E: door   G: recover   X: clear   T: travel\nI: inspect   P: repair   U: shelter   V: stabilize (optional record)   O: restitution   F3: developer view"
+	_button(buttons, "Map [M]", func() -> void: overview = not overview; _refresh())
+	_button(buttons, "−", func() -> void: zoom = maxi(1, zoom - 1); overview = false; _refresh())
+	_button(buttons, "+", func() -> void: zoom = mini(4, zoom + 1); overview = false; _refresh())
+	help = Label.new(); help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	help.text = "Move: WASD / arrows · Space wait · E door · G gather · X clear · T travel · U use · P repair\nI inspect · V stabilize · O restitution · C character · H records · M map · +/− zoom · F3 details"
 	top.add_child(help)
 	feedback = Label.new(); feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; top.add_child(feedback)
 	feedback.add_theme_color_override("font_color", Color("69b7ff"))
@@ -41,14 +53,15 @@ func _ready() -> void:
 	lower.add_theme_constant_override("separation", 12)
 	map_clip = Control.new(); map_clip.size_flags_horizontal = Control.SIZE_EXPAND_FILL; map_clip.size_flags_stretch_ratio = 1.5
 	map_clip.clip_contents = true; lower.add_child(map_clip)
-	map_canvas = Node2D.new(); map_clip.add_child(map_canvas); map_canvas.draw.connect(_draw_map)
-	var side := VBoxContainer.new(); side.size_flags_horizontal = Control.SIZE_EXPAND_FILL; side.size_flags_stretch_ratio = 1.0; lower.add_child(side)
+	map_canvas = Node2D.new(); map_canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST; map_clip.add_child(map_canvas); map_canvas.draw.connect(_draw_map)
+	side = VBoxContainer.new(); side.size_flags_horizontal = Control.SIZE_EXPAND_FILL; side.size_flags_stretch_ratio = 0.65; lower.add_child(side)
 	nearby = RichTextLabel.new(); nearby.size_flags_vertical = Control.SIZE_EXPAND_FILL; nearby.size_flags_stretch_ratio = 1.4; side.add_child(nearby)
 	records = RichTextLabel.new(); records.size_flags_vertical = Control.SIZE_EXPAND_FILL; side.add_child(records)
 	for pane in [nearby, records]:
 		pane.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; pane.scroll_active = true; pane.bbcode_enabled = false
 	character = preload("res://scenes/ui/character_screen.tscn").instantiate(); layer.add_child(character); character.game = game
 	map_clip.resized.connect(_position_map)
+	map_clip.gui_input.connect(_map_input)
 	_generate()
 
 func _button(parent: Node, text: String, action: Callable) -> void:
@@ -59,13 +72,14 @@ func _generate() -> void:
 	world_seed = int(seed_input.text)
 	var result := HistoryEngine.new().generate_civilization(world_seed)
 	if not result.errors.is_empty(): feedback.text = tr("World generation failed. Try another seed."); return
+	game.exploration_enabled = exploration_enabled
 	game.start(HistoryWorldManifest.build(result)); _refresh()
 
 func _toggle_records() -> void:
 	records_visible = not records_visible; _refresh()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if character.visible or seed_input.has_focus() or not event is InputEventKey or not event.pressed or event.echo: return
+	if character.visible or seed_input.has_focus() or not event is InputEventKey or not event.pressed: return
 	var directions := {KEY_KP_8: Vector2i.UP, KEY_KP_2: Vector2i.DOWN, KEY_KP_4: Vector2i.LEFT, KEY_KP_6: Vector2i.RIGHT,
 		KEY_KP_7: Vector2i(-1, -1), KEY_KP_9: Vector2i(1, -1), KEY_KP_1: Vector2i(-1, 1), KEY_KP_3: Vector2i(1, 1),
 		KEY_W: Vector2i.UP, KEY_UP: Vector2i.UP, KEY_S: Vector2i.DOWN, KEY_DOWN: Vector2i.DOWN,
@@ -73,11 +87,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	var operations := {KEY_E: &"interact", KEY_G: &"recover", KEY_X: &"clear", KEY_T: &"travel", KEY_I: &"inspect",
 		KEY_P: &"repair", KEY_U: &"use", KEY_V: &"stabilize", KEY_O: &"offer"}
 	var code: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
-	if directions.has(code): game.player_move(directions[code])
+	if event.echo:
+		if not directions.has(code) or Time.get_ticks_msec() - last_repeat < 110: return
+	last_repeat = Time.get_ticks_msec()
+	if directions.has(code): overview = false; game.player_move(directions[code])
 	elif operations.has(code): game.player_operation(operations[code])
 	elif code in [KEY_SPACE, KEY_ENTER, KEY_KP_5]: game.player_wait()
 	elif code == KEY_F5: game.save_file(save_path)
 	elif code == KEY_F9: game.load_file(save_path)
+	elif code == KEY_M: overview = not overview
+	elif code in [KEY_EQUAL, KEY_KP_ADD]: zoom = mini(4, zoom + 1); overview = false
+	elif code in [KEY_MINUS, KEY_KP_SUBTRACT]: zoom = maxi(1, zoom - 1); overview = false
 	elif code == KEY_H: records_visible = not records_visible
 	elif code == KEY_F3: developer_visible = not developer_visible
 	else: return
@@ -92,17 +112,21 @@ func _notification(what: int) -> void:
 func _refresh() -> void:
 	if game.runtime == null: feedback.text = GameText.notice(game); return
 	character.game = game
-	header.text = GameText.text("{region} · seed {seed} · world time {time}\n{status}", {"region": GameText.locality(game, game.runtime.current_zone), "seed": int(game.initial_world.manifest.seed), "time": game.world_time, "status": GameText.actor_status(game)})
+	header.text = GameText.text("{region} · seed {seed} · world time {time}\n{status}", {"region": GameText.locality(game, game.runtime.current_zone), "seed": int(game.initial_world.manifest.seed), "time": game.world_time, "status": GameText.actor_status(game) if game.runtime.exploration.is_empty() else GameText.text("You · HP {hp}/{max} · {weapon}", {"hp": game.player_hp, "max": game.PLAYER_MAX_HP, "weapon": GameText.term(game.get_actor(&"player").equipped_weapon.display_name)})})
 	feedback.text = GameText.notice(game)
 	var lines: Array[String] = [tr("Current expedition"), tr("Recover supplies, find a safe shelter, or follow an exit."),
 		GameText.text("Carried: {inventory}", {"inventory": GameText.inventory(game)}),
 		GameText.text("Unknown objects carried: {count}", {"count": game.runtime.unique_owners.values().count("player")}), tr("Facing target:")]
 	var targets := game.objects_at(game.player_position + game.facing)
-	for o in targets: lines.append(GameText.describe(game, o))
+	for o in targets:
+		lines.insert(1, GameText.describe(game, o) + "\n" + ExplorationText.hint(o))
 	if targets.is_empty(): lines.append(tr("None — face an object to act."))
 	for o in game.objects_at(game.player_position):
 		if o.kind == "exit": lines.append(GameText.text("[T] Travel to {region}", {"region": GameText.locality(game, o.destination)}))
-	lines.append(tr("\nLegend: blue = you; red = fauna; orange = hazard\nD = door, X = rubble, M = material, ? = unknown object\nF = facility, i = record, > = exit, s = Scar, W = worksite"))
+	if not game.runtime.exploration.is_empty():
+		lines.append(ExplorationText.objectives(game))
+		lines.remove_at(lines.find(tr("Recover supplies, find a safe shelter, or follow an exit.")))
+		lines.append(tr("Cyan underline: unowned opportunity · Amber: managed property\nRed feet: creature · Orange triangle: damaging ground\nTrees, walls, water and solid props block movement."))
 	nearby.text = "\n".join(lines)
 	if developer_visible: records.text = "DEVELOPER: " + str(game.initial_world.selected) + "\n" + game.message + "\n" + game.get_recent_debug_text()
 	elif records_visible:
@@ -116,33 +140,34 @@ func _refresh() -> void:
 
 func _position_map() -> void:
 	if map_canvas == null or game.runtime == null: return
-	var scale_factor := clampf(map_clip.size.x / (game.map_width * CELL), 0.5, 1.8)
-	map_canvas.scale = Vector2.ONE * scale_factor
-	map_canvas.position.y = -maxf(0, game.player_position.y * CELL * scale_factor - map_clip.size.y * 0.6) if game.map_height * CELL * scale_factor > map_clip.size.y else 0
+	var factor := float(zoom)
+	if overview: factor = minf(map_clip.size.x / (game.map_width * CELL), map_clip.size.y / (game.map_height * CELL))
+	map_canvas.scale = Vector2.ONE * factor
+	var extent := Vector2(game.map_width, game.map_height) * CELL * factor
+	var center := (Vector2(game.player_position) + Vector2.ONE * 0.5) * CELL * factor
+	var offset := map_clip.size * 0.5 - center
+	for axis in range(2):
+		offset[axis] = (map_clip.size[axis] - extent[axis]) * 0.5 if extent[axis] < map_clip.size[axis] else clampf(offset[axis], map_clip.size[axis] - extent[axis], 0)
+	map_canvas.position = offset.round()
+	map_canvas.queue_redraw()
 
 func _draw_map() -> void:
 	if game.runtime == null: return
-	for y in range(game.map_height):
-		for x in range(game.map_width):
-			var cell := Vector2i(x, y); var tile: String = game.terrain_rows[y][x]
-			var color := Color("6f8f4e")
-			if tile == "T": color = Color("284d32")
-			elif tile == "R": color = Color("66676b")
-			elif tile == "#": color = Color("b79a67")
-			map_canvas.draw_rect(Rect2(Vector2(cell) * CELL, Vector2.ONE * CELL), color)
-			if game.hazard_at(cell) > 0: map_canvas.draw_rect(Rect2(Vector2(cell) * CELL + Vector2.ONE * 2, Vector2.ONE * 12), Color("d37932"))
-	var symbols := {"door": "D", "rubble": "X", "sealed": "!", "resource": "M", "unique": "?", "control": "F", "record": "i", "scar": "s", "worksite": "W", "exit": ">", "route": "X"}
-	for id in game.initial_world.zones[game.runtime.current_zone].objects:
-		var o := game.runtime.object(game.runtime.current_zone, id)
-		if o.get("taken", false) or o.get("removed", false): continue
-		if o.kind == "record" and not game.record_present(o): continue
-		var center := (Vector2(HistoryWorldRealization.vector(o.cell)) + Vector2.ONE * 0.5) * CELL
-		var symbol: String = symbols.get(o.kind, ".")
-		if o.kind == "door" and o.open: symbol = "/"
-		map_canvas.draw_string(ThemeDB.fallback_font, center + Vector2(-4, 4), symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
-	for a in game.actors.all():
-		if not a.is_alive(): continue
-		var center := (Vector2(a.position) + Vector2.ONE * 0.5) * CELL
-		map_canvas.draw_circle(center, 6, Color("69b7ff") if a.id == &"player" else Color("d36b6b"))
-	var player_center := (Vector2(game.player_position) + Vector2.ONE * 0.5) * CELL
-	map_canvas.draw_line(player_center, player_center + Vector2(game.facing) * 7, Color.WHITE)
+	var visible := Rect2(-map_canvas.position / map_canvas.scale, map_clip.size / map_canvas.scale).grow(16)
+	art.draw(map_canvas, game, visible)
+	if overview:
+		var center := (Vector2(game.player_position) + Vector2.ONE * 0.5) * CELL
+		map_canvas.draw_circle(center, 7 / map_canvas.scale.x, Color("79d6c1"), false, 2 / map_canvas.scale.x)
+		for l in game.initial_world.zones[game.runtime.current_zone].get("landmarks", []):
+			var point := Vector2(HistoryWorldRealization.vector(l.cell)) * CELL
+			map_canvas.draw_circle(point, 3 / map_canvas.scale.x, Color("e7a252"))
+
+func _map_input(event: InputEvent) -> void:
+	if character.visible or not event is InputEventMouseButton or not event.pressed: return
+	if event.button_index == MOUSE_BUTTON_WHEEL_UP: zoom = mini(4, zoom + 1); overview = false
+	elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN: zoom = maxi(1, zoom - 1); overview = false
+	elif event.button_index == MOUSE_BUTTON_LEFT and not overview:
+		var cell := Vector2i(((event.position - map_canvas.position) / map_canvas.scale / CELL).floor())
+		var delta := cell - game.player_position
+		if delta.length_squared() == 1: game.facing = delta
+	_refresh()

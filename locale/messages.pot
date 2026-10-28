@@ -1031,3 +1031,195 @@ msgstr ""
 msgctxt "term"
 msgid "Community split"
 msgstr ""
+
+msgid "This opportunity has already been used on this expedition."
+msgstr ""
+
+msgid "Gathered {count} materials from the current environment. No custody violation."
+msgstr ""
+
+msgid "Braced the crossing. The short route is now safe; two materials spent."
+msgstr ""
+
+msgid "Surveyed the dry bypass to the south. Movement costs 10% less; surveys do not stack."
+msgstr ""
+
+msgid "Used finite field supplies to recover health."
+msgstr ""
+
+msgid "Exchanged the equipped weapon with the tool rack. The previous weapon remains on the rack."
+msgstr ""
+
+msgid "Map [M]"
+msgstr ""
+
+msgid "Move: WASD / arrows · Space wait · E door · G gather · X clear · T travel · U use · P repair\nI inspect · V stabilize · O restitution · C character · H records · M map · +/− zoom · F3 details"
+msgstr ""
+
+msgid "You · HP {hp}/{max} · {weapon}"
+msgstr ""
+
+msgid "Cyan underline: unowned opportunity · Amber: managed property\nRed feet: creature · Orange triangle: damaging ground\nTrees, walls, water and solid props block movement."
+msgstr ""
+
+msgid "[G] Gather finite unowned materials. Useful for the crossing and field recovery."
+msgstr ""
+
+msgid "[U] Survey the current terrain: reveal the dry bypass and reduce movement cost by 10% (once, no stacking)."
+msgstr ""
+
+msgid "[P] Brace the crossing for 2 materials. Or take the longer dry path to the south for free."
+msgstr ""
+
+msgid "[U] Spend 2 materials: recover up to 6 HP and mend 1 point on each surviving limb. Once per station."
+msgstr ""
+
+msgid "[U] Swap your weapon with the hunting knife on this rack. Swap again to retrieve the stored weapon."
+msgstr ""
+
+msgid "[U] Rest with finite field supplies: recover up to 4 HP, once here."
+msgstr ""
+
+msgid "The path leads east to a lookout, a loose crossing, supplies and the region exits. Side trails lead to historical sites."
+msgstr ""
+
+msgid "Follow the eastern bank north or south to a connected region. Your changes here will persist."
+msgstr ""
+
+msgid "[X] Clear this solid obstacle with physical work."
+msgstr ""
+
+msgid "[X] Clear loose debris. It does not contain historical salvage."
+msgstr ""
+
+msgid "Ground vegetation. It does not block movement."
+msgstr ""
+
+msgid "Already used here."
+msgstr ""
+
+msgid "Exploration · {visited} cells walked · {sites} landmarks found · {goals}/2 field goals\nSuggested next: {target} · {distance} tiles {direction}. Side trails and history are optional."
+msgstr ""
+
+msgid "East"
+msgstr ""
+
+msgid "West"
+msgstr ""
+
+msgid "North"
+msgstr ""
+
+msgid "South"
+msgstr ""
+
+msgid "Current environment; no historical stock or relic provenance."
+msgstr ""
+
+msgctxt "term"
+msgid "Loose stones"
+msgstr ""
+
+msgctxt "term"
+msgid "Flowers"
+msgstr ""
+
+msgctxt "term"
+msgid "Waystone"
+msgstr ""
+
+msgctxt "term"
+msgid "Abandoned cart"
+msgstr ""
+
+msgctxt "term"
+msgid "Loose debris"
+msgstr ""
+
+msgctxt "term"
+msgid "Boulder"
+msgstr ""
+
+msgctxt "term"
+msgid "Field supplies"
+msgstr ""
+
+msgctxt "term"
+msgid "Raider"
+msgstr ""
+
+msgctxt "term"
+msgid "Fallen branches"
+msgstr ""
+
+msgctxt "term"
+msgid "Stump"
+msgstr ""
+
+msgctxt "term"
+msgid "Loose crossing"
+msgstr ""
+
+msgctxt "term"
+msgid "Feral Ape"
+msgstr ""
+
+msgctxt "term"
+msgid "Giant Beetle"
+msgstr ""
+
+msgctxt "term"
+msgid "Wolf"
+msgstr ""
+
+msgctxt "term"
+msgid "Armored Raider"
+msgstr ""
+
+msgctxt "term"
+msgid "Trail sign"
+msgstr ""
+
+msgctxt "term"
+msgid "Giant Crab"
+msgstr ""
+
+msgctxt "term"
+msgid "Giant Spider"
+msgstr ""
+
+msgctxt "term"
+msgid "Empty crate"
+msgstr ""
+
+msgctxt "term"
+msgid "Cave Lizard"
+msgstr ""
+
+msgctxt "term"
+msgid "Camp"
+msgstr ""
+
+msgctxt "term"
+msgid "Field workbench"
+msgstr ""
+
+msgctxt "term"
+msgid "Lookout"
+msgstr ""
+
+msgctxt "term"
+msgid "Boar"
+msgstr ""
+
+msgctxt "term"
+msgid "Fence"
+msgstr ""
+
+msgctxt "term"
+msgid "Tool rack"
+msgstr ""
+
+msgctxt "term"
+msgid "Feral Dog"
+msgstr ""

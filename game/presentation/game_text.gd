@@ -3,6 +3,45 @@ extends RefCounted
 ## Pure presentation. Never write a translated value into an Actor, event or save.
 const FONT = preload("res://assets/fonts/noto-sans-kr/NotoSansKR-Regular.otf")
 const TERMS := {
+	"branches": "Fallen branches",
+	"stone_cache": "Loose stones",
+	"Loose stones": "Loose stones",
+	"supply_cache": "Field supplies",
+	"Field supplies": "Field supplies",
+	"camp": "Camp",
+	"trail_sign": "Trail sign",
+	"Trail sign": "Trail sign",
+	"lookout": "Lookout",
+	"workbench": "Field workbench",
+	"bridge": "Loose crossing",
+	"tool_rack": "Tool rack",
+	"Tool rack": "Tool rack",
+	"waystone": "Waystone",
+	"flowers": "Flowers",
+	"stump": "Stump",
+	"cart": "Abandoned cart",
+	"scrap": "Loose debris",
+	"fence": "Fence",
+	"crate": "Empty crate",
+	"boulder": "Boulder",
+	"feral_dog": "Feral Dog",
+	"Feral Dog": "Feral Dog",
+	"wolf": "Wolf",
+	"boar": "Boar",
+	"giant_beetle": "Giant Beetle",
+	"Giant Beetle": "Giant Beetle",
+	"cave_lizard": "Cave Lizard",
+	"Cave Lizard": "Cave Lizard",
+	"giant_spider": "Giant Spider",
+	"Giant Spider": "Giant Spider",
+	"giant_crab": "Giant Crab",
+	"Giant Crab": "Giant Crab",
+	"feral_ape": "Feral Ape",
+	"Feral Ape": "Feral Ape",
+	"raider": "Raider",
+	"armored_raider": "Armored Raider",
+	"Armored Raider": "Armored Raider",
+
 	"materials": "Materials", "equipment": "Equipment", "genomic_records": "Genomic records",
 	"samples": "Samples", "inert_salvage": "Inert salvage", "survey_records": "Survey records",
 	"intact": "Intact", "damaged": "Damaged", "ruined": "Ruined", "disabled": "Disabled",
@@ -102,7 +141,8 @@ static func describe(game: HistoryPlayableGame, o: Dictionary, learned: bool = f
 	if not o.owner_id.is_empty():
 		for f in game.initial_world.manifest.factions:
 			if f.id == o.owner_id: lines.append(text("Managed by {owner}. Present need: {need}.", {"owner": faction(game, f.id), "need": term(f.current_need)}))
-	if o.kind == "resource": lines.append(quantity(o.asset_kind, o.quantity))
+	if o.kind == "resource" or o.kind in ExplorationInteractions.SUPPLIES: lines.append(quantity(o.asset_kind, o.quantity))
+	if o.get("provenance", "") == "present_environment/1": lines.append(text("Current environment; no historical stock or relic provenance."))
 	if o.kind == "exit": lines.append(text("Connected destination: {region}. Travel with T.", {"region": locality(game, o.destination)}))
 	if o.kind == "door": lines.append(text("Door is open." if o.open else "Door is closed. Open with E."))
 	if o.kind == "sealed": lines.append(text("No safe entrance is available."))

@@ -1,0 +1,223 @@
+{
+	"checks": 65,
+	"failures": [],
+	"fixture": "Real spawn selection; adjacent setup; injured 1-HP NPC finish; no balance claim",
+	"rows": [
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 31,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 1,
+			"type": "giant_beetle"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 27,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 1,
+			"type": "feral_dog"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "rat_tactics",
+			"attacks": 5,
+			"damage": 13,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 1,
+			"type": "rat"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 20,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 1,
+			"type": "cave_lizard"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 36,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 1,
+			"type": "boar"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 30,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 1,
+			"type": "wolf"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 13,
+					"time": 13000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 17,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 3,
+			"type": "giant_spider"
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 4,
+					"time": 4000
+				},
+				"attack:player": {
+					"count": 1,
+					"time": 1000
+				},
+				"wait:npc": {
+					"count": 11,
+					"time": 11000
+				},
+				"wait:player": {
+					"count": 5,
+					"time": 5000
+				}
+			},
+			"ai": "basic_melee",
+			"attacks": 5,
+			"damage": 34,
+			"dead": true,
+			"npc_attacks": 4,
+			"seed": 5,
+			"type": "giant_crab"
+		}
+	]
+}

@@ -26,9 +26,11 @@ static func restore(raw: Variant) -> Actor:
 		if not raw.get(field) is String: return null
 	for field in ["damage", "points", "aggression", "fear_bonus", "caution_spent", "ready_remaining"]:
 		if not HistoryV6Event._integer(raw.get(field)): return null
-	if raw.id.is_empty() or raw.type not in ["human", "rat"] or raw.damage < 0 or raw.points < 0 or raw.ready_remaining < 0 or not raw.get("dead") is bool: return null
+	if raw.id.is_empty() or raw.damage < 0 or raw.points < 0 or raw.ready_remaining < 0 or not raw.get("dead") is bool: return null
 	if not valid_cell(raw.get("position")) or not valid_cell(raw.get("facing")) or not raw.get("parts") is Dictionary or not raw.get("scores") is Dictionary or not raw.get("effects") is Array: return null
-	var a := Actor.new(StringName(raw.id), ActorDefinition.human_default() if raw.type == "human" else ActorDefinition.rat_common(), HistoryWorldRealization.vector(raw.position), raw.name)
+	var definition := ActorDefinition.human_default() if raw.type == "human" else CombatContentCatalog.actor(StringName(raw.type))
+	if definition == null or not definition.is_valid(): return null
+	var a := Actor.new(StringName(raw.id), definition, HistoryWorldRealization.vector(raw.position), raw.name)
 	if raw.scores.size() != AbilityScores.NAMES.size() or raw.parts.size() != a.body.parts.size(): return null
 	for id in AbilityScores.NAMES:
 		if not HistoryV6Event._integer(raw.scores.get(String(id))) or raw.scores[String(id)] < 1 or raw.scores[String(id)] > 100: return null

@@ -1,0 +1,1051 @@
+{
+	"policy_knowledge": "full geometry and object metadata; not human/blinded play",
+	"rows": [
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 16,
+					"time": 17500
+				},
+				"move:player": {
+					"count": 484,
+					"time": 438300
+				},
+				"wait:npc": {
+					"count": 1371,
+					"time": 1371000
+				}
+			},
+			"alive": true,
+			"cells_walked": 444,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 503.511,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 2,
+			"meaningful_expedition": true,
+			"movement_actions": 484,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 501,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 1,
+			"world_time": 455800,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 22,
+					"time": 22000
+				},
+				"interact:player": {
+					"count": 19,
+					"time": 17500
+				},
+				"move:npc": {
+					"count": 77,
+					"time": 60450
+				},
+				"move:player": {
+					"count": 599,
+					"time": 541800
+				},
+				"wait:npc": {
+					"count": 1598,
+					"time": 1598000
+				}
+			},
+			"alive": false,
+			"cells_walked": 460,
+			"combat_damage": 31,
+			"combat_events": 22,
+			"custody_offenses": {
+				"faction_0": 2,
+				"faction_1": 2
+			},
+			"elapsed_ms": 524.691,
+			"exact_save": true,
+			"field_goals": 4,
+			"hp": 0,
+			"inventory": {
+				"equipment": 3,
+				"materials": 19,
+				"samples": 2
+			},
+			"landmarks": 4,
+			"meaningful_expedition": false,
+			"movement_actions": 599,
+			"npc_attack_events": 22,
+			"operations": {
+				"historical_recover": 4,
+				"recover": 5,
+				"repair": 2,
+				"rest": 1,
+				"use": 2
+			},
+			"player_actions": 619,
+			"player_combat_damage": 31,
+			"policy": "recovery_first",
+			"problems": [
+				[
+					"locality_2",
+					"env:locality_2:lookout",
+					"acted"
+				],
+				[
+					"locality_2",
+					"env:locality_2:bridge",
+					"acted"
+				],
+				[
+					"locality_2",
+					"env:locality_2:supply_cache",
+					"acted"
+				]
+			],
+			"seed": 1,
+			"world_time": 559250,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 14,
+					"time": 14500
+				},
+				"move:player": {
+					"count": 477,
+					"time": 432000
+				},
+				"wait:npc": {
+					"count": 1344,
+					"time": 1344000
+				}
+			},
+			"alive": true,
+			"cells_walked": 435,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 499.988,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 2,
+			"meaningful_expedition": true,
+			"movement_actions": 477,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 492,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 2,
+			"world_time": 446500,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 22,
+					"time": 19500
+				},
+				"move:player": {
+					"count": 841,
+					"time": 759600
+				},
+				"wait:npc": {
+					"count": 2340,
+					"time": 2340000
+				}
+			},
+			"alive": true,
+			"cells_walked": 671,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {
+				"faction_0": 2
+			},
+			"elapsed_ms": 551.576,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"inert_salvage": 7,
+				"materials": 34,
+				"samples": 1
+			},
+			"landmarks": 6,
+			"meaningful_expedition": true,
+			"movement_actions": 841,
+			"npc_attack_events": 0,
+			"operations": {
+				"historical_recover": 6,
+				"recover": 6,
+				"repair": 3,
+				"rest": 1,
+				"use": 3
+			},
+			"player_actions": 864,
+			"player_combat_damage": 0,
+			"policy": "recovery_first",
+			"problems": [],
+			"seed": 2,
+			"world_time": 779100,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 14,
+					"time": 14500
+				},
+				"move:player": {
+					"count": 481,
+					"time": 435600
+				},
+				"wait:npc": {
+					"count": 1356,
+					"time": 1356000
+				}
+			},
+			"alive": true,
+			"cells_walked": 409,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 507.452,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 481,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 496,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 7,
+			"world_time": 450100,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 8,
+					"time": 8000
+				},
+				"interact:player": {
+					"count": 5,
+					"time": 4000
+				},
+				"move:npc": {
+					"count": 51,
+					"time": 47340
+				},
+				"move:player": {
+					"count": 182,
+					"time": 166500
+				},
+				"wait:npc": {
+					"count": 458,
+					"time": 458000
+				}
+			},
+			"alive": false,
+			"cells_walked": 136,
+			"combat_damage": 32,
+			"combat_events": 8,
+			"custody_offenses": {
+				"faction_0": 1
+			},
+			"elapsed_ms": 401.703,
+			"exact_save": true,
+			"field_goals": 2,
+			"hp": 0,
+			"inventory": {
+				"materials": 9
+			},
+			"landmarks": 1,
+			"meaningful_expedition": false,
+			"movement_actions": 182,
+			"npc_attack_events": 8,
+			"operations": {
+				"historical_recover": 1,
+				"recover": 2,
+				"repair": 1,
+				"use": 1
+			},
+			"player_actions": 188,
+			"player_combat_damage": 32,
+			"policy": "recovery_first",
+			"problems": [],
+			"seed": 7,
+			"world_time": 170340,
+			"zones": 1
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 16,
+					"time": 17500
+				},
+				"move:player": {
+					"count": 477,
+					"time": 432000
+				},
+				"wait:npc": {
+					"count": 1353,
+					"time": 1353000
+				}
+			},
+			"alive": true,
+			"cells_walked": 440,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 520.479,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 477,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 494,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 13,
+			"world_time": 449500,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 5,
+					"time": 5000
+				},
+				"interact:player": {
+					"count": 12,
+					"time": 10500
+				},
+				"move:npc": {
+					"count": 3,
+					"time": 4080
+				},
+				"move:player": {
+					"count": 559,
+					"time": 505800
+				},
+				"wait:npc": {
+					"count": 1545,
+					"time": 1545000
+				}
+			},
+			"alive": false,
+			"cells_walked": 379,
+			"combat_damage": 32,
+			"combat_events": 5,
+			"custody_offenses": {
+				"faction_0": 1,
+				"faction_1": 1
+			},
+			"elapsed_ms": 527.354,
+			"exact_save": true,
+			"field_goals": 4,
+			"hp": 0,
+			"inventory": {
+				"materials": 16
+			},
+			"landmarks": 2,
+			"meaningful_expedition": false,
+			"movement_actions": 559,
+			"npc_attack_events": 5,
+			"operations": {
+				"historical_recover": 2,
+				"recover": 4,
+				"repair": 2,
+				"use": 2
+			},
+			"player_actions": 572,
+			"player_combat_damage": 32,
+			"policy": "recovery_first",
+			"problems": [
+				[
+					"locality_1",
+					"travel failed"
+				]
+			],
+			"seed": 13,
+			"world_time": 516280,
+			"zones": 2
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 15,
+					"time": 16000
+				},
+				"move:player": {
+					"count": 479,
+					"time": 433800
+				},
+				"wait:npc": {
+					"count": 1353,
+					"time": 1353000
+				}
+			},
+			"alive": true,
+			"cells_walked": 463,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 498.554,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 479,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 495,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 42,
+			"world_time": 449800,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 8,
+					"time": 8000
+				},
+				"interact:player": {
+					"count": 8,
+					"time": 6500
+				},
+				"move:npc": {
+					"count": 23,
+					"time": 21590
+				},
+				"move:player": {
+					"count": 234,
+					"time": 213300
+				},
+				"wait:npc": {
+					"count": 631,
+					"time": 631000
+				}
+			},
+			"alive": false,
+			"cells_walked": 178,
+			"combat_damage": 33,
+			"combat_events": 8,
+			"custody_offenses": {
+				"faction_0": 2
+			},
+			"elapsed_ms": 318.55,
+			"exact_save": true,
+			"field_goals": 2,
+			"hp": 0,
+			"inventory": {
+				"equipment": 1,
+				"materials": 9
+			},
+			"landmarks": 1,
+			"meaningful_expedition": false,
+			"movement_actions": 234,
+			"npc_attack_events": 8,
+			"operations": {
+				"historical_recover": 2,
+				"recover": 2,
+				"repair": 1,
+				"use": 1
+			},
+			"player_actions": 243,
+			"player_combat_damage": 33,
+			"policy": "recovery_first",
+			"problems": [
+				[
+					"locality_0",
+					"travel failed"
+				]
+			],
+			"seed": 42,
+			"world_time": 219590,
+			"zones": 1
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 15,
+					"time": 16000
+				},
+				"move:player": {
+					"count": 485,
+					"time": 439200
+				},
+				"wait:npc": {
+					"count": 1368,
+					"time": 1368000
+				}
+			},
+			"alive": true,
+			"cells_walked": 483,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 504.597,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 485,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 501,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 101,
+			"world_time": 455200,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 18,
+					"time": 18000
+				},
+				"attack:player": {
+					"count": 8,
+					"time": 8000
+				},
+				"interact:player": {
+					"count": 26,
+					"time": 22500
+				},
+				"move:npc": {
+					"count": 61,
+					"time": 48750
+				},
+				"move:player": {
+					"count": 945,
+					"time": 853200
+				},
+				"wait:npc": {
+					"count": 2335,
+					"time": 2335000
+				}
+			},
+			"alive": true,
+			"cells_walked": 612,
+			"combat_damage": 64,
+			"combat_events": 26,
+			"custody_offenses": {
+				"faction_0": 2,
+				"faction_1": 2,
+				"faction_2": 2
+			},
+			"elapsed_ms": 630.468,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 9,
+			"inventory": {
+				"equipment": 2,
+				"materials": 41
+			},
+			"landmarks": 5,
+			"meaningful_expedition": true,
+			"movement_actions": 945,
+			"npc_attack_events": 18,
+			"operations": {
+				"historical_recover": 6,
+				"recover": 6,
+				"repair": 3,
+				"rest": 2,
+				"use": 3
+			},
+			"player_actions": 980,
+			"player_combat_damage": 29,
+			"policy": "recovery_first",
+			"problems": [],
+			"seed": 101,
+			"world_time": 883700,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 18,
+					"time": 20500
+				},
+				"move:player": {
+					"count": 477,
+					"time": 432000
+				},
+				"wait:npc": {
+					"count": 1362,
+					"time": 1362000
+				}
+			},
+			"alive": true,
+			"cells_walked": 424,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 527.328,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 477,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 496,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 321,
+			"world_time": 452500,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 1,
+					"time": 1000
+				},
+				"interact:player": {
+					"count": 23,
+					"time": 19000
+				},
+				"move:npc": {
+					"count": 17,
+					"time": 21840
+				},
+				"move:player": {
+					"count": 812,
+					"time": 733500
+				},
+				"wait:npc": {
+					"count": 2237,
+					"time": 2237000
+				}
+			},
+			"alive": true,
+			"cells_walked": 588,
+			"combat_damage": 3,
+			"combat_events": 1,
+			"custody_offenses": {
+				"faction_0": 2,
+				"faction_2": 3,
+				"polity_1": 1
+			},
+			"elapsed_ms": 640.355,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"equipment": 1,
+				"genomic_records": 3,
+				"inert_salvage": 4,
+				"materials": 35
+			},
+			"landmarks": 4,
+			"meaningful_expedition": true,
+			"movement_actions": 812,
+			"npc_attack_events": 1,
+			"operations": {
+				"historical_recover": 6,
+				"recover": 6,
+				"repair": 3,
+				"rest": 1,
+				"use": 3
+			},
+			"player_actions": 836,
+			"player_combat_damage": 3,
+			"policy": "recovery_first",
+			"problems": [],
+			"seed": 321,
+			"world_time": 752500,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 18,
+					"time": 20500
+				},
+				"move:player": {
+					"count": 479,
+					"time": 433800
+				},
+				"wait:npc": {
+					"count": 1368,
+					"time": 1368000
+				}
+			},
+			"alive": true,
+			"cells_walked": 480,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 528.326,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 479,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 498,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 999,
+			"world_time": 454300,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 5,
+					"time": 5000
+				},
+				"interact:player": {
+					"count": 24,
+					"time": 22500
+				},
+				"move:npc": {
+					"count": 32,
+					"time": 29520
+				},
+				"move:player": {
+					"count": 901,
+					"time": 813600
+				},
+				"wait:npc": {
+					"count": 2479,
+					"time": 2479000
+				}
+			},
+			"alive": true,
+			"cells_walked": 661,
+			"combat_damage": 16,
+			"combat_events": 5,
+			"custody_offenses": {
+				"faction_0": 2,
+				"faction_1": 1
+			},
+			"elapsed_ms": 677.461,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 16,
+			"inventory": {
+				"genomic_records": 1,
+				"inert_salvage": 8,
+				"materials": 29
+			},
+			"landmarks": 4,
+			"meaningful_expedition": true,
+			"movement_actions": 901,
+			"npc_attack_events": 5,
+			"operations": {
+				"historical_recover": 5,
+				"recover": 6,
+				"repair": 3,
+				"rest": 2,
+				"use": 3
+			},
+			"player_actions": 926,
+			"player_combat_damage": 16,
+			"policy": "recovery_first",
+			"problems": [],
+			"seed": 999,
+			"world_time": 836100,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 14,
+					"time": 14500
+				},
+				"move:player": {
+					"count": 477,
+					"time": 432000
+				},
+				"wait:npc": {
+					"count": 1344,
+					"time": 1344000
+				}
+			},
+			"alive": true,
+			"cells_walked": 411,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 506.567,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 477,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 492,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 1839602582,
+			"world_time": 446500,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 7,
+					"time": 7000
+				},
+				"interact:player": {
+					"count": 7,
+					"time": 5000
+				},
+				"move:npc": {
+					"count": 50,
+					"time": 47160
+				},
+				"move:player": {
+					"count": 243,
+					"time": 221400
+				},
+				"wait:npc": {
+					"count": 627,
+					"time": 627000
+				}
+			},
+			"alive": false,
+			"cells_walked": 185,
+			"combat_damage": 30,
+			"combat_events": 7,
+			"custody_offenses": {
+				"faction_0": 2
+			},
+			"elapsed_ms": 359.187,
+			"exact_save": true,
+			"field_goals": 2,
+			"hp": 0,
+			"inventory": {
+				"genomic_records": 1,
+				"materials": 9
+			},
+			"landmarks": 1,
+			"meaningful_expedition": false,
+			"movement_actions": 243,
+			"npc_attack_events": 7,
+			"operations": {
+				"historical_recover": 2,
+				"recover": 2,
+				"repair": 1,
+				"use": 1
+			},
+			"player_actions": 251,
+			"player_combat_damage": 30,
+			"policy": "recovery_first",
+			"problems": [
+				[
+					"locality_0",
+					"travel failed"
+				]
+			],
+			"seed": 1839602582,
+			"world_time": 226160,
+			"zones": 1
+		},
+		{
+			"action_times": {
+				"interact:player": {
+					"count": 15,
+					"time": 16000
+				},
+				"move:player": {
+					"count": 477,
+					"time": 432000
+				},
+				"wait:npc": {
+					"count": 1347,
+					"time": 1347000
+				}
+			},
+			"alive": true,
+			"cells_walked": 469,
+			"combat_damage": 0,
+			"combat_events": 0,
+			"custody_offenses": {},
+			"elapsed_ms": 523.335,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 30,
+			"inventory": {
+				"materials": 18
+			},
+			"landmarks": 1,
+			"meaningful_expedition": true,
+			"movement_actions": 477,
+			"npc_attack_events": 0,
+			"operations": {
+				"recover": 6,
+				"repair": 3,
+				"use": 3
+			},
+			"player_actions": 493,
+			"player_combat_damage": 0,
+			"policy": "lawful_cautious",
+			"problems": [],
+			"seed": 1036007500,
+			"world_time": 448000,
+			"zones": 3
+		},
+		{
+			"action_times": {
+				"attack:npc": {
+					"count": 5,
+					"time": 5000
+				},
+				"interact:player": {
+					"count": 26,
+					"time": 23500
+				},
+				"move:npc": {
+					"count": 43,
+					"time": 39780
+				},
+				"move:player": {
+					"count": 883,
+					"time": 797400
+				},
+				"wait:npc": {
+					"count": 2424,
+					"time": 2424000
+				}
+			},
+			"alive": true,
+			"cells_walked": 660,
+			"combat_damage": 16,
+			"combat_events": 5,
+			"custody_offenses": {
+				"faction_0": 1,
+				"faction_1": 1,
+				"faction_2": 3
+			},
+			"elapsed_ms": 726.597,
+			"exact_save": true,
+			"field_goals": 6,
+			"hp": 22,
+			"inventory": {
+				"equipment": 1,
+				"inert_salvage": 9,
+				"materials": 36
+			},
+			"landmarks": 4,
+			"meaningful_expedition": true,
+			"movement_actions": 883,
+			"npc_attack_events": 5,
+			"operations": {
+				"historical_recover": 5,
+				"recover": 6,
+				"repair": 3,
+				"rest": 2,
+				"use": 3
+			},
+			"player_actions": 910,
+			"player_combat_damage": 16,
+			"policy": "recovery_first",
+			"problems": [],
+			"seed": 1036007500,
+			"world_time": 820900,
+			"zones": 3
+		}
+	]
+}

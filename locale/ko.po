@@ -1032,3 +1032,195 @@ msgstr "이주"
 msgctxt "term"
 msgid "Community split"
 msgstr "공동체 분열"
+
+msgid "This opportunity has already been used on this expedition."
+msgstr "이번 탐험에서 이미 이용한 장소다."
+
+msgid "Gathered {count} materials from the current environment. No custody violation."
+msgstr "주인 없는 환경 자재 {count}개를 모았다. 소유권 침해는 없다."
+
+msgid "Braced the crossing. The short route is now safe; two materials spent."
+msgstr "자재 2개로 횡단로를 보강했다. 짧은 길이 안전해졌다."
+
+msgid "Surveyed the dry bypass to the south. Movement costs 10% less; surveys do not stack."
+msgstr "남쪽의 마른 우회로를 살폈다. 이동 시간이 10% 줄어든다. 중첩되지 않는다."
+
+msgid "Used finite field supplies to recover health."
+msgstr "한정된 현장 물자를 사용해 체력을 회복했다."
+
+msgid "Exchanged the equipped weapon with the tool rack. The previous weapon remains on the rack."
+msgstr "거치대의 무기로 교체했다. 이전 무기는 거치대에 남아 있다."
+
+msgid "Map [M]"
+msgstr "지도 [M]"
+
+msgid "Move: WASD / arrows · Space wait · E door · G gather · X clear · T travel · U use · P repair\nI inspect · V stabilize · O restitution · C character · H records · M map · +/− zoom · F3 details"
+msgstr "이동: WASD / 방향키 · Space 대기 · E 문 · G 채집·회수 · X 제거 · T 지역 이동 · U 이용 · P 수리\nI 조사 · V 안정화 · O 배상 · C 인물 · H 기록 · M 지도 · +/− 확대·축소 · F3 진단"
+
+msgid "You · HP {hp}/{max} · {weapon}"
+msgstr "나 · 체력 {hp}/{max} · {weapon}"
+
+msgid "Cyan underline: unowned opportunity · Amber: managed property\nRed feet: creature · Orange triangle: damaging ground\nTrees, walls, water and solid props block movement."
+msgstr "청록 밑줄: 주인 없는 물체 · 황색: 관리 물건\n붉은 발밑: 생물 · 주황 삼각형: 피해 지형\n나무·벽·물·단단한 물체는 이동을 막는다."
+
+msgid "[G] Gather finite unowned materials. Useful for the crossing and field recovery."
+msgstr "[G] 주인 없는 자재를 모은다. 횡단로 보강과 현장 회복에 쓸 수 있다. 수량은 한정되어 있다."
+
+msgid "[U] Survey the current terrain: reveal the dry bypass and reduce movement cost by 10% (once, no stacking)."
+msgstr "[U] 현재 지형을 살핀다. 마른 우회로를 파악하고 이동 시간이 10% 줄어든다. 한 번만 적용된다."
+
+msgid "[P] Brace the crossing for 2 materials. Or take the longer dry path to the south for free."
+msgstr "[P] 자재 2개로 횡단로를 보강한다. 자재를 아끼려면 남쪽의 긴 마른 길로 우회한다."
+
+msgid "[U] Spend 2 materials: recover up to 6 HP and mend 1 point on each surviving limb. Once per station."
+msgstr "[U] 자재 2개로 체력 최대 6과 남아 있는 신체 부위의 내구도 1을 회복한다. 이곳에서 한 번 이용할 수 있다."
+
+msgid "[U] Swap your weapon with the hunting knife on this rack. Swap again to retrieve the stored weapon."
+msgstr "[U] 거치대 무기와 교환한다. 처음에는 사냥용 단검이 놓여 있다. 다시 교환하면 맡겨 둔 무기를 되찾는다."
+
+msgid "[U] Rest with finite field supplies: recover up to 4 HP, once here."
+msgstr "[U] 남은 현장 물자로 쉬며 체력을 최대 4 회복한다. 이곳에서 한 번 이용할 수 있다."
+
+msgid "The path leads east to a lookout, a loose crossing, supplies and the region exits. Side trails lead to historical sites."
+msgstr "동쪽 길을 따라 전망 지점, 불안정한 횡단로, 자재와 지역 출구가 있다. 샛길은 옛 시설로 이어진다."
+
+msgid "Follow the eastern bank north or south to a connected region. Your changes here will persist."
+msgstr "동쪽 길의 북쪽이나 남쪽 끝에서 다른 지역으로 갈 수 있다. 이곳에서 바꾼 상태는 유지된다."
+
+msgid "[X] Clear this solid obstacle with physical work."
+msgstr "[X] 힘을 들여 이동을 막는 물체를 치운다."
+
+msgid "[X] Clear loose debris. It does not contain historical salvage."
+msgstr "[X] 흩어진 파편을 치운다. 역사적 잔존 자원은 들어 있지 않다."
+
+msgid "Ground vegetation. It does not block movement."
+msgstr "지면에 자란 식물이다. 이동을 막지 않는다."
+
+msgid "Already used here."
+msgstr "이곳은 이미 이용했다."
+
+msgid "Exploration · {visited} cells walked · {sites} landmarks found · {goals}/2 field goals\nSuggested next: {target} · {distance} tiles {direction}. Side trails and history are optional."
+msgstr "탐험 · 이동한 칸 {visited} · 발견한 지점 {sites} · 현장 목표 {goals}/2\n다음 제안: {target} · {direction} {distance}칸. 샛길과 기록은 자유롭게 탐색한다."
+
+msgid "East"
+msgstr "동쪽"
+
+msgid "West"
+msgstr "서쪽"
+
+msgid "North"
+msgstr "북쪽"
+
+msgid "South"
+msgstr "남쪽"
+
+msgid "Current environment; no historical stock or relic provenance."
+msgstr "현재 환경의 물체다. 역사적 재고나 유물로 취급하지 않는다."
+
+msgctxt "term"
+msgid "Loose stones"
+msgstr "흩어진 돌"
+
+msgctxt "term"
+msgid "Flowers"
+msgstr "들꽃"
+
+msgctxt "term"
+msgid "Waystone"
+msgstr "길잡이 돌"
+
+msgctxt "term"
+msgid "Abandoned cart"
+msgstr "버려진 수레"
+
+msgctxt "term"
+msgid "Loose debris"
+msgstr "흩어진 파편"
+
+msgctxt "term"
+msgid "Boulder"
+msgstr "큰 돌"
+
+msgctxt "term"
+msgid "Field supplies"
+msgstr "현장 자재"
+
+msgctxt "term"
+msgid "Raider"
+msgstr "약탈자"
+
+msgctxt "term"
+msgid "Fallen branches"
+msgstr "떨어진 나뭇가지"
+
+msgctxt "term"
+msgid "Stump"
+msgstr "그루터기"
+
+msgctxt "term"
+msgid "Loose crossing"
+msgstr "불안정한 횡단로"
+
+msgctxt "term"
+msgid "Feral Ape"
+msgstr "야생 유인원"
+
+msgctxt "term"
+msgid "Giant Beetle"
+msgstr "거대 딱정벌레"
+
+msgctxt "term"
+msgid "Wolf"
+msgstr "늑대"
+
+msgctxt "term"
+msgid "Armored Raider"
+msgstr "무장 약탈자"
+
+msgctxt "term"
+msgid "Trail sign"
+msgstr "길 표지"
+
+msgctxt "term"
+msgid "Giant Crab"
+msgstr "거대 게"
+
+msgctxt "term"
+msgid "Giant Spider"
+msgstr "거대 거미"
+
+msgctxt "term"
+msgid "Empty crate"
+msgstr "빈 상자"
+
+msgctxt "term"
+msgid "Cave Lizard"
+msgstr "동굴 도마뱀"
+
+msgctxt "term"
+msgid "Camp"
+msgstr "야영지"
+
+msgctxt "term"
+msgid "Field workbench"
+msgstr "현장 작업대"
+
+msgctxt "term"
+msgid "Lookout"
+msgstr "전망 지점"
+
+msgctxt "term"
+msgid "Boar"
+msgstr "멧돼지"
+
+msgctxt "term"
+msgid "Fence"
+msgstr "울타리"
+
+msgctxt "term"
+msgid "Tool rack"
+msgstr "도구 거치대"
+
+msgctxt "term"
+msgid "Feral Dog"
+msgstr "들개"

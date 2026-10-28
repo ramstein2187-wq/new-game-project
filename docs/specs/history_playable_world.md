@@ -139,8 +139,8 @@ delays pause, rather than replaying missed tactical turns. On entry, delays are
 relative to current world time and stable registration order retains NPC ties.
 
 Only the active registry runs AI. Inactive state has no background combat, economy,
-population evolution or resource regrowth in this slice. Vegetation is a renewable
-environmental baseline but has no harvest verb yet; all manifested historical
+population evolution or resource regrowth in this slice. In the legacy profile vegetation
+has no harvest verb; M049 adds separate finite current-environment supplies. All manifested historical
 stocks and unique entities have persistent non-renewing recovery records.
 
 ## Save schema and validation
@@ -193,3 +193,79 @@ Task branch `codex/m048-korean-playtest-localization`, base 4856655: the same or
 GameText consumes current objects and learned-only evidence; LocalizedCharacterText consumes existing queries. WorldActorState and RuntimeSave schemas are unchanged. Locale switching, real body combat, effects and complete saves/raw events are compared across en/ko. Invalid-save user text is localized while original decoder diagnostics remain in F3.
 
 ConfigFile preferences are outside the world save. Native locale notifications refresh UI. No language menu. Current entities have no GeneratedName; stable ordinal labels are display placeholders. Actual canonical names delegate to M035 only when supplied.
+
+## M049 expanded consumer profile
+
+The opt-in production scene selects `HistoryWorldRealization.build(manifest, -1, true)`.
+The default API remains /1 for existing callers and fixtures. /2 first obtains the
+legacy historical records, then `ExplorationZoneBuilder` rearranges their physical
+cells. IDs, quantities, custody, unknown relic identity, projects and scars remain
+from the Manifest. Phase A/B code and canonical baselines are unchanged.
+
+```mermaid
+flowchart LR
+    H[Unchanged HistoryEngine] --> M[Immutable Manifest]
+    M --> L[Historical realization records]
+    L --> V{Explicit profile}
+    V -->|v1| Old[Original geometry]
+    V -->|v2| New[ExplorationZoneBuilder]
+    New --> R[Runtime overrides and cell index]
+    R --> A[Existing Actor / Actions / Scheduler]
+    R --> UI[Pixel atlas and Korean presentation]
+    A --> R
+    R --> S[Versioned save and atomic validation]
+```
+
+The grid is 96 columns and `max(64, ceil(facilities/4)*32)` rows. Per-locality
+`SeedDeriver` streams separate layout and encounters. Facility function chooses
+industrial/observatory architecture where known, and ruined condition selects
+broken impact shells. Other sites use woodland/open walls or the remaining form.
+Existing damage, sealed access, hazards, Project workspaces, records, custody and
+limited repair remain authoritative. Trail loops, side entrances for damaged
+accessible sites, water/forest obstacles and four southern landforms make outdoor
+space traversable. Objects use stable IDs and unique cells; baseline cells are
+indexed once for collision/interaction lookup. Random props never occupy reserved
+paths. Impassable terrain is wall/tree/water; ordinary doors and clearable obstacles
+retain action-based access and existing diagonal-corner rules.
+
+Finite objects marked `provenance=present_environment/1` have no historical owner.
+Branches/stone/supply caches contain 4/3/4 materials. Gathering sets `taken`; it
+never mutates a Manifest stock or creates a relic. The lookout gives a nonstacking
+existing GameplayEffect with -10% MOVE cost. The bridge costs 2 materials and
+removes its 18 actual footing hazards (2 HP each); a longer free dry bypass is
+always available. Field recovery is finite (4 HP camp/shelter; workbench costs 2,
+restores 6 HP and 1 to each still-living body part). Tool racks swap catalog weapons
+and persist the returned weapon. No new combat formula, ancient-machine function
+or unlimited resource source is introduced.
+
+Encounter candidates come from `content/exploration/encounters.json`, intersected
+with valid `CombatContentCatalog.all_hostiles()` definitions and supported existing
+AI policies. The catalog rat is explicitly added via `actor(rat)` because it is not
+in the authored hostile list. Eight fauna candidates are enabled; no population is
+converted into raiders. Up to three Actors occupy reachable open grass with open
+neighbors, separated by at least 17 tiles from spawn/each other and 12 from exits,
+camp and shelter. The world adapter returns the existing WaitAction when the player
+is more than 7 cells away or terrain blocks line of sight; otherwise it delegates
+to the existing AI. Awareness is current distance/LOS, not a persistent aggro system.
+TR stays null. The complete map remains visible; LOS gates AI and landmark discovery,
+not fog rendering.
+
+`history_play_save/2` uses `generation_version=history_zone/2` and adds one
+`exploration` field to the 18-field /1 envelope. Per-zone visited cell keys, landmark
+IDs and action counts are bounded and validated. Object overrides include finite
+use and catalog weapon exchange. Expected NPC prototypes come from deterministic
+spawn records, not a permissive arbitrary type list. Generic catalog Actor restore
+preserves exact body, injury, weapon, effects, policy, delay and RNG. Unknown versions
+and invalid types/positions/state fail atomically. /1 remains loadable with its own
+original geometry; no reinterpretation as /2 and no silent migration. The new scene
+slot is `user://m049_exploration_v2.json`.
+
+Normal presentation caches terrain once per zone/world, draws live hazards and
+objects from runtime state, then Actors/player. Integer 1–4 zoom follows and clamps
+the player in both axes. Overview alone fits the map. Glyphs and debug rectangles
+are replaced by the [atlas contract](../../assets/tilesets/exploration/README.md).
+PO-backed instructions, feedback, records, Character Overview and F3 are retained.
+Coverage means distinct occupied cells, not all visible floor cells; goals mean
+completed lookout/bridge states, not merely visiting three exits.
+
+Reproduction and measured limitations: [M049 report](../reviews/m049/report.md).

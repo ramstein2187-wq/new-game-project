@@ -4,6 +4,8 @@ This file is the short index for project milestones. Keep it concise. For unfini
 
 ## Current State
 
+- **M049: Implemented and validated, task branch only** on `codex/m049-playable-exploration-art`; three 96×64 localities, 108-tile pixel atlas, current-environment goals, eight catalog fauna, versioned persistence. Full 45-script gate, 500 worlds/1,500 zones, 18 GPU captures. Human 20–30 minute free play remains unperformed. [M049](milestones/M049_history_v6_playable_exploration_art.md).
+
 - **M048 History v6 Phase C:** complete and validated on `codex/history-v6-phase-c-playable-world` (task branch only), exact corrected Phase B base `12f48ba`. Playable three-zone slice, existing actions/combat, runtime persistence; 613 focused checks, full 42-test gate, 500 worlds/1,500 zones passed. [Scope and recovery log](milestones/M048_history_v6_phase_c.md).
 - **M047 History v6 Phase B:** complete and validated on `codex/history-generator-v6-phase-b` (task branch only), based exactly on M045 `c0f1f92`; dynamic civilization and independent World Manifest. 893 focused checks, full 41-test gate and 1,000 replay/Manifest worlds passed. M046 remains assigned to cost-query optimization on main. [Scope and recovery log](milestones/M047_history_v6_phase_b.md).
 

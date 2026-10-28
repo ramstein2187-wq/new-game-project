@@ -1,0 +1,75 @@
+{
+	"deterministic": 500,
+	"enemies": {
+		"boar": 625,
+		"cave_lizard": 434,
+		"feral_dog": 611,
+		"giant_beetle": 594,
+		"giant_crab": 154,
+		"giant_spider": 529,
+		"rat": 1070,
+		"wolf": 483
+	},
+	"failures": [],
+	"forms": {
+		"impact": 1913,
+		"industrial": 2734,
+		"observatory": 2129,
+		"woodland": 1848
+	},
+	"history_hashes_preserved": 500,
+	"load_ms": {
+		"mean": 58.48144,
+		"p95": 60.246,
+		"samples": 50
+	},
+	"objects": {
+		"boulder": 5190,
+		"branches": 1500,
+		"bridge": 1500,
+		"camp": 1500,
+		"cart": 5952,
+		"control": 2624,
+		"crate": 5955,
+		"door": 2105,
+		"exit": 2386,
+		"fence": 5944,
+		"flowers": 6020,
+		"lookout": 1500,
+		"record": 585,
+		"resource": 6036,
+		"route": 16,
+		"rubble": 519,
+		"scar": 496,
+		"scrap": 5958,
+		"shelter": 1500,
+		"stone_cache": 1500,
+		"stump": 6017,
+		"supply_cache": 1500,
+		"tool_rack": 1500,
+		"trail_sign": 1500,
+		"unique": 829,
+		"waystone": 1500,
+		"workbench": 1500,
+		"worksite": 437
+	},
+	"reachable_exits": 2386,
+	"reachable_objects": 73569,
+	"realization_ms": {
+		"mean": 54.344646,
+		"p95": 57.514,
+		"samples": 500
+	},
+	"save_ms": {
+		"mean": 2.56196,
+		"p95": 2.918,
+		"samples": 50
+	},
+	"sealed_objects": 0,
+	"sizes": {
+		"96x64": true
+	},
+	"valid_spawns": 1500,
+	"worlds": 500,
+	"zones": 1500
+}

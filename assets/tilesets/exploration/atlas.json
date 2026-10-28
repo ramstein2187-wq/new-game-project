@@ -1,0 +1,460 @@
+{
+  "tile_size": 16,
+  "columns": 16,
+  "palette": {
+    "ink": "#15252d",
+    "shadow": "#20363c",
+    "soil": "#364944",
+    "grass": "#405a45",
+    "moss": "#63804d",
+    "leaf": "#8ca464",
+    "sand": "#8b7955",
+    "light": "#baa371",
+    "wall": "#536570",
+    "steel": "#829395",
+    "cream": "#e4d4a5",
+    "water": "#234c60",
+    "wave": "#46768a",
+    "rust": "#a96446",
+    "orange": "#e7a252",
+    "red": "#cf6559",
+    "cyan": "#79d6c1",
+    "white": "#f0edd7"
+  },
+  "source_sha256": "a6d4a5d4e7688b34916328f60fee4494c25f93efcef91cd47ad8986af43ac80b",
+  "atlas_sha256": "e90209a2bf69417b0e1a769760f9fa616a847afe9e0784a56c65d9686c156480",
+  "tiles": {
+    "ground0": {
+      "index": 0,
+      "source": "original pixel geometry"
+    },
+    "ground1": {
+      "index": 1,
+      "source": "original pixel geometry"
+    },
+    "ground2": {
+      "index": 2,
+      "source": "original pixel geometry"
+    },
+    "ground3": {
+      "index": 3,
+      "source": "original pixel geometry"
+    },
+    "ground4": {
+      "index": 4,
+      "source": "original pixel geometry"
+    },
+    "ground5": {
+      "index": 5,
+      "source": "original pixel geometry"
+    },
+    "ground6": {
+      "index": 6,
+      "source": "original pixel geometry"
+    },
+    "ground7": {
+      "index": 7,
+      "source": "original pixel geometry"
+    },
+    "floor": {
+      "index": 8,
+      "source": "original pixel geometry"
+    },
+    "gravel": {
+      "index": 9,
+      "source": "original pixel geometry"
+    },
+    "floor_industrial": {
+      "index": 10,
+      "source": "original pixel geometry"
+    },
+    "floor_observatory": {
+      "index": 11,
+      "source": "original pixel geometry"
+    },
+    "floor_woodland": {
+      "index": 12,
+      "source": "original pixel geometry"
+    },
+    "floor_impact": {
+      "index": 13,
+      "source": "original pixel geometry"
+    },
+    "path0": {
+      "index": 14,
+      "source": "original pixel geometry"
+    },
+    "path1": {
+      "index": 15,
+      "source": "original pixel geometry"
+    },
+    "path2": {
+      "index": 16,
+      "source": "original pixel geometry"
+    },
+    "path3": {
+      "index": 17,
+      "source": "original pixel geometry"
+    },
+    "path4": {
+      "index": 18,
+      "source": "original pixel geometry"
+    },
+    "path5": {
+      "index": 19,
+      "source": "original pixel geometry"
+    },
+    "path6": {
+      "index": 20,
+      "source": "original pixel geometry"
+    },
+    "path7": {
+      "index": 21,
+      "source": "original pixel geometry"
+    },
+    "path8": {
+      "index": 22,
+      "source": "original pixel geometry"
+    },
+    "path9": {
+      "index": 23,
+      "source": "original pixel geometry"
+    },
+    "path10": {
+      "index": 24,
+      "source": "original pixel geometry"
+    },
+    "path11": {
+      "index": 25,
+      "source": "original pixel geometry"
+    },
+    "path12": {
+      "index": 26,
+      "source": "original pixel geometry"
+    },
+    "path13": {
+      "index": 27,
+      "source": "original pixel geometry"
+    },
+    "path14": {
+      "index": 28,
+      "source": "original pixel geometry"
+    },
+    "path15": {
+      "index": 29,
+      "source": "original pixel geometry"
+    },
+    "water0": {
+      "index": 30,
+      "source": "original pixel geometry"
+    },
+    "water1": {
+      "index": 31,
+      "source": "original pixel geometry"
+    },
+    "water2": {
+      "index": 32,
+      "source": "original pixel geometry"
+    },
+    "water3": {
+      "index": 33,
+      "source": "original pixel geometry"
+    },
+    "water4": {
+      "index": 34,
+      "source": "original pixel geometry"
+    },
+    "water5": {
+      "index": 35,
+      "source": "original pixel geometry"
+    },
+    "water6": {
+      "index": 36,
+      "source": "original pixel geometry"
+    },
+    "water7": {
+      "index": 37,
+      "source": "original pixel geometry"
+    },
+    "water8": {
+      "index": 38,
+      "source": "original pixel geometry"
+    },
+    "water9": {
+      "index": 39,
+      "source": "original pixel geometry"
+    },
+    "water10": {
+      "index": 40,
+      "source": "original pixel geometry"
+    },
+    "water11": {
+      "index": 41,
+      "source": "original pixel geometry"
+    },
+    "water12": {
+      "index": 42,
+      "source": "original pixel geometry"
+    },
+    "water13": {
+      "index": 43,
+      "source": "original pixel geometry"
+    },
+    "water14": {
+      "index": 44,
+      "source": "original pixel geometry"
+    },
+    "water15": {
+      "index": 45,
+      "source": "original pixel geometry"
+    },
+    "wall0": {
+      "index": 46,
+      "source": "original pixel geometry"
+    },
+    "wall1": {
+      "index": 47,
+      "source": "original pixel geometry"
+    },
+    "wall2": {
+      "index": 48,
+      "source": "original pixel geometry"
+    },
+    "wall3": {
+      "index": 49,
+      "source": "original pixel geometry"
+    },
+    "wall4": {
+      "index": 50,
+      "source": "original pixel geometry"
+    },
+    "wall5": {
+      "index": 51,
+      "source": "original pixel geometry"
+    },
+    "wall6": {
+      "index": 52,
+      "source": "original pixel geometry"
+    },
+    "wall7": {
+      "index": 53,
+      "source": "original pixel geometry"
+    },
+    "wall8": {
+      "index": 54,
+      "source": "original pixel geometry"
+    },
+    "wall9": {
+      "index": 55,
+      "source": "original pixel geometry"
+    },
+    "wall10": {
+      "index": 56,
+      "source": "original pixel geometry"
+    },
+    "wall11": {
+      "index": 57,
+      "source": "original pixel geometry"
+    },
+    "wall12": {
+      "index": 58,
+      "source": "original pixel geometry"
+    },
+    "wall13": {
+      "index": 59,
+      "source": "original pixel geometry"
+    },
+    "wall14": {
+      "index": 60,
+      "source": "original pixel geometry"
+    },
+    "wall15": {
+      "index": 61,
+      "source": "original pixel geometry"
+    },
+    "tree": {
+      "index": 62,
+      "source": "original pixel geometry"
+    },
+    "player": {
+      "index": 63,
+      "source": "EverRogue 1.0 Packed Alpha tile (3,12); three-tone recolor"
+    },
+    "control": {
+      "index": 64,
+      "source": "EverRogue 1.0 Packed Alpha tile (2,8); three-tone recolor"
+    },
+    "record": {
+      "index": 65,
+      "source": "EverRogue 1.0 Packed Alpha tile (7,10); three-tone recolor"
+    },
+    "resource": {
+      "index": 66,
+      "source": "EverRogue 1.0 Packed Alpha tile (0,12); three-tone recolor"
+    },
+    "lookout": {
+      "index": 67,
+      "source": "EverRogue 1.0 Packed Alpha tile (4,7); three-tone recolor"
+    },
+    "scar": {
+      "index": 68,
+      "source": "EverRogue 1.0 Packed Alpha tile (0,9); three-tone recolor"
+    },
+    "door": {
+      "index": 69,
+      "source": "original pixel geometry"
+    },
+    "door_open": {
+      "index": 70,
+      "source": "original pixel geometry"
+    },
+    "sealed": {
+      "index": 71,
+      "source": "original pixel geometry"
+    },
+    "rubble": {
+      "index": 72,
+      "source": "original pixel geometry"
+    },
+    "unique": {
+      "index": 73,
+      "source": "original pixel geometry"
+    },
+    "worksite": {
+      "index": 74,
+      "source": "original pixel geometry"
+    },
+    "exit": {
+      "index": 75,
+      "source": "original pixel geometry"
+    },
+    "route": {
+      "index": 76,
+      "source": "original pixel geometry"
+    },
+    "branches": {
+      "index": 77,
+      "source": "original pixel geometry"
+    },
+    "stone_cache": {
+      "index": 78,
+      "source": "original pixel geometry"
+    },
+    "camp": {
+      "index": 79,
+      "source": "original pixel geometry"
+    },
+    "trail_sign": {
+      "index": 80,
+      "source": "original pixel geometry"
+    },
+    "workbench": {
+      "index": 81,
+      "source": "original pixel geometry"
+    },
+    "bridge": {
+      "index": 82,
+      "source": "original pixel geometry"
+    },
+    "bridge_used": {
+      "index": 83,
+      "source": "original pixel geometry"
+    },
+    "supply_cache": {
+      "index": 84,
+      "source": "original pixel geometry"
+    },
+    "shelter": {
+      "index": 85,
+      "source": "original pixel geometry"
+    },
+    "tool_rack": {
+      "index": 86,
+      "source": "original pixel geometry"
+    },
+    "waystone": {
+      "index": 87,
+      "source": "original pixel geometry"
+    },
+    "flowers": {
+      "index": 88,
+      "source": "original pixel geometry"
+    },
+    "stump": {
+      "index": 89,
+      "source": "original pixel geometry"
+    },
+    "cart": {
+      "index": 90,
+      "source": "original pixel geometry"
+    },
+    "scrap": {
+      "index": 91,
+      "source": "original pixel geometry"
+    },
+    "fence": {
+      "index": 92,
+      "source": "original pixel geometry"
+    },
+    "crate": {
+      "index": 93,
+      "source": "original pixel geometry"
+    },
+    "boulder": {
+      "index": 94,
+      "source": "original pixel geometry"
+    },
+    "hazard": {
+      "index": 95,
+      "source": "original pixel geometry"
+    },
+    "corpse": {
+      "index": 96,
+      "source": "original pixel geometry"
+    },
+    "rat": {
+      "index": 97,
+      "source": "original pixel geometry"
+    },
+    "feral_dog": {
+      "index": 98,
+      "source": "original pixel geometry"
+    },
+    "wolf": {
+      "index": 99,
+      "source": "original pixel geometry"
+    },
+    "boar": {
+      "index": 100,
+      "source": "original pixel geometry"
+    },
+    "giant_beetle": {
+      "index": 101,
+      "source": "original pixel geometry"
+    },
+    "cave_lizard": {
+      "index": 102,
+      "source": "original pixel geometry"
+    },
+    "giant_spider": {
+      "index": 103,
+      "source": "original pixel geometry"
+    },
+    "giant_crab": {
+      "index": 104,
+      "source": "original pixel geometry"
+    },
+    "feral_ape": {
+      "index": 105,
+      "source": "original pixel geometry"
+    },
+    "raider": {
+      "index": 106,
+      "source": "original pixel geometry"
+    },
+    "armored_raider": {
+      "index": 107,
+      "source": "original pixel geometry"
+    }
+  }
+}

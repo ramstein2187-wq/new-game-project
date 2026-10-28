@@ -26,6 +26,9 @@ This is the lightweight inventory of future, unfinished, and exploratory work. I
 
 ## Unfinished and future work
 
+- **Implemented and validated, task branch only** — M049 playable exploration on `codex/m049-playable-exploration-art`, exact M048 base: expanded maps/art, finite legal resources, two field goals, eight catalog fauna, persistent travel. Full 45-test gate, 1,500-zone corpus and GPU evidence. [Scope and recovery log](milestones/M049_history_v6_playable_exploration_art.md).
+- **Needs human verification / follow-up candidates** — M049 20–30 minute free exploration; movement burden (~479 cautious moves), repetitive main-trail goal order, sparse interiors, landmark incentives, combat risk (recovery-first 5/10 survived). Static art, no fog or persistent aggro; package/other-GPU QA outstanding. These are not approved fun/balance claims. [Measured report](reviews/m049/report.md).
+
 - **Complete and validated, task branch only** — M048 Korean localization follow-up on `codex/m048-korean-playtest-localization`: native Korean PO, semantic presentation, bundled font, physical keys, adaptive UI, locale-independent saves/actions. [Work record](milestones/M048_korean_localization_followup.md) · [Report](reviews/m048_korean_localization/report.md) · [Durable direction](decisions/localization_and_text_authoring.md).
 - **Planned follow-up** — whole-game text coverage, actual canonical-name binding, richer authored source/effect labels, complete English/language selector, native IME/user language approval and package QA. [Localization strategy](wiki/localization_strategy.md).
 

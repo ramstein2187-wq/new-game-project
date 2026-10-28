@@ -1,8 +1,8 @@
 +++
 status = "구현 완료"
 areas = ["월드 생성", "월드/영속성", "시간/액션", "전투", "UI/로그"]
-milestones = "M048 History v6 Phase C; 작업 브랜치 Vertical Slice"
-source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/history-v6-phase-c-playable-world/docs/specs/history_playable_world.md"
+milestones = "M049 탐험 지역 및 픽셀아트; 작업 브랜치"
+source_url = "https://github.com/ramstein2187-wq/new-game-project/blob/codex/m049-playable-exploration-art/docs/specs/history_playable_world.md"
 icon = "🌍"
 +++
 # 역사에서 플레이 가능한 세계로 — v6 Phase C
@@ -12,7 +12,7 @@ icon = "🌍"
 
 ## 현재 가능한 행동
 
-8방향 이동, 기존 Actor/신체 전투·Rat AI, 문 개폐, 실제 잔존 자산 회수,
+8방향 이동, 기존 Actor/신체 전투·Catalog AI, 문 개폐, 실제 잔존 자산 회수,
 잔해 제거, 일반 구조 수리, 제한적 피난처 회복, 지역 이동, 선택적 기록 조사와
 Save/Load를 실행한다. 현재 위험은 실제 HP 피해를 주고, 진행 중 사업은 작업
 공간과 시설 이용을 제한한다. 미지의 기계는 수리로 작동하지 않는다.
@@ -25,7 +25,7 @@ Save/Load를 실행한다. 현재 위험은 실제 HP 피해를 주고, 진행 �
 
 역사적 Manifest는 시작 시점의 불변 스냅샷이다. 이후 변화는 Runtime State가
 소유한다. 기록·자산·고유 물건을 회수하면 원래 위치에서 사라진다. 문·제거한
-잔해·수리·보관권·중요한 Rat의 사망·플레이어 신체/효과·전투 RNG는 재방문과
+잔해·수리·보관권·다종 적의 사망·플레이어 신체/효과·전투 RNG는 재방문과
 저장 후에도 유지한다. 역사 생성기를 다시 돌려 플레이 결과를 덮어쓰지 않는다.
 
 기존 TimeScheduler가 하나의 게임 시간을 소유한다. 지역을 떠나면 NPC 상태와
@@ -48,3 +48,15 @@ C는 기존 Character Overview, H는 습득 정보, F3는 개발자 정보다.
 `codex/m048-korean-playtest-localization`에서 UI·조작 안내·행동 결과·시설/자원·현장 기록·전투 로그·Character Overview를 한국어로 표시한다. native PO와 번들 한글 폰트를 사용하며 raw ID/Dictionary는 지역·공동체 표시명과 문장으로 정리했다. H는 습득 정보, F3는 개발 진단이다. 작은 화면은 줄바꿈·스크롤을 사용한다.
 
 표시 언어는 `user://presentation.cfg`에 별도로 둔다. 언어 전환·이전 save 복원은 역사·Manifest·행동·RNG·Actor·소유권을 바꾸지 않는다. 현 엔티티에는 M035 canonical name이 아직 연결되지 않았다. [현지화 기준](localization_strategy.md) · [검증과 수동 과제](../reviews/m048_korean_localization/report.md). main 미통합.
+
+## M049 실제 탐험 지역
+
+`codex/m049-playable-exploration-art`의 같은 F6 씬은 기본적으로 `history_zone/2`를 사용한다. 실제 연결된 세 지역은 기본 96×64이며 산업 구조물·삼림의 열린 폐허·충돌 흔적·관측 구조물을 조합한다. 길과 물, 나무, 문, 물품, 적은 16px atlas로 구분한다. 화면은 플레이어를 따라 양축으로 이동하며 `+/-`·휠로 확대/축소, `M`으로 개요를 전환한다. 지역마다 먼 출구와 샛길이 있으며 역사는 선택적으로 읽는다.
+
+주인 없는 가지·돌·보급품을 G로 채집할 수 있다. 전망 지점 U는 경로 파악 효과(이동 비용 10% 감소)를 주며 중첩되지 않는다. 불안정한 횡단로는 자재 2개로 P 수리하거나 남쪽 마른 우회로를 이용한다. 야영지·쉼터는 일회 회복, 작업대는 자재 2개로 체력과 살아 있는 신체 부위를 보수한다. 도구 거치대 U는 기존 Catalog 무기를 교환하며 이전 무기를 보관한다. 이들은 현재 환경 자원이며 Manifest의 역사적 물량·소유권과 별도다.
+
+적은 기존 Catalog의 쥐·들개·늑대·멧돼지·거대 딱정벌레·동굴 도마뱀·거대 거미·거대 게 중 지형/위험에 따른 가중치로 선정한다. 초기 안전거리와 한 지역 최대 3마리의 단독 배치를 사용한다. 7칸 및 시야 범위 안에서 기존 AI가 행동한다. 회피 경로는 가능하지만 싸움의 안전이나 TR 균형을 보장하지 않는다.
+
+현재 지역의 밟은 칸, 발견 지점, 2개 현장 목표와 다음 목적의 방향/거리를 한국어로 표시한다. 새 기본 저장은 `user://m049_exploration_v2.json`; 이전 /1 저장은 원래 작은 지형으로 복원한다. 새로 생성하면 다시 /2를 사용한다. 전 지역의 채집·수리·장비·NPC·진행 상태가 보존된다.
+
+[최종 검증과 남은 과제](../reviews/m049/report.md). 20–30분 사람 자유 플레이는 미실시이며, 자동 경로의 성공을 재미 승인으로 간주하지 않는다. main에는 병합하지 않았다.

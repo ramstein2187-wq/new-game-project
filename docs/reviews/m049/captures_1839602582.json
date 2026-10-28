@@ -1,0 +1,133 @@
+{
+	"captures": [
+		{
+			"file": "res://docs/reviews/m049/screenshots/1839602582_800x600_exploration.png",
+			"position": [
+				56,
+				29
+			],
+			"progress": {
+				"actions": 155,
+				"goals": 2,
+				"sites": 0,
+				"visited": 108
+			},
+			"seed": 1839602582,
+			"view": "exploration",
+			"viewport": [
+				800,
+				600
+			],
+			"zone": "locality_2",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1839602582_1152x648_exploration.png",
+			"position": [
+				56,
+				29
+			],
+			"progress": {
+				"actions": 155,
+				"goals": 2,
+				"sites": 0,
+				"visited": 108
+			},
+			"seed": 1839602582,
+			"view": "exploration",
+			"viewport": [
+				1152,
+				648
+			],
+			"zone": "locality_2",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1839602582_1920x1080_exploration.png",
+			"position": [
+				56,
+				29
+			],
+			"progress": {
+				"actions": 155,
+				"goals": 2,
+				"sites": 0,
+				"visited": 108
+			},
+			"seed": 1839602582,
+			"view": "exploration",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_2",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1839602582_1920x1080_overview.png",
+			"position": [
+				56,
+				29
+			],
+			"progress": {
+				"actions": 155,
+				"goals": 2,
+				"sites": 0,
+				"visited": 108
+			},
+			"seed": 1839602582,
+			"view": "overview",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_2",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1839602582_1920x1080_character.png",
+			"position": [
+				56,
+				29
+			],
+			"progress": {
+				"actions": 155,
+				"goals": 2,
+				"sites": 0,
+				"visited": 108
+			},
+			"seed": 1839602582,
+			"view": "character",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_2",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1839602582_1920x1080_site.png",
+			"position": [
+				12,
+				14
+			],
+			"progress": {
+				"actions": 215.0,
+				"goals": 2,
+				"sites": 1,
+				"visited": 137
+			},
+			"seed": 1839602582,
+			"view": "site",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_2",
+			"zoom": 2
+		}
+	],
+	"failures": [],
+	"human_play": "not performed",
+	"renderer": "NVIDIA GeForce RTX 5070 Ti"
+}

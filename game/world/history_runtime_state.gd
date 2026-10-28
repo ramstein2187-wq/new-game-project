@@ -2,6 +2,9 @@ class_name HistoryRuntimeState
 extends RefCounted
 ## Runtime-only overrides and unique ownership. History never changes after start.
 const SAVE_SCHEMA := "history_play_save/1"
+const EXPLORATION_SCHEMA := "history_play_save/2"
+var exploration: Dictionary = {}
+var cell_objects: Dictionary = {}
 var realization: HistoryWorldRealization
 var current_zone := ""
 var overrides: Dictionary = {}
@@ -18,8 +21,13 @@ func _init(initial: HistoryWorldRealization = null) -> void:
 	if initial == null or not initial.errors.is_empty(): return
 	current_zone = initial.selected[0]
 	for zone_id in initial.selected:
+		cell_objects[zone_id] = {}
+		if initial.generation_version == HistoryWorldRealization.EXPLORATION_VERSION: exploration[zone_id] = {"visited": [], "sites": [], "actions": 0}
 		overrides[zone_id] = {}; actors[zone_id] = []; rng_states[zone_id] = ""; last_updates[zone_id] = 0
 		for o in initial.zones[zone_id].objects.values():
+			var cell := HistoryWorldRealization.vector(o.cell)
+			if not cell_objects[zone_id].has(cell): cell_objects[zone_id][cell] = []
+			cell_objects[zone_id][cell].append(o.id)
 			if o.kind == "unique": unique_owners[o.entity_id] = "zone:" + zone_id + ":" + o.id
 
 func object(zone_id: String, id: String) -> Dictionary:
@@ -39,26 +47,30 @@ func gather(kind: String, quantity: int) -> void:
 func has_permission(owner: String) -> bool: return owner.is_empty() or int(offenses.get(owner, 0)) == 0
 
 func data(world_time: int, player: Dictionary) -> Dictionary:
-	return {"schema": SAVE_SCHEMA, "seed": int(realization.manifest.seed),
-		"history_version": realization.manifest.content_version, "generation_version": HistoryWorldRealization.VERSION,
+	var out := {"schema": SAVE_SCHEMA if exploration.is_empty() else EXPLORATION_SCHEMA, "seed": int(realization.manifest.seed),
+		"history_version": realization.manifest.content_version, "generation_version": realization.generation_version,
 		"manifest_hash": realization.manifest_hash, "manifest": realization.manifest.duplicate(true),
 		"world_time": world_time, "player": player, "current_zone": current_zone,
 		"overrides": overrides.duplicate(true), "unique_owners": unique_owners.duplicate(), "inventory": inventory.duplicate(),
 		"knowledge": knowledge.duplicate(), "offenses": offenses.duplicate(), "actors": actors.duplicate(true),
 		"rng_states": rng_states.duplicate(), "last_updates": last_updates.duplicate()}
+	if not exploration.is_empty(): out["exploration"] = exploration.duplicate(true)
+	return out
 
 static func decode(json: String) -> Dictionary:
 	var raw: Variant = JSON.parse_string(json)
-	if not raw is Dictionary or raw.size() != 18 or raw.get("schema") != SAVE_SCHEMA:
+	if not raw is Dictionary or raw.get("schema") not in [SAVE_SCHEMA, EXPLORATION_SCHEMA]:
 		return {"error": "Invalid save envelope"}
+	var expanded: bool = raw.schema == EXPLORATION_SCHEMA
+	if raw.size() != (19 if expanded else 18): return {"error": "Invalid save envelope fields"}
 	var integrity: Dictionary = raw.duplicate(true); integrity.erase("checksum")
 	if not raw.get("checksum") is String or raw.checksum != JSON.stringify(integrity, "", true).sha256_text():
 		return {"error": "Save integrity check failed"}
-	if raw.get("generation_version") != HistoryWorldRealization.VERSION or raw.get("history_version") != HistoryCivilizationContent.VERSION:
+	if raw.get("generation_version") != (HistoryWorldRealization.EXPLORATION_VERSION if expanded else HistoryWorldRealization.VERSION) or raw.get("history_version") != HistoryCivilizationContent.VERSION:
 		return {"error": "Incompatible content/generation version"}
 	var manifest := HistoryWorldManifest.from_json(JSON.stringify(raw.get("manifest")))
 	if not manifest.errors.is_empty(): return {"error": "Invalid saved Manifest: " + str(manifest.errors)}
-	var initial := HistoryWorldRealization.build(manifest)
+	var initial := HistoryWorldRealization.build(manifest, -1, expanded)
 	if not initial.errors.is_empty() or raw.get("manifest_hash") != initial.manifest_hash or raw.get("seed") != initial.manifest.seed:
 		return {"error": "Manifest integrity or realization mismatch"}
 	if not raw.get("current_zone") is String or not initial.zones.has(raw.current_zone) or not HistoryV6Event._integer(raw.get("world_time")) or raw.world_time < 0:
@@ -83,6 +95,8 @@ static func decode(json: String) -> Dictionary:
 				var v: Variant = raw.overrides[zone][id][field]
 				if field in ["open", "removed", "taken", "used"]:
 					if not o.has(field) or not v is bool: return {"error": "Invalid boolean override"}
+				elif field == "weapon_id":
+					if o.kind != "tool_rack" or not v is String or CombatContentCatalog.weapon(StringName(v)) == null: return {"error": "Invalid rack weapon"}
 				elif field == "condition":
 					if o.kind != "control" or v not in ["intact", "damaged", "ruined"]: return {"error": "Invalid condition override"}
 				elif field == "stabilized":
@@ -95,7 +109,9 @@ static func decode(json: String) -> Dictionary:
 		for index in range(initial.zones[zone].npc_spawns.size()): expected_ids.append("fauna:" + zone + ":" + str(index))
 		for state in raw.actors[zone]:
 			var a := WorldActorState.restore(state)
-			if a == null or state.type != "rat" or seen.has(String(a.id)) or String(a.id) not in expected_ids: return {"error": "Invalid/duplicate Actor"}
+			if a == null or seen.has(String(a.id)) or String(a.id) not in expected_ids: return {"error": "Invalid/duplicate Actor"}
+			var expected_type: String = initial.zones[zone].npc_types[expected_ids.find(String(a.id))] if expanded else "rat"
+			if state.type != expected_type: return {"error": "Actor prototype differs from deterministic spawn"}
 			seen[String(a.id)] = true
 			if not r.valid_position(zone, a.position, not a.is_alive()): return {"error": "Actor in blocked/outside cell"}
 		if (zone == raw.current_zone or not raw.rng_states[zone].is_empty()) and raw.actors[zone].size() != expected_ids.size(): return {"error": "Missing persistent Actor"}
@@ -125,15 +141,33 @@ static func decode(json: String) -> Dictionary:
 		if not initial.zones.values().any(func(z: Dictionary) -> bool: return z.objects.has(id)): return {"error": "Unknown learned object"}
 	r.unique_owners = raw.unique_owners.duplicate(); r.inventory = raw.inventory.duplicate(); r.offenses = raw.offenses.duplicate()
 	r.knowledge.assign(raw.knowledge); r.actors = raw.actors.duplicate(true); r.rng_states = raw.rng_states.duplicate(); r.last_updates = raw.last_updates.duplicate()
+	if expanded:
+		if not raw.get("exploration") is Dictionary or raw.exploration.size() != 3: return {"error": "Invalid exploration ledger"}
+		for zone in initial.selected:
+			var e: Variant = raw.exploration.get(zone)
+			if not e is Dictionary or e.size() != 3 or not e.get("visited") is Array or not HistoryWorldManifest._strings(e.get("sites")) or not HistoryV6Event._integer(e.get("actions")) or e.actions < 0: return {"error": "Invalid exploration progress"}
+			var visited := {}
+			for key in e.visited:
+				if not key is String or key.split(",").size() != 2 or visited.has(key): return {"error": "Invalid visited cell"}
+				var parts: PackedStringArray = key.split(",")
+				if not parts[0].is_valid_int() or not parts[1].is_valid_int(): return {"error": "Invalid visited coordinate"}
+				var cell := Vector2i(int(parts[0]), int(parts[1]))
+				if cell.x < 1 or cell.x >= 95 or cell.y < 1 or cell.y >= initial.zones[zone].height - 1: return {"error": "Visited coordinate outside zone"}
+				visited[key] = true
+			var discovered := {}
+			for id in e.sites:
+				if discovered.has(id) or not initial.zones[zone].landmarks.any(func(l: Dictionary) -> bool: return l.id == id): return {"error": "Invalid discovered landmark"}
+				discovered[id] = true
+		r.exploration = raw.exploration.duplicate(true)
 	r.current_zone = raw.current_zone
 	return {"error": "", "runtime": r, "player": player, "world_time": int(raw.world_time), "player_delay": int(raw.player.ready_remaining)}
 
 func valid_position(zone: String, cell: Vector2i, dead: bool = false) -> bool:
 	var rows: PackedStringArray = realization.zones[zone].rows
 	if cell.x < 0 or cell.y < 0 or cell.y >= rows.size() or cell.x >= rows[0].length(): return false
-	if rows[cell.y][cell.x] in ["T", "R"]: return false
+	if rows[cell.y][cell.x] in ["T", "R", "~"]: return false
 	if dead: return true
-	for id in realization.zones[zone].objects:
+	for id in cell_objects[zone].get(cell, []):
 		var o := object(zone, id)
 		if HistoryWorldRealization.vector(o.cell) == cell and o.blocks and not o.get("open", false) and not o.get("removed", false): return false
 	return true

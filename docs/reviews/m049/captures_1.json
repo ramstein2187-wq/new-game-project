@@ -1,0 +1,133 @@
+{
+	"captures": [
+		{
+			"file": "res://docs/reviews/m049/screenshots/1_800x600_exploration.png",
+			"position": [
+				10,
+				15
+			],
+			"progress": {
+				"actions": 68,
+				"goals": 1,
+				"sites": 1,
+				"visited": 55
+			},
+			"seed": 1,
+			"view": "exploration",
+			"viewport": [
+				800,
+				600
+			],
+			"zone": "locality_1",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1_1152x648_exploration.png",
+			"position": [
+				10,
+				15
+			],
+			"progress": {
+				"actions": 68,
+				"goals": 1,
+				"sites": 1,
+				"visited": 55
+			},
+			"seed": 1,
+			"view": "exploration",
+			"viewport": [
+				1152,
+				648
+			],
+			"zone": "locality_1",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1_1920x1080_exploration.png",
+			"position": [
+				10,
+				15
+			],
+			"progress": {
+				"actions": 68,
+				"goals": 1,
+				"sites": 1,
+				"visited": 55
+			},
+			"seed": 1,
+			"view": "exploration",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_1",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1_1920x1080_overview.png",
+			"position": [
+				10,
+				15
+			],
+			"progress": {
+				"actions": 68,
+				"goals": 1,
+				"sites": 1,
+				"visited": 55
+			},
+			"seed": 1,
+			"view": "overview",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_1",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1_1920x1080_character.png",
+			"position": [
+				10,
+				15
+			],
+			"progress": {
+				"actions": 68,
+				"goals": 1,
+				"sites": 1,
+				"visited": 55
+			},
+			"seed": 1,
+			"view": "character",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_1",
+			"zoom": 2
+		},
+		{
+			"file": "res://docs/reviews/m049/screenshots/1_1920x1080_site.png",
+			"position": [
+				10,
+				15
+			],
+			"progress": {
+				"actions": 69.0,
+				"goals": 1,
+				"sites": 1,
+				"visited": 55
+			},
+			"seed": 1,
+			"view": "site",
+			"viewport": [
+				1920,
+				1080
+			],
+			"zone": "locality_1",
+			"zoom": 2
+		}
+	],
+	"failures": [],
+	"human_play": "not performed",
+	"renderer": "NVIDIA GeForce RTX 5070 Ti"
+}
