@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Code Atlas — Godot Architecture</title>
+<style>
+:root{--bg:#0a101d;--surface:#101b2a;--side:#0e1725;--line:#25354b;--text:#e9f0f9;--muted:#91a3ba;--accent:#63d6c2;--hot:#eeb579}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+button,input{font:inherit}button{cursor:pointer}a{color:#9ad4ff}
+.app{display:grid;grid-template-columns:246px minmax(0,1fr) 310px;grid-template-rows:70px minmax(0,1fr);height:100vh;min-height:560px}
+.top{grid-column:1/4;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 23px;border-bottom:1px solid var(--line);background:#0d1725}
+.brand{display:flex;align-items:center;gap:13px;min-width:210px}.mark{width:38px;height:38px;border-radius:11px;background:#173c40;color:var(--accent);display:grid;place-items:center;font-size:23px}
+.brand strong{font-size:15px;letter-spacing:.02em}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.topmeta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden}.pill{border:1px solid #34524d;border-radius:50px;padding:6px 10px;color:var(--accent);font-size:11px;letter-spacing:.04em}
+.sidebar,.details{background:var(--side);overflow:auto;scrollbar-color:#33455c transparent}.sidebar{border-right:1px solid var(--line);padding:22px 12px}.details{border-left:1px solid var(--line);padding:23px 18px}
+.micro{font-size:10px;letter-spacing:.15em;color:#7d90ac;text-transform:uppercase;font-weight:800}.scope{margin:12px 0 25px;display:grid;gap:6px}
+.sidebtn{width:100%;text-align:left;padding:10px 12px;background:none;color:#b7c6d6;border:1px solid transparent;border-radius:9px;font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sidebtn:hover{background:#19283a}.sidebtn.active{background:#173338;color:#bbf5e8;border-color:#30645d}
+.sidebtn .count{color:#7488a4;font-size:11px;font-variant-numeric:tabular-nums}
+.search{width:100%;margin:10px 0 8px;padding:11px 11px;background:#0a1422;color:#e5edf8;border:1px solid #314157;border-radius:9px;outline:none;font-size:12px}
+.search:focus{border-color:var(--accent)}.results{max-height:230px;overflow-y:auto}.hit{background:none;border:0;text-align:left;width:100%;padding:8px 10px;color:#c6d4e5;border-radius:7px;font-size:11px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.hit:hover{background:#1b2c40}
+.systems{margin-top:15px}.subhead{display:flex;align-items:center;justify-content:space-between;margin:14px 9px 7px}
+.center{position:relative;min-width:0;overflow:hidden;background:radial-gradient(ellipse at 56% 40%,#142739 0%,#0b1423 50%,#090f1a 100%)}
+.canvasgrid{position:absolute;inset:0;pointer-events:none;opacity:.36;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:36px 36px}
+canvas{display:block;position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}canvas.dragging{cursor:grabbing}
+.toolbar{position:absolute;top:20px;left:22px;right:22px;display:flex;align-items:center;justify-content:space-between;gap:15px;pointer-events:none}.toolbar>*{pointer-events:auto}
+.viewname{font-size:18px;font-weight:700}.viewspec{color:var(--muted);font-size:11px;margin-top:6px}
+.tools{display:flex;gap:7px} .tool{background:#172437dc;color:#d6e2f2;border:1px solid #33445b;padding:8px 11px;border-radius:8px;font-size:11px}.tool:hover{border-color:#6d92a1}
+.legend{position:absolute;left:22px;bottom:18px;background:#101e2bdc;border:1px solid #2b4056;border-radius:10px;padding:11px 13px;color:#9fb2c8;font-size:11px;line-height:1.8;pointer-events:none}
+.legend b{color:#e0f1f7}.tip{position:absolute;z-index:10;background:#1c3144;border:1px solid #3f6071;color:white;padding:7px 10px;font-size:11px;border-radius:8px;pointer-events:none;max-width:250px;overflow-wrap:anywhere;display:none}
+.statrow{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0 23px}.stat{padding:12px;background:#152335;border:1px solid #233a50;border-radius:10px}.stat strong{font-size:23px;display:block;line-height:1.1;font-weight:650}.stat span{font-size:10px;color:#91a4ba;display:block;margin-top:8px}
+.detail-title{font-size:18px;line-height:1.35;overflow-wrap:anywhere;margin:10px 0}.detailpath{font-size:11px;color:#93acc3;overflow-wrap:anywhere;line-height:1.6}
+.tag{display:inline-block;background:#203847;border:1px solid #335264;border-radius:6px;color:#8ce0cb;font-size:10px;padding:5px 7px;margin:9px 5px 0 0}
+.rule{height:1px;background:var(--line);margin:20px 0}.section{color:#8096af;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:10px}
+.relation{width:100%;display:block;text-align:left;background:#142233;color:#dae8f2;border:1px solid #253a4e;border-radius:9px;margin-bottom:7px;padding:10px;font-size:11px;overflow-wrap:anywhere}
+.relation:hover{border-color:#4f7c87}.relation small{color:#90a9bd;display:block;margin-top:5px;line-height:1.5}
+.source{margin-top:13px;display:block;font-size:12px;text-decoration:none;font-weight:650}.note{color:#7f94aa;font-size:11px;line-height:1.6}
+.empty{padding-top:20px;color:#a4b6cb;font-size:12px;line-height:1.7}
+@media(max-width:1050px){.app{grid-template-columns:205px minmax(0,1fr);grid-template-rows:70px minmax(0,1fr)}.top{grid-column:1/3}.details{display:none}}
+@media(max-width:650px){.app{grid-template-columns:1fr;grid-template-rows:64px minmax(0,1fr) 190px}.top{grid-column:1}.topmeta{display:none}.sidebar{grid-row:3;border-top:1px solid var(--line);border-right:0;padding:12px;display:flex;gap:10px;align-items:flex-start}.sidebar>.micro,.sidebar>.subhead,.sidebar>.systems{display:none}.scope{margin:0;width:160px}.sidebar>div:has(.search){width:calc(100% - 170px)}.center{grid-row:2}.toolbar{top:12px;left:13px;right:13px}.viewname{font-size:14px}.tools{flex-wrap:wrap;justify-content:end}.legend{bottom:8px;left:10px;font-size:10px;padding:7px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="mark">⌘</div><div><strong>CODE ATLAS</strong><small>CRPG · Architecture Explorer v1</small></div></div>
+    <div class="topmeta"><span id="repoLabel"></span><span id="refLabel"></span><span class="pill">STATIC · READ ONLY</span></div>
+  </header>
+  <aside class="sidebar">
+    <div class="micro">EXPLORATION</div>
+    <div class="scope">
+      <button class="sidebtn active" id="overviewBtn">◎ &nbsp; 시스템 개요 <span class="count" id="systemCount"></span></button>
+      <button class="sidebtn" id="allBtn">◉ &nbsp; 전체 파일 <span class="count" id="allCount"></span></button>
+    </div>
+    <div><div class="micro">FIND FILE / CLASS</div><input class="search" id="search" placeholder="파일명, 경로, 클래스 검색…" aria-label="코드 검색"><div class="results" id="results"></div></div>
+    <div class="systems"><div class="subhead"><span class="micro">SYSTEMS</span></div><div id="systemList"></div></div>
+  </aside>
+  <main class="center" id="canvasBox">
+    <div class="canvasgrid"></div><canvas id="network" aria-label="코드 의존성 시각화"></canvas>
+    <div class="toolbar"><div><div class="viewname" id="viewTitle">시스템 구조</div><div class="viewspec" id="viewSubtitle">System → File → Evidence</div></div>
+      <div class="tools"><button class="tool" id="zoomIn" title="확대">＋</button><button class="tool" id="zoomOut" title="축소">－</button><button class="tool" id="fit">화면 맞춤</button></div></div>
+    <div class="legend"><b>관계 안내</b><div>선: 코드 참조 · 방향: 참조하는 쪽 → 참조 대상</div><div>노드 선택: 파일 정보 / 관련 코드</div><div>휠 확대 · 드래그 이동 · 더블클릭 확대</div></div>
+    <div class="tip" id="tooltip"></div>
+  </main>
+  <aside class="details" id="details"><div class="micro">PROJECT HEALTH</div><div class="statrow" id="stats"></div><div class="rule"></div><div id="inspector"><div class="micro">HOW TO EXPLORE</div><div class="empty">왼쪽 시스템을 선택하면 해당 폴더의 코드와 외부 의존성이 나타납니다. 노드를 클릭하면 파일·클래스·참조 근거를 확인할 수 있습니다.</div></div></aside>
+</div>
+<script>
+/*__ATLAS_DATA__*/
+</script>
+<script>
+(function(){
+'use strict';
+const data=window.CODE_ATLAS;
+if(!data || !Array.isArray(data.nodes)){ document.body.textContent='Atlas data missing. Run python3 tools/code_atlas.py first.'; return; }
+const $=id=>document.getElementById(id);
+const canvas=$('network'),ctx=canvas.getContext('2d'),box=$('canvasBox'),tip=$('tooltip');
+const nodes=data.nodes,edges=data.edges,byId=new Map(nodes.map(n=>[n.id,n]));
+const counts=new Map(),systemEdges=new Map();
+nodes.forEach(n=>counts.set(n.system,(counts.get(n.system)||0)+1));
+edges.forEach(e=>{
+  const a=byId.get(e.from),b=byId.get(e.to);
+  if(!a||!b||a.system===b.system)return;
+  const key=a.system+'→'+b.system;
+  systemEdges.set(key,(systemEdges.get(key)||0)+1);
+});
+const palette=['#63d6c2','#6ba7f0','#d8a3fb','#e9b67f','#82c5ad','#d783a0','#b8c877','#96a8ff','#dfb4cb','#a2d6e7'];
+const colors=new Map(data.systems.map((s,i)=>[s,palette[i%palette.length]]));
+let mode='systems',focus='',selected=null,graphNodes=[],graphEdges=[],positions=new Map();
+let width=1000,height=700,zoom=1,panX=0,panY=0,dpr=1,hovered=null,drag=null;
+function element(tag,txt,cls){const el=document.createElement(tag);if(txt!==undefined)el.textContent=txt;if(cls)el.className=cls;return el;}
+function clickable(label,fn,cls){const b=element('button',label,cls||'relation');b.type='button';b.addEventListener('click',fn);return b;}
+function clear(el){while(el.firstChild)el.removeChild(el.firstChild);}
+function color(n){return colors.get(n.system||n.id)||'#8fb1cc';}
+function label(n){return n.kind==='system'?n.name:(n.class_name||n.name);}
+function trim(text,max){return text.length>max?text.slice(0,max-1)+'…':text;}
+$('repoLabel').textContent=data.repository||'Local repository';
+$('refLabel').textContent=(data.commit?data.commit.slice(0,9):data.branch)||'working tree';
+$('allCount').textContent=nodes.length;
+$('systemCount').textContent=data.systems.length;
+const stats=$('stats');[['GDScript',data.stats.gd],['Scenes',data.stats.scenes],['Indexed',data.stats.indexed_files],['References',data.stats.references]].forEach(pair=>{
+  const el=element('div',undefined,'stat');el.append(element('strong',String(pair[1])),element('span',pair[0]));stats.appendChild(el);
+});
+const list=$('systemList');
+data.systems.forEach(s=>{
+ const b=clickable(s,'', 'sidebtn');
+ b.addEventListener('click',()=>showFiles(s));
+ b.appendChild(element('span',String(counts.get(s)||0),'count'));
+ b.dataset.system=s;list.appendChild(b);
+});
+function syncSidebar(){
+ $('overviewBtn').classList.toggle('active',mode==='systems');
+ $('allBtn').classList.toggle('active',mode==='files'&&!focus);
+ list.querySelectorAll('button').forEach(b=>b.classList.toggle('active',mode==='files'&&focus===b.dataset.system));
+}
+$('overviewBtn').onclick=()=>showSystems();
+$('allBtn').onclick=()=>showFiles('');
+function showSystems(){
+ mode='systems';focus='';selected=null;
+ graphNodes=data.systems.map(s=>({id:s,name:s,kind:'system',system:s,count:counts.get(s)||0}));
+ graphEdges=Array.from(systemEdges,([key,hits])=>{const [from,to]=key.split('→');return{from,to,hits,kind:'system-reference'};});
+ arrange();$('viewTitle').textContent='시스템 구조';$('viewSubtitle').textContent=data.systems.length+'개 시스템 · '+graphEdges.length+'개 교차 시스템 관계';syncSidebar();showOverview();
+}
+function showFiles(s,pick){
+ mode='files';focus=s||'';selected=pick||null;
+ const seeds=nodes.filter(n=>!focus||n.system===focus);
+ const visible=new Set(seeds.map(n=>n.id));
+ // When focused, include direct neighbors, so cross-system interfaces remain visible.
+ if(focus)edges.forEach(e=>{if(visible.has(e.from)||visible.has(e.to)){visible.add(e.from);visible.add(e.to);}});
+ graphNodes=nodes.filter(n=>visible.has(n.id));
+ graphEdges=edges.filter(e=>visible.has(e.from)&&visible.has(e.to));
+ $('viewTitle').textContent=focus||'전체 파일 관계';
+ $('viewSubtitle').textContent=graphNodes.length+'개 파일 · '+graphEdges.length+'개 정적 관계';
+ arrange();syncSidebar();if(selected)inspectFile(selected);else showOverview();
+}
+function arrange(){
+ positions=new Map();
+ if(mode==='systems'){
+  const n=graphNodes.length;
+  graphNodes.forEach((item,i)=>{
+   const angle=2*Math.PI*i/n-Math.PI/2;
+   const radius=Math.max(290,n*21);
+   positions.set(item.id,{x:Math.cos(angle)*radius,y:Math.sin(angle)*radius});
+  });
+ } else {
+  const primary=graphNodes.filter(n=>!focus||n.system===focus);
+  const secondary=graphNodes.filter(n=>focus&&n.system!==focus);
+  primary.forEach((n,i)=>{
+   const angle=i*2.399963229728653;
+   const radius=Math.sqrt(i)*47;
+   positions.set(n.id,{x:Math.cos(angle)*radius,y:Math.sin(angle)*radius});
+  });
+  secondary.forEach((n,i)=>{
+   const angle=2*Math.PI*i/Math.max(1,secondary.length)-Math.PI/2;
+   const radius=Math.max(365,Math.sqrt(primary.length)*53+110)+(i%3)*36;
+   positions.set(n.id,{x:Math.cos(angle)*radius,y:Math.sin(angle)*radius});
+  });
+ }
+ fit();
+}
+function fit(){
+ if(!graphNodes.length)return;
+ const p=graphNodes.map(n=>positions.get(n.id)).filter(Boolean);
+ const xs=p.map(n=>n.x),ys=p.map(n=>n.y);
+ const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+ const xspan=Math.max(300,maxX-minX+220),yspan=Math.max(250,maxY-minY+180);
+ zoom=Math.max(.15,Math.min(2,Math.min((width-90)/xspan,(height-180)/yspan)));
+ panX=width/2-(minX+maxX)*zoom/2;panY=height/2-(minY+maxY)*zoom/2;draw();
+}
+function resize(){
+ const rect=box.getBoundingClientRect();width=Math.max(100,rect.width);height=Math.max(100,rect.height);
+ dpr=Math.min(2,window.devicePixelRatio||1);
+ canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+ canvas.style.width=width+'px';canvas.style.height=height+'px';
+ fit();
+}
+function xy(pos){return{x:pos.x*zoom+panX,y:pos.y*zoom+panY};}
+function world(x,y){return{x:(x-panX)/zoom,y:(y-panY)/zoom};}
+function circleRadius(n){return n.kind==='system'?(26+Math.min(30,Math.sqrt(n.count)*4)):6.8;}
+function draw(){
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+ const active=selected&&selected.id;
+ ctx.save();
+ graphEdges.forEach(e=>{
+  const a=positions.get(e.from),b=positions.get(e.to);if(!a||!b)return;
+  const q=xy(a),r=xy(b);
+  if((q.x< -100&&r.x< -100)||(q.y< -100&&r.y< -100)||(q.x>width+100&&r.x>width+100)||(q.y>height+100&&r.y>height+100))return;
+  const emphasis=active&&(e.from===active||e.to===active);
+  ctx.lineWidth=emphasis?1.8:mode==='systems'?Math.min(2.9,.6+Math.log2(1+e.hits)*.33):.65;
+  ctx.strokeStyle=emphasis?'#eff3ff':mode==='systems'?'rgba(108,160,192,.27)':'rgba(118,155,184,.15)';
+  ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(r.x,r.y);ctx.stroke();
+  if(emphasis && Math.hypot(r.x-q.x,r.y-q.y)>32){
+   const t=.83,x=q.x+(r.x-q.x)*t,y=q.y+(r.y-q.y)*t,angle=Math.atan2(r.y-q.y,r.x-q.x);
+   ctx.fillStyle='#eff3ff';ctx.beginPath();ctx.moveTo(x+5*Math.cos(angle),y+5*Math.sin(angle));
+   ctx.lineTo(x-5*Math.cos(angle-.55),y-5*Math.sin(angle-.55));ctx.lineTo(x-5*Math.cos(angle+.55),y-5*Math.sin(angle+.55));ctx.fill();
+  }
+ });
+ graphNodes.forEach(n=>{
+  const p=positions.get(n.id);if(!p)return;const q=xy(p),rad=Math.max(3,circleRadius(n)*zoom);
+  if(q.x< -120||q.y< -90||q.x>width+120||q.y>height+90)return;
+  const match=!!active&&active===n.id;
+  ctx.beginPath();ctx.arc(q.x,q.y,rad+((match||hovered===n.id)?5:0),0,Math.PI*2);
+  ctx.fillStyle=match?'rgba(255,255,255,.16)':hovered===n.id?'rgba(99,214,194,.12)':'rgba(0,0,0,0)';
+  ctx.fill();
+  ctx.beginPath();ctx.arc(q.x,q.y,rad,0,Math.PI*2);
+  ctx.fillStyle=color(n);ctx.globalAlpha=focus&&n.kind!=='system'&&n.system!==focus?.57:1;ctx.fill();ctx.globalAlpha=1;
+  ctx.strokeStyle=match?'#ffffff':'#1b3348';ctx.lineWidth=match?3:1.5;ctx.stroke();
+  const show=mode==='systems'||zoom>.52||match||hovered===n.id;
+  if(show){
+   ctx.fillStyle=match?'#ffffff':'#d1e0ed';
+   ctx.font=(match?'600 ':'')+(mode==='systems'?12:11)+'px system-ui,sans-serif';
+   ctx.textAlign='center';ctx.textBaseline='top';
+   ctx.fillText(trim(label(n),mode==='systems'?23:23),q.x,q.y+rad+7);
+   if(mode==='systems'){ctx.font='10px system-ui';ctx.fillStyle='#8da6bb';ctx.fillText(n.count+' files',q.x,q.y+rad+24);}
+  }
+ });
+ ctx.restore();
+}
+function targetAt(x,y){
+ let best=null,bestDist=24;
+ for(const n of graphNodes){
+  const pos=positions.get(n.id);if(!pos)continue;
+  const scr=xy(pos),d=Math.hypot(x-scr.x,y-scr.y);
+  const hit=Math.max(13,circleRadius(n)*zoom+7);
+  if(d<=hit&&d<bestDist+Math.max(0,hit-24)){best=n;bestDist=d;}
+ }
+ return best;
+}
+function eventPoint(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+canvas.addEventListener('pointerdown',e=>{
+ const p=eventPoint(e);canvas.setPointerCapture(e.pointerId);
+ drag={x:p.x,y:p.y,startX:p.x,startY:p.y,panX,panY,moved:false};canvas.classList.add('dragging');
+});
+canvas.addEventListener('pointermove',e=>{
+ const p=eventPoint(e);
+ if(drag){
+  if(Math.hypot(p.x-drag.startX,p.y-drag.startY)>4)drag.moved=true;
+  if(drag.moved){panX=drag.panX+p.x-drag.startX;panY=drag.panY+p.y-drag.startY;draw();}
+ }else{
+  const n=targetAt(p.x,p.y);hovered=n?n.id:null;
+  if(n){tip.style.display='block';tip.textContent=n.kind==='system'?n.name+' · '+n.count+' files':n.path;tip.style.left=Math.min(width-270,p.x+15)+'px';tip.style.top=Math.max(10,p.y-26)+'px';}
+  else tip.style.display='none';
+  draw();
+ }
+});
+canvas.addEventListener('pointerup',e=>{
+ if(!drag)return;const p=eventPoint(e),didMove=drag.moved;drag=null;canvas.classList.remove('dragging');
+ if(!didMove){
+  const n=targetAt(p.x,p.y);
+  if(n){if(n.kind==='system')showFiles(n.id);else{selected=n;inspectFile(n);draw();}}
+  else{selected=null;showOverview();draw();}
+ }
+});
+canvas.addEventListener('pointercancel',()=>{drag=null;canvas.classList.remove('dragging');});
+canvas.addEventListener('pointerleave',()=>{hovered=null;tip.style.display='none';if(!drag)draw();});
+function zoomAt(factor,x,y){const z=Math.max(.11,Math.min(4,zoom*factor));panX=x-(x-panX)*(z/zoom);panY=y-(y-panY)*(z/zoom);zoom=z;draw();}
+canvas.addEventListener('wheel',e=>{e.preventDefault();const p=eventPoint(e);zoomAt(e.deltaY<0?1.13:1/1.13,p.x,p.y);},{passive:false});
+canvas.addEventListener('dblclick',e=>{const p=eventPoint(e);zoomAt(1.5,p.x,p.y);});
+$('zoomIn').onclick=()=>zoomAt(1.25,width/2,height/2);
+$('zoomOut').onclick=()=>zoomAt(.8,width/2,height/2);
+$('fit').onclick=fit;
+function showOverview(){
+ const panel=$('inspector');clear(panel);
+ panel.appendChild(element('div','PROJECT MAP','micro'));
+ panel.appendChild(element('div','코드 구조 탐색','detail-title'));
+ panel.appendChild(element('div','왼쪽에서 시스템을 선택하거나 그래프 노드를 클릭하세요. 시스템 간 관계는 소스 코드에서 확인된 정적 참조를 합산한 것입니다.','empty'));
+ panel.appendChild(element('div','주의: 정적 참조는 실제 런타임 호출을 증명하지 않습니다. 동적 호출과 외부 콘텐츠 연결은 빠질 수 있습니다.','note'));
+ if(data.commit)panel.appendChild(element('div','Snapshot: '+data.commit.slice(0,12),'note'));
+}
+function relationButton(e,targetId){
+ const target=byId.get(targetId);
+ if(!target)return null;
+ const b=clickable(trim(target.class_name||target.path,43));
+ const s=element('small',e.kind+' · '+e.hits+' hit(s) · '+e.from+':'+e.line);
+ b.appendChild(s);
+ b.onclick=()=>{if(!graphNodes.some(n=>n.id===target.id)){showFiles(target.system,target);}else{selected=target;inspectFile(target);draw();}};
+ return b;
+}
+function inspectFile(n){
+ if(!n||!byId.has(n.id))return;selected=n;
+ const panel=$('inspector');clear(panel);
+ panel.appendChild(element('div','SELECTED FILE','micro'),element('div',n.class_name||n.name,'detail-title'));
+ panel.appendChild(element('div',n.path,'detailpath'));
+ const tags=element('div');
+ tags.append(element('span',n.system,'tag'),element('span',n.kind.toUpperCase(),'tag'),element('span',n.lines+' lines','tag'));
+ panel.appendChild(tags);
+ if(n.url){const link=element('a','GitHub에서 소스 열기 ↗','source');link.href=n.url;link.target='_blank';link.rel='noopener noreferrer';panel.appendChild(link);}
+ const incoming=edges.filter(e=>e.to===n.id),outgoing=edges.filter(e=>e.from===n.id);
+ function section(title,items,destination){
+  panel.appendChild(element('div',undefined,'rule'),element('div',title+' · '+items.length,'section'));
+  if(!items.length){panel.appendChild(element('div','정적 참조를 찾지 못했습니다.','note'));return;}
+  items.slice(0,55).forEach(e=>{const b=relationButton(e,destination(e));if(b)panel.appendChild(b);});
+  if(items.length>55)panel.appendChild(element('div','나머지 '+(items.length-55)+'건은 현재 목록에서 생략했습니다.','note'));
+ }
+ section('THIS FILE REFERENCES',outgoing,e=>e.to);
+ section('REFERENCED BY',incoming,e=>e.from);
+ panel.appendChild(element('div',undefined,'rule'),element('div','EVIDENCE · FIRST MATCH','section'));
+ [...outgoing,...incoming].slice(0,8).forEach(e=>{
+  const b=element('div',e.from+':'+e.line+' · '+e.kind,'note');
+  const example=element('div',e.excerpt,'detailpath');example.style.margin='4px 0 12px';panel.append(b,example);
+ });
+}
+const search=$('search'),results=$('results');
+search.addEventListener('input',()=>{
+ const q=search.value.trim().toLowerCase();clear(results);if(!q)return;
+ const hits=nodes.filter(n=>[n.path,n.class_name,n.system].join(' ').toLowerCase().includes(q)).slice(0,35);
+ hits.forEach(n=>{
+  const b=clickable((n.class_name?n.class_name+' · ':'')+n.path,()=>{search.value='';clear(results);showFiles(n.system,n)},'hit');
+  b.title=n.path;results.appendChild(b);
+ });
+ if(!hits.length)results.appendChild(element('div','검색 결과 없음','note'));
+});
+const observer=new ResizeObserver(resize);observer.observe(box);
+showSystems();resize();
+})();
+</script>
+</body>
+</html>
