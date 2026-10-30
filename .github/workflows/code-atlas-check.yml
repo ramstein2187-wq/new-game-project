@@ -5,12 +5,14 @@ on:
       - "tools/code_atlas.py"
       - "tools/code_atlas_viewer.html"
       - "tests/test_code_atlas.py"
+      - "tests/test_code_atlas_browser.py"
       - ".github/workflows/code-atlas-check.yml"
   pull_request:
     paths:
       - "tools/code_atlas.py"
       - "tools/code_atlas_viewer.html"
       - "tests/test_code_atlas.py"
+      - "tests/test_code_atlas_browser.py"
       - ".github/workflows/code-atlas-check.yml"
 jobs:
   atlas:
@@ -31,6 +33,10 @@ jobs:
         run: |
           python3 -c 'import re; from pathlib import Path; scripts=re.findall(r"<script>(.*?)</script>", Path("/tmp/crpg-code-atlas.html").read_text(), re.S); assert len(scripts)==2; Path("/tmp/crpg-code-atlas-ui.js").write_text(scripts[1])'
           node --check /tmp/crpg-code-atlas-ui.js
+      - name: Browser runtime smoke test
+        run: |
+          python3 -m pip install playwright
+          python3 tests/test_code_atlas_browser.py
       - name: Export standalone atlas
         uses: actions/upload-artifact@v4
         with:
