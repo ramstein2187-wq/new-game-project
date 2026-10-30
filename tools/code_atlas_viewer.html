@@ -105,8 +105,7 @@ const stats=$('stats');[['GDScript',data.stats.gd],['Scenes',data.stats.scenes],
 });
 const list=$('systemList');
 data.systems.forEach(s=>{
- const b=clickable(s,'', 'sidebtn');
- b.addEventListener('click',()=>showFiles(s));
+ const b=clickable(s,()=>showFiles(s),'sidebtn');
  b.appendChild(element('span',String(counts.get(s)||0),'count'));
  b.dataset.system=s;list.appendChild(b);
 });
