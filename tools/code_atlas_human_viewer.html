@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRPG 시스템 지도 — Code Atlas</title>
+<style>
+:root{--bg:#0b111b;--panel:#121e2d;--panel2:#19283a;--border:#2a3b50;--text:#e9f1fc;--sub:#9fb0c3;--muted:#788da6;--mint:#7de1c6;--blue:#90bcff;--gold:#f1ca83}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:14px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}a{color:var(--blue)}.layout{display:grid;grid-template-columns:234px minmax(0,1fr);min-height:100vh}
+nav{position:sticky;top:0;align-self:start;height:100vh;background:#101a28;border-right:1px solid var(--border);padding:27px 17px;overflow:auto}
+.logo{font-size:16px;font-weight:800;letter-spacing:.025em;line-height:1.4}.logo b{color:var(--mint)}.logo small{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:6px}
+.nlabel{margin:34px 10px 10px;font-size:10px;font-weight:800;letter-spacing:.13em;color:#7b92ac}
+.navbtn{width:100%;text-align:left;display:block;border:1px solid transparent;background:transparent;color:#afc2d7;padding:12px 13px;border-radius:10px;margin:3px 0;font-weight:600}
+.navbtn:hover{background:#1a2a3d}.navbtn.on{background:#1b3a40;color:#c5fff1;border-color:#35615d}
+.navbtn span{margin-right:10px}.navnote{margin:35px 9px;font-size:11px;color:#8297ad;line-height:1.8}
+main{min-width:0;padding:28px clamp(18px,4vw,68px) 80px;max-width:1500px;width:100%;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:40px}
+.crumb{color:#92a9be;font-size:12px}.snapshot{font-size:11px;color:#92a9be;border:1px solid #31465b;background:#132234;border-radius:8px;padding:8px 11px}
+.hero{max-width:950px;margin-bottom:35px}.eyebrow{font-size:11px;color:var(--mint);letter-spacing:.15em;font-weight:800;text-transform:uppercase}
+h1{font-size:clamp(28px,4vw,43px);line-height:1.3;letter-spacing:-.035em;margin:10px 0 14px}
+h2{font-size:21px;line-height:1.4;letter-spacing:-.015em;margin:0 0 7px}h3{font-size:16px;margin:0 0 8px}
+.lead{font-size:15px;color:#b1c3d7;max-width:770px;line-height:1.9;margin:0}
+.section{margin:34px 0}.secthead{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:15px}
+.mini{font-size:12px;color:var(--muted);line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:20px;text-align:left;color:var(--text);width:100%;transition:background .12s,border .12s}
+button.tile:hover,button.tile:focus-visible{background:#1b3041;border-color:#4f7c83;outline:none}
+.emoji{font-size:23px;display:block;margin-bottom:15px}.tile h3{margin-bottom:7px}.tile p{color:#a7bbce;line-height:1.75;font-size:12px;margin:0}.tile .foot{margin-top:16px;color:var(--mint);font-size:11px;font-weight:700}
+.cardnum{font-size:10px;color:var(--mint);letter-spacing:.1em;font-weight:800;margin:0 0 8px}
+.ribbon{display:flex;align-items:stretch;gap:7px;flex-wrap:wrap;margin-top:17px}.rstep{flex:1;min-width:130px;background:#17283a;border:1px solid #334b5f;border-radius:12px;padding:14px}.rstep strong{font-size:13px;display:block}.rstep small{font-size:11px;display:block;color:#9ab0c6;margin-top:8px;line-height:1.6}.arrow{color:#85bdc9;align-self:center;font-size:19px}
+.callout{border:1px solid #405064;background:#151f2c;border-radius:13px;padding:19px 23px;line-height:1.8;color:#b9c8d9}
+.callout strong{color:#eaf2fd}.callout p{margin:7px 0 0}.label{font-size:11px;color:var(--mint);letter-spacing:.1em;font-weight:800;margin-bottom:7px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.tab{background:#142234;border:1px solid #31465d;border-radius:50px;color:#adc1d6;padding:9px 15px;font-size:12px}.tab.on{color:#101b27;background:var(--mint);border-color:var(--mint);font-weight:800}
+.journey{position:relative;margin-top:20px;max-width:900px}.journey:before{content:"";position:absolute;top:28px;bottom:35px;left:23px;border-left:2px solid #3b5665}
+.stage{display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;position:relative;margin-bottom:13px}
+.stageindex{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#21454b;color:#b3f8e6;font-weight:800;border:2px solid #476c6d;z-index:1}
+.stagecard{background:#152437;border:1px solid #2c4258;border-radius:13px;padding:17px 18px}
+.stagecard p{color:#adc1d4;font-size:13px;margin:5px 0 10px}
+.filelink{border:1px solid #36566b;color:#b8dcf7;background:#112639;border-radius:7px;padding:5px 8px;font-size:11px;display:inline-block;text-align:left;margin:3px 5px 2px 0;max-width:100%;overflow-wrap:anywhere}
+.filelink:hover{background:#27465c}
+.domaincard{min-height:188px}.domaincard.on{border-color:#68bba9;background:#173038}
+.counter{color:var(--mint);font-weight:800;font-size:12px;float:right}.detailsbox{background:#142234;border:1px solid #365063;border-radius:15px;padding:25px;margin-top:22px}
+.tags{display:flex;gap:7px;flex-wrap:wrap}.tag{border:1px solid #364d64;border-radius:7px;padding:3px 9px;color:#a7bacf;font-size:11px}
+.find{width:100%;max-width:610px;background:#0d1a29;border:1px solid #3b5871;color:#ecf5ff;border-radius:11px;padding:13px 15px;outline:none}
+.find:focus{border-color:var(--mint)}
+.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}
+.res{border:1px solid #31485e;background:#15263a;border-radius:9px;padding:12px;color:#d2e5f3;text-align:left;font-size:12px;overflow-wrap:anywhere}
+.res:hover{border-color:#73c7b4}.res small{display:block;color:#8297ae;margin-top:3px}
+.tablewrap{overflow:auto}.filetable{border-collapse:collapse;width:100%;font-size:12px}.filetable td{padding:11px 8px;border-bottom:1px solid #283c50;vertical-align:top}.filetable td:first-child{width:44%}.filetable button{background:none;border:none;color:#b5deff;padding:0;text-align:left;overflow-wrap:anywhere}
+.filetable button:hover{text-decoration:underline}
+.graph{width:100%;min-height:410px;border-radius:13px;background:radial-gradient(ellipse at center,#1d3244,#0f1b2a);border:1px solid #2d4255;display:block}
+.graphtext{font:600 12px system-ui;fill:#e4edf8;pointer-events:none}.graphtip{font:10px system-ui;fill:#a8bcd2;pointer-events:none}.graphnode{cursor:pointer}
+.btm{font-size:11px;color:#7d94ab;margin-top:45px;border-top:1px solid #24384b;padding-top:18px}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(460px,100vw);background:#132233;border-left:1px solid #456276;z-index:10;box-shadow:-20px 0 80px #0008;padding:27px;overflow:auto}
+.shade{position:fixed;inset:0;background:#0008;z-index:9}.close{background:#223c4a;color:#ecf8ff;border:1px solid #365c68;border-radius:9px;padding:7px 11px;float:right}
+.sourceitem{padding:12px 0;border-bottom:1px solid #2b4155}.sourceitem small{color:#91aabe;display:block;font-size:11px;margin-top:4px}
+.sourceitem button{background:none;border:0;color:#b6ddfa;text-align:left;padding:0;overflow-wrap:anywhere}
+.statusline{color:#aabed2;font-size:12px;margin:8px 0}
+@media(max-width:1080px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.layout{display:block}nav{position:static;height:auto;padding:16px;border-right:0;border-bottom:1px solid var(--border)}.logo small,.nlabel,.navnote{display:none}.navlinks{display:flex;gap:5px;overflow:auto;margin-top:13px}.navbtn{white-space:nowrap;width:auto;font-size:12px;padding:9px}.top{margin-bottom:25px}.grid,.grid.two,.results{grid-template-columns:1fr}main{padding:22px 16px 70px}.ribbon{display:block}.arrow{text-align:center;padding:4px;display:block}.rstep{min-width:0}.detailsbox{padding:18px}}
+</style></head>
+<body><div class="layout"><nav>
+<div class="logo"><b>◈</b> CRPG 시스템 지도<small>코드를 읽지 않아도 이해하는 아키텍처</small></div>
+<div class="nlabel">프로젝트 살펴보기</div><div class="navlinks">
+<button class="navbtn on" data-view="home"><span>◉</span> 한눈에 보기</button>
+<button class="navbtn" data-view="flows"><span>↳</span> 게임 작동 과정</button>
+<button class="navbtn" data-view="systems"><span>▦</span> 시스템 설명</button>
+<button class="navbtn" data-view="code"><span>⌘</span> 코드 탐색</button>
+</div>
+<div class="navnote">먼저 <strong>한눈에 보기</strong>에서 게임 구조를 이해하고, 궁금한 시스템을 클릭해 실제 코드까지 내려가세요.<br><br>모든 숫자와 참조는 현재 분석한 코드 스냅샷을 기준으로 합니다.</div>
+</nav><main>
+<div class="top"><div class="crumb">NEW GAME PROJECT / CODE ATLAS / 안내형 v1.1</div><div class="snapshot" id="snapshot">코드 스냅샷</div></div>
+<div id="content"></div>
+<div class="btm">이 지도는 코드 구조를 이해하기 위한 안내 도구입니다. 정적 참조는 실제 런타임 실행을 증명하지 않으며, 별도 브랜치의 변경사항은 포함하지 않습니다.</div>
+</main></div><div id="overlay"></div>
+<script>
+/*__ATLAS_DATA__*/
+</script>
+<script>
+(function(){
+'use strict';
+const d=window.CODE_ATLAS;
+if(!d || !Array.isArray(d.nodes)){document.getElementById('content').textContent='코드 데이터가 없습니다. 분석기를 다시 실행하세요.';return;}
+const $=id=>document.getElementById(id);
+const safe=x=>String(x==null?'':x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nodes=d.nodes,edges=d.edges,byId=new Map(nodes.map(n=>[n.id,n]));
+const domains=[
+{id:'play',icon:'🎮',title:'게임 진행과 입력',why:'플레이어가 조작하면 게임 상태가 어떻게 바뀌는지 조정합니다.',paths:['game/time_cost_game.gd','game/generated_map_combat_game.gd','scenes/debug/','prototypes/'],keys:['game/time_cost_game.gd','game/generated_map_combat_game.gd'],notes:'현재 실행 장면은 프로토타입입니다. 완성된 전체 월드 루프를 뜻하지 않습니다.'},
+{id:'time',icon:'⏱️',title:'행동과 시간',why:'이동·공격·대기 등의 비용을 계산하고 행동 순서를 관리합니다.',paths:['game/actions/','game/time/'],keys:['game/actions/time_action.gd','game/actions/attack_action.gd','game/time/time_scheduler.gd']},
+{id:'ai',icon:'🧠',title:'NPC 판단',why:'NPC가 취할 행동 후보를 만들고 점수로 비교합니다.',paths:['game/ai/'],keys:['game/ai/basic_melee_tactics.gd','game/ai/tactical_planner.gd']},
+{id:'combat',icon:'⚔️',title:'전투와 장비',why:'명중, 방어구, 피해, 신체 부위를 판정하고 기록합니다.',paths:['game/combat/','content/attacks/','content/armor/','content/weapons/'],keys:['game/combat/combat_rules.gd','game/combat/body_instance.gd','game/combat/combat_event_log.gd']},
+{id:'actor',icon:'🧍',title:'캐릭터와 능력',why:'액터의 상태, 신체, 능력치, 일시적 효과를 표현합니다.',paths:['game/actors/','game/effects/','content/actors/'],keys:['game/actors/actor.gd','game/actors/actor_registry.gd','game/effects/stat_resolver.gd']},
+{id:'world',icon:'🗺️',title:'지역 지도 생성',why:'시드로 지형을 만들고, 그 지형을 플레이 가능한 장면에 연결합니다.',paths:['worldgen/'],keys:['worldgen/simple_map_generator.gd','game/generated_map_combat_game.gd'],notes:'현재 절차 생성 지역과 완성된 광역 월드·영속성은 서로 다른 구현 범위입니다.'},
+{id:'history',icon:'📜',title:'역사와 사회',why:'과거 사건과 세력의 흔적을 만들고 기록·고고학 단서를 도출합니다.',paths:['game/history/'],keys:['game/history/history_generator.gd','game/history/history_v5_planner.gd','game/history/history_archaeology.gd'],notes:'main 기준 역사 데이터 생성과 실제 게임 월드·NPC 행동의 연결은 아직 별도 과제입니다.'},
+{id:'content',icon:'🗂️',title:'콘텐츠와 이름',why:'이름·문화별 명명 규칙과 데이터 자원을 제공합니다.',paths:['game/naming/','content/naming/','content/combat_actor_content.gd','content/combat_content_data.gd'],keys:['game/naming/name_generator.gd','game/naming/naming_catalog.gd']},
+{id:'ui',icon:'🖥️',title:'화면과 정보 표시',why:'캐릭터 상태와 수치의 근거를 플레이어에게 보여줍니다.',paths:['game/ui/','scenes/ui/'],keys:['game/ui/character_screen.gd','game/ui/character_inspector.gd']},
+{id:'verify',icon:'🧪',title:'테스트와 개발 도구',why:'전투·생성기를 자동으로 검증하고 분석 결과를 출력합니다.',paths:['tests/','tools/','game/simulation/'],keys:['game/simulation/combat_batch_runner.gd','tools/analyze_history.gd']}
+];
+const unclaimed=n=>!domains.some(g=>g.paths.some(p=>p.endsWith('/')?n.path.startsWith(p):n.path===p));
+domains.push({id:'other',icon:'📁',title:'기타 파일',why:'어느 기능 그룹에도 자동 분류되지 않은 나머지 소스 파일입니다.',paths:[],keys:[]});
+function belongs(n,g){return g.id==='other'?unclaimed(n):g.paths.some(p=>p.endsWith('/')?n.path.startsWith(p):n.path===p);}
+const grouped=new Map(domains.map(g=>[g.id,nodes.filter(n=>belongs(n,g))]));
+const current={view:'home',system:'play',flow:0,search:'',selected:null};
+const flows=[
+{title:'공격하면 무슨 일이 생길까?',intro:'플레이어의 한 번의 행동이 유효성 검사, 전투 결과, 로그와 시간 진행으로 이어지는 대표 경로입니다.',steps:[
+['플레이어가 공격을 입력','장면의 입력이 게임 모델로 전달됩니다.','scenes/debug/generated_map_combat_playground.gd'],
+['공통 행동 실행','TimeCostGame이 행동 수행을 조정합니다.','game/time_cost_game.gd'],
+['공격 행동 검증','AttackAction이 공격 가능 여부와 비용, 공격 결과 요청을 담당합니다.','game/actions/attack_action.gd'],
+['명중과 피해 판정','전투 규칙과 신체·방어구 데이터로 결과를 계산합니다.','game/combat/combat_rules.gd'],
+['기록과 시간 진행','전투 이벤트를 기록하고 다음 행동 가능 시각을 조정합니다.','game/combat/combat_event_log.gd','game/time/time_scheduler.gd']]},
+{title:'NPC는 행동을 어떻게 고를까?',intro:'전술 후보를 점수로 비교한 뒤, 선택한 행동도 플레이어와 동일한 공통 행동 경로를 사용합니다.',steps:[
+['NPC 행동 차례','스케줄러가 행동할 수 있는 액터의 시각을 관리합니다.','game/time/time_scheduler.gd'],
+['행동 후보 생성','근접 전투 정책이 공격·접근 등 가능한 행동 후보를 구성합니다.','game/ai/basic_melee_tactics.gd'],
+['후보 비교','전술 플래너가 후보의 점수와 실행 가능성을 검사합니다.','game/ai/tactical_planner.gd'],
+['공통 행동 수행','선택한 TimeAction을 공통 실행 경로로 전달합니다.','game/actions/time_action.gd','game/time_cost_game.gd']]},
+{title:'하나의 지역 역사는 어떻게 생길까?',intro:'역사 데이터 생성은 독립적으로 구현되어 있지만 실제 플레이 지역과의 연결은 별도 문제입니다.',steps:[
+['생성 시드와 규칙','HistoryGenerator가 버전에 맞는 생성기로 분기합니다.','game/history/history_generator.gd'],
+['사건과 흔적 생성','HistoryV5Planner가 사건·프로젝트·흔적을 구성합니다.','game/history/history_v5_planner.gd'],
+['현재 상태 투영','과거 사건의 효과를 현재 세계의 기록으로 투영합니다.','game/history/history_projector.gd'],
+['단서와 결과 정리','고고학 정보와 검증 결과를 도출합니다.','game/history/history_archaeology.gd','game/history/history_result.gd'],
+['여기서 연결 과제가 남음','이 데이터가 플레이어의 실제 지도·대화·행동에 어떻게 반영될지는 별도 통합이 필요합니다.']]},
+{title:'절차 생성 지형은 어떻게 플레이되나?',intro:'실행 가능한 지역 맵 프로토타입을 만드는 흐름입니다. 광역 월드 시뮬레이션 전체를 뜻하지 않습니다.',steps:[
+['시드로 맵 생성','SimpleMapGenerator가 규칙에 따라 지형 배열을 만듭니다.','worldgen/simple_map_generator.gd'],
+['게임 모델에 적용','GeneratedMapCombatGame이 지형·스폰을 검증하고 전투 모델에 연결합니다.','game/generated_map_combat_game.gd'],
+['장면에서 표시','Generated Map Combat Playground가 실제 플레이 화면을 제공합니다.','scenes/debug/generated_map_combat_playground.tscn']]},
+];
+function fbtn(path){const n=byId.get(path);return n?'<button class="filelink" data-file="'+safe(path)+'">'+safe(n.class_name||n.name)+'</button>':'<span class="tag">'+safe(path)+'</span>';}
+function statline(){return '<div class="tags"><span class="tag">'+d.stats.gd+' GDScript</span><span class="tag">'+d.stats.scenes+' 씬</span><span class="tag">'+d.stats.references+' 정적 참조</span><span class="tag">'+d.stats.indexed_files+' 색인 파일</span></div>';}
+function home(){
+const quick=[
+ ['1','플레이어 행동','입력부터 이동·공격 결과까지','play'],
+ ['2','NPC의 선택','어떤 행동을 할지 판단하고 실행','ai'],
+ ['3','세계의 생성','지역 지형과 과거의 역사는 별도 파이프라인','world']];
+return '<section class="hero"><div class="eyebrow">START HERE · 사람을 위한 구조 설명</div><h1>우리 게임은<br>어떻게 작동할까?</h1><p class="lead">코드 파일을 외우기 전에, 게임에서 일어나는 일을 순서대로 이해해 보세요. 각 단계를 누르면 실제 구현 파일과 참조 관계까지 내려갈 수 있습니다.</p></section>'+
+ '<div class="section"><div class="secthead"><div><h2>먼저 세 가지 층으로 이해하기</h2><div class="mini">무엇을 누르고, 누가 판단하고, 무엇이 결과를 기록하는가</div></div></div><div class="grid">'+quick.map(q=>'<button class="tile" data-system="'+q[3]+'"><div class="cardnum">LAYER '+q[0]+'</div><h3>'+q[1]+'</h3><p>'+q[2]+'</p><div class="foot">관련 코드 살펴보기 →</div></button>').join('')+'</div></div>'+
+ '<div class="section"><div class="secthead"><div><h2>플레이어가 공격할 때</h2><div class="mini">설명을 위한 축약 흐름 · 정확한 실제 호출 순서는 코드 상세에서 검증</div></div><button class="tab" data-flow="0">단계별 설명 보기 →</button></div>'+
+ '<div class="ribbon">'+[['① 입력','게임에 행동 요청'],['② 행동','가능 여부와 비용'],['③ 전투','명중과 피해 계산'],['④ 결과','이벤트와 시간 기록']].map((x,i)=>'<div class="rstep"><strong>'+x[0]+'</strong><small>'+x[1]+'</small></div>'+(i===3?'':'<div class="arrow">→</div>')).join('')+'</div></div>'+
+ '<div class="section"><div class="callout"><div class="label">중요한 연결 상태</div><strong>지역 역사 생성기와 실제 플레이 월드는 아직 같은 것이 아니야.</strong><p>main의 역사 시스템은 사건과 유적 단서를 생성하지만, 이를 게임 속 지도·NPC 행동으로 완전히 연결하는 작업은 별도야. 이 화면은 구현된 코드와 앞으로 연결할 부분을 혼동하지 않도록 보여줘.</p><button class="filelink" data-flow="2">역사 생성 과정 살펴보기 →</button></div></div>'+
+ '<div class="section"><div class="secthead"><div><h2>지금 바로 궁금한 걸 찾아보기</h2><div class="mini">질문을 누르면 관련 코드로 이어집니다.</div></div></div><div class="grid">'+[
+['NPC는 왜 공격하지?','ai','🧠'],['시간은 어떻게 흐르지?','time','⏱️'],['방어구는 피해를 어떻게 막지?','combat','⚔️'],['랜덤 지형은 어디서 만들어지지?','world','🗺️'],['역사 데이터는 누가 만드나?','history','📜'],['캐릭터 능력치는 어디 있지?','actor','🧍']
+].map(q=>'<button class="tile" data-system="'+q[1]+'"><span class="emoji">'+q[2]+'</span><h3>'+q[0]+'</h3><div class="foot">설명과 실제 코드 →</div></button>').join('')+'</div></div>';
+}
+function flowsView(){
+const flow=flows[current.flow];
+return '<section class="hero"><div class="eyebrow">HOW IT WORKS</div><h1>게임 작동 과정</h1><p class="lead">한 가지 질문을 따라가며 프로그램이 어떤 역할을 나눠 맡는지 이해할 수 있어. 각 코드 버튼은 실제 파일 설명을 열어줘.</p></section><div class="tabs">'+flows.map((f,i)=>'<button class="tab '+(i===current.flow?'on':'')+'" data-flow="'+i+'">'+(i+1)+'. '+safe(f.title)+'</button>').join('')+'</div>'+
+ '<h2>'+safe(flow.title)+'</h2><p class="lead">'+safe(flow.intro)+'</p><div class="journey">'+flow.steps.map((step,i)=>'<div class="stage"><div class="stageindex">'+(i+1)+'</div><div class="stagecard"><h3>'+safe(step[0])+'</h3><p>'+safe(step[1])+'</p>'+step.slice(2).map(fbtn).join('')+'</div></div>').join('')+'</div>'+
+ '<div class="callout">이 흐름도는 이해를 돕기 위해 중요한 단계를 묶은 <strong>개념적 설명</strong>이야. 실제 런타임의 모든 함수 호출을 기록한 추적 로그는 아니야.</div>';
+}
+function systemCard(g){
+return '<button class="tile domaincard '+(current.system===g.id?'on':'')+'" data-system="'+g.id+'"><span class="counter">'+grouped.get(g.id).length+'개 파일</span><span class="emoji">'+g.icon+'</span><h3>'+g.title+'</h3><p>'+g.why+'</p><div class="foot">자세히 보기 →</div></button>';
+}
+function systemsView(){
+const g=domains.find(x=>x.id===current.system)||domains[0],ns=grouped.get(g.id);
+return '<section class="hero"><div class="eyebrow">RESPONSIBILITIES</div><h1>시스템은 무슨 일을 할까?</h1><p class="lead">코드 폴더명이 아니라 실제 게임에서 담당하는 일을 기준으로 나눴어. 관심 있는 시스템을 선택해 핵심 파일과 나머지 파일을 살펴봐.</p></section>'+
+ '<div class="grid">'+domains.filter(g=>grouped.get(g.id).length>0).map(systemCard).join('')+'</div>'+
+ '<div class="detailsbox" id="systemDetail"><div class="eyebrow">SELECTED SYSTEM</div><h2>'+g.icon+' '+g.title+'</h2><p class="lead">'+g.why+'</p><div class="statusline">'+ns.length+'개 색인 파일 · 코드 경로에 의한 묶음</div>'+
+ (g.notes?'<div class="callout" style="margin:16px 0"><strong>현재 범위</strong><p>'+g.notes+'</p></div>':'')+
+ '<div class="section"><h3>여기부터 읽으면 좋아</h3><div>'+g.keys.map(fbtn).join('')+'</div></div>'+
+ '<div class="section"><h3>관련 파일 모두 보기</h3><div class="tablewrap"><table class="filetable"><tbody>'+ns.slice().sort((a,b)=>a.path.localeCompare(b.path)).map(n=>'<tr><td><button data-file="'+safe(n.path)+'">'+safe(n.class_name||n.name)+'</button></td><td class="mini">'+safe(n.path)+'</td></tr>').join('')+'</tbody></table></div></div></div>';
+}
+function neighborhood(g){
+const mine=new Set(grouped.get(g.id).map(n=>n.id)), weights=new Map();
+edges.forEach(e=>{
+ const insideA=mine.has(e.from),insideB=mine.has(e.to);
+ if(insideA===insideB)return;
+ const outside=insideA?e.to:e.from, n=byId.get(outside);
+ if(!n)return;
+ const dep=domains.find(x=>belongs(n,x));if(!dep||dep.id===g.id)return;
+ weights.set(dep.id,(weights.get(dep.id)||0)+e.hits);
+});
+return [...weights.entries()].sort((a,b)=>b[1]-a[1]).slice(0,8);
+}
+function graphSvg(g){
+const neighbors=neighborhood(g);
+const radius=175,cx=320,cy=218;
+const center='<g class="graphnode" data-system="'+g.id+'"><circle cx="'+cx+'" cy="'+cy+'" r="63" fill="#245650" stroke="#8ee7ce" stroke-width="2"/><text class="graphtext" x="'+cx+'" y="'+(cy-6)+'" text-anchor="middle">'+safe(g.title)+'</text><text class="graphtip" x="'+cx+'" y="'+(cy+17)+'" text-anchor="middle">'+grouped.get(g.id).length+'개 파일</text></g>';
+let links='',dots='';
+neighbors.forEach((pair,i)=>{
+ const target=domains.find(x=>x.id===pair[0]),ang=i*2*Math.PI/Math.max(neighbors.length,1)-Math.PI/2;
+ const x=cx+Math.cos(ang)*radius,y=cy+Math.sin(ang)*radius;
+ links+='<line x1="'+cx+'" y1="'+cy+'" x2="'+x+'" y2="'+y+'" stroke="#548298" stroke-width="'+Math.min(4,1+Math.log2(pair[1]+1)/2)+'" opacity=".55"/>';
+ dots+='<g class="graphnode" data-system="'+target.id+'"><circle cx="'+x+'" cy="'+y+'" r="47" fill="#1c344b" stroke="#6c9bb1" stroke-width="1.5"/><text class="graphtext" x="'+x+'" y="'+(y-3)+'" font-size="11" text-anchor="middle">'+safe(target.title)+'</text><text class="graphtip" x="'+x+'" y="'+(y+14)+'" text-anchor="middle">'+pair[1]+'회 언급</text></g>';
+});
+return '<svg class="graph" viewBox="0 0 640 440" role="img" aria-label="선택 시스템의 주변 코드 참조 그래프">'+links+dots+center+'</svg>';
+}
+function codeView(){
+const q=current.search.trim().toLowerCase();
+const matches=(q?nodes.filter(n=>(n.path+' '+n.class_name).toLowerCase().includes(q)):[]).slice(0,28);
+const g=domains.find(x=>x.id===current.system)||domains[0];
+return '<section class="hero"><div class="eyebrow">ADVANCED EXPLORER</div><h1>코드와 관계 찾아보기</h1><p class="lead">여기부터는 실제 파일과 클래스의 정적 참조를 탐색해. 처음부터 모든 연결을 그리지 않고, 선택한 시스템 주변만 보여줘.</p></section>'+
+ '<div class="section"><h2>파일·클래스 검색</h2><input class="find" id="finder" placeholder="예: TimeScheduler, attack_action, history..." value="'+safe(current.search)+'"><div class="results" id="searchResults">'+matches.map(n=>'<button class="res" data-file="'+safe(n.path)+'">'+safe(n.class_name||n.name)+'<small>'+safe(n.path)+'</small></button>').join('')+'</div></div>'+
+ '<div class="section"><div class="secthead"><div><h2>시스템 주변 관계</h2><div class="mini">선은 양방향을 합산한 정적 참조량이며, 실행 순서가 아닙니다.</div></div></div><div class="tabs">'+domains.filter(s=>grouped.get(s.id).length>0).map(s=>'<button class="tab '+(s.id===g.id?'on':'')+'" data-graph="'+s.id+'">'+s.title+'</button>').join('')+'</div>'+
+ graphSvg(g)+'<p class="mini">원이나 아래 목록을 클릭해 다른 시스템으로 이동할 수 있어. 내부 클래스별 연결은 파일 상세에서 확인할 수 있어.</p></div>'+
+ '<div class="section"><h2>'+g.title+'의 핵심 코드</h2><div class="results">'+grouped.get(g.id).filter(n=>n.kind==='gd').slice(0,45).map(n=>'<button class="res" data-file="'+safe(n.path)+'">'+safe(n.class_name||n.name)+'<small>'+safe(n.path)+'</small></button>').join('')+'</div></div>';
+}
+function inspect(path){
+const n=byId.get(path);if(!n)return;
+const out=edges.filter(e=>e.from===path),inc=edges.filter(e=>e.to===path);
+const list=(items,direction)=>items.length?items.slice(0,25).map(e=>{
+ const id=direction==='out'?e.to:e.from,z=byId.get(id);
+ return '<div class="sourceitem"><button data-file="'+safe(id)+'">'+safe(z.class_name||z.name)+'</button><small>'+safe(e.kind)+' · '+safe(e.from)+':'+e.line+'</small><small>'+safe(e.excerpt)+'</small></div>';
+}).join(''):'<p class="mini">추출된 정적 참조가 없습니다.</p>';
+$('overlay').innerHTML='<div class="shade" data-close="yes"></div><aside class="drawer"><button class="close" data-close="yes" aria-label="닫기">닫기 ✕</button><div class="eyebrow">실제 코드 살펴보기</div><h2 style="margin-top:19px;overflow-wrap:anywhere">'+safe(n.class_name||n.name)+'</h2><div class="mini" style="overflow-wrap:anywhere">'+safe(n.path)+'</div><div class="tags" style="margin-top:14px"><span class="tag">'+safe(n.kind)+'</span><span class="tag">'+n.lines+'줄</span></div>'+
+ (n.url?'<a style="display:block;margin:22px 0" target="_blank" rel="noopener" href="'+safe(n.url)+'">GitHub에서 실제 코드 열기 ↗</a>':'')+
+ '<h3>이 코드가 참조하는 파일 ('+out.length+')</h3>'+list(out,'out')+
+ '<h3 style="margin-top:27px">이 코드를 참조하는 파일 ('+inc.length+')</h3>'+list(inc,'in')+
+ '<p class="mini" style="margin-top:25px">선은 확정된 실행 순서가 아니라 정적 참조 근거입니다. symbol-reference는 단순 타입 언급도 포함할 수 있습니다.</p></aside>';
+}
+function show(view){current.view=view;$('content').innerHTML=({home,flows:flowsView,systems:systemsView,code:codeView})[view]();
+ document.querySelectorAll('.navbtn').forEach(el=>el.classList.toggle('on',el.dataset.view===view));
+ document.querySelectorAll('[data-flow],[data-system],[data-graph],[data-file]').forEach(el=>{el.addEventListener('click',action);});
+ const finder=$('finder');if(finder){finder.addEventListener('input',e=>{current.search=e.target.value;const q=current.search.trim().toLowerCase();$('searchResults').innerHTML=(q?nodes.filter(n=>(n.path+' '+n.class_name).toLowerCase().includes(q)).slice(0,28):[]).map(n=>'<button class="res" data-file="'+safe(n.path)+'">'+safe(n.class_name||n.name)+'<small>'+safe(n.path)+'</small></button>').join('');
+ $('searchResults').querySelectorAll('[data-file]').forEach(el=>el.addEventListener('click',action));});}
+}
+function action(e){const el=e.currentTarget;if(el.dataset.file){inspect(el.dataset.file);return;}
+ if(el.dataset.flow!==undefined){current.flow=Number(el.dataset.flow);show('flows');window.scrollTo(0,0);return;}
+ if(el.dataset.graph){current.system=el.dataset.graph;show('code');return;}
+ if(el.dataset.system){current.system=el.dataset.system;show(current.view==='code'?'code':'systems');if(current.view==='systems')$('systemDetail').scrollIntoView({behavior:'smooth',block:'nearest'});return;}}
+document.querySelectorAll('.navbtn').forEach(el=>el.addEventListener('click',()=>{show(el.dataset.view);window.scrollTo(0,0);}));
+$('overlay').addEventListener('click',e=>{if(e.target.dataset.close==='yes')$('overlay').innerHTML='';else if(e.target.dataset.file){inspect(e.target.dataset.file);}});
+$('snapshot').textContent=(d.repository||'Project')+' · '+(d.commit||d.branch||'').slice(0,9);
+show('home');
+})();
+</script></body></html>
