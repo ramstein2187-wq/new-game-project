@@ -1,0 +1,29 @@
+name: Code Atlas v1
+on:
+  push:
+    paths:
+      - "tools/code_atlas.py"
+      - "tools/code_atlas_viewer.html"
+      - "tests/test_code_atlas.py"
+      - ".github/workflows/code-atlas-check.yml"
+  pull_request:
+    paths:
+      - "tools/code_atlas.py"
+      - "tools/code_atlas_viewer.html"
+      - "tests/test_code_atlas.py"
+      - ".github/workflows/code-atlas-check.yml"
+jobs:
+  atlas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -p test_code_atlas.py -v
+      - name: Generate repository atlas
+        run: python3 tools/code_atlas.py --out /tmp/crpg-code-atlas.html --json /tmp/crpg-code-atlas.json
+      - name: Verify real repository coverage
+        run: |
+          python3 -c 'import json; d=json.load(open("/tmp/crpg-code-atlas.json")); assert d["stats"]["gd"] >= 150; assert d["stats"]["scenes"] >= 5; assert d["stats"]["references"] > 50; print(d["stats"])'
