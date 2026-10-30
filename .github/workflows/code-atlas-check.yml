@@ -27,3 +27,14 @@ jobs:
       - name: Verify real repository coverage
         run: |
           python3 -c 'import json; d=json.load(open("/tmp/crpg-code-atlas.json")); assert d["stats"]["gd"] >= 150; assert d["stats"]["scenes"] >= 5; assert d["stats"]["references"] > 50; print(d["stats"])'
+      - name: Validate viewer JavaScript syntax
+        run: |
+          python3 -c 'import re; from pathlib import Path; scripts=re.findall(r"<script>(.*?)</script>", Path("/tmp/crpg-code-atlas.html").read_text(), re.S); assert len(scripts)==2; Path("/tmp/crpg-code-atlas-ui.js").write_text(scripts[1])'
+          node --check /tmp/crpg-code-atlas-ui.js
+      - name: Export standalone atlas
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-atlas-v1
+          path: /tmp/crpg-code-atlas.html
+          if-no-files-found: error
+          retention-days: 14
