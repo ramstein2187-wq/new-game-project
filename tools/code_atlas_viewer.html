@@ -126,9 +126,10 @@ function showSystems(){
 function showFiles(s,pick){
  mode='files';focus=s||'';selected=pick||null;
  const seeds=nodes.filter(n=>!focus||n.system===focus);
- const visible=new Set(seeds.map(n=>n.id));
- // When focused, include direct neighbors, so cross-system interfaces remain visible.
- if(focus)edges.forEach(e=>{if(visible.has(e.from)||visible.has(e.to)){visible.add(e.from);visible.add(e.to);}});
+ const seedIds=new Set(seeds.map(n=>n.id));
+ const visible=new Set(seedIds);
+ // Only one hop beyond the focused system: do not expand transitively.
+ if(focus)edges.forEach(e=>{if(seedIds.has(e.from)||seedIds.has(e.to)){visible.add(e.from);visible.add(e.to);}});
  graphNodes=nodes.filter(n=>visible.has(n.id));
  graphEdges=edges.filter(e=>visible.has(e.from)&&visible.has(e.to));
  $('viewTitle').textContent=focus||'전체 파일 관계';
