@@ -4,6 +4,7 @@ on:
     paths:
       - "tools/code_atlas.py"
       - "tools/code_atlas_viewer.html"
+      - "tools/code_atlas_human_viewer.html"
       - "tests/test_code_atlas.py"
       - "tests/test_code_atlas_browser.py"
       - ".github/workflows/code-atlas-check.yml"
@@ -11,6 +12,7 @@ on:
     paths:
       - "tools/code_atlas.py"
       - "tools/code_atlas_viewer.html"
+      - "tools/code_atlas_human_viewer.html"
       - "tests/test_code_atlas.py"
       - "tests/test_code_atlas_browser.py"
       - ".github/workflows/code-atlas-check.yml"
