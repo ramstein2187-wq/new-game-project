@@ -1,4 +1,4 @@
-# Code Atlas v1 — read-only architecture explorer
+# Code Atlas v1.1 — human-first, read-only architecture explorer
 
 ## Purpose and scope
 
@@ -9,8 +9,11 @@ every indexed system is implemented, integrated, reachable, or play-tested.
 - Scan .gd, .tscn, .tres, and .gdshader files, including tests and tools.
 - Discover named GDScript classes, file ownership, inheritance, constructor
   references, resource paths and other static symbol mentions.
-- Show a system overview, all-file graph, and focused subsystem with direct
-  neighbors; search classes and filenames.
+- Open on a guided Korean-language system overview, not a raw dependency cloud.
+- Read four representative game flows, and browse ten meaningful system areas.
+- Search classes and filenames, inspect static dependency evidence, and open
+  the real source from within a readable explainer.
+- Keep the older technical graph source as a separate optional developer view.
 - Click a file to see incoming/outgoing references, the evidence line, and
   its link to the scanned commit on GitHub.
 - Offline HTML. No build steps, server, JavaScript CDN, or credentials needed.
@@ -24,7 +27,8 @@ From the repository root, with Python 3.10+:
 python3 tools/code_atlas.py
 ~~~
 
-Open **docs/code_atlas.html** in a browser. It is a generated artifact and
+Open **docs/code_atlas.html** in a browser. The default viewer is the human-first
+screen (tools/code_atlas_human_viewer.html). It is a generated artifact and
 should not be manually edited. Pass --out /some/path/atlas.html to write
 elsewhere; the output is a complete standalone HTML file.
 
@@ -91,3 +95,19 @@ read-only tooling change.
 
 This work must remain on the dedicated chat/code-atlas-v1 branch until
 reviewed. Do not merge or publish the generated atlas without approval.
+
+## Human-facing layout (v1.1)
+
+- **한눈에 보기:** three-level introduction, attack flow, common questions.
+- **게임 작동 과정:** four curated examples: attack, NPC tactics, history
+  generation, procedural terrain. Their explanations are documentation,
+  explicitly not an instrumented runtime trace.
+- **시스템 설명:** Korean subsystem descriptions, representative file links,
+  and a complete code-file list for each area. Counts are computed from the
+  current scanned checkout, not hard-coded.
+- **코드 탐색:** search, one-subsystem static-reference neighborhood, and
+  file inspector with source code hyperlinks and first-match evidence.
+
+The automatic file-to-domain classifier uses explicit path rules. It can put
+files in an imperfect conceptual category, and these descriptions should be
+reviewed when underlying code is reorganized.
