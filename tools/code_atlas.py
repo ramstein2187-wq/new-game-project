@@ -171,7 +171,7 @@ def main() -> None:
     parser.add_argument("--ref", help="Git ref for hyperlinks (defaults to exact HEAD SHA)")
     args = parser.parse_args()
     root = args.root.resolve()
-    template = Path(__file__).with_name("code_atlas_viewer.html")
+    template = Path(__file__).with_name("code_atlas_human_viewer.html")
     if not template.is_file():
         parser.error("Viewer template is missing: " + str(template))
     repo = repo_name(root, args.repo)
