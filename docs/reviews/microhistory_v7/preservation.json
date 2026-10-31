@@ -1,0 +1,48 @@
+{
+  "checkouts": [
+    {
+      "path": "C:\\GameDev\\새-게임-프로젝트",
+      "head": "005c7a637695595680d7225c58011a2c0d3f1aa2",
+      "checked_files": 14,
+      "issues": []
+    },
+    {
+      "path": "C:\\GameDev\\history-generator-v5",
+      "head": "3eda074e1b7e72da69c7c596b64f58ab054a29e9",
+      "checked_files": 12,
+      "issues": []
+    },
+    {
+      "path": "C:\\GameDev\\history-generator-v6-core",
+      "head": "c0f1f920904342db37e29b585b697b6df560e6cc",
+      "checked_files": 12,
+      "issues": []
+    },
+    {
+      "path": "C:\\GameDev\\history-generator-v6-phase-b",
+      "head": "e0175e3560c04164ced289fc593ca39d450f3d6b",
+      "checked_files": 12,
+      "issues": []
+    },
+    {
+      "path": "C:\\GameDev\\history-v6-phase-c-playable-world",
+      "head": "3f7473c083993683a6c2407c3fc9843e0dc19a9f",
+      "checked_files": 13,
+      "issues": []
+    },
+    {
+      "path": "C:\\GameDev\\m048-korean-playtest-localization",
+      "head": "f49c17cf1a141bd1d71d964d60bc75dc3125ddcb",
+      "checked_files": 16,
+      "issues": []
+    },
+    {
+      "path": "C:\\GameDev\\m049-playable-exploration-art",
+      "head": "a8e32955ab7047000e648f8c0d2256a9bdfff0f9",
+      "checked_files": 12,
+      "issues": []
+    }
+  ],
+  "main": "10f6f31cd39f165a7e04c658921056089eb794ef",
+  "origin_main": "e83da36818cbb23e69e4e16297ac4332885658f1"
+}

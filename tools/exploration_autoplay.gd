@@ -24,7 +24,7 @@ static func walk(g: HistoryPlayableGame, target: Vector2i, cautious: bool = true
 			var acted := false
 			for o in g.objects_at(next):
 				if o.kind == "door": acted = g.perform_action(&"player", InteractAction.new(next)); break
-				if o.kind in ["rubble", "stump", "cart", "fence", "boulder"]: acted = g.perform_action(&"player", InteractAction.new(next, &"clear")); break
+				if o.kind in ["rubble", "stump", "cart", "fence", "boulder"] or o.get("verb", "") == "clear": acted = g.perform_action(&"player", InteractAction.new(next, &"clear")); break
 			if not acted: return false
 		else:
 			if cautious and g.actors.occupant_at(next) != null: route.clear(); continue
@@ -40,7 +40,7 @@ static func path(g: HistoryPlayableGame, target: Vector2i, cautious: bool) -> Ar
 			var c := Vector2i(x, y)
 			var wall := g.is_wall(c)
 			if wall and g.terrain_rows[y][x] not in ["R", "T", "~"]:
-				wall = not g.objects_at(c).any(func(o: Dictionary) -> bool: return o.kind in ["door", "rubble", "stump", "cart", "fence", "boulder"] and g.runtime.has_permission(o.owner_id))
+				wall = not g.objects_at(c).any(func(o: Dictionary) -> bool: return (o.kind in ["door", "rubble", "stump", "cart", "fence", "boulder"] or o.get("verb", "") == "clear") and g.runtime.has_permission(o.owner_id))
 			grid.set_point_solid(c, wall)
 			if cautious and g.hazard_at(c) > 0: grid.set_point_weight_scale(c, 100)
 	if cautious:

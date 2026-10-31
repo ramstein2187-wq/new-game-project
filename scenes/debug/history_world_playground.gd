@@ -3,6 +3,7 @@ extends Node2D
 @export var world_seed := 1839602582
 @export var save_path := "user://m049_exploration_v2.json"
 @export var exploration_enabled := true
+@export var microhistory_enabled := false
 var art := ExplorationArt.new()
 var zoom := 2
 var overview := false
@@ -25,6 +26,7 @@ var developer_visible := false
 func _ready() -> void:
 	GameText.apply_preference()
 	game.exploration_enabled = exploration_enabled
+	game.microhistory_enabled = microhistory_enabled
 	RenderingServer.set_default_clear_color(Color("15252d"))
 	var layer := CanvasLayer.new(); add_child(layer)
 	var margin := MarginContainer.new(); layer.add_child(margin)
@@ -73,6 +75,7 @@ func _generate() -> void:
 	var result := HistoryEngine.new().generate_civilization(world_seed)
 	if not result.errors.is_empty(): feedback.text = tr("World generation failed. Try another seed."); return
 	game.exploration_enabled = exploration_enabled
+	game.microhistory_enabled = microhistory_enabled
 	game.start(HistoryWorldManifest.build(result)); _refresh()
 
 func _toggle_records() -> void:

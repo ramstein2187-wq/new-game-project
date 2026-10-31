@@ -102,3 +102,6 @@ Suggested expansion sequence after M017/M018: common Actor/multiple NPCs -> acti
 5. After validation, update the milestone index and this roadmap together. Mark **Complete** only with an explicit branch/validation basis; close or replace outdated next-step entries instead of leaving them as pending.
 6. At handoff or merge, check whether work introduced new unfinished features or follow-ups and record them here without expanding completed milestone histories.
 7. The roadmap is a planning snapshot, not a substitute for checking the actual branch, code, and tests. When branches differ, record the branch and use **Needs verification** where appropriate.
+
+- **구현·자동 검증 완료 / task branch only** — M049 Microhistory v7: 36원형, 실제 공간·영속성, 500세계/1500지역 오류0, 집중1859검사/전체46스크립트 통과, GPU8화면. [작업 기록](milestones/M049_microhistory_v7.md). 기존 M049 탐험/아트 기록과 구분. main 미병합.
+- **Candidate / Microhistory 후속** — 구조적 반복·단일 파편 가독성·환경별 심각도 빈도 개선, v5 전체 질문 공간 연결 및 인간 자유 플레이 평가. [측정과 한계](reviews/microhistory_v7/report.md).

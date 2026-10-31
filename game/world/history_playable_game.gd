@@ -2,6 +2,7 @@ class_name HistoryPlayableGame
 extends GeneratedMapCombatGame
 ## Existing movement, body combat, AI and Scheduler own all action execution.
 var exploration_enabled := false
+var microhistory_enabled := false
 var runtime: HistoryRuntimeState
 var initial_world: HistoryWorldRealization
 var pending_zone := ""
@@ -63,7 +64,7 @@ var notice: Dictionary = {}
 
 
 func start(manifest: HistoryWorldManifest) -> bool:
-	var w := HistoryWorldRealization.build(manifest, -1, exploration_enabled)
+	var w := HistoryWorldRealization.build(manifest, -1, exploration_enabled, microhistory_enabled)
 	if not w.errors.is_empty(): message = str(w.errors); _notify("generation_failed"); return false
 	initial_world = w; runtime = HistoryRuntimeState.new(w)
 	scheduler.reset(&"player"); actors = ActorRegistry.new()
@@ -159,6 +160,7 @@ func hazard_at(cell: Vector2i) -> int:
 	if hazard.is_empty(): return 0
 	var control_id: String = hazard.get("control_id", "control:" + str(hazard.facility_id))
 	var control := runtime.object(runtime.current_zone, control_id)
+	if control.kind == "micro_evidence" and (control.get("used", false) or control.get("removed", false)): return 0
 	if control.get("stabilized", false) or control.kind == "bridge" and control.used: return 0
 	return int(hazard.damage)
 
@@ -179,6 +181,9 @@ func record_present(o: Dictionary) -> bool:
 
 func target(operation: StringName, cell: Vector2i) -> Dictionary:
 	for o in objects_at(cell):
+		if o.kind == "micro_evidence":
+			if String(operation) == o.verb or operation == &"inspect" and o.verb != "passive": return o
+			continue
 		if operation == &"inspect": return o
 		if operation == &"recover" and o.kind in ["resource", "unique", "branches", "stone_cache", "supply_cache"]: return o
 		if operation == &"clear" and o.kind in ["rubble", "route", "stump", "cart", "scrap", "fence", "crate", "boulder"]: return o
@@ -203,6 +208,7 @@ func interaction_failure(actor_id: StringName, cell: Vector2i, operation: String
 	if o.is_empty(): return {"code": "no_target", "args": {}}
 	if operation == &"inspect": return {}
 	if get_actor(actor_id).body.functional_count(&"weapon_manipulation") < 1: return {"code": "hand", "args": {}}
+	if o.kind == "micro_evidence": return MicrohistoryInteractions.failure(self, o, operation)
 	if o.get("provenance", "") == "present_environment/1" and o.kind != "route":
 		return ExplorationInteractions.failure(self, o, operation)
 	if operation == &"interact":
@@ -265,6 +271,10 @@ func execute_interaction(actor_id: StringName, cell: Vector2i, operation: String
 	if o.is_empty(): return null
 	var event := make_action_event(&"interact", actor_id, operation, cost)
 	event.data = {"object_id": o.id, "facility_id": o.facility_id, "operation": String(operation), "position": cell}
+	if o.kind == "micro_evidence":
+		MicrohistoryInteractions.execute(self, o, operation)
+		event.data.merge({"result": action_feedback, "result_code": notice.code, "result_args": notice.args.duplicate(true), "custody_violation": false})
+		return event
 	if o.get("provenance", "") == "present_environment/1" and o.kind != "route":
 		ExplorationInteractions.execute(self, o, operation)
 		event.data.merge({"result": action_feedback, "result_code": notice.code, "result_args": notice.args.duplicate(true), "custody_violation": false})
@@ -358,6 +368,7 @@ func load_json(json: String) -> bool:
 	if not load_error.is_empty(): message = load_error; _notify("invalid_save"); return false
 	runtime = decoded.runtime; initial_world = runtime.realization
 	exploration_enabled = not runtime.exploration.is_empty()
+	microhistory_enabled = initial_world.generation_version == HistoryWorldRealization.MICROHISTORY_VERSION
 	scheduler.reset(&"player"); scheduler.restore_player_boundary(decoded.world_time)
 	if decoded.player_delay > 0: scheduler.advance_actor(&"player", decoded.player_delay)
 	actors = ActorRegistry.new(); actors.register(decoded.player); _observe_max_hp_depletion(decoded.player)

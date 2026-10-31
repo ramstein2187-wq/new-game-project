@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+Layout audit: 297 resources, 248 script UIDs, 8 instantiated scenes; main=res://scenes/debug/generated_map_combat_playground.tscn
+PASS: resource paths, preserved script UIDs and all scenes

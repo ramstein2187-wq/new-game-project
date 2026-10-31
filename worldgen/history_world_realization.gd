@@ -3,6 +3,7 @@ extends RefCounted
 ## Deterministic initial play space. All historical rows are defensive snapshots.
 const VERSION := "history_zone/1"
 const EXPLORATION_VERSION := "history_zone/2"
+const MICROHISTORY_VERSION := "history_zone/3"
 var generation_version := VERSION
 const WIDTH := 40
 var manifest: Dictionary = {}
@@ -11,9 +12,10 @@ var zones: Dictionary = {}
 var selected: Array[String] = []
 var errors: Array[String] = []
 
-static func build(input: HistoryWorldManifest, terrain_seed: int = -1, exploration: bool = false) -> HistoryWorldRealization:
+static func build(input: HistoryWorldManifest, terrain_seed: int = -1, exploration: bool = false, microhistory: bool = false) -> HistoryWorldRealization:
 	var w := HistoryWorldRealization.new()
-	w.generation_version = EXPLORATION_VERSION if exploration else VERSION
+	exploration = exploration or microhistory
+	w.generation_version = MICROHISTORY_VERSION if microhistory else (EXPLORATION_VERSION if exploration else VERSION)
 	if input == null:
 		w.errors = ["Missing Manifest"]; return w
 	w.errors = HistoryWorldManifest.validate(input.payload)
@@ -46,6 +48,8 @@ static func build(input: HistoryWorldManifest, terrain_seed: int = -1, explorati
 	if exploration:
 		for id in w.selected:
 			w.zones[id] = ExplorationZoneBuilder.build(w, w.zones[id], int(w.manifest.seed) if terrain_seed < 0 else terrain_seed)
+	if microhistory:
+		for id in w.selected: MicrohistoryRealization.apply(w.manifest, w.zones[id])
 	for id in w.selected:
 		for exit in w.zones[id].objects.values():
 			if exit.kind == "exit":

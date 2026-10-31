@@ -1224,3 +1224,660 @@ msgstr "도구 거치대"
 msgctxt "term"
 msgid "Feral Dog"
 msgstr "들개"
+
+msgid "micro.evidence.hearth"
+msgstr "식은 화덕"
+
+msgid "micro.inspect.hearth"
+msgstr "그을린 돌 사이에 재가 남아 있다."
+
+msgid "micro.evidence.bowl"
+msgstr "놓인 그릇"
+
+msgid "micro.inspect.bowl"
+msgstr "내용물은 남아 있지 않다."
+
+msgid "micro.evidence.empty_bowl"
+msgstr "바닥까지 긁힌 그릇"
+
+msgid "micro.inspect.empty_bowl"
+msgstr "그릇 안쪽에 반복해서 긁은 자국이 있다."
+
+msgid "micro.evidence.pack"
+msgstr "두고 간 짐"
+
+msgid "micro.inspect.pack"
+msgstr "여닫는 매듭이 풀리지 않은 채 남아 있다."
+
+msgid "micro.evidence.tracks"
+msgstr "한 방향의 발자국"
+
+msgid "micro.inspect.tracks"
+msgstr "오가는 흔적의 정확한 주인은 알 수 없다."
+
+msgid "micro.evidence.loop_tracks"
+msgstr "겹쳐 도는 발자국"
+
+msgid "micro.inspect.loop_tracks"
+msgstr "발자국이 같은 자리로 되돌아온다."
+
+msgid "micro.evidence.cloth"
+msgstr "낡은 천 조각"
+
+msgid "micro.inspect.cloth"
+msgstr "작은 바느질 자국이 있다."
+
+msgid "micro.evidence.tools"
+msgstr "작업 도구"
+
+msgid "micro.inspect.tools"
+msgstr "손잡이와 날에 사용 흔적이 있다."
+
+msgid "micro.evidence.broken_tool"
+msgstr "부러진 도구"
+
+msgid "micro.inspect.broken_tool"
+msgstr "부러진 면을 여러 번 붙잡았던 흔적이 있다."
+
+msgid "micro.evidence.furrow"
+msgstr "짧은 고랑"
+
+msgid "micro.inspect.furrow"
+msgstr "일정한 간격으로 땅을 일군 흔적이다."
+
+msgid "micro.evidence.dead_plants"
+msgstr "말라 죽은 줄기"
+
+msgid "micro.inspect.dead_plants"
+msgstr "뿌리 주변이 돌봄 없이 굳었다."
+
+msgid "micro.evidence.bed"
+msgstr "낡은 잠자리"
+
+msgid "micro.inspect.bed"
+msgstr "여러 겹의 천과 나무 받침이 남아 있다."
+
+msgid "micro.evidence.care_note"
+msgstr "돌봄 기록"
+
+msgid "micro.inspect.care_note"
+msgstr "물과 휴식 시간을 표시한 획이 남아 있다. 환자의 결말은 적혀 있지 않다."
+
+msgid "micro.evidence.grave"
+msgstr "작은 무덤"
+
+msgid "micro.inspect.grave"
+msgstr "사람을 묻은 자리다. 신원과 사인은 알 수 없다."
+
+msgid "micro.evidence.flowers"
+msgstr "가지런히 놓인 꽃"
+
+msgid "micro.inspect.flowers"
+msgstr "누가 가져다 놓았는지는 알 수 없다."
+
+msgid "micro.evidence.marker"
+msgstr "세워 놓은 돌"
+
+msgid "micro.inspect.marker"
+msgstr "사람이 위치를 정해 놓았다. 의도는 확인되지 않는다."
+
+msgid "micro.evidence.cart"
+msgstr "버려진 수레"
+
+msgid "micro.inspect.cart"
+msgstr "차축 주변에 무게가 쏠렸던 자국이 있다."
+
+msgid "micro.evidence.salvage"
+msgstr "남겨진 자재"
+
+msgid "micro.inspect.salvage"
+msgstr "회수할 수 있는 평범한 자재 한 묶음이다."
+
+msgid "micro.evidence.receipt"
+msgstr "운송 쪽지"
+
+msgid "micro.inspect.receipt"
+msgstr "출발 수량은 있지만 수령 표시가 없다."
+
+msgid "micro.evidence.cut_rope"
+msgstr "끊긴 줄"
+
+msgid "micro.inspect.cut_rope"
+msgstr "끝이 해져 있다. 고의로 끊었는지는 이 흔적만으로 알 수 없다."
+
+msgid "micro.evidence.remains"
+msgstr "사람의 유해"
+
+msgid "micro.inspect.remains"
+msgstr "한 사람 이상의 유해다. 신원과 사망 원인은 확인되지 않는다."
+
+msgid "micro.evidence.outside_remains"
+msgstr "문 밖의 유해"
+
+msgid "micro.inspect.outside_remains"
+msgstr "유해가 문 바깥에 있다. 문이 닫힌 시점과 사망의 관계는 확인되지 않는다."
+
+msgid "micro.evidence.cache"
+msgstr "닫힌 상자"
+
+msgid "micro.inspect.cache"
+msgstr "상자 안에는 못 쓰게 된 생활용품이 남아 있다."
+
+msgid "micro.evidence.empty_cache"
+msgstr "빈 상자"
+
+msgid "micro.inspect.empty_cache"
+msgstr "내용물은 사라졌지만 가져간 사람은 확인되지 않는다."
+
+msgid "micro.evidence.rope"
+msgstr "길게 늘어진 줄"
+
+msgid "micro.inspect.rope"
+msgstr "매듭 한쪽에 하중을 받았던 자국이 있다."
+
+msgid "micro.evidence.pry_marks"
+msgstr "벌려 낸 자국"
+
+msgid "micro.inspect.pry_marks"
+msgstr "단단한 도구를 틈에 넣은 흔적이다."
+
+msgid "micro.evidence.letter"
+msgstr "사적인 쪽지"
+
+msgid "micro.inspect.letter"
+msgstr "지워진 이름과 짧은 약속만 읽을 수 있다."
+
+msgid "micro.evidence.broken_furniture"
+msgstr "깨진 가구"
+
+msgid "micro.inspect.broken_furniture"
+msgstr "여러 방향으로 부러져 있다."
+
+msgid "micro.evidence.barricade"
+msgstr "안쪽에 쌓은 가구"
+
+msgid "micro.inspect.barricade"
+msgstr "문 안쪽에서 가구를 밀어 쌓았다. 누가 무엇을 피했는지는 알 수 없다."
+
+msgid "micro.evidence.scratch"
+msgstr "출입구의 흠집"
+
+msgid "micro.inspect.scratch"
+msgstr "문 주변에 반복해서 긁고 두드린 자국이 있다."
+
+msgid "micro.evidence.tally"
+msgstr "반복된 획"
+
+msgid "micro.inspect.tally"
+msgstr "수를 센 듯하지만 무엇을 세었는지는 남아 있지 않다."
+
+msgid "micro.evidence.scuff"
+msgstr "뒤섞인 발자국"
+
+msgid "micro.inspect.scuff"
+msgstr "땅이 여러 방향으로 쓸렸다."
+
+msgid "micro.evidence.restraint"
+msgstr "구속 고리"
+
+msgid "micro.inspect.restraint"
+msgstr "고리 안쪽에 반복적인 마찰 흔적이 있다."
+
+msgid "micro.evidence.beam"
+msgstr "기울어진 받침"
+
+msgid "micro.inspect.beam"
+msgstr "자재 하나로 보강하면 주변의 무너질 위험을 줄일 수 있다."
+
+msgid "micro.evidence.braced_beam"
+msgstr "보강된 받침"
+
+msgid "micro.inspect.braced_beam"
+msgstr "작은 쐐기가 하중을 나누고 있다."
+
+msgid "micro.evidence.snare"
+msgstr "장전된 덫"
+
+msgid "micro.inspect.snare"
+msgstr "현재 장력이 남아 있다. 제거하면 이 자리의 위험이 사라진다."
+
+msgid "micro.evidence.nest"
+msgstr "작은 둥지"
+
+msgid "micro.inspect.nest"
+msgstr "가지와 털이 얽혀 있다. 현재 살고 있는 생물은 확인되지 않는다."
+
+msgid "micro.evidence.animal_bones"
+msgstr "동물의 뼈"
+
+msgid "micro.inspect.animal_bones"
+msgstr "알 수 없는 종족의 증거가 아니라 작은 동물의 뼈다."
+
+msgid "micro.evidence.broken_vessel"
+msgstr "깨진 용기"
+
+msgid "micro.inspect.broken_vessel"
+msgstr "안쪽의 말라붙은 흔적은 원래 내용물을 확정하지 못한다."
+
+msgid "micro.evidence.empty_vessel"
+msgstr "비워진 용기"
+
+msgid "micro.inspect.empty_vessel"
+msgstr "찌꺼기를 긁어 낸 자국이 있다."
+
+msgid "micro.evidence.sample_stain"
+msgstr "용기 아래의 얼룩"
+
+msgid "micro.inspect.sample_stain"
+msgstr "바깥으로 액체가 흘렀던 흔적이다."
+
+msgid "micro.evidence.notes"
+msgstr "작업 기록 조각"
+
+msgid "micro.inspect.notes"
+msgstr "날짜와 수량의 일부만 남았다. 전체 경위는 읽을 수 없다."
+
+msgid "micro.evidence.soot"
+msgstr "짙은 그을음"
+
+msgid "micro.inspect.soot"
+msgstr "낮은 곳까지 연기가 닿았다."
+
+msgid "micro.evidence.dig"
+msgstr "얕은 굴착"
+
+msgid "micro.inspect.dig"
+msgstr "보통 도구로 땅을 판 흔적이다."
+
+msgid "micro.evidence.map"
+msgstr "찢긴 지도"
+
+msgid "micro.inspect.map"
+msgstr "경로의 일부만 남아 목적지는 확인되지 않는다."
+
+msgid "micro.evidence.rubble"
+msgstr "무너진 잔해"
+
+msgid "micro.inspect.rubble"
+msgstr "잔해 사이에 도구 자국이 남아 있다."
+
+msgid "micro.shared_meal.outcome.0"
+msgstr "식사를 마치고 그릇을 두고 떠났다."
+
+msgid "micro.shared_meal.outcome.1"
+msgstr "급한 이동으로 식사를 버렸다."
+
+msgid "micro.shared_meal.title"
+msgstr "공동 식사"
+
+msgid "micro.mended_clothes.outcome.0"
+msgstr "옷을 수선하고 천 조각을 남겼다."
+
+msgid "micro.mended_clothes.outcome.1"
+msgstr "바늘이 부러져 작업을 포기했다."
+
+msgid "micro.mended_clothes.title"
+msgstr "옷 수선"
+
+msgid "micro.garden.outcome.0"
+msgstr "밭을 돌보다 다른 곳으로 옮겼다."
+
+msgid "micro.garden.outcome.1"
+msgstr "돌봄이 끊겨 작물이 말라 죽었다."
+
+msgid "micro.garden.title"
+msgstr "작은 텃밭"
+
+msgid "micro.care_room.outcome.0"
+msgstr "환자가 회복한 뒤 함께 떠났다."
+
+msgid "micro.care_room.outcome.1"
+msgstr "간병인이 끝까지 남았으나 환자는 사망했다."
+
+msgid "micro.care_room.title"
+msgstr "남아서 돌본 사람"
+
+msgid "micro.flowers_for_dead.outcome.0"
+msgstr "죽은 동료를 묻고 꽃을 놓았다."
+
+msgid "micro.flowers_for_dead.outcome.1"
+msgstr "돌아오지 않은 동료를 위해 빈 기념물을 세웠다."
+
+msgid "micro.flowers_for_dead.title"
+msgstr "무덤의 꽃"
+
+msgid "micro.water_sharing.outcome.0"
+msgstr "다음 여행자를 위해 빈 그릇과 표식을 남겼다."
+
+msgid "micro.water_sharing.outcome.1"
+msgstr "물통을 수리하다 포기하고 자재를 남겼다."
+
+msgid "micro.water_sharing.title"
+msgstr "길가의 물그릇"
+
+msgid "micro.cart_axle.outcome.0"
+msgstr "수레의 축이 부러져 짐과 도구를 버렸다."
+
+msgid "micro.cart_axle.outcome.1"
+msgstr "수레는 버렸지만 짐과 도구는 모두 가져갔다."
+
+msgid "micro.cart_axle.title"
+msgstr "부러진 차축"
+
+msgid "micro.lost_camp.outcome.0"
+msgstr "방향을 찾은 뒤 야영지를 떠났다."
+
+msgid "micro.lost_camp.outcome.1"
+msgstr "같은 자리를 맴돌다가 물자를 버리고 떠났다."
+
+msgid "micro.lost_camp.title"
+msgstr "길을 잃은 야영"
+
+msgid "micro.unfinished_delivery.outcome.0"
+msgstr "수령자가 나타나지 않아 화물을 가져갔다."
+
+msgid "micro.unfinished_delivery.outcome.1"
+msgstr "운반자가 위험을 느껴 화물을 버렸다."
+
+msgid "micro.unfinished_delivery.title"
+msgstr "멈춘 운송"
+
+msgid "micro.flight.outcome.0"
+msgstr "습격 위협을 보고 짐을 버리고 도주했다."
+
+msgid "micro.flight.outcome.1"
+msgstr "도주 중 동료가 죽었고 생존자는 짐을 가져갔다."
+
+msgid "micro.flight.title"
+msgstr "버리고 달아난 자리"
+
+msgid "micro.smuggling.outcome.0"
+msgstr "숨긴 물자를 회수하지 못했다."
+
+msgid "micro.smuggling.outcome.1"
+msgstr "누군가 숨긴 물자를 먼저 가져갔다."
+
+msgid "micro.smuggling.title"
+msgstr "잘못된 은닉 장소"
+
+msgid "micro.washed_crossing.outcome.0"
+msgstr "도하를 포기하고 줄을 놓고 돌아갔다."
+
+msgid "micro.washed_crossing.outcome.1"
+msgstr "줄이 끊어져 한 사람이 익사했고 시신은 떠내려갔다."
+
+msgid "micro.washed_crossing.title"
+msgstr "끊어진 도하 줄"
+
+msgid "micro.stolen_rations.outcome.0"
+msgstr "배급품을 훔쳐 달아났다."
+
+msgid "micro.stolen_rations.outcome.1"
+msgstr "도둑을 발견해 물자를 지켰지만 상자를 부쉈다."
+
+msgid "micro.stolen_rations.title"
+msgstr "비워진 배급함"
+
+msgid "micro.private_gift.outcome.0"
+msgstr "화해하려 도구를 두었으나 받지 않았다."
+
+msgid "micro.private_gift.outcome.1"
+msgstr "상대가 선물을 가져가고 포장만 남겼다."
+
+msgid "micro.private_gift.title"
+msgstr "놓고 간 선물"
+
+msgid "micro.inheritance.outcome.0"
+msgstr "유품을 나눈 뒤 빈 방만 남았다."
+
+msgid "micro.inheritance.outcome.1"
+msgstr "다투다가 가구를 부수고 떠났다."
+
+msgid "micro.inheritance.title"
+msgstr "갈라진 살림"
+
+msgid "micro.exclusion.outcome.0"
+msgstr "사람들을 쫓아내고 안쪽에서 입구를 막았다."
+
+msgid "micro.exclusion.outcome.1"
+msgstr "입구를 막아 굶주린 방문자가 밖에서 죽었다."
+
+msgid "micro.exclusion.title"
+msgstr "안으로 들이지 않은 사람"
+
+msgid "micro.broken_promise.outcome.0"
+msgstr "약속한 사람이 오지 않아 먼저 떠났다."
+
+msgid "micro.broken_promise.outcome.1"
+msgstr "기다리던 사람이 병으로 죽었다."
+
+msgid "micro.broken_promise.title"
+msgstr "기다림의 자리"
+
+msgid "micro.private_assault.outcome.0"
+msgstr "사소한 분쟁 끝에 도구로 사람을 죽였다."
+
+msgid "micro.private_assault.outcome.1"
+msgstr "폭행당한 사람이 도구를 빼앗아 달아났다."
+
+msgid "micro.private_assault.title"
+msgstr "사적인 보복"
+
+msgid "micro.road_ambush.outcome.0"
+msgstr "사람을 죽이고 화물을 가져갔다."
+
+msgid "micro.road_ambush.outcome.1"
+msgstr "짐을 빼앗긴 이들이 살아서 달아났다."
+
+msgid "micro.road_ambush.title"
+msgstr "길목의 약탈"
+
+msgid "micro.forced_labor.outcome.0"
+msgstr "감시자가 강제로 일을 시켜 한 사람이 죽었다."
+
+msgid "micro.forced_labor.outcome.1"
+msgstr "노동자들이 구속구를 끊고 도주했다."
+
+msgid "micro.forced_labor.title"
+msgstr "강요된 작업"
+
+msgid "micro.abandoned_patients.outcome.0"
+msgstr "관리자가 환자를 버려 방 안에서 죽었다."
+
+msgid "micro.abandoned_patients.outcome.1"
+msgstr "머물던 사람들이 격리를 끝내고 살아서 떠났다."
+
+msgid "micro.abandoned_patients.title"
+msgstr "봉쇄된 돌봄방"
+
+msgid "micro.denied_rescue.outcome.0"
+msgstr "구조자가 위험 때문에 줄을 놓쳤고 사람이 죽었다."
+
+msgid "micro.denied_rescue.outcome.1"
+msgstr "구조자가 위험을 감수해 사람을 구하고 장비를 버렸다."
+
+msgid "micro.denied_rescue.title"
+msgstr "끊긴 구조"
+
+msgid "micro.summary_execution.outcome.0"
+msgstr "무장한 사람이 포로를 죽이고 묻지 않았다."
+
+msgid "micro.summary_execution.outcome.1"
+msgstr "집행 직전에 포로가 탈출했다."
+
+msgid "micro.summary_execution.title"
+msgstr "절차 없는 처형"
+
+msgid "micro.shelter_killing.outcome.0"
+msgstr "약탈자가 머물던 사람들을 죽이고 짐을 가져갔다."
+
+msgid "micro.shelter_killing.outcome.1"
+msgstr "사람들이 안쪽에 가구를 쌓아 침입자를 피했다."
+
+msgid "micro.shelter_killing.title"
+msgstr "쉼터 안의 살인"
+
+msgid "micro.failed_hoist.outcome.0"
+msgstr "수동 권양기를 고치다가 받침이 무너졌다."
+
+msgid "micro.failed_hoist.outcome.1"
+msgstr "받침을 보강했지만 작업장은 버려졌다."
+
+msgid "micro.failed_hoist.title"
+msgstr "손으로 돌리는 권양기"
+
+msgid "micro.snare.outcome.0"
+msgstr "사냥꾼의 덫이 사람을 죽이고 다시 장전되었다."
+
+msgid "micro.snare.outcome.1"
+msgstr "덫을 해체한 뒤 짐승이 둥지를 틀었다."
+
+msgid "micro.snare.title"
+msgstr "풀리지 않은 덫"
+
+msgid "micro.nest_dispute.outcome.0"
+msgstr "작은 짐승들이 둥지 재료를 흩뜨렸다."
+
+msgid "micro.nest_dispute.outcome.1"
+msgstr "둥지가 버려져 깃털과 뼈만 남았다."
+
+msgid "micro.nest_dispute.title"
+msgstr "겹친 둥지"
+
+msgid "micro.spoiled_samples.outcome.0"
+msgstr "보관용기가 깨져 표본이 썩었다."
+
+msgid "micro.spoiled_samples.outcome.1"
+msgstr "작업자가 표본을 폐기하고 기록만 두었다."
+
+msgid "micro.spoiled_samples.title"
+msgstr "썩은 표본"
+
+msgid "micro.cruel_trial.outcome.0"
+msgstr "사람을 묶어 정체 불명의 액체를 먹였고 사망했다."
+
+msgid "micro.cruel_trial.outcome.1"
+msgstr "묶인 사람이 탈출하고 실험도 중단되었다."
+
+msgid "micro.cruel_trial.title"
+msgstr "강제 섭취 실험"
+
+msgid "micro.bad_ventilation.outcome.0"
+msgstr "좁은 방에서 화로를 쓰다 사람들이 질식했다."
+
+msgid "micro.bad_ventilation.outcome.1"
+msgstr "연기를 보고 탈출했으나 가구가 그을렸다."
+
+msgid "micro.bad_ventilation.title"
+msgstr "환기 없는 작업"
+
+msgid "micro.small_dig.outcome.0"
+msgstr "보통 건축 잔해를 발견해 일부 자재를 남겼다."
+
+msgid "micro.small_dig.outcome.1"
+msgstr "아무것도 얻지 못하고 도구를 챙겨 떠났다."
+
+msgid "micro.small_dig.title"
+msgstr "작은 발굴"
+
+msgid "micro.sealed_alcove.outcome.0"
+msgstr "탐사자들이 주관적 위협을 느껴 문을 막은 뒤 사라졌다."
+
+msgid "micro.sealed_alcove.outcome.1"
+msgstr "탐사자가 안쪽에 물자를 숨긴 뒤 다른 통로로 떠났다."
+
+msgid "micro.sealed_alcove.title"
+msgstr "안에서 막힌 작은 방"
+
+msgid "micro.unreadable_map.outcome.0"
+msgstr "측량자가 오류를 발견해 지도를 버렸다."
+
+msgid "micro.unreadable_map.outcome.1"
+msgstr "서로 다른 기준점 때문에 지도 두 장이 맞지 않았다."
+
+msgid "micro.unreadable_map.title"
+msgstr "읽을 수 없는 지도"
+
+msgid "micro.collapsed_probe.outcome.0"
+msgstr "벽이 무너져 굴착자가 죽고 도구가 묻혔다."
+
+msgid "micro.collapsed_probe.outcome.1"
+msgstr "경고를 알아보고 굴착을 중단했다."
+
+msgid "micro.collapsed_probe.title"
+msgstr "무너진 시험 굴착"
+
+msgid "micro.missing_party.outcome.0"
+msgstr "일행이 야영지를 떠난 뒤 행방이 기록되지 않았다."
+
+msgid "micro.missing_party.outcome.1"
+msgstr "한 사람이 돌아와 짐을 챙겼으나 나머지 행방은 미상이다."
+
+msgid "micro.missing_party.title"
+msgstr "돌아오지 않은 일행"
+
+msgid "micro.odd_bones.outcome.0"
+msgstr "수집자가 동물 뼈를 규칙적으로 놓고 떠났다."
+
+msgid "micro.odd_bones.outcome.1"
+msgstr "동물이 뼈를 흩뜨려 원래 배열이 소실되었다."
+
+msgid "micro.odd_bones.title"
+msgstr "모아 둔 뼈"
+
+msgid "micro.age.recent"
+msgstr "최근"
+
+msgid "micro.age.weathered"
+msgstr "풍화 중"
+
+msgid "micro.age.old"
+msgstr "오래됨"
+
+msgid "micro.age.ancient"
+msgstr "아주 오래됨"
+
+msgid "micro.state.used"
+msgstr "현재는 보강되어 있다."
+
+msgid "micro.state.removed"
+msgstr "현재는 제거되어 있다."
+
+msgid "micro.uncertainty"
+msgstr "관찰한 흔적만으로 전체 경위나 누군가의 의도를 확정할 수 없다."
+
+msgid "micro.verb.passive"
+msgstr "주변 환경으로 관찰할 수 있다."
+
+msgid "micro.verb.inspect"
+msgstr "[I] 흔적 조사"
+
+msgid "micro.verb.recover"
+msgstr "[G] 자재 회수"
+
+msgid "micro.verb.clear"
+msgstr "[X] 제거"
+
+msgid "micro.verb.repair"
+msgstr "[P] 자재 1개로 보강"
+
+msgid "micro.debug"
+msgstr "개발자 전용: 객관적 기록 / 현재 증거 (플레이어 지식 아님)"
+
+msgid "micro.review"
+msgstr "미시사 검토"
+
+msgid "micro.select"
+msgstr "사건 선택"
+
+msgid "micro.visit"
+msgstr "검토 위치로 이동"
+
+msgid "micro.region"
+msgstr "검토 지역"
+
+msgid "micro.inactive_trap"
+msgstr "장력이 풀린 오래된 덫"
+
+msgid "micro.inactive_trap_detail"
+msgstr "부식되어 현재 작동하지 않는다. 과거에 무엇을 잡았는지는 이 물건만으로 알 수 없다."

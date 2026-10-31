@@ -114,3 +114,5 @@ When opening a new milestone:
 4. keep durable architectural decisions in `docs/decisions/` if they need to outlive the milestone
 5. mark the milestone complete once its completion criteria are validated, and update the corresponding roadmap entry at the same time
 6. avoid continuously expanding completed milestone documents; put newly found unfinished work into the roadmap
+
+- **M049 Microhistory v7: 구현·자동 검증 완료, task branch only** — 36원형/500세계/1500지역/46스크립트/GPU8화면. 인간 자유 플레이 미실시, main 미병합. 사용자 요청 번호 유지, 기존 탐험/아트와 별도 범위. [범위와 복구](milestones/M049_microhistory_v7.md).

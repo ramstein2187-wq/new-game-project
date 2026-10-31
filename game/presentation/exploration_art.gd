@@ -55,15 +55,17 @@ func draw(canvas: Node2D, game: HistoryPlayableGame, visible: Rect2) -> void:
 		var cell := HistoryWorldRealization.vector(o.cell)
 		if not visible.has_point(Vector2(cell) * 16) or o.get("taken", false) or o.get("removed", false): continue
 		if o.kind == "record" and not game.record_present(o): continue
-		var name: String = o.kind
+		var name: String = o.get("sprite", o.kind)
 		if name == "door" and o.open: name = "door_open"
 		if name == "bridge" and o.used: name = "bridge_used"
 		var tint := Color(0.62, 0.68, 0.65) if o.get("used", false) and o.kind not in ["tool_rack", "bridge"] else Color.WHITE
-		if o.kind not in ["flowers", "scar"]:
+		if o.kind == "micro_evidence" and o.condition != "fresh": tint *= Color(0.68, 0.67, 0.60)
+		if o.kind not in ["flowers", "scar"] and o.get("verb", "") != "passive":
 			canvas.draw_rect(Rect2(Vector2(cell) * 16 + Vector2(1, 13), Vector2(14, 2)), Color("79d6c1") if o.owner_id.is_empty() else Color("e7a252"))
 		if o.blocks and not o.get("open", false):
 			canvas.draw_rect(Rect2(Vector2(cell) * 16, Vector2(16, 16)), Color(0.08, 0.12, 0.15, 0.5))
-		sprite(canvas, name, cell, tint)
+		if o.kind == "micro_evidence": MicrohistoryArt.draw(canvas,o,cell,tint)
+		else: sprite(canvas, name, cell, tint)
 	# A player may walk over a dead Actor. Corpses must never cover that silhouette.
 	var render_actors := game.actors.all()
 	render_actors.sort_custom(func(a: Actor, b: Actor) -> bool:

@@ -35,3 +35,8 @@ docs/diagrams/*.import
 
 /docs/reviews/m048_korean_localization/*.png.import
 /docs/reviews/m049/**/*.png.import
+
+# Reproducible microhistory pilot outputs; final corpus summary/review stays tracked.
+/docs/reviews/microhistory_v7/corpus_10.json
+/docs/reviews/microhistory_v7/random_regions_10.md
+/docs/reviews/microhistory_v7/screenshots/*.png.import

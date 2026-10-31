@@ -1,0 +1,141 @@
+{
+	"captures": [
+		{
+			"definition": "flowers_for_dead",
+			"evidence": [
+				"grave",
+				"flowers"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/01_42_flowers_for_dead.png",
+			"incident": "microhistory/1:locality_0:0",
+			"layout": "memorial",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				33,
+				19
+			],
+			"region": "locality_0",
+			"seed": 42
+		},
+		{
+			"definition": "cart_axle",
+			"evidence": [
+				"cart",
+				"tools",
+				"salvage"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/02_42_cart_axle.png",
+			"incident": "microhistory/1:locality_0:1",
+			"layout": "convoy",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				49,
+				45
+			],
+			"region": "locality_0",
+			"seed": 42
+		},
+		{
+			"definition": "exclusion",
+			"evidence": [
+				"barricade",
+				"scratch",
+				"outside_remains"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/03_42_exclusion.png",
+			"incident": "microhistory/1:locality_0:3",
+			"layout": "room",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				83,
+				17
+			],
+			"region": "locality_0",
+			"seed": 42
+		},
+		{
+			"definition": "garden",
+			"evidence": [
+				"furrow"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/04_42_garden.png",
+			"incident": "microhistory/1:locality_0:4",
+			"layout": "garden",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				55,
+				17
+			],
+			"region": "locality_0",
+			"seed": 42
+		},
+		{
+			"definition": "stolen_rations",
+			"evidence": [
+				"empty_cache"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/05_42_stolen_rations.png",
+			"incident": "microhistory/1:locality_1:1",
+			"layout": "cache",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				17,
+				41
+			],
+			"region": "locality_1",
+			"seed": 42
+		},
+		{
+			"definition": "washed_crossing",
+			"evidence": [
+				"cut_rope"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/06_42_washed_crossing.png",
+			"incident": "microhistory/1:locality_2:2",
+			"layout": "rescue",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				67,
+				21
+			],
+			"region": "locality_2",
+			"seed": 42
+		},
+		{
+			"definition": "snare",
+			"evidence": [
+				"snare"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/07_1_snare.png",
+			"incident": "microhistory/1:locality_1:3",
+			"layout": "nest",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				63,
+				43
+			],
+			"region": "locality_1",
+			"seed": 1
+		},
+		{
+			"definition": "failed_hoist",
+			"evidence": [
+				"broken_tool",
+				"beam",
+				"tools"
+			],
+			"file": "res://docs/reviews/microhistory_v7/screenshots/08_1_failed_hoist.png",
+			"incident": "microhistory/1:locality_0:0",
+			"layout": "work",
+			"method": "actual Godot GPU; explicit debug relocation, not traversal proof",
+			"placement": [
+				29,
+				25
+			],
+			"region": "locality_0",
+			"seed": 1
+		}
+	],
+	"failures": [],
+	"renderer": "NVIDIA GeForce RTX 5070 Ti"
+}

@@ -1223,3 +1223,660 @@ msgstr ""
 msgctxt "term"
 msgid "Feral Dog"
 msgstr ""
+
+msgid "micro.evidence.hearth"
+msgstr ""
+
+msgid "micro.inspect.hearth"
+msgstr ""
+
+msgid "micro.evidence.bowl"
+msgstr ""
+
+msgid "micro.inspect.bowl"
+msgstr ""
+
+msgid "micro.evidence.empty_bowl"
+msgstr ""
+
+msgid "micro.inspect.empty_bowl"
+msgstr ""
+
+msgid "micro.evidence.pack"
+msgstr ""
+
+msgid "micro.inspect.pack"
+msgstr ""
+
+msgid "micro.evidence.tracks"
+msgstr ""
+
+msgid "micro.inspect.tracks"
+msgstr ""
+
+msgid "micro.evidence.loop_tracks"
+msgstr ""
+
+msgid "micro.inspect.loop_tracks"
+msgstr ""
+
+msgid "micro.evidence.cloth"
+msgstr ""
+
+msgid "micro.inspect.cloth"
+msgstr ""
+
+msgid "micro.evidence.tools"
+msgstr ""
+
+msgid "micro.inspect.tools"
+msgstr ""
+
+msgid "micro.evidence.broken_tool"
+msgstr ""
+
+msgid "micro.inspect.broken_tool"
+msgstr ""
+
+msgid "micro.evidence.furrow"
+msgstr ""
+
+msgid "micro.inspect.furrow"
+msgstr ""
+
+msgid "micro.evidence.dead_plants"
+msgstr ""
+
+msgid "micro.inspect.dead_plants"
+msgstr ""
+
+msgid "micro.evidence.bed"
+msgstr ""
+
+msgid "micro.inspect.bed"
+msgstr ""
+
+msgid "micro.evidence.care_note"
+msgstr ""
+
+msgid "micro.inspect.care_note"
+msgstr ""
+
+msgid "micro.evidence.grave"
+msgstr ""
+
+msgid "micro.inspect.grave"
+msgstr ""
+
+msgid "micro.evidence.flowers"
+msgstr ""
+
+msgid "micro.inspect.flowers"
+msgstr ""
+
+msgid "micro.evidence.marker"
+msgstr ""
+
+msgid "micro.inspect.marker"
+msgstr ""
+
+msgid "micro.evidence.cart"
+msgstr ""
+
+msgid "micro.inspect.cart"
+msgstr ""
+
+msgid "micro.evidence.salvage"
+msgstr ""
+
+msgid "micro.inspect.salvage"
+msgstr ""
+
+msgid "micro.evidence.receipt"
+msgstr ""
+
+msgid "micro.inspect.receipt"
+msgstr ""
+
+msgid "micro.evidence.cut_rope"
+msgstr ""
+
+msgid "micro.inspect.cut_rope"
+msgstr ""
+
+msgid "micro.evidence.remains"
+msgstr ""
+
+msgid "micro.inspect.remains"
+msgstr ""
+
+msgid "micro.evidence.outside_remains"
+msgstr ""
+
+msgid "micro.inspect.outside_remains"
+msgstr ""
+
+msgid "micro.evidence.cache"
+msgstr ""
+
+msgid "micro.inspect.cache"
+msgstr ""
+
+msgid "micro.evidence.empty_cache"
+msgstr ""
+
+msgid "micro.inspect.empty_cache"
+msgstr ""
+
+msgid "micro.evidence.rope"
+msgstr ""
+
+msgid "micro.inspect.rope"
+msgstr ""
+
+msgid "micro.evidence.pry_marks"
+msgstr ""
+
+msgid "micro.inspect.pry_marks"
+msgstr ""
+
+msgid "micro.evidence.letter"
+msgstr ""
+
+msgid "micro.inspect.letter"
+msgstr ""
+
+msgid "micro.evidence.broken_furniture"
+msgstr ""
+
+msgid "micro.inspect.broken_furniture"
+msgstr ""
+
+msgid "micro.evidence.barricade"
+msgstr ""
+
+msgid "micro.inspect.barricade"
+msgstr ""
+
+msgid "micro.evidence.scratch"
+msgstr ""
+
+msgid "micro.inspect.scratch"
+msgstr ""
+
+msgid "micro.evidence.tally"
+msgstr ""
+
+msgid "micro.inspect.tally"
+msgstr ""
+
+msgid "micro.evidence.scuff"
+msgstr ""
+
+msgid "micro.inspect.scuff"
+msgstr ""
+
+msgid "micro.evidence.restraint"
+msgstr ""
+
+msgid "micro.inspect.restraint"
+msgstr ""
+
+msgid "micro.evidence.beam"
+msgstr ""
+
+msgid "micro.inspect.beam"
+msgstr ""
+
+msgid "micro.evidence.braced_beam"
+msgstr ""
+
+msgid "micro.inspect.braced_beam"
+msgstr ""
+
+msgid "micro.evidence.snare"
+msgstr ""
+
+msgid "micro.inspect.snare"
+msgstr ""
+
+msgid "micro.evidence.nest"
+msgstr ""
+
+msgid "micro.inspect.nest"
+msgstr ""
+
+msgid "micro.evidence.animal_bones"
+msgstr ""
+
+msgid "micro.inspect.animal_bones"
+msgstr ""
+
+msgid "micro.evidence.broken_vessel"
+msgstr ""
+
+msgid "micro.inspect.broken_vessel"
+msgstr ""
+
+msgid "micro.evidence.empty_vessel"
+msgstr ""
+
+msgid "micro.inspect.empty_vessel"
+msgstr ""
+
+msgid "micro.evidence.sample_stain"
+msgstr ""
+
+msgid "micro.inspect.sample_stain"
+msgstr ""
+
+msgid "micro.evidence.notes"
+msgstr ""
+
+msgid "micro.inspect.notes"
+msgstr ""
+
+msgid "micro.evidence.soot"
+msgstr ""
+
+msgid "micro.inspect.soot"
+msgstr ""
+
+msgid "micro.evidence.dig"
+msgstr ""
+
+msgid "micro.inspect.dig"
+msgstr ""
+
+msgid "micro.evidence.map"
+msgstr ""
+
+msgid "micro.inspect.map"
+msgstr ""
+
+msgid "micro.evidence.rubble"
+msgstr ""
+
+msgid "micro.inspect.rubble"
+msgstr ""
+
+msgid "micro.shared_meal.outcome.0"
+msgstr ""
+
+msgid "micro.shared_meal.outcome.1"
+msgstr ""
+
+msgid "micro.shared_meal.title"
+msgstr ""
+
+msgid "micro.mended_clothes.outcome.0"
+msgstr ""
+
+msgid "micro.mended_clothes.outcome.1"
+msgstr ""
+
+msgid "micro.mended_clothes.title"
+msgstr ""
+
+msgid "micro.garden.outcome.0"
+msgstr ""
+
+msgid "micro.garden.outcome.1"
+msgstr ""
+
+msgid "micro.garden.title"
+msgstr ""
+
+msgid "micro.care_room.outcome.0"
+msgstr ""
+
+msgid "micro.care_room.outcome.1"
+msgstr ""
+
+msgid "micro.care_room.title"
+msgstr ""
+
+msgid "micro.flowers_for_dead.outcome.0"
+msgstr ""
+
+msgid "micro.flowers_for_dead.outcome.1"
+msgstr ""
+
+msgid "micro.flowers_for_dead.title"
+msgstr ""
+
+msgid "micro.water_sharing.outcome.0"
+msgstr ""
+
+msgid "micro.water_sharing.outcome.1"
+msgstr ""
+
+msgid "micro.water_sharing.title"
+msgstr ""
+
+msgid "micro.cart_axle.outcome.0"
+msgstr ""
+
+msgid "micro.cart_axle.outcome.1"
+msgstr ""
+
+msgid "micro.cart_axle.title"
+msgstr ""
+
+msgid "micro.lost_camp.outcome.0"
+msgstr ""
+
+msgid "micro.lost_camp.outcome.1"
+msgstr ""
+
+msgid "micro.lost_camp.title"
+msgstr ""
+
+msgid "micro.unfinished_delivery.outcome.0"
+msgstr ""
+
+msgid "micro.unfinished_delivery.outcome.1"
+msgstr ""
+
+msgid "micro.unfinished_delivery.title"
+msgstr ""
+
+msgid "micro.flight.outcome.0"
+msgstr ""
+
+msgid "micro.flight.outcome.1"
+msgstr ""
+
+msgid "micro.flight.title"
+msgstr ""
+
+msgid "micro.smuggling.outcome.0"
+msgstr ""
+
+msgid "micro.smuggling.outcome.1"
+msgstr ""
+
+msgid "micro.smuggling.title"
+msgstr ""
+
+msgid "micro.washed_crossing.outcome.0"
+msgstr ""
+
+msgid "micro.washed_crossing.outcome.1"
+msgstr ""
+
+msgid "micro.washed_crossing.title"
+msgstr ""
+
+msgid "micro.stolen_rations.outcome.0"
+msgstr ""
+
+msgid "micro.stolen_rations.outcome.1"
+msgstr ""
+
+msgid "micro.stolen_rations.title"
+msgstr ""
+
+msgid "micro.private_gift.outcome.0"
+msgstr ""
+
+msgid "micro.private_gift.outcome.1"
+msgstr ""
+
+msgid "micro.private_gift.title"
+msgstr ""
+
+msgid "micro.inheritance.outcome.0"
+msgstr ""
+
+msgid "micro.inheritance.outcome.1"
+msgstr ""
+
+msgid "micro.inheritance.title"
+msgstr ""
+
+msgid "micro.exclusion.outcome.0"
+msgstr ""
+
+msgid "micro.exclusion.outcome.1"
+msgstr ""
+
+msgid "micro.exclusion.title"
+msgstr ""
+
+msgid "micro.broken_promise.outcome.0"
+msgstr ""
+
+msgid "micro.broken_promise.outcome.1"
+msgstr ""
+
+msgid "micro.broken_promise.title"
+msgstr ""
+
+msgid "micro.private_assault.outcome.0"
+msgstr ""
+
+msgid "micro.private_assault.outcome.1"
+msgstr ""
+
+msgid "micro.private_assault.title"
+msgstr ""
+
+msgid "micro.road_ambush.outcome.0"
+msgstr ""
+
+msgid "micro.road_ambush.outcome.1"
+msgstr ""
+
+msgid "micro.road_ambush.title"
+msgstr ""
+
+msgid "micro.forced_labor.outcome.0"
+msgstr ""
+
+msgid "micro.forced_labor.outcome.1"
+msgstr ""
+
+msgid "micro.forced_labor.title"
+msgstr ""
+
+msgid "micro.abandoned_patients.outcome.0"
+msgstr ""
+
+msgid "micro.abandoned_patients.outcome.1"
+msgstr ""
+
+msgid "micro.abandoned_patients.title"
+msgstr ""
+
+msgid "micro.denied_rescue.outcome.0"
+msgstr ""
+
+msgid "micro.denied_rescue.outcome.1"
+msgstr ""
+
+msgid "micro.denied_rescue.title"
+msgstr ""
+
+msgid "micro.summary_execution.outcome.0"
+msgstr ""
+
+msgid "micro.summary_execution.outcome.1"
+msgstr ""
+
+msgid "micro.summary_execution.title"
+msgstr ""
+
+msgid "micro.shelter_killing.outcome.0"
+msgstr ""
+
+msgid "micro.shelter_killing.outcome.1"
+msgstr ""
+
+msgid "micro.shelter_killing.title"
+msgstr ""
+
+msgid "micro.failed_hoist.outcome.0"
+msgstr ""
+
+msgid "micro.failed_hoist.outcome.1"
+msgstr ""
+
+msgid "micro.failed_hoist.title"
+msgstr ""
+
+msgid "micro.snare.outcome.0"
+msgstr ""
+
+msgid "micro.snare.outcome.1"
+msgstr ""
+
+msgid "micro.snare.title"
+msgstr ""
+
+msgid "micro.nest_dispute.outcome.0"
+msgstr ""
+
+msgid "micro.nest_dispute.outcome.1"
+msgstr ""
+
+msgid "micro.nest_dispute.title"
+msgstr ""
+
+msgid "micro.spoiled_samples.outcome.0"
+msgstr ""
+
+msgid "micro.spoiled_samples.outcome.1"
+msgstr ""
+
+msgid "micro.spoiled_samples.title"
+msgstr ""
+
+msgid "micro.cruel_trial.outcome.0"
+msgstr ""
+
+msgid "micro.cruel_trial.outcome.1"
+msgstr ""
+
+msgid "micro.cruel_trial.title"
+msgstr ""
+
+msgid "micro.bad_ventilation.outcome.0"
+msgstr ""
+
+msgid "micro.bad_ventilation.outcome.1"
+msgstr ""
+
+msgid "micro.bad_ventilation.title"
+msgstr ""
+
+msgid "micro.small_dig.outcome.0"
+msgstr ""
+
+msgid "micro.small_dig.outcome.1"
+msgstr ""
+
+msgid "micro.small_dig.title"
+msgstr ""
+
+msgid "micro.sealed_alcove.outcome.0"
+msgstr ""
+
+msgid "micro.sealed_alcove.outcome.1"
+msgstr ""
+
+msgid "micro.sealed_alcove.title"
+msgstr ""
+
+msgid "micro.unreadable_map.outcome.0"
+msgstr ""
+
+msgid "micro.unreadable_map.outcome.1"
+msgstr ""
+
+msgid "micro.unreadable_map.title"
+msgstr ""
+
+msgid "micro.collapsed_probe.outcome.0"
+msgstr ""
+
+msgid "micro.collapsed_probe.outcome.1"
+msgstr ""
+
+msgid "micro.collapsed_probe.title"
+msgstr ""
+
+msgid "micro.missing_party.outcome.0"
+msgstr ""
+
+msgid "micro.missing_party.outcome.1"
+msgstr ""
+
+msgid "micro.missing_party.title"
+msgstr ""
+
+msgid "micro.odd_bones.outcome.0"
+msgstr ""
+
+msgid "micro.odd_bones.outcome.1"
+msgstr ""
+
+msgid "micro.odd_bones.title"
+msgstr ""
+
+msgid "micro.age.recent"
+msgstr ""
+
+msgid "micro.age.weathered"
+msgstr ""
+
+msgid "micro.age.old"
+msgstr ""
+
+msgid "micro.age.ancient"
+msgstr ""
+
+msgid "micro.state.used"
+msgstr ""
+
+msgid "micro.state.removed"
+msgstr ""
+
+msgid "micro.uncertainty"
+msgstr ""
+
+msgid "micro.verb.passive"
+msgstr ""
+
+msgid "micro.verb.inspect"
+msgstr ""
+
+msgid "micro.verb.recover"
+msgstr ""
+
+msgid "micro.verb.clear"
+msgstr ""
+
+msgid "micro.verb.repair"
+msgstr ""
+
+msgid "micro.debug"
+msgstr ""
+
+msgid "micro.review"
+msgstr ""
+
+msgid "micro.select"
+msgstr ""
+
+msgid "micro.visit"
+msgstr ""
+
+msgid "micro.region"
+msgstr ""
+
+msgid "micro.inactive_trap"
+msgstr ""
+
+msgid "micro.inactive_trap_detail"
+msgstr ""

@@ -1,0 +1,1761 @@
+{
+  "revision": "microhistory/1",
+  "category_weights": {
+    "ordinary": 25,
+    "accident": 20,
+    "conflict": 20,
+    "tragedy": 25,
+    "horror": 10
+  },
+  "evidence": {
+    "hearth": {
+      "material": "stone",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "camp",
+      "observation_key": "micro.evidence.hearth",
+      "inspection_key": "micro.inspect.hearth"
+    },
+    "bowl": {
+      "material": "ceramic",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "crate",
+      "observation_key": "micro.evidence.bowl",
+      "inspection_key": "micro.inspect.bowl"
+    },
+    "empty_bowl": {
+      "material": "ceramic",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "crate",
+      "observation_key": "micro.evidence.empty_bowl",
+      "inspection_key": "micro.inspect.empty_bowl"
+    },
+    "pack": {
+      "material": "cloth",
+      "requires": "abandoned",
+      "verb": "inspect",
+      "sprite": "supply_cache",
+      "observation_key": "micro.evidence.pack",
+      "inspection_key": "micro.inspect.pack"
+    },
+    "tracks": {
+      "material": "soil",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.tracks",
+      "inspection_key": "micro.inspect.tracks"
+    },
+    "loop_tracks": {
+      "material": "soil",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.loop_tracks",
+      "inspection_key": "micro.inspect.loop_tracks"
+    },
+    "cloth": {
+      "material": "cloth",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "flowers",
+      "observation_key": "micro.evidence.cloth",
+      "inspection_key": "micro.inspect.cloth"
+    },
+    "tools": {
+      "material": "metal",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "tool_rack",
+      "observation_key": "micro.evidence.tools",
+      "inspection_key": "micro.inspect.tools"
+    },
+    "broken_tool": {
+      "material": "metal",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "scrap",
+      "observation_key": "micro.evidence.broken_tool",
+      "inspection_key": "micro.inspect.broken_tool"
+    },
+    "furrow": {
+      "material": "soil",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.furrow",
+      "inspection_key": "micro.inspect.furrow"
+    },
+    "dead_plants": {
+      "material": "plant",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "flowers",
+      "observation_key": "micro.evidence.dead_plants",
+      "inspection_key": "micro.inspect.dead_plants"
+    },
+    "bed": {
+      "material": "wood",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "shelter",
+      "observation_key": "micro.evidence.bed",
+      "inspection_key": "micro.inspect.bed"
+    },
+    "care_note": {
+      "material": "paper",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "record",
+      "observation_key": "micro.evidence.care_note",
+      "inspection_key": "micro.inspect.care_note"
+    },
+    "grave": {
+      "material": "stone",
+      "requires": "burial",
+      "verb": "inspect",
+      "sprite": "boulder",
+      "observation_key": "micro.evidence.grave",
+      "inspection_key": "micro.inspect.grave"
+    },
+    "flowers": {
+      "material": "plant",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "flowers",
+      "observation_key": "micro.evidence.flowers",
+      "inspection_key": "micro.inspect.flowers"
+    },
+    "marker": {
+      "material": "stone",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "waystone",
+      "observation_key": "micro.evidence.marker",
+      "inspection_key": "micro.inspect.marker"
+    },
+    "cart": {
+      "material": "wood",
+      "requires": "transport",
+      "verb": "clear",
+      "sprite": "cart",
+      "observation_key": "micro.evidence.cart",
+      "inspection_key": "micro.inspect.cart"
+    },
+    "salvage": {
+      "material": "metal",
+      "requires": "abandoned",
+      "verb": "recover",
+      "sprite": "scrap",
+      "observation_key": "micro.evidence.salvage",
+      "inspection_key": "micro.inspect.salvage"
+    },
+    "receipt": {
+      "material": "paper",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "record",
+      "observation_key": "micro.evidence.receipt",
+      "inspection_key": "micro.inspect.receipt"
+    },
+    "cut_rope": {
+      "material": "cloth",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "scrap",
+      "observation_key": "micro.evidence.cut_rope",
+      "inspection_key": "micro.inspect.cut_rope"
+    },
+    "remains": {
+      "material": "bone",
+      "requires": "death",
+      "verb": "inspect",
+      "sprite": "corpse",
+      "observation_key": "micro.evidence.remains",
+      "inspection_key": "micro.inspect.remains"
+    },
+    "outside_remains": {
+      "material": "bone",
+      "requires": "death",
+      "verb": "inspect",
+      "sprite": "corpse",
+      "observation_key": "micro.evidence.outside_remains",
+      "inspection_key": "micro.inspect.outside_remains"
+    },
+    "cache": {
+      "material": "wood",
+      "requires": "abandoned",
+      "verb": "inspect",
+      "sprite": "crate",
+      "observation_key": "micro.evidence.cache",
+      "inspection_key": "micro.inspect.cache"
+    },
+    "empty_cache": {
+      "material": "wood",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "crate",
+      "observation_key": "micro.evidence.empty_cache",
+      "inspection_key": "micro.inspect.empty_cache"
+    },
+    "rope": {
+      "material": "cloth",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "scrap",
+      "observation_key": "micro.evidence.rope",
+      "inspection_key": "micro.inspect.rope"
+    },
+    "pry_marks": {
+      "material": "stone",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.pry_marks",
+      "inspection_key": "micro.inspect.pry_marks"
+    },
+    "letter": {
+      "material": "paper",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "record",
+      "observation_key": "micro.evidence.letter",
+      "inspection_key": "micro.inspect.letter"
+    },
+    "broken_furniture": {
+      "material": "wood",
+      "requires": "",
+      "verb": "clear",
+      "sprite": "rubble",
+      "observation_key": "micro.evidence.broken_furniture",
+      "inspection_key": "micro.inspect.broken_furniture"
+    },
+    "barricade": {
+      "material": "wood",
+      "requires": "blocked",
+      "verb": "clear",
+      "sprite": "fence",
+      "observation_key": "micro.evidence.barricade",
+      "inspection_key": "micro.inspect.barricade"
+    },
+    "scratch": {
+      "material": "stone",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.scratch",
+      "inspection_key": "micro.inspect.scratch"
+    },
+    "tally": {
+      "material": "stone",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "waystone",
+      "observation_key": "micro.evidence.tally",
+      "inspection_key": "micro.inspect.tally"
+    },
+    "scuff": {
+      "material": "soil",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.scuff",
+      "inspection_key": "micro.inspect.scuff"
+    },
+    "restraint": {
+      "material": "metal",
+      "requires": "control",
+      "verb": "inspect",
+      "sprite": "scrap",
+      "observation_key": "micro.evidence.restraint",
+      "inspection_key": "micro.inspect.restraint"
+    },
+    "beam": {
+      "material": "wood",
+      "requires": "damage",
+      "verb": "repair",
+      "sprite": "workbench",
+      "observation_key": "micro.evidence.beam",
+      "inspection_key": "micro.inspect.beam"
+    },
+    "braced_beam": {
+      "material": "wood",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "workbench",
+      "observation_key": "micro.evidence.braced_beam",
+      "inspection_key": "micro.inspect.braced_beam"
+    },
+    "snare": {
+      "material": "metal",
+      "requires": "active_trap",
+      "verb": "clear",
+      "sprite": "hazard",
+      "observation_key": "micro.evidence.snare",
+      "inspection_key": "micro.inspect.snare"
+    },
+    "nest": {
+      "material": "wood",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "camp",
+      "observation_key": "micro.evidence.nest",
+      "inspection_key": "micro.inspect.nest"
+    },
+    "animal_bones": {
+      "material": "bone",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "corpse",
+      "observation_key": "micro.evidence.animal_bones",
+      "inspection_key": "micro.inspect.animal_bones"
+    },
+    "broken_vessel": {
+      "material": "ceramic",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scrap",
+      "observation_key": "micro.evidence.broken_vessel",
+      "inspection_key": "micro.inspect.broken_vessel"
+    },
+    "empty_vessel": {
+      "material": "ceramic",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "crate",
+      "observation_key": "micro.evidence.empty_vessel",
+      "inspection_key": "micro.inspect.empty_vessel"
+    },
+    "sample_stain": {
+      "material": "soil",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.sample_stain",
+      "inspection_key": "micro.inspect.sample_stain"
+    },
+    "notes": {
+      "material": "paper",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "record",
+      "observation_key": "micro.evidence.notes",
+      "inspection_key": "micro.inspect.notes"
+    },
+    "soot": {
+      "material": "stone",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.soot",
+      "inspection_key": "micro.inspect.soot"
+    },
+    "dig": {
+      "material": "soil",
+      "requires": "",
+      "verb": "passive",
+      "sprite": "scar",
+      "observation_key": "micro.evidence.dig",
+      "inspection_key": "micro.inspect.dig"
+    },
+    "map": {
+      "material": "paper",
+      "requires": "",
+      "verb": "inspect",
+      "sprite": "record",
+      "observation_key": "micro.evidence.map",
+      "inspection_key": "micro.inspect.map"
+    },
+    "rubble": {
+      "material": "stone",
+      "requires": "damage",
+      "verb": "clear",
+      "sprite": "rubble",
+      "observation_key": "micro.evidence.rubble",
+      "inspection_key": "micro.inspect.rubble"
+    }
+  },
+  "definitions": [
+    {
+      "id": "shared_meal",
+      "family": "everyday",
+      "category": "ordinary",
+      "layout": "camp",
+      "context": "any",
+      "actor_kind": "human_visitors",
+      "intent": "cook",
+      "title_key": "micro.shared_meal.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.shared_meal.outcome.0",
+          "facts": [],
+          "evidence": [
+            "hearth",
+            "bowl"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.shared_meal.outcome.1",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "hearth",
+            "bowl",
+            "pack",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "mended_clothes",
+      "family": "everyday",
+      "category": "ordinary",
+      "layout": "work",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "craft",
+      "title_key": "micro.mended_clothes.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.mended_clothes.outcome.0",
+          "facts": [],
+          "evidence": [
+            "cloth",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.mended_clothes.outcome.1",
+          "facts": [],
+          "evidence": [
+            "cloth",
+            "broken_tool"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "garden",
+      "family": "everyday",
+      "category": "ordinary",
+      "layout": "garden",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "grow",
+      "title_key": "micro.garden.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.garden.outcome.0",
+          "facts": [],
+          "evidence": [
+            "furrow",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.garden.outcome.1",
+          "facts": [],
+          "evidence": [
+            "furrow",
+            "dead_plants"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "care_room",
+      "family": "everyday",
+      "category": "ordinary",
+      "layout": "room",
+      "context": "shelter",
+      "actor_kind": "human_visitors",
+      "intent": "care",
+      "title_key": "micro.care_room.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.care_room.outcome.0",
+          "facts": [],
+          "evidence": [
+            "bed",
+            "bowl",
+            "care_note"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.care_room.outcome.1",
+          "facts": [
+            "burial",
+            "death"
+          ],
+          "evidence": [
+            "bed",
+            "bowl",
+            "grave",
+            "care_note"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "flowers_for_dead",
+      "family": "everyday",
+      "category": "ordinary",
+      "layout": "memorial",
+      "context": "any",
+      "actor_kind": "human_visitors",
+      "intent": "remember",
+      "title_key": "micro.flowers_for_dead.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.flowers_for_dead.outcome.0",
+          "facts": [
+            "burial",
+            "death"
+          ],
+          "evidence": [
+            "grave",
+            "flowers"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.flowers_for_dead.outcome.1",
+          "facts": [],
+          "evidence": [
+            "marker",
+            "flowers"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "water_sharing",
+      "family": "everyday",
+      "category": "ordinary",
+      "layout": "cache",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "share",
+      "title_key": "micro.water_sharing.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.water_sharing.outcome.0",
+          "facts": [],
+          "evidence": [
+            "bowl",
+            "marker"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.water_sharing.outcome.1",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "bowl",
+            "broken_tool",
+            "salvage"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "cart_axle",
+      "family": "travel",
+      "category": "accident",
+      "layout": "convoy",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "transport",
+      "title_key": "micro.cart_axle.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.cart_axle.outcome.0",
+          "facts": [
+            "abandoned",
+            "transport"
+          ],
+          "evidence": [
+            "cart",
+            "pack",
+            "tools",
+            "salvage"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.cart_axle.outcome.1",
+          "facts": [
+            "transport"
+          ],
+          "evidence": [
+            "cart",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "lost_camp",
+      "family": "travel",
+      "category": "accident",
+      "layout": "camp",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "travel",
+      "title_key": "micro.lost_camp.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.lost_camp.outcome.0",
+          "facts": [],
+          "evidence": [
+            "hearth",
+            "marker",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.lost_camp.outcome.1",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "hearth",
+            "pack",
+            "loop_tracks"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "unfinished_delivery",
+      "family": "travel",
+      "category": "conflict",
+      "layout": "convoy",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "trade",
+      "title_key": "micro.unfinished_delivery.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.unfinished_delivery.outcome.0",
+          "facts": [
+            "transport"
+          ],
+          "evidence": [
+            "receipt",
+            "cart"
+          ],
+          "missing_person": false,
+          "severity": 2
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.unfinished_delivery.outcome.1",
+          "facts": [
+            "abandoned",
+            "transport"
+          ],
+          "evidence": [
+            "receipt",
+            "cart",
+            "pack",
+            "salvage"
+          ],
+          "missing_person": false,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "id": "flight",
+      "family": "travel",
+      "category": "tragedy",
+      "layout": "camp",
+      "context": "danger",
+      "actor_kind": "human_visitors",
+      "intent": "flee",
+      "title_key": "micro.flight.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.flight.outcome.0",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "pack",
+            "tracks",
+            "cut_rope"
+          ],
+          "missing_person": false,
+          "severity": 2
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.flight.outcome.1",
+          "facts": [
+            "death"
+          ],
+          "evidence": [
+            "remains",
+            "tracks",
+            "cut_rope"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "smuggling",
+      "family": "travel",
+      "category": "conflict",
+      "layout": "cache",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "hide",
+      "title_key": "micro.smuggling.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.smuggling.outcome.0",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "cache",
+            "salvage",
+            "marker"
+          ],
+          "missing_person": false,
+          "severity": 2
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.smuggling.outcome.1",
+          "facts": [],
+          "evidence": [
+            "empty_cache",
+            "marker"
+          ],
+          "missing_person": false,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "id": "washed_crossing",
+      "family": "travel",
+      "category": "accident",
+      "layout": "rescue",
+      "context": "wet",
+      "actor_kind": "human_visitors",
+      "intent": "cross",
+      "title_key": "micro.washed_crossing.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.washed_crossing.outcome.0",
+          "facts": [],
+          "evidence": [
+            "rope",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.washed_crossing.outcome.1",
+          "facts": [
+            "abandoned",
+            "death"
+          ],
+          "evidence": [
+            "cut_rope",
+            "pack"
+          ],
+          "missing_person": false,
+          "severity": 3,
+          "body_status": "carried_away"
+        }
+      ]
+    },
+    {
+      "id": "stolen_rations",
+      "family": "social",
+      "category": "conflict",
+      "layout": "cache",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "steal",
+      "title_key": "micro.stolen_rations.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.stolen_rations.outcome.0",
+          "facts": [],
+          "evidence": [
+            "empty_cache",
+            "pry_marks"
+          ],
+          "missing_person": false,
+          "severity": 2
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.stolen_rations.outcome.1",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "cache",
+            "pry_marks",
+            "salvage"
+          ],
+          "missing_person": false,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "id": "private_gift",
+      "family": "social",
+      "category": "ordinary",
+      "layout": "memorial",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "give",
+      "title_key": "micro.private_gift.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.private_gift.outcome.0",
+          "facts": [],
+          "evidence": [
+            "tools",
+            "letter"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.private_gift.outcome.1",
+          "facts": [],
+          "evidence": [
+            "cloth",
+            "letter"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "inheritance",
+      "family": "social",
+      "category": "conflict",
+      "layout": "room",
+      "context": "shelter",
+      "actor_kind": "human_visitors",
+      "intent": "claim",
+      "title_key": "micro.inheritance.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.inheritance.outcome.0",
+          "facts": [],
+          "evidence": [
+            "bed",
+            "empty_cache",
+            "letter"
+          ],
+          "missing_person": false,
+          "severity": 2
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.inheritance.outcome.1",
+          "facts": [],
+          "evidence": [
+            "bed",
+            "broken_furniture",
+            "letter"
+          ],
+          "missing_person": false,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "id": "exclusion",
+      "family": "social",
+      "category": "tragedy",
+      "layout": "room",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "exclude",
+      "title_key": "micro.exclusion.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.exclusion.outcome.0",
+          "facts": [
+            "abandoned",
+            "blocked"
+          ],
+          "evidence": [
+            "barricade",
+            "scratch",
+            "pack"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.exclusion.outcome.1",
+          "facts": [
+            "blocked",
+            "death"
+          ],
+          "evidence": [
+            "barricade",
+            "scratch",
+            "outside_remains"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "broken_promise",
+      "family": "social",
+      "category": "accident",
+      "layout": "camp",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "wait",
+      "title_key": "micro.broken_promise.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.broken_promise.outcome.0",
+          "facts": [],
+          "evidence": [
+            "hearth",
+            "tally",
+            "letter"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.broken_promise.outcome.1",
+          "facts": [
+            "death"
+          ],
+          "evidence": [
+            "hearth",
+            "tally",
+            "remains"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "private_assault",
+      "family": "social",
+      "category": "conflict",
+      "layout": "work",
+      "context": "any",
+      "actor_kind": "human_visitors",
+      "intent": "revenge",
+      "title_key": "micro.private_assault.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.private_assault.outcome.0",
+          "facts": [
+            "death"
+          ],
+          "evidence": [
+            "tools",
+            "remains",
+            "scuff"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.private_assault.outcome.1",
+          "facts": [],
+          "evidence": [
+            "scuff",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "id": "road_ambush",
+      "family": "violence",
+      "category": "tragedy",
+      "layout": "convoy",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "plunder",
+      "title_key": "micro.road_ambush.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.road_ambush.outcome.0",
+          "facts": [
+            "death",
+            "transport"
+          ],
+          "evidence": [
+            "cart",
+            "remains",
+            "cut_rope"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.road_ambush.outcome.1",
+          "facts": [
+            "transport"
+          ],
+          "evidence": [
+            "cart",
+            "cut_rope",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "forced_labor",
+      "family": "violence",
+      "category": "tragedy",
+      "layout": "work",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "coerce",
+      "title_key": "micro.forced_labor.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.forced_labor.outcome.0",
+          "facts": [
+            "control",
+            "death"
+          ],
+          "evidence": [
+            "restraint",
+            "tools",
+            "remains",
+            "tally"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.forced_labor.outcome.1",
+          "facts": [
+            "control"
+          ],
+          "evidence": [
+            "restraint",
+            "broken_tool",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "abandoned_patients",
+      "family": "violence",
+      "category": "tragedy",
+      "layout": "room",
+      "context": "shelter",
+      "actor_kind": "human_visitors",
+      "intent": "isolate",
+      "title_key": "micro.abandoned_patients.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.abandoned_patients.outcome.0",
+          "facts": [
+            "blocked",
+            "death"
+          ],
+          "evidence": [
+            "bed",
+            "barricade",
+            "remains",
+            "empty_bowl"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.abandoned_patients.outcome.1",
+          "facts": [],
+          "evidence": [
+            "bed",
+            "bowl",
+            "care_note"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "denied_rescue",
+      "family": "violence",
+      "category": "tragedy",
+      "layout": "rescue",
+      "context": "danger",
+      "actor_kind": "human_visitors",
+      "intent": "rescue",
+      "title_key": "micro.denied_rescue.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.denied_rescue.outcome.0",
+          "facts": [
+            "death"
+          ],
+          "evidence": [
+            "rope",
+            "remains",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.denied_rescue.outcome.1",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "rope",
+            "tools",
+            "pack"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "summary_execution",
+      "family": "violence",
+      "category": "tragedy",
+      "layout": "memorial",
+      "context": "settled",
+      "actor_kind": "human_visitors",
+      "intent": "punish",
+      "title_key": "micro.summary_execution.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.summary_execution.outcome.0",
+          "facts": [
+            "control",
+            "death"
+          ],
+          "evidence": [
+            "restraint",
+            "remains",
+            "marker"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.summary_execution.outcome.1",
+          "facts": [
+            "control"
+          ],
+          "evidence": [
+            "restraint",
+            "tracks",
+            "marker"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "shelter_killing",
+      "family": "violence",
+      "category": "tragedy",
+      "layout": "room",
+      "context": "shelter",
+      "actor_kind": "human_visitors",
+      "intent": "raid",
+      "title_key": "micro.shelter_killing.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.shelter_killing.outcome.0",
+          "facts": [
+            "death"
+          ],
+          "evidence": [
+            "bed",
+            "remains",
+            "pry_marks"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.shelter_killing.outcome.1",
+          "facts": [
+            "blocked"
+          ],
+          "evidence": [
+            "bed",
+            "barricade",
+            "scratch"
+          ],
+          "missing_person": false,
+          "severity": 2
+        }
+      ]
+    },
+    {
+      "id": "failed_hoist",
+      "family": "machines",
+      "category": "accident",
+      "layout": "work",
+      "context": "workshop",
+      "actor_kind": "human_visitors",
+      "intent": "repair",
+      "title_key": "micro.failed_hoist.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.failed_hoist.outcome.0",
+          "facts": [
+            "damage"
+          ],
+          "evidence": [
+            "broken_tool",
+            "beam",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.failed_hoist.outcome.1",
+          "facts": [],
+          "evidence": [
+            "braced_beam",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "snare",
+      "family": "machines",
+      "category": "horror",
+      "layout": "nest",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "trap",
+      "title_key": "micro.snare.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.snare.outcome.0",
+          "facts": [
+            "active_trap",
+            "death"
+          ],
+          "evidence": [
+            "snare",
+            "remains",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 4
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.snare.outcome.1",
+          "facts": [],
+          "evidence": [
+            "broken_tool",
+            "nest",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "nest_dispute",
+      "family": "machines",
+      "category": "accident",
+      "layout": "nest",
+      "context": "any",
+      "actor_kind": "small_animals",
+      "intent": "nest",
+      "title_key": "micro.nest_dispute.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.nest_dispute.outcome.0",
+          "facts": [],
+          "evidence": [
+            "nest",
+            "scuff"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.nest_dispute.outcome.1",
+          "facts": [],
+          "evidence": [
+            "nest",
+            "animal_bones"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "spoiled_samples",
+      "family": "machines",
+      "category": "horror",
+      "layout": "experiment",
+      "context": "archive",
+      "actor_kind": "human_visitors",
+      "intent": "study",
+      "title_key": "micro.spoiled_samples.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.spoiled_samples.outcome.0",
+          "facts": [],
+          "evidence": [
+            "broken_vessel",
+            "sample_stain",
+            "notes"
+          ],
+          "missing_person": false,
+          "severity": 1
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.spoiled_samples.outcome.1",
+          "facts": [],
+          "evidence": [
+            "empty_vessel",
+            "notes"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "cruel_trial",
+      "family": "machines",
+      "category": "horror",
+      "layout": "experiment",
+      "context": "shelter",
+      "actor_kind": "human_visitors",
+      "intent": "experiment",
+      "title_key": "micro.cruel_trial.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.cruel_trial.outcome.0",
+          "facts": [
+            "control",
+            "death"
+          ],
+          "evidence": [
+            "restraint",
+            "bowl",
+            "remains",
+            "notes"
+          ],
+          "missing_person": false,
+          "severity": 4
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.cruel_trial.outcome.1",
+          "facts": [
+            "control"
+          ],
+          "evidence": [
+            "restraint",
+            "broken_vessel",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 3
+        }
+      ]
+    },
+    {
+      "id": "bad_ventilation",
+      "family": "machines",
+      "category": "horror",
+      "layout": "room",
+      "context": "workshop",
+      "actor_kind": "human_visitors",
+      "intent": "work",
+      "title_key": "micro.bad_ventilation.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.bad_ventilation.outcome.0",
+          "facts": [
+            "death"
+          ],
+          "evidence": [
+            "hearth",
+            "remains",
+            "scratch"
+          ],
+          "missing_person": false,
+          "severity": 4
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.bad_ventilation.outcome.1",
+          "facts": [],
+          "evidence": [
+            "hearth",
+            "soot",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "small_dig",
+      "family": "exploration",
+      "category": "ordinary",
+      "layout": "dig",
+      "context": "ruin",
+      "actor_kind": "human_visitors",
+      "intent": "excavate",
+      "title_key": "micro.small_dig.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.small_dig.outcome.0",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "dig",
+            "tools",
+            "salvage"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.small_dig.outcome.1",
+          "facts": [],
+          "evidence": [
+            "dig",
+            "tally"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "sealed_alcove",
+      "family": "exploration",
+      "category": "horror",
+      "layout": "room",
+      "context": "ruin",
+      "actor_kind": "human_visitors",
+      "intent": "explore",
+      "title_key": "micro.sealed_alcove.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.sealed_alcove.outcome.0",
+          "facts": [
+            "abandoned",
+            "blocked"
+          ],
+          "evidence": [
+            "barricade",
+            "scratch",
+            "pack"
+          ],
+          "missing_person": true,
+          "severity": 4
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.sealed_alcove.outcome.1",
+          "facts": [
+            "abandoned",
+            "blocked"
+          ],
+          "evidence": [
+            "cache",
+            "barricade",
+            "salvage"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "unreadable_map",
+      "family": "exploration",
+      "category": "ordinary",
+      "layout": "cache",
+      "context": "road",
+      "actor_kind": "human_visitors",
+      "intent": "survey",
+      "title_key": "micro.unreadable_map.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.unreadable_map.outcome.0",
+          "facts": [],
+          "evidence": [
+            "map",
+            "tally"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.unreadable_map.outcome.1",
+          "facts": [],
+          "evidence": [
+            "map",
+            "marker"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "id": "collapsed_probe",
+      "family": "exploration",
+      "category": "accident",
+      "layout": "dig",
+      "context": "ruin",
+      "actor_kind": "human_visitors",
+      "intent": "probe",
+      "title_key": "micro.collapsed_probe.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.collapsed_probe.outcome.0",
+          "facts": [
+            "damage",
+            "death"
+          ],
+          "evidence": [
+            "dig",
+            "rubble",
+            "remains"
+          ],
+          "missing_person": false,
+          "severity": 3
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.collapsed_probe.outcome.1",
+          "facts": [],
+          "evidence": [
+            "dig",
+            "marker",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "id": "missing_party",
+      "family": "exploration",
+      "category": "horror",
+      "layout": "camp",
+      "context": "ruin",
+      "actor_kind": "human_visitors",
+      "intent": "explore",
+      "title_key": "micro.missing_party.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.missing_party.outcome.0",
+          "facts": [
+            "abandoned"
+          ],
+          "evidence": [
+            "hearth",
+            "pack",
+            "notes"
+          ],
+          "missing_person": true,
+          "severity": 4
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.missing_party.outcome.1",
+          "facts": [],
+          "evidence": [
+            "hearth",
+            "notes",
+            "tracks"
+          ],
+          "missing_person": false,
+          "severity": 4
+        }
+      ]
+    },
+    {
+      "id": "odd_bones",
+      "family": "exploration",
+      "category": "horror",
+      "layout": "dig",
+      "context": "any",
+      "actor_kind": "human_visitors",
+      "intent": "collect",
+      "title_key": "micro.odd_bones.title",
+      "outcomes": [
+        {
+          "id": "0",
+          "fact_key": "micro.odd_bones.outcome.0",
+          "facts": [],
+          "evidence": [
+            "animal_bones",
+            "marker",
+            "tools"
+          ],
+          "missing_person": false,
+          "severity": 0
+        },
+        {
+          "id": "1",
+          "fact_key": "micro.odd_bones.outcome.1",
+          "facts": [],
+          "evidence": [
+            "animal_bones",
+            "scuff"
+          ],
+          "missing_person": false,
+          "severity": 0
+        }
+      ]
+    }
+  ],
+  "v5_reuse": {
+    "failed_hoist": "maintenance_site",
+    "unfinished_delivery": "trade_receipt",
+    "care_room": "arrival_houses",
+    "inheritance": "abandoned_office"
+  }
+}

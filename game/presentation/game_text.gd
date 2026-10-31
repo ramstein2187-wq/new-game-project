@@ -137,6 +137,7 @@ static func notice(game: HistoryPlayableGame) -> String:
 
 static func describe(game: HistoryPlayableGame, o: Dictionary, learned: bool = false) -> String:
 	if o.is_empty(): return text("No nearby object.")
+	if o.kind == "micro_evidence": return MicrohistoryText.describe(o, learned)
 	var lines: Array[String] = [term(o.kind)]
 	if not o.owner_id.is_empty():
 		for f in game.initial_world.manifest.factions:

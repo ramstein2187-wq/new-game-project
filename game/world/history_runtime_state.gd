@@ -3,6 +3,7 @@ extends RefCounted
 ## Runtime-only overrides and unique ownership. History never changes after start.
 const SAVE_SCHEMA := "history_play_save/1"
 const EXPLORATION_SCHEMA := "history_play_save/2"
+const MICROHISTORY_SCHEMA := "history_play_save/3"
 var exploration: Dictionary = {}
 var cell_objects: Dictionary = {}
 var realization: HistoryWorldRealization
@@ -22,7 +23,7 @@ func _init(initial: HistoryWorldRealization = null) -> void:
 	current_zone = initial.selected[0]
 	for zone_id in initial.selected:
 		cell_objects[zone_id] = {}
-		if initial.generation_version == HistoryWorldRealization.EXPLORATION_VERSION: exploration[zone_id] = {"visited": [], "sites": [], "actions": 0}
+		if initial.generation_version != HistoryWorldRealization.VERSION: exploration[zone_id] = {"visited": [], "sites": [], "actions": 0}
 		overrides[zone_id] = {}; actors[zone_id] = []; rng_states[zone_id] = ""; last_updates[zone_id] = 0
 		for o in initial.zones[zone_id].objects.values():
 			var cell := HistoryWorldRealization.vector(o.cell)
@@ -47,7 +48,7 @@ func gather(kind: String, quantity: int) -> void:
 func has_permission(owner: String) -> bool: return owner.is_empty() or int(offenses.get(owner, 0)) == 0
 
 func data(world_time: int, player: Dictionary) -> Dictionary:
-	var out := {"schema": SAVE_SCHEMA if exploration.is_empty() else EXPLORATION_SCHEMA, "seed": int(realization.manifest.seed),
+	var out := {"schema": SAVE_SCHEMA if exploration.is_empty() else (MICROHISTORY_SCHEMA if realization.generation_version == HistoryWorldRealization.MICROHISTORY_VERSION else EXPLORATION_SCHEMA), "seed": int(realization.manifest.seed),
 		"history_version": realization.manifest.content_version, "generation_version": realization.generation_version,
 		"manifest_hash": realization.manifest_hash, "manifest": realization.manifest.duplicate(true),
 		"world_time": world_time, "player": player, "current_zone": current_zone,
@@ -59,18 +60,19 @@ func data(world_time: int, player: Dictionary) -> Dictionary:
 
 static func decode(json: String) -> Dictionary:
 	var raw: Variant = JSON.parse_string(json)
-	if not raw is Dictionary or raw.get("schema") not in [SAVE_SCHEMA, EXPLORATION_SCHEMA]:
+	if not raw is Dictionary or raw.get("schema") not in [SAVE_SCHEMA, EXPLORATION_SCHEMA, MICROHISTORY_SCHEMA]:
 		return {"error": "Invalid save envelope"}
-	var expanded: bool = raw.schema == EXPLORATION_SCHEMA
+	var expanded: bool = raw.schema != SAVE_SCHEMA
+	var microhistory: bool = raw.schema == MICROHISTORY_SCHEMA
 	if raw.size() != (19 if expanded else 18): return {"error": "Invalid save envelope fields"}
 	var integrity: Dictionary = raw.duplicate(true); integrity.erase("checksum")
 	if not raw.get("checksum") is String or raw.checksum != JSON.stringify(integrity, "", true).sha256_text():
 		return {"error": "Save integrity check failed"}
-	if raw.get("generation_version") != (HistoryWorldRealization.EXPLORATION_VERSION if expanded else HistoryWorldRealization.VERSION) or raw.get("history_version") != HistoryCivilizationContent.VERSION:
+	if raw.get("generation_version") != (HistoryWorldRealization.MICROHISTORY_VERSION if microhistory else (HistoryWorldRealization.EXPLORATION_VERSION if expanded else HistoryWorldRealization.VERSION)) or raw.get("history_version") != HistoryCivilizationContent.VERSION:
 		return {"error": "Incompatible content/generation version"}
 	var manifest := HistoryWorldManifest.from_json(JSON.stringify(raw.get("manifest")))
 	if not manifest.errors.is_empty(): return {"error": "Invalid saved Manifest: " + str(manifest.errors)}
-	var initial := HistoryWorldRealization.build(manifest, -1, expanded)
+	var initial := HistoryWorldRealization.build(manifest, -1, expanded, microhistory)
 	if not initial.errors.is_empty() or raw.get("manifest_hash") != initial.manifest_hash or raw.get("seed") != initial.manifest.seed:
 		return {"error": "Manifest integrity or realization mismatch"}
 	if not raw.get("current_zone") is String or not initial.zones.has(raw.current_zone) or not HistoryV6Event._integer(raw.get("world_time")) or raw.world_time < 0:
@@ -95,6 +97,8 @@ static func decode(json: String) -> Dictionary:
 				var v: Variant = raw.overrides[zone][id][field]
 				if field in ["open", "removed", "taken", "used"]:
 					if not o.has(field) or not v is bool: return {"error": "Invalid boolean override"}
+					if o.kind == "micro_evidence" and field != {"recover":"taken","clear":"removed","repair":"used"}.get(o.verb, ""):
+						return {"error": "Unsupported evidence override"}
 				elif field == "weapon_id":
 					if o.kind != "tool_rack" or not v is String or CombatContentCatalog.weapon(StringName(v)) == null: return {"error": "Invalid rack weapon"}
 				elif field == "condition":
